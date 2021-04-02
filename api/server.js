@@ -3,28 +3,29 @@
  */
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 require('dotenv').config();
 
+const connectDb = require('./config/db');
 const fooRouter = require('./routes/foo');
+
+
+// Connect to the database
+connectDb();
 
 // Create and configure express server
 const app = express();
 const PORT = process.env.PORT || 5000;
-const CONNECTION_URI = process.env.ATLAS_URI;
 
 // Use cors and express.json
 app.use(cors());
-app.use(express.json({limit: "30mb", extended: true}));
+app.use(express.json({limit: "30mb", extended: true})); // express.json() parses requests with json payloads and uses "body-parser"
 app.use(express.urlencoded({limit: "30mb", extended: true}));
 
-// Use the routes
+// "Welcome" route
 app.get('/', (req, res) => res.send('You have reached the Researchify API'));
+
+// Use the routes
 app.use('/foo', fooRouter);
 
-// Connect to the db and once successful, make the server listen for connections
-// mongoose.connect(CONNECTION_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})
-//     .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
-//     .catch(err => console.log(`Failed to establish connection to MongoDB database: ${err.message}`));
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Listen for connections
+app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
