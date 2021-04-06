@@ -5,6 +5,7 @@ require('dotenv').config()
 
 const connectDb = require('./config/db');
 const Publication = require('./models/publication.model');
+const User = require('./models/user.model');
 
 
 connectDb();
@@ -27,6 +28,24 @@ const defaultPublications = [
     },
 ];
 
+const defaultUsers = [
+    {
+        "name": "Joel Selwood",
+        "email": "jselwood_goat_captian@gmail.com",
+        "password": "afl_champx3",
+    },
+    {
+        "name": "Patrick Dangerfield",
+        "email": "paddy_danger123@gmail.com",
+        "password": "Brownlow_2016",
+    },
+    {
+        "name": "Tom Hawkins",
+        "email": "tomahawk_26@gmail.com",
+        "password": "THawk_coleman_2020",
+    },
+];
+
 const importData = async () => {
     try {
         await Publication.deleteMany({});
@@ -40,4 +59,18 @@ const importData = async () => {
     }
 };
 
+const populateUsers = async () => {
+    try {
+        await User.deleteMany({});
+
+        await User.insertMany(defaultUsers);
+        console.log('Successfully imported users.');
+        process.exit(0);
+    } catch (err) {
+        console.error('Error importing users.');
+        process.exit(1);
+    }
+};
+
 importData();
+populateUsers();
