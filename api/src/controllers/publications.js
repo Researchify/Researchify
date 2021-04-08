@@ -55,13 +55,17 @@ async function updatePublication(req, res) {
 async function createPublication(req, res) {
     const publication = req.body;
 
-    if (!mongoose.Types.ObjectId.isValid(_id)) {
+    if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
         return res.status(400).send('Error: Given team id is not in a valid hexadecimal format.');
     } else {
-        var result = await Team.find({_id});
+        var result = await Team.find({ _id: publication.teamId});
         if (result.length == 0) {
             return res.status(404).send('Error: Team not found.');
         }
+    }
+
+    if (publication.yearPublished && publication.yearPublished.length != 4) {
+        return res.status(400).send('Error: Year should be in a string in the format YYYY.');
     }
 
     const createdPublication = await Publication.create(publication);
@@ -90,10 +94,6 @@ const validationMiddlewares = [
       .if(body("citedBy")
       .exists())
       .isInt({ min: 0 }),
-    body("yearPublished", "Error: yearPublished needs to be in a YYYY format.")
-      .if(body("yearPublished").exists())
-      .trim()
-      .isDate({ format: "YYYY-MM-DD" }),
     (req, res, next) => {
       // Finds the validation errors in this request and wraps them in an object with handy functions
       const errors = validationResult(req);
