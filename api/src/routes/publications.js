@@ -14,7 +14,7 @@ publicationsRouter.post('/', publicationsController.createPublication);
 
 publicationsRouter.get('/:id', publicationsController.readPublication);
 
-publicationsRouter.get('/team/:team_id', publicationsController.readAllPublications);
+publicationsRouter.get('/team/:team_id', publicationsController.readAllPublicationsByTeam);
 
 
 module.exports = publicationsRouter;

@@ -168,9 +168,9 @@ async function readPublication(req, res) {
  * @param res response object
  * @sends a list of publications matching the given team id and optional filters
  */
-async function readAllPublications(req, res) {
+async function readAllPublicationsByTeam(req, res) {
     const {team_id: _id} = req.params;
-
+    
     if (!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(404).send('Error: Given team id is not in a valid hexadecimal format.');
     } else {
@@ -179,6 +179,8 @@ async function readAllPublications(req, res) {
             return res.status(400).send('Error: Team not found.');
         }
     }
+
+    // TO DO IN FUTURE: build filter based on req.query
 
     const foundPublication = await Publication.find({ teamId: _id });
 
@@ -189,4 +191,4 @@ async function readAllPublications(req, res) {
     }
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublications};
+module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam};
