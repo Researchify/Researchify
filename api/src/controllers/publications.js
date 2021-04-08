@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 
 const Publication = require("../models/publication.model");
 
+const Team = require("../models/team.model");
+
 const { body,validationResult } = require('express-validator');
 
 const arrayValidator = arr => Array.isArray(arr);
@@ -56,7 +58,14 @@ async function createPublication(req, res) {
     // validate input
     // does team id exist?
     if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
-        return res.status(404).send('Error: No team found with that id.');
+        return res.status(404).send('Error: Given team id is not valid.');
+    } else {
+        // check if team id exists by doing a find
+        var _id = publication.teamId;
+        var result = await Team.find({_id});
+        if (result.length == 0) {
+            return res.status(400).send('Error: Team not found.');
+        }
     }
 
     if (publication.authors.length < 1) {
@@ -126,7 +135,7 @@ async function createPublication(req, res) {
     // )
 
     const createdPublication = await Publication.create(publication);
-    res.status(201).json(createdPublication);
+    res.status(200).json(createdPublication);
 
 }
 
@@ -138,7 +147,18 @@ async function createPublication(req, res) {
  * @sends the found publication
  */
 async function readPublication(req, res) {
+    const {id: _id} = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(404).send('Error: Given publication id is not valid.');
+    
+    const foundPublication = await Publication.find({_id});
+
+    if (foundPublication.length == 0) { // nothing returned by the query
+        res.status(204);  // no content
+    } else {
+        res.status(200).json(foundPublication[0]);
+    }
 }
 
 /**
