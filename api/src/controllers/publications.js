@@ -58,7 +58,7 @@ async function createPublication(req, res) {
     // validate input
     // does team id exist?
     if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
-        return res.status(404).send('Error: Given team id is not valid.');
+        return res.status(404).send('Error: Given team id is not in a valid hexadecimal format.');
     } else {
         // check if team id exists by doing a find
         var _id = publication.teamId;
@@ -150,7 +150,7 @@ async function readPublication(req, res) {
     const {id: _id} = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(_id))
-        return res.status(404).send('Error: Given publication id is not valid.');
+        return res.status(404).send('Error: Given publication id is not in a valid hexadecimal format.');
     
     const foundPublication = await Publication.find({_id});
 
@@ -169,7 +169,24 @@ async function readPublication(req, res) {
  * @sends a list of publications matching the given team id and optional filters
  */
 async function readAllPublications(req, res) {
+    const {team_id: _id} = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(404).send('Error: Given team id is not in a valid hexadecimal format.');
+    } else {
+        var result = await Team.find({_id});
+        if (result.length == 0) {
+            return res.status(400).send('Error: Team not found.');
+        }
+    }
+
+    const foundPublication = await Publication.find({ teamId: _id });
+
+    if (foundPublication.length == 0) { // nothing returned by the query
+        res.status(204);  // no content
+    } else {
+        res.status(200).json(foundPublication);
+    }
 }
 
 module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublications};
