@@ -5,11 +5,13 @@ const publicationsRouter = require("express").Router();
 
 const publicationsController = require('../controllers/publications');
 
+const publicationsMiddleware = require('../middlewares/publications');
+
 publicationsRouter.delete('/:id', publicationsController.deletePublication);
 
 publicationsRouter.patch('/:id', publicationsController.updatePublication);
 
-publicationsRouter.post('/', publicationsController.validationMiddlewares, publicationsController.createPublication);
+publicationsRouter.post('/', publicationsMiddleware.createPublicationValidation, publicationsController.createPublication);
 
 publicationsRouter.get('/:id', publicationsController.readPublication);
 

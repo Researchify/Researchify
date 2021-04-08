@@ -7,7 +7,6 @@ const Publication = require("../models/publication.model");
 
 const Team = require("../models/team.model");
 
-const { body,validationResult } = require('express-validator');
 
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
@@ -84,44 +83,13 @@ async function createPublication(req, res) {
 
 }
 
-const validationMiddlewares = [
-    body("authors", "Error: Authors must not be empty.")
-      .isArray()
-      .notEmpty(),
-    body("title", "Error: Title must be at least 3 characters.")
-      .trim()
-      .isLength({ min: 3 })
-      .escape(),
-    body("description", "Error: Description must be at least 5 characters.")
-      .trim()
-      .isLength({ min: 5 })
-      .escape(),
-    body("summary", "Error: Summary must be at least 5 characters.")
-      .if(body("summary").exists())
-      .trim()
-      .isLength({ min: 5 })
-      .escape(),
-    body("citedBy", "Error: citedBy needs to be a number and have a value of 0 or greater.")
-      .if(body("citedBy")
-      .exists())
-      .isInt({ min: 0 }),
-    (req, res, next) => {
-      // Finds the validation errors in this request and wraps them in an object with handy functions
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-      next()
-    },
-  ];
-
 /**
  * Handles a GET request, which will retrieve the specified publication in the database with the given mongo object id in the endpoint /publications/:id
  * 
  * @param req request object
  * @param res response object
  * @returns 400: given publication id is not in a valid hexadecimal format
- * @returns 204: no publications were found
+ * @returns 404: no publications were found
  * @returns 200: the specified publication was found
  */
 async function readPublication(req, res) {
@@ -130,12 +98,12 @@ async function readPublication(req, res) {
     if (!mongoose.Types.ObjectId.isValid(_id))
         return res.status(400).send('Error: Given publication id is not in a valid hexadecimal format.');
     
-    const foundPublication = await Publication.find({_id});
+    const foundPublication = await Publication.findById(_id);
 
-    if (foundPublication.length == 0) { // nothing returned by the query
-        res.status(204);  // no content
+    if (foundPublication == null) { // nothing returned by the query
+        res.status(404).send('Error: No publication found.');  // no content
     } else {
-        res.status(200).json(foundPublication[0]);
+        res.status(200).json(foundPublication);
     }
 }
 
@@ -145,8 +113,7 @@ async function readPublication(req, res) {
  * @param req request object
  * @param res response object
  * @returns 400: given team id is not in a valid hexadecimal format
- * @returns 404: the specified team was not found
- * @returns 204: no publications were found
+ * @returns 404: the specified team or publication was not found
  * @returns 200: a list of publications by the given team id
  * @todo filter by other fields like year passed in through req.query
  */
@@ -165,10 +132,10 @@ async function readAllPublicationsByTeam(req, res) {
     const foundPublication = await Publication.find({ teamId: _id });
 
     if (foundPublication.length == 0) { // nothing returned by the query
-        res.status(204);  // no content
+        res.status(404).send('Error: No publications found.');  // no content
     } else {
         res.status(200).json(foundPublication);
     }
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam, validationMiddlewares};
+module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam};
