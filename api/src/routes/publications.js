@@ -10,11 +10,11 @@ publicationsRouter.delete('/:id', publicationsController.deletePublication);
 
 publicationsRouter.patch('/:id', publicationsController.updatePublication);
 
-publicationsRouter.post('/create', publicationsController.createPublication);
+publicationsRouter.post('/', publicationsController.createPublication);
 
 publicationsRouter.get('/:id', publicationsController.readPublication);
 
-publicationsRouter.get('/', publicationsController.readAllPublications);
+publicationsRouter.get('/:team_id', publicationsController.readAllPublications);
 
 
 module.exports = publicationsRouter;

@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 
 const Publication = require("../models/publication.model");
 
+const { body,validationResult } = require('express-validator');
+
+const arrayValidator = arr => Array.isArray(arr);
 
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
@@ -40,5 +43,113 @@ async function updatePublication(req, res) {
     res.status(200).json(updatedPublication);
 }
 
+/**
+ * Handles a POST request, which will create a publication in the database using the endpoint /publications/create,
+ * 
+ * @param req request object
+ * @param res response object
+ * @sends the newly updated publication
+ */
+async function createPublication(req, res) {
+    const publication = req.body;
 
-module.exports = {deletePublication, updatePublication};
+    // validate input
+    // does team id exist?
+    if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
+        return res.status(404).send('Error: No team found with that id.');
+    }
+
+    if (publication.authors.length < 1) {
+        return res.status(400).send('Error: Author must not be empty.');
+    }
+
+    // there needs to be at least one author
+    if (publication.authors.length < 1) {
+        return res.status(400).send('Error: There must be at least one author specified.');
+    }
+
+    // title needs to be at least 3 chars
+    if (publication.title.length < 3) {
+        return res.status(400).send('Error: Title needs to be at least 3 characters.');
+    }
+
+    // description needs to be at least 5 chars
+    if (publication.description.length < 5) {
+        return res.status(400).send('Error: Description needs to be at least 5 characters.');
+    }
+
+    // summary needs to be at least 5 chars
+    if (publication.summary && publication.summary.length < 5) {
+        return res.status(400).send('Error: Summary needs to be at least 5 characters.');
+    }
+
+    // citedBy needs to be int and >= 0
+    if (publication.citedBy && publication.citedBy.isInt() && publication.citedBy >= 0) {
+        return res.status(400).send('Error: citedBy needs to be a number and have a value of 0 or greater.');
+    }
+
+    // yearPublished needs to be in a YYYY format in string
+    publication.yearPublished = new String(publication.yearPublished); // convert to string
+    if (publication.yearPublished && publication.yearPublished.length != 4) {
+        return res.status(400).send('Error: yearPublished needs to be in a YYYY format.');
+    } else {
+        publication.yearPublished = new Date(publication.yearPublished);
+    }
+
+    // other validations according to schema
+    // try {
+    //     body('title', 'Error: Title must be at least 3 characters.').trim().isLength({ min: 3 }).escape();
+    //     body('description', 'Error: Description must be at least 5 characters.').trim().isLength({ min: 5 }).escape();
+    //     body('summary', 'Error: Summary must be at least 5 characters.').trim().isLength({ min: 5 }).escape();
+    //     body('citedBy', 'Error: citedBy needs to be a number and have a value of 0 or greater.').isInt({ min: 0 });
+    //     body('yearPublished', 'Error: yearPublished needs to be in a YYYY format.').trim().isDate({ format: 'YYYY' });
+    // } catch {
+        
+    // }
+    
+    // if (!errors.isEmpty()) {
+    //     return res.status(404).send(errors);
+    // }
+
+    // var newPublication = new Publication(
+    //     {
+    //         teamId: req.body.teamId,
+    //         authors: req.body.authors,
+    //         title: req.body.title,
+    //         thumnbail: req.body.thumnbail,
+    //         link: req.body.link,
+    //         description: req.body.description,
+    //         summary: req.body.summary,
+    //         citedBy: req.body.citedBy,
+    //         yearPublished: req.body.yearPublished
+    //     }
+    // )
+
+    const createdPublication = await Publication.create(publication);
+    res.status(201).json(createdPublication);
+
+}
+
+/**
+ * Handles a GET request, which will retrieve the specified publication in the database with the given mongo object id in the endpoint /publications/:id
+ * 
+ * @param req request object
+ * @param res response object
+ * @sends the found publication
+ */
+async function readPublication(req, res) {
+
+}
+
+/**
+ * Handles a GET request, which will retrieve all publications by team, and extra filters if provided in the endpoint /publications/:team_id?key=value&key=value
+ * 
+ * @param req request object
+ * @param res response object
+ * @sends a list of publications matching the given team id and optional filters
+ */
+async function readAllPublications(req, res) {
+
+}
+
+module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublications};
