@@ -4,9 +4,7 @@
         "es2021": true,
         "node": true
     },
-    "extends": [
-        "google"
-    ],
+    "extends": "eslint:recommended",
     "parserOptions": {
         "ecmaVersion": 12
     },
