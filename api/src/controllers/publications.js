@@ -18,8 +18,12 @@ async function deletePublication(req, res) {
     if (!mongoose.Types.ObjectId.isValid(_id))
         return res.status(404).send('Error: No publication with that id.');
 
-    await Publication.findByIdAndRemove(_id);
-    return res.status(200).json({message: 'Publication deleted successfully.'});
+    try {
+        await Publication.findByIdAndRemove(_id);
+        return res.status(200).json({message: 'Publication deleted successfully.'});
+    } catch (err) {
+        res.status(400).json(`Error: ${err.message}`);
+    }
 }
 
 /**
@@ -36,8 +40,15 @@ async function updatePublication(req, res) {
     if (!mongoose.Types.ObjectId.isValid(_id))
         return res.status(404).send('Error: No publication with that id.');
 
-    const updatedPublication = await Publication.findByIdAndUpdate(_id, publication, {new: true});
-    res.status(200).json(updatedPublication);
+    try {
+        const updatedPublication = await Publication.findByIdAndUpdate(_id, publication, {
+            new: true,
+            runValidators: true
+        });
+        res.status(200).json(updatedPublication);
+    } catch (err) {
+        res.status(422).json(`Error: ${err.message}`);
+    }
 }
 
 
