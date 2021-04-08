@@ -10,5 +10,11 @@ publicationsRouter.delete('/:id', publicationsController.deletePublication);
 
 publicationsRouter.patch('/:id', publicationsController.updatePublication);
 
+publicationsRouter.post('/create', publicationsController.createPublication);
+
+publicationsRouter.get('/:id', publicationsController.readPublication);
+
+publicationsRouter.get('/', publicationsController.readAllPublications);
+
 
 module.exports = publicationsRouter;
