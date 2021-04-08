@@ -78,7 +78,7 @@ async function createPublication(req, res) {
  * @param req request object
  * @param res response object
  * @returns 400: given publication id is not in a valid hexadecimal format
- * @returns 204: no publications were found
+ * @returns 404: no publications were found
  * @returns 200: the specified publication was found
  */
 async function readPublication(req, res) {
@@ -102,8 +102,7 @@ async function readPublication(req, res) {
  * @param req request object
  * @param res response object
  * @returns 400: given team id is not in a valid hexadecimal format
- * @returns 404: the specified team was not found
- * @returns 204: no publications were found
+ * @returns 404: the specified team or publication was not found
  * @returns 200: a list of publications by the given team id
  * @todo filter by other fields like year passed in through req.query
  */
