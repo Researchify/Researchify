@@ -119,12 +119,12 @@ async function readPublication(req, res) {
     if (!mongoose.Types.ObjectId.isValid(_id))
         return res.status(400).send('Error: Given publication id is not in a valid hexadecimal format.');
     
-    const foundPublication = await Publication.find({_id});
+    const foundPublication = await Publication.findById(_id);
 
-    if (foundPublication.length == 0) { // nothing returned by the query
-        res.status(204);  // no content
+    if (foundPublication == null) { // nothing returned by the query
+        res.status(204).send();  // no content
     } else {
-        res.status(200).json(foundPublication[0]);
+        res.status(200).json(foundPublication);
     }
 }
 
@@ -154,7 +154,7 @@ async function readAllPublicationsByTeam(req, res) {
     const foundPublication = await Publication.find({ teamId: _id });
 
     if (foundPublication.length == 0) { // nothing returned by the query
-        res.status(204);  // no content
+        res.status(204).send();  // no content
     } else {
         res.status(200).json(foundPublication);
     }
