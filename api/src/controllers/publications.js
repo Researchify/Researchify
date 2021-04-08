@@ -46,11 +46,13 @@ async function updatePublication(req, res) {
 }
 
 /**
- * Handles a POST request, which will create a publication in the database using the endpoint /publications/create,
+ * Handles a POST request, which will create a publication in the database using the endpoint /publications.
  * 
  * @param req request object
  * @param res response object
- * @sends the newly updated publication
+ * @returns 400: the publication given in the request fails some validation
+ * @returns 404: no team was found to associate the publication with
+ * @returns 201: the publication has been created
  */
 async function createPublication(req, res) {
     const publication = req.body;
@@ -58,13 +60,13 @@ async function createPublication(req, res) {
     // validate input
     // does team id exist?
     if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
-        return res.status(404).send('Error: Given team id is not in a valid hexadecimal format.');
+        return res.status(400).send('Error: Given team id is not in a valid hexadecimal format.');
     } else {
         // check if team id exists by doing a find
         var _id = publication.teamId;
         var result = await Team.find({_id});
         if (result.length == 0) {
-            return res.status(400).send('Error: Team not found.');
+            return res.status(404).send('Error: Team not found.');
         }
     }
 
@@ -135,7 +137,7 @@ async function createPublication(req, res) {
     // )
 
     const createdPublication = await Publication.create(publication);
-    res.status(200).json(createdPublication);
+    res.status(201).json(createdPublication);
 
 }
 
@@ -144,13 +146,15 @@ async function createPublication(req, res) {
  * 
  * @param req request object
  * @param res response object
- * @sends the found publication
+ * @returns 400: given publication id is not in a valid hexadecimal format
+ * @returns 204: no publications were found
+ * @returns 200: the specified publication was found
  */
 async function readPublication(req, res) {
     const {id: _id} = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(_id))
-        return res.status(404).send('Error: Given publication id is not in a valid hexadecimal format.');
+        return res.status(400).send('Error: Given publication id is not in a valid hexadecimal format.');
     
     const foundPublication = await Publication.find({_id});
 
@@ -162,25 +166,27 @@ async function readPublication(req, res) {
 }
 
 /**
- * Handles a GET request, which will retrieve all publications by team, and extra filters if provided in the endpoint /publications/:team_id?key=value&key=value
+ * Handles a GET request, which will retrieve all publications by team in the endpoint /publications/team/:team_id.
  * 
  * @param req request object
  * @param res response object
- * @sends a list of publications matching the given team id and optional filters
+ * @returns 400: given team id is not in a valid hexadecimal format
+ * @returns 404: the specified team was not found
+ * @returns 204: no publications were found
+ * @returns 200: a list of publications by the given team id
+ * @todo filter by other fields like year passed in through req.query
  */
 async function readAllPublicationsByTeam(req, res) {
     const {team_id: _id} = req.params;
     
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).send('Error: Given team id is not in a valid hexadecimal format.');
+        return res.status(400).send('Error: Given team id is not in a valid hexadecimal format.');
     } else {
         var result = await Team.find({_id});
         if (result.length == 0) {
-            return res.status(400).send('Error: Team not found.');
+            return res.status(404).send('Error: Team not found.');
         }
     }
-
-    // TO DO IN FUTURE: build filter based on req.query
 
     const foundPublication = await Publication.find({ teamId: _id });
 
