@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const connectDb = require('./config/db');
 const fooRouter = require('./routes/foo');
+const usersRouter = require('./routes/users');
 
 
 // Connect to the database
@@ -26,6 +27,7 @@ app.get('/', (req, res) => res.send('You have reached the Researchify API'));
 
 // Use the routes
 app.use('/foo', fooRouter);
+app.use('/users', usersRouter);
 
 // Listen for connections
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
