@@ -9,8 +9,6 @@ const Team = require("../models/team.model");
 
 const { body,validationResult } = require('express-validator');
 
-const arrayValidator = arr => Array.isArray(arr);
-
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
  *
@@ -50,12 +48,21 @@ async function updatePublication(req, res) {
  * 
  * @param req request object
  * @param res response object
- * @returns 400: the publication given in the request fails some validation
+ * @returns 400: the publication given in the request fails some validation also @see validationMiddlewares
  * @returns 404: no team was found to associate the publication with
  * @returns 201: the publication has been created
  */
 async function createPublication(req, res) {
     const publication = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).send('Error: Given team id is not in a valid hexadecimal format.');
+    } else {
+        var result = await Team.find({_id});
+        if (result.length == 0) {
+            return res.status(404).send('Error: Team not found.');
+        }
+    }
 
     const createdPublication = await Publication.create(publication);
     res.status(201).json(createdPublication);
