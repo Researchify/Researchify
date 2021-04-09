@@ -3,20 +3,13 @@
  */
 
  import React from 'react';
- import Button from 'react-bootstrap/Button';
- import Email from '../auth/Email';
- import PasswordWithConfirmation from '../auth/PasswordWithConfirmation';
- import FullName from '../auth/FullName';
+ import './Register.css';
+ import RegistrationForm from '../auth/RegistrationForm';
 class Register extends React.Component {
     render() {
         return(
-            <div id="page">
-                <FullName/>
-                <Email/>
-                <PasswordWithConfirmation/>
-                <Button id="signUp" variant="primary">
-                    Sign Up
-                </Button>{' '}
+            <div id='registration-page'>
+                <RegistrationForm/>
             </div>
         );
     }
