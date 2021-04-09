@@ -10,6 +10,10 @@
     box-shadow: 0px 0px 15px -5px black;
 }
 
-#goToSignIn {
-    padding-top: 10px;
+#signInLink {
+    padding-top: 8px;
+    float: left;
+}
+#submitButton {
+    float: right;
 }

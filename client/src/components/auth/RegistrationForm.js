@@ -21,7 +21,10 @@
                 <FullName/>
                 <Email/>
                 <PasswordWithConfirmation/>
-                <Button type="submit" variant="primary">Sign Up</Button>
+                <div>
+                    <a id='signInLink' href="url">Already have an account? Sign in</a>
+                    <Button id = 'submitButton' type="submit" variant="primary">Sign Up</Button>
+                </div>
             </Jumbotron>
         );
     }
