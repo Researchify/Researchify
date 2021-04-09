@@ -5,11 +5,15 @@
  import React from 'react';
  import './Register.css';
  import RegistrationForm from '../auth/RegistrationForm';
+ import NavigationBar from '../auth/NavigationBar';
 class Register extends React.Component {
     render() {
         return(
-            <div id='registration-page'>
-                <RegistrationForm/>
+            <div>
+                <NavigationBar/>
+                <div id='registration-page'>
+                    <RegistrationForm/>
+                </div>
             </div>
         );
     }

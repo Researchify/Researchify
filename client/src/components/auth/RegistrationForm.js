@@ -9,12 +9,14 @@
  import Email from './Email';
  import PasswordWithConfirmation from './PasswordWithConfirmation';
  import FullName from './FullName';
+ import {Row} from "react-bootstrap";
+ import '../register/Register.css';
 
  class RegistrationForm extends React.Component {
     render() {
         return(
             <Jumbotron id='form-box'>
-                <h1>Researchify</h1>
+                <h3 id='signUpHeading'>Sign Up</h3>
                 <hr/>
                 <FullName/>
                 <Email/>
