@@ -11,4 +11,6 @@ usersRouter.post('/', usersController.addUser);
 
 usersRouter.post('/login', usersController.loginUser);
 
+usersRouter.patch('/:id', usersController.updateUser);
+
 module.exports = usersRouter;
