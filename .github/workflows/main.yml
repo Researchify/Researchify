@@ -1,0 +1,37 @@
+name: Researchify CI
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  static_analysis:
+    name: Static Analyzer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm install
+        working-directory: ./api
+      - run: npm install
+        working-directory: ./client
+      - name: Run ESLint on Node API
+        run: npm run lint
+        working-directory: ./api
+      - name: Run ESLint on React Client
+        run: npm run lint
+        working-directory: ./client
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm install
+        working-directory: ./api
+      - run: npm install
+        working-directory: ./client
+      - name: Run Tests on Node API
+        run: npm run test
+        working-directory: ./api
+      - name: Run Tests on React Client
+        run: npm run testcov
+        working-directory: ./client
