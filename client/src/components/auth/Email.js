@@ -11,13 +11,11 @@ class Email extends React.Component {
         this.state = {
             email: ''
         }
-        this.props = props;
     }
 
     updateValue = form => {
         const {name, value} = form.target
         this.setState({[name]: value})
-        this.props(value, 'email');
     }
 
     render() {
