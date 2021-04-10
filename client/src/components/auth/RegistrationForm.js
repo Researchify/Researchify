@@ -13,7 +13,8 @@
  import '../register/Register.css';
 
  class RegistrationForm extends React.Component {
-     constructor() {
+     constructor(props) {
+         super(props)
          this.state = {
              email: '',
              name: '',
