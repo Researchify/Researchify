@@ -11,13 +11,13 @@ const Publications = () => {
         dispatch(getPublicationsByTeamId(teamId));
       }, [teamId, dispatch]);
 
-    const team_publications = useSelector(state => state.publications.team_publications)
+    const teamPublications = useSelector(state => state.publications.teamPublications)
     
     return (
         <div> 
             <h1> Team Publications Page </h1>
             {
-                team_publications.map(pub => 
+                teamPublications.map(pub => 
                     <div key={pub._id}>
                         <Link to={`/publications/${pub._id}`}>
                             <h3> 

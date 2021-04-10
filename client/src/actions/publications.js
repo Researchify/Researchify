@@ -16,7 +16,7 @@ export const getPublicationById = (id) => async(dispatch) => {
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     try{
-        const { data } = await api.fetchPublicationByTeamId(teamId);
+        const { data } = await api.fetchPublicationsByTeamId(teamId);
 
         dispatch({
             type: GET_PUBLICATIONS_BY_TEAM_ID,

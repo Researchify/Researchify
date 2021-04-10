@@ -11,7 +11,7 @@ const Publication = () => {
         dispatch(getPublicationById(pubId));
       }, [pubId, dispatch]);
     
-    const pub = useSelector(state => state.publications.current_publication)
+    const pub = useSelector(state => state.publications.currentPublication)
     
     return (
         <div>
