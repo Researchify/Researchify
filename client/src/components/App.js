@@ -17,7 +17,7 @@ const App = () => {
                 <Route path="/auth" exact component={Auth}/>
                 <Route path="/register" exact component={Register}/>
                 <Route path="/login" exact component={Login}/>
->>>>>>> thunder
+
             </Switch>
         </BrowserRouter>
     );
