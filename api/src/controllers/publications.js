@@ -58,7 +58,7 @@ async function updatePublication(req, res) {
 /**
  * Handles a GET request, which represents importing a pub from google scholar
  *
- * @param req request object
+ * @param req request object containing either the author name or the title to search by
  * @param res response object
  * @sends: the imported publication
  */
@@ -174,4 +174,4 @@ async function readAllPublicationsByTeam(req, res) {
     }
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam,importPublications};
+module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam, importPublications};
