@@ -10,7 +10,7 @@ const publicationsReducer = (state = initialState, action) => {
         case GET_PUBLICATION_BY_ID:
             return {...state,  currentPublication: action.payload }
         case GET_PUBLICATIONS_BY_TEAM_ID:           
-            return {...state,  teamPublications: action.payload }
+            return {currentPublication: null,  teamPublications: action.payload }
         // case CREATE_PUBLICATION:
         //     state.current_publication = [...state.team_publications, action.payload]
         //     return state
