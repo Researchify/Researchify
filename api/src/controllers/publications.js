@@ -2,6 +2,7 @@
  * This module contains handlers for the "publications" route.
  */
 const mongoose = require("mongoose");
+const axios = require('axios');
 
 const Publication = require("../models/publication.model");
 
@@ -61,7 +62,7 @@ async function updatePublication(req, res) {
  */
 async function importPublications(req, res){
     const {id} = req.params;
-    const axios = require('axios');
+
 
     // set up the request parameters
     let query = {
