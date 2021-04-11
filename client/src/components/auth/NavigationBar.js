@@ -5,7 +5,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 
-function NavigationBar() {
+export default function NavigationBar() {
     return (
         <Navbar bg="primary" variant="dark">
             <Navbar.Brand href="#home">
@@ -14,5 +14,3 @@ function NavigationBar() {
         </Navbar>
     );
 }
-
-export default NavigationBar;

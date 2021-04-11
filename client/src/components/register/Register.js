@@ -4,19 +4,16 @@
 
  import React from 'react';
  import './Register.css';
- import RegistrationForm from '../auth/RegistrationForm';
+ import RegistrationForm from './RegistrationForm';
  import NavigationBar from '../auth/NavigationBar';
-class Register extends React.Component {
-    render() {
-        return(
-            <div>
-                <NavigationBar/>
-                <div id='registration-page'>
-                    <RegistrationForm/>
-                </div>
+ 
+ export default function Register() {
+    return(
+        <div>
+            <NavigationBar/>
+            <div id='registration-page'>
+                <RegistrationForm/>
             </div>
-        );
-    }
+        </div>
+    );
 }
-
- export default Register;
