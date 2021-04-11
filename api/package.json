@@ -18,7 +18,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.12.2",
     "validator": "^13.5.2",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "eslint": "^7.23.0",
