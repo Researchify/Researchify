@@ -85,5 +85,5 @@ async function importPublications(req, res){
       })
 }
 
-module.exports = {deletePublication, updatePublication,importPublications};
+module.exports = {deletePublication, updatePublication, importPublications};
 
