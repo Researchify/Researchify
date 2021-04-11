@@ -9,6 +9,6 @@ const publicationsController = require('../controllers/publications');
 publicationsRouter.delete('/:id', publicationsController.deletePublication);
 
 publicationsRouter.patch('/:id', publicationsController.updatePublication);
-
+publicationsRouter.get('/:author', publicationsController.importPublications);
 
 module.exports = publicationsRouter;

@@ -51,5 +51,38 @@ async function updatePublication(req, res) {
     }
 }
 
+// eslint-disable-next-line no-unused-vars
+/**
+ * Handles a GET request, which represents importing a pub from google scholar
+ *
+ * @param req request object
+ * @param res response object
+ * @sends: the imported publication
+ */
+async function importPublications(req, res){
+    const {id} = req.params;
+    const axios = require('axios');
 
-module.exports = {deletePublication, updatePublication};
+    // set up the request parameters
+    let query = {
+      api_key: process.env.API_SCHOLAR,// use your own api key
+      q: id,
+      search_type: "scholar",
+        num: 10
+    };
+
+    // make the http GET request to Scale SERP
+    axios.get('https://api.scaleserp.com/search', { query })
+      .then(response => {
+
+        let results = response.data["scholar_results"];
+        res.status(200).json(results);
+
+      }).catch(error => {
+        // catch and print the error
+        console.log(error);
+      })
+}
+
+module.exports = {deletePublication, updatePublication,importPublications};
+
