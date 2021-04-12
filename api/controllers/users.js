@@ -2,6 +2,7 @@
  * This module implements handlers for the "users" route.
  */
 const mongoose = require("mongoose");
+const { db } = require("../models/user.model");
 
 const User = require("../models/user.model");
 
@@ -58,4 +59,31 @@ async function loginUser(req, res) {
         .catch(err => res.status(400).json('Error: ' + err));
 };
 
-module.exports = {getUsers, addUser, loginUser};
+/**
+ * Handles a PATCH request to update a user's details on the endpoint /users/:id.
+ *
+ * @param req request object
+ * @param res response object
+ * @sends: Updates the user object
+ */
+async function updateUser(req, res) {
+    
+    const {id: _id} = req.params;
+    const user = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(404).send('Error: No user with that id.');
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(_id, user, {
+            new: true,
+            runValidators: true
+        });
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        res.status(422).json(`Error: ${err.message}`);
+    }
+    
+};
+
+module.exports = {getUsers, addUser, loginUser, updateUser};
