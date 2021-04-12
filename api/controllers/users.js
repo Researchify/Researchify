@@ -3,8 +3,8 @@
  */
 const mongoose = require("mongoose");
 const { db } = require("../models/user.model");
-
 const User = require("../models/user.model");
+const jwt = require("jsonwebtoken");
 
 /**
  * Handles a GET request to get all users on the database on the endpoint /users.
@@ -45,15 +45,24 @@ async function addUser(req, res) {
  * @param res response object
  * @sends: User not found, incorrect password, successfully logged in or error message. 
  */
-async function loginUser(req, res) {
+ async function loginUser(req, res) {
     User.findOne({email: req.body.email})
         .then(user => {
             if (user == null) {
-                res.status(400).send("User not found");
+                res.status(400).json('User not found');
             } else if (user.password != req.body.password) {
-                res.status(400).send("Incorrect password");
+                res.status(400).json("Incorrect password");
             } else {
-                res.send("Successfully logged in");
+                const token = jwt.sign(
+                    { email: user.email, userId: user._id },
+                    "researchify_secret_abcd123",
+                    { expiresIn: "1h" }
+                  );
+                  res.status(200).json({
+                    token: token,
+                    expiresIn: 3600,
+                    userId: user._id
+                  });
             }
         })
         .catch(err => res.status(400).json('Error: ' + err));

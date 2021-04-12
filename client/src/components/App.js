@@ -7,7 +7,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Auth from './auth/Auth';
 import Home from './home/Home';
 import Register from './register/Register';
-import Login from './login/Login';
+import { Login } from './login/Login';
 
 const App = () => {
     return (
