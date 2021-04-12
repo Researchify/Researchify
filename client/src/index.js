@@ -6,7 +6,12 @@ import thunk from 'redux-thunk';
 
 import App from './components/App';
 import reducers from './reducers';
-
+/** 
+ *  For react-bootstrap
+ */
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-grid.css';
+import 'bootstrap/dist/css/bootstrap-reboot.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;  // for the redux devtools debugger
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));

@@ -9,7 +9,6 @@ import Home from './home/Home';
 import Register from './register/Register';
 import Login from './login/Login';
 
-
 const App = () => {
     return (
         <BrowserRouter>
@@ -18,6 +17,7 @@ const App = () => {
                 <Route path="/auth" exact component={Auth}/>
                 <Route path="/register" exact component={Register}/>
                 <Route path="/login" exact component={Login}/>
+
             </Switch>
         </BrowserRouter>
     );
