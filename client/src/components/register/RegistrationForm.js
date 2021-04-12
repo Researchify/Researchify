@@ -18,9 +18,12 @@
         confirmPassword: ''
     });
 
+    const [error, setError] = useState({
+        isEqual: true
+    })
     const updateValue = form => {
-        const {name, value} = form.target
-        setInputs({...inputs, [name]: value})
+        const {name, value} = form.target;
+        setInputs({...inputs, [name]: value});
     };
 
     const [validated, setValidated] = useState(false);
@@ -43,37 +46,36 @@
                 <Form.Row>
                     <Form.Group as={Col} md="6">
                         <Form.Label>Given name</Form.Label> 
-                        <Form.Control id="gName" type="text" onChange={updateValue} name="givenName" placeholder="Given name" required/>
+                        <Form.Control id="gName" type="text" onChange={updateValue} name="givenName" placeholder="Given name" required maxLength="20"/>
                         <Form.Control.Feedback type="invalid">Please input a valid given name.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="6">
                         <Form.Label>Family name</Form.Label> 
-                        <Form.Control type="text" onChange={updateValue} name="familyName" placeholder="Family name" required/>
+                        <Form.Control type="text" onChange={updateValue} name="familyName" placeholder="Family name" required maxLength="20"/>
                         <Form.Control.Feedback type="invalid">Please input a valid family name.</Form.Control.Feedback>
                     </Form.Group>
                 </Form.Row>
 
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" onChange={updateValue} name="email" placeholder="Enter email" required/>
+                    <Form.Control type="email" onChange={updateValue} name="email" placeholder="Enter email" required maxLength="40"/>
                     <Form.Control.Feedback type="invalid">Please input a valid email address.</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" onChange={updateValue} name="password" placeholder="Password" required/>
+                    <Form.Control type="password" onChange={updateValue} name="password" placeholder="Password" required maxLength="20"/>
                     <Form.Control.Feedback type="invalid">Please input a valid password.</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" onChange={updateValue} name="confirmPassword" placeholder="Password" required/>
+                    <Form.Control type="password" onChange={updateValue} name="confirmPassword" placeholder="Password" required maxLength="20"/>
                     <Form.Control.Feedback type="invalid">Please input a valid confirmed password.</Form.Control.Feedback>
                 </Form.Group>
-
-            <div>
-                <a id='signInLink' href="login">Already have an account? Sign in</a>
-                <Button id = 'submitButton' type="submit" variant="primary">Sign Up</Button>
-            </div>
+                <div>
+                    <a id='signInLink' href="login">Already have an account? Sign in</a>
+                    <Button id = 'submitButton' type="submit" variant="primary" disabled={inputs.password != inputs.confirmPassword}>Sign Up</Button>
+                </div>
             </Form>
         </Jumbotron>
     );
