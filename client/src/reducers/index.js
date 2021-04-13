@@ -5,9 +5,12 @@ import {combineReducers} from 'redux';
 
 import authReducer from "./authReducer";
 import fooReducer from "./fooReducer";
+import userReducer from "./usersReducer";
 
 
 export default combineReducers({
     auth: authReducer,
-    foo: fooReducer
+    foo: fooReducer,
+    publications: publicationsReducer,
+    users: userReducer
 });
