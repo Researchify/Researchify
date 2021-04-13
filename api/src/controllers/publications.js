@@ -54,7 +54,7 @@ async function updatePublication(req, res) {
     }
 }
 
-// eslint-disable-next-line no-unused-vars
+
 /**
  * Handles a GET request, which represents importing a pub from google scholar
  *
@@ -65,13 +65,13 @@ async function updatePublication(req, res) {
 async function importPublications(req, res){
     const {id} = req.params;
 
-
+    let num_publications = 10;
     // set up the request parameters
     let query = {
       api_key: process.env.API_SCHOLAR,// use your own api key
       q: id,
       search_type: "scholar",
-        num: 10
+        num: num_publications
     };
 
     // make the http GET request to Scale SERP
@@ -81,8 +81,8 @@ async function importPublications(req, res){
         res.status(200).json(results);
 
       }).catch(error => {
-        // catch and print the error
         console.log(error);
+        res.status(401);
       })
 }
 
