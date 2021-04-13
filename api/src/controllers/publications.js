@@ -82,7 +82,7 @@ async function importPublications(req, res){
 
       }).catch(error => {
         console.log(error);
-        res.status(401);
+        res.status(401).json({error: error});
       })
 }
 
