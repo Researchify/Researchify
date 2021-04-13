@@ -23,7 +23,7 @@ function Dashboard() {
                     <span class="mdl-layout-title">Researchify</span>
                     <nav class="mdl-navigation">
                         <a class="mdl-navigation__link" href="">Dashboard</a>
-                        <a class="mdl-navigation__link" href="">Profile</a>
+                        <a class="mdl-navigation__link" href="/dashboard/profile">Profile</a>
                         <a class="mdl-navigation__link" href="">Something else</a>
                         <a class="mdl-navigation__link" href="">Maybe List out all the pages</a>
                         <a class="mdl-navigation__link" href="">Setting</a>

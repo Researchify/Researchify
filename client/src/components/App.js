@@ -6,7 +6,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Auth from './auth/Auth';
 import Home from './home/Home';
-import Dashboard from './dashboard/Dashboard';
+import Dashboard from './dashboard/dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 
 
