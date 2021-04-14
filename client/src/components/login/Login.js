@@ -9,25 +9,8 @@ import './Login.css';
 import NavigationBar from '../auth/NavigationBar';
 
 /** 
-const Login = () => {
-    return (
-        <div>
-            Login Component
-            <br />
-
-            <form action="http://localhost:5000/users/login" method="post">
-                Email: <input type="email" name="email"></input><br />
-                Password: <input type="password" name="password"></input><br />
-                <input type="submit" name="submit" value="Login"></input>
-            </form>
-        </div>
-    );
-};
-
-export default Login;
-
-
-
+Handles the UI for the log in page
+@returns JSX element
 */
  export default function Login() {
     const [inputs, setInputs] = useState({
