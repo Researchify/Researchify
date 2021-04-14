@@ -15,3 +15,15 @@
     transform: translate(-50%, -50%);
     justify-content:center;
 }
+
+.homePageTitle{
+    font-family: 'Fredoka One', cursive;
+    text-align: center;
+}
+.homePageLinks{
+    color: white;
+
+    font-family: 'Fredoka One', cursive;
+    text-align: center;
+    position: relative;
+}
