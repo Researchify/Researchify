@@ -35,8 +35,10 @@
       if (form.checkValidity() === false) {
         event.stopPropagation();
       }
-      const userData = {email: inputs.email, givenName: inputs.givenName, familyName: inputs.familyName, password: inputs.password};
-      dispatch(addUserAction({userProfile: userData}));
+      else {
+        const userData = {email: inputs.email, givenName: inputs.givenName, familyName: inputs.familyName, password: inputs.password};
+        dispatch(addUserAction({userProfile: userData}));
+      }
       setValidated(true);
 
     };
