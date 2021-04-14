@@ -12,6 +12,7 @@ const connectDb = async () => {
     try {
         await mongoose.connect(CONNECTION_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
         logger.info('Successfully connected to Atlas.');
+        console.log('Successfully connected to Atlas.');
     } catch (err) {
         logger.error('Failed. Connection to Atlas was unsuccessful');
         logger.error(err);

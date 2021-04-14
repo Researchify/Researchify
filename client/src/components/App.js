@@ -11,7 +11,6 @@ import Login from './login/Login';
 import Publications from './publications/Publications';
 import Publication from './publications/publication/Publication';
 
-
 const App = () => {
     return (
         <BrowserRouter>
