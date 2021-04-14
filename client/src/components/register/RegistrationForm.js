@@ -36,8 +36,8 @@
         event.stopPropagation();
       }
       else {
-        const userData = {email: inputs.email, givenName: inputs.givenName, familyName: inputs.familyName, password: inputs.password};
-        dispatch(addUserAction({userProfile: userData}));
+        const userData = {email: inputs.email, name: inputs.familyName, password: inputs.password};
+        dispatch(addUserAction(userData));
       }
       setValidated(true);
 

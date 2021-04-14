@@ -16,7 +16,6 @@ const INITIAL_STATE = {userProfile: {email: '', givenName: '', familyName: '', p
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ADD_USER_DATA:
-            console.log(`In reducer, payload is ${action.payload}`);
             return {userProfile: action.payload};
         default:
             return state;
