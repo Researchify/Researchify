@@ -73,7 +73,7 @@ export default Login;
                 
                 <Button id = 'loginButton' type="submit" variant="primary">Log in</Button>
                 <div>
-                <a id='loginLink' href="login">Don't have an account yet? Sign Up today! </a>
+                <a id='loginLink' href="register">Don't have an account yet? Sign Up today! </a>
                 
             </div>
 
