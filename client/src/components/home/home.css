@@ -1,0 +1,17 @@
+.homePage {
+    min-height: 100%;
+    min-width: 100%;
+    position: fixed;
+    background-size: cover;
+    background: url('./glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg') center;
+    background-repeat: no-repeat;
+}
+
+.homePageTitleBox
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content:center;
+}
