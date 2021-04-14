@@ -7,7 +7,7 @@ class Drawer extends React.Component {
                 <span class="mdl-layout-title">Researchify</span>
                 <nav class="mdl-navigation">
                     <a class="mdl-navigation__link" href="/dashboard">Dashboard</a>
-                    <a class="mdl-navigation__link" href="/profile">Profile</a>
+                    <a class="mdl-navigation__link" href="/dashboard/profile">Profile</a>
                     <a class="mdl-navigation__link" >Something else</a>
                     <a class="mdl-navigation__link" >Pages 1</a>
                     <a class="mdl-navigation__link" >Pages 2</a>
