@@ -61,7 +61,12 @@ export default Login;
         <h3 id='LoginHeading'>Log In</h3>
         <hr/>
         
-        <Form.Group controlId="formBasicEmail">
+        
+
+            
+            
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" onChange={updateValue} name="email" placeholder="Enter email" required/>
                 </Form.Group>
@@ -76,11 +81,6 @@ export default Login;
                 <a id='loginLink' href="register">Don't have an account yet? Sign Up today! </a>
                 
             </div>
-
-            
-            
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            
             </Form>
         </Jumbotron>
         </div>
