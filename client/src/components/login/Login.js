@@ -27,8 +27,8 @@ Handles the UI for the log in page
 
     const handleSubmit = (event) => {
       const form = event.currentTarget;
+      event.preventDefault();
       if (form.checkValidity() === false) {
-        event.preventDefault();
         event.stopPropagation();
       }
   
