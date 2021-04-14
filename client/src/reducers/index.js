@@ -6,10 +6,12 @@ import {combineReducers} from 'redux';
 import authReducer from "./authReducer";
 import fooReducer from "./fooReducer";
 import publicationsReducer from './publicationsReducer'
+import userReducer from "./usersReducer";
 
 
 export default combineReducers({
     auth: authReducer,
     foo: fooReducer,
-    publications: publicationsReducer
+    publications: publicationsReducer,
+    users: userReducer
 });

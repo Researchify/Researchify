@@ -8,8 +8,13 @@
  import Form from 'react-bootstrap/Form'
  import {Col} from "react-bootstrap";
  import './Register.css';
+ import {useDispatch} from 'react-redux';
+ import {addUserAction} from '../../actions/users';
+ import { useHistory } from "react-router-dom";
 
  export default function RegistrationForm() {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [inputs, setInputs] = useState({
         givenName: '',
         familyName: '',
@@ -27,12 +32,17 @@
 
     const handleSubmit = (event) => {
       const form = event.currentTarget;
+      event.preventDefault();
       if (form.checkValidity() === false) {
-        event.preventDefault();
         event.stopPropagation();
       }
-  
+      else {
+        const userData = {email: inputs.email, name: inputs.familyName, password: inputs.password};
+        dispatch(addUserAction(userData));
+        history.push("/dashboard");
+      }
       setValidated(true);
+
     };
 
     return(
