@@ -14,6 +14,7 @@
 
  export default function RegistrationForm() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [inputs, setInputs] = useState({
         givenName: '',
         familyName: '',
@@ -38,6 +39,7 @@
       else {
         const userData = {email: inputs.email, name: inputs.familyName, password: inputs.password};
         dispatch(addUserAction(userData));
+        history.push("/dashboard");
       }
       setValidated(true);
 

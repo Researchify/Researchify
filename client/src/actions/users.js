@@ -18,12 +18,10 @@ export const addUserAction = (userData) => async (dispatch) => {
     // We do not need to store the password, so create a new object without it and then dispatch
     const data = {
       email: userData.email,
-      givenName: userData.givenName,
-      familyName: userData.familyName,
+      name: userData.name,
     };
 
     // Store user related data in our redux global store
-
     dispatch({ type: ADD_USER_DATA, payload: data });
   } catch (err) {
     console.error(`Error in posting user data to the api: ${err}`);
