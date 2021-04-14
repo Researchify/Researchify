@@ -1,43 +1,105 @@
 import React from 'react'
+import Header from '../layout/Header'
+import Drawer from '../layout/Drawer'
+import './Dashboard.css'
+
+
+class PageContent extends React.Component {
+    render() {  
+        return (
+            <main class="mdl-layout__content">
+                <div class="page-content">
+
+                    <div class="mdl-grid">
+
+                        <div class="mdl-cell mdl-cell--8-col">
+                            <div class="mdl-card mdl-shadow--3dp">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text">Page 1</h2>
+                                </div>
+                                <div class="mdl-card__supporting-text">
+                                    Description of Page 1...... 
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                        Manage Page
+                                    </a>
+                                </div>
+                                <div class="mdl-card__menu">
+                                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                                        <i class="material-icons">share</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mdl-cell mdl-cell--8-col">
+                            <div class="mdl-card mdl-shadow--3dp">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text">Page 2</h2>
+                                </div>
+                                <div class="mdl-card__supporting-text">
+                                    Description of Page 2...... 
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                        Manage Page
+                                    </a>
+                                </div>
+                                <div class="mdl-card__menu">
+                                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                                        <i class="material-icons">share</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mdl-cell mdl-cell--8-col">
+                            <div class="mdl-card mdl-shadow--3dp">
+                                <div class="mdl-card__title">
+                                    <h2 class="mdl-card__title-text">Page 2</h2>
+                                </div>
+                                <div class="mdl-card__supporting-text">
+                                    Description of Page 2...... 
+                                </div>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                        Manage Page
+                                    </a>
+                                </div>
+                                <div class="mdl-card__menu">
+                                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                                        <i class="material-icons">share</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+        )
+    }
+}
+
+class Layout extends React.Component {
+    render() {
+        return (
+            <div>
+                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+                    <Header />
+                    <Drawer />
+                    <PageContent />
+                </div>
+            </div>
+        )
+    }
+}
 
 function Dashboard() {
     return (
-        <div>
-            
-            <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-                <header class="mdl-layout__header">
-                    <div class="mdl-layout__header-row">
-                        
-          <span class="mdl-layout-title">Researchify</span>
-                        
-          <div class="mdl-layout-spacer"></div>
-                        
-          <nav class="mdl-navigation mdl-layout--large-screen-only">
-                            <a class="mdl-navigation__link" href="">Suppose to be profile here</a>
-                        </nav>
-                    </div>
-                </header>
-
-                <div class="mdl-layout__drawer">
-                    <span class="mdl-layout-title">Researchify</span>
-                    <nav class="mdl-navigation">
-                        <a class="mdl-navigation__link" href="">Dashboard</a>
-                        <a class="mdl-navigation__link" href="/dashboard/profile">Profile</a>
-                        <a class="mdl-navigation__link" href="">Something else</a>
-                        <a class="mdl-navigation__link" href="">Maybe List out all the pages</a>
-                        <a class="mdl-navigation__link" href="">Setting</a>
-                        <a class="mdl-navigation__link" href="">Help</a>
-                        <a class="mdl-navigation__link" href="">Send Feedback</a>
-                    </nav>
-                </div>
-
-                <main class="mdl-layout__content">
-                    <div class="page-content"></div>
-                </main>
-            </div>
-        </div>
-
+        <Layout />
     )
 }
 

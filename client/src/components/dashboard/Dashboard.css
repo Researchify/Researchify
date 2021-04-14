@@ -1,0 +1,18 @@
+.mdl-card {
+    width: 1024px;
+    height: 256px;
+    
+}
+
+.mdl-card__title {
+    background-image: url('./banana-leaf-macro-green-micro-banner.jpg');
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: #fff;
+}
+
+.mdl-card__menu {
+    color: #fff;
+}
