@@ -8,7 +8,7 @@ class Header extends React.Component {
                     <span class="mdl-layout-title">Researchify</span>
                     <div class="mdl-layout-spacer"></div>
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
-                        <a class="mdl-navigation__link" href="/temp">A profile icon here</a>
+                        <a class="mdl-navigation__link" href="/profile">A profile icon here</a>
                     </nav>
                 </div>
             </header>
