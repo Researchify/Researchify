@@ -30,17 +30,20 @@ const defaultPublications = [
 
 const defaultUsers = [
     {
-        "name": "Joel Selwood",
+        "givenName": "Joel",
+        "familyName": "Selwood",
         "email": "jselwood_goat_captian@gmail.com",
         "password": "afl_champx3",
     },
     {
-        "name": "Patrick Dangerfield",
+        "givenName": "Patrick",
+        "familyName": "Dangerfield",
         "email": "paddy_danger123@gmail.com",
         "password": "Brownlow_2016",
     },
     {
-        "name": "Tom Hawkins",
+        "givenName": "Tom",
+        "familyName": "Hawkins",
         "email": "tomahawk_26@gmail.com",
         "password": "THawk_coleman_2020",
     },

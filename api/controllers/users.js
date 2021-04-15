@@ -28,7 +28,8 @@ async function getUsers(req, res) {
  */
 async function addUser(req, res) {
     const newUser = new User({
-        name: req.body.name,
+        givenName: req.body.givenName,
+        familyName: req.body.familyName,
         email: req.body.email,
         password: req.body.password
     });
