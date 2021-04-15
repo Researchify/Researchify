@@ -8,10 +8,10 @@ class Drawer extends React.Component {
                 <nav class="mdl-navigation">
                     <a class="mdl-navigation__link" href="/dashboard">Dashboard</a>
                     <a class="mdl-navigation__link" href="/dashboard/profile">Profile</a>
-                    <a class="mdl-navigation__link" href="/publications">Publications</a>
-                    <a class="mdl-navigation__link" >Pages 1</a>
-                    <a class="mdl-navigation__link" >Pages 2</a>
-                    <a class="mdl-navigation__link" >Pages 3</a>
+                    <a class="mdl-navigation__link" href="/publications/team/:teamId">Publication Team</a>
+                    <a class="mdl-navigation__link" href="/publications/:pubId">Publications</a>
+                    <a class="mdl-navigation__link" >Contact US</a>
+                    <a class="mdl-navigation__link" >About US</a>
                     <a class="mdl-navigation__link" >Setting</a>
                     <a class="mdl-navigation__link" >Help</a>
                     <a class="mdl-navigation__link" >Send Feedback</a>

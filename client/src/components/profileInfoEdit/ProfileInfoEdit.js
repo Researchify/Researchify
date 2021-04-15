@@ -5,7 +5,6 @@
 
 import React from "react"
 import './ProfileInfoEdit.css'
-
 class ProfileInfoEdit extends React.Component {
 
     constructor(){
@@ -55,6 +54,7 @@ class ProfileInfoEdit extends React.Component {
                 </fieldset>
     
                 <button type="submit" class="btn btn-primary">Update</button>
+                <a href="/dashboard"><input type="button" value="Back"/></a>
             </form>
         )
     }
