@@ -20,7 +20,7 @@ async function getUsers(req, res) {
 };
 
 /**
- * Handles a POST request to get add a new user to the database on the endpoint /users.
+ * Handles a POST request to add a new user to the database on the endpoint /users.
  *
  * @param req request object
  * @param res response object
