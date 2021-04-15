@@ -5,7 +5,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 
 export default function Dashboard() {
-    const userName = useSelector(state => {console.log(state); console.log(state.users); return state.users.userProfile?.name});
+    const userName = useSelector(state => {console.log(state); return state.user?.givenName});
     return (
         <div>Hi {userName}!</div>
     )

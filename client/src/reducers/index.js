@@ -13,5 +13,5 @@ export default combineReducers({
     auth: authReducer,
     foo: fooReducer,
     publications: publicationsReducer,
-    users: userReducer
+    user: userReducer
 });

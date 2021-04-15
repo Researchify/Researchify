@@ -4,7 +4,7 @@
 import {ADD_USER_DATA} from "../actions/types";
 
 
-const INITIAL_STATE = {userProfile: {email: '', givenName: '', familyName: '', password: ''}};
+const INITIAL_STATE = {email: '', givenName: '', familyName: '', password: ''};
 
 /**
  * This userReducer will handle all user data-related actions.
@@ -16,8 +16,7 @@ const INITIAL_STATE = {userProfile: {email: '', givenName: '', familyName: '', p
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ADD_USER_DATA:
-            console.log("Adding into global storage: " + action.payload);
-            return {userProfile: action.payload};
+            return action.payload;
         default:
             return state;
     }
