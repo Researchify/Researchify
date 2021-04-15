@@ -11,5 +11,5 @@ import userReducer from "./usersReducer";
 export default combineReducers({
     auth: authReducer,
     foo: fooReducer,
-    users: userReducer
+    user: userReducer
 });
