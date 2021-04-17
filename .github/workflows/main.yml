@@ -55,18 +55,41 @@ jobs:
           context: ./api
           file: ./api/Dockerfile
           push: true
-          tags: ak1738/reasearchify-api:latest
+          tags: ak1738/researchify-api:latest
       - name: Push Client Image to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: ./client
           file: ./client/Dockerfile
           push: true
-          tags: ak1738/reasearchify-client:latest
+          tags: ak1738/researchify-client:latest
       - name: Push NGINX Image to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: ./nginx
           file: ./nginx/Dockerfile
           push: true
-          tags: ak1738/reasearchify-nginx:latest
+          tags: ak1738/researchify-nginx:latest
+  deploy:
+    name: Deploy to AWS Elastic Beanstalk
+    needs:
+      - static_analysis
+      - test
+      - publish
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate Deployment Package
+        run: zip -r deploy.zip . -x '*.git*' '**/node_modules/*'
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v16
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          application_name: "researchify"
+          environment_name: "Researchify-env"
+          version_label: 1
+          region: "us-east-1"
+          deployment_package: deploy.zip
