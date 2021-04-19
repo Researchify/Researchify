@@ -1,13 +1,14 @@
-# Desicprtion 
+# Description 
 A summary of the change 
 
 # Type of change 
 - [] Bug fix
 - [] New feature
 - [] Refactoring
+- [] Documentation 
 
 # Problem
-Briefly descirbe the root cause and analysis of the problem 
+Briefly describe the root cause and analysis of the problem 
 
 # Solution description
 Describe your code changes in detail for reviwers. 
@@ -17,14 +18,13 @@ Explain the technical solustion you have provided and how it fixes the issue.
 All unit tests pass?
 Build successfully? 
 
-
-# Expected Result (if any) 
+### Expected Result (if any) 
 Attach screenshot of the expected result (e.g. UI of the website/ postman api call result/ database changes )
 
-# Instructions to reproduce (if any) 
+### Instructions to reproduce (if any) 
 Provide steps in detail for reviewers to reproduce the expected result of the code changes 
 
-# Relevant docuemnt/ link (if any) 
+# Relevant document/ link (if any) 
 Any related documents could help reviewers to review this PR 
 
 # Risk
