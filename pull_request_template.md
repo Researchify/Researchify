@@ -20,9 +20,9 @@ Explain the technical solustion you have provided and how it fixes the issue.
 
 # Tests 
 All unit tests pass?
-Build successfully? 
-Attach screenshot of the expected result (e.g. UI of the website/ postman api call result/ database changes )
-Provide steps in detail for reviewers to reproduce the expected result of the code changes 
+Build successfully? <br/>
+Attach screenshot of the expected result (e.g. UI of the website/ postman api call result/ database changes) <br/>
+Provide steps in detail for reviewers to reproduce the expected result of the code changes <br/>
 
 
 # Relevant document/ link (if any) 
