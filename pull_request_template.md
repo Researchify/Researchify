@@ -18,10 +18,10 @@ Explain the technical solustion you have provided and how it fixes the issue.
 All unit tests pass?
 Build successfully? 
 
-### Expected Result (if any) 
+## Expected Result (if any) 
 Attach screenshot of the expected result (e.g. UI of the website/ postman api call result/ database changes )
 
-### Instructions to reproduce (if any) 
+## Instructions to reproduce (if any) 
 Provide steps in detail for reviewers to reproduce the expected result of the code changes 
 
 # Relevant document/ link (if any) 
