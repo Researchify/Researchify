@@ -3,10 +3,10 @@ A summary of the change
 
 
 # Type of change 
-- [] Bug fix
-- [] New feature
-- [] Refactoring
-- [] Documentation 
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Refactoring
+- [ ] Documentation 
 
 
 # Problem
