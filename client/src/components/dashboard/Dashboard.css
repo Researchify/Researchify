@@ -16,3 +16,40 @@
 .mdl-card__menu {
     color: #fff;
 }
+
+.page-card{
+    width: 1024px;
+    height: 256px;
+    box-shadow: 1px 1px 18px #808080;
+}
+
+.page-share-icon{
+    color: #fff;
+    position: absolute;
+    right: 1%;
+}
+
+.page-title{
+    color: #fff;
+    position: absolute;
+    bottom: 115px;
+    font-size: xx-large;
+}
+
+.page-img{
+    height: 160px;
+}
+
+.page-manage{
+    position: absolute;
+    bottom: 6%;
+    left: 3%;
+    font-size: medium;
+}
+
+.line{
+    width: 112px;
+    height: 47px;
+    border-bottom: 1px solid black;
+    position: absolute;
+    }
