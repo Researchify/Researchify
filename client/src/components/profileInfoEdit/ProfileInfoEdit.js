@@ -5,6 +5,8 @@
 
 import React from "react"
 import './ProfileInfoEdit.css'
+import Button from 'react-bootstrap/Button'
+
 class ProfileInfoEdit extends React.Component {
 
     constructor(){
@@ -53,7 +55,7 @@ class ProfileInfoEdit extends React.Component {
                     </label>
                 </fieldset>
     
-                <button type="submit" class="btn btn-primary">Update</button>
+                <Button type="submit">Update</Button>
                 <a href="/dashboard"><input type="button" value="Back"/></a>
             </form>
         )
