@@ -9,9 +9,7 @@ import { Button, Form, Row, Col, Container, Image} from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import profilePic from './profilepic.jpg';
 
-class ProfileInfoEdit extends React.Component {
-
-    render(){
+function ProfileInfoEdit () {
 
         return (
             <div class="center">
