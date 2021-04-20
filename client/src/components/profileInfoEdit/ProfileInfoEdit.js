@@ -79,8 +79,6 @@ function ProfileInfoEdit () {
                 </Container>
             </div>
         )
-    }
-    
 }
 
 export default ProfileInfoEdit;
