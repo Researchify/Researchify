@@ -3,64 +3,82 @@
  */
 
 
-import React from "react"
-import './ProfileInfoEdit.css'
-import Button from 'react-bootstrap/Button'
+import React from "react";
 
-class ProfileInfoEdit extends React.Component {
+import { Button, Form, Row, Col, Container, Image} from 'react-bootstrap';
+import './ProfileInfoEdit.css';
+import profilePic from './profilepic.jpg';
 
-    constructor(){
-        super() 
-        // Add user's current profile information here to display on screen (link with backend)
-    }
-
-    render(){
+function ProfileInfoEdit () {
 
         return (
-            <form   
-                onSubmit={(event) => {
-                    event.preventDefault();
-                    alert('You have updated your profile')
-                    /**
-                     * Update user information here onclick button
-                     */
-                }}
-            >
-                
-                <fieldset>
-                    <h1>Edit Profile</h1>
-                    
-                    <label>
-                        User Profile Picture    <input type="file" class="form-control-file" id="exampleFormControlFile1" />
-                    </label>
-                
-                    <label>
-                        First Name: <input type="text" class="form-control" name="firstName" placeholder="John" />
-                    </label>
+            <div class="center">
+                <Container>
+                    <Form className = "profile-form">
+                        <p>Edit Profile</p>
 
-                    <label>
-                        Last Name:  <input type="text" class="form-control" name="lastName" placeholder="Doe" />
-                    </label>
+                        <Form.Group controlId="formProfilePic">
+                            <Image src={profilePic} roundedCircle height="184px" width="184px" />
+                            <Form.Control type="file" />
+                            <Form.Text className="text-muted">
+                                Upload a file from your device, at least 184px.
+                            </Form.Text>
+                        </Form.Group>
 
-                    <label>
-                        Email:  <input type="text" class="form-control" name="email" placeholder="john.doe@gmail.com"/>
-                    </label>
+                        <Row>
+                            <Col>
+                                <Form.Group controlId="formUserFirstName">
+                                    <Form.Label>First Name</Form.Label>
+                                    <Form.Control type="text" placeholder="John" />
+                                </Form.Group>
+                            </Col>
+                            
+                            <Col>
+                                <Form.Group controlId="formUserLastName">
+                                    <Form.Label>Last Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Doe" />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                    <label>
-                        Phone Number:   <input type="text" name="phoneNumber" />
-                    </label>
+                        <Form.Group controlId="formCountry">
+                                    <Form.Label>Country</Form.Label>
+                                    <Form.Control as="select" defaultValue="Australia">
+                                        <option>Australia</option>
+                                        <option>USA</option>
+                                        <option>Canada</option>
+                                    </Form.Control>
+                        </Form.Group>
 
-                    <label>
-                        Password:   <input type="text" name="password" />
-                    </label>
-                </fieldset>
-    
-                <Button type="submit">Update</Button>
-                <a href="/dashboard"><input type="button" value="Back"/></a>
-            </form>
+                        <Form.Group controlId="formEmail">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" placeholder="john.doe@gmail.com" />
+                        </Form.Group>
+
+                        <Form.Group controlId="formPhoneNumber">
+                             <Form.Label>Phone Number</Form.Label>
+                             <Form.Control type="text" placeholder="+62123456789" />
+                        </Form.Group>
+
+                        <Button 
+                            color="primary"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                alert('You have updated your profile')
+                                /**
+                                 * Update user information here onclick button
+                                 */
+                            }}
+                        >
+                            Update
+                        </Button>{' '}
+
+                        <a class="btn btn-primary" href="/dashboard" role="button">Back</a>
+
+                    </Form>
+                </Container>
+            </div>
         )
-    }
-    
 }
 
-export default ProfileInfoEdit
+export default ProfileInfoEdit;
