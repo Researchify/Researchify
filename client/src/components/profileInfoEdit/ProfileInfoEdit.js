@@ -12,10 +12,10 @@ import profilePic from './profilepic.jpg';
 function ProfileInfoEdit () {
 
         return (
-            <div class="center">
-                <Container>
+            <div className="profile-center">
+                <Container className = "profile-container">
                     <Form className = "profile-form">
-                        <p>Edit Profile</p>
+                        <p className = "profile-title-name">Edit Profile</p>
 
                         <Form.Group controlId="formProfilePic">
                             <Image src={profilePic} roundedCircle height="184px" width="184px" />

@@ -6,7 +6,7 @@
     height: 100%;
 }
 
-.center{
+.profile-center{
     position:absolute;
     width:780px;
     height:650px;
@@ -17,7 +17,7 @@
 }
 
 /* Add a background color and some padding around the form */
-.container {
+.profile-container {
     width: auto;
     border-radius: 5px;
     background-color: #f2f2f2;
@@ -25,7 +25,7 @@
     border-style: solid;
   }
 
-p {
+.profile-title-name {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
