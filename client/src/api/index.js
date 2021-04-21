@@ -1,13 +1,9 @@
 /**
  * This file uses the custom axios client and defines the possible requests that can be made.
  */
-<<<<<<< HEAD
 import fooApi from './fooApi';
 import publicationsApi from './publications';
-=======
-import fooApi from "./fooApi";
 import userApi from "./userApi";
->>>>>>> thunder
 
 /**
  * Posts the user data (email, given and family name and password) to api at endpoint '/'
