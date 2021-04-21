@@ -1,7 +1,4 @@
-import Card from 'react-bootstrap/Card'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Image from 'react-bootstrap/Image'
+import {Card,Row,Col,Image} from 'react-bootstrap'
 
 import cardIcon from "./dropdown-arrow.png"
 import cardPicture from './banana-leaf-macro-green-micro-banner.jpg'
