@@ -9,6 +9,9 @@ import Home from './home/Home';
 import Publications from './publications/Publications';
 import Publication from './publications/publication/Publication';
 
+import Register from './register/Register';
+import Login from './login/Login';
+import Dashboard from './dashboard';
 
 const App = () => {
     return (
@@ -18,6 +21,10 @@ const App = () => {
                 <Route path="/auth" exact component={Auth}/>
                 <Route path="/publications/team/:teamId" exact component={Publications}/>
                 <Route path="/publications/:pubId"exact component={Publication}/>
+                <Route path="/register" exact component={Register}/>
+                <Route path="/login" exact component={Login}/>
+                <Route path="/dashboard" exact component={Dashboard}/>
+
             </Switch>
         </BrowserRouter>
     );
