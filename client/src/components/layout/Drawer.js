@@ -1,5 +1,7 @@
-import React from "react"
-
+/***
+ * This function is not used in current version of Researchify.
+ * Components need to be modified to Bootstrap.
+ */
 function Drawer() {
     return (
         <div class="mdl-layout__drawer">

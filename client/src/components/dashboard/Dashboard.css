@@ -1,18 +1,40 @@
-.mdl-card {
+.page-card{
     width: 1024px;
     height: 256px;
-    
+    box-shadow: 1px 1px 18px #808080;
 }
 
-.mdl-card__title {
-    background-image: url('./banana-leaf-macro-green-micro-banner.jpg');
-    height: 200px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+.page-icon{
     color: #fff;
+    position: absolute;
+    right: 1%;
+    top: 1%;   
 }
 
-.mdl-card__menu {
+.page-title{
     color: #fff;
+    position: absolute;
+    bottom: 115px;
+    font-size: xx-large;
 }
+
+.page-img{
+    height: 160px;
+}
+
+.page-manage{
+    position: absolute;
+    bottom: 6%;
+    left: 3%;
+    font-size: medium;
+}
+
+.page-desc{
+    color:grey;
+}
+
+.page-row{
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
