@@ -2,7 +2,6 @@
  * This module implements handlers for the "users" route.
  */
 const mongoose = require("mongoose");
-const { db } = require("../models/user.model");
 
 const User = require("../models/user.model");
 
@@ -17,7 +16,7 @@ async function getUsers(req, res) {
   User.find()
     .then(users => res.json(users))
     .catch(err => res.status(400).json('Error: ' + err));
-};
+}
 
 /**
  * Handles a POST request to add a new user to the database on the endpoint /users.
@@ -37,7 +36,7 @@ async function addUser(req, res) {
     newUser.save()
       .then(() => res.json('User added!'))
       .catch(err => res.status(400).json('Error: ' + err));
-};
+}
 
 /**
  * Handles a POST request to verify the login credentials of a user on the endpoint /users/login.
@@ -58,7 +57,7 @@ async function loginUser(req, res) {
             }
         })
         .catch(err => res.status(400).json('Error: ' + err));
-};
+}
 
 /**
  * Handles a PATCH request to update a user's details on the endpoint /users/:id.
@@ -85,6 +84,6 @@ async function updateUser(req, res) {
         res.status(422).json(`Error: ${err.message}`);
     }
     
-};
+}
 
 module.exports = {getUsers, addUser, loginUser, updateUser};
