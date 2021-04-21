@@ -1,17 +1,26 @@
 import React from "react"
+import Navbar from "react-bootstrap/Navbar"
+import Nav from "react-bootstrap/Nav"
+import Image from "react-bootstrap/Image"
+
+import "./Header.css"
+
+import profilePciture from "./user.png"
+
 
 function Header() {
     return (
-        <header class="mdl-layout__header">
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-            <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title">Researchify</span>
-                <div class="mdl-layout-spacer"></div>
-                <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" href="/dashboard/profile"><span class="material-icons">account_circle</span>User Name</a>
-                </nav>
-            </div>
-        </header>
+        <Navbar bg="primary" variant="dark" className="header">
+            <Navbar.Brand href="/dashboard">Researchify</Navbar.Brand>
+            <Nav className="mr-auto">
+                <Nav.Link href="/dashboard/profile">Profile</Nav.Link>
+                <Nav.Link href="/publications/team/:teamId">Publication Team</Nav.Link>
+                <Nav.Link href="/publications/:pubId">Publications</Nav.Link>
+            </Nav>
+            <Nav>
+                <Nav.Link href="/dashboard/profile" className="header-username"><Image className="profile-picture" src={profilePciture} roundedCircle /> Username</Nav.Link>
+            </Nav>
+        </Navbar>
     )
 }
 
