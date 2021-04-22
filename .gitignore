@@ -110,8 +110,5 @@ dist
 # TernJS port file
 .tern-port
 
-#  IntelliJ IDE project-specific settings
-.idea/
-
 # mac os
 .DS_Store
