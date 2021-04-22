@@ -11,7 +11,7 @@ const INITIAL_STATE = {email: '', givenName: '', familyName: '', password: ''};
  *
  * @param state the initial state
  * @param action the action that was dispatched, and now input into this reducer.
- * @returns updates state.
+ * @returns object representing the new state.
  */
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
