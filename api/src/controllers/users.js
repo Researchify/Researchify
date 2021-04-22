@@ -19,6 +19,30 @@ async function getUsers(req, res) {
 }
 
 /**
+ * Handles a GET request, which will get a particular user using the given mongo id on the endpoint /users/:id
+ * 
+ * @param req request object
+ * @param res response object
+ * @returns 400: given user id is not in a valid hexadecimal format
+ * @returns 404: no user was found
+ * @returns 200: the specified user was found
+ */
+ async function getUser(req, res) {
+  const {id: _id} = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+      return res.status(400).send('Error: The provided user id is not in a valid hexadecimal format.');
+  
+  const targetUser = await User.findById(_id);
+
+  if (targetUser == null) { 
+      res.status(404).send('Error: No user matching the id was found.');
+  } else {
+      res.status(200).json(targetUser);
+  }
+}
+
+/**
  * Handles a POST request to add a new user to the database on the endpoint /users.
  *
  * @param req request object
@@ -85,4 +109,4 @@ async function updateUser(req, res) {
   }
 }
 
-module.exports = { getUsers, addUser, loginUser, updateUser };
+module.exports = { getUsers, getUser, addUser, loginUser, updateUser };
