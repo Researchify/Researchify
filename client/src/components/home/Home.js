@@ -3,8 +3,16 @@
  */
 import React from 'react';
 import './home.css'
+import {useDispatch, useSelector} from 'react-redux';
+
+
+import {getFoos} from '../../actions/foo';
+
 
 const Home = () => {
+    const dispatch = useDispatch();
+    const foos = useSelector(state => state.foo);
+
     return (
         <div className="homePage">
             <div className="homePageTitleBox">
