@@ -6,7 +6,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import './Login.css';
-import NavigationBar from '../auth/NavigationBar';
+import NavigationBar from '../NavigationBar';
 
 /** 
 Handles the UI for the log in page
@@ -37,7 +37,6 @@ Handles the UI for the log in page
 
     return(
         <div>
-            <NavigationBar/>
             <div id='login-page'>
         <Jumbotron id='form-box'>
         
