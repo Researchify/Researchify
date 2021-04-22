@@ -35,7 +35,7 @@ async function addUser(req, res) {
 
   newUser
     .save()
-    .then(() => res.json("User added!"))
+    .then(() => res.status(201).json("User added!"))
     .catch((err) => res.status(400).json("Error: " + err));
 }
 
@@ -52,7 +52,7 @@ async function loginUser(req, res) {
       if (user == null) {
         res.status(400).send("User not found");
       } else if (user.password != req.body.password) {
-        res.status(400).send("Incorrect password");
+        res.status(403).send("Incorrect password");
       } else {
         res.send("Successfully logged in");
       }
@@ -81,7 +81,7 @@ async function updateUser(req, res) {
     });
     res.status(200).json(updatedUser);
   } catch (err) {
-    res.status(422).json(`Error: ${err.message}`);
+    res.status(400).json(`Error: ${err.message}`);
   }
 }
 
