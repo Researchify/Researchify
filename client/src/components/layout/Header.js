@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import "./Header.css"
 
-import profilePciture from "./user.png"
+import profilePicture from "./user.png"
 
 /**
  * This functio provides header for Layout.js
@@ -22,7 +22,7 @@ function Header() {
             <Nav>
                 <Nav.Link className="header-username">
                     <Link className="header-link" to="/dashboard/profile">
-                        <Image className="profile-picture" src={profilePciture} roundedCircle /> Username
+                        <Image className="profile-picture" src={profilePicture} roundedCircle /> Username
                     </Link>
                 </Nav.Link>
             </Nav>
