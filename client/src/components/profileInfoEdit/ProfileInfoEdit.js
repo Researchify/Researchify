@@ -7,7 +7,8 @@ import React from "react";
 
 import { Button, Form, Row, Col, Container, Image} from 'react-bootstrap';
 import './ProfileInfoEdit.css';
-import profilePic from './profilepic.jpg';
+import profilePic from '../../images/profilepic.jpg';
+import {Link} from 'react-router-dom';
 
 function ProfileInfoEdit () {
 
@@ -72,8 +73,13 @@ function ProfileInfoEdit () {
                         >
                             Update
                         </Button>{' '}
-
-                        <a class="btn btn-primary" href="/dashboard" role="button">Back</a>
+                        
+                        {/* Button is linked to react-router-dom Link*/}
+                        <Link to='/dashboard'>
+                            <Button color="primary">
+                                Back
+                            </Button>
+                        </Link>
 
                     </Form>
                 </Container>
