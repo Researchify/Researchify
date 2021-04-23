@@ -1,7 +1,7 @@
 import {Card,Row,Col,Image} from 'react-bootstrap'
 
-import cardIcon from "./dropdown-arrow.png"
-import cardPicture from './banana-leaf-macro-green-micro-banner.jpg'
+import cardIcon from "../../images/dropdown-arrow.png"
+import cardPicture from '../../images/banana-leaf-macro-green-micro-banner.jpg'
 
 function PageCard(pageTitle, pageDesc) {
     return (
