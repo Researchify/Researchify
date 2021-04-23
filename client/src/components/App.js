@@ -30,7 +30,4 @@ const App = () => {
     );
 };
 
-/**
- * <Route path="/editprofile" exact component={ProfileInfoEdit} />
- */
 export default App;
