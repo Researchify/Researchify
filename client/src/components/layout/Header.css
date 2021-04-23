@@ -5,3 +5,21 @@
 .profile-picture{
     height: 30px;
 }
+
+.header-link{
+    color:gainsboro;
+}
+
+.header-link:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.header-brand{
+    color:white;
+}
+
+.header-brand:hover{
+    color: white;
+    text-decoration: none;
+}

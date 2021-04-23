@@ -9,8 +9,8 @@ function PageContent() {
     return (
         <main>                
             <Container fluid>
-                {PageCard("Page 1","Description of Page 1.....")}
-                {PageCard("Biology Research", "What happens if one doesn't sleep...")}
+                <PageCard pageTitle="Page 1" pageDesc="Description of Page 1....."/>
+                <PageCard pageTitle="Biology Research" pageDesc="How long can software engineers stay awake for..."/>
             </Container>
         </main>
     )
@@ -18,7 +18,7 @@ function PageContent() {
 
 
 function Dashboard() {
-    return Layout(PageContent)
+    return <Layout innerContent={<PageContent />} />
 }
 
 export default Dashboard
