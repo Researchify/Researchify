@@ -1,24 +1,30 @@
 import React from "react"
-import Navbar from "react-bootstrap/Navbar"
-import Nav from "react-bootstrap/Nav"
-import Image from "react-bootstrap/Image"
+import { Navbar, Nav, Image } from "react-bootstrap"
+import { Link } from 'react-router-dom'
 
 import "./Header.css"
 
-import profilePciture from "./user.png"
+import profilePicture from "./user.png"
 
-
+/**
+ * This functio provides header for Layout.js
+ * @returns Header component to be rendered in Layout.js
+ */
 function Header() {
     return (
         <Navbar bg="primary" variant="dark" className="header">
-            <Navbar.Brand href="/dashboard">Researchify</Navbar.Brand>
+            <Navbar.Brand><Link className="header-brand" to="/dashboard">Researchify</Link></Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link href="/dashboard/profile">Profile</Nav.Link>
-                <Nav.Link href="/publications/team/:teamId">Publication Team</Nav.Link>
-                <Nav.Link href="/publications/:pubId">Publications</Nav.Link>
+                <Nav.Link><Link className="header-link" to="/dashboard/profile">Profile</Link></Nav.Link>
+                <Nav.Link><Link className="header-link" to="/publications/team/:teamId">Publication Team</Link></Nav.Link>
+                <Nav.Link><Link className="header-link" to="/publications/:pubId">Publications</Link></Nav.Link>
             </Nav>
             <Nav>
-                <Nav.Link href="/dashboard/profile" className="header-username"><Image className="profile-picture" src={profilePciture} roundedCircle /> Username</Nav.Link>
+                <Nav.Link className="header-username">
+                    <Link className="header-link" to="/dashboard/profile">
+                        <Image className="profile-picture" src={profilePicture} roundedCircle /> Username
+                    </Link>
+                </Nav.Link>
             </Nav>
         </Navbar>
     )

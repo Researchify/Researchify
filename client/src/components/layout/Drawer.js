@@ -1,6 +1,6 @@
 /***
  * This function is not used in current version of Researchify.
- * Components need to be modified to Bootstrap.
+ * Components need to be modified to Bootstrap in next sprint.
  */
 function Drawer() {
     return (
