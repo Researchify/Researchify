@@ -15,7 +15,31 @@ const User = require("../models/user.model");
 async function getUsers(req, res) {
   User.find()
     .then((users) => res.json(users))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(500).json("Error: " + err));
+}
+
+/**
+ * Handles a GET request, which will get a particular user using the given mongo id on the endpoint /users/:id
+ * 
+ * @param req request object
+ * @param res response object
+ * @returns 400: given user id is not in a valid hexadecimal format
+ * @returns 404: no user was found
+ * @returns 200: the specified user was found
+ */
+ async function getUser(req, res) {
+  const {id: _id} = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+      return res.status(400).send('Error: The provided user id is not in a valid hexadecimal format.');
+  
+  const targetUser = await User.findById(_id);
+
+  if (targetUser == null) { 
+      res.status(404).send('Error: No user matching the id was found.');
+  } else {
+      res.status(200).json(targetUser);
+  }
 }
 
 /**
@@ -35,7 +59,7 @@ async function addUser(req, res) {
 
   newUser
     .save()
-    .then(() => res.json("User added!"))
+    .then(() => res.status(201).json("User added!"))
     .catch((err) => res.status(400).json("Error: " + err));
 }
 
@@ -52,7 +76,7 @@ async function loginUser(req, res) {
       if (user == null) {
         res.status(400).send("User not found");
       } else if (user.password != req.body.password) {
-        res.status(400).send("Incorrect password");
+        res.status(403).send("Incorrect password");
       } else {
         res.send("Successfully logged in");
       }
@@ -81,8 +105,8 @@ async function updateUser(req, res) {
     });
     res.status(200).json(updatedUser);
   } catch (err) {
-    res.status(422).json(`Error: ${err.message}`);
+    res.status(400).json(`Error: ${err.message}`);
   }
 }
 
-module.exports = { getUsers, addUser, loginUser, updateUser };
+module.exports = { getUsers, getUser, addUser, loginUser, updateUser };
