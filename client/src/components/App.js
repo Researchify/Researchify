@@ -9,13 +9,15 @@ import Home from './home/Home';
 import Publications from './publications/Publications';
 import Publication from './publications/publication/Publication';
 
-import Register from './register/Register';
-import Login from './login/Login';
+import Register from './auth/Register';
+import Login from './auth/Login';
 import Dashboard from './dashboard';
+import NavigationBar from './NavigationBar';
 
 const App = () => {
     return (
         <BrowserRouter>
+            <NavigationBar/>
             <Switch>
                 <Route path="/" exact component={Home}/>
                 <Route path="/auth" exact component={Auth}/>
