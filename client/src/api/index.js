@@ -17,4 +17,3 @@ export const fetchPublicationsByTeamId = (teamId) => api.get(`/publications/team
 // export const createPublication = (newPulication) => publicationsApi.post(`/publications`, newPulication);
 // export const updatePublication = (id, updatedPublication) => publicationsApi.patch(`/publications/${id}`, updatedPublication);
 // export const deletePublication = (id) => publicationsApi.delete(`/publications/${id}`);
-
