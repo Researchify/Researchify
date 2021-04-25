@@ -13,7 +13,7 @@ import {Link} from 'react-router-dom';
 function ProfileInfoEdit () {
 
         return (
-            <div className="profile-center">
+            <div >
                 <Container className = "profile-container">
                     <Form className = "profile-form">
                         <p className = "profile-title-name">Edit Profile</p>
