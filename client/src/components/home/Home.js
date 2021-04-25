@@ -3,16 +3,16 @@
  */
 import React from 'react';
 import './home.css'
-<<<<<<< HEAD
 import {useDispatch, useSelector} from 'react-redux';
-=======
->>>>>>> main
 
 import {Link} from 'react-router-dom';
 
+import {getFoos} from '../../actions/foo';
 
 
 const Home = () => {
+    const dispatch = useDispatch();
+    const foos = useSelector(state => state.foo);
 
     return (
         <div className="homePage">
@@ -21,16 +21,9 @@ const Home = () => {
                 <div className="homePageLinks" >
                     <h3>
                         <span> 
-<<<<<<< HEAD
                             <Link className='homeNavLink' to='/auth' style={{textDecorationLine:'none',color: 'black'}}>
                                 Login
                             </Link>
-=======
-                            <Link className='homeNavLink' to='/login' style={{textDecorationLine:'none',color: 'black'}}>
-                                Login
-                            </Link>
-                                |
->>>>>>> main
                             <Link className='homeNavLink' to='/register' style={{textDecorationLine:'none',color: 'black'}}>
                                 Register
                             </Link>
