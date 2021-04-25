@@ -2,8 +2,9 @@
  * This module implements handlers for the "users" route.
  */
 const mongoose = require("mongoose");
-
 const User = require("../models/user.model");
+const bcrypt = require("bcryptjs");
+const passport = require('passport');
 
 /**
  * Handles a GET request to get all users on the database on the endpoint /users.
@@ -50,17 +51,31 @@ async function getUsers(req, res) {
  * @sends: User added or error message
  */
 async function addUser(req, res) {
-  const newUser = new User({
-    givenName: req.body.givenName,
-    familyName: req.body.familyName,
-    email: req.body.email,
-    password: req.body.password,
-  });
+  User.findOne({ email: req.body.email }, async (err, user) => {
+      if (err) throw err;
+      if (user) {
+        res.status(400).json({message: "Email already registered"});
+        return;
+      }
+      if (req.body.password != req.body.confirmPassword) {
+        res.status(400).json({message: "Passwords do not match"});
+        return;
+      }
 
-  newUser
-    .save()
-    .then(() => res.status(201).json("User added!"))
-    .catch((err) => res.status(400).json("Error: " + err));
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+      const newUser = new User({
+        givenName: req.body.givenName,
+        familyName: req.body.familyName,
+        email: req.body.email,
+        password: hashedPassword,
+      });
+
+      newUser
+      .save()
+      .then(() => res.status(201).json({message: "User added!"}))
+      .catch((err) => res.status(400).json({message: "Error: " + err}));
+  });
 }
 
 /**
@@ -70,18 +85,31 @@ async function addUser(req, res) {
  * @param res response object
  * @sends: User not found, incorrect password, successfully logged in or error message.
  */
-async function loginUser(req, res) {
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (user == null) {
-        res.status(400).send("User not found");
-      } else if (user.password != req.body.password) {
-        res.status(403).send("Incorrect password");
-      } else {
-        res.send("Successfully logged in");
-      }
-    })
-    .catch((err) => res.status(400).json("Error: " + err));
+async function loginUser(req, res, next) {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) {
+      res.status(400).json({message: "User is not registered"});
+      return;
+    }
+
+    req.logIn(user, (err) => {
+        if (err) throw err;
+        res.json({message: "Logged in"})
+    });
+  })(req, res, next);
+}
+
+/**
+ * Handles a GET request to log out the user on the endpoint /users/logout.
+ *
+ * @param req request object
+ * @param res response object
+ * @sends: User is logged out
+ */
+async function logoutUser(req, res) {
+  req.logout();
+  res.status(200);
 }
 
 /**
@@ -109,4 +137,26 @@ async function updateUser(req, res) {
   }
 }
 
-module.exports = { getUsers, getUser, addUser, loginUser, updateUser };
+/**
+ * Handles a GET request to get the currently logged in user's details on the endpoint /users/current.
+ *
+ * @param req request object
+ * @param res response object
+ * @sends: The user object of the currently logged in user
+ */
+async function getCurrentUser(req, res) {
+  if (req.user) {
+    const user = {
+      "_id": req.user["_id"],
+      givenName: req.user.givenName,
+      familyName: req.user.familyName,
+      email: req.user.email
+    }
+
+    res.json(user);
+  } else {
+    res.status(400).json({message: "User not logged in"});
+  }
+}
+
+module.exports = { getUsers, getUser, addUser, loginUser, logoutUser, updateUser, getCurrentUser };

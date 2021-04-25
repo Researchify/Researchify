@@ -35,14 +35,13 @@
       event.preventDefault();
       if (form.checkValidity() === false) {
         event.stopPropagation();
-      }
-      else {
-        const userData = {email: inputs.email, givenName:inputs.givenName, familyName: inputs.familyName, password: inputs.password};
+      } else {
+        const userData = {email: inputs.email, givenName:inputs.givenName, familyName: inputs.familyName, password: inputs.password, confirmPassword: inputs.confirmPassword};
         dispatch(addUserAction(userData));
-        history.push("/dashboard");
+        history.push("/login");
       }
-      setValidated(true);
 
+      setValidated(true);
     };
 
     return(

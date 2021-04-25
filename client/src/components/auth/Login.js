@@ -6,12 +6,17 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import './Login.css';
+import {useDispatch} from 'react-redux';
+import {loginUserAction} from '../../actions/users';
+import { useHistory } from "react-router-dom";
 
 /** 
 Handles the UI for the log in page
 @returns JSX element
 */
  export default function Login() {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [inputs, setInputs] = useState({
         email: '',
         password: '',
@@ -29,6 +34,10 @@ Handles the UI for the log in page
       event.preventDefault();
       if (form.checkValidity() === false) {
         event.stopPropagation();
+      } else {
+        const userData = {email: inputs.email, password: inputs.password};
+        dispatch(loginUserAction(userData));
+        // history.push("/dashboard");
       }
   
       setValidated(true);
@@ -41,10 +50,6 @@ Handles the UI for the log in page
         
         <h3 id='LoginHeading'>Log In</h3>
         <hr/>
-        
-        
-
-            
             
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail">

@@ -9,6 +9,8 @@ import api from './api';
  * @param {*} payload object containing email, givenName, familyName and password of the user
  */
 export const addUserData = (payload) => api.post("/users", payload);
+export const loginUser = (payload) => api.post("/users/login", payload);
+export const getCurrentUser = () => api.get("/users/current");
 
 export const fetchFoos = () => fooApi.get('/foo');
 
