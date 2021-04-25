@@ -1,4 +1,4 @@
-//import Header from './Header'
+import Header from './Header'
 import Container from "react-bootstrap/Container"
 
 /**
@@ -13,6 +13,7 @@ import Container from "react-bootstrap/Container"
 function Layout(props) {
     return (
         <Container fluid className="layout">
+            <Header />
             {props.innerContent}
         </Container>
     )
