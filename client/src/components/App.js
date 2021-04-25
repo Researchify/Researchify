@@ -8,16 +8,18 @@ import Auth from './auth/Auth';
 import Home from './home/Home';
 import Publications from './publications/Publications';
 import Publication from './publications/publication/Publication';
+import Dashboard from './dashboard/Dashboard';
+import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 
 import Register from './auth/Register';
 import Login from './auth/Login';
-import Dashboard from './dashboard';
-import NavigationBar from './NavigationBar';
+import Header from './layout/Header'
 
 const App = () => {
     return (
+        
         <BrowserRouter>
-            <NavigationBar/>
+            <Header />
             <Switch>
                 <Route path="/" exact component={Home}/>
                 <Route path="/auth" exact component={Auth}/>
@@ -26,6 +28,7 @@ const App = () => {
                 <Route path="/register" exact component={Register}/>
                 <Route path="/login" exact component={Login}/>
                 <Route path="/dashboard" exact component={Dashboard}/>
+                <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
 
             </Switch>
         </BrowserRouter>
