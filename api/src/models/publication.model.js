@@ -1,8 +1,11 @@
 /**
- * This module exports a "Publication" mongoose Schema, which represents a researcher team's publication..
+ * This module exports a "Publication" mongoose Schema, which represents a researcher team's publication.
+ *
+ * @see: https://mongoosejs.com/docs/populate.html
  */
 const mongoose = require('mongoose');
 const validator = require('validator');
+
 
 const urlValidator = url => validator.isURL(url);
 
