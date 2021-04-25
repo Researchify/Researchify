@@ -1,8 +1,7 @@
+import axios from 'axios';
 
- import axios from 'axios';
 
-
- const usingRp = false;
+ const usingRp = true;
  const localServerUrl = usingRp ? '/api' : 'http://localhost:5000';
  
  export default axios.create({
