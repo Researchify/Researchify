@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 
 import "./Header.css"
 
-import profilePicture from "./user.png"
+import profilePicture from "../../images/user.png"
 
 /**
  * This function provides header for Layout.js
