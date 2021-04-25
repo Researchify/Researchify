@@ -1,5 +1,5 @@
 import React from "react"
-import { Navbar, Nav, Image } from "react-bootstrap"
+import { Navbar, Nav, Image, DropdownButton, Dropdown } from "react-bootstrap"
 import { Link } from 'react-router-dom'
 
 import "./Header.css"
@@ -16,8 +16,7 @@ function Header() {
             <Navbar.Brand><Link className="header-brand" to="/dashboard">Researchify</Link></Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link><Link className="header-link" to="/dashboard/profile">Profile</Link></Nav.Link>
-                <Nav.Link><Link className="header-link" to="/publications/team/:teamId">Publication Team</Link></Nav.Link>
-                <Nav.Link><Link className="header-link" to="/publications/:pubId">Publications</Link></Nav.Link>
+                <Nav.Link><Link className="header-link" to="/publications/team/606bb59c22201f529db920c9">Publications </Link></Nav.Link>
             </Nav>
             <Nav>
                 <Nav.Link className="header-username">

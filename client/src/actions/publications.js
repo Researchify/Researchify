@@ -41,17 +41,21 @@ export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
 // }
 
 
-// export const updatePublication = (id, publication) => async(dispatch) => {
-//     try{
-//         const { data } = await api.updatePublication(id, publication);
-//         dispatch({
-//             type: UPDATE_PUBLICATION,
-//             payload: data
-//         })
-//     } catch(error){
-//         console.log(error)
-//     }
-// }
+export const updatePublication = (id, publication) => async(dispatch) => {
+    try{
+        const result = await api.updatePublication(id, publication);
+
+        console.log(result)
+
+
+        dispatch({
+            type: UPDATE_PUBLICATION,
+            payload: result.data
+        })
+    } catch(error){
+        console.log(error)
+    }
+}
 
 // export const deletePublication = (id) => async dispatch => {
 //     try {

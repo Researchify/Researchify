@@ -14,11 +14,8 @@ const publicationsReducer = (state = initialState, action) => {
         // case CREATE_PUBLICATION:
         //     state.current_publication = [...state.team_publications, action.payload]
         //     return state
-        // case UPDATE_PUBLICATION:
-        //     let updated_team_publications = state.team_publications.map((pub) => 
-        //     (pub.id === action.payload.id ? action.payload : pub))
-        //     state.team_publications = updated_team_publications
-        //     return state
+        case UPDATE_PUBLICATION:
+            return {currentPublication: action.payload, teamPublications: state.teamPublications.map(pub => pub._id === action.payload._id ? action.payload : pub)}
         // case DELETE_PUBLICATION:
         //     let updated_team_publications = state.team_publications.filter((pub) => 
         //     pub.id !== action.payload)
