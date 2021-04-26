@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Button, Form, FormGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
-import { updatePublication } from '../../actions/publications'
+import { updatePublication, createPublication } from '../../actions/publications'
 
 const PublicationForm = (props) => {
     const initialState = {
@@ -9,7 +9,8 @@ const PublicationForm = (props) => {
         description: "",
         authors: "",
         yearPublished: "",
-        link: ""
+        link: "",
+        teamId: "606bb59c22201f529db920c9"
 
     }
     const [form, setForm] = useState(props.type === "update" ? props.pub : initialState)
@@ -19,15 +20,27 @@ const PublicationForm = (props) => {
         setForm({...form, [key]: event.target.value})
     }
 
+    console.log(form.authors)
     const handleClick = () => {
         props.closeModal()
-        let author_arr = form.authors.split(',')
-        console.log(author_arr)
+        let author_arr
+        if (typeof form.authors === "object"){
+            author_arr = form.authors[0].split(',')
+        } else{
+            author_arr = form.authors.split(',')
+        }
         setForm({ ...form, authors: author_arr })
+
+
+
         if (props.type === "update"){
+            console.log("update pub")
             dispatch(updatePublication(props.pub._id, form))
         } else if (props.type === "create"){
             console.log("create pub")
+            console.log("!!!!!!!!!!!!!!", form)
+            setForm({ ...form, authors: ["A"] })
+            dispatch(createPublication(form))
         }
     }
 
