@@ -2,9 +2,10 @@ import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { deletePublication } from '../../../actions/publications'
 import PublicationForm from '../PublicationForm'
-import { Button, Modal, OverlayTrigger, Tooltip, ButtonGroup, Accordion, Card, Row } from 'react-bootstrap';
-import { AiFillDelete, AiFillEdit, AiOutlineClose, AiOutlineMore } from 'react-icons/ai'
+import { Button, Modal, OverlayTrigger, ButtonGroup, Accordion, Card, Row, Col } from 'react-bootstrap';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { BsThreeDotsVertical, BsLink45Deg, BsArrowDown } from 'react-icons/bs'
+import { IconContext } from "react-icons"
 
 const Publication = ({pub}) => {
     const dispatch = useDispatch();
@@ -16,12 +17,6 @@ const Publication = ({pub}) => {
         setShowDeleteMessage(false)
     }
 
-    const renderTooltip = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            You will lose your progress
-        </Tooltip>
-    )
-
     const displayOptions = (
         <ButtonGroup>
             <Button onClick={() => setShowUpdateForm(true)} variant="outline-primary" data-toggle="modal"> <AiFillEdit /> </Button>
@@ -30,21 +25,25 @@ const Publication = ({pub}) => {
     )
   
     return (
-        <div>
+        <>
             <Accordion>
                 <Card.Header>
                     <Row>
-                        <h3>{pub.title}</h3> 
-                        <ButtonGroup className="ml-auto">
-                            <Accordion.Toggle as={Button} eventKey="0">
-                                <BsArrowDown />
-                            </Accordion.Toggle>
-                            <OverlayTrigger rootClose trigger="click" placement="right" overlay={displayOptions}>
-                                <Button variant="light">
-                                    <BsThreeDotsVertical />
-                                </Button>  
-                            </OverlayTrigger>
-                        </ButtonGroup>
+                        <Col lg={11} md={9} sm={8}>
+                            <h3 style={{color: "dimgrey"}} className="ml-2 mr-2">{pub.title}</h3> 
+                        </Col>
+                        <Col lg={1} md={3} sm={4}>
+                            <ButtonGroup>
+                                <Accordion.Toggle as={Button} eventKey="0">
+                                    <BsArrowDown />
+                                </Accordion.Toggle>
+                                <OverlayTrigger rootClose trigger="click" placement="right" overlay={displayOptions}>
+                                    <Button variant="light">
+                                        <BsThreeDotsVertical />
+                                    </Button>  
+                                </OverlayTrigger>
+                            </ButtonGroup>
+                        </Col>
                     </Row>
                 </Card.Header>
                     <Accordion.Collapse eventKey="0">
@@ -54,8 +53,12 @@ const Publication = ({pub}) => {
                             <h4> <b>Year Published: </b>{pub.yearPublished} </h4>
                             <h4> <b>Created at:</b> {pub.createdAt} </h4>
                             <h4> <b>Updated at:</b> {pub.updatedAt} </h4>
-                            <Button onClick={()=> window.location.href = `${pub.link}`}>
-                                <BsLink45Deg />
+                            <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
+                                <IconContext.Provider
+                                    value={{ color: 'black', size: '25px' }}
+                                >
+                                    <BsLink45Deg />
+                                </IconContext.Provider>
                             </Button>
                         </Card.Body>
                     </Accordion.Collapse>
@@ -63,16 +66,7 @@ const Publication = ({pub}) => {
 
             <Modal show={showUpdateForm}>
                 <Modal.Header>
-                    <Modal.Title>
-                        Edit Publication
-                        <OverlayTrigger
-                            trigger="hover"
-                            placement="right"
-                            overlay={renderTooltip}
-                        >
-                            <Button className="float-right" variant="light" onClick={() => setShowUpdateForm(false)}> <AiOutlineClose /> </Button>
-                        </OverlayTrigger>
-                    </Modal.Title>
+                    <Modal.Title> Edit Publication </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <PublicationForm type="update" pub={pub} closeModal={() => setShowUpdateForm(false)}/>
@@ -81,19 +75,17 @@ const Publication = ({pub}) => {
 
             <Modal show={showDeleteMessage}>
                 <Modal.Header>
-                    <Modal.Title> Delete Publication 
-                        <Button className="float-right" variant="light" onClick={() => setShowDeleteMessage(false)}> <AiOutlineClose /> </Button>
-                    </Modal.Title>
+                    <Modal.Title> Delete Publication </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     Are you sure you want to delete this publication? 
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button variant="light" onClick={() => setShowDeleteMessage(false)}> Cancel </Button>
                     <Button variant="danger" onClick={handleDelete}> Confirm </Button>
-                    {/* TODO onClick={} */}
                 </Modal.Footer>
             </Modal>
-        </div>
+        </>
     )
 }
 

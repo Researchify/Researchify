@@ -29,7 +29,7 @@ const App = () => {
                 <Route path="/login" exact component={Login}/>
                 <Route path="/dashboard" exact component={Dashboard}/>
                 <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
-
+                
             </Switch>
         </BrowserRouter>
     );

@@ -1,7 +1,9 @@
 .publicationList {
   width: 100%;
   max-width: 1200px;
-  padding: 15px;
   margin: auto;
   height: 100%;
+  border: solid rgb(134, 134, 138);
+  border-width: thin;
+  border-color: rgb(212, 207, 205);
 }

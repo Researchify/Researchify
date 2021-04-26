@@ -31,10 +31,6 @@ export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
 
 export const createPublication = (publication) => async(dispatch) => {
     try{
-
-        console.log("*********", publication)
-
-
         const result = await api.createPublication(publication);
 
         console.log(result)
