@@ -6,7 +6,6 @@ import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
 import PublicationForm from './PublicationForm'
 import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
 import { MdAdd } from 'react-icons/md'
-import { CgImport } from 'react-icons/cg'
 import Publication from './publication/Publication'
 import './publications.css'
 

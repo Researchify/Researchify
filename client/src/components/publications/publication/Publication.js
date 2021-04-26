@@ -1,31 +1,15 @@
 import { useDispatch } from 'react-redux';
-import React, { useEffect, useState, useRef } from 'react';
-import { useHistory, useParams } from 'react-router-dom'
-import { getPublicationById, deletePublication } from '../../../actions/publications'
+import React, { useState } from 'react';
+import { deletePublication } from '../../../actions/publications'
 import PublicationForm from '../PublicationForm'
-import { Button, Modal, OverlayTrigger, Tooltip, Container, ButtonGroup, Overlay, Accordion, Card } from 'react-bootstrap';
+import { Button, Modal, OverlayTrigger, Tooltip, ButtonGroup, Accordion, Card, Row } from 'react-bootstrap';
 import { AiFillDelete, AiFillEdit, AiOutlineClose, AiOutlineMore } from 'react-icons/ai'
-import { BsThreeDotsVertical, BsLink45Deg } from 'react-icons/bs'
-import styled from 'styled-components'
-
-const AccordionSection = styled.div`
-//   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-
-`;
+import { BsThreeDotsVertical, BsLink45Deg, BsArrowDown } from 'react-icons/bs'
 
 const Publication = ({pub}) => {
-    const history = useHistory();
     const dispatch = useDispatch();
-    const { pubId } = useParams();
     const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [showDeleteMessage, setShowDeleteMessage] = useState(false)
-    const [showOption, setShowOption] = useState(false)
-    const target = useRef(null)
-    // const [expanded, setExpanded] = useStateWithCallback(false)
     
     const handleDelete = () => {
         dispatch(deletePublication(pub._id))
@@ -38,20 +22,31 @@ const Publication = ({pub}) => {
         </Tooltip>
     )
 
-    // const toggleExpander = (e) => {
-    //     if (!expanded){
-    //         setExpanded(true)
-    //     }
-    // }
-
-    
+    const displayOptions = (
+        <ButtonGroup>
+            <Button onClick={() => setShowUpdateForm(true)} variant="outline-primary" data-toggle="modal"> <AiFillEdit /> </Button>
+            <Button onClick={() => setShowDeleteMessage(true)} variant="outline-danger" data-toggle="modal"><AiFillDelete /></Button>
+        </ButtonGroup>
+    )
+  
     return (
         <div>
             <Accordion>
-                <Card>
-                    <Accordion.Toggle as={Card.Header} eventKey="0">
-                        <h3>{pub.title}</h3>
-                    </Accordion.Toggle>
+                <Card.Header>
+                    <Row>
+                        <h3>{pub.title}</h3> 
+                        <ButtonGroup className="ml-auto">
+                            <Accordion.Toggle as={Button} eventKey="0">
+                                <BsArrowDown />
+                            </Accordion.Toggle>
+                            <OverlayTrigger rootClose trigger="click" placement="right" overlay={displayOptions}>
+                                <Button variant="light">
+                                    <BsThreeDotsVertical />
+                                </Button>  
+                            </OverlayTrigger>
+                        </ButtonGroup>
+                    </Row>
+                </Card.Header>
                     <Accordion.Collapse eventKey="0">
                         <Card.Body>
                             <h4> <b>Description:</b> {pub.description} </h4>
@@ -59,49 +54,20 @@ const Publication = ({pub}) => {
                             <h4> <b>Year Published: </b>{pub.yearPublished} </h4>
                             <h4> <b>Created at:</b> {pub.createdAt} </h4>
                             <h4> <b>Updated at:</b> {pub.updatedAt} </h4>
-                            <h4> <b></b>Link: {pub.link} </h4>
-
-                            {/* <Button variant="light" ref={target} onClick={() => setShowOption(!showOption)}>
-                                <BsThreeDotsVertical />
-                            </Button>    */}
-                        <ButtonGroup>
                             <Button onClick={()=> window.location.href = `${pub.link}`}>
                                 <BsLink45Deg />
                             </Button>
-                            <Button onClick={() => setShowUpdateForm(true)} variant="outline-primary" data-toggle="modal"> <AiFillEdit /> </Button>
-                            <Button onClick={() => setShowDeleteMessage(true)} variant="outline-danger" data-toggle="modal"><AiFillDelete /></Button>
-                        </ButtonGroup>
                         </Card.Body>
                     </Accordion.Collapse>
-                </Card>
             </Accordion>
-
-            <Overlay target={target.current} show={showOption} placement="right">
-                {({ placement, arrowProps, show: _show, popper, ...props }) => (
-                    <div
-                        {...props}
-                        style={{
-                        padding: '2px 10px',
-                        color: 'white',
-                        borderRadius: 3,
-                        ...props.style,
-                        }}
-                    >
-                        <ButtonGroup>
-                            <Button onClick={() => setShowUpdateForm(true)} variant="outline-primary" data-toggle="modal"> <AiFillEdit /> </Button>
-                            <Button onClick={() => setShowDeleteMessage(true)} variant="outline-danger" data-toggle="modal"><AiFillDelete /></Button>
-                        </ButtonGroup>
-                    </div>
-                )}
-            </Overlay>
 
             <Modal show={showUpdateForm}>
                 <Modal.Header>
                     <Modal.Title>
                         Edit Publication
                         <OverlayTrigger
+                            trigger="hover"
                             placement="right"
-                            delay={{ show: 250, hide: 400 }}
                             overlay={renderTooltip}
                         >
                             <Button className="float-right" variant="light" onClick={() => setShowUpdateForm(false)}> <AiOutlineClose /> </Button>
