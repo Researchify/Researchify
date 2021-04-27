@@ -2,8 +2,24 @@
   width: 100%;
   max-width: 1200px;
   margin: auto;
+  margin-bottom: 40px;
   height: 100%;
-  border: solid rgb(134, 134, 138);
+  border: solid rgb(96, 96, 97);
   border-width: thin;
   border-color: rgb(212, 207, 205);
+}
+
+.modalHeader {
+  background-color: rgb(230, 233, 231);
+}
+
+.blur {
+  color: transparent;
+  text-shadow: 0 0 3px rgba(88, 88, 88, 0.4);
+}
+
+.blur2 {
+  background: -webkit-linear-gradient(#333, #eee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
