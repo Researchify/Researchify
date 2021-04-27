@@ -38,6 +38,12 @@ Or via [docker-compose](https://docs.docker.com/compose/reference/build/):
 docker-compose up
 ```
 
+## Documentation Site
+In the api folder, run:
+```bash
+ ./node_modules/.bin/jsdoc -c ./jsdoc_config.json --readme ./README.md -d ../docs
+ ```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
