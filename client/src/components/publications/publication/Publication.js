@@ -23,12 +23,30 @@ const Publication = ({pub}) => {
 
     const displayOptions = (
         <ButtonGroup>
-            <Button onClick={() => setShowUpdateForm(true)} variant="outline-primary" data-toggle="modal"> <AiFillEdit /> </Button>
-            <Button onClick={() => setShowDeleteMessage(true)} variant="outline-danger" data-toggle="modal"><AiFillDelete /></Button>
+            <Button onClick={() => setShowUpdateForm(true)} variant="primary" data-toggle="modal"> <AiFillEdit /> </Button>
+            <Button onClick={() => setShowDeleteMessage(true)} variant="danger" data-toggle="modal"><AiFillDelete /></Button>
         </ButtonGroup>
     )
 
-    const displayDropdown = (
+    const displayUpArrow = () => {
+        return(
+            clicked?               
+            <IconContext.Provider value={{ color: 'black', size: '25px' }}>
+                <GrLinkUp className="ml-2"/>
+            </IconContext.Provider>: ""
+        )
+    }
+
+    const displayDownArrow = () => {
+        return(
+            clicked? "" : 
+            <IconContext.Provider value={{ color: 'black', size: '25px' }}>
+                <GrLinkDown className="ml-2"/>
+            </IconContext.Provider>
+        )
+    }
+
+    const dropDown = (
         <div className="mb-3 ml-3"> 
             <h4> <b>Description:</b> {pub.description} </h4>
             <h4> <b>Created at:</b> {pub.createdAt} </h4>
@@ -43,12 +61,7 @@ const Publication = ({pub}) => {
                 </Col>
                 <Col md={1}>
                     <span onClick={() => setClicked(!clicked)}>
-                        {
-                            clicked?               
-                            <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-                                <GrLinkUp className="ml-2"/>
-                            </IconContext.Provider>: ""
-                        }
+                        {displayUpArrow()}
                     </span>
                 </Col>
             </Row>
@@ -57,47 +70,38 @@ const Publication = ({pub}) => {
     
     return (
         <>
-            <div>
-                <div>
-                    <div className="modalHeader">
-                        <Row>
-                            <Col lg={11}>
-                                <h3 className="ml-3 mt-3" style={{color: "dimgrey"}}>{pub.title}</h3> 
-                            </Col>
-                            <Col lg={1}>    
-                                <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={displayOptions}>
-                                    <Button className="mt-3 mb-3" variant="default">
-                                        <IconContext.Provider value={{ color: 'black', size: '20px' }}>
-                                            <BsThreeDotsVertical />
-                                        </IconContext.Provider>
-                                    </Button>  
-                                </OverlayTrigger>
-                            </Col>
-                        </Row>
-                    </div>
-                    
-                    <div className="ml-3 mt-3 mb-3">
-                        <h4><b> Authors: </b>{pub.authors}</h4> 
-                        <Row>
-                            <Col md={11}>
-                                    <h4 className={clicked?"":"blur2"}> <b>Year Published: </b>{pub.yearPublished} </h4>
-                            </Col>
-                            <Col md={1}>
-                                <span onClick={() => setClicked(!clicked)}>
-                                    {clicked? "" : 
-                                                <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-                                                    <GrLinkDown className="ml-2"/>
-                                                </IconContext.Provider>
-
-                                    }
-                                </span>
-                            </Col>
-                        </Row>             
-                    </div>
-                </div>
+            <div className="modalHeader">
+                <Row>
+                    <Col md={11}>
+                        <h3 className="ml-3 mt-3">{pub.title}</h3> 
+                    </Col>
+                    <Col md={1}>    
+                        <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={displayOptions}>
+                            <Button className="mt-3 mb-3" variant="default">
+                                <IconContext.Provider value={{ color: 'black', size: '20px' }}>
+                                    <BsThreeDotsVertical />
+                                </IconContext.Provider>
+                            </Button>  
+                        </OverlayTrigger>
+                    </Col>
+                </Row>
+            </div>
+            
+            <div className="ml-3 mt-3 mb-2">
+                <h4><b> Authors: </b>{pub.authors}</h4> 
+                <Row>
+                    <Col md={11}>
+                        <h4 className={clicked?"":"blur2"}> <b>Year Published: </b>{pub.yearPublished} </h4>
+                    </Col>
+                    <Col md={1}>
+                        <span onClick={() => setClicked(!clicked)}>
+                            {displayDownArrow()}
+                        </span>
+                    </Col>
+                </Row>             
             </div>
 
-            { clicked ? displayDropdown : null }
+            { clicked ? dropDown : null }
 
             {/* <Accordion>
                 <Card.Header className="modalHeader">

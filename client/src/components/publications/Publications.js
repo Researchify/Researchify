@@ -26,17 +26,13 @@ const Publications = () => {
     return (
         <> 
             <div className="mb-3 mt-3 text-center">
-                <Button className="mr-2" size="lg" onClick={() => setShowCreateForm(true)}>    
-                    <IconContext.Provider
-                        value={{ color: 'black', size: '25px' }}
-                    >
+                <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>    
+                    <IconContext.Provider value={{ color: 'black', size: '30px' }}>
                         <VscAdd />
                     </IconContext.Provider>
                 </Button>
-                <Button className="ml-2" size="lg" onClick={() => setShowImportForm(true)}> 
-                    <IconContext.Provider
-                        value={{ color: 'black', size: '25px' }}
-                    >
+                <Button className="ml-2 mr-2"  onClick={() => setShowImportForm(true)}> 
+                    <IconContext.Provider value={{ color: 'black', size: '30px' }}>
                         <BsArrowUpDown /> 
                     </IconContext.Provider>
                 </Button>
@@ -50,7 +46,7 @@ const Publications = () => {
             </div>
 
             <Modal show={showCreateForm}>
-                <Modal.Header>
+                <Modal.Header className="modalHeader">
                     <Modal.Title> New Publication </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -59,9 +55,9 @@ const Publications = () => {
             </Modal>
 
             <Modal show={showImportForm}>
-                <Modal.Header>
+                <Modal.Header className="modalHeader">
                     <Modal.Title> Import from Google Scholar </Modal.Title>
-                </Modal.Header>
+                </Modal.Header >
                 <Modal.Body>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
