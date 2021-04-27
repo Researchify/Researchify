@@ -1,5 +1,6 @@
 /**
  * This module implements handlers for the "users" route.
+ * @module users
  */
 const mongoose = require("mongoose");
 

@@ -1,5 +1,6 @@
 /**
- * This module contains handlers for the "publications" route.
+ * @file This module contains handlers for the "publications" route.
+ * @module publications
  */
 const mongoose = require("mongoose");
 
