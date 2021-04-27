@@ -1,5 +1,19 @@
+/**
+ * This module contains middleware functions for the publications route (../routes/publications.js).
+ */
+
 const { body,validationResult } = require('express-validator');
 
+/**
+ * This function handles the validation when creating (POST) a new publication in the database.
+ * There are validators for:
+ * - authors
+ * - title
+ * - description
+ * - summary
+ * - citedBy
+ * @returns 400 if validation for any attribute fails, otherwise move to next function in the chain
+ */
 const createPublicationValidation = [
     body("authors", "Error: Authors must not be empty.")
       .isArray()
