@@ -14,7 +14,9 @@ const Team = require("../models/team.model");
  *
  * @param req request object
  * @param res response object
- * @returns success message as json
+ * @returns 200: publication deleted successfully
+ * @returns 404: publication not found
+ * @returns 400: error deleting publication
  */
 async function deletePublication(req, res) {
     const {id: _id} = req.params;
@@ -34,7 +36,9 @@ async function deletePublication(req, res) {
  *
  * @param req request object
  * @param res response object
- * @returns the newly updated publication
+ * @returns 200: the newly updated publication
+ * @returns 404: publication not found
+ * @returns 422: error in the request object, unable to update publication
  */
 async function updatePublication(req, res) {
     const {id: _id} = req.params;
@@ -59,9 +63,9 @@ async function updatePublication(req, res) {
  * 
  * @param req request object
  * @param res response object
+ * @returns 201: the publication has been created
  * @returns 400: the publication given in the request fails some validation also @see validationMiddlewares
  * @returns 404: no team was found to associate the publication with
- * @returns 201: the publication has been created
  */
 async function createPublication(req, res) {
     const publication = req.body;
@@ -89,9 +93,9 @@ async function createPublication(req, res) {
  * 
  * @param req request object
  * @param res response object
+ * @returns 200: the specified publication was found
  * @returns 400: given publication id is not in a valid hexadecimal format
  * @returns 404: no publications were found
- * @returns 200: the specified publication was found
  */
 async function readPublication(req, res) {
     const {id: _id} = req.params;
@@ -113,9 +117,9 @@ async function readPublication(req, res) {
  * 
  * @param req request object
  * @param res response object
+ * @returns 200: a list of publications by the given team id
  * @returns 400: given team id is not in a valid hexadecimal format
  * @returns 404: the specified team or publication was not found
- * @returns 200: a list of publications by the given team id
  * @todo filter by other fields like year passed in through req.query
  */
 async function readAllPublicationsByTeam(req, res) {
