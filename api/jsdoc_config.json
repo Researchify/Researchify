@@ -2,7 +2,7 @@
     "plugins": [],
     "recurseDepth": 10,
     "source": {
-        "include": ["./src/controllers/", "./src/middlewares/"],
+        "include": ["./src/controllers/"],
         "exclude": ["./src/controllers/foo.js"]
     },
     "sourceType": "module",
@@ -20,7 +20,7 @@
     "docdash": {
         "search": true,
         "menu": {
-            "Researchify Home": {
+            "Researchify": {
                 "href": "www.google.com",
                 "target":"_blank",
                 "class":"menu-item",

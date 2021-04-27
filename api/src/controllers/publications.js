@@ -14,7 +14,7 @@ const Team = require("../models/team.model");
  *
  * @param req request object
  * @param res response object
- * @sends: success message as json
+ * @returns success message as json
  */
 async function deletePublication(req, res) {
     const {id: _id} = req.params;
@@ -34,7 +34,7 @@ async function deletePublication(req, res) {
  *
  * @param req request object
  * @param res response object
- * @sends: the newly updated publication
+ * @returns the newly updated publication
  */
 async function updatePublication(req, res) {
     const {id: _id} = req.params;

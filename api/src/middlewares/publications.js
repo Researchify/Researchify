@@ -1,6 +1,5 @@
 /**
  * This module contains middleware functions for the publications route (../routes/publications.js).
- * @module publications.middlewares
  */
 
 const { body,validationResult } = require('express-validator');

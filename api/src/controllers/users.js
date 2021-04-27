@@ -11,7 +11,8 @@ const User = require("../models/user.model");
  *
  * @param req request object
  * @param res response object
- * @returns: JSON objects of users
+ * @returns 200: JSON objects of all users
+ * @returns 500: there was an internal error trying to get all the users
  */
 async function getUsers(req, res) {
   User.find()
@@ -24,9 +25,9 @@ async function getUsers(req, res) {
  * 
  * @param req request object
  * @param res response object
+* @returns 200: the specified user was found
  * @returns 400: given user id is not in a valid hexadecimal format
  * @returns 404: no user was found
- * @returns 200: the specified user was found
  */
  async function getUser(req, res) {
   const {id: _id} = req.params;
@@ -48,7 +49,8 @@ async function getUsers(req, res) {
  *
  * @param req request object
  * @param res response object
- * @sends: User added or error message
+ * @returns 201: user was added
+ * @returns 400: error adding the user
  */
 async function addUser(req, res) {
   const newUser = new User({
@@ -69,7 +71,9 @@ async function addUser(req, res) {
  *
  * @param req request object
  * @param res response object
- * @sends: User not found, incorrect password, successfully logged in or error message.
+ * @returns 200: successfully logged in
+ * @returns 400: Error trying to login
+ * @returns 403: incorrect password
  */
 async function loginUser(req, res) {
   User.findOne({ email: req.body.email })
@@ -90,7 +94,9 @@ async function loginUser(req, res) {
  *
  * @param req request object
  * @param res response object
- * @sends: Updates the user object
+ * @returns 200: returns updated user details
+ * @returns 404: user not found
+ * @returns 400: error updating user
  */
 async function updateUser(req, res) {
   const { id: _id } = req.params;
