@@ -12,10 +12,7 @@ export const addUserData = (payload) => api.post("/users", payload);
 
 export const fetchFoos = () => fooApi.get('/foo');
 
-export const fetchPublicationById = (id) => api.get(`/publications/${id}`);
 export const fetchPublicationsByTeamId = (teamId) => api.get(`/publications/team/${teamId}`);
-export const createPublication = (newPublication) => {
-    console.log(newPublication)
-    api.post("/publications", newPublication)}
+export const createPublication = (newPublication) => api.post(`/publications`, newPublication);
 export const updatePublication = (id, updatedPublication) => api.patch(`/publications/${id}`, updatedPublication);
 export const deletePublication = (id) => api.delete(`/publications/${id}`);

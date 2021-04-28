@@ -1,23 +1,12 @@
 import * as api from '../api'
-import { GET_PUBLICATION_BY_ID, GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION } from './types';
+import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION } from './types';
 
-// obsolete 
-export const getPublicationById = (id) => async(dispatch) => {
-    try{
-        const { data } = await api.fetchPublicationById(id);
-
-        dispatch({
-            type: GET_PUBLICATION_BY_ID,
-            payload: data
-        })
-    }catch (error) {
-        console.log(error);
-    }
-}
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     try{
         const { data } = await api.fetchPublicationsByTeamId(teamId);
+
+        data.map(pub => pub.authors = pub.authors.join()) // convert authors array to string 
 
         dispatch({
             type: GET_PUBLICATIONS_BY_TEAM_ID,
@@ -31,32 +20,40 @@ export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
 
 export const createPublication = (publication) => async(dispatch) => {
     try{
-        const result = await api.createPublication(publication);
+        publication = {...publication, authors: publication.authors.split(',')} // convert authors string to array 
 
-        console.log(result)
+        console.log("actions", publication)
+
+        const { data } = await api.createPublication(publication);
+
+        console.log("actions_data", data)
+
+        data.authors = data.authors.join() // convert authors array to string 
 
         dispatch({
             type: CREATE_PUBLICATION,
-            payload: result.data
+            payload: data
         })
     } catch(error){
-        if(error.response){
-            console.log(error.response.data)
-        }
+        console.log(error);
     }
 }
 
 
 export const updatePublication = (id, publication) => async(dispatch) => {
     try{
-        const result = await api.updatePublication(id, publication);
+        console.log(publication)
+        publication = {...publication, authors: publication.authors.split(',')} // convert authors string to array 
 
-        console.log(result)
+        console.log("###", publication)
 
+        const { data } = await api.updatePublication(id, publication);
 
+        data.authors = data.authors.join() // convert authors array to string 
+        
         dispatch({
             type: UPDATE_PUBLICATION,
-            payload: result.data
+            payload: data
         })
     } catch(error){
         console.log(error)

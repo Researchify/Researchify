@@ -21,7 +21,9 @@ const Publications = () => {
         dispatch(getPublicationsByTeamId(teamId));
       }, [teamId, dispatch]);
 
-    const teamPublications = useSelector(state => state.publications.teamPublications)
+    const teamPublications = useSelector(state => state.publications)
+
+    console.log("teampub", teamPublications)
 
     return (
         <> 

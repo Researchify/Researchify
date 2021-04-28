@@ -14,11 +14,11 @@ const PublicationForm = (props) => {
     }
 
     const [validated, setValidated] = useState(false)
-    const [form, setForm] = useState(props.type === "update" ? props.pub : initialState)
+    const [formInput, setFormInput] = useState(props.type === "update" ? props.pub : initialState)
     const dispatch = useDispatch();
 
     const handleOnChange = (key) => (event) => {
-        setForm({...form, [key]: event.target.value})
+        setFormInput({...formInput, [key]: event.target.value})
     }
 
     const renderTooltip = (props) => (
@@ -33,6 +33,8 @@ const PublicationForm = (props) => {
           event.preventDefault();
           event.stopPropagation();
         }
+
+        event.preventDefault();
     
         setValidated(true);
 
@@ -48,15 +50,14 @@ const PublicationForm = (props) => {
 
 
 
-        // if (props.type === "update"){
-        //     console.log("update pub")
-        //     dispatch(updatePublication(props.pub._id, form))
-        // } else if (props.type === "create"){
-        //     console.log("create pub")
-        //     console.log("!!!!!!!!!!!!!!", form)
-        //     setForm({ ...form, authors: ["A"] })
-        //     dispatch(createPublication(form))
-        // }
+        if (props.type === "update"){
+            console.log("update pub")
+            dispatch(updatePublication(props.pub._id, formInput))
+        } else if (props.type === "create"){
+            console.log("create pub")
+            console.log("!!!!!!!!!!!!!!", formInput)
+            dispatch(createPublication(formInput))
+        }
     }
 
     return (
@@ -69,7 +70,7 @@ const PublicationForm = (props) => {
                     as="textarea" 
                     rows={2}
                     placeholder="Title" 
-                    value={form.title}
+                    value={formInput.title}
                     onChange={handleOnChange("title")}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -85,7 +86,7 @@ const PublicationForm = (props) => {
                     as="textarea" 
                     rows={4}
                     placeholder="Description" 
-                    value={form.description}
+                    value={formInput.description}
                     onChange={handleOnChange("description")}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -100,7 +101,7 @@ const PublicationForm = (props) => {
                     minLength="1"
                     type="text" 
                     placeholder="Authors" 
-                    value={form.authors}
+                    value={formInput.authors}
                     onChange={handleOnChange("authors")}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -115,7 +116,7 @@ const PublicationForm = (props) => {
                     minLength="4"
                     type="text" 
                     placeholder="Year Published" 
-                    value={form.yearPublished}
+                    value={formInput.yearPublished}
                     onChange={handleOnChange("yearPublished")}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -128,7 +129,7 @@ const PublicationForm = (props) => {
                 <Form.Control 
                     type="text" 
                     placeholder="Link" 
-                    value={form.link}
+                    value={formInput.link}
                     onChange={handleOnChange("link")}
                 />
             </FormGroup>
