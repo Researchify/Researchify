@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: peter-evans/repository-dispatch@v1
         with:
-          token: $${{ secrets.DOCS_WORKFLOW_PAT }}
+          token: ${{ secrets.DOCS_WORKFLOW_PAT }}
           repository: Researchify/researchify.github.io
           event-type: trigger-deploy
   publish:
