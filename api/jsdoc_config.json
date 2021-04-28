@@ -20,13 +20,13 @@
         "search": true,
         "menu": {
             "Researchify": {
-                "href": "http://www.google.com",
+                "href": "researchify.html",
                 "target":"_blank",
                 "class":"menu-item",
                 "id":"website_link"
             },
             "GitHub Repo": {
-                "href": "http://www.google.com",
+                "href": "repo.html",
                 "target":"_blank",
                 "class":"menu-item",
                 "id":"website_link"
