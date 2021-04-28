@@ -10,8 +10,8 @@
         "dictionaries": ["jsdoc","closure"]
     },
     "templates": {
-        "cleverLinks": false,
-        "monospaceLinks": false
+        "cleverLinks": true,
+        "monospaceLinks": true
     },
     "opts": {
         "template": "node_modules/docdash"
@@ -20,13 +20,13 @@
         "search": true,
         "menu": {
             "Researchify": {
-                "href": "www.google.com",
+                "href": "http://www.google.com",
                 "target":"_blank",
                 "class":"menu-item",
                 "id":"website_link"
             },
             "GitHub Repo": {
-                "href": "www.google.com",
+                "href": "http://www.google.com",
                 "target":"_blank",
                 "class":"menu-item",
                 "id":"website_link"
