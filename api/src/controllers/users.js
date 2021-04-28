@@ -10,7 +10,7 @@ const User = require("../models/user.model");
  * Handles a GET request to get all users on the database on the endpoint /users.
  *
  * @param req request object
- * @param res response object
+ * @param res response object - a list of users (see User model)
  * @returns 200: JSON objects of all users
  * @returns 500: there was an internal error trying to get all the users
  */
@@ -23,8 +23,8 @@ async function getUsers(req, res) {
 /**
  * Handles a GET request, which will get a particular user using the given mongo id on the endpoint /users/:id
  * 
- * @param req request object
- * @param res response object
+ * @param req request object - user id given in url
+ * @param res response object - user object in body (see User model)
 * @returns 200: the specified user was found
  * @returns 400: given user id is not in a valid hexadecimal format
  * @returns 404: no user was found
@@ -47,7 +47,7 @@ async function getUsers(req, res) {
 /**
  * Handles a POST request to add a new user to the database on the endpoint /users.
  *
- * @param req request object
+ * @param req request object - user object in body (see User model)
  * @param res response object
  * @returns 201: user was added
  * @returns 400: error adding the user
@@ -69,7 +69,7 @@ async function addUser(req, res) {
 /**
  * Handles a POST request to verify the login credentials of a user on the endpoint /users/login.
  *
- * @param req request object
+ * @param req request object - user object in body (see User model)
  * @param res response object
  * @returns 200: successfully logged in
  * @returns 400: Error trying to login
@@ -92,8 +92,8 @@ async function loginUser(req, res) {
 /**
  * Handles a PATCH request to update a user's details on the endpoint /users/:id.
  *
- * @param req request object
- * @param res response object
+ * @param req request object - user id in url, user object in body (see User model)
+ * @param res response object - created user object
  * @returns 200: returns updated user details
  * @returns 404: user not found
  * @returns 400: error updating user

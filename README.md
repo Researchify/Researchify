@@ -41,7 +41,7 @@ docker-compose up
 ## Documentation Site
 In the api folder, run:
 ```bash
- ./node_modules/.bin/jsdoc -c ./jsdoc_config.json --readme ./README.md -d ../docs
+ ./node_modules/.bin/jsdoc ./src/controllers -c ./jsdoc_config.json --readme ./README.md
  ```
 
 ## Contributing
