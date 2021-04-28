@@ -2,8 +2,8 @@
     "plugins": [],
     "recurseDepth": 10,
     "source": {
-        "include": ["./src/controllers/"],
-        "exclude": ["./src/controllers/foo.js"]
+        "include": ["./api/src/controllers/"],
+        "exclude": ["./api/src/controllers/foo.js"]
     },
     "sourceType": "module",
     "tags": {
