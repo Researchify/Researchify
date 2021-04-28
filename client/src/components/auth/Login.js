@@ -6,7 +6,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import './Login.css';
-import {useDispatch} from 'react-redux';
+import {useDispatch } from 'react-redux';
 import {loginUserAction} from '../../actions/users';
 import { useHistory } from "react-router-dom";
 
@@ -29,6 +29,12 @@ Handles the UI for the log in page
 
     const [validated, setValidated] = useState(false);
 
+    const loginResultCallback = (response) => {
+        if (response.status === 200) {
+            history.push("/dashboard");
+        } 
+    }
+
     const handleSubmit = (event) => {
       const form = event.currentTarget;
       event.preventDefault();
@@ -36,8 +42,7 @@ Handles the UI for the log in page
         event.stopPropagation();
       } else {
         const userData = {email: inputs.email, password: inputs.password};
-        dispatch(loginUserAction(userData));
-        // history.push("/dashboard");
+        dispatch(loginUserAction(userData, loginResultCallback));
       }
   
       setValidated(true);

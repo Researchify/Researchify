@@ -31,13 +31,15 @@ export const addUserAction = (userData) => async (dispatch) => {
 };
 
 
-export const loginUserAction = (userData) => async (dispatch) => {
+export const loginUserAction = (userData, responseCallback) => async (dispatch) => {
   try {
     const message = await api.loginUser(userData);
+    //FIXME: Need to check api response was okay or not
     console.log("API responded with: ");
     console.log(message);
 
     // We do not need to store the password, so create a new object without it and then dispatch
+    //FIXME: This needs to change, so that login itself gets the user name since it will not be provided in userData.
     const data = {
       email: userData.email,
       givenName: userData.givenName,
@@ -46,6 +48,8 @@ export const loginUserAction = (userData) => async (dispatch) => {
 
     // Store user related data in our redux global store
     dispatch({ type: ADD_USER_DATA, payload: data });
+
+    responseCallback(message);
   } catch (err) {
     console.error(`Error in posting user data to the api: ${err}`);
   }
