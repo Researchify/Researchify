@@ -1,7 +1,8 @@
 # Researchify API Documentation
 ---
+[Researchify on GitHub](https://github.com/Researchify/Researchify)
 
-You can read about the APIs that have been created for **Researchify** - a web platform for academic professionals to present and share their publications.
+You can read about the APIs that have been created for [**Researchify**](http://researchify-env.eba-ca3rpuzw.us-east-1.elasticbeanstalk.com/) - a web platform for academic professionals to present and share their publications.
 
 Here are the APIs we have so far:
 
