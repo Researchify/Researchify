@@ -1,9 +1,6 @@
 {
     "plugins": [],
     "recurseDepth": 10,
-    "source": {
-        "exclude": ["./api/src/controllers/foo.js"]
-    },
     "sourceType": "module",
     "tags": {
         "allowUnknownTags": true,
