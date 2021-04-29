@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "docdash": "^1.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
@@ -30,5 +31,8 @@
   },
   "jest": {
     "testEnvironment": "node"
+  },
+  "script": {
+    "generate-docs": "node_modules/.bin/jsdoc -c jsdoc_config.json"
   }
 }
