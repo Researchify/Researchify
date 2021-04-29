@@ -30,6 +30,26 @@ const createPublicationValidation = [
       .if(body("citedBy")
       .exists())
       .isInt({ min: 0 }),
+    body("link", "Error: Link URL provided is not a valid URL, including the protocol (http/https).")
+      .if(body("link")
+      .exists())
+      .isURL({ 
+        "require_protocol": true, 
+        "require_valid_protocol": true, 
+        "require_host": true,
+        "validate_length": true }),
+    body("thumbnail", "Error: Thumbnail URL provided is not a valid URL, including the protocol (http/https).")
+      .if(body("thumbnail")
+      .exists())
+      .isURL({ 
+        "require_protocol": true, 
+        "require_valid_protocol": true, 
+        "require_host": true,
+        "validate_length": true }),
+    body("yearPublished", "Error: Year should be in a string in the format YYYY.")
+      .if(body("yearPublished")
+      .exists())
+      .isLength(4),
       (req, res, next) => {
         // Finds the validation errors in this request and wraps them in an object with handy functions
         const errors = validationResult(req);
