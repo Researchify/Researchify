@@ -21,7 +21,7 @@ const createPublicationValidation = [
       .if(body("citedBy")
       .exists())
       .isInt({ min: 0 }),
-    body("link", "Error: Link URL provided is not a valid URL.")
+    body("link", "Error: Link URL provided is not a valid URL, including the protocol (http/https).")
       .if(body("link")
       .exists())
       .isURL({ 
@@ -29,7 +29,7 @@ const createPublicationValidation = [
         "require_valid_protocol": true, 
         "require_host": true,
         "validate_length": true }),
-    body("thumbnail", "Error: Thumbnail URL provided is not a valid URL.")
+    body("thumbnail", "Error: Thumbnail URL provided is not a valid URL, including the protocol (http/https).")
       .if(body("thumbnail")
       .exists())
       .isURL({ 
