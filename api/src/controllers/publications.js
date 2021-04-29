@@ -68,14 +68,10 @@ async function createPublication(req, res) {
     if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
         return res.status(400).send('Error: Given team id is not in a valid hexadecimal format.');
     } else {
-        var result = await Team.find({ _id: publication.teamId});
-        if (result.length == 0) {
+        var result = await Team.findById({ _id: publication.teamId});
+        if (result == null) {
             return res.status(404).send('Error: Team not found.');
         }
-    }
-
-    if (publication.yearPublished && publication.yearPublished.length != 4) {
-        return res.status(400).send('Error: Year should be in a string in the format YYYY.');
     }
 
     const createdPublication = await Publication.create(publication);
