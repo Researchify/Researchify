@@ -6,6 +6,6 @@ const twitterRouter = require("express").Router();
 
 const twitterController = require('../controllers/twitter');
 
-twitterRouter.get('/tweets/:id', twitterController.getTweetsByHandle);
+twitterRouter.post('/storeHandle/:team_id', twitterController.storeHandle);
 
 module.exports = twitterRouter;
