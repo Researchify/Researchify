@@ -8,4 +8,7 @@ const twitterController = require('../controllers/twitter');
 
 twitterRouter.post('/storeHandle/:team_id', twitterController.storeHandle);
 
+twitterRouter.delete('/removeHandle/:team_id', twitterController.removeHandle);
+
+
 module.exports = twitterRouter;
