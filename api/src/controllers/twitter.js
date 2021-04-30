@@ -82,6 +82,26 @@ async function removeHandle(req, res) {
 
 }
 
+async function getHandle(req, res) {
+    const {team_id: team_id} = req.params;
+
+    // validate if the team exists
+    if (mongoose.Types.ObjectId.isValid(team_id)) {
+        var foundHandle = await Team.findById(team_id).select({"twitterHandle": 1, "_id": 0});
+        console.log(foundHandle);
+        if (foundHandle == null) {
+            return res.status(404).send(`Error: No team found with given id.`);
+        } else if (foundHandle == "{}") {
+            return res.status(404).send(`Error: Team has no Twitter handle stored.`);
+        } else {
+            return res.status(200).send(foundHandle);
+        }
+    } else {
+        return res.status(404).send("Error: Given team id is not in a valid hexadecimal format.");
+    }
+
+}
+
 async function validateTeamId(team_id) {
     if (mongoose.Types.ObjectId.isValid(team_id)) {
         var foundTeam = await Team.findById(team_id);
@@ -96,4 +116,4 @@ async function validateTeamId(team_id) {
     return foundTeam;
 }
 
-module.exports = {storeHandle, removeHandle};
+module.exports = {storeHandle, removeHandle, getHandle};
