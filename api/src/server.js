@@ -10,7 +10,7 @@ const publicationsRouter = require('./routes/publications');
 const fooRouter = require('./routes/foo');
 const logger = require('./config/log');
 const usersRouter = require('./routes/users');
-const twitterRouter = require('./routes/twitter');
+const teamRouter = require('./routes/team');
 
 
 // Connect to the database
@@ -32,7 +32,7 @@ app.get('/', (req, res) => res.send('You have reached the Researchify API'));
 app.use('/foo', fooRouter);
 app.use('/publications', publicationsRouter);
 app.use('/users', usersRouter);
-app.use('/twitter', twitterRouter);
+app.use('/team', teamRouter);
 
 // Listen for connections
 app.listen(PORT, () => logger.info(`Server running on port: ${PORT}`));
