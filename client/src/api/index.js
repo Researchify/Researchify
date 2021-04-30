@@ -14,3 +14,7 @@ export const fetchPublicationsByTeamId = (teamId) => api.get(`/publications/team
 // export const createPublication = (newPulication) => publicationsApi.post(`/publications`, newPulication);
 // export const updatePublication = (id, updatedPublication) => publicationsApi.patch(`/publications/${id}`, updatedPublication);
 // export const deletePublication = (id) => publicationsApi.delete(`/publications/${id}`);
+
+export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
+export const registerTwitterHandle = (teamId, handle) => api.patch(`/team/${teamId}/twitter-handle`, handle);
+export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
