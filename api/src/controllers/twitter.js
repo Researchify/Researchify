@@ -39,15 +39,13 @@ async function storeHandle(req, res) {
         return res.status(404).send("Error: " + response.data.errors[0].detail);
     } else {
         // console.log(response.data);
-        foundTeam.set("twitterHandle", handle);
+        foundTeam.twitterHandle = handle;
+        console.log(foundTeam);
     }
 
     try {
-        const updatedTeam = await Team.findByIdAndUpdate(team_id, foundTeam, {
-            new: true,
-            runValidators: true
-        });
-        return res.status(200).json(updatedTeam);
+        foundTeam.save();
+        return res.status(200).json(foundTeam);
     } catch (err) {
         return res.status(500).send(`Error: ${err.message}`);
     }
@@ -74,15 +72,10 @@ async function removeHandle(req, res) {
     }
 
     foundTeam.twitterHandle = undefined;
-    console.log(foundTeam);
 
     try {
-        // not working yet
-        const updatedTeam = await Team.findByIdAndUpdate(team_id, foundTeam, {
-            new: true,
-            runValidators: true
-        });
-        return res.status(200).json(updatedTeam);
+        foundTeam.save();
+        return res.status(200).json(foundTeam);
     } catch (err) {
         return res.status(500).send(`Error: ${err.message}`);
     }
