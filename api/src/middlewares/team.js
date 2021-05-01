@@ -8,6 +8,7 @@ const Team = require("../models/team.model");
 
 async function validateTeamId(req, res, next) {
     const {team_id} = req.params;
+    let foundTeam;
 
     if (mongoose.Types.ObjectId.isValid(team_id)) {
         foundTeam = await Team.findById(team_id);
@@ -18,7 +19,7 @@ async function validateTeamId(req, res, next) {
         return res.status(400).send("Error: Given team id is not in a valid hexadecimal format.");
     }
 
-    next();
+    next()
 };
 
 module.exports = { validateTeamId }
