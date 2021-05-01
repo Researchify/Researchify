@@ -25,7 +25,8 @@ async function storeHandle(req, res) {
     let foundTeam = await Team.findById(team_id);
 
     if (handle.length == 0) {  // remove the handle from the doc
-        foundTeam.twitterHandle = undefined
+        foundTeam.twitterHandle = ""
+        console.log(foundTeam);
     } else {  // update the handle
         // validate the handle by getting user id
         let response = await axios.get("https://api.twitter.com/2/users/by/username/" + handle, options)
