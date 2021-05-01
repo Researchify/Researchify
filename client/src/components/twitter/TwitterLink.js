@@ -24,6 +24,11 @@ const TwitterLink = () => {
         dispatch(linkTwitter(teamId, handle));
     };
 
+    const handleCancelButtonClick = () => {
+        setHandle('');
+        setRevealInput(false)
+    }
+
     return (
         <Jumbotron className="twitter-link">
             <h6 className="twitter-link_link_message">Link your Twitter account?</h6>
@@ -44,7 +49,7 @@ const TwitterLink = () => {
                 Twitter</Button>
             {
                 revealInput &&
-                <Button size="sm" variant="outline-secondary" onClick={() => setRevealInput(false)}>Cancel</Button>
+                <Button size="sm" variant="outline-secondary" onClick={handleCancelButtonClick}>Cancel</Button>
             }
         </Jumbotron>
     );
