@@ -3,8 +3,6 @@
  */
 const axios = require("axios");
 
-const mongoose = require("mongoose");
-
 const Team = require("../models/team.model");
 
 
@@ -22,29 +20,19 @@ const options = {
  * @returns 500: error trying to update the document in db
  */
 async function storeHandle(req, res) {
-    const {team_id: team_id} = req.params;
+    const {team_id} = req.params;
     const {twitterHandle: handle} = req.body;
-
-    // validate if the team exists
-    if (mongoose.Types.ObjectId.isValid(team_id)) {
-        var foundTeam = await Team.findById(team_id);
-        if (foundTeam == null) {
-            return res.status(404).send(`Error: No team found with given id.`);
-        }
-    } else {
-        return res.status(400).send("Error: Given team id is not in a valid hexadecimal format.");
-    }
+    let foundTeam = await Team.findById(team_id);
 
     if (handle.length == 0) {  // remove the handle from the doc
         foundTeam.twitterHandle = undefined
     } else {  // update the handle
         // validate the handle by getting user id
-        var response = await axios.get("https://api.twitter.com/2/users/by/username/" + handle, options)
+        let response = await axios.get("https://api.twitter.com/2/users/by/username/" + handle, options)
         if (response.data.errors) {
             return res.status(400).send("Error: " + response.data.errors[0].detail);
         } else {
             foundTeam.twitterHandle = handle;
-            console.log(foundTeam);
         }
     }
 
@@ -66,17 +54,8 @@ async function storeHandle(req, res) {
  * @returns 400: team id is not in a valid hexadecimal format
  */
 async function getTeam(req, res) {
-    const {team_id: team_id} = req.params;
-
-    // validate if the team exists
-    if (mongoose.Types.ObjectId.isValid(team_id)) {
-        var foundTeam = await Team.findById(team_id);
-        if (foundTeam == null) {
-            return res.status(404).send(`Error: No team found with given id.`);
-        }
-    } else {
-        return res.status(400).send("Error: Given team id is not in a valid hexadecimal format.");
-    }
+    const {team_id} = req.params;
+    let foundTeam = await Team.findById(team_id);
 
     return res.status(200).send(foundTeam);
 
