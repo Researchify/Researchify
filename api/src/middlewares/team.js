@@ -20,6 +20,6 @@ async function validateTeamId(req, res, next) {
     }
 
     next()
-};
+}
 
 module.exports = { validateTeamId }
