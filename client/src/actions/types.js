@@ -4,8 +4,6 @@
 export const AUTH_SIGN_IN = 'AUTH_SIGN_IN';
 export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
 
-export const FETCH_FOOS = 'FETCH_FOOS';
-
 export const GET_PUBLICATION_BY_ID = 'GET_PUBLICATION_BY_ID';
 export const GET_PUBLICATIONS_BY_TEAM_ID = 'GET_PUBLICATIONS_BY_TEAM_ID';
 
