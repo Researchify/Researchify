@@ -3,8 +3,6 @@
  */
 const axios = require("axios");
 
-const Team = require("../models/team.model");
-
 
 const options = {
     headers: {'Authorization': "Bearer " + process.env.TWITTER_BEARER_TOKEN}
