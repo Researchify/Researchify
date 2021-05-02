@@ -11,7 +11,7 @@ const PublicationForm = (props) => {
     const initialState = {
         title: "",
         description: "",
-        authors: [],
+        authors: [""],
         yearPublished: "",
         link: linkPrefix,
         teamId: "606bb59c22201f529db920c9" // teamId should be get from redux state later
@@ -66,6 +66,7 @@ const PublicationForm = (props) => {
                     />
                     <InputGroup.Append>
                         <Button 
+                            disabled={formInput.authors.length === 1}
                             variant="outline-secondary" 
                             onClick={() => {
                                 let newAuthors = formInput.authors
