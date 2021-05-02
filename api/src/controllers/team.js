@@ -25,6 +25,9 @@ async function storeHandle(req, res) {
         foundTeam.twitterHandle = ""
     } else {  // update the handle
         // validate the handle by getting user id
+        if (!process.env.TWITTER_BEARER_TOKEN) {
+            return res.status(500).send("Error: No Twitter API Bearer Token found in .env file");
+        }
         let response = await axios.get("https://api.twitter.com/2/users/by/username/" + handle, options)
         if (response.data.errors) {
             return res.status(400).send("Error: " + response.data.errors[0].detail);
