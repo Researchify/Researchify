@@ -58,7 +58,7 @@ export const linkTwitter = (teamId, handle) => async dispatch => {
         console.log(err);
         dispatch({  // if linking unsuccessful, set payload to empty string and dispatch
             type: LINK_TEAM_TWITTER,
-            payload: ''
+            payload: null
         });
     }
 };
