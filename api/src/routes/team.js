@@ -8,7 +8,7 @@ const teamController = require('../controllers/team');
 
 const teamMiddleware = require('../middlewares/team');
 
-teamRouter.patch('/:team_id/twitter-handle', teamMiddleware.validateTeamId, teamController.storeHandle);
+teamRouter.patch('/:team_id/twitter-handle', teamMiddleware.validateTeamId, teamMiddleware.validateTwitterHandle, teamController.storeHandle);
 
 teamRouter.get('/:team_id', teamMiddleware.validateTeamId, teamController.getTeam);
 

@@ -4,6 +4,8 @@
 
 const mongoose = require("mongoose");
 
+const { body,validationResult } = require('express-validator');
+
 const Team = require("../models/team.model");
 
 async function validateTeamId(req, res, next) {
@@ -22,4 +24,17 @@ async function validateTeamId(req, res, next) {
     next()
 }
 
-module.exports = { validateTeamId }
+const validateTwitterHandle = [
+    body("twitterHandle", "Error: Twitter handle must be between 0 to 15 characters.")
+    .isLength({ min: 0, max: 15 })
+    .escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    },
+];
+
+module.exports = { validateTeamId, validateTwitterHandle }
