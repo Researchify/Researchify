@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getPublicationsByTeamId } from '../../actions/publications'
-import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
+import { Button, Modal, InputGroup, FormControl, Row } from 'react-bootstrap';
 import PublicationForm from './PublicationForm'
 import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
 import { VscAdd } from 'react-icons/vsc'
@@ -19,11 +19,9 @@ const Publications = () => {
 
     useEffect(() => {
         dispatch(getPublicationsByTeamId(teamId));
-      }, [teamId, dispatch]);
+      }, [teamId]);
 
     const teamPublications = useSelector(state => state.publications)
-
-    console.log("teampub", teamPublications)
 
     return (
         <> 
@@ -39,12 +37,16 @@ const Publications = () => {
                     </IconContext.Provider>
                 </Button>
             </div>
-
+            <div className="text-center">
+                <h4>
+                    Total of {teamPublications.length} publications
+                </h4>
+            </div>
             <div className="publicationList">
-                {
-                    teamPublications.map(pub => 
-                        <Publication pub={pub} key={pub._id}/>)
-                }
+            {
+                teamPublications.map(pub => 
+                    <Publication pub={pub} key={pub._id}/>)
+            }
             </div>
 
             <Modal show={showCreateForm}>

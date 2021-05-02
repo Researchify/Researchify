@@ -6,7 +6,7 @@ export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     try{
         const { data } = await api.fetchPublicationsByTeamId(teamId);
 
-        data.map(pub => pub.authors = pub.authors.join()) // convert authors array to string 
+        data.map(pub => pub.yearPublished = pub.yearPublished.substring(0,4)) // only get from year from the date format
 
         dispatch({
             type: GET_PUBLICATIONS_BY_TEAM_ID,
@@ -17,18 +17,11 @@ export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     }
 }
 
-
 export const createPublication = (publication) => async(dispatch) => {
     try{
-        publication = {...publication, authors: publication.authors.split(',')} // convert authors string to array 
-
-        console.log("actions", publication)
-
         const { data } = await api.createPublication(publication);
 
-        console.log("actions_data", data)
-
-        data.authors = data.authors.join() // convert authors array to string 
+        data.yearPublished = data.yearPublished.substring(0,4) // only get from year from the date format
 
         dispatch({
             type: CREATE_PUBLICATION,
@@ -39,17 +32,11 @@ export const createPublication = (publication) => async(dispatch) => {
     }
 }
 
-
 export const updatePublication = (id, publication) => async(dispatch) => {
     try{
-        console.log(publication)
-        publication = {...publication, authors: publication.authors.split(',')} // convert authors string to array 
-
-        console.log("###", publication)
-
         const { data } = await api.updatePublication(id, publication);
 
-        data.authors = data.authors.join() // convert authors array to string 
+        data.yearPublished = data.yearPublished.substring(0,4) // only get from year from the date format
         
         dispatch({
             type: UPDATE_PUBLICATION,

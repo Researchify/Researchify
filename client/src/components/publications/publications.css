@@ -14,11 +14,6 @@
 }
 
 .blur {
-  color: transparent;
-  text-shadow: 0 0 3px rgba(88, 88, 88, 0.4);
-}
-
-.blur2 {
   background: -webkit-linear-gradient(#333, #eee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

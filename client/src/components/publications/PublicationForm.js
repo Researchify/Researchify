@@ -1,16 +1,20 @@
 import React, {useState} from 'react'
-import { Button, Form, FormGroup, Tooltip, OverlayTrigger, Row } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux';
+import { Button, Form, FormGroup, Tooltip, OverlayTrigger, Row, InputGroup } from 'react-bootstrap'
+import { useDispatch } from 'react-redux';
 import { updatePublication, createPublication } from '../../actions/publications'
 
 const PublicationForm = (props) => {
+    const year = (new Date()).getFullYear();
+    const years = Array.from(new Array(year-1899),( val, index) => year - index);
+    const linkPrefix = "https://"
+
     const initialState = {
         title: "",
         description: "",
-        authors: "",
+        authors: [],
         yearPublished: "",
-        link: "",
-        teamId: "606bb59c22201f529db920c9"
+        link: linkPrefix,
+        teamId: "606bb59c22201f529db920c9" // teamId should be get from redux state later
     }
 
     const [validated, setValidated] = useState(false)
@@ -30,34 +34,54 @@ const PublicationForm = (props) => {
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
+          event.preventDefault()
+          event.stopPropagation()
+        } else{
+            if (props.type === "update"){
+                dispatch(updatePublication(props.pub._id, formInput))
+            } else if (props.type === "create"){
+                dispatch(createPublication(formInput))
+            }
+            props.closeModal()    
         }
+        setValidated(true)
+        event.preventDefault()
+    }
 
-        event.preventDefault();
-    
-        setValidated(true);
-
-
-        // props.closeModal()
-        // let author_arr
-        // if (typeof form.authors === "object"){
-        //     author_arr = form.authors[0].split(',')
-        // } else{
-        //     author_arr = form.authors.split(',')
-        // }
-        // setForm({ ...form, authors: author_arr })
-
-
-
-        if (props.type === "update"){
-            console.log("update pub")
-            dispatch(updatePublication(props.pub._id, formInput))
-        } else if (props.type === "create"){
-            console.log("create pub")
-            console.log("!!!!!!!!!!!!!!", formInput)
-            dispatch(createPublication(formInput))
-        }
+    const renderAuthors = () =>{
+        return(
+            formInput.authors.map((author, index) => 
+                <InputGroup key={index}>
+                    <Form.Control
+                        placeholder="Author"
+                        required
+                        minLength="1"
+                        type="text"
+                        value={formInput.authors[index]}
+                        onChange={(event) => {
+                            let newAuthors = formInput.authors
+                            newAuthors[index] = event.target.value
+                            setFormInput({...formInput, authors: newAuthors})
+                        }}
+                    />
+                    <InputGroup.Append>
+                        <Button 
+                            variant="outline-secondary" 
+                            onClick={() => {
+                                let newAuthors = formInput.authors
+                                newAuthors.splice(index, 1)
+                                setFormInput({...formInput, authors: newAuthors})
+                            }}
+                        >
+                            Remove
+                        </Button>
+                    </InputGroup.Append>
+                    <Form.Control.Feedback type="invalid">
+                        Authors must not be empty
+                    </Form.Control.Feedback>
+                </InputGroup>
+            )
+        )
     }
 
     return (
@@ -79,11 +103,30 @@ const PublicationForm = (props) => {
             </FormGroup>
 
             <FormGroup>
+                <Form.Label>Year Published</Form.Label>
+                <Form.Control 
+                    as="select" 
+                    required
+                    value={formInput.yearPublished}
+                    onChange={handleOnChange("yearPublished")}
+                >
+                    {
+                        years.map((year, index) => {
+                        return <option key={`year${index}`} value={year}>{year}</option>
+                        })
+                    }
+                </Form.Control>
+                <Form.Control.Feedback type="invalid">
+                    Please enter a validated year
+                </Form.Control.Feedback>
+            </FormGroup>
+
+            <FormGroup>
                 <Form.Label>Description</Form.Label>
                 <Form.Control 
                     required
-                    minLength="5"
                     as="textarea" 
+                    minLength="5"
                     rows={4}
                     placeholder="Description" 
                     value={formInput.description}
@@ -95,42 +138,27 @@ const PublicationForm = (props) => {
             </FormGroup>
 
             <FormGroup>
-                <Form.Label>Authors (spearated by comma) </Form.Label>
-                <Form.Control 
-                    required
-                    minLength="1"
-                    type="text" 
-                    placeholder="Authors" 
-                    value={formInput.authors}
-                    onChange={handleOnChange("authors")}
-                />
-                <Form.Control.Feedback type="invalid">
-                    Authors must not be empty
-                </Form.Control.Feedback>
+                <Form.Label>Authors </Form.Label>
+                { renderAuthors()}
+                <InputGroup>
+                    <Button 
+                        variant="secondary" 
+                        onClick={() => { setFormInput({...formInput, authors: [...formInput.authors, ""]})}}
+                    > 
+                        Add Author 
+                    </Button>     
+                </InputGroup>
             </FormGroup>
-
-            <FormGroup>
-                <Form.Label>Year Published</Form.Label>
-                <Form.Control 
-                    required
-                    minLength="4"
-                    type="text" 
-                    placeholder="Year Published" 
-                    value={formInput.yearPublished}
-                    onChange={handleOnChange("yearPublished")}
-                />
-                <Form.Control.Feedback type="invalid">
-                    Please enter a validated year
-                </Form.Control.Feedback>
-            </FormGroup>
-
+            
             <FormGroup>
                 <Form.Label> Link</Form.Label>
                 <Form.Control 
                     type="text" 
                     placeholder="Link" 
                     value={formInput.link}
-                    onChange={handleOnChange("link")}
+                    onChange={(event)=>{
+                        setFormInput({...formInput, link: linkPrefix + event.target.value.substr(linkPrefix.length)})
+                      }}
                 />
             </FormGroup>
 
@@ -145,7 +173,6 @@ const PublicationForm = (props) => {
                             Cancel
                         </Button>
                     </OverlayTrigger>
-
                     <Button type="submit" variant="primary"> Confirm </Button>
                 </div>
             </Row>

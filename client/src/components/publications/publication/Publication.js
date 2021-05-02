@@ -2,9 +2,9 @@ import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { deletePublication } from '../../../actions/publications'
 import PublicationForm from '../PublicationForm'
-import { Button, Modal, OverlayTrigger, ButtonGroup, Accordion, Card, Row, Col } from 'react-bootstrap';
+import { Button, Modal, OverlayTrigger, ButtonGroup, Row, Col } from 'react-bootstrap';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
-import { BsThreeDotsVertical, BsLink45Deg, BsArrowDown } from 'react-icons/bs'
+import { BsThreeDotsVertical, BsLink45Deg } from 'react-icons/bs'
 import { GrLinkDown, GrLinkUp } from 'react-icons/gr'
 import { IconContext } from "react-icons"
 import '../publications.css'
@@ -30,16 +30,16 @@ const Publication = ({pub}) => {
 
     const displayUpArrow = () => {
         return(
-            clicked?               
+            clicked &&            
             <IconContext.Provider value={{ color: 'black', size: '25px' }}>
                 <GrLinkUp className="ml-2"/>
-            </IconContext.Provider>: ""
+            </IconContext.Provider>
         )
     }
 
     const displayDownArrow = () => {
         return(
-            clicked? "" : 
+            !clicked && 
             <IconContext.Provider value={{ color: 'black', size: '25px' }}>
                 <GrLinkDown className="ml-2"/>
             </IconContext.Provider>
@@ -85,11 +85,11 @@ const Publication = ({pub}) => {
                 </Row>
             </div>
             
-            <div className={clicked?"ml-3 mt-3":"ml-3 mt-3 mb-2"}>
-                <h5><b> Authors: </b>{pub.authors}</h5> 
+            <div className={clicked ? "ml-3 mt-3" : "ml-3 mt-3 mb-2"}>
+                <h5><b> Authors: </b>{pub.authors.join()}</h5> 
                 <Row>
                     <Col md={11}>
-                        <h5 className={clicked?"":"blur2"}> <b>Year Published: </b>{pub.yearPublished} </h5>
+                        <h5 className={clicked?"":"blur"}> <b>Year Published: </b>{pub.yearPublished} </h5>
                     </Col>
                     <Col md={1}>
                         <span onClick={() => setClicked(!clicked)}>
@@ -99,7 +99,7 @@ const Publication = ({pub}) => {
                 </Row>             
             </div>
 
-            { clicked ? dropDown : null }
+            { clicked && dropDown }
 
             <Modal show={showUpdateForm}>
                 <Modal.Header className="modalHeader">
