@@ -20,13 +20,11 @@ const options = {
  * @returns 500: error trying to update the document in db
  */
 async function storeHandle(req, res) {
-    const {team_id} = req.params;
     const {twitterHandle: handle} = req.body;
-    let foundTeam = await Team.findById(team_id);
+    let foundTeam = req.foundTeam;
 
     if (handle.length == 0) {  // remove the handle from the doc
         foundTeam.twitterHandle = ""
-        console.log(foundTeam);
     } else {  // update the handle
         // validate the handle by getting user id
         let response = await axios.get("https://api.twitter.com/2/users/by/username/" + handle, options)
@@ -55,10 +53,8 @@ async function storeHandle(req, res) {
  * @returns 400: team id is not in a valid hexadecimal format
  */
 async function getTeam(req, res) {
-    const {team_id} = req.params;
-    let foundTeam = await Team.findById(team_id);
 
-    return res.status(200).send(foundTeam);
+    return res.status(200).send(req.foundTeam);
 
 }
 
