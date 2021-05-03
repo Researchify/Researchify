@@ -6,7 +6,7 @@ const teamRouter = require("express").Router();
 
 const teamController = require('../controllers/team');
 
-const teamMiddleware = require('../middlewares/team');
+const teamMiddleware = require('../middleware/team');
 
 teamRouter.patch('/:team_id/twitter-handle', teamMiddleware.validateTeamId, teamMiddleware.validateTwitterHandle, teamController.storeHandle);
 

@@ -21,8 +21,8 @@ async function validateTeamId(req, res, next) {
         return res.status(400).send("Error: Given team id is not in a valid hexadecimal format.");
     }
 
-    req.foundTeam = foundTeam;
-    next()
+    req.foundTeam = foundTeam;  // todo: does this need to be set inside middleware?
+    next();
 }
 
 const validateTwitterHandle = [
