@@ -9,6 +9,11 @@ import api from './api';
  */
 export const addUserData = (payload) => api.post("/users", payload);
 export const fetchPublicationsByTeamId = (teamId) => api.get(`/publications/team/${teamId}`);
+
 export const createPublication = (newPublication) => api.post(`/publications`, newPublication);
 export const updatePublication = (id, updatedPublication) => api.patch(`/publications/${id}`, updatedPublication);
 export const deletePublication = (id) => api.delete(`/publications/${id}`);
+
+export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
+export const registerTwitterHandle = (teamId, handle) => api.patch(`/team/${teamId}/twitter-handle`, handle);
+export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);

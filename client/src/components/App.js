@@ -15,9 +15,11 @@ import Register from './auth/Register';
 import Login from './auth/Login';
 import Header from './layout/Header'
 
+import TwitterPanel from './twitter/TwitterPanel';
+
 const App = () => {
     return (
-        
+
         <BrowserRouter>
             <Header />
             <Switch>
@@ -29,7 +31,7 @@ const App = () => {
                 <Route path="/login" exact component={Login}/>
                 <Route path="/dashboard" exact component={Dashboard}/>
                 <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
-                
+                <Route path="/twitter" exact component={TwitterPanel} />
             </Switch>
         </BrowserRouter>
     );
