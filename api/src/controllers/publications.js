@@ -1,5 +1,6 @@
 /**
- * This module contains handlers for the "publications" route.
+ * @file This module contains handlers for the "publications" route.
+ * @module publications
  */
 const mongoose = require("mongoose");
 
@@ -11,9 +12,11 @@ const Team = require("../models/team.model");
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
  *
- * @param req request object
+ * @param req request object - the publication id given in the url
  * @param res response object
- * @sends: success message as json
+ * @returns 200: publication deleted successfully
+ * @returns 404: publication not found
+ * @returns 400: error deleting publication
  */
 async function deletePublication(req, res) {
     const {id: _id} = req.params;
@@ -31,9 +34,11 @@ async function deletePublication(req, res) {
 /**
  * Handles a PATCH request, which represents updating a specific publication, on the /publications/:id endpoint.
  *
- * @param req request object
- * @param res response object
- * @sends: the newly updated publication
+ * @param req request object - the publication id given in the url, publication in body (see Publication model)
+ * @param res response object - updated publication
+ * @returns 200: the newly updated publication
+ * @returns 404: publication not found
+ * @returns 422: error in the request object, unable to update publication
  */
 async function updatePublication(req, res) {
     const {id: _id} = req.params;
@@ -55,12 +60,18 @@ async function updatePublication(req, res) {
 
 /**
  * Handles a POST request, which will create a publication in the database using the endpoint /publications.
+ * <br />Validation rules: 
+ * <br />- at least one author, 
+ * <br />- title needs to be at least 3 characters, 
+ * <br />- description needs to be at least 5 characters,
+ * <br />- summary needs to be at least 5 characters,
+ * <br />- citedBy needs to be an integer value of 0 or greater
  * 
- * @param req request object
+ * @param req request object - publication in body (see Publication model)
  * @param res response object
+ * @returns 201: the publication has been created
  * @returns 400: the publication given in the request fails some validation also @see validationMiddlewares
  * @returns 404: no team was found to associate the publication with
- * @returns 201: the publication has been created
  */
 async function createPublication(req, res) {
     const publication = req.body;
@@ -68,14 +79,10 @@ async function createPublication(req, res) {
     if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
         return res.status(400).send('Error: Given team id is not in a valid hexadecimal format.');
     } else {
-        var result = await Team.find({ _id: publication.teamId});
-        if (result.length == 0) {
+        var result = await Team.findById({ _id: publication.teamId});
+        if (result == null) {
             return res.status(404).send('Error: Team not found.');
         }
-    }
-
-    if (publication.yearPublished && publication.yearPublished.length != 4) {
-        return res.status(400).send('Error: Year should be in a string in the format YYYY.');
     }
 
     const createdPublication = await Publication.create(publication);
@@ -86,11 +93,11 @@ async function createPublication(req, res) {
 /**
  * Handles a GET request, which will retrieve the specified publication in the database with the given mongo object id in the endpoint /publications/:id
  * 
- * @param req request object
- * @param res response object
+ * @param req request object - including the publication id given in the url
+ * @param res response object - publication (see Publications model)
+ * @returns 200: the specified publication was found
  * @returns 400: given publication id is not in a valid hexadecimal format
  * @returns 404: no publications were found
- * @returns 200: the specified publication was found
  */
 async function readPublication(req, res) {
     const {id: _id} = req.params;
@@ -110,11 +117,11 @@ async function readPublication(req, res) {
 /**
  * Handles a GET request, which will retrieve all publications by team in the endpoint /publications/team/:team_id.
  * 
- * @param req request object
- * @param res response object
+ * @param req request object - team id given in the url
+ * @param res response object - a list of publications (see Publications model)
+ * @returns 200: a list of publications by the given team id
  * @returns 400: given team id is not in a valid hexadecimal format
  * @returns 404: the specified team or publication was not found
- * @returns 200: a list of publications by the given team id
  * @todo filter by other fields like year passed in through req.query
  */
 async function readAllPublicationsByTeam(req, res) {
