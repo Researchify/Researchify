@@ -6,9 +6,10 @@ const cors = require('cors');
 require('dotenv').config();
 
 const connectDb = require('./config/db');
-const publicationsRouter = require('./routes/publications');
-const fooRouter = require('./routes/foo');
 const logger = require('./config/log');
+const publicationsRouter = require('./routes/publications');
+const usersRouter = require('./routes/users');
+const teamRouter = require('./routes/team');
 
 
 // Connect to the database
@@ -27,8 +28,9 @@ app.use(express.urlencoded({limit: "30mb", extended: true}));
 app.get('/', (req, res) => res.send('You have reached the Researchify API'));
 
 // Use the routes
-app.use('/foo', fooRouter);
 app.use('/publications', publicationsRouter);
+app.use('/users', usersRouter);
+app.use('/team', teamRouter);
 
 // Listen for connections
 app.listen(PORT, () => logger.info(`Server running on port: ${PORT}`));

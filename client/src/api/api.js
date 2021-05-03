@@ -1,5 +1,5 @@
 /**
- * This file exports a custom axios client for our own API server which handles all requests associated with foos.
+ * This file exports a custom axios client for our own API server which handles all requests to the server.
  *
  * @note: If this React client is being served by a reverse proxy, the localServerUrl is used as a *relative*
  * URL to point to the "/api" route, and the reverse proxy is expected to proxy the request to the API server.
@@ -8,7 +8,7 @@
 import axios from 'axios';
 
 
-const usingRp = false;
+const usingRp = true;
 const localServerUrl = usingRp ? '/api' : 'http://localhost:5000';
 
 export default axios.create({
