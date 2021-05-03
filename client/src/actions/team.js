@@ -18,14 +18,8 @@ import * as api from '../api';
  */
 export const getTeamInfo = (teamId) => async dispatch => {
     try {
-        // todo: const {data} = api.fetchTeamInfo(teamId);
-        const {data} = {
-            data: {
-                teamId: teamId,
-                twitterHandle: ''
-            }
-        };
-
+        const {data} = api.fetchTeamInfo(teamId);
+        console.log(data);
         dispatch({
             type: FETCH_TEAM_INFO,
             payload: data
@@ -45,14 +39,10 @@ export const getTeamInfo = (teamId) => async dispatch => {
  */
 export const linkTwitter = (teamId, handle) => async dispatch => {
     try {
-        // todo: const {data} = await api.registerTwitterHandle(teamId, {twitterHandle: handle});
-        const {data} = {
-            data: handle
-        };
-
+        const {data} = await api.registerTwitterHandle(teamId, {twitterHandle: handle});
         dispatch({
             type: LINK_TEAM_TWITTER,
-            payload: data
+            payload: data.twitterHandle
         });
     } catch (err) {
         console.log(err);
@@ -71,14 +61,10 @@ export const linkTwitter = (teamId, handle) => async dispatch => {
  */
 export const unlinkTwitter = (teamId) => async dispatch => {
     try {
-        // todo: const {data} = await api.deregisterTwitterHandle(teamId, {twitterHandle: ''});
-        const {data} = {
-            data: ''
-        };
-
+        const {data} = await api.deregisterTwitterHandle(teamId, {twitterHandle: ''});
         dispatch({
             type: UNLINK_TEAM_TWITTER,
-            payload: data
+            payload: data.twitterHandle
         });
     } catch (err) {
         console.log(err);

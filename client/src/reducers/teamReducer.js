@@ -5,8 +5,9 @@ import {FETCH_TEAM_INFO, LINK_TEAM_TWITTER, UNLINK_TEAM_TWITTER} from '../action
 
 
 const INITIAL_TEAM_STATE = {
-    teamId: '',
-    twitterHandle: ''
+    teamId: '608a0d11ef93efa524bb2781',  // todo: change to empty str when integrating
+    teamName: 'testingTeam',
+    twitterHandle: 'JamesTurner_42'
 };
 
 /**
