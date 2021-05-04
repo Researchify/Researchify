@@ -86,7 +86,7 @@ const Publication = ({pub}) => {
             </div>
             
             <div className={clicked ? "ml-3 mt-3" : "ml-3 mt-3 mb-2"}>
-                <h5><b> Authors: </b>{pub.authors.join()}</h5> 
+                <h5><b> Authors: </b>{pub.authors.map((author) => `${author}`).join(', ')}</h5> 
                 <Row>
                     <Col md={11}>
                         <h5 className={clicked?"":"blur"}> <b>Year Published: </b>{pub.yearPublished} </h5>
