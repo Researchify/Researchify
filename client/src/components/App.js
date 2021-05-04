@@ -6,8 +6,6 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Auth from './auth/Auth';
 import Home from './home/Home';
-import Publications from './publications/Publications';
-import Publication from './publications/publication/Publication';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 
