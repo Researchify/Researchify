@@ -1,6 +1,5 @@
 import Container from "react-bootstrap/Container"
 
-import PageCard from "./PageCard"
 import Layout from '../layout/Layout'
 import './Dashboard.css'
 
@@ -9,8 +8,7 @@ function PageContent() {
     return (
         <main>                
             <Container fluid>
-                <PageCard pageTitle="Page 1" pageDesc="Description of Page 1....."/>
-                <PageCard pageTitle="Biology Research" pageDesc="How long can software engineers stay awake for..."/>
+                <div>There will be no content here as for now. Content to display need to be decided.</div>
             </Container>
         </main>
     )
