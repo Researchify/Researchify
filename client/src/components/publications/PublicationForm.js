@@ -9,7 +9,7 @@ const schema = yup.object({
     yearPublished: yup.string().required(),
     authors: yup.array().of(yup.string().required("Authors must not be empty")).required("Author is required"), 
     description: yup.string().required("Description is required").min(5, "Description must be at least 5 characters"),
-    link: yup.string().required("Link is required").url("Link URL provided is not a valid URL, including the protocol (http/https)"),
+    link: yup.string().url("Link URL provided is not a valid URL, including the protocol (http/https)"),
   })
 
 const initialValues = {
