@@ -2,9 +2,6 @@
  * This module exports a "Publication" mongoose Schema, which represents a researcher team's publication..
  */
 const mongoose = require('mongoose');
-const validator = require('validator');
-
-const urlValidator = url => validator.isURL(url);
 
 const publicationSchema = new mongoose.Schema({
     teamId: {
