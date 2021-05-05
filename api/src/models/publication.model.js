@@ -26,11 +26,9 @@ const publicationSchema = new mongoose.Schema({
     },
     thumbnail: {
         type: String,
-        validate: urlValidator
     },
     link: {
-        type: String,
-        validate: urlValidator
+        type: String
     },
     description: {
         type: String,
