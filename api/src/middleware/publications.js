@@ -32,7 +32,8 @@ const createPublicationValidation = [
       .isInt({ min: 0 }),
     body("link", "Error: Link URL provided is not a valid URL, including the protocol (http/https).")
       .if(body("link")
-      .exists())
+      .exists()
+      .notEmpty())
       .isURL({ 
         "require_protocol": true, 
         "require_valid_protocol": true, 
@@ -40,7 +41,9 @@ const createPublicationValidation = [
         "validate_length": true }),
     body("thumbnail", "Error: Thumbnail URL provided is not a valid URL, including the protocol (http/https).")
       .if(body("thumbnail")
-      .exists())
+      .exists()
+      .notEmpty())
+      .optional(true)
       .isURL({ 
         "require_protocol": true, 
         "require_valid_protocol": true, 
