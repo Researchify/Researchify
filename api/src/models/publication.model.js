@@ -22,7 +22,7 @@ const publicationSchema = new mongoose.Schema({
         minlength: 3
     },
     thumbnail: {
-        type: String,
+        type: String
     },
     link: {
         type: String
