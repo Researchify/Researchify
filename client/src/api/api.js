@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import axios from 'axios';
-
-
- const usingRp = true;
- const localServerUrl = usingRp ? '/api' : 'http://localhost:5000';
- 
- export default axios.create({
-     baseURL: localServerUrl
- });
-=======
 /**
  * This file exports a custom axios client for our own API server which handles all requests to the server.
  *
@@ -25,4 +14,3 @@ const localServerUrl = usingRp ? '/api' : 'http://localhost:5000';
 export default axios.create({
     baseURL: localServerUrl
 });
->>>>>>> main
