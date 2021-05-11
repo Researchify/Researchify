@@ -42,6 +42,37 @@ const publicationSchema = new mongoose.Schema({
     },
     yearPublished: {
         type: Date
+    },
+    // publishedIn: {
+    //     type: String,
+    //     required: true,
+    //     minlength: 2
+    // },
+    category: {
+        type: String,
+        enum: ['CONFERENCE', 'JOURNAL'],
+        required: true
+    },
+    journal: {
+        journalTitle: {
+            type: String,
+            required: function() { return this.category === 'JOURNAL'},
+            minlength: 3
+        },
+        volume: String,
+        issue: String,
+        pages: String,
+        publisher: String
+    },
+    conference : {
+        conferenceTitle: {
+            type: String,
+            required: function() { return this.category === 'CONFERENCE'},
+            minlength: 3
+        },
+        volume: String,
+        issue: String,
+        pages: String
     }
 }, {timestamps: true})
 

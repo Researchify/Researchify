@@ -53,6 +53,16 @@ const createPublicationValidation = [
       .if(body("yearPublished")
       .exists())
       .isLength(4),
+    // body("publishedIn", "Error: publishedIn must not be empty.")
+    //   .notEmpty(),
+    body("category", "Error: Category mst not be empty.")
+      .notEmpty(),
+    body("category", "Error: Category does not match any of [\"CONFERENCE\", \"JOURNAL\"].")
+      .if(body("category")
+      .exists()
+      .notEmpty())
+      .isIn(["CONFERENCE", "JOURNAL"]),
+    
       (req, res, next) => {
         // Finds the validation errors in this request and wraps them in an object with handy functions
         const errors = validationResult(req);

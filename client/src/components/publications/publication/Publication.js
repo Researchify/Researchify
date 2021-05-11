@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { deletePublication } from '../../../actions/publications'
 import PublicationForm from '../PublicationForm'
-import { Button, Modal, OverlayTrigger, ButtonGroup, Row, Col } from 'react-bootstrap';
+import { Button, Modal, OverlayTrigger, ButtonGroup, Row, Col, Collapse  } from 'react-bootstrap';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { BsThreeDotsVertical, BsLink45Deg } from 'react-icons/bs'
 import { GrLinkDown, GrLinkUp } from 'react-icons/gr'
@@ -14,7 +14,7 @@ const Publication = ({pub}) => {
     const dispatch = useDispatch();
     const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [showDeleteMessage, setShowDeleteMessage] = useState(false)
-    const [clicked, setClicked] = useState(false)
+    const [open, setOpen] = useState(false)
     
     const handleDelete = () => {
         dispatch(deletePublication(pub._id))
@@ -30,40 +30,45 @@ const Publication = ({pub}) => {
 
     const displayUpArrow = () => {
         return(
-            clicked &&            
+            open &&            
             <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-                <GrLinkUp className="ml-2"/>
+                <GrLinkUp className="ml-3"/>
             </IconContext.Provider>
         )
     }
 
     const displayDownArrow = () => {
         return(
-            !clicked && 
+            !open && 
             <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-                <GrLinkDown className="ml-2"/>
+                <GrLinkDown onClick={() => setOpen(!open)} className="ml-2"/>
             </IconContext.Provider>
         )
     }
 
     const dropDown = (
-        <div className="mb-3 ml-3 mr-2"> 
-            <h5> <b>Description:</b> {pub.description} </h5>
-            <Row>
-                <Col md={11}>
-                    <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
-                        <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-                            <BsLink45Deg />
-                        </IconContext.Provider>
-                    </Button>
-                </Col>
-                <Col md={1}>
-                    <span onClick={() => setClicked(!clicked)}>
-                        {displayUpArrow()}
-                    </span>
-                </Col>
-            </Row>
-        </div>
+        <Collapse in={open}> 
+            <div className="mb-3 ml-3 mr-2">
+                <h5> <b>Description:</b> {pub.description} </h5>
+                <Row>
+                    <Col md={11}>
+                        {   
+                            pub.link &&
+                            <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
+                                <IconContext.Provider value={{ color: 'black', size: '25px' }}>
+                                    <BsLink45Deg />
+                                </IconContext.Provider>
+                            </Button>
+                        }                                      
+                    </Col>
+                    <Col md={1}>
+                        <span onClick={() => setOpen(!open)}>
+                            {displayUpArrow()}
+                        </span>
+                    </Col>
+                </Row>
+            </div>
+        </Collapse >
     )
     
     return (
@@ -85,21 +90,20 @@ const Publication = ({pub}) => {
                 </Row>
             </div>
             
-            <div className={clicked ? "ml-3 mt-3" : "ml-3 mt-3 mb-2"}>
+            <div className={open ? "ml-3 mt-3" : "ml-3 mt-3 mb-2"}>
+
                 <h5><b> Authors: </b>{pub.authors.map((author) => `${author}`).join(', ')}</h5> 
                 <Row>
                     <Col md={11}>
-                        <h5 className={clicked?"":"blur"}> <b>Year Published: </b>{pub.yearPublished} </h5>
+                        <h5 className={open?"":"blur"}> <b>Year Published: </b>{pub.yearPublished} </h5>
                     </Col>
                     <Col md={1}>
-                        <span onClick={() => setClicked(!clicked)}>
-                            {displayDownArrow()}
-                        </span>
+                        {displayDownArrow()}
                     </Col>
                 </Row>             
             </div>
 
-            { clicked && dropDown }
+            { dropDown }
 
             <Modal show={showUpdateForm}>
                 <Modal.Header className="modalHeader">
