@@ -7,7 +7,6 @@
  */
 import axios from 'axios';
 
-
 const usingRp = true;
 const localServerUrl = usingRp ? '/api' : 'http://localhost:5000';
 

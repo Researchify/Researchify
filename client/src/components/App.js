@@ -6,8 +6,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Auth from './auth/Auth';
 import Home from './home/Home';
-import Publications from './publications/Publications';
-import Publication from './publications/publication/Publication';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 
@@ -18,6 +16,8 @@ import Sidebar from './layout/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
 
 import './layout/Layout.css'
+
+import PublicationPage from './publications/PublicationPage';
 
 const App = () => {
     return (
@@ -33,8 +33,6 @@ const App = () => {
                     <Switch>
                         <Route path="/" exact component={Home} />
                         <Route path="/auth" exact component={Auth} />
-                        <Route path="/publications/team/:teamId" exact component={Publications} />
-                        <Route path="/publications/:pubId" exact component={Publication} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/dashboard" exact component={Dashboard} />
@@ -44,6 +42,7 @@ const App = () => {
                 </Col>
                 </Row>
             </Container>
+                <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
         </BrowserRouter>
     );
 };
