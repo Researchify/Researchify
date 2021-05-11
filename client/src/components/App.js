@@ -35,6 +35,7 @@ const App = () => {
                         <Route path="/auth" exact component={Auth} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/login" exact component={Login} />
+                        <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
                         <Route path="/dashboard" exact component={Dashboard} />
                         <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
 
@@ -42,7 +43,7 @@ const App = () => {
                 </Col>
                 </Row>
             </Container>
-                <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
+                
         </BrowserRouter>
     );
 };
