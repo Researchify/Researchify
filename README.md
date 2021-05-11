@@ -38,6 +38,13 @@ Or via [docker-compose](https://docs.docker.com/compose/reference/build/):
 docker-compose up
 ```
 
+## Documentation
+In the api folder, run:
+```bash
+ ./node_modules/.bin/jsdoc ./src/controllers -c ./jsdoc_config.json --readme ./README.md
+ ```
+The hosted documentation site can be found at https://researchify.github.io/ [source code](https://github.com/Researchify/researchify.github.io)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
