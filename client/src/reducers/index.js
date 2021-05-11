@@ -4,14 +4,14 @@
 import {combineReducers} from 'redux';
 
 import authReducer from "./authReducer";
-import fooReducer from "./fooReducer";
 import publicationsReducer from './publicationsReducer'
 import userReducer from "./usersReducer";
+import teamReducer from "./teamReducer";
 
 
 export default combineReducers({
     auth: authReducer,
-    foo: fooReducer,
     publications: publicationsReducer,
-    user: userReducer
+    user: userReducer,
+    team: teamReducer
 });

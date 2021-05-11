@@ -18,6 +18,9 @@
             type: String,
             minlength: 1
         }]
+    },
+     twitterHandle: {
+        type: String
     }
  }, {timestamps: true})
  

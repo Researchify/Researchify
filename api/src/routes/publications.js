@@ -5,7 +5,7 @@ const publicationsRouter = require("express").Router();
 
 const publicationsController = require('../controllers/publications');
 
-const publicationsMiddleware = require('../middlewares/publications');
+const publicationsMiddleware = require('../middleware/publications');
 
 publicationsRouter.delete('/:id', publicationsController.deletePublication);
 
