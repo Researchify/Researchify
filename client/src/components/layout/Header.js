@@ -19,8 +19,8 @@ function Header() {
             <Navbar.Brand><Link className="header-brand" to="/dashboard">Researchify</Link></Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link><Link className="header-link" to="/dashboard/profile">Profile</Link></Nav.Link>
-                <Nav.Link><Link className="header-link" to="/publications/team/606bb59c22201f529db920c9">Publication Team</Link></Nav.Link>
-                <Nav.Link><Link className="header-link" to="/publications/606e88366a6daf816da6ace5">Publications</Link></Nav.Link>
+                <Nav.Link><Link className="header-link" to="/publications/team/606bb59c22201f529db920c9">Publications </Link></Nav.Link>
+
             </Nav>
             <Nav>
                 <Nav.Link className="header-username">
