@@ -1,0 +1,13 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 65px 0 0;
+    background-color: #4DD0E1;
+    width: 160px;
+}
+
+.sidebar-item{
+    color: white;
+}

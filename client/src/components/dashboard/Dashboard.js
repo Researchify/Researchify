@@ -1,41 +1,37 @@
 import Container from "react-bootstrap/Container"
 
-import Layout from '../layout/Layout'
 import './Dashboard.css'
 
 
-function PageContent() {
+function Dashboard() {
     return (
         <main>                
             <Container fluid>
-                <p>This will be a super long text
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    <br></br><br></br><br></br><br></br>
-                    to test scroll bar</p>
+                <p> 
+                <br></br><br></br><br></br><br></br>
+                You are currently viewing dashboard page. 
+                <br></br><br></br><br></br><br></br>
+                This will be a page full of br to test sticky sidebar.
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                </p>
             </Container>
         </main>
     )
-}
-
-
-function Dashboard() {
-    return <Layout innerContent={<PageContent />} />
 }
 
 export default Dashboard
