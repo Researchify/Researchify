@@ -8,7 +8,26 @@ function PageContent() {
     return (
         <main>                
             <Container fluid>
-                <div>There will be no content here as for now. Content to display need to be decided.</div>
+                <p>This will be a super long text
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    <br></br><br></br><br></br><br></br>
+                    to test scroll bar</p>
             </Container>
         </main>
     )
