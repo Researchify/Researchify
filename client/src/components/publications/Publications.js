@@ -23,6 +23,23 @@ const Publications = () => {
 
     const teamPublications = useSelector(state => state.publications)
 
+    sortYear = () => {
+
+    }
+
+    sortAuthor = () => {
+
+    }
+
+    sortTitle = () => {
+
+    }
+
+    sortPublicationType = () => {
+        
+    }
+
+
     return (
         <> 
             <div className="mb-3 mt-3 text-center">
@@ -37,10 +54,19 @@ const Publications = () => {
                     </IconContext.Provider>
                 </Button>
             </div>
+            
             <div className="text-center">
                 <h4>
-                    Total of {teamPublications.length} publications
+                    Total of {teamPublications.length} publications 
                 </h4>
+                <select class="form-select form-select-sm" aria-label="Default select example">
+                    <option selected>Sorting</option>
+                    <option value="year">Year</option>
+                    <option value="author">Author</option>
+                    <option value="title">Title</option>
+                    <option value="type">Publication Type</option>
+                </select>
+
             </div>
             <div className="publicationList">
             {
