@@ -34,15 +34,19 @@ const Publications = () => {
     }
 
     const sortAuthor = () => {
-        // sort by author
-
+        // sort by the first author in the author array
+        teamPublications.sort((a, b) => (a.authors[0] > b.authors[0]) ? 1 : -1);
+        console.log(teamPublications);
     }
 
     const sortTitle = () => {
-
+        teamPublications.sort((a, b) => (a.title > b.title) ? 1 : -1);
+        console.log(teamPublications);
     }
 
     const sortPublicationType = () => {
+        // assuming journal and conference fields are going to be there but blank if not either
+        // teamPublications.sort((a, b) => ())
 
     }
 
@@ -68,8 +72,9 @@ const Publications = () => {
                 sortYear();
                 break;
         }
-    }
 
+
+    }        
 
     return (
         <> 
