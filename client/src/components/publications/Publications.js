@@ -45,12 +45,13 @@ const Publications = () => {
                 </Button>
             </div>
 
-            <h2 className="publicationListHeader"> Journal </h2>
             <div className="text-center">
                 <h4>
-                    Total of {teamJournalPublications.length} publications
+                    Total of {teamPublications.length} publications
                 </h4>
             </div>
+
+            <h2 className="publicationListHeader"> Journal </h2>
             <div className="publicationList">
             {
                 teamJournalPublications.map(pub => 
@@ -59,11 +60,6 @@ const Publications = () => {
             </div>
 
             <h2 className="publicationListHeader"> Conference </h2>
-            <div className="text-center">
-                <h4>
-                    Total of {teamConferencePublications.length} publications
-                </h4>
-            </div>
             <div className="publicationList">
             {
                 teamConferencePublications.map(pub => 
