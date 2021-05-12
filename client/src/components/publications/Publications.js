@@ -9,6 +9,7 @@ import { VscAdd } from 'react-icons/vsc'
 import { IconContext } from "react-icons"
 import Publication from './publication/Publication'
 import './publications.css'
+import { cloneDeep } from 'lodash';
 
 
 const Publications = () => {
@@ -23,20 +24,21 @@ const Publications = () => {
       }, [dispatch, teamId]);
 
     const teamPublications = useSelector(state => state.publications)
+    const publicationsList = cloneDeep(teamPublications);
 
     const sortYear = () => {
         // sort by title then year for consistency with the db
         sortTitle();
-        teamPublications.sort((a, b) => (a.year > b.year) ? -1 : 1);
+        publicationsList.sort((a, b) => (a.year > b.year) ? -1 : 1);
     }
 
     const sortAuthor = () => {
         // sort by the first author in the author array
-        teamPublications.sort((a, b) => (a.authors[0] > b.authors[0]) ? 1 : -1);
+        publicationsList.sort((a, b) => (a.authors[0] > b.authors[0]) ? 1 : -1);
     }
 
     const sortTitle = () => {
-        teamPublications.sort((a, b) => (a.title > b.title) ? 1 : -1);
+        publicationsList.sort((a, b) => (a.title > b.title) ? 1 : -1);
     }
 
     const sortPublicationType = () => {
@@ -65,6 +67,8 @@ const Publications = () => {
                 setSortOption("year");
                 break;
         }
+
+        console.log(publicationsList);
 
     }        
 
