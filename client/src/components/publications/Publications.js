@@ -25,11 +25,8 @@ const Publications = () => {
     const teamPublications = useSelector(state => state.publications)
 
     const sortYear = () => {
-        // convert yearPublished to int
-        // for (var i = 0; i < teamPublications.length; i++) {
-        //     teamPublications[i].yearPublished = parseInt(teamPublications[i].yearPublished);
-        // }
-        // sort by year
+        // sort by title then year for consistency with the db
+        sortTitle();
         teamPublications.sort((a, b) => (a.year > b.year) ? -1 : 1);
     }
 
@@ -49,33 +46,25 @@ const Publications = () => {
     }
 
     const handleSortingOption = (sortingOption) => {
-        console.log("sorting was triggered");
-        console.log(teamPublications);
 
         switch (sortingOption) {
             case "author":
-                console.log("sort by author");
                 sortAuthor();
                 setSortOption("author");
                 break;
             case "title":
-                console.log("sort by title");
                 sortTitle();
                 setSortOption("title");
                 break;
             case "type":
-                console.log("sort by type");
                 sortPublicationType();
                 setSortOption("type");
                 break;
             default:
-                console.log("sort by year");
                 sortYear();
                 setSortOption("year");
                 break;
         }
-        console.log("set");
-        // make it refresh here
 
     }        
 
