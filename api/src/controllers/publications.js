@@ -136,7 +136,7 @@ async function readAllPublicationsByTeam(req, res) {
         }
     }
 
-    const foundPublication = await Publication.find({ teamId: _id });
+    const foundPublication = await Publication.find({ teamId: _id }).sort([["yearPublished", -1]]);
 
     if (foundPublication.length == 0) { // nothing returned by the query
         res.status(404).send('Error: No publications found.');  // no content

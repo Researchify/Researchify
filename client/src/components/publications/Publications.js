@@ -24,10 +24,17 @@ const Publications = () => {
     const teamPublications = useSelector(state => state.publications)
 
     const sortYear = () => {
-
+        // convert yearPublished to int
+        for (var i = 0; i < teamPublications.length; i++) {
+            teamPublications[i].yearPublished = parseInt(teamPublications[i].yearPublished);
+        }
+        // sort by year
+        teamPublications.sort((a, b) => (a.yearPublished > b.yearPublished) ? 1 : -1);
+        console.log(teamPublications);
     }
 
     const sortAuthor = () => {
+        // sort by author
 
     }
 
@@ -44,10 +51,6 @@ const Publications = () => {
         console.log(teamPublications);
 
         switch (sortingOption) {
-            case "year":
-                console.log("sort by year");
-                sortYear();
-                break;
             case "author":
                 console.log("sort by author");
                 sortAuthor();
@@ -60,8 +63,10 @@ const Publications = () => {
                 console.log("sort by type");
                 sortPublicationType();
                 break;
-            default: // no sorting
-                console.log("no sorting");
+            default:
+                console.log("sort by year");
+                sortYear();
+                break;
         }
     }
 
@@ -86,8 +91,7 @@ const Publications = () => {
                     Total of {teamPublications.length} publications 
                 </h4>
                 <select className="form-select form-select-sm" onChange={e => handleSortingOption(e.target.value)}>
-                    <option defaultValue>Sorting</option>
-                    <option value="year">Year</option>
+                    <option defaultValue>Year</option>
                     <option value="author">Author</option>
                     <option value="title">Title</option>
                     <option value="type">Publication Type</option>
