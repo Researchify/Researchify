@@ -1,5 +1,5 @@
 import * as api from '../api'
-import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION } from './types';
+import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION, SORT_PUBLICATIONS } from './types';
 
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
@@ -59,3 +59,30 @@ export const deletePublication = (id) => async dispatch => {
         console.log(error);
     }
 };
+
+export const sortPublications = (teamPublications, sortingOption) => async(dispatch) => {
+    console.log(teamPublications);
+    console.log(sortingOption);
+    switch (sortingOption) {
+        case "author":
+            teamPublications.sort((a, b) => (a.authors[0] > b.authors[0]) ? 1 : -1);
+            break;
+        case "title":
+            teamPublications.sort((a, b) => (a.title > b.title) ? 1 : -1);
+            break;
+        case "type":
+            // to implement sort by publication type
+            break;
+        default:
+            // sort by title then year for consistency with the db
+            teamPublications.sort((a, b) => (a.title > b.title) ? 1 : -1);
+            teamPublications.sort((a, b) => (a.year > b.year) ? -1 : 1);
+            break;
+    }
+    console.log(teamPublications);
+
+    dispatch({
+        type: SORT_PUBLICATIONS,
+        payload: teamPublications
+    })
+}
