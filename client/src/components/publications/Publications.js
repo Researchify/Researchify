@@ -15,16 +15,27 @@ import { cloneDeep } from 'lodash';
 const Publications = () => {
     const dispatch = useDispatch();
     const { teamId } = useParams();
-    const [showCreateForm, setShowCreateForm] = useState(false)
-    const [showImportForm, setShowImportForm] = useState(false)
-    const [sortOption, setSortOption] = useState("year")
+
 
     useEffect(() => {
         dispatch(getPublicationsByTeamId(teamId));
       }, [dispatch, teamId]);
 
-    const teamPublications = useSelector(state => state.publications)
-    const publicationsList = cloneDeep(teamPublications);
+    const teamPublications = useSelector(state => state.publications);
+
+    // clone the teamPublications and pass as props
+    return <><PublicationsListView teamPublications={cloneDeep(teamPublications)} /></>
+
+}
+
+const PublicationsListView = ({teamPublications}) => {
+    const [showCreateForm, setShowCreateForm] = useState(false)
+    const [showImportForm, setShowImportForm] = useState(false)
+    const [sortOption, setSortOption] = useState("year")
+    console.log(teamPublications)
+    const publicationsList = teamPublications;  // assign as normal as the teamPublications has been cloned
+
+    console.log(teamPublications == publicationsList)  // sanity reference equality check (objects are passed by ref)
 
     const sortYear = () => {
         // sort by title then year for consistency with the db
@@ -38,7 +49,8 @@ const Publications = () => {
     }
 
     const sortTitle = () => {
-        publicationsList.sort((a, b) => (a.title > b.title) ? 1 : -1);
+        publicationsList.sort((a, b) => (a.title > b.title) ? 1 : -1);  // when publicationsList gets mutated, so too will the teamPublications prop
+        console.log('sorted by title: ', publicationsList);
     }
 
     const sortPublicationType = () => {
@@ -56,7 +68,7 @@ const Publications = () => {
                 break;
             case "title":
                 sortTitle();
-                setSortOption("title");
+                setSortOption("title");  // trigger re-render
                 break;
             case "type":
                 sortPublicationType();
@@ -68,28 +80,28 @@ const Publications = () => {
                 break;
         }
 
-        console.log(publicationsList);
+        // console.log(publicationsList);
 
-    }        
+    }
 
     return (
-        <> 
+        <>
             <div className="mb-3 mt-3 text-center">
-                <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>    
+                <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>
                     <IconContext.Provider value={{ color: 'black', size: '30px' }}>
                         <VscAdd />
                     </IconContext.Provider>
                 </Button>
-                <Button className="ml-2 mr-2"  onClick={() => setShowImportForm(true)}> 
+                <Button className="ml-2 mr-2"  onClick={() => setShowImportForm(true)}>
                     <IconContext.Provider value={{ color: 'black', size: '30px' }}>
-                        <BsArrowUpDown /> 
+                        <BsArrowUpDown />
                     </IconContext.Provider>
                 </Button>
             </div>
-            
+
             <div className="text-center">
                 <h4>
-                    Total of {teamPublications.length} publications 
+                    Total of {teamPublications.length} publications
                 </h4>
                 <select className="form-select form-select-sm" onChange={e => handleSortingOption(e.target.value)}>
                     <option defaultValue>Year</option>
@@ -100,10 +112,10 @@ const Publications = () => {
 
             </div>
             <div className="publicationList">
-            {
-                teamPublications.map(pub => 
-                    <Publication pub={pub} key={pub._id}/>)
-            }
+                {
+                    publicationsList.map(pub =>
+                        <Publication pub={pub} key={pub._id}/>)
+                }
             </div>
 
             <Modal show={showCreateForm}>
