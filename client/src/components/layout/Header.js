@@ -12,7 +12,7 @@ import profilePicture from "../../images/user.png"
  * @returns Header component to be rendered in Layout.js
  */
 function Header() {
-    const userName = useSelector(state => state.user?.givenName + " " + state.user?.familyName);
+    const userName = useSelector(state => state.user?.teamName);
     //TODO: Remove hard-coded team id and publications id from the links
     return (
         <Navbar bg="primary" variant="dark" className="header">
