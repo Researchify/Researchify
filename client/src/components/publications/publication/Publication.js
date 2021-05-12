@@ -15,9 +15,6 @@ const Publication = ({pub}) => {
     const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [showDeleteMessage, setShowDeleteMessage] = useState(false)
     const [open, setOpen] = useState(false)
-
-
-    console.log(pub)
     
     const handleDelete = () => {
         dispatch(deletePublication(pub._id))
@@ -53,7 +50,7 @@ const Publication = ({pub}) => {
         <Collapse in={open}> 
             <div className="mb-3 ml-3 mr-2">
                 <h5> <b>Description:</b> {pub.description} </h5>
-                <h5> <b>{pub.category.type}:</b> {pub.category.categoryTitle} </h5>
+                <h5> <b>{pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}:</b> {pub.category.categoryTitle} </h5>
                 { pub.category.issue && <h5> <b>Issue:</b> {pub.category.issue} </h5> }
                 { pub.category.volume && <h5> <b>Volume:</b> {pub.category.volume} </h5> }
                 { pub.category.pages && <h5> <b>Pages:</b> {pub.category.pages} </h5> }

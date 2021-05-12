@@ -26,10 +26,6 @@ const Publications = () => {
     const teamJournalPublications = teamPublications.filter(pub => pub.category.type === "JOURNAL")
     const teamConferencePublications = teamPublications.filter(pub => pub.category.type === "CONFERENCE")
 
-
-    console.log(teamJournalPublications)
-    console.log(teamConferencePublications)
-
     return (
         <> 
             <div className="mb-3 mt-3 text-center">
@@ -73,7 +69,6 @@ const Publications = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <PublicationForm type="create" closeModal={() => setShowCreateForm(false)}/>
-                    {/* <CategoryForm type="CONFERENCE" /> */}
                 </Modal.Body>
             </Modal>
 
