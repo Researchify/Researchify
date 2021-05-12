@@ -49,14 +49,14 @@ const publicationSchema = new mongoose.Schema({
     //     minlength: 2
     // },
     category: {
-        type: String,
-        enum: ['CONFERENCE', 'JOURNAL'],
-        required: true
-    },
-    journal: {
-        journalTitle: {
+        type: {
             type: String,
-            required: function() { return this.category === 'JOURNAL'},
+            enum: ['CONFERENCE', 'JOURNAL'],
+            required: true
+        },
+        categoryTitle: {
+            type: String,
+            required: true,
             minlength: 3
         },
         volume: String,
@@ -64,16 +64,6 @@ const publicationSchema = new mongoose.Schema({
         pages: String,
         publisher: String
     },
-    conference : {
-        conferenceTitle: {
-            type: String,
-            required: function() { return this.category === 'CONFERENCE'},
-            minlength: 3
-        },
-        volume: String,
-        issue: String,
-        pages: String
-    }
 }, {timestamps: true})
 
 const Publication = mongoose.model('publication', publicationSchema);

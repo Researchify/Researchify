@@ -1,8 +1,11 @@
 import { Formik } from "formik";
 import * as yup from "yup";
-import { Row, InputGroup, Button, Tooltip, OverlayTrigger, Form} from "react-bootstrap";
-import { updatePublication, createPublication } from '../../actions/publications'
+import { Row, InputGroup, Button, Tooltip, OverlayTrigger, Form, ButtonGroup, ToggleButton } from "react-bootstrap";
+import { updatePublication, createPublication } from '../../../actions/publications'
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import CategoryForm from "./CategoryForm";
+
 
 const schema = yup.object({
     title: yup.string().required("Title is required").min(3, "Title must be at least 3 characters"),
@@ -10,6 +13,14 @@ const schema = yup.object({
     authors: yup.array().of(yup.string().required("Authors must not be empty")).required("Author is required"), 
     description: yup.string().required("Description is required").min(5, "Description must be at least 5 characters"),
     link: yup.string().url("Link URL provided is not a valid URL, including the protocol (http/https)"),
+    category: yup.object({
+        type: yup.string(),
+        categoryTitle: yup.string().required("123Title is required").min(3, "Title must be at least 3 characters"),
+        volume: yup.string(),
+        issue: yup.string(),
+        pages: yup.string(),
+        publisher: yup.string()
+    })
   })
 
 const initialValues = {
@@ -18,10 +29,19 @@ const initialValues = {
     authors: [""],
     description: "",
     link: "",
+    category: {
+        type: "JOURNAL",
+        categoryTitle: "",
+        volume: "",
+        issue: "",
+        pages: "",
+        publisher: ""
+    },
     teamId: "606bb59c22201f529db920c9" // teamId should be get from redux state later
 }
 
 const PublicationForm = (props) => {
+    const categoryValues = ["JOURNAL", "CONFERENCE"]
     const dispatch = useDispatch()
     const year = (new Date()).getFullYear();
     const years = Array.from(new Array(year-1899),( val, index) => year - index);
@@ -72,6 +92,19 @@ const PublicationForm = (props) => {
             ))         
         )
     }
+
+    // const displayCategoryFields = (values) => {
+    //     if (values.category === "Journal"){
+    //         console.log("~~~~~~~~~~~~~~~~~", values)
+    //         return (
+    //             <CategoryForm type="JOURNAL" />
+    //         )
+    //     } else if (values.category === "Conference"){
+    //         return (
+    //             <CategoryForm type="CONFERENCE" />
+    //         )
+    //     }
+    // }
 
     return(
         <>
@@ -146,16 +179,93 @@ const PublicationForm = (props) => {
 
                         <Form.Group>
                             <Form.Label>link</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="link"
-                                    placeholder="link"
-                                    value={values.link}
-                                    onChange={handleChange}
-                                    isInvalid={touched.link && errors.link}
-                                />
+                            <Form.Control
+                                type="text"
+                                name="link"
+                                placeholder="link"
+                                value={values.link}
+                                onChange={handleChange}
+                                isInvalid={touched.link && errors.link}
+                            />
                             <Form.Control.Feedback type="invalid">{errors.link}</Form.Control.Feedback>
                         </Form.Group>
+                        
+                        <Form.Group>
+                            <Form.Label> Category </Form.Label>
+                            <div>
+                                <ButtonGroup toggle>
+                                    {categoryValues.map((category, idx) => (
+                                        <ToggleButton
+                                            key={idx}
+                                            type="radio"
+                                            variant="outline-secondary"
+                                            value={category}
+                                            checked={values.category.type === category}
+                                            onChange={(e) => setValues({...values, category:{...values.category, type: e.currentTarget.value}})}
+                                        >
+                                            {category}
+                                        </ToggleButton>
+                                    ))}
+                                </ButtonGroup>
+                            </div>
+                        </Form.Group>
+
+                        <Form.Group>
+                        <Form.Label> {values.category.type} </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="category.categoryTitle"
+                            placeholder={values.category.type}
+                            value={values.category.categoryTitle}
+                            onChange={handleChange}
+                            // isInvalid={touched.category && errors.category}
+                        />
+                        {/* <Form.Control.Feedback type="invalid">{errors.category}</Form.Control.Feedback> */}
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label> Volume </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="category.volume"
+                            placeholder="Volume"
+                            value={values.category.volume}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label> Issue </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="category.issue"
+                            placeholder="Issue"
+                            value={values.category.issue}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label> Pages </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="category.pages"
+                            placeholder="Pages"
+                            value={values.category.pages}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label> Publisher </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="category.publisher"
+                            placeholder="Publisher"
+                            value={values.category.publisher}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
 
                         <Row>
                             <div className="ml-auto mr-3">

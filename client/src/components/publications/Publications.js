@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getPublicationsByTeamId } from '../../actions/publications'
 import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
-import PublicationForm from './PublicationForm'
+import PublicationForm from './form/PublicationForm'
 import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
 import { VscAdd } from 'react-icons/vsc'
 import { IconContext } from "react-icons"
 import Publication from './publication/Publication'
 import './publications.css'
+import CategoryForm from './form/CategoryForm';
 
 
 const Publications = () => {
@@ -22,6 +23,12 @@ const Publications = () => {
       }, [dispatch, teamId]);
 
     const teamPublications = useSelector(state => state.publications)
+    const teamJournalPublications = teamPublications.filter(pub => pub.category.type === "JOURNAL")
+    const teamConferencePublications = teamPublications.filter(pub => pub.category.type === "CONFERENCE")
+
+
+    console.log(teamJournalPublications)
+    console.log(teamConferencePublications)
 
     return (
         <> 
@@ -37,14 +44,29 @@ const Publications = () => {
                     </IconContext.Provider>
                 </Button>
             </div>
+
+            <h2 className="publicationListHeader"> Journal </h2>
             <div className="text-center">
                 <h4>
-                    Total of {teamPublications.length} publications
+                    Total of {teamJournalPublications.length} publications
                 </h4>
             </div>
             <div className="publicationList">
             {
-                teamPublications.map(pub => 
+                teamJournalPublications.map(pub => 
+                    <Publication pub={pub} key={pub._id}/>)
+            }
+            </div>
+
+            <h2 className="publicationListHeader"> Conference </h2>
+            <div className="text-center">
+                <h4>
+                    Total of {teamConferencePublications.length} publications
+                </h4>
+            </div>
+            <div className="publicationList">
+            {
+                teamConferencePublications.map(pub => 
                     <Publication pub={pub} key={pub._id}/>)
             }
             </div>
@@ -55,6 +77,7 @@ const Publications = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <PublicationForm type="create" closeModal={() => setShowCreateForm(false)}/>
+                    {/* <CategoryForm type="CONFERENCE" /> */}
                 </Modal.Body>
             </Modal>
 
