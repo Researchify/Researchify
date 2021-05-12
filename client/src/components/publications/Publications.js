@@ -72,7 +72,8 @@ const Publications = () => {
                 sortYear();
                 break;
         }
-
+        console.log("set");
+        // make it refresh here
 
     }        
 
