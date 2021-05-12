@@ -16,6 +16,7 @@ const Publications = () => {
     const { teamId } = useParams();
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showImportForm, setShowImportForm] = useState(false)
+    const [sortOption, setSortOption] = useState("year")
 
     useEffect(() => {
         dispatch(getPublicationsByTeamId(teamId));
@@ -25,23 +26,20 @@ const Publications = () => {
 
     const sortYear = () => {
         // convert yearPublished to int
-        for (var i = 0; i < teamPublications.length; i++) {
-            teamPublications[i].yearPublished = parseInt(teamPublications[i].yearPublished);
-        }
+        // for (var i = 0; i < teamPublications.length; i++) {
+        //     teamPublications[i].yearPublished = parseInt(teamPublications[i].yearPublished);
+        // }
         // sort by year
-        teamPublications.sort((a, b) => (a.yearPublished > b.yearPublished) ? 1 : -1);
-        console.log(teamPublications);
+        teamPublications.sort((a, b) => (a.year > b.year) ? -1 : 1);
     }
 
     const sortAuthor = () => {
         // sort by the first author in the author array
         teamPublications.sort((a, b) => (a.authors[0] > b.authors[0]) ? 1 : -1);
-        console.log(teamPublications);
     }
 
     const sortTitle = () => {
         teamPublications.sort((a, b) => (a.title > b.title) ? 1 : -1);
-        console.log(teamPublications);
     }
 
     const sortPublicationType = () => {
@@ -58,18 +56,22 @@ const Publications = () => {
             case "author":
                 console.log("sort by author");
                 sortAuthor();
+                setSortOption("author");
                 break;
             case "title":
                 console.log("sort by title");
                 sortTitle();
+                setSortOption("title");
                 break;
             case "type":
                 console.log("sort by type");
                 sortPublicationType();
+                setSortOption("type");
                 break;
             default:
                 console.log("sort by year");
                 sortYear();
+                setSortOption("year");
                 break;
         }
         console.log("set");
