@@ -1,31 +1,35 @@
 import { Navbar, Nav, Image } from "react-bootstrap"
 
 import "./Sidebar.css"
+import {SidebarData} from './SidebarData'
 
 function Sidebar() {
     return (
-        <Nav className="sidebar flex-column"
-            onSelect={selectedKey => alert(`selected ${selectedKey}`)}
-        >
-            <Nav.Item>
-                <Nav.Link eventKey="button-1" className="sidebar-item">Dummy Button 1</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="button-2" className="sidebar-item">Dummy Button 2</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="button-3" className="sidebar-item">Dummy Button 3</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="setting" className="sidebar-item">Setting</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="help" className="sidebar-item">Help</Nav.Link>
-            </Nav.Item>
-            <Nav.Item className="sidebar-item">
-                <Nav.Link eventKey="whatelse" className="sidebar-item">What else</Nav.Link>
-            </Nav.Item>
-        </Nav>
+        <div className="Sidebar">
+            <ul className="SidebarList">
+                {SidebarData.map((val,key)=> {
+                    return(
+                    <li 
+                        key={key}
+                        className="row"
+                        onclick={() => {
+                            window.location.pathname = val.link;
+                        }}
+                        id={window.location.pathname == val.link ? "active" : ""} 
+                    > 
+                    {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
+
+                        <div id="icon">
+                            {val.icon}
+                        </div>
+                        <div id="title">
+                            {val.title}
+                        </div>
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
     )
 }
 
