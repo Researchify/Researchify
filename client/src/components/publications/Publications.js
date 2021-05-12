@@ -23,20 +23,46 @@ const Publications = () => {
 
     const teamPublications = useSelector(state => state.publications)
 
-    sortYear = () => {
+    const sortYear = () => {
 
     }
 
-    sortAuthor = () => {
+    const sortAuthor = () => {
 
     }
 
-    sortTitle = () => {
+    const sortTitle = () => {
 
     }
 
-    sortPublicationType = () => {
-        
+    const sortPublicationType = () => {
+
+    }
+
+    const handleSortingOption = (sortingOption) => {
+        console.log("sorting was triggered");
+        console.log(teamPublications);
+
+        switch (sortingOption) {
+            case "year":
+                console.log("sort by year");
+                sortYear();
+                break;
+            case "author":
+                console.log("sort by author");
+                sortAuthor();
+                break;
+            case "title":
+                console.log("sort by title");
+                sortTitle();
+                break;
+            case "type":
+                console.log("sort by type");
+                sortPublicationType();
+                break;
+            default: // no sorting
+                console.log("no sorting");
+        }
     }
 
 
@@ -59,8 +85,8 @@ const Publications = () => {
                 <h4>
                     Total of {teamPublications.length} publications 
                 </h4>
-                <select class="form-select form-select-sm" aria-label="Default select example">
-                    <option selected>Sorting</option>
+                <select className="form-select form-select-sm" onChange={e => handleSortingOption(e.target.value)}>
+                    <option defaultValue>Sorting</option>
                     <option value="year">Year</option>
                     <option value="author">Author</option>
                     <option value="title">Title</option>
