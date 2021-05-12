@@ -15,7 +15,7 @@ function Header() {
     const userName = useSelector(state => state.user?.givenName + " " + state.user?.familyName);
     //TODO: Remove hard-coded team id and publications id from the links
     return (
-        <Navbar bg="primary" variant="dark" className="header">
+        <Navbar className="header" sticky="top">
             <Navbar.Brand><Link className="header-brand" to="/dashboard">Researchify</Link></Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link><Link className="header-link" to="/dashboard/profile">Profile</Link></Nav.Link>

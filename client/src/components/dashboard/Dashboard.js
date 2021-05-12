@@ -1,24 +1,37 @@
 import Container from "react-bootstrap/Container"
 
-import PageCard from "./PageCard"
-import Layout from '../layout/Layout'
 import './Dashboard.css'
 
 
-function PageContent() {
+function Dashboard() {
     return (
         <main>                
             <Container fluid>
-                <PageCard pageTitle="Page 1" pageDesc="Description of Page 1....."/>
-                <PageCard pageTitle="Biology Research" pageDesc="How long can software engineers stay awake for..."/>
+                <p> 
+                <br></br><br></br><br></br><br></br>
+                You are currently viewing dashboard page. 
+                <br></br><br></br><br></br><br></br>
+                This will be a page full of br to test sticky sidebar.
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br>
+                </p>
             </Container>
         </main>
     )
-}
-
-
-function Dashboard() {
-    return <Layout innerContent={<PageContent />} />
 }
 
 export default Dashboard
