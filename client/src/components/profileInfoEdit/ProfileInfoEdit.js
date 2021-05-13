@@ -10,7 +10,7 @@ import './ProfileInfoEdit.css';
 import profilePic from '../../images/profilepic.jpg';
 import {Link} from 'react-router-dom';
 
-function ProfileInfoEdit () {
+const ProfileInfoEdit = () => {
 
         return (
             <div className='mt-5' >

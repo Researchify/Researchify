@@ -3,7 +3,7 @@ import { Navbar, Nav, Image } from "react-bootstrap"
 import "./Sidebar.css"
 import {SidebarData} from './SidebarData'
 
-function Sidebar() {
+const Sidebar = () => {
     return (
         <div className="Sidebar">
             <ul className="SidebarList">

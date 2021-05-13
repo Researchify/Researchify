@@ -11,7 +11,7 @@ import profilePicture from "../../images/user.png"
  * This function provides header for Layout.js
  * @returns Header component to be rendered in Layout.js
  */
-function Header() {
+const Header = () => {
     const userName = useSelector(state => state.user?.givenName + " " + state.user?.familyName);
     //TODO: Remove hard-coded team id and publications id from the links
     return (

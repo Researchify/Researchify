@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container"
 import './Dashboard.css'
 
 
-function Dashboard() {
+const Dashboard = () => {
     return (
         <main>                
             <Container fluid>
