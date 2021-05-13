@@ -13,7 +13,6 @@ import { GrLinkDown, GrLinkUp } from 'react-icons/gr'
 import { IconContext } from "react-icons"
 import '../publications.css'
 
-
 const Publication = ({pub}) => {
     const dispatch = useDispatch();
     const [showUpdateForm, setShowUpdateForm] = useState(false)

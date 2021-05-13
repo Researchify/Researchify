@@ -1,5 +1,5 @@
 /**
- * The PageOne component displays the second page of the publication form
+ * The PageOne component displays the first page of the publication form
  */
 
 import { Formik } from "formik";
@@ -7,15 +7,23 @@ import * as yup from "yup";
 import React from 'react';
 import { Row, InputGroup, Button, Tooltip, OverlayTrigger, Form } from "react-bootstrap";
 
-const stepOneValidationSchema = yup.object({
-    title: yup.string().required("Title is required").min(3, "Title must be at least 3 characters"),
-    yearPublished: yup.string().required(),
-    authors: yup.array().of(yup.string().required("Authors must not be empty")).required("Author is required"), 
-    description: yup.string().required("Description is required").min(5, "Description must be at least 5 characters"),
-    link: yup.string().url("Link URL provided is not a valid URL, including the protocol (http/https)")
-})
-
 const PageOne = ({next, data, type, pub, closeModal}) => {
+    const stepOneValidationSchema = yup.object({
+        title: yup.string()
+            .required("Title is required")
+            .min(3, "Title must be at least 3 characters"),
+        yearPublished: yup.string()
+            .required(),
+        authors: yup.array()
+            .of(yup.string().required("Authors must not be empty"))
+            .required("Author is required"), 
+        description: yup.string()
+            .required("Description is required")
+            .min(5, "Description must be at least 5 characters"),
+        link: yup.string()
+            .url("Link URL provided is not a valid URL, including the protocol (http/https)")
+    })
+    
     const handleSubmit = (values) => {
         next(values);
     }
@@ -103,7 +111,7 @@ const PageOne = ({next, data, type, pub, closeModal}) => {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label>Authors </Form.Label>
+                            <Form.Label> Authors </Form.Label>
                             { renderAuthors(values, touched, errors, handleChange, setValues) }
                             <Button 
                                 variant="secondary" 

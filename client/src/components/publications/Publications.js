@@ -6,13 +6,14 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getPublicationsByTeamId } from '../../actions/publications'
-import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
+import { Button, Modal, InputGroup, FormControl, Dropdown, Container, Col, Row } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm'
 import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
 import { VscAdd } from 'react-icons/vsc'
 import { IconContext } from "react-icons"
-import Publication from './publication/Publication'
 import './publications.css'
+import AllPublications from './publicationsLayout/AllPublications';
+import ByCategory from './publicationsLayout/ByCategory';
 
 const Publications = () => {
     const dispatch = useDispatch();
@@ -20,28 +21,65 @@ const Publications = () => {
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showImportForm, setShowImportForm] = useState(false)
 
+    const allLayouts = ["All Publications", "By Category"]
+    const [layout, setLayout] = useState("All Publications")
+
     useEffect(() => {
         dispatch(getPublicationsByTeamId(teamId));
       }, [dispatch, teamId]);
 
     const teamPublications = useSelector(state => state.publications)
-    const teamJournalPublications = teamPublications.filter(pub => pub.category.type === "JOURNAL")
-    const teamConferencePublications = teamPublications.filter(pub => pub.category.type === "CONFERENCE")
+
+    const renderPublications = () => {
+        if (layout === "All Publications"){
+            return(
+                <AllPublications teamPublications={teamPublications} />
+            )
+        } else if (layout === "By Category"){
+            return(
+                <ByCategory teamPublications={teamPublications} />
+            )
+        }
+    }
 
     return (
         <> 
-            <div className="mb-3 mt-3 text-center">
-                <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>    
-                    <IconContext.Provider value={{ color: 'black', size: '30px' }}>
-                        <VscAdd />
-                    </IconContext.Provider>
-                </Button>
-                <Button className="ml-2 mr-2"  onClick={() => setShowImportForm(true)}> 
-                    <IconContext.Provider value={{ color: 'black', size: '30px' }}>
-                        <BsArrowUpDown /> 
-                    </IconContext.Provider>
-                </Button>
-            </div>
+            <Container className="mt-4">
+                <Row>
+                    <Col md={{ span: 4, offset: 4 }}>
+                        <div className="mb-3 mt-3 text-center">
+                            <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>    
+                                <IconContext.Provider value={{ color: 'black', size: '30px' }}>
+                                    <VscAdd />
+                                </IconContext.Provider>
+                            </Button>
+                            <Button className="ml-2 mr-2"  onClick={() => setShowImportForm(true)}> 
+                                <IconContext.Provider value={{ color: 'black', size: '30px' }}>
+                                    <BsArrowUpDown /> 
+                                </IconContext.Provider>
+                            </Button>
+                        </div>
+                    </Col>
+
+                    <Col md={{ span: 2, offset: 2}}>
+                        <div className="mb-3 mt-3 text-center">
+                            <h5 className="ml-2"> Choose layout: </h5>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="light" className="ml-2 mr-2">
+                                    {layout}
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    {
+                                        allLayouts.map(layout => 
+                                            <Dropdown.Item as="button"onClick={()=>setLayout(layout)}>{layout}</Dropdown.Item>
+                                        )
+                                    }
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
 
             <div className="text-center">
                 <h4>
@@ -49,21 +87,7 @@ const Publications = () => {
                 </h4>
             </div>
 
-            <h2 className="publicationListHeader"> Journal </h2>
-            <div className="publicationList">
-            {
-                teamJournalPublications.map(pub => 
-                    <Publication pub={pub} key={pub._id}/>)
-            }
-            </div>
-
-            <h2 className="publicationListHeader"> Conference </h2>
-            <div className="publicationList">
-            {
-                teamConferencePublications.map(pub => 
-                    <Publication pub={pub} key={pub._id}/>)
-            }
-            </div>
+            { renderPublications() }
 
             <Modal show={showCreateForm}>
                 <Modal.Header className="modalHeader">

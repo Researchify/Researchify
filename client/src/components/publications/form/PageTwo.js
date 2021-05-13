@@ -5,21 +5,23 @@
 import { Formik } from "formik";
 import * as yup from "yup";
 import React from 'react';
-import { Row, Col, Button, Tooltip, OverlayTrigger, Form, ButtonGroup, ToggleButton } from "react-bootstrap";
+import { Row, Button, Tooltip, OverlayTrigger, Form, ButtonGroup, ToggleButton } from "react-bootstrap";
 import { CATEGORY_TYPE } from './PublicationForm'
 
-const stepTwoValidationSchema = yup.object({
-    category: yup.object({
-        type: yup.string(),
-        categoryTitle: yup.string().required("Category title is required").min(3, "Category title must be at least 3 characters"),
-        volume: yup.string(),
-        issue: yup.string(),
-        pages: yup.string(),
-        publisher: yup.string()
-    })
-})
-
 const PageTwo = ({next, prev, data, closeModal}) => {
+    const stepTwoValidationSchema = yup.object({
+        category: yup.object({
+            type: yup.string(),
+            categoryTitle: yup.string()
+                .required(`${data.category.type.charAt(0) + data.category.type.slice(1).toLowerCase()} title is required`)
+                .min(3, "Category title must be at least 3 characters"),
+            volume: yup.string(),
+            issue: yup.string(),
+            pages: yup.string(),
+            publisher: yup.string()
+        })
+    })
+
     const handleSubmit = (values) => {
         next(values, true);
     }
@@ -131,7 +133,7 @@ const PageTwo = ({next, prev, data, closeModal}) => {
                             </div>
 
                             <div className="ml-auto mr-3">
-                                <Button variant="outline-primary" className="mr-2" onClick={() => prev(values)}> Previous </Button>
+                                <Button variant="outline-primary" className="mr-2" onClick={() => prev(values)}> Back </Button>
                                 <Button type="submit"> Confirm </Button>
                             </div>
                         </Row>
