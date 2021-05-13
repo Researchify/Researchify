@@ -38,8 +38,7 @@ const PageTwo = ({next, prev, data, closeModal}) => {
                 (
                     <Form noValidate onSubmit={handleSubmit}>
                         <Form.Group>
-                             <Form.Label> Category </Form.Label>
-                             <div>
+                             <div className="text-center">
                                  <ButtonGroup toggle>
                                      {Object.keys(CATEGORY_TYPE).map((category, idx) => (
                                         <ToggleButton
