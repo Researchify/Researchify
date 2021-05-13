@@ -9,8 +9,6 @@ import { VscAdd } from 'react-icons/vsc'
 import { IconContext } from "react-icons"
 import Publication from './publication/Publication'
 import './publications.css'
-import CategoryForm from './form/CategoryForm';
-
 
 const Publications = () => {
     const dispatch = useDispatch();
