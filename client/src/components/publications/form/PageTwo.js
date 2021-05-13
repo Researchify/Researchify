@@ -1,3 +1,7 @@
+/**
+ * The PageTwo component displays the second page of the publication form
+ */
+
 import { Formik } from "formik";
 import * as yup from "yup";
 import React from 'react';
@@ -127,7 +131,7 @@ const PageTwo = ({next, prev, data, closeModal}) => {
                             </div>
 
                             <div className="ml-auto mr-3">
-                                <Button className="mr-2" onClick={() => prev(values)}> Previous </Button>
+                                <Button variant="outline-primary" className="mr-2" onClick={() => prev(values)}> Previous </Button>
                                 <Button type="submit"> Confirm </Button>
                             </div>
                         </Row>

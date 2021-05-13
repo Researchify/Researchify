@@ -1,3 +1,7 @@
+/**
+ * The PublicationForm component displays a mutli-step publication form
+ */
+
 import { updatePublication, createPublication } from '../../../actions/publications'
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';

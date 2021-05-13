@@ -1,3 +1,7 @@
+/**
+ * The PageOne component displays the second page of the publication form
+ */
+
 import { Formik } from "formik";
 import * as yup from "yup";
 import React from 'react';
@@ -151,7 +155,7 @@ const PageOne = ({next, data, type, pub, closeModal}) => {
                                 </OverlayTrigger>
                             </div>
                             <div className="ml-auto mr-3">
-                                <Button  type="submit"> Next </Button>
+                                <Button  variant="outline-primary" type="submit"> Next </Button>
                             </div>
                         </Row>
                     </Form>

@@ -1,3 +1,7 @@
+/**
+ * The Publications component displays a publication details
+ */
+
 import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { deletePublication } from '../../../actions/publications'

@@ -1,3 +1,6 @@
+/**
+ * The PublicationPage component redners TwitterFeed component and Publications component .
+ */
 
  import React from 'react';
  import {useSelector} from "react-redux";
