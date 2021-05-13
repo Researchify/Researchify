@@ -13,7 +13,7 @@ const PageTwo = ({next, prev, data, closeModal}) => {
         category: yup.object({
             type: yup.string(),
             categoryTitle: yup.string()
-                .required(`${data.category.type.charAt(0) + data.category.type.slice(1).toLowerCase()} title is required`)
+                .required(`Category title is required`)
                 .min(3, "Category title must be at least 3 characters"),
             volume: yup.string(),
             issue: yup.string(),
