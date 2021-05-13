@@ -9,6 +9,15 @@ Use the package manager [npm](https://www.npmjs.com/get-npm) to install all requ
 ```bash
 # to install `concurrently` package & nested dependencies (api & client)
 npm install
+
+# to install API packages manually
+cd api
+npm install
+
+# to install frontend packages manually
+cd client
+npm install
+
 ```
 
 To build Docker images in a single line using [docker-compose](https://docs.docker.com/compose/reference/build/):
@@ -27,6 +36,14 @@ Run the _api_ and _client_ using `npm`.
 ```bash
 # to run the application concurrently (api & client)
 npm run dev
+
+# to run backend separately
+cd api
+node src/server.js
+
+# to run frontend separately
+cd client
+npm start
 
 ```
 
