@@ -5,8 +5,8 @@
 import { updatePublication, createPublication } from '../../../actions/publications'
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
-import StepOne from "./PageOne"
-import StepTwo from "./PageTwo"
+import PageOne from "./PageOne"
+import PageTwo from "./PageTwo"
 
 export const CATEGORY_TYPE = {
     Journal: "JOURNAL",
@@ -59,8 +59,8 @@ const PublicationForm = (props) => {
       };
     
     const steps = [
-        <StepOne next={handleNextStep} data={data} type={props.type} pub={props.pub} closeModal={props.closeModal}/>,
-        <StepTwo next={handleNextStep} prev={handlePrevStep} data={data} closeModal={props.closeModal}/>
+        <PageOne next={handleNextStep} data={data} type={props.type} pub={props.pub} closeModal={props.closeModal}/>,
+        <PageTwo next={handleNextStep} prev={handlePrevStep} data={data} closeModal={props.closeModal}/>
     ];
     
     return(
