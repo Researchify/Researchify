@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getPublicationsByTeamId, sortPublications } from '../../actions/publications'
-import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
+import { Button, Modal, InputGroup, FormControl, Dropdown, DropdownButton } from 'react-bootstrap';
 import PublicationForm from './PublicationForm'
 import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
 import { VscAdd } from 'react-icons/vsc'
@@ -42,12 +42,12 @@ const Publications = () => {
                 <h4>
                     Total of {teamPublications.length} publications
                 </h4>
-                <select className="form-select form-select-sm" onChange={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>
-                    <option defaultValue>Year</option>
-                    <option value="author">Author</option>
-                    <option value="title">Title</option>
-                    <option value="type">Publication Type</option>
-                </select>
+                <DropdownButton id="dropdown-item-button" title={"Sort by: "+sortingOption} >
+                    <Dropdown.Item as="button" value="year" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Year</Dropdown.Item>
+                    <Dropdown.Item as="button" value="author" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Author</Dropdown.Item>
+                    <Dropdown.Item as="button" value="title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Title</Dropdown.Item>
+                    <Dropdown.Item as="button" value="type" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Publication Type</Dropdown.Item>
+                </DropdownButton>
             </div>
             <div className="publicationList">
             {

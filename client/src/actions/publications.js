@@ -65,17 +65,18 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
     console.log(sortingOption);
     switch (sortingOption) {
         case "author":
-            teamPublications.sort((a, b) => (a.authors[0] > b.authors[0]) ? 1 : -1);
+            teamPublications.sort((a, b) => (a.authors[0].toLowerCase() > b.authors[0].toLowerCase()) ? 1 : -1);
             break;
         case "title":
-            teamPublications.sort((a, b) => (a.title > b.title) ? 1 : -1);
+            teamPublications.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1);
             break;
         case "type":
-            // to implement sort by publication type
+            // to implement sort by title of the journal/conference
+            teamPublications.sort((a, b) => (a.category.categoryTitle.toLowerCase() > b.category.categoryTitle.toLowerCase()) ? 1 : -1)
             break;
         default:
             // sort by title then year for consistency with the db
-            teamPublications.sort((a, b) => (a.title > b.title) ? 1 : -1);
+            teamPublications.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1);
             teamPublications.sort((a, b) => (a.year > b.year) ? -1 : 1);
             break;
     }
