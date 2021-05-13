@@ -34,7 +34,7 @@ const PublicationForm = (props) => {
 
     const [currentStep, setCurrentStep] = useState(0)
 
-    const makeRequest = (newData) => {
+    const submitForm = (newData) => {
         console.log(newData)
         if (props.type === "update"){
             dispatch(updatePublication(props.pub._id, newData))
@@ -47,8 +47,8 @@ const PublicationForm = (props) => {
     const handleNextStep = (newData, final = false) => {
         setData((prev) => ({ ...prev, ...newData }))
         if (final) {
-          makeRequest(newData)
-          return
+            submitForm(newData)
+            return
         }
         setCurrentStep((prev) => prev + 1)
       };

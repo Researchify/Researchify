@@ -43,11 +43,6 @@ const publicationSchema = new mongoose.Schema({
     yearPublished: {
         type: Date
     },
-    // publishedIn: {
-    //     type: String,
-    //     required: true,
-    //     minlength: 2
-    // },
     category: {
         type: {
             type: String,

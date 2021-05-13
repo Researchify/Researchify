@@ -1,5 +1,5 @@
 /**
- * The Publications component displays a publication details
+ * The Publication component displays a single publication details
  */
 
 import { useDispatch } from 'react-redux';
@@ -17,61 +17,64 @@ const Publication = ({pub}) => {
     const dispatch = useDispatch();
     const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [showDeleteMessage, setShowDeleteMessage] = useState(false)
-    const [open, setOpen] = useState(false)
+    const [expand, setExpand] = useState(false)
     
     const handleDelete = () => {
         dispatch(deletePublication(pub._id))
         setShowDeleteMessage(false)
     }
-
+    
+    {/* Display the delete and update options */}
     const displayOptions = (
         <ButtonGroup>
             <Button onClick={() => setShowUpdateForm(true)} variant="primary" data-toggle="modal"> <AiFillEdit /> </Button>
             <Button onClick={() => setShowDeleteMessage(true)} variant="danger" data-toggle="modal"><AiFillDelete /></Button>
         </ButtonGroup>
     )
-
+    
+    {/* Display the up arrow only if the dropdown already expanded */}
     const displayUpArrow = () => {
         return(
-            open &&            
+            expand &&            
             <IconContext.Provider value={{ color: 'black', size: '25px' }}>
                 <GrLinkUp className="ml-3"/>
             </IconContext.Provider>
         )
     }
 
+    {/* Display the down arrow only if the dropdown is not expanded */}
     const displayDownArrow = () => {
         return(
-            !open && 
+            !expand && 
             <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-                <GrLinkDown onClick={() => setOpen(!open)} className="ml-2"/>
+                <GrLinkDown onClick={() => setExpand(!expand)} className="ml-2"/>
             </IconContext.Provider>
         )
     }
 
+    {/* The dropdown shows further information of a publication, only be displayed if the down arrow is clicked */}
     const dropDown = (
-        <Collapse in={open}> 
+        <Collapse in={expand}> 
             <div className="mb-3 ml-3 mr-2">
                 <h5> <b>Description:</b> {pub.description} </h5>
                 <h5> <b>{pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}:</b> {pub.category.categoryTitle} </h5>
                 { pub.category.issue && <h5> <b>Issue:</b> {pub.category.issue} </h5> }
                 { pub.category.volume && <h5> <b>Volume:</b> {pub.category.volume} </h5> }
                 { pub.category.pages && <h5> <b>Pages:</b> {pub.category.pages} </h5> }
-                { pub.category.publisher && <h5> <b>Publisher:</b> {pub.category.publisher} </h5> }
-                  
+                { pub.category.publisher && <h5> <b>Publisher:</b> {pub.category.publisher} </h5> }                
                 <Row>
                     <Col md={11}>
-                        {   
-                            pub.link &&
-                            <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
-                                <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-                                    <BsLink45Deg />
-                                </IconContext.Provider>
-                            </Button>
-                        }                                      
+                    {   
+                        pub.link &&
+                        <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
+                            <IconContext.Provider value={{ color: 'black', size: '25px' }}>
+                                <BsLink45Deg />
+                            </IconContext.Provider>
+                        </Button>
+                    }                                      
                     </Col>
                     <Col md={1}>
-                        <span onClick={() => setOpen(!open)}>
+                        <span onClick={() => setExpand(!expand)}>
                             {displayUpArrow()}
                         </span>
                     </Col>
@@ -99,12 +102,11 @@ const Publication = ({pub}) => {
                 </Row>
             </div>
             
-            <div className={open ? "ml-3 mt-3" : "ml-3 mt-3 mb-2"}>
-
+            <div className={expand ? "ml-3 mt-3" : "ml-3 mt-3 mb-2"}>
                 <h5><b> Authors: </b>{pub.authors.map((author) => `${author}`).join(', ')}</h5> 
                 <Row>
                     <Col md={11}>
-                        <h5 className={open?"":"blur"}> <b>Year Published: </b>{pub.yearPublished} </h5>
+                        <h5 className={expand?"":"blur"}> <b>Year Published: </b>{pub.yearPublished} </h5>
                     </Col>
                     <Col md={1}>
                         {displayDownArrow()}
@@ -114,6 +116,7 @@ const Publication = ({pub}) => {
 
             { dropDown }
 
+            {/* A modal for showing update publication from*/}
             <Modal show={showUpdateForm}>
                 <Modal.Header className="modalHeader">
                     <Modal.Title> Edit Publication </Modal.Title>
@@ -123,6 +126,7 @@ const Publication = ({pub}) => {
                 </Modal.Body>
             </Modal>
 
+            {/* A modal for showing confirm delete message */}
             <Modal show={showDeleteMessage}>
                 <Modal.Header className="modalHeader">
                     <Modal.Title> Delete Publication </Modal.Title>

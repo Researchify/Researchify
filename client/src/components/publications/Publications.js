@@ -18,11 +18,13 @@ import ByCategory from './publicationsLayout/ByCategory';
 const Publications = () => {
     const dispatch = useDispatch();
     const { teamId } = useParams();
+    const allLayouts = {
+        allPublications: "All Publications",
+        byCategory: "By Category"
+    } 
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showImportForm, setShowImportForm] = useState(false)
-
-    const allLayouts = ["All Publications", "By Category"]
-    const [layout, setLayout] = useState("All Publications")
+    const [layout, setLayout] = useState(allLayouts.allPublications)
 
     useEffect(() => {
         dispatch(getPublicationsByTeamId(teamId));
@@ -30,12 +32,13 @@ const Publications = () => {
 
     const teamPublications = useSelector(state => state.publications)
 
+    {/* Render publications based on the layout chosen */}
     const renderPublications = () => {
-        if (layout === "All Publications"){
+        if (layout === allLayouts.allPublications){
             return(
                 <AllPublications teamPublications={teamPublications} />
             )
-        } else if (layout === "By Category"){
+        } else if (layout === allLayouts.byCategory){
             return(
                 <ByCategory teamPublications={teamPublications} />
             )
@@ -46,6 +49,7 @@ const Publications = () => {
         <> 
             <Container className="mt-4">
                 <Row>
+                    {/* Add publication and import publication button */}
                     <Col md={{ span: 4, offset: 4 }}>
                         <div className="mb-3 mt-3 text-center">
                             <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>    
@@ -61,6 +65,7 @@ const Publications = () => {
                         </div>
                     </Col>
 
+                    {/* Dropdown toggle for choosing different layout */}
                     <Col md={{ span: 2, offset: 2}}>
                         <div className="mb-3 mt-3 text-center">
                             <h5 className="ml-2"> Choose layout: </h5>
@@ -70,8 +75,8 @@ const Publications = () => {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {
-                                        allLayouts.map(layout => 
-                                            <Dropdown.Item as="button"onClick={()=>setLayout(layout)}>{layout}</Dropdown.Item>
+                                        Object.keys(allLayouts).map(layout => 
+                                            <Dropdown.Item as="button"onClick={()=>setLayout(allLayouts[layout])}>{allLayouts[layout]}</Dropdown.Item>
                                         )
                                     }
                                 </Dropdown.Menu>
@@ -89,6 +94,7 @@ const Publications = () => {
 
             { renderPublications() }
 
+            {/* A modal for showing create publication form */}
             <Modal show={showCreateForm}>
                 <Modal.Header className="modalHeader">
                     <Modal.Title> New Publication </Modal.Title>
@@ -97,7 +103,8 @@ const Publications = () => {
                     <PublicationForm type="create" closeModal={() => setShowCreateForm(false)}/>
                 </Modal.Body>
             </Modal>
-
+            
+            {/* A modal for showing import publication form */}
             <Modal show={showImportForm}>
                 <Modal.Header className="modalHeader">
                     <Modal.Title> Import from Google Scholar </Modal.Title>

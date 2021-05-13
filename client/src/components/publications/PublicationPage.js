@@ -1,5 +1,5 @@
 /**
- * The PublicationPage component redners TwitterFeed component and Publications component .
+ * The PublicationPage component renders TwitterFeed component and Publications component .
  */
 
  import React from 'react';

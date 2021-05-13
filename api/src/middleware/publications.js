@@ -53,8 +53,6 @@ const createPublicationValidation = [
       .if(body("yearPublished")
       .exists())
       .isLength(4),
-    // body("publishedIn", "Error: publishedIn must not be empty.")
-    //   .notEmpty(),
     body("category.type", "Error: Category type mst not be empty.")
       .notEmpty(),
     body("category.type", "Error: Category type does not match any of [\"CONFERENCE\", \"JOURNAL\"].")
