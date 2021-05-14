@@ -9,9 +9,12 @@ import { Button, Form, Container, Image, InputGroup} from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import profilePic from '../../images/profilepic.jpg';
 import {Link} from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+
+const profileUpdated = () => toast.success('Profile has been successfully updated')
+const profileDeleted = () => toast.error('Profile has not been deleted')
 
 const ProfileInfoEdit = () => {
-
         return (
             <div className='mt-5' >
                 <Container className = "profile-container">
@@ -26,9 +29,14 @@ const ProfileInfoEdit = () => {
                             </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="formUserFirstName">
+                        <Form.Group controlId="formResearchGroupName">
                             <Form.Label>Research Group Name</Form.Label>
-                            <Form.Control type="text" placeholder="Team name.." />
+                            <Form.Control type="text" placeholder="Deep Hackers" />
+                        </Form.Group>
+
+                        <Form.Group controlId="formOrganisationName">
+                            <Form.Label>Organisation Name</Form.Label>
+                            <Form.Control type="text" placeholder="Monash University" />
                         </Form.Group>
 
                         <Form.Group controlId="formCountry">
@@ -50,35 +58,15 @@ const ProfileInfoEdit = () => {
                              <Form.Control type="text" placeholder="+62123456789" />
                         </Form.Group>
 
-                        <Form.Group controlId="formWebUrl">
-                             <Form.Label>Website URL</Form.Label>
-                             <InputGroup className="mb-3">
-                                <Form.Control 
-                                    type="text"
-                                    placeholder="Team custom URL"
-                                    aria-label="Team custom URL"
-                                    aria-describedby="basic-addon2"
-                                />
-                                <InputGroup.Append>
-                                    <InputGroup.Text id="basic-addon2">researchify.com</InputGroup.Text>
-                                </InputGroup.Append>
-                             </InputGroup>
-                        </Form.Group>
-
                         <div className= "my-1">
                             <Button 
                                 color="primary"
                                 className= "mr-2"
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    alert('You have updated your profile')
-                                    /**
-                                     * Update user information here onclick button
-                                     */
-                                }}
+                                onClick={profileUpdated}
                             >
                                 Update
                             </Button>
+                            <Toaster />
                             
                             {/* Button is linked to react-router-dom Link*/}
                             <Link to='/dashboard'>
@@ -90,13 +78,7 @@ const ProfileInfoEdit = () => {
                         <div className="my-1">
                         <Button 
                             variant="danger"
-                            onClick={(event) => {
-                                event.preventDefault();
-                                alert('Your account has been deleted')
-                                /**
-                                 * Update user information here onclick button
-                                 */
-                            }}
+                            onClick={profileDeleted}
                         >
                             Delete account
                         </Button>
