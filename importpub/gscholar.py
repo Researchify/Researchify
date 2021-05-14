@@ -1,13 +1,12 @@
 from scholarly import scholarly
 import json
 
-def lambda_handler(event,context):
-    author = event["author"]
-    print(author)
-    return getPublications(author) 
-
 def getPublications(author_id):
-    # author is going to be id
+    """
+    This function uses the scholarly library to retrieve publications associated with an author.
+    :param author_id: google scholar user id extracted from their profile url
+    :return: json string of publications in a list
+    """
     search_query = scholarly.search_author_id(author_id)
     authorObject = scholarly.fill(search_query, publication_limit=10)
     pub_list = []
