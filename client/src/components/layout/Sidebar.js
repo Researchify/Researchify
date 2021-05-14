@@ -1,9 +1,7 @@
-import { Navbar, Nav, Image } from "react-bootstrap"
-
 import "./Sidebar.css"
 import {SidebarData} from './SidebarData'
 
-function Sidebar() {
+const Sidebar = () => {
     return (
         <div className="Sidebar">
             <ul className="SidebarList">
@@ -15,7 +13,7 @@ function Sidebar() {
                         onclick={() => {
                             window.location.pathname = val.link;
                         }}
-                        id={window.location.pathname == val.link ? "active" : ""} 
+                        id={window.location.pathname === val.link ? "active" : ""} 
                     > 
                     {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
 
