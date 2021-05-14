@@ -18,32 +18,36 @@ import { Container, Col, Row } from 'react-bootstrap';
 import './layout/Layout.css'
 
 import PublicationPage from './publications/PublicationPage';
+import { Fragment } from 'react';
 
 const App = () => {
+    const urls={
+        dashboard: "/dashboard",
+        profile: "/dashboard/profile"
+    }
     return (
-
         <BrowserRouter>
-            <Header />
-            <Container fluid>
-                <Row>
-                <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>
-                    <Sidebar />
-                </Col>
-                <Col className="page-content-wrapper" md={10} lg={10} xl={11}>
-                    <Switch>
-                        <Route path="/" exact component={Home} />
-                        <Route path="/auth" exact component={Auth} />
-                        <Route path="/register" exact component={Register} />
-                        <Route path="/login" exact component={Login} />
-                        <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
-                        <Route path="/dashboard" exact component={Dashboard} />
-                        <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
-
-                    </Switch>
-                </Col>
-                </Row>
-            </Container>
-                
+            <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/auth" exact component={Auth} />
+                <Route path="/register" exact component={Register} />
+                <Route path="/login" exact component={Login} />
+                <Fragment>
+                    <Header title={"Researchify"} urls={urls}/>      
+                    <Container fluid>
+                        <Row>
+                        <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>
+                            <Sidebar />
+                        </Col>
+                        <Col className="page-content-wrapper" md={10} lg={10} xl={11}>
+                            <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
+                            <Route path={urls.dashboard} exact component={Dashboard} />
+                            <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
+                        </Col>
+                        </Row>
+                    </Container>
+                </Fragment>                
+            </Switch>             
         </BrowserRouter>
     );
 };
