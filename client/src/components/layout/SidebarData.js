@@ -1,10 +1,6 @@
 import React from 'react'
-import HomeIcon from '@material-ui/icons/Home';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import SettingsIcon from '@material-ui/icons/Settings';
-import HelpIcon from '@material-ui/icons/Help';
+import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, 
+    BsInboxesFill, BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
@@ -12,32 +8,32 @@ import HelpIcon from '@material-ui/icons/Help';
 export const SidebarData = [
     {
         title: "Dashboard",
-        icon: <DashboardIcon />,
+        icon: <BsFillGridFill />,
         link: "/dashboard"
     },
     {
         title: "Home",
-        icon: <HomeIcon />,
+        icon: <BsFillHouseDoorFill />,
         link: "/home"
     },
     {
         title: "Publications",
-        icon: <LibraryBooksIcon />,
+        icon: <BsBookHalf />,
         link: "/publications"
     },
     {
         title: "APIs",
-        icon: <VpnKeyIcon />,
+        icon: <BsInboxesFill />,
         link: "/home"
     },
     {
         title: "Settings",
-        icon: <SettingsIcon />,
+        icon: <BsGearFill />,
         link: "/home"
     },
     {
         title: "Help",
-        icon: <HelpIcon />,
+        icon: <BsFillQuestionCircleFill />,
         link: "/home"
     },
 ]
