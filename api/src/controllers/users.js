@@ -98,8 +98,8 @@ async function loginUser(req, res, next) {
 		}
 
 		if (!user) {
-		res.status(400).json({message: "User is not registered"});
-		return;
+			res.status(400).json({message: "User is not registered"});
+			return;
 		}
 
 		req.logIn(user, (err) => {
