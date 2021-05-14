@@ -24,7 +24,7 @@ export const addUserAction = (userData) => async (dispatch) => {
     };
 
     // Store user related data in our redux global store
-    dispatch({ type: ADD_USER_DATA, payload: data });
+    // dispatch({ type: ADD_USER_DATA, payload: data });
   } catch (err) {
     console.error(`Error in posting user data to the api: ${err}`);
   }

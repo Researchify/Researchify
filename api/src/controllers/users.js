@@ -52,11 +52,16 @@ async function getUsers(req, res) {
  */
 async function addUser(req, res) {
   User.findOne({ email: req.body.email }, async (err, user) => {
-      if (err) throw err;
+      if (err) {
+        res.status(500).json({message: err});
+        return;
+      }
+
       if (user) {
         res.status(400).json({message: "Email already registered"});
         return;
       }
+
       if (req.body.password != req.body.confirmPassword) {
         res.status(400).json({message: "Passwords do not match"});
         return;
@@ -86,15 +91,23 @@ async function addUser(req, res) {
  * @sends: User not found, incorrect password, successfully logged in or error message.
  */
 async function loginUser(req, res, next) {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) throw err;
+  passport.authenticate("local", (err, user) => {
+	if (err) {
+        res.status(500).json({message: err});
+        return;
+	}
+
     if (!user) {
       res.status(400).json({message: "User is not registered"});
       return;
     }
 
     req.logIn(user, (err) => {
-        if (err) throw err;
+		if (err) {
+        	res.status(500).json({message: err});
+        	return;
+      	}
+
         res.json({message: "Logged in"})
     });
   })(req, res, next);
