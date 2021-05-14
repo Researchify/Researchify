@@ -13,7 +13,7 @@ const Sidebar = () => {
                         onclick={() => {
                             window.location.pathname = val.link;
                         }}
-                        id={window.location.pathname == val.link ? "active" : ""} 
+                        id={window.location.pathname === val.link ? "active" : ""} 
                     > 
                     {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
 

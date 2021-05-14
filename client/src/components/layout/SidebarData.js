@@ -1,5 +1,6 @@
 import React from 'react'
-import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, BsInboxesFill, BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
+import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, 
+    BsInboxesFill, BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
