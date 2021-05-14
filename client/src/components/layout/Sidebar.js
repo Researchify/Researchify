@@ -1,5 +1,3 @@
-import { Navbar, Nav, Image } from "react-bootstrap"
-
 import "./Sidebar.css"
 import {SidebarData} from './SidebarData'
 
