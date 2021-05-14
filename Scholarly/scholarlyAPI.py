@@ -9,9 +9,7 @@ def lambda_handler(event,context):
 def getPublications(author_id):
     # author is going to be id
     search_query = scholarly.search_author_id(author_id)
-    # print("one")
     authorObject = scholarly.fill(search_query, publication_limit=10)
-    # print("two")
     pub_list = []
 
     for i in range(len(authorObject["publications"])):
@@ -20,5 +18,4 @@ def getPublications(author_id):
         pub_list.append(currentPub)
 
     pub_json = json.dumps({ "publications": pub_list })
-    # print(pub_json)
     return pub_json
