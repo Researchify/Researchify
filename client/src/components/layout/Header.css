@@ -1,6 +1,7 @@
 .header{
-    padding-top: 5px;   
-    background-color: #03A9F4;
+    top: 0;
+    padding-top: 5px;
+    background-color: #F5F5F5;
 }
 
 .profile-picture{
@@ -8,19 +9,23 @@
 }
 
 .header-link{
-    color:gainsboro;
+    color:#000000;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+    padding: 15px;
 }
 
 .header-link:hover{
-    color: white;
+    color: #2B61F2;
     text-decoration: none;
 }
 
 .header-brand{
-    color:white;
+    color:#03A9F4;
+    margin-left: 12px;
+    font-family: 'Fredoka One', cursive;
 }
 
 .header-brand:hover{
-    color: white;
+    color: #2B61F2;
     text-decoration: none;
 }
