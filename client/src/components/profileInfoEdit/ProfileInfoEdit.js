@@ -5,7 +5,7 @@
 
 import React from "react";
 
-import { Button, Form, Container, Image, InputGroup} from 'react-bootstrap';
+import { Button, Form, Container, Image} from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import profilePic from '../../images/profilepic.jpg';
 import {Link} from 'react-router-dom';
