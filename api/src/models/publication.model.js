@@ -43,10 +43,6 @@ const publicationSchema = new mongoose.Schema({
     yearPublished: {
         type: Date
     },
-    templateId: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'template'
-    }
 }, {timestamps: true})
 
 const Publication = mongoose.model('publication', publicationSchema);
