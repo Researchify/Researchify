@@ -2,10 +2,10 @@ import React from "react"
 import { Navbar, Nav, Image } from "react-bootstrap"
 import { Link } from 'react-router-dom'
 import {useSelector} from 'react-redux';
+import {BsPeopleCircle} from 'react-icons/bs'
 
 import "./Header.css"
 
-import profilePicture from "../../images/user.png"
 import { Fragment } from "react";
 
 /**
@@ -23,7 +23,7 @@ const Header = ({title, urls}) => {
                 <Nav>
                     <Nav.Link className="header-profile">
                         <Link className="header-link" to="/dashboard/profile">
-                            <Image className="profile-picture" src={profilePicture} roundedCircle /> {userName}
+                            <BsPeopleCircle className="header-profile-icon" /> {userName}
                         </Link>
                     </Nav.Link>
                 </Nav>
