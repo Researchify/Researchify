@@ -168,8 +168,8 @@ const populateTeams = async () => {
     }
 }
 
-// populatePublications();
-// populateUsers();
-// populateThemes();
-// populateTemplates();
+populatePublications();
+populateUsers();
+populateThemes();
+populateTemplates();
 populateTeams();
