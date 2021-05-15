@@ -19,12 +19,9 @@ const Header = ({title, urls}) => {
         <Fragment>
             <Navbar className="header" sticky="top">
                 <Navbar.Brand><Link className="header-brand" to={urls.dashboard}>{title}</Link></Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Nav.Link><Link className="header-link" to={urls.profile}>Profile</Link></Nav.Link>
-                    <Nav.Link><Link className="header-link" to="/publications/team/606bb59c22201f529db920c9">Publications</Link></Nav.Link>
-                </Nav>
+                <Nav className="mr-auto" />
                 <Nav>
-                    <Nav.Link className="header-username">
+                    <Nav.Link className="header-profile">
                         <Link className="header-link" to="/dashboard/profile">
                             <Image className="profile-picture" src={profilePicture} roundedCircle /> {userName}
                         </Link>

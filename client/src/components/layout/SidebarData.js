@@ -1,6 +1,6 @@
 import React from 'react'
 import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, 
-    BsInboxesFill, BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
+    BsPerson, BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
@@ -14,26 +14,26 @@ export const SidebarData = [
     {
         title: "Home",
         icon: <BsFillHouseDoorFill />,
-        link: "/home"
+        link: "/dashboard/home"
     },
     {
         title: "Publications",
         icon: <BsBookHalf />,
-        link: "/publications"
+        link: "/publications/team/606bb59c22201f529db920c9"
     },
     {
-        title: "APIs",
-        icon: <BsInboxesFill />,
-        link: "/home"
+        title: "Team Profile",
+        icon: <BsPerson />,
+        link: "/dashboard/profile"
     },
     {
         title: "Settings",
         icon: <BsGearFill />,
-        link: "/home"
+        link: "/dashboard/settings"
     },
     {
         title: "Help",
         icon: <BsFillQuestionCircleFill />,
-        link: "/home"
+        link: "/dashboard/help"
     },
 ]
