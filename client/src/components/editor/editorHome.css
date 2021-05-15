@@ -1,0 +1,17 @@
+.buttonStyler{
+    width: 100%;
+    margin: auto;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    outline-color: white;
+    
+}
+
+.buttonStyler:hover{
+    background-color: gray;
+}
+
+
+.cardStyler{
+    justify-content: center;
+}

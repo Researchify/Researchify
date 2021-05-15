@@ -1,11 +1,13 @@
 import "./Sidebar.css"
-import {SidebarData} from './SidebarData'
-
-const Sidebar = () => {
+const Sidebar = (props) => {
+    
+    const datasrc=props.type?props.data.SidebarData:props.data.EditorSideBarData
+    console.log(datasrc)
+    console.log(props.type)
     return (
         <div className="Sidebar">
             <ul className="SidebarList">
-                {SidebarData.map((val,key)=> {
+                {datasrc.map((val,key)=> {
                     return(
                     <li 
                         key={key}
@@ -25,7 +27,8 @@ const Sidebar = () => {
                         </div>
                         </li>
                     )
-                })}
+                })
+                }
             </ul>
         </div>
     )

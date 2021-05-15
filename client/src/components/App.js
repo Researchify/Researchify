@@ -8,13 +8,14 @@ import Auth from './auth/Auth';
 import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
-
+import Editor from './editor/Editor'
 import Register from './auth/Register';
 import Login from './auth/Login';
 import Header from './layout/Header';
 import Sidebar from './layout/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
-
+import SidebarData from './layout/SidebarData'
+import EditorSideBarData from './editor/EditorSideBarData'
 import './layout/Layout.css'
 
 import PublicationPage from './publications/PublicationPage';
@@ -32,12 +33,13 @@ const App = () => {
                 <Route path="/auth" exact component={Auth} />
                 <Route path="/register" exact component={Register} />
                 <Route path="/login" exact component={Login} />
+                <Route path="/editor" exact component={Editor}/>
                 <Fragment>
                     <Header title={"Researchify"} urls={urls}/>      
                     <Container fluid>
                         <Row>
                         <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>
-                            <Sidebar />
+                            <Sidebar data={{SidebarData}} type={true}/>
                         </Col>
                         <Col className="page-content-wrapper" md={10} lg={10} xl={11}>
                             <Route path="/publications/team/:teamId" exact component={PublicationPage}/>

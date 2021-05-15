@@ -1,30 +1,30 @@
 import React from 'react'
 import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, 
-    BsInboxesFill, BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
+    BsFileEarmarkPlus,BsFillAwardFill,BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const SidebarData = [
+const EditorSideBarData = [
     {
-        title: "Dashboard",
+        title: "Publications Page",
         icon: <BsFillGridFill />,
-        link: "/dashboard"
+        link: "/publications"
     },
     {
-        title: "Home",
+        title: "Home Page",
         icon: <BsFillHouseDoorFill />,
         link: "/home"
     },
     {
-        title: "Publications",
-        icon: <BsBookHalf />,
-        link: "/publications"
+        title: "Awards Page",
+        icon: <BsFillAwardFill />,
+        link: "/home"
     },
     {
-        title: "APIs",
-        icon: <BsInboxesFill />,
-        link: "/home"
+        title: "Add Page",
+        icon: <BsFileEarmarkPlus />,
+        link: "/custompage"
     },
     {
         title: "Settings",
@@ -37,4 +37,4 @@ const SidebarData = [
         link: "/home"
     },
 ]
-export default SidebarData
+export default EditorSideBarData
