@@ -34,10 +34,10 @@ const Publications = () => {
 
     const renderPublications = () => {
         switch(layout){
-            case allLayouts.allPublications:
-                return <LayoutAllPublications teamPublications={teamPublications} />
             case allLayouts.byCategory:
                 return <LayoutByCategory teamPublications={teamPublications} />
+            default:
+                return <LayoutAllPublications teamPublications={teamPublications} />
         }
     }
 
