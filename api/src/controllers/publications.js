@@ -145,4 +145,23 @@ async function readAllPublicationsByTeam(req, res) {
     }
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam};
+// eslint-disable-next-line no-unused-vars
+async function importPublication(req, res) {
+    const lambda = require('../config/aws/lambda');
+    new lambda();
+    /*const publication = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
+        return res.status(400).send('Error: Given team id is not in a valid hexadecimal format.');
+    } else {
+        var result = await Team.findById({ _id: publication.teamId});
+        if (result == null) {
+            return res.status(404).send('Error: Team not found.');
+        }
+    }
+
+    const createdPublication = await Publication.create(publication);
+    res.status(201).json(createdPublication);*/
+
+}
+module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam, importPublication};
