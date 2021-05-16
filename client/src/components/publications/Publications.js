@@ -61,7 +61,6 @@ const Publications = () => {
 
                     <Col md={{ span: 2, offset: 2}}>
                         <div className="mb-3 mt-3 text-center">
-                            <h5 className="ml-2"> Choose layout: </h5>
                             <Dropdown>
                                 <Dropdown.Toggle variant="light" className="ml-2 mr-2">
                                     Layout: {layout}
