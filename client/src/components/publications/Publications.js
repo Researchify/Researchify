@@ -4,7 +4,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import { getPublicationsByTeamId } from '../../actions/publications'
 import { Button, Modal, InputGroup, FormControl, Dropdown, Container, Col, Row } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm'
