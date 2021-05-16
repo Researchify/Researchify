@@ -1,5 +1,5 @@
 /**
- * The PageOne component displays the first page of the publication form
+ * The MainInfoPage component displays a form of a publication's main attributes: Title, Published Year, Authours, Description and Link
  */
 
 import { Formik } from "formik";
@@ -7,7 +7,7 @@ import * as yup from "yup";
 import React from 'react';
 import { Row, InputGroup, Button, Tooltip, OverlayTrigger, Form } from "react-bootstrap";
 
-const PageOne = ({next, data, type, pub, closeModal}) => {
+const MainInfoPage = ({next, data, type, pub, closeModal}) => {
     const stepOneValidationSchema = yup.object({
         title: yup.string()
             .required("Title is required")
@@ -173,4 +173,4 @@ const PageOne = ({next, data, type, pub, closeModal}) => {
     )
 }
 
-export default PageOne
+export default MainInfoPage

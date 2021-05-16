@@ -1,5 +1,5 @@
 /**
- * The PageTwo component displays the second page of the publication form
+ * The CategoryPage component displays a form of a publication's category related attributed: Category type, Category title, Volume, Issue, Page and Publisher
  */
 
 import { Formik } from "formik";
@@ -8,7 +8,7 @@ import React from 'react';
 import { Row, Button, Tooltip, OverlayTrigger, Form, ButtonGroup, ToggleButton } from "react-bootstrap";
 import { CATEGORY_TYPE } from './PublicationForm'
 
-const PageTwo = ({next, prev, data, closeModal}) => {
+const CategoryPage = ({next, prev, data, closeModal}) => {
     const stepTwoValidationSchema = yup.object({
         category: yup.object({
             type: yup.string(),
@@ -146,4 +146,4 @@ const PageTwo = ({next, prev, data, closeModal}) => {
     )
 }
 
-export default PageTwo
+export default CategoryPage

@@ -5,8 +5,8 @@
 import { updatePublication, createPublication } from '../../../actions/publications'
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
-import PageOne from "./PageOne"
-import PageTwo from "./PageTwo"
+import PageOne from "./MainInfoPage"
+import PageTwo from "./CategoryPage"
 
 export const CATEGORY_TYPE = {
     Journal: "JOURNAL",

@@ -1,6 +1,6 @@
 import Publication from '../publication/Publication'
 
-const AllPublications = ({teamPublications}) => {    
+const LayoutAllPublications = ({teamPublications}) => {    
     return(
         <>
             <div className="publicationList">
@@ -13,4 +13,4 @@ const AllPublications = ({teamPublications}) => {
     )
 }
 
-export default AllPublications
+export default LayoutAllPublications

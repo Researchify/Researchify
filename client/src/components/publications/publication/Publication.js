@@ -23,8 +23,7 @@ const Publication = ({pub}) => {
         dispatch(deletePublication(pub._id))
         setShowDeleteMessage(false)
     }
-    
-    {/* Display the delete and update options */}
+
     const displayOptions = (
         <ButtonGroup>
             <Button onClick={() => setShowUpdateForm(true)} variant="primary" data-toggle="modal"> <AiFillEdit /> </Button>
@@ -32,7 +31,6 @@ const Publication = ({pub}) => {
         </ButtonGroup>
     )
     
-    {/* Display the up arrow only if the dropdown already expanded */}
     const displayUpArrow = () => {
         return(
             expand &&            
@@ -42,7 +40,6 @@ const Publication = ({pub}) => {
         )
     }
 
-    {/* Display the down arrow only if the dropdown is not expanded */}
     const displayDownArrow = () => {
         return(
             !expand && 
@@ -52,7 +49,6 @@ const Publication = ({pub}) => {
         )
     }
 
-    {/* The dropdown shows further information of a publication, only be displayed if the down arrow is clicked */}
     const dropDown = (
         <Collapse in={expand}> 
             <div className="mb-3 ml-3 mr-2">

@@ -1,6 +1,6 @@
 import Publication from '../publication/Publication'
 
-const ByCategory = ({teamPublications}) => {
+const LayoutByCategory = ({teamPublications}) => {
     const teamJournalPublications = teamPublications.filter(pub => pub.category.type === "JOURNAL")
     const teamConferencePublications = teamPublications.filter(pub => pub.category.type === "CONFERENCE")
 
@@ -25,4 +25,4 @@ const ByCategory = ({teamPublications}) => {
     )
 }
 
-export default ByCategory
+export default LayoutByCategory

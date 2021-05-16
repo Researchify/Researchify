@@ -12,8 +12,8 @@ import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
 import { VscAdd } from 'react-icons/vsc'
 import { IconContext } from "react-icons"
 import './publications.css'
-import AllPublications from './publicationsLayout/AllPublications';
-import ByCategory from './publicationsLayout/ByCategory';
+import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
+import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 
 const Publications = () => {
     const dispatch = useDispatch();
@@ -32,16 +32,12 @@ const Publications = () => {
 
     const teamPublications = useSelector(state => state.publications)
 
-    {/* Render publications based on the layout chosen */}
     const renderPublications = () => {
-        if (layout === allLayouts.allPublications){
-            return(
-                <AllPublications teamPublications={teamPublications} />
-            )
-        } else if (layout === allLayouts.byCategory){
-            return(
-                <ByCategory teamPublications={teamPublications} />
-            )
+        switch(layout){
+            case allLayouts.allPublications:
+                return <LayoutAllPublications teamPublications={teamPublications} />
+            case allLayouts.byCategory:
+                return <LayoutByCategory teamPublications={teamPublications} />
         }
     }
 
@@ -49,7 +45,6 @@ const Publications = () => {
         <> 
             <Container className="mt-4">
                 <Row>
-                    {/* Add publication and import publication button */}
                     <Col md={{ span: 4, offset: 4 }}>
                         <div className="mb-3 mt-3 text-center">
                             <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>    
@@ -65,7 +60,6 @@ const Publications = () => {
                         </div>
                     </Col>
 
-                    {/* Dropdown toggle for choosing different layout */}
                     <Col md={{ span: 2, offset: 2}}>
                         <div className="mb-3 mt-3 text-center">
                             <h5 className="ml-2"> Choose layout: </h5>
@@ -76,7 +70,9 @@ const Publications = () => {
                                 <Dropdown.Menu>
                                     {
                                         Object.keys(allLayouts).map(layout => 
-                                            <Dropdown.Item as="button"onClick={()=>setLayout(allLayouts[layout])}>{allLayouts[layout]}</Dropdown.Item>
+                                            <Dropdown.Item as="button"onClick={()=>setLayout(allLayouts[layout])}>
+                                                {allLayouts[layout]}
+                                            </Dropdown.Item>
                                         )
                                     }
                                 </Dropdown.Menu>
