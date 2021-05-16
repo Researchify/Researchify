@@ -21,9 +21,9 @@ def lambda_handler(event,context):
     :param event: a json object containing the author_id
     :param context: object with context properties see: https://docs.aws.amazon.com/lambda/latest/dg/python-context.html
     """
-    # enable_logging()
+    enable_logging()
     author_id = event["author_id"]
-    # logging.debug(author_id)
+    logging.debug(author_id)
     return get_publications(author_id) 
 
 
