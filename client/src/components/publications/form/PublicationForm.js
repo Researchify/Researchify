@@ -29,7 +29,7 @@ const PublicationForm = (props) => {
             pages: "",
             publisher: ""
         },
-        teamId: "606bb59c22201f529db920c9" // teamId should be get from redux state later
+        teamId: "609f5ad827b1d48257c321d3" // teamId should be get from redux state later
     })
 
     const [currentStep, setCurrentStep] = useState(0)

@@ -16,8 +16,8 @@ import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 
 const Publications = () => {
-    const dispatch = useDispatch();
-    const { teamId } = useParams();
+    const dispatch = useDispatch()
+    const teamId = useSelector(state => state.team.teamId)
     const allLayouts = {
         allPublications: "All Publications",
         byCategory: "By Category"
@@ -65,7 +65,7 @@ const Publications = () => {
                             <h5 className="ml-2"> Choose layout: </h5>
                             <Dropdown>
                                 <Dropdown.Toggle variant="light" className="ml-2 mr-2">
-                                    {layout}
+                                    Layout: {layout}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     {
