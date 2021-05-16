@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const publicationSchema = new mongoose.Schema({
     teamId: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Team',
+        ref: 'team',
         required: true
     },
     authors: {
