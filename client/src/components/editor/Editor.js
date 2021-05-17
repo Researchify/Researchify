@@ -1,35 +1,25 @@
 import React from "react"
-import {Container,Row,Col,Card,Button} from "react-bootstrap"
-import EditorHeader from './EditorHeader'
-import EditorSideBarData from './EditorSideBarData'
 import EditorHome from './EditorHome'
-import Sidebar from '../layout/Sidebar';
+import { Fragment } from "react"
+import '../layout/Layout.css'
+import Layout from '../Layout';
+import EditorSideBarData from './EditorSideBarData'
 
 const urls={
     dashboard: "/dashboard",
-    profile: "/dashboard/profile"
+    profile: "/dashboard/profile",
+    editor:"/editor"
 }
 
-const editor =()=>{return(
+const editor =()=>{
+    return(
 // Add routes to other editor pages just like in App component
-
     //Need to have header and sidebar wrapped in a fragmment for other editor pages to use
-    <Container>
-
-        
-        <EditorHeader title={"Researchify"} urls={urls}/>
-        <Sidebar data={{EditorSideBarData}} type={false} />
-        <Row>
-            <Col>
-                Side
-            </Col>
-            <Col>
-                <EditorHome />
-            </Col>
-            <Col>Images</Col>
-        </Row>
-        
-    </Container>
+    <Fragment>
+        <Layout sidebarData={EditorSideBarData} urls={urls}>
+            <EditorHome />
+        </Layout>
+    </Fragment>
 )}
 
 

@@ -1,13 +1,10 @@
 import "./Sidebar.css"
-const Sidebar = (props) => {
+const Sidebar = ({ data}) => {
     
-    const datasrc=props.type?props.data.SidebarData:props.data.EditorSideBarData
-    console.log(datasrc)
-    console.log(props.type)
     return (
         <div className="Sidebar">
             <ul className="SidebarList">
-                {datasrc.map((val,key)=> {
+                {data.map((val,key)=> {
                     return(
                     <li 
                         key={key}

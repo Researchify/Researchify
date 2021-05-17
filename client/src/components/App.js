@@ -9,23 +9,26 @@ import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 import Editor from './editor/Editor'
+import Sidebar from './layout/Sidebar';
+
 import Register from './auth/Register';
 import Login from './auth/Login';
-import Header from './layout/Header';
-import Sidebar from './layout/Sidebar';
-import { Container, Col, Row } from 'react-bootstrap';
+import Layout from './Layout';
 import SidebarData from './layout/SidebarData'
-import EditorSideBarData from './editor/EditorSideBarData'
-import './layout/Layout.css'
+import Header from './layout/Header';
+import { Container, Col, Row } from 'react-bootstrap';
 
+import './layout/Layout.css'
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
 
 const App = () => {
     const urls={
         dashboard: "/dashboard",
-        profile: "/dashboard/profile"
+        profile: "/dashboard/profile",
+        editor: "/editor",
     }
+
     return (
         <BrowserRouter>
             <Switch>
@@ -34,21 +37,14 @@ const App = () => {
                 <Route path="/register" exact component={Register} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/editor" exact component={Editor}/>
-                <Fragment>
-                    <Header title={"Researchify"} urls={urls}/>      
-                    <Container fluid>
-                        <Row>
-                        <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>
-                            <Sidebar data={{SidebarData}} type={true}/>
-                        </Col>
-                        <Col className="page-content-wrapper" md={10} lg={10} xl={11}>
-                            <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
-                            <Route path={urls.dashboard} exact component={Dashboard} />
-                            <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
-                        </Col>
-                        </Row>
-                    </Container>
-                </Fragment>                
+
+                <Layout sidebarData={SidebarData} urls={urls}>
+                    <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
+                    <Route path={urls.dashboard} exact component={Dashboard} />
+                    <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
+        
+                </Layout>
+                                      
             </Switch>             
         </BrowserRouter>
     );
