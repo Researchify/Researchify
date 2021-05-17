@@ -10,7 +10,8 @@ import PageTwo from "./CategoryPage"
 
 export const CATEGORY_TYPE = {
     Journal: "JOURNAL",
-    Conference: "CONFERENCE"
+    Conference: "CONFERENCE",
+    Other: "OTHER"
 }
 
 const PublicationForm = (props) => {

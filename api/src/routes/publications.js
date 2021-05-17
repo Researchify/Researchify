@@ -17,5 +17,6 @@ publicationsRouter.get('/:id', publicationsController.readPublication);
 
 publicationsRouter.get('/team/:team_id', publicationsController.readAllPublicationsByTeam);
 
+publicationsRouter.post('/import', publicationsController.importPublications);
 
 module.exports = publicationsRouter;

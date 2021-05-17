@@ -46,7 +46,7 @@ const publicationSchema = new mongoose.Schema({
     category: {
         type: {
             type: String,
-            enum: ['CONFERENCE', 'JOURNAL'],
+            enum: ['CONFERENCE', 'JOURNAL', 'OTHER'],
             required: true
         },
         categoryTitle: {

@@ -145,4 +145,17 @@ async function readAllPublicationsByTeam(req, res) {
     }
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam};
+async function importPublications(req, res) {
+    const {teamId, publications} = req.body;
+
+    var result = await Team.findById({ _id: teamId});
+    if (result == null) {
+        return res.status(404).send('Error: Team not found.');
+    }
+
+    const importedPublications = await Publication.insertMany(publications);
+    res.status(201).json(importedPublications);
+
+}
+
+module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam, importPublications};
