@@ -31,6 +31,8 @@ const Publications = () => {
 
     const teamPublications = useSelector(state => state.publications)
 
+    console.log(teamPublications)
+
     const renderPublications = () => {
         switch(layout){
             case allLayouts.byCategory:
@@ -47,14 +49,10 @@ const Publications = () => {
                     <Col md={{ span: 4, offset: 4 }}>
                         <div className="mb-3 mt-3 text-center">
                             <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>    
-                                <IconContext.Provider value={{ color: 'black', size: '30px' }}>
-                                    <VscAdd />
-                                </IconContext.Provider>
+                                Add Publication
                             </Button>
-                            <Button className="ml-2 mr-2"  onClick={() => setShowImportForm(true)}> 
-                                <IconContext.Provider value={{ color: 'black', size: '30px' }}>
-                                    <BsArrowUpDown /> 
-                                </IconContext.Provider>
+                            <Button className="ml-2 mr-2" onClick={() => setShowImportForm(true)}> 
+                                Import Publication
                             </Button>
                         </div>
                     </Col>
