@@ -23,7 +23,7 @@ const Publications = () => {
     } 
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showImportForm, setShowImportForm] = useState(false)
-    const [sortingOption, setSortingOption] = useState("year");
+    const [sortingOption, setSortingOption] = useState("Year");
     const [layout, setLayout] = useState(allLayouts.allPublications)
 
     useEffect(() => {
@@ -40,6 +40,15 @@ const Publications = () => {
                 return <LayoutAllPublications teamPublications={teamPublications} />
         }
     }
+
+    const toggleSortingOptions = () => {
+        switch(layout) {
+            case allLayouts.byCategory:
+                return <Dropdown.Item as="button" value="Category Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Category Title</Dropdown.Item>
+            default:
+                return
+        }
+    } 
 
     return (
         <> 
@@ -76,6 +85,13 @@ const Publications = () => {
                                     }
                                 </Dropdown.Menu>
                             </Dropdown>
+                                
+                            <DropdownButton variant="light" id="dropdown-item-button" title={"Sort by: "+sortingOption} >
+                                <Dropdown.Item as="button" value="Year" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Year</Dropdown.Item>
+                                <Dropdown.Item as="button" value="Author" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Author</Dropdown.Item>
+                                <Dropdown.Item as="button" value="Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Title</Dropdown.Item>
+                                { toggleSortingOptions() }
+                            </DropdownButton>
                         </div>
                     </Col>
                 </Row>
@@ -85,12 +101,6 @@ const Publications = () => {
                 <h4>
                     Total of {teamPublications.length} publications
                 </h4>
-                <DropdownButton id="dropdown-item-button" title={"Sort by: "+sortingOption} >
-                    <Dropdown.Item as="button" value="year" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Year</Dropdown.Item>
-                    <Dropdown.Item as="button" value="author" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Author</Dropdown.Item>
-                    <Dropdown.Item as="button" value="title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Title</Dropdown.Item>
-                    <Dropdown.Item as="button" value="type" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Publication Type</Dropdown.Item>
-                </DropdownButton>
             </div>
 
             { renderPublications() }

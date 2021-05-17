@@ -64,14 +64,15 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
     console.log(teamPublications);
     console.log(sortingOption);
     switch (sortingOption) {
-        case "author":
+        case "Author":
             teamPublications.sort((a, b) => (a.authors[0].toLowerCase() > b.authors[0].toLowerCase()) ? 1 : -1);
             break;
-        case "title":
+        case "Title":
+            // publication title
             teamPublications.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1);
             break;
-        case "type":
-            // to implement sort by title of the journal/conference
+        case "Category Title":
+            // journal or conference title
             teamPublications.sort((a, b) => (a.category.categoryTitle.toLowerCase() > b.category.categoryTitle.toLowerCase()) ? 1 : -1)
             break;
         default:
