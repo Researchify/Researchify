@@ -28,7 +28,7 @@ const Publication = ({pub}) => {
             }, 2500)
             setNewlyAdded(true)
         }
-    }, [pub._id])
+    }, [pub.newlyAdded, pub._id])
 
     const handleDelete = () => {
         dispatch(deletePublication(pub._id))

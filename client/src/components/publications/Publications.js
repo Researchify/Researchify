@@ -5,11 +5,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPublicationsByTeamId } from '../../actions/publications'
-import { Button, Modal, InputGroup, FormControl, Dropdown, Container, Col, Row } from 'react-bootstrap';
+import { Button, Modal, InputGroup, FormControl, Dropdown, Container, Col, Row, Spinner } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm'
-import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
-import { VscAdd } from 'react-icons/vsc'
-import { IconContext } from "react-icons"
+import { BsFillPersonFill } from 'react-icons/bs'
 import './publications.css'
 import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
@@ -29,9 +27,9 @@ const Publications = () => {
         dispatch(getPublicationsByTeamId(teamId));
       }, [dispatch, teamId]);
 
-    const teamPublications = useSelector(state => state.publications)
+    const {loading, teamPublications} = useSelector(state => state.publications)
 
-    console.log(teamPublications)
+    console.log(loading, teamPublications)
 
     const renderPublications = () => {
         switch(layout){
@@ -79,9 +77,12 @@ const Publications = () => {
             </Container>
 
             <div className="text-center">
-                <h4>
-                    Total of {teamPublications.length} publications
-                </h4>
+                {
+                    loading ? <Spinner animation="border" /> :                 
+                    <h4>
+                        Total of {teamPublications.length} publications
+                    </h4>
+                }
             </div>
 
             { renderPublications() }

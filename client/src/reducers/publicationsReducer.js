@@ -1,17 +1,22 @@
 import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION } from '../actions/types';
 
-const publicationsReducer = (teamPublications = [], action) => {
+const initialState = {
+    loading: true,
+    teamPublications: []
+}
+
+const publicationsReducer = (state=initialState, action) => {
     switch (action.type) {
         case GET_PUBLICATIONS_BY_TEAM_ID:           
-            return action.payload
+            return {loading: false, teamPublications: action.payload}
         case CREATE_PUBLICATION:
-            return [...teamPublications, action.payload]
+            return {...state, teamPublications: [...state.teamPublications, action.payload]}
         case UPDATE_PUBLICATION:
-            return teamPublications.map(pub => pub._id === action.payload._id ? action.payload : pub)
+            return {...state, teamPublications: state.teamPublications.map(pub => pub._id === action.payload._id ? action.payload : pub)}
         case DELETE_PUBLICATION:
-            return teamPublications.filter(pub => pub._id !== action.payload)
+            return {...state, teamPublications: state.teamPublications.filter(pub => pub._id !== action.payload)}
         default:
-            return teamPublications
+            return state
     }
 };
 
