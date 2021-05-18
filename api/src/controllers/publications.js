@@ -137,12 +137,7 @@ async function readAllPublicationsByTeam(req, res) {
     }
 
     const foundPublication = await Publication.find({ teamId: _id });
-
-    if (foundPublication.length == 0) { // nothing returned by the query
-        res.status(404).send('Error: No publications found.');  // no content
-    } else {
-        res.status(200).json(foundPublication);
-    }
+    res.status(200).json(foundPublication);
 }
 
 module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam};

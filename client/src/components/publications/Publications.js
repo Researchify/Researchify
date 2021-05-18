@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPublicationsByTeamId } from '../../actions/publications'
-import { Button, Modal, InputGroup, FormControl, Dropdown, Container, Col, Row, Spinner } from 'react-bootstrap';
+import { Button, Modal, InputGroup, FormControl, Dropdown, Container, Col, Row, Spinner, Alert } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm'
 import { BsFillPersonFill } from 'react-icons/bs'
 import './publications.css'
@@ -85,7 +85,13 @@ const Publications = () => {
                 }
             </div>
 
-            { renderPublications() }
+            {   
+                teamPublications.length === 0 && !loading ? 
+                <Alert variant="primary">
+                    There is no publication for this team. Please add or import publications. 
+                </Alert> :
+                renderPublications()
+            }
 
             {/* A modal for showing create publication form */}
             <Modal show={showCreateForm}>
