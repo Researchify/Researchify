@@ -29,8 +29,6 @@ const Publications = () => {
 
     const {loading, teamPublications} = useSelector(state => state.publications)
 
-    console.log(loading, teamPublications)
-
     const renderPublications = () => {
         switch(layout){
             case allLayouts.byCategory:
