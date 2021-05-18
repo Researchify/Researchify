@@ -54,7 +54,6 @@ const App = () => {
                     <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
         
                 </Layout>
-                                      
             </Switch>             
         </BrowserRouter>
     );

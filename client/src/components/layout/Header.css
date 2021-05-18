@@ -1,9 +1,9 @@
 .header{
     top: 0;
     padding-top: 5px;
-    background-color: hsl(0, 0%, 96%);
     width: 100% !important;
-    
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #26282A;
 }
 
 .profile-picture{
@@ -32,4 +32,12 @@
 .header-brand:hover{
     color: #2B61F2;
     text-decoration: none;
+}
+
+.header-profile{
+    right: 0;
+}
+
+.header-profile-icon{
+    font-size: 25px;
 }

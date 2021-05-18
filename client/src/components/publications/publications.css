@@ -8,6 +8,13 @@
   border-color: rgb(212, 207, 205);
 }
 
+.publicationListHeader {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
 .modalHeader {
   background-color: rgb(240, 240, 240);
 }
