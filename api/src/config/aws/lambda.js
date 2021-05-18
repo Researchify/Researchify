@@ -20,7 +20,7 @@ module.exports = {invoke :function (author)
     const params = {
         FunctionName: 'lambda_handler',
         InvocationType: 'RequestResponse',  // todo: can make async using Event invocation type
-        Payload: "{\"author\": \"" + author + "\"}"
+        Payload: "{\"author_id\": \"" + author + "\"}"
     };
     client.invoke(params, (err, data) => {
         if (err) {
@@ -33,6 +33,6 @@ module.exports = {invoke :function (author)
     });
 }
 }
- invoke();
+
 
 

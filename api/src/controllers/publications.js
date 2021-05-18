@@ -150,6 +150,7 @@ async function importPublication(req, res) {
     const lambda = require('../config/aws/lambda');
 
     res.status(200).json(lambda.invoke("a"));
+    console.log("a");
     /*const publication = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
