@@ -4,8 +4,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPublicationsByTeamId } from '../../actions/publications'
-import { Button, Modal, InputGroup, FormControl, Dropdown, Container, Col, Row, Spinner, Alert } from 'react-bootstrap';
+import { getPublicationsByTeamId, sortPublications } from '../../actions/publications'
+import { Button, Modal, InputGroup, FormControl, Dropdown, DropdownButton, Container, Col, Row, Spinner, Alert } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm'
 import { BsFillPersonFill } from 'react-icons/bs'
 import './publications.css'
@@ -21,6 +21,7 @@ const Publications = () => {
     } 
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showImportForm, setShowImportForm] = useState(false)
+    const [sortingOption, setSortingOption] = useState("Year");
     const [layout, setLayout] = useState(allLayouts.allPublications)
 
     useEffect(() => {
@@ -37,6 +38,15 @@ const Publications = () => {
                 return <LayoutAllPublications teamPublications={teamPublications} />
         }
     }
+
+    const toggleSortingOptions = () => {
+        switch(layout) {
+            case allLayouts.byCategory:
+                return <Dropdown.Item as="button" value="Category Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Category Title</Dropdown.Item>
+            default:
+                return
+        }
+    } 
 
     return (
         <> 
@@ -69,6 +79,13 @@ const Publications = () => {
                                     }
                                 </Dropdown.Menu>
                             </Dropdown>
+                                
+                            <DropdownButton variant="light" id="dropdown-item-button" title={"Sort by: "+sortingOption} >
+                                <Dropdown.Item as="button" value="Year" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Year</Dropdown.Item>
+                                <Dropdown.Item as="button" value="Author" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Author</Dropdown.Item>
+                                <Dropdown.Item as="button" value="Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Title</Dropdown.Item>
+                                { toggleSortingOptions() }
+                            </DropdownButton>
                         </div>
                     </Col>
                 </Row>

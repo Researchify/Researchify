@@ -136,7 +136,19 @@ async function readAllPublicationsByTeam(req, res) {
         }
     }
 
-    const foundPublication = await Publication.find({ teamId: _id });
+    // const foundPublication = await Publication.find({ teamId: _id }).sort([["yearPublished", -1]]);
+    const foundPublication = await Publication.aggregate([
+        {
+            $match: { teamId: mongoose.Types.ObjectId(_id) }
+        },
+        {
+            $addFields: { year: { $year: "$yearPublished" } }
+        },
+        {
+            $sort: { year: -1, title: 1 }
+        }
+    ]);
+
     res.status(200).json(foundPublication);
 }
 
