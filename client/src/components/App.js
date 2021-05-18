@@ -29,6 +29,16 @@ const App = () => {
         editor: "/editor",
     }
 
+    const headerData = [
+        {
+            title:"Profile",
+            link: "/dashboard/profile"
+        },
+        {
+            title:"Publications",
+            link: "/publications/team/606bb59c22201f529db920c9"
+        }      
+    ]
     return (
         <BrowserRouter>
             <Switch>
@@ -37,8 +47,8 @@ const App = () => {
                 <Route path="/register" exact component={Register} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/editor" exact component={Editor}/>
-
-                <Layout sidebarData={SidebarData} urls={urls}>
+                {console.log(headerData)}
+                <Layout sidebarData={SidebarData} headerData={headerData}>
                     <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
                     <Route path={urls.dashboard} exact component={Dashboard} />
                     <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
@@ -49,5 +59,4 @@ const App = () => {
         </BrowserRouter>
     );
 };
-
 export default App;

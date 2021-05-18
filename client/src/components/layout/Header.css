@@ -8,12 +8,14 @@
 
 .profile-picture{
     height: 30px;
+    position: absolute;
+    left: 95%;    
 }
 
 .header-link{
     color:#000000;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
-    padding: 15px;
+    padding: 10px;
 }
 
 .header-link:hover{

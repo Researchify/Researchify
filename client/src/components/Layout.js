@@ -4,10 +4,11 @@ import Header from './layout/Header';
 import { Container, Col, Row } from 'react-bootstrap';
 
 
-const Layout = ({children, sidebarData, urls}) =>{
+const Layout = ({children, sidebarData, headerData}) =>{
     return (
+
         <Fragment>
-            <Header title={"Researchify"} urls={urls}/>      
+            <Header data={headerData}/>      
             <Container fluid>
                 <Row>
                 <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>
