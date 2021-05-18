@@ -26,7 +26,7 @@ export const createPublication = (publication) => async(dispatch) => {
 
         dispatch({
             type: CREATE_PUBLICATION,
-            payload: result.data
+            payload: {...result.data, newlyAdded: true}
         })
     } catch(error){
         console.log(error);
