@@ -40,7 +40,7 @@ const App = () => {
                             <Sidebar />
                         </Col>
                         <Col className="page-content-wrapper" md={10} lg={10} xl={11}>
-                            <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
+                            <Route path="/publications/team" exact component={PublicationPage}/>
                             <Route path={urls.dashboard} exact component={Dashboard} />
                             <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
                         </Col>

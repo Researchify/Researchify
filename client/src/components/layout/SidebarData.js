@@ -19,7 +19,7 @@ export const SidebarData = [
     {
         title: "Publications",
         icon: <BsBookHalf />,
-        link: "/publications/team/606bb59c22201f529db920c9"
+        link: "/publications/team"
     },
     {
         title: "Team Profile",
