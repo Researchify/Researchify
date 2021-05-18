@@ -148,7 +148,6 @@ async function readAllPublicationsByTeam(req, res) {
             $sort: { year: -1, title: 1 }
         }
     ]);
-
     res.status(200).json(foundPublication);
 }
 

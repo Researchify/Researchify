@@ -17,7 +17,6 @@ const publicationsReducer = (state=initialState, action) => {
             return {...state, teamPublications: state.teamPublications.filter(pub => pub._id !== action.payload)}
         case SORT_PUBLICATIONS:
             return {...state, teamPublications: action.payload}
-
         default:
             return state
     }
