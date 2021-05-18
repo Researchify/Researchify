@@ -1,4 +1,4 @@
-import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION } from '../actions/types';
+import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION, SORT_PUBLICATIONS } from '../actions/types';
 
 const initialState = {
     loading: true,
@@ -15,8 +15,11 @@ const publicationsReducer = (state=initialState, action) => {
             return {...state, teamPublications: state.teamPublications.map(pub => pub._id === action.payload._id ? action.payload : pub)}
         case DELETE_PUBLICATION:
             return {...state, teamPublications: state.teamPublications.filter(pub => pub._id !== action.payload)}
+            return teamPublications.filter(pub => pub._id !== action.payload)
+        case SORT_PUBLICATIONS:
+            return action.payload
         default:
-            return state
+            return {...state, teamPublications: action.payload}
     }
 };
 
