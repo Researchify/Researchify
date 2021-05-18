@@ -13,18 +13,26 @@ const client = new Lambda({
 });
 
 
-// TODO: Remove the following lines
+// TODO: Remove the following linesn
 
-const params = {
-    FunctionName: 'lambda_handler',
-    InvocationType: 'RequestResponse',  // todo: can make async using Event invocation type
-    Payload: "{\"author\": \"eRbvWqYAAAAJ\"}"
-};
+module.exports = {invoke :function (author)
+{
+    const params = {
+        FunctionName: 'lambda_handler',
+        InvocationType: 'RequestResponse',  // todo: can make async using Event invocation type
+        Payload: "{\"author\": \"" + author + "\"}"
+    };
+    client.invoke(params, (err, data) => {
+        if (err) {
+            console.error(err);
+            return err;
+        } else {
+            console.log(data);
+            return data;
+        }
+    });
+}
+}
+ invoke();
 
-client.invoke(params, (err, data) => {
-    if (err) {
-        console.error(err);
-    } else {
-        console.log(data);
-    }
-});
+

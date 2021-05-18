@@ -148,7 +148,8 @@ async function readAllPublicationsByTeam(req, res) {
 // eslint-disable-next-line no-unused-vars
 async function importPublication(req, res) {
     const lambda = require('../config/aws/lambda');
-    new lambda();
+
+    res.status(200).json(lambda.invoke("a"));
     /*const publication = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
