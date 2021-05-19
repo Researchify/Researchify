@@ -2,13 +2,15 @@
 This file contains the functions relating to getting publications from google scholar.
 """
 from scholarly import scholarly
-from joblib import Parallel, delayed
+from multiprocessing import Pipe, Process
 import json
 
-def fill_pub(pub):
+def fill_pub(pub, conn):
     filled_pub = scholarly.fill(pub)
     del filled_pub["source"]
-    pub_list.append(filled_pub)
+    # pub_list.append(filled_pub)
+    conn.send([filled_pub])
+    conn.close()
 
 def get_publications(author_id):
     """
@@ -21,7 +23,23 @@ def get_publications(author_id):
     author_object = scholarly.fill(search_query, publication_limit=10)
     pub_list = []
 
-    Parallel(n_jobs=2, prefer="threads")(delayed(fill_pub)(pub) for pub in author_object["publications"])
+    processes = []
+    parent_connections = []
 
+    for pub in author_object["publications"]:
+        parent_conn, child_conn = Pipe()
+        parent_connections.append(parent_conn)
+        process = Process(target=fill_pub, args=(pub,child_conn))
+        processes.append(process)
+
+    for process in processes:
+        process.start()
+
+    for process in processes:
+        process.join()
+
+    for parent_connection in parent_connections:
+        pub_list.append(parent_connection.recv()[0])
+        
     pub_json = json.dumps({ "publications": pub_list })
     return pub_json
