@@ -1,12 +1,12 @@
 /**
  * This module configures and exports an AWS Lambda client used for importing publications.
  */
-const Lambda = require('aws-sdk/clients/lambda');
+const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
 
 const credentials = require('./creds');
 
 
-const client = new Lambda({
+const client = new LambdaClient({
     region: 'us-east-1',
     sslEnabled: false,  // todo: check if can be set to true
     credentials
@@ -15,13 +15,13 @@ const client = new Lambda({
 
 // TODO: Remove the following linesn
 
-module.exports = {invoke :function (author)
+/* module.exports = {invoke :async function (params)
 {
-    const params = {
-        FunctionName: 'lambda_handler',
-        InvocationType: 'RequestResponse',  // todo: can make async using Event invocation type
-        Payload: "{\"author_id\": \"" + author + "\"}"
-    };
+
+    const command = new InvokeCommand(params);
+    console.log("a");
+    // eslint-disable-next-line no-unused-vars
+    const response = await client.send(command);
     client.invoke(params, (err, data) => {
         if (err) {
             console.error(err);
@@ -31,8 +31,7 @@ module.exports = {invoke :function (author)
             return data;
         }
     });
-}
-}
+} */
 
 
 

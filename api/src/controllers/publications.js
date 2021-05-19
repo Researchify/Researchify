@@ -8,6 +8,10 @@ const Publication = require("../models/publication.model");
 
 const Team = require("../models/team.model");
 
+const lambda = require('../config/aws/lambda');
+const credentials = require('../config/aws/creds');
+const { LambdaClient, InvokeCommand } = require("@aws-sdk/client-lambda");
+
 
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
@@ -147,9 +151,29 @@ async function readAllPublicationsByTeam(req, res) {
 
 // eslint-disable-next-line no-unused-vars
 async function importPublication(req, res) {
-    const lambda = require('../config/aws/lambda');
+    let author = req.params.id;
 
-    res.status(200).json(lambda.invoke("a"));
+    const client = new LambdaClient({
+        region: 'ap-southeast-2',
+        sslEnabled: false,  // todo: check if can be set to true
+    });
+    const params = {
+        FunctionName: 'import-pub',
+        InvocationType: 'RequestResponse',  // todo: can make async using Event invocation type
+        Payload: "{\"author_id\": \""+ author+"\"}"
+
+        //Payload: "{ \"key1\": \"value1\", \"key2\": \"value2\", \"key3\": \"value3\"}"
+        //Payload: "{\"author_id\": \"" + author + "\"}"
+    };
+    const command = new InvokeCommand(params);
+    console.log("a");
+    const response = await client.send(command);
+
+    const asciiDecoder = new TextDecoder('utf-8');
+    let output = asciiDecoder.decode(response.Payload);
+    console.log(output);
+    res.status(200).json(response);
+    //res.status(200).json(lambda.invoke(params));
     console.log("a");
     /*const publication = req.body;
 
