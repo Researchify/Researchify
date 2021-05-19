@@ -1,5 +1,5 @@
 import React from 'react'
-import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, 
+import {BsFillHouseDoorFill, BsBookHalf, 
     BsFileEarmarkPlus,BsFillAwardFill,BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
 
 /*
@@ -8,7 +8,7 @@ import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf,
 const EditorSideBarData = [
     {
         title: "Publications Page",
-        icon: <BsFillGridFill />,
+        icon: <BsBookHalf />,
         link: "/publications"
     },
     {
