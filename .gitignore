@@ -1,6 +1,7 @@
 # Personal
 todos.txt
 out/
+build
 
 # IDE
 .idea
