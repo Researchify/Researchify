@@ -52,18 +52,18 @@ const Publications = () => {
         <> 
             <Container className="mt-4">
                 <Row>
-                    <Col md={{ span: 4, offset: 4 }}>
+                    <Col xs={{span: 6, offset: 3}} md={{ span: 6, offset: 3 }}>
                         <div className="mb-3 mt-3 text-center">
-                            <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>    
+                            <Button className="mr-2" onClick={() => setShowCreateForm(true)}>    
                                 Add Publication
                             </Button>
-                            <Button className="ml-2 mr-2" onClick={() => setShowImportForm(true)}> 
+                            <Button className="ml-2" onClick={() => setShowImportForm(true)}> 
                                 Import Publication
                             </Button>
                         </div>
                     </Col>
 
-                    <Col md={{ span: 2, offset: 2}}>
+                    <Col xs={{span: 3}} md={{ span: 3}}>
                         <div className="mb-3 mt-3 text-center">
                             <Dropdown>
                                 <Dropdown.Toggle variant="light" className="ml-2 mr-2">
