@@ -1,4 +1,5 @@
 import "./Sidebar.css"
+import { Link, useLocation } from 'react-router-dom'
 const Sidebar = ({ data}) => {
     
     return (
@@ -10,7 +11,7 @@ const Sidebar = ({ data}) => {
                         <li 
                             key={key}
                             className="row"
-                            id={location.pathname === val.link ? "active" : ""}
+                            id={useLocation.pathname === val.link ? "active" : ""}
                         >
                         {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
 

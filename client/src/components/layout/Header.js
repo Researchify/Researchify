@@ -1,5 +1,5 @@
 import React from "react"
-import { Navbar, Nav, Image } from "react-bootstrap"
+import { Navbar, Nav} from "react-bootstrap"
 import { Link } from 'react-router-dom'
 import {useSelector} from 'react-redux';
 import {BsPeopleCircle} from 'react-icons/bs'

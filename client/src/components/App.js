@@ -9,18 +9,14 @@ import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 import Editor from './editor/Editor'
-import Sidebar from './layout/Sidebar';
 
 import Register from './auth/Register';
 import Login from './auth/Login';
 import Layout from './Layout';
 import SidebarData from './layout/SidebarData'
-import Header from './layout/Header';
-import { Container, Col, Row } from 'react-bootstrap';
 
 import './layout/Layout.css'
 import PublicationPage from './publications/PublicationPage';
-import { Fragment } from 'react';
 
 const App = () => {
     const urls={
