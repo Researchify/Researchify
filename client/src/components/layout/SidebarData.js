@@ -1,5 +1,5 @@
 import React from 'react'
-import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, 
+import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, BsPencilSquare,
     BsPerson, BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
 
 /*
@@ -15,6 +15,11 @@ const SidebarData = [
         title: "Home",
         icon: <BsFillHouseDoorFill />,
         link: "/dashboard/home"
+    },
+    {
+        title: "Editor",
+        icon: <BsPencilSquare />,
+        link: "/editor"
     },
     {
         title: "Publications",

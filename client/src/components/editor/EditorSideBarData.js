@@ -1,5 +1,5 @@
 import React from 'react'
-import {BsFillHouseDoorFill, BsBookHalf, 
+import {BsFillHouseDoorFill, BsBookHalf, BsFillPeopleFill,
     BsFileEarmarkPlus,BsFillAwardFill,BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
 
 /*
@@ -9,32 +9,37 @@ const EditorSideBarData = [
     {
         title: "Publications Page",
         icon: <BsBookHalf />,
-        link: "/publications"
+        link: "#"
     },
     {
         title: "Home Page",
         icon: <BsFillHouseDoorFill />,
-        link: "/home"
+        link: "#"
     },
     {
         title: "Awards Page",
         icon: <BsFillAwardFill />,
-        link: "/home"
+        link: "#"
+    },
+    {
+        title: "Teams Page",
+        icon: <BsFillPeopleFill />,
+        link: "#"
     },
     {
         title: "Add Page",
         icon: <BsFileEarmarkPlus />,
-        link: "/custompage"
+        link: "#"
     },
     {
         title: "Settings",
         icon: <BsGearFill />,
-        link: "/home"
+        link: "#"
     },
     {
         title: "Help",
         icon: <BsFillQuestionCircleFill />,
-        link: "/home"
+        link: "#"
     },
 ]
 export default EditorSideBarData
