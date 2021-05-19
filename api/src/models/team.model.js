@@ -21,6 +21,9 @@
     },
      twitterHandle: {
         type: String
+    },
+    github_token: {
+        type: String
     }
  }, {timestamps: true})
  
