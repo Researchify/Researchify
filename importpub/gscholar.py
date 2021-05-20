@@ -19,5 +19,5 @@ def get_publications(author_id):
         del current_pub["source"]
         pub_list.append(current_pub)
 
-    pub_json = json.dumps({ "publications": pub_list })
+    pub_json = json.dumps({"publications": pub_list})
     return pub_json
