@@ -42,7 +42,9 @@ const Publications = () => {
     const toggleSortingOptions = () => {
         switch(layout) {
             case allLayouts.byCategory:
-                return <Dropdown.Item as="button" value="Category Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Category Title</Dropdown.Item>
+                return <Dropdown.Item as="button" value="Category Title" 
+                    onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); 
+                    setSortingOption(e.target.value)}}>Category Title</Dropdown.Item>
             default:
                 return
         }
@@ -79,11 +81,18 @@ const Publications = () => {
                                     }
                                 </Dropdown.Menu>
                             </Dropdown>
-                                
+                        </div>
+                        <div className="mb-3 mt-3 text-center">
                             <DropdownButton variant="light" id="dropdown-item-button" title={"Sort by: "+sortingOption} >
-                                <Dropdown.Item as="button" value="Year" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Year</Dropdown.Item>
-                                <Dropdown.Item as="button" value="Author" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Author</Dropdown.Item>
-                                <Dropdown.Item as="button" value="Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Title</Dropdown.Item>
+                                <Dropdown.Item as="button" value="Year" 
+                                    onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); 
+                                    setSortingOption(e.target.value)}}>Year</Dropdown.Item>
+                                <Dropdown.Item as="button" value="Author" 
+                                    onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); 
+                                    setSortingOption(e.target.value)}}>Author</Dropdown.Item>
+                                <Dropdown.Item as="button" value="Title" 
+                                    onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); 
+                                    setSortingOption(e.target.value)}}>Title</Dropdown.Item>
                                 { toggleSortingOptions() }
                             </DropdownButton>
                         </div>
