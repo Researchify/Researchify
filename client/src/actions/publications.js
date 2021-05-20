@@ -1,6 +1,6 @@
 import * as api from '../api'
 import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION, SORT_PUBLICATIONS } from './types';
-
+import importedPublications from '../components/publications/importedPublication/importedPublications.json'
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     try{
@@ -87,4 +87,47 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
         type: SORT_PUBLICATIONS,
         payload: teamPublications
     })
+}
+
+
+export const importPublication = (profileLink) => async dispatch => {
+    try{
+        dispatch({
+            type: "IMPORT_REQUEST"
+        })
+
+        //api call to import 
+        console.log(importedPublications)
+        let id = setInterval(() => {
+            dispatch({
+                type: "IMPORT_SUCCESS",
+                payload: importedPublications
+            })
+            clearInterval(id)
+        }, 2500)
+
+    } catch(error){
+        dispatch({
+            type: "IMPORT_FAIL",
+            payload: error.message
+        })
+    }
+}
+
+export const createBulkPublications = (teamId, publicationList) => async dispatch => {
+    try{
+        const result = await api.createBulkPublications(teamId, publicationList)
+        let createdPublications = result.data.map(pub => ({...pub, newlyAdded: true}))
+
+
+        console.log(createdPublications)
+
+        dispatch({
+            type: "CREATE_BULK_PUBLICATIONS",
+            payload: createdPublications
+        })
+
+    } catch(error){
+        console.log(error)
+    }
 }

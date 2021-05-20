@@ -75,6 +75,7 @@ async function updatePublication(req, res) {
  */
 async function createPublication(req, res) {
     const publication = req.body;
+    console.log(publication)
 
     if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
         return res.status(400).send('Error: Given team id is not in a valid hexadecimal format.');
@@ -152,14 +153,14 @@ async function readAllPublicationsByTeam(req, res) {
 }
 
 async function importPublications(req, res) {
-    const {teamId, publications} = req.body;
+    const {team_id: _id} = req.params;
 
-    var result = await Team.findById({ _id: teamId});
+    var result = await Team.findById(_id);
     if (result == null) {
         return res.status(404).send('Error: Team not found.');
     }
 
-    const importedPublications = await Publication.insertMany(publications);
+    const importedPublications = await Publication.insertMany(req.body);
     res.status(201).json(importedPublications);
 
 }

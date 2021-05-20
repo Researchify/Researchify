@@ -17,6 +17,9 @@ const publicationsReducer = (state=initialState, action) => {
             return {...state, teamPublications: state.teamPublications.filter(pub => pub._id !== action.payload)}
         case SORT_PUBLICATIONS:
             return {...state, teamPublications: action.payload}
+        case "CREATE_BULK_PUBLICATIONS":
+            let updatedTeamPubs = state.teamPublications.concat(action.payload)
+            return {...state, teamPublications: updatedTeamPubs}
         default:
             return state
     }

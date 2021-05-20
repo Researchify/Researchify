@@ -5,9 +5,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPublicationsByTeamId, sortPublications } from '../../actions/publications'
-import { Button, Modal, InputGroup, FormControl, Dropdown, DropdownButton, Container, Col, Row, Spinner, Alert } from 'react-bootstrap';
+import { Button, Modal, InputGroup, FormControl, Dropdown, DropdownButton, Container, Col, Row, Spinner, Alert, Card, Form} from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm'
-import { BsFillPersonFill } from 'react-icons/bs'
+import ImportForm from './form/ImportForm'
+import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
+import { IconContext } from "react-icons"
 import './publications.css'
 import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
@@ -47,6 +49,9 @@ const Publications = () => {
                 return
         }
     } 
+    const importPublication = () => {
+        // importPublication()
+    }
 
     return (
         <> 
@@ -119,22 +124,13 @@ const Publications = () => {
             </Modal>
             
             {/* A modal for showing import publication form */}
-            <Modal show={showImportForm}>
+            <Modal size="lg" show={showImportForm}>
                 <Modal.Header className="modalHeader">
                     <Modal.Title> Import from Google Scholar </Modal.Title>
                 </Modal.Header >
                 <Modal.Body>
-                    <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <InputGroup.Text><BsFillPersonFill /></InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <FormControl placeholder="Google Scholar Profile Link"/>
-                    </InputGroup>
+                    <ImportForm closeModal={() => setShowImportForm(false)}/>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="outline-danger" onClick={() => setShowImportForm(false)}> Cancel </Button>
-                    <Button> Confirm </Button>
-                </Modal.Footer>
             </Modal>
         </>
     )
