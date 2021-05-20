@@ -42,7 +42,9 @@ const Publications = () => {
     const toggleSortingOptions = () => {
         switch(layout) {
             case allLayouts.byCategory:
-                return <Dropdown.Item as="button" value="Category Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Category Title</Dropdown.Item>
+                return <Dropdown.Item as="button" value="Category Title" 
+                    onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); 
+                    setSortingOption(e.target.value)}}>Category Title</Dropdown.Item>
             default:
                 return
         }
@@ -59,29 +61,28 @@ const Publications = () => {
                 </Button>
             </div>
             <div className="mb-3 mt-3 text-center">
-                        <Dropdown className="ml-5">
-                            <Dropdown.Toggle variant="light" className="mb-2">
-                                Layout: {layout}
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {
-                                    Object.keys(allLayouts).map(layout => 
-                                        <Dropdown.Item as="button"onClick={()=>setLayout(allLayouts[layout])}>
-                                            {allLayouts[layout]}
-                                        </Dropdown.Item>
-                                    )
-                                }
-                            </Dropdown.Menu>
-                        </Dropdown>
-                            
-                        <DropdownButton className="ml-4" variant="light" id="dropdown-item-button" title={"Sort by: "+sortingOption} >
-                            <Dropdown.Item as="button" value="Year" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Year</Dropdown.Item>
-                            <Dropdown.Item as="button" value="Author" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Author</Dropdown.Item>
-                            <Dropdown.Item as="button" value="Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Title</Dropdown.Item>
-                            { toggleSortingOptions() }
-                        </DropdownButton>
-            </div>
+                <Dropdown className="ml-5">
+                    <Dropdown.Toggle variant="light" className="mb-2">
+                        Layout: {layout}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {
+                            Object.keys(allLayouts).map(layout => 
+                                <Dropdown.Item as="button"onClick={()=>setLayout(allLayouts[layout])}>
+                                    {allLayouts[layout]}
+                                </Dropdown.Item>
+                            )
+                        }
+                    </Dropdown.Menu>
+                </Dropdown>
 
+                <DropdownButton className="ml-4" variant="light" id="dropdown-item-button" title={"Sort by: "+sortingOption} >
+                    <Dropdown.Item as="button" value="Year" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Year</Dropdown.Item>
+                    <Dropdown.Item as="button" value="Author" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Author</Dropdown.Item>
+                    <Dropdown.Item as="button" value="Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Title</Dropdown.Item>
+                    { toggleSortingOptions() }
+                </DropdownButton>
+            </div>
             <div className="text-center">
                 {
                     loading ? <Spinner animation="border" /> :                 
