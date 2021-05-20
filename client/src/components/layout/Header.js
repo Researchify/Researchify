@@ -1,5 +1,5 @@
 import React from "react"
-import { Navbar, Nav} from "react-bootstrap"
+import { Navbar, Nav, Image } from "react-bootstrap"
 import { Link } from 'react-router-dom'
 import {useSelector} from 'react-redux';
 import {BsPeopleCircle} from 'react-icons/bs'
@@ -12,34 +12,21 @@ import { Fragment } from "react";
  * This function provides header for Layout.js
  * @returns Header component to be rendered in Layout.js
  */
-const Header = ({data}) => {
+const Header = ({title, urls}) => {
     const userName = useSelector(state => state.user?.givenName + " " + state.user?.familyName);
     //TODO: Remove hard-coded team id and publications id from the links
     return (
         <Fragment>
             <Navbar className="header" sticky="top">
-                <Navbar.Brand><Link className="header-brand" to="/dashboard">Researchify</Link></Navbar.Brand>          
+                <Navbar.Brand><Link className="header-brand" to={urls.dashboard}>{title}</Link></Navbar.Brand>
+                <Nav className="mr-auto" />
                 <Nav>
-                    <Nav className="mr-auto">
-                    {
-                        data.map((val,key)=> {
-                            
-                            return(
-                                <Nav.Link>
-                                <Link key={key} className={"header-link"} to={val.link}>{val.title}</Link>
-                                </Nav.Link> 
-                            )
-                        })
-                    }
-                </Nav>
-                </Nav>
-                <Nav>
-                <Nav.Link className="header-username">
+                    <Nav.Link className="header-profile">
                         <Link className="header-link" to="/dashboard/profile">
                             <BsPeopleCircle className="header-profile-icon" /> {userName}
                         </Link>
                     </Nav.Link>
-                    </Nav>
+                </Nav>
             </Navbar>
         </Fragment>
     )

@@ -1,11 +1,11 @@
 import React from 'react'
-import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, BsPencilSquare,
+import {BsFillGridFill, BsFillHouseDoorFill, BsBookHalf, 
     BsPerson, BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const SidebarData = [
+export const SidebarData = [
     {
         title: "Dashboard",
         icon: <BsFillGridFill />,
@@ -15,11 +15,6 @@ const SidebarData = [
         title: "Home",
         icon: <BsFillHouseDoorFill />,
         link: "/dashboard/home"
-    },
-    {
-        title: "Editor",
-        icon: <BsPencilSquare />,
-        link: "/editor"
     },
     {
         title: "Publications",
@@ -42,4 +37,3 @@ const SidebarData = [
         link: "/dashboard/help"
     },
 ]
-export default SidebarData
