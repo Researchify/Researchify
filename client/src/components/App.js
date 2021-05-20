@@ -12,7 +12,7 @@ import Editor from './editor/Editor'
 
 import Register from './auth/Register';
 import Login from './auth/Login';
-import Layout from './Layout';
+import Layout from './layout/Layout';
 import SidebarData from './layout/SidebarData'
 
 import './layout/Layout.css'
