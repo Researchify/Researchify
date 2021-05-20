@@ -61,6 +61,14 @@ async function getTeam(req, res) {
 
 }
 
+/**
+ * Handles a PATCH request to update a team's details on the endpoint /team/:id.
+ * @param {*} req request object - team id in url, json object containing atleast one field from team model.
+ * @param {*} res response object - updated team object
+ * @returns 200: returns updated team details
+ * @returns 404: team not found
+ * @returns 400: error updating team
+ */
 async function updateTeam(req, res) {
     const { id: _id } = req.params;
     const updates = req.body;
@@ -71,7 +79,6 @@ async function updateTeam(req, res) {
 
     try {
         const result = await Team.findByIdAndUpdate(_id, updates, options);
-        // res.send(result);
         res.status(200).json(result);
     } catch (err) {
         res.status(400).json(`Error: ${err.message}`);
