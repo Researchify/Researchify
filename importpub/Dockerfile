@@ -2,8 +2,6 @@ FROM public.ecr.aws/lambda/python:3.8
 
 RUN pip3 install scholarly
 
-RUN pip3 install joblib
-
 # Copy function code
 COPY handler.py ./
 COPY gscholar.py ./
