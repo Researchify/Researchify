@@ -1,21 +1,18 @@
 .header{
     top: 0;
     padding-top: 5px;
-    width: 100% !important;
     background-color: #F8F8F8;
     border-bottom: 1px solid #26282A;
 }
 
-.header-profile-icon{
+.profile-picture{
     height: 30px;
-    position: absolute;
-    left: 95%;    
 }
 
 .header-link{
     color:#000000;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
-    padding: 10px;
+    padding: 15px;
 }
 
 .header-link:hover{
