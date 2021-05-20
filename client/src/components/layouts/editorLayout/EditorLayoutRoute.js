@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
-import Sidebar from './layoutComponents/Sidebar';
+import Sidebar from '../layoutComponents/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
 import { Route } from 'react-router-dom';
-import EditorSidebarData from '../editor/EditorSidebarData';
+import EditorSidebarData from '../../editor/EditorSidebarData';
 
 
 const EditorLayout = ({ children }) => {

@@ -14,11 +14,11 @@ import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 import PublicationPage from './publications/PublicationPage';
 import EditorHome from './editor/EditorHome';
 
-import './layout/Layout.css';
+import './layouts/Layout.css';
 
 /** Layout **/
-import DashboardLayoutRoute from './layout/DashboardLayoutRoute';
-import EditorLayoutRoute from './layout/EditorLayoutRoute';
+import DashboardLayoutRoute from './layouts/dashboardLayout/DashboardLayoutRoute';
+import EditorLayoutRoute from './layouts/editorLayout/EditorLayoutRoute';
 
 const App = () => {
 
