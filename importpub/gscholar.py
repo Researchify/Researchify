@@ -8,7 +8,6 @@ import json
 def fill_pub(pub, conn):
     filled_pub = scholarly.fill(pub)
     del filled_pub["source"]
-    # pub_list.append(filled_pub)
     conn.send([filled_pub])
     conn.close()
 
@@ -18,7 +17,6 @@ def get_publications(author_id):
     :param author_id: google scholar user id extracted from their profile url
     :return: json string of publications in a list
     """
-    global pub_list
     search_query = scholarly.search_author_id(author_id)
     author_object = scholarly.fill(search_query, publication_limit=10)
     pub_list = []
