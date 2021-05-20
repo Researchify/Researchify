@@ -12,34 +12,21 @@ import { Fragment } from "react";
  * This function provides header for Layout.js
  * @returns Header component to be rendered in Layout.js
  */
-const Header = ({data}) => {
+const Header = (props) => {
     const userName = useSelector(state => state.user?.givenName + " " + state.user?.familyName);
     //TODO: Remove hard-coded team id and publications id from the links
+    console.log(props)
     return (
         <Fragment>
             <Navbar className="header" sticky="top">
-                <Navbar.Brand><Link className="header-brand" to="/dashboard">Researchify</Link></Navbar.Brand>          
-                <Nav>
-                    <Nav className="mr-auto">
-                    {
-                        data.map((val,key)=> {
-                            
-                            return(
-                                <Nav.Link>
-                                <Link key={key} className={"header-link"} to={val.link}>{val.title}</Link>
-                                </Nav.Link> 
-                            )
-                        })
-                    }
-                </Nav>
-                </Nav>
-                <Nav>
+            <Navbar.Brand><Link className="header-brand" to={props.data.dashboardURL}>{props.data.title}</Link></Navbar.Brand>
+                <Nav className="mr-auto" />
+
                 <Nav.Link className="header-username">
-                        <Link className="header-link" to="/dashboard/profile">
-                            <BsPeopleCircle className="header-profile-icon" /> {userName}
-                        </Link>
-                    </Nav.Link>
-                    </Nav>
+                    <Link className="header-link" to={props.data.profileURL}>
+                        <BsPeopleCircle className="header-profile-icon" /> {userName}
+                    </Link>
+                </Nav.Link>
             </Navbar>
         </Fragment>
     )
