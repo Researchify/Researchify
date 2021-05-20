@@ -5,11 +5,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPublicationsByTeamId, sortPublications } from '../../actions/publications'
-import { Button, Modal, InputGroup, FormControl, Dropdown, DropdownButton, Container, Col, Row, Spinner, Alert, Card, Form} from 'react-bootstrap';
+import { Button, Modal, Dropdown, DropdownButton, Container, Col, Row, Spinner, Alert } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm'
 import ImportForm from './form/ImportForm'
-import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
-import { IconContext } from "react-icons"
 import './publications.css'
 import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
@@ -49,9 +47,6 @@ const Publications = () => {
                 return
         }
     } 
-    const importPublication = () => {
-        // importPublication()
-    }
 
     return (
         <> 

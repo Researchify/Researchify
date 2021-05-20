@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import ImportedPublication from "../importedPublication/ImportedPublication"
 import React, { useState } from 'react';
 import { createBulkPublications } from "../../../actions/publications"
-import { Row, Button } from "react-bootstrap";
-
+import { Row, Button, Tooltip, OverlayTrigger } from "react-bootstrap";
+import { IMPORT_CLEAR_STATE } from "../../../actions/types"
 
 const ImportSucessPage = ({closeModal}) => {
     const { publications } = useSelector(state => state.importedPublications)
@@ -17,10 +17,16 @@ const ImportSucessPage = ({closeModal}) => {
         setCheckedArray(newCheckArray)
     }
 
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            You will lose your progress
+        </Tooltip>
+    )
+
     const handleClose = () => {
         closeModal()
         dispatch({
-            type: "CLEAR_IMPORT"
+            type: IMPORT_CLEAR_STATE
         })
     }
 
@@ -39,11 +45,19 @@ const ImportSucessPage = ({closeModal}) => {
                 )
             }
             <Row>
-                <div className="ml-auto mt-3 mr-3">
-                    <Button className="mr-2" variant="outline-danger" onClick={handleClose}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" type="submit" onClick={handleConfirmImport}> Import </Button>
+                <div className="mt-2 ml-3">
+                    <OverlayTrigger
+                        trigger={["hover", "focus"]}
+                        placement="bottom"
+                        overlay={renderTooltip}
+                    >
+                        <Button className="mr-2" variant="outline-danger" onClick={handleClose}>
+                            Cancel
+                        </Button>
+                    </OverlayTrigger>
+                </div>
+                <div className="mt-2 ml-auto mr-3">
+                    <Button  variant="outline-primary" onClick={handleConfirmImport}> Import </Button>
                 </div>
             </Row>
 

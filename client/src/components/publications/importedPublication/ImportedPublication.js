@@ -6,10 +6,14 @@ const ImportedPublciation = ({pub, index, setChecked}) => {
     const dropDown = (
         <Collapse in={expand}>
             <div>
-                <h6> Year pulished: {pub.yearPublished} </h6>
                 <h6>  
                     {pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}:  {pub.category.categoryTitle}
                 </h6>
+                { pub.category.issue && <h6> Issue: {pub.category.issue} </h6> }
+                { pub.category.volume && <h6> Volume: {pub.category.volume} </h6> }
+                { pub.category.pages && <h6> Pages: {pub.category.pages} </h6> }
+                { pub.category.publisher && <h6> Publisher: {pub.category.publisher} </h6> }   
+                <h6> Description: {pub.description} </h6>
                 <h6> Link: {pub.link} </h6>
             </div>
         </Collapse>
@@ -33,7 +37,7 @@ const ImportedPublciation = ({pub, index, setChecked}) => {
                         <Card.Title> Title: {pub.title} </Card.Title>
                     </InputGroup>
                     <Card.Subtitle className="mb-2 text-muted"> Authors: {pub.authors.map((author) => `${author}`).join(', ')} </Card.Subtitle>
-                    <h6> Description: {pub.description} </h6>
+                    <h6> Year pulished: {pub.yearPublished} </h6>
                     { dropDown }
                 </Card.Body>
             </Card>

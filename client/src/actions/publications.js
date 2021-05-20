@@ -1,6 +1,17 @@
 import * as api from '../api'
-import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION, SORT_PUBLICATIONS } from './types';
-import importedPublications from '../components/publications/importedPublication/importedPublications.json'
+import { 
+    GET_PUBLICATIONS_BY_TEAM_ID, 
+    CREATE_PUBLICATION, 
+    UPDATE_PUBLICATION, 
+    DELETE_PUBLICATION, 
+    SORT_PUBLICATIONS,
+    CREATE_BULK_PUBLICATIONS,
+    IMPORT_REQUEST,
+    IMPORT_SUCCESS, 
+    IMPORT_FAIL, 
+    IMPORT_CLEAR_STATE
+} from './types';
+import importedPublications from '../components/publications/importedPublication/importedPublications.json'// remove this once scholar api is implemented 
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     try{
@@ -89,26 +100,32 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
     })
 }
 
-
 export const importPublication = (profileLink) => async dispatch => {
     try{
         dispatch({
-            type: "IMPORT_REQUEST"
+            type: IMPORT_REQUEST
         })
 
-        //api call to import 
+        //TODO: api call to import publication from schloar
+
         console.log(importedPublications)
+
+        // pretending api call 
         let id = setInterval(() => {
             dispatch({
-                type: "IMPORT_SUCCESS",
+                type: IMPORT_SUCCESS,
                 payload: importedPublications
             })
+            // dispatch({
+            //     type: IMPORT_FAIL,
+            //     payload: "error.message"
+            // })
             clearInterval(id)
         }, 2500)
 
     } catch(error){
         dispatch({
-            type: "IMPORT_FAIL",
+            type: IMPORT_FAIL,
             payload: error.message
         })
     }
@@ -119,11 +136,8 @@ export const createBulkPublications = (teamId, publicationList) => async dispatc
         const result = await api.createBulkPublications(teamId, publicationList)
         let createdPublications = result.data.map(pub => ({...pub, newlyAdded: true}))
 
-
-        console.log(createdPublications)
-
         dispatch({
-            type: "CREATE_BULK_PUBLICATIONS",
+            type: CREATE_BULK_PUBLICATIONS,
             payload: createdPublications
         })
 
