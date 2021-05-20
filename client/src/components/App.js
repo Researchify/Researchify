@@ -36,7 +36,7 @@ const App = () => {
                 <Route path="/editor" exact component={Editor}/>
                 
                 <Layout sidebarData={SidebarData} headerData={headerData} >
-                    <Route path="/publications/team/:teamId" exact component={PublicationPage}/>
+                    <Route path="/publications/team" exact component={PublicationPage}/>
                     <Route path="/dashboard" exact component={Dashboard} />
                     <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
                 </Layout>
