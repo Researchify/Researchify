@@ -2,6 +2,9 @@
  * This module contains handlers for the "team" route.
  */
 const axios = require("axios");
+const mongoose = require("mongoose");
+const Team = require("../models/team.model");
+const teamRouter = require("../routes/team");
 
 
 const options = {
@@ -59,4 +62,21 @@ async function getTeam(req, res) {
 
 }
 
-module.exports = { storeHandle, getTeam };
+async function updateTeam(req, res) {
+    const { id: _id } = req.params;
+    const updates = req.body;
+    const options = {new: true};
+
+    if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("Error: No team with that id.");
+
+    try {
+        const result = await Team.findByIdAndUpdate(_id, updates, options);
+        // res.send(result);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(400).json(`Error: ${err.message}`);
+    }
+}
+
+module.exports = { storeHandle, getTeam, updateTeam };

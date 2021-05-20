@@ -22,7 +22,7 @@
      twitterHandle: {
         type: String
     },
-    github_token: {
+     githubToken: {
         type: String
     }
  }, {timestamps: true})
