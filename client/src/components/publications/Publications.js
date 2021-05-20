@@ -72,8 +72,8 @@ const Publications = () => {
                                 <Dropdown.Menu>
                                     {
                                         Object.keys(allLayouts).map(layout => 
-                                            <Dropdown.Item as="button"onClick={()=>setLayout(allLayouts[layout])}>
-                                                {allLayouts[layout]}
+                                            <Dropdown.Item key={layout} as="button" onClick={()=>setLayout(allLayouts[layout])}>
+                                                {allLayouts[layout]} 
                                             </Dropdown.Item>
                                         )
                                     }

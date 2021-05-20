@@ -57,7 +57,7 @@ const ImportSucessPage = ({closeModal}) => {
                     </OverlayTrigger>
                 </div>
                 <div className="mt-2 ml-auto mr-3">
-                    <Button  variant="outline-primary" onClick={handleConfirmImport}> Import </Button>
+                    <Button variant="primary" onClick={handleConfirmImport}> Import </Button>
                 </div>
             </Row>
 

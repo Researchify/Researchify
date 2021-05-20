@@ -27,7 +27,7 @@ const ImportForm = ({closeModal}) => {
             <div>
                 {displayResult()}
             </div>:
-            <ProfileLinkPage closeModal/>     
+            <ProfileLinkPage closeModal={closeModal}/>     
         )
     )
 }
