@@ -4,12 +4,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getPublicationsByTeamId } from '../../actions/publications'
-import { Button, Modal, InputGroup, FormControl, Dropdown, Container, Col, Row } from 'react-bootstrap';
+import { getPublicationsByTeamId, sortPublications } from '../../actions/publications'
+import { Button, Modal, InputGroup, FormControl, Dropdown, DropdownButton, Container, Col, Row, Spinner, Alert } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm'
-import { BsFillPersonFill, BsArrowUpDown } from 'react-icons/bs'
-import { VscAdd } from 'react-icons/vsc'
-import { IconContext } from "react-icons"
+import { BsFillPersonFill } from 'react-icons/bs'
 import './publications.css'
 import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
@@ -23,15 +21,14 @@ const Publications = () => {
     } 
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showImportForm, setShowImportForm] = useState(false)
+    const [sortingOption, setSortingOption] = useState("Year");
     const [layout, setLayout] = useState(allLayouts.allPublications)
 
     useEffect(() => {
         dispatch(getPublicationsByTeamId(teamId));
       }, [dispatch, teamId]);
 
-    const teamPublications = useSelector(state => state.publications)
-
-    console.log(teamPublications)
+    const {loading, teamPublications} = useSelector(state => state.publications)
 
     const renderPublications = () => {
         switch(layout){
@@ -42,22 +39,31 @@ const Publications = () => {
         }
     }
 
+    const toggleSortingOptions = () => {
+        switch(layout) {
+            case allLayouts.byCategory:
+                return <Dropdown.Item as="button" value="Category Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Category Title</Dropdown.Item>
+            default:
+                return
+        }
+    } 
+
     return (
         <> 
             <Container className="mt-4">
                 <Row>
-                    <Col md={{ span: 4, offset: 4 }}>
+                    <Col xs={{span: 6, offset: 3}} md={{ span: 6, offset: 3 }}>
                         <div className="mb-3 mt-3 text-center">
-                            <Button className="ml-2 mr-2" onClick={() => setShowCreateForm(true)}>    
+                            <Button className="mr-2" onClick={() => setShowCreateForm(true)}>    
                                 Add Publication
                             </Button>
-                            <Button className="ml-2 mr-2" onClick={() => setShowImportForm(true)}> 
+                            <Button className="ml-2" onClick={() => setShowImportForm(true)}> 
                                 Import Publication
                             </Button>
                         </div>
                     </Col>
 
-                    <Col md={{ span: 2, offset: 2}}>
+                    <Col xs={{span: 3}} md={{ span: 3}}>
                         <div className="mb-3 mt-3 text-center">
                             <Dropdown>
                                 <Dropdown.Toggle variant="light" className="ml-2 mr-2">
@@ -73,18 +79,34 @@ const Publications = () => {
                                     }
                                 </Dropdown.Menu>
                             </Dropdown>
+                                
+                            <DropdownButton variant="light" id="dropdown-item-button" title={"Sort by: "+sortingOption} >
+                                <Dropdown.Item as="button" value="Year" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Year</Dropdown.Item>
+                                <Dropdown.Item as="button" value="Author" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Author</Dropdown.Item>
+                                <Dropdown.Item as="button" value="Title" onClick={e => {dispatch(sortPublications(teamPublications, e.target.value)); setSortingOption(e.target.value)}}>Title</Dropdown.Item>
+                                { toggleSortingOptions() }
+                            </DropdownButton>
                         </div>
                     </Col>
                 </Row>
             </Container>
 
             <div className="text-center">
-                <h4>
-                    Total of {teamPublications.length} publications
-                </h4>
+                {
+                    loading ? <Spinner animation="border" /> :                 
+                    <h4>
+                        Total of {teamPublications.length} publications
+                    </h4>
+                }
             </div>
 
-            { renderPublications() }
+            {   
+                teamPublications.length === 0 && !loading ? 
+                <Alert variant="primary">
+                    There is no publication for this team. Please add or import publications. 
+                </Alert> :
+                renderPublications()
+            }
 
             {/* A modal for showing create publication form */}
             <Modal show={showCreateForm}>
