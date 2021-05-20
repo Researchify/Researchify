@@ -30,16 +30,6 @@ const EditorSideBarData = [
         title: "Add Page",
         icon: <BsFileEarmarkPlus />,
         link: "#"
-    },
-    {
-        title: "Settings",
-        icon: <BsGearFill />,
-        link: "#"
-    },
-    {
-        title: "Help",
-        icon: <BsFillQuestionCircleFill />,
-        link: "#"
-    },
+    }
 ]
 export default EditorSideBarData
