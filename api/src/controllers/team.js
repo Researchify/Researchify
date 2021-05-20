@@ -4,7 +4,6 @@
 const axios = require("axios");
 const mongoose = require("mongoose");
 const Team = require("../models/team.model");
-const teamRouter = require("../routes/team");
 
 
 const options = {
