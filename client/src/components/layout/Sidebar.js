@@ -1,22 +1,17 @@
 import "./Sidebar.css"
-import {SidebarData} from './SidebarData'
 import { Link, useLocation } from 'react-router-dom'
-
-
-const Sidebar = () => {
-
-    let location = useLocation();
-
+const Sidebar = ({ data}) => {
+    
     return (
         <div className="Sidebar">
             <ul className="SidebarList">
-                {SidebarData.map((val,key)=> {
+                {data.map((val,key)=> {
                     return(
                     <Link to={val.link} >
                         <li 
                             key={key}
                             className="row"
-                            id={location.pathname === val.link ? "active" : ""}
+                            id={useLocation.pathname === val.link ? "active" : ""}
                         >
                         {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
 
@@ -29,7 +24,8 @@ const Sidebar = () => {
                             </li>
                     </Link>
                     )
-                })}
+                })
+                }
             </ul>
         </div>
     )
