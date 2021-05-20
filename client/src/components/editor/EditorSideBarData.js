@@ -7,13 +7,13 @@ import {BsFillHouseDoorFill, BsBookHalf, BsFillPeopleFill,
 */
 const EditorSideBarData = [
     {
-        title: "Publications Page",
-        icon: <BsBookHalf />,
+        title: "Home Page",
+        icon: <BsFillHouseDoorFill />,
         link: "#"
     },
     {
-        title: "Home Page",
-        icon: <BsFillHouseDoorFill />,
+        title: "Publications Page",
+        icon: <BsBookHalf />,
         link: "#"
     },
     {
