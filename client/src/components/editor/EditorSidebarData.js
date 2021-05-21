@@ -9,7 +9,7 @@ const EditorSidebarData = [
     {
         title: "Home Page",
         icon: <BsFillHouseDoorFill />,
-        link: "/editor"
+        link: "/editor/home"
     },
     {
         title: "Publications Page",
