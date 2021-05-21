@@ -38,3 +38,10 @@
     padding-bottom: 1px;
 }
 
+.researchify-dashboard-card{
+    width:70%;
+}
+
+.researchify-dashboard-card-icons{
+    font-size: 333%;
+}
