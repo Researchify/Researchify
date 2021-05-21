@@ -1,35 +1,6 @@
-import React, { Fragment } from 'react';
-import Sidebar from '../layoutComponents/Sidebar';
-import Header from '../layoutComponents/Header';
-import { Container, Col, Row } from 'react-bootstrap';
+import React from 'react';
 import { Route } from 'react-router-dom';
-import SidebarData from '../SidebarData';
-
-const headerData = {
-    title: "Researchify",
-    dashboardURL: "/dashboard",
-    profileURL: "/dashboard/profile"
-}
-
-const DashboardLayout = ({ children }) => {
-
-
-    return (
-        <Fragment>
-            <Header data={headerData} />
-            <Container fluid>
-                <Row>
-                    <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>
-                        <Sidebar data={SidebarData} />
-                    </Col>
-                    <Col className="page-content-wrapper" md={10} lg={10} xl={11}>
-                        {children}
-                    </Col>
-                </Row>
-            </Container>
-        </Fragment>
-    );
-};
+import DashboardLayout from './DashboardLayout';
 
 const DashboardLayoutRoute = ({ component: Component, ...rest}) => {
     //get 'component' and renamed to 'Component', any other 'props' renamed to 'rest'
