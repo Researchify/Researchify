@@ -38,6 +38,10 @@
     padding-bottom: 1px;
 }
 
+.researchify-dashboard-container{
+    padding-top: 5%;
+}
+
 .researchify-dashboard-card{
     width:70%;
     padding-top: 100px;
