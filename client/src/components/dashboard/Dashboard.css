@@ -40,8 +40,18 @@
 
 .researchify-dashboard-card{
     width:70%;
+    padding-top: 100px;
+    padding-bottom: 1px;
+}
+
+.researchify-dashboard-card-group{
+    padding-top: 80px;
 }
 
 .researchify-dashboard-card-icons{
     font-size: 333%;
+}
+
+.researchify-dashboard-card-link{
+    color: black;
 }
