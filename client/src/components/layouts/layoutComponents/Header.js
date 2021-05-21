@@ -13,7 +13,9 @@ import { Fragment } from "react";
  * @returns Header component to be rendered in Layout.js
  */
 const Header = (props) => {
-    const userName = useSelector(state => state.user?.givenName + " " + state.user?.familyName);
+    // const userName = useSelector(state => state.user?.givenName + " " + state.user?.familyName);
+    const userName = "Albert Einstein"; // hard coded name for demo
+
     //TODO: Remove hard-coded team id and publications id from the links
     console.log(props)
     return (
@@ -24,7 +26,8 @@ const Header = (props) => {
 
                 <Nav.Link className="header-username">
                     <Link className="header-link" to={props.data.profileURL}>
-                        <BsPeopleCircle className="header-profile-icon" /> {userName}
+                        {userName}
+                        <BsPeopleCircle className="header-profile-icon" /> 
                     </Link>
                 </Nav.Link>
             </Navbar>
