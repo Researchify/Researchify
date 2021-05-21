@@ -1,3 +1,7 @@
+/**
+ * This file exports the inner content of Researchify Dashboard Page
+ */
+
 /** Redux **/
 import { useDispatch, useSelector } from 'react-redux';
 import { createWebsite } from '../../actions/website';

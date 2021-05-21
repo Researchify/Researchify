@@ -1,3 +1,6 @@
+/**
+ * This file exports header components for layouts
+ */
 import React, {Fragment} from "react"
 import { Navbar, Nav} from "react-bootstrap"
 import { Link } from 'react-router-dom'

@@ -1,3 +1,7 @@
+/**
+ * This file exports the layout of Researchify Dashboard
+ */
+
 import React, { Fragment } from 'react';
 import Sidebar from '../layoutComponents/Sidebar';
 import Header from '../layoutComponents/Header';
