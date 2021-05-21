@@ -35,6 +35,7 @@ const App = () => {
                 <DashboardLayoutRoute path="/publications/team" exact component={PublicationPage} />
 
                 <EditorLayoutRoute path="/editor" exact component={EditorHome} />
+                <EditorLayoutRoute path="/editor/home" exact component={EditorHome} />
 
             </Switch>
         </BrowserRouter>
