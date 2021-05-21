@@ -1,12 +1,13 @@
-import React from "react"
+import React, {Fragment} from "react"
 import { Navbar, Nav} from "react-bootstrap"
 import { Link } from 'react-router-dom'
-import {useSelector} from 'react-redux';
+// import {useSelector} from 'react-redux';
+
+/** icons **/
 import {BsPeopleCircle} from 'react-icons/bs'
 
+/** css */
 import "./Header.css"
-
-import { Fragment } from "react";
 
 /**
  * This function provides header for Layout.js
