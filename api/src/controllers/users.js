@@ -70,8 +70,8 @@ async function addUser(req, res) {
 		const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
 		const newUser = new User({
-			givenName: req.body.givenName,
-			familyName: req.body.familyName,
+			teamName: req.body.teamName,
+			orgName: req.body.orgName,
 			email: req.body.email,
 			password: hashedPassword,
 		});
@@ -161,8 +161,8 @@ async function getCurrentUser(req, res) {
 	if (req.user) {
 		const user = {
 		"_id": req.user["_id"],
-		givenName: req.user.givenName,
-		familyName: req.user.familyName,
+		teamName: req.user.teamName,
+		orgName: req.user.orgName,
 		email: req.user.email
 		}
 
