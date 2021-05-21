@@ -43,6 +43,22 @@ const publicationSchema = new mongoose.Schema({
     yearPublished: {
         type: Date
     },
+    category: {
+        type: {
+            type: String,
+            enum: ['CONFERENCE', 'JOURNAL'],
+            required: true
+        },
+        categoryTitle: {
+            type: String,
+            required: true,
+            minlength: 3
+        },
+        volume: String,
+        issue: String,
+        pages: String,
+        publisher: String
+    },
 }, {timestamps: true})
 
 const Publication = mongoose.model('publication', publicationSchema);

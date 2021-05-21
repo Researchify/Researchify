@@ -1,5 +1,5 @@
 import * as api from '../api'
-import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION } from './types';
+import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION, SORT_PUBLICATIONS } from './types';
 
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
@@ -26,7 +26,7 @@ export const createPublication = (publication) => async(dispatch) => {
 
         dispatch({
             type: CREATE_PUBLICATION,
-            payload: result.data
+            payload: {...result.data, newlyAdded: true}
         })
     } catch(error){
         console.log(error);
@@ -59,3 +59,32 @@ export const deletePublication = (id) => async dispatch => {
         console.log(error);
     }
 };
+
+export const sortPublications = (teamPublications, sortingOption) => async(dispatch) => {
+    console.log(teamPublications);
+    console.log(sortingOption);
+    switch (sortingOption) {
+        case "Author":
+            teamPublications.sort((a, b) => (a.authors[0].toLowerCase() > b.authors[0].toLowerCase()) ? 1 : -1);
+            break;
+        case "Title":
+            // publication title
+            teamPublications.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1);
+            break;
+        case "Category Title":
+            // journal or conference title
+            teamPublications.sort((a, b) => (a.category.categoryTitle.toLowerCase() > b.category.categoryTitle.toLowerCase()) ? 1 : -1)
+            break;
+        default:
+            // sort by title then year for consistency with the db
+            teamPublications.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1);
+            teamPublications.sort((a, b) => (a.year > b.year) ? -1 : 1);
+            break;
+    }
+    console.log(teamPublications);
+
+    dispatch({
+        type: SORT_PUBLICATIONS,
+        payload: teamPublications
+    })
+}

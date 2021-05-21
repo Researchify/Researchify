@@ -3,9 +3,21 @@
   max-width: 1200px;
   margin: auto;
   margin-bottom: 40px;
+  margin-top: 20px;
   border: solid rgb(96, 96, 97);
   border-width: thin;
   border-color: rgb(212, 207, 205);
+}
+
+.publicationListHeader {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.newlyAddedPublicationHeader {
+  background-color: rgb(60, 179, 113);
 }
 
 .modalHeader {
