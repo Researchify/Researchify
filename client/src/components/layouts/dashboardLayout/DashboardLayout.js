@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Sidebar from '../layoutComponents/Sidebar';
 import Header from '../layoutComponents/Header';
 import { Container, Col, Row } from 'react-bootstrap';
-import SidebarData from '../SidebarData';
+import SidebarData from '../DashboardSidebarData';
 
 const headerData = {
     title: "Researchify",
