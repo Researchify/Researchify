@@ -1,6 +1,6 @@
 import React from 'react'
 import {BsFillHouseDoorFill, BsBookHalf, BsFillPeopleFill,
-    BsFileEarmarkPlus,BsFillAwardFill, BsArrowReturnLeft} from "react-icons/bs";
+    BsFileEarmarkPlus,BsFillAwardFill, BsArrowReturnLeft, BsUpload} from "react-icons/bs";
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
@@ -32,9 +32,14 @@ const EditorSidebarData = [
         link: "#"
     },
     {
+        title: "Publish Website",
+        icon: <BsUpload />,
+        link: "#"
+    },
+    {
         title: "Back To Dashboard",
         icon: <BsArrowReturnLeft />,
         link: "/dashboard"
-    }
+    },
 ]
 export default EditorSidebarData
