@@ -27,7 +27,7 @@ const SidebarData = [
         link: "/publications/team"
     },
     {
-        title: "Team Profile",
+        title: "Account Management",
         icon: <BsPerson />,
         link: "/dashboard/profile"
     },
