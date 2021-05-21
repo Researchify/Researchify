@@ -1,11 +1,11 @@
 import React from 'react'
 import {BsFillHouseDoorFill, BsBookHalf, BsFillPeopleFill,
-    BsFileEarmarkPlus,BsFillAwardFill,BsGearFill, BsFillQuestionCircleFill} from "react-icons/bs";
+    BsFileEarmarkPlus,BsFillAwardFill} from "react-icons/bs";
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const EditorSideBarData = [
+const EditorSidebarData = [
     {
         title: "Home Page",
         icon: <BsFillHouseDoorFill />,
@@ -32,4 +32,4 @@ const EditorSideBarData = [
         link: "#"
     }
 ]
-export default EditorSideBarData
+export default EditorSidebarData

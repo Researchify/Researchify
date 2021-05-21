@@ -3,7 +3,6 @@ import {Container,Row,Col,Card,Button} from "react-bootstrap"
 
 const handleClick = () => {
 
-    console.log("Workaye");
     return(
         <Card>
                 <Card.Body>Workaye</Card.Body>
@@ -12,7 +11,6 @@ const handleClick = () => {
 
 }
 const EditorHome=()=>{
-    console.log("HIrr")
     return(    
         <Container>
             <Row md={2} lg={2} > 
