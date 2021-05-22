@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createWebsite } from '../../actions/website';
 
 import { Link } from 'react-router-dom';
-import { Container,  Button, } from 'react-bootstrap';
+
 /** icons **/
 import { BsPencilSquare, BsServer, BsDisplayFill } from 'react-icons/bs'
 /** css **/
@@ -24,6 +24,9 @@ const Dashboard = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const dispatch = useDispatch();
+    const websiteIsCreated = useSelector(state => state.website.isCreated);
 
     return (
 
@@ -69,26 +72,28 @@ const Dashboard = () => {
                 </CardGroup>
 
             </Card>
-            <Modal show={show} onHide={handleClose} dialogClassName="dashboard-modal" centered>
+            <Modal show={show} onHide={handleClose}  centered size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                        Modal heading
+                        Select a template
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <h4>Centered Modal</h4>
+                        <Image src={homeTemplateImg} className="img-fluid"/>
                         <p>
-                            <Image src={homeTemplateImg}/>
                         Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
                         dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
                         consectetur ac, vestibulum at eros.
                         </p>
                     </Modal.Body>
+                    
                     <Modal.Footer>
                         <Button onClick={() => {dispatch(createWebsite());
-                        handleClose()}}>Close</Button>
+                        handleClose()}}>Select</Button>
                     </Modal.Footer>
                 </Modal>
+            
         </Container>
     )
 }
