@@ -11,13 +11,14 @@
  import {useDispatch} from 'react-redux';
  import {addUserAction} from '../../actions/users';
  import { useHistory } from "react-router-dom";
+ import toast from 'react-hot-toast';
 
  export default function RegistrationForm() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [inputs, setInputs] = useState({
-        givenName: '',
-        familyName: '',
+        teamName: '',
+        orgName: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -30,6 +31,15 @@
 
     const [validated, setValidated] = useState(false);
 
+    const registrationResult = (isSuccessful) => {
+        if (isSuccessful) {
+            history.push("/dashboard");
+        }
+        else {
+            toast.error('Team name already taken');
+        }
+    }
+
     const handleSubmit = (event) => {
       const form = event.currentTarget;
       event.preventDefault();
@@ -37,9 +47,8 @@
         event.stopPropagation();
       }
       else {
-        const userData = {email: inputs.email, givenName:inputs.givenName, familyName: inputs.familyName, password: inputs.password};
-        dispatch(addUserAction(userData));
-        history.push("/dashboard");
+        const userData = {email: inputs.email, teamName:inputs.teamName, orgName: inputs.orgName, password: inputs.password};
+        dispatch(addUserAction(userData, registrationResult));
       }
       setValidated(true);
 
@@ -52,14 +61,14 @@
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Row>
                     <Form.Group as={Col} md="6">
-                        <Form.Label>Given name</Form.Label> 
-                        <Form.Control id="gName" type="text" onChange={updateValue} name="givenName" placeholder="Given name" required/>
-                        <Form.Control.Feedback type="invalid">Please input a valid given name.</Form.Control.Feedback>
+                        <Form.Label>Team name</Form.Label> 
+                        <Form.Control id="tName" type="text" onChange={updateValue} name="teamName" placeholder="Team name" required/>
+                        <Form.Control.Feedback type="invalid">Please input a valid team name.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="6">
-                        <Form.Label>Family name</Form.Label> 
-                        <Form.Control type="text" onChange={updateValue} name="familyName" placeholder="Family name" required/>
-                        <Form.Control.Feedback type="invalid">Please input a valid family name.</Form.Control.Feedback>
+                        <Form.Label>Organization name</Form.Label> 
+                        <Form.Control type="text" onChange={updateValue} name="orgName" placeholder="Organization name" required/>
+                        <Form.Control.Feedback type="invalid">Please input a valid Organization name.</Form.Control.Feedback>
                     </Form.Group>
                 </Form.Row>
 
