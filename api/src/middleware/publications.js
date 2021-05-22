@@ -2,7 +2,7 @@
  * This module contains middleware functions for the publications route (../routes/publications.js).
  */
 
-const { body,param,validationResult } = require('express-validator');
+const { body,validationResult } = require('express-validator');
 const axios = require("axios");
 
 
@@ -88,7 +88,7 @@ async function validateAuthorId(req, res, next) {
     }
 
     try {
-        const response = await axios.get("https://scholar.google.com.sg/citations?user=" + _id);
+        await axios.get("https://scholar.google.com.sg/citations?user=" + _id);
     } catch(error) {
         console.log(error);
         if (error.response.status == 404) {

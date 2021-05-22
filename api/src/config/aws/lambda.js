@@ -9,5 +9,5 @@ module.exports = new LambdaClient({
     region: process.env.AWS_REGION,
     sslEnabled: false,  // todo: check if can be set to true
     credentials
-});;
+});
 

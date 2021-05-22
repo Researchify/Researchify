@@ -221,43 +221,45 @@ async function importPublication(req, res) {
     //         {
     //             "container_type": "Publication",
     //             "bib": {
-    //                 "title": "A geometrical picture book",
-    //                 "pub_year": 2012,
+    //                 "title": "What is the best way to lace your shoes?",
+    //                 "pub_year": 2002,
     //                 "author": "Burkard Polster",
-    //                 "publisher": "Springer Science & Business Media",
-    //                 "abstract": "How do you convey to your students, colleagues and friends some of the beauty of the kind of mathematics you are obsessed with? If you are a mathematician interested in finite or topological geometry and combinatorial designs, you could start by showing them some of the (400+) pictures in the\" picture book\". Pictures are what this book is all about; original pictures of everybody's favorite geometries such as configurations, projective planes and spaces, circle planes, generalized polygons, mathematical biplanes and other designs which capture much of the beauty, construction principles, particularities, substructures and interconnections of these geometries. The level of the text is suitable for advanced undergraduates and graduate students. Even if you are a mathematician who just wants some interesting reading you will enjoy the author's very original and comprehensive guided tour of small finite geometries and geometries on surfaces This guided tour includes lots of sterograms of the spatial models, games and puzzles and instructions on how to construct your own pictures and build some of the spatial models yourself."
+    //                 "journal": "Nature",
+    //                 "volume": "420",
+    //                 "number": "6915",
+    //                 "pages": "476-476",
+    //                 "publisher": "Nature Publishing Group",
+    //                 "abstract": "The two most popular ways to lace shoes have historically been to use'criss-cross' or'straight'lacing—but are these the most efficient? Here we demonstrate mathematically that the shortest lacing is neither of these, but instead is a rarely used and unexpected type of lacing known as' bowtie'lacing. However, the traditional favourite lacings are still the strongest."
     //             },
     //             "filled": true,
-    //             "author_pub_id": "eRbvWqYAAAAJ:u-x6o8ySG0sC",
-    //             "num_citations": 74,
-    //             "pub_url": "http://books.google.com/books?hl=en&lr=&id=tHzTBwAAQBAJ&oi=fnd&pg=PA3&dq=info:Zq_2oTnSPr4J:scholar.google.com&ots=QIXy6RJ_Kf&sig=vnB_ABuFiSs_K4GYpEIKuAbs7Uc",
-    //             "cites_id": "13708625460734635878",
-    //             "citedby_url": "/scholar?cites=13708625460734635878",
-    //             "url_related_articles": "/scholar?oi=bibs&hl=en&q=related:Zq_2oTnSPr4J:scholar.google.com/",
+    //             "author_pub_id": "eRbvWqYAAAAJ:UeHWp8X0CEIC",
+    //             "num_citations": 21,
+    //             "pub_url": "https://www.nature.com/articles/420476a",
+    //             "cites_id": "5293738446634004508",
+    //             "citedby_url": "/scholar?cites=5293738446634004508",
+    //             "url_related_articles": "/scholar?oi=bibs&hl=en&q=related:HLBy3REjd0kJ:scholar.google.com/",
     //             "cites_per_year": {
-    //                 "1999": 2,
-    //                 "2000": 2,
-    //                 "2001": 2,
-    //                 "2002": 3,
-    //                 "2003": 1,
+    //                 "2002": 1,
+    //                 "2003": 2,
     //                 "2004": 1,
-    //                 "2005": 0,
-    //                 "2006": 5,
-    //                 "2007": 4,
-    //                 "2008": 4,
-    //                 "2009": 6,
-    //                 "2010": 3,
-    //                 "2011": 4,
-    //                 "2012": 6,
-    //                 "2013": 5,
-    //                 "2014": 5,
-    //                 "2015": 5,
+    //                 "2005": 1,
+    //                 "2006": 1,
+    //                 "2007": 0,
+    //                 "2008": 2,
+    //                 "2009": 1,
+    //                 "2010": 0,
+    //                 "2011": 2,
+    //                 "2012": 1,
+    //                 "2013": 1,
+    //                 "2014": 0,
+    //                 "2015": 1,
     //                 "2016": 1,
-    //                 "2017": 5,
-    //                 "2018": 2,
-    //                 "2019": 5,
+    //                 "2017": 0,
+    //                 "2018": 1,
+    //                 "2019": 3,
     //                 "2020": 1
-    //             }
+    //             },
+    //             "eprint_url": "https://www.nature.com/articles/420476a"
     //         }]};
     const retrievedPublications = lambdaResult.publications;
 
@@ -266,13 +268,13 @@ async function importPublication(req, res) {
         var currentPub = retrievedPublications[i];
         var categoryType;
         var categoryTitle, volume, issue, pages = "";
-        if (currentPub["bib"].hasOwnProperty("journal")) {
+        if ("journal" in currentPub["bib"]) {
             categoryType = "JOURNAL";
             categoryTitle = currentPub["bib"]["journal"];
             pages = currentPub["bib"]["pages"];
             volume = currentPub["bib"]["volume"];
             issue = currentPub["bib"]["issue"];
-        } else if (currentPub["bib"].hasOwnProperty("conference")) {
+        } else if ("conference" in currentPub["bib"]) {
             categoryType = "CONFERENCE";
             categoryTitle = currentPub["bib"]["conference"];
             pages = currentPub["bib"]["pages"];
