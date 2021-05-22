@@ -3,7 +3,7 @@
  */
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+// require('dotenv').config();
 
 const logger = require('./config/log');
 const deployRouter = require('./routes/deploy');

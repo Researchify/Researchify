@@ -11,8 +11,11 @@
  * @returns {Promise<void>}
  */
 async function handleDeployEvent(req, res) {
-    const {teamId} = req.params;
-    const {data} = req.body;
+    const {team_id} = req.params;
+    const {teamPublications: data} = req.body;
+    console.log(team_id);
+    console.log(data);
+    res.status(200).send(data);
 }
 
 
