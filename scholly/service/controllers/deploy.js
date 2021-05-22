@@ -12,10 +12,14 @@
  */
 async function handleDeployEvent(req, res) {
     const {team_id} = req.params;
-    const {teamPublications: data} = req.body;
-    console.log(team_id);
-    console.log(data);
-    res.status(200).send(data);
+    const {
+        teamTwitterHandle: twitterHandle,
+        teamPublications: foundPublication,
+        ghUsername: username,
+        ghToken: token
+    } = req.body;
+    
+    res.status(200).send(twitterHandle);
 }
 
 

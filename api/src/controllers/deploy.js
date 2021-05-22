@@ -35,14 +35,10 @@ async function deploy(req, res) {
         ghToken: token
     }
 
-    let response = await axios.post("http://localhost:8000/deploy/" + team_id, data);
+    await axios.post("http://localhost:8000/deploy/" + team_id, data);
 
-
-
-    res.status(200).send(data);
+    res.status(200);
     
-
-
 }
 
 module.exports = {deploy}
