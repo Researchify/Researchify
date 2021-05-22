@@ -24,6 +24,9 @@
     },
      githubToken: {
         type: String
+    },
+     githubUsername: {
+        type: String
     }
  }, {timestamps: true})
  
