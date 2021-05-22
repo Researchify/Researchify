@@ -1,3 +1,8 @@
+/**
+ * The TeamMember component displays a single team member details
+ */
+
+
 import { Card, Row, Col, Button, Image, Modal, ButtonGroup, OverlayTrigger } from 'react-bootstrap'
 import profilePic from './profilepic.jpg';
 import { useState } from 'react'
@@ -13,7 +18,7 @@ const TeamMember = ({member}) => {
     const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [showDeleteMessage, setShowDeleteMessage] = useState(false)
     const teamId = useSelector(state => state.team.teamId)
-    
+
     const handleDelete = () => {
         dispatch(deleteTeamMember(teamId, member._id))
         setShowDeleteMessage(false)
@@ -41,7 +46,7 @@ const TeamMember = ({member}) => {
                             </OverlayTrigger>
                         </Col>
                     </Row>
-                    <Image src={profilePic} roundedCircle height="184px" width="184px" style={{ alignSelf: 'center' }}/>     
+                    <Image src={profilePic} roundedCircle height="130px" width="130px" style={{ alignSelf: 'center' }}/>     
                     <Card.Body>
                         <Card.Title>{member.fullName}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">{member.position}</Card.Subtitle>

@@ -60,11 +60,27 @@ async function getTeam(req, res) {
 
 }
 
+/**
+ * Gets the team member arrray from the database on /team/:team_id/member.
+ * @param {*} req request object, containing team id in the url 
+ * @param {*} res response object, the returned team memeber array
+ * @returns 200: the team member array was returned
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
 async function readTeamMembersByTeam(req, res){
     let foundTeam = req.foundTeam;
     return res.status(200).send(foundTeam.teamMembers);
 }
 
+/**
+ * POST request to create a new team member to the database on /team/:team_id/member.
+ * @param {*} req request object, containing team id in the url 
+ * @param {*} res response object, the created team member document
+ * @returns 200: the team member was created 
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
 async function createTeamMember(req, res) {
     const teamMember = req.body;
     let foundTeam = req.foundTeam;
@@ -73,6 +89,14 @@ async function createTeamMember(req, res) {
     res.status(201).json(teamMember);
 }
 
+/**
+ * Delete the team memeber from the database on /team/:team_id/member/:member_id.
+ * @param {*} req request object, containing team id in the url 
+ * @param {*} res response object, the relevant messgae returned
+ * @returns 200: the team memeber was deleted
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
 async function deleteTeamMember(req, res){
     let foundTeam = req.foundTeam;
     const {teamMemberId} = req.params;
@@ -81,6 +105,14 @@ async function deleteTeamMember(req, res){
     return res.status(200).json({message: 'Team member deleted successfully.'})
 }
 
+/**
+ * Update the team member from the database on /team/:team_id/member.
+ * @param {*} req request object, containing team id in the url 
+ * @param {*} res response object, the updated team memeber document
+ * @returns 200: the team memember was updated
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
 async function updateTeamMember(req, res){
     let foundTeam = req.foundTeam;
     const updatedTeamMember = req.body;

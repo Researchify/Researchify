@@ -1,3 +1,8 @@
+/**
+ * The TeamPage component displays the team member page 
+ */
+
+
 import { Card, Container,CardDeck } from 'react-bootstrap'
 import TeamMember from './TeamMember'
 import { useSelector, useDispatch } from 'react-redux'
@@ -26,7 +31,7 @@ const TeamPage = () => {
                 Add Team Member
             </Button>
             <Container>
-                <CardDeck className="mt-4">
+                <CardDeck className="mt-4 mb-4">
                     {
                         teamMembers.map(member => <TeamMember member={member} key={member._id}/>)
                     }

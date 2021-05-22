@@ -78,7 +78,12 @@ export const unlinkTwitter = (teamId) => async dispatch => {
     }
 }
 
-
+/**
+ * This action creator will be called when a user click on the team page to retrive all the team members from that team
+ *
+ * @param teamId id of the team 
+ * @returns a thunk responsible for calling the api and dispatching a GET_TEAM_MERMBERS_BY_TEAM_ID action
+ */
 export const getTeamMembersByTeamId = (teamId) => async(dispatch) => {
     try{
         const { data } = await api.fetchTeamMembersByTeamId(teamId);
@@ -92,6 +97,14 @@ export const getTeamMembersByTeamId = (teamId) => async(dispatch) => {
     }
 }
 
+/**
+ * This action creator will be called when a user create a new team member to the team 
+ * show tweets.
+ *
+ * @param teamId id of the team 
+ * @param teamMember the new team member 
+ * @returns a thunk responsible for calling api and dispatching a CREATE_TEAM_MEMBER action
+ */
 export const createTeamMember = (teamId, teamMember) => async(dispatch) => {
     try{
         const id = uuid_v4()
@@ -109,9 +122,16 @@ export const createTeamMember = (teamId, teamMember) => async(dispatch) => {
     }
 }
 
-export const updateTeamMember = (id, publication) => async(dispatch) => {
+/**
+ * This action creator will be called when a user update the details of a team member
+ *
+ * @param teamId id of the team 
+ * @param teamMember the updated new member
+ * @returns a thunk responsible for calling the api and dispatching a UPDATE_TEAM_MEMBER action
+ */
+export const updateTeamMember = (id, teamMember) => async(dispatch) => {
     try{
-        const { data } = await api.updateTeamMember(id, publication);
+        const { data } = await api.updateTeamMember(id, teamMember);
         
         dispatch({
             type: UPDATE_TEAM_MEMBER,
@@ -122,6 +142,13 @@ export const updateTeamMember = (id, publication) => async(dispatch) => {
     }
 }
 
+/**
+ * This action creator will be called when a user remove a team member from the team 
+ *
+ * @param teamId id of the team 
+ * @param memberId id of the team member
+ * @returns a thunk responsible for calling the api and dispatching a DELETE_TEAM_MEMBER action
+ */
 export const deleteTeamMember = (teamId, memberId) => async dispatch => {
     try {
         await api.deleteTeamMember(teamId, memberId);
