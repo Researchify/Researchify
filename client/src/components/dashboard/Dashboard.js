@@ -25,7 +25,7 @@ const Dashboard = () => {
 
                 <Card.Body>
                     <Button onClick={() => dispatch(createWebsite())}>
-                        {websiteIsCreated ? "Build a new Website" : "Edit the Website"}
+                        {websiteIsCreated ? "Edit the Website" : "Build a new Website"}
                     </Button>
                 </Card.Body>
 
