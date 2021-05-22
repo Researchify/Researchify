@@ -38,3 +38,7 @@
     padding-bottom: 1px;
 }
 
+.dashboard-modal {
+    width: 90px;
+    height: auto;
+}
