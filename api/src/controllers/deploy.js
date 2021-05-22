@@ -11,6 +11,7 @@ const Publication = require("../models/publication.model");
 
 async function deploy(req, res) {
     const {team_id} = req.params;
+    const {ghUsername: username, ghToken: token} = req.body;
 
     // fetch publications data for the team
     const foundPublication = await Publication.aggregate([
@@ -29,7 +30,9 @@ async function deploy(req, res) {
     const twitterHandle = req.foundTeam.twitterHandle;
     const data = {
         teamTwitterHandle: twitterHandle,
-        teamPublications: foundPublication
+        teamPublications: foundPublication,
+        ghUsername: username,
+        ghToken: token
     }
 
     let response = await axios.post("http://localhost:8000/deploy/" + team_id, data);
