@@ -151,17 +151,24 @@ async function readAllPublicationsByTeam(req, res) {
     res.status(200).json(foundPublication);
 }
 
+/**
+ * Handles a POST request, which will create a bluk publications in the database using the endpoint /publications/import/:team_id.
+ * <br />Validation rules: 
+ * <br />- at least one author, 
+ * <br />- title needs to be at least 3 characters, 
+ * <br />- description needs to be at least 5 characters,
+ * <br />- summary needs to be at least 5 characters,
+ * <br />- citedBy needs to be an integer value of 0 or greater
+ * 
+ * @param req request object - team id given in the url, an array of publication in body (see Publication model)
+ * @param res response object
+ * @returns 201: the bulk publications has been created
+ * @returns 400: given team id is not in a valid hexadecimal format (validate via team middleware)
+ * @returns 404: no team was found to associate the publication with (validate via team middleware)
+ */
 async function importPublications(req, res) {
-    const {team_id: _id} = req.params;
-
-    const result = await Team.findById(_id);
-    if (result == null) {
-        return res.status(404).send('Error: Team not found.');
-    }
-
     const importedPublications = await Publication.insertMany(req.body);
     res.status(201).json(importedPublications);
-
 }
 
 module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam, importPublications};
