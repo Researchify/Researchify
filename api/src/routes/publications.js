@@ -15,7 +15,7 @@ publicationsRouter.post('/', publicationsMiddleware.createPublicationValidation,
 
 publicationsRouter.get('/:id', publicationsController.readPublication);
 
-publicationsRouter.get("/import/:id",publicationsController.importPublication);
+publicationsRouter.get("/import/:id", publicationsMiddleware.validateAuthorId, publicationsController.importPublication);
 
 publicationsRouter.get('/team/:team_id', publicationsController.readAllPublicationsByTeam);
 

@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.16.0",
-    "aws-sdk": "^2.907.0",
+    "@aws-sdk/credential-provider-node": "^3.16.0",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "docdash": "^1.2.0",

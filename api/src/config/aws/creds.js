@@ -1,11 +1,8 @@
 /**
  * This module configures and exports an AWS Credentials object that can be reused.
  */
-const {Credentials} = require('aws-sdk');  // todo: optimize import
-require('dotenv').config();
+const {defaultProvider} = require('@aws-sdk/credential-provider-node');
 
-module.exports = new Credentials({
-    accessKeyId: process.env.aws_access_key_id,
-    secretAccessKey: process.env.aws_secret_access_key,
-    sessionToken: process.env.aws_session_token | ''
-});
+// reads from env file for AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN (if given)
+const credentials = defaultProvider();
+module.exports = credentials;
