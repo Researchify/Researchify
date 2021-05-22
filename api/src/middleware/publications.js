@@ -57,11 +57,11 @@ const createPublicationValidation = [
       .isLength(4),
     body("category.type", "Error: Category type must not be empty.")
       .notEmpty(),
-    body("category.type", "Error: Category type does not match any of ['CONFERENCE', 'JOURNAL'].")
+    body("category.type", "Error: Category type does not match any of ['CONFERENCE', 'JOURNAL', 'OTHER'].")
       .if(body("category.type")
       .exists()
       .notEmpty())
-      .isIn(["CONFERENCE", "JOURNAL"]),
+      .isIn(["CONFERENCE", "JOURNAL", "OTHER"]),
     body("category.categoryTitle", "Error: Category title must not be empty.")
       .notEmpty(),
     body("category.categoryTitle", "Error: Category title must be at least 3 characters.")
