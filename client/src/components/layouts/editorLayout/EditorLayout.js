@@ -1,7 +1,12 @@
+/**
+ * This file exports Researchify Editor Layout
+ */
+
 import React, { Fragment } from 'react';
 import Sidebar from '../layoutComponents/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
 import EditorSidebarData from '../../editor/EditorSidebarData';
+import '../Layout.css';
 
 const EditorLayout = ({ children }) => {
 

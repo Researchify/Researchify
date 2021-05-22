@@ -1,8 +1,13 @@
+/**
+ * This file exports the layout of Researchify Dashboard
+ */
+
 import React, { Fragment } from 'react';
 import Sidebar from '../layoutComponents/Sidebar';
 import Header from '../layoutComponents/Header';
 import { Container, Col, Row } from 'react-bootstrap';
 import SidebarData from '../DashboardSidebarData';
+import '../Layout.css';
 
 const headerData = {
     title: "Researchify",

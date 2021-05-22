@@ -1,3 +1,7 @@
+/**
+ * This file exports the Route that is embeded with Researchify Dashboard Layout
+ */
+
 import React from 'react';
 import { Route } from 'react-router-dom';
 import DashboardLayout from './DashboardLayout';

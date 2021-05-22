@@ -1,3 +1,7 @@
+/**
+ * This file exports Route that embedded with Researchify Editor Layout
+ */
+
 import React from 'react';
 import { Route } from 'react-router-dom';
 import EditorLayout from './EditorLayout';

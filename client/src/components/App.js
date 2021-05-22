@@ -14,8 +14,6 @@ import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 import PublicationPage from './publications/PublicationPage';
 import EditorHome from './editor/EditorHome';
 
-import './layouts/Layout.css';
-
 /** Layout **/
 import DashboardLayoutRoute from './layouts/dashboardLayout/DashboardLayoutRoute';
 import EditorLayoutRoute from './layouts/editorLayout/EditorLayoutRoute';
