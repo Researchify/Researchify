@@ -17,6 +17,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 
 import './layout/Layout.css'
 
+import TeamPage from './team/TeamPage'
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
 
@@ -43,6 +44,7 @@ const App = () => {
                             <Route path="/publications/team" exact component={PublicationPage}/>
                             <Route path={urls.dashboard} exact component={Dashboard} />
                             <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
+                            <Route path="/team" exact component={TeamPage} />
                         </Col>
                         </Row>
                     </Container>
