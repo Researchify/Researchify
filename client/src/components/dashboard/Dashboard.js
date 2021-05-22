@@ -19,11 +19,15 @@ import homeTemplateImg from '../../images/home_page_template.jpg'
 
 const Dashboard = () => {
 
-    
-    const [show, setShow] = useState(false);
+    const [show1, setShow1] = useState(false);
+    const [show2, setShow2] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleCloseOne = () => setShow1(false);
+    const handleShowOne = () => setShow1(true);
+
+    const handleCloseTwo = () => setShow2(false);
+    const handleShowTwo = () => setShow2(true);
+
 
     const dispatch = useDispatch();
     const websiteIsCreated = useSelector(state => state.website.isCreated);
@@ -34,7 +38,7 @@ const Dashboard = () => {
             <Card className="text-center researchify-dashboard-card">
 
                 <Card.Body>
-                    <Button  onClick={handleShow}>
+                    <Button  onClick={handleShowOne}>
                         {websiteIsCreated ? "Edit the Website" : "Build a new Website"}
                     </Button>
                 </Card.Body>
@@ -72,7 +76,7 @@ const Dashboard = () => {
                 </CardGroup>
 
             </Card>
-            <Modal show={show} onHide={handleClose}  centered size="lg">
+            <Modal show={show1} onHide={handleCloseOne}  centered size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
                         Select a template
@@ -84,13 +88,38 @@ const Dashboard = () => {
                         <p>
                         Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
                         dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.
+                        consectetur ac, vestibulum at eros. This is the first Model
+                        </p>
+                    </Modal.Body>
+                    
+                    <Modal.Footer>
+                        <Button onClick={() => {
+                        handleCloseOne();
+                        handleShowTwo()}}>
+                            Select
+                            </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal show={show2} onHide={handleCloseTwo}  centered size="lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                        Select a template
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h4>Centered Modal</h4>
+                        <Image src={homeTemplateImg} className="img-fluid"/>
+                        <p>
+                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+                        consectetur ac, vestibulum at eros. This is the second Modal
                         </p>
                     </Modal.Body>
                     
                     <Modal.Footer>
                         <Button onClick={() => {dispatch(createWebsite());
-                        handleClose()}}>Select</Button>
+                        handleCloseTwo()}}>Select</Button>
                     </Modal.Footer>
                 </Modal>
             
