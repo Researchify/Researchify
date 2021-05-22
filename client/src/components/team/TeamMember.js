@@ -5,13 +5,17 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { IconContext } from "react-icons"
 import TeamMemberForm from './form/TeamMemberForm';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
+import { deleteTeamMember } from '../../actions/team';
+import { useSelector, useDispatch } from 'react-redux'
 
 const TeamMember = ({member}) => {
+    const dispatch = useDispatch()
     const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [showDeleteMessage, setShowDeleteMessage] = useState(false)
-
+    const teamId = useSelector(state => state.team.teamId)
+    
     const handleDelete = () => {
-        //dispatch(deletePublication(pub._id))
+        dispatch(deleteTeamMember(teamId, member._id))
         setShowDeleteMessage(false)
     }
 
@@ -39,12 +43,11 @@ const TeamMember = ({member}) => {
                     </Row>
                     <Image src={profilePic} roundedCircle height="184px" width="184px" style={{ alignSelf: 'center' }}/>     
                     <Card.Body>
-                        <Card.Title>Milan P Allan</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Associate professor</Card.Subtitle>
+                        <Card.Title>{member.fullName}</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">{member.position}</Card.Subtitle>
                         <Card.Text>
-                            Summary
+                            {member.summary}
                         </Card.Text>    
-      
                     </Card.Body>
                 </Card>
             </Col>
@@ -54,7 +57,7 @@ const TeamMember = ({member}) => {
                     <Modal.Title> Edit Team Member </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <TeamMemberForm type="update" closeModal={() => setShowUpdateForm(false)}/>
+                    <TeamMemberForm type="update" member={member} closeModal={() => setShowUpdateForm(false)}/>
                 </Modal.Body>
             </Modal>
 
@@ -63,7 +66,7 @@ const TeamMember = ({member}) => {
                     <Modal.Title> Delete Team Member </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Are you sure you want to delete this Team Member? 
+                    Are you sure you want to delete this team member? 
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="light" onClick={() => setShowDeleteMessage(false)}> Cancel </Button>

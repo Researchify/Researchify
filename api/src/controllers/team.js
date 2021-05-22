@@ -60,4 +60,37 @@ async function getTeam(req, res) {
 
 }
 
-module.exports = { storeHandle, getTeam };
+async function readTeamMembersByTeam(req, res){
+    let foundTeam = req.foundTeam;
+    return res.status(200).send(foundTeam.teamMembers);
+}
+
+async function createTeamMember(req, res) {
+    const teamMember = req.body;
+    let foundTeam = req.foundTeam;
+    await foundTeam.teamMembers.push(teamMember);
+    foundTeam.save()
+    res.status(201).json(teamMember);
+}
+
+async function deleteTeamMember(req, res){
+    let foundTeam = req.foundTeam;
+    const {teamMemberId} = req.params;
+    await foundTeam.teamMembers.pull({_id: teamMemberId})
+    foundTeam.save()
+    return res.status(200).json({message: 'Team member deleted successfully.'})
+}
+
+async function updateTeamMember(req, res){
+    let foundTeam = req.foundTeam;
+    const updatedTeamMember = req.body;
+
+    console.log(updatedTeamMember)
+
+    let result = foundTeam.teamMembers.findOneAndUpdate({_id: updatedTeamMember._id, updatedTeamMember})
+    foundTeam.save()
+    return res.status(200).json(result)
+}
+
+
+module.exports = { storeHandle, getTeam, createTeamMember, readTeamMembersByTeam, deleteTeamMember, updateTeamMember };

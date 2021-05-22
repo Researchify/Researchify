@@ -1,11 +1,13 @@
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Row, Button, Tooltip, OverlayTrigger, Form } from "react-bootstrap";
+import { createTeamMember } from "../../../actions/team";
 
 
-const TeamMemberForm = ({closeModal}) => {
+const TeamMemberForm = ({closeModal, member, type}) => {
     const dispatch = useDispatch()
+    const teamId = useSelector(state => state.team.teamId)
     const validationSchema = yup.object({
         fullName: yup.string().required("Name is required").min(3, "Name is at least 3 characters"),
         position: yup.string().required("Posiiton is required"),
@@ -20,6 +22,8 @@ const TeamMemberForm = ({closeModal}) => {
 
     const submitForm = (values) => {
         console.log(values)
+        dispatch(createTeamMember(teamId, values))
+        closeModal()
     }
 
     const renderTooltip = (props) => (
@@ -33,7 +37,7 @@ const TeamMemberForm = ({closeModal}) => {
             enableReinitialize 
             validationSchema={validationSchema}
             onSubmit={submitForm}
-            initialValues={initValues}      
+            initialValues={ type==="update"? member : initValues }      
         >
             {({ handleSubmit, handleChange, values, touched, errors }) => 
                 (
@@ -42,12 +46,12 @@ const TeamMemberForm = ({closeModal}) => {
                         <Form.Group>
                             <Form.Label>Full Name</Form.Label>
                             <Form.Control
-                            type="text"
-                            name="fullName"
-                            placeholder="Full Name"
-                            value={values.fullName}
-                            onChange={handleChange}
-                            isInvalid={touched.fullName && errors.fullName}
+                                type="text"
+                                name="fullName"
+                                placeholder="Full Name"
+                                value={values.fullName}
+                                onChange={handleChange}
+                                isInvalid={touched.fullName && errors.fullName}
                             />
                             <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
                         </Form.Group>
@@ -55,12 +59,12 @@ const TeamMemberForm = ({closeModal}) => {
                         <Form.Group>
                             <Form.Label>Position</Form.Label>
                             <Form.Control
-                            type="text"
-                            name="position"
-                            placeholder="Position"
-                            value={values.position}
-                            onChange={handleChange}
-                            isInvalid={touched.position && errors.position}
+                                type="text"
+                                name="position"
+                                placeholder="Position"
+                                value={values.position}
+                                onChange={handleChange}
+                                isInvalid={touched.position && errors.position}
                             />
                             <Form.Control.Feedback type="invalid">{errors.position}</Form.Control.Feedback>
                         </Form.Group>
@@ -68,12 +72,13 @@ const TeamMemberForm = ({closeModal}) => {
                         <Form.Group>
                             <Form.Label>Summary</Form.Label>
                             <Form.Control
-                            type="text"
-                            name="summary"
-                            placeholder="Summary"
-                            value={values.summary}
-                            onChange={handleChange}
-                            isInvalid={touched.summary && errors.summary}
+                                as="textarea"
+                                row={4}
+                                name="summary"
+                                placeholder="Summary"
+                                value={values.summary}
+                                onChange={handleChange}
+                                isInvalid={touched.summary && errors.summary}
                             />
                             <Form.Control.Feedback type="invalid">{errors.summary}</Form.Control.Feedback>
                         </Form.Group>

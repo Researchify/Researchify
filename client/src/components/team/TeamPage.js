@@ -4,18 +4,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Button, Modal, Dropdown, DropdownButton, Spinner, Alert } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import TeamMemberForm from './form/TeamMemberForm';
+import { getTeamMembersByTeamId } from '../../actions/team'
 
 const TeamPage = () => {
     const dispatch = useDispatch()
     const teamId = useSelector(state => state.team.teamId)
     const [showCreateForm, setShowCreateForm] = useState(false)
-    const { loading } = useSelector(state => state.teamMember)
 
+    useEffect(() => {
+        dispatch(getTeamMembersByTeamId(teamId));
+      }, [dispatch, teamId]);
 
+    const { loading, teamMembers } = useSelector(state => state.teamMember)
 
-    // useEffect(() => {
-    //     dispatch(getTeamMembersByTeamId(teamId));
-    //   }, [dispatch, teamId]);
+    console.log(teamMembers)
 
     return(
         <>
@@ -25,16 +27,9 @@ const TeamPage = () => {
             </Button>
             <Container>
                 <CardDeck className="mt-4">
-                    <TeamMember name="Name" summary="summary"/>
-                    <TeamMember name="Name" summary="summary"/>
-                    <TeamMember name="Name" summary="summary"/>
-                    <TeamMember name="Name" summary="summary"/>
-                    <TeamMember name="Name" summary="summary"/>
-                    <TeamMember name="Name" summary="summary"/>
-                    <TeamMember name="Name" summary="summary"/>
-                    <TeamMember name="Name" summary="summary"/>
-                    <TeamMember name="Name" summary="summary"/>
-                    <TeamMember name="Name" summary="summary"/>
+                    {
+                        teamMembers.map(member => <TeamMember member={member} key={member._id}/>)
+                    }
                 </CardDeck>
             </Container>
 
@@ -44,7 +39,7 @@ const TeamPage = () => {
                     <Modal.Title> New Team Member </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <TeamMemberForm closeModal={()=>setShowCreateForm(false)}/>
+                    <TeamMemberForm type="create" closeModal={()=>setShowCreateForm(false)}/>
                 </Modal.Body>
             </Modal>
         </>

@@ -1,9 +1,16 @@
 /**
  * This file houses our team-related Action Creators.
  */
-import {LINK_TEAM_TWITTER, UNLINK_TEAM_TWITTER, FETCH_TEAM_INFO} from './types';
 import * as api from '../api';
-
+import { v4 as uuid_v4 } from "uuid";
+import {
+    LINK_TEAM_TWITTER, 
+    UNLINK_TEAM_TWITTER, 
+    FETCH_TEAM_INFO,     
+    GET_TEAM_MERMBERS_BY_TEAM_ID, 
+    CREATE_TEAM_MEMBER, 
+    UPDATE_TEAM_MEMBER, 
+    DELETE_TEAM_MEMBER } from './types';
 
 /**
  * This action creator will be called to populate a signed-in-user's team information.
@@ -70,3 +77,59 @@ export const unlinkTwitter = (teamId) => async dispatch => {
         console.log(err);
     }
 }
+
+
+export const getTeamMembersByTeamId = (teamId) => async(dispatch) => {
+    try{
+        const { data } = await api.fetchTeamMembersByTeamId(teamId);
+
+        dispatch({
+            type: GET_TEAM_MERMBERS_BY_TEAM_ID,
+            payload: data
+        })
+    }catch (error) {
+        console.log(error);
+    }
+}
+
+export const createTeamMember = (teamId, teamMember) => async(dispatch) => {
+    try{
+        const id = uuid_v4()
+        const { data } = await api.createTeamMember(teamId, teamMember);
+
+
+        console.log(data)
+
+        dispatch({
+            type: CREATE_TEAM_MEMBER,
+            payload: data
+        })
+    } catch(error){
+        console.log(error);
+    }
+}
+
+export const updateTeamMember = (id, publication) => async(dispatch) => {
+    try{
+        const { data } = await api.updateTeamMember(id, publication);
+        
+        dispatch({
+            type: UPDATE_TEAM_MEMBER,
+            payload: data
+        })
+    } catch(error){
+        console.log(error)
+    }
+}
+
+export const deleteTeamMember = (teamId, memberId) => async dispatch => {
+    try {
+        await api.deleteTeamMember(teamId, memberId);
+        dispatch({
+            type: DELETE_TEAM_MEMBER, 
+            payload: memberId
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
