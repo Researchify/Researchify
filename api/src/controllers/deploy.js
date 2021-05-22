@@ -5,6 +5,7 @@
 
 const axios = require("axios");
 const mongoose = require("mongoose");
+const winston = require("winston");
 
 const Publication = require("../models/publication.model");
 
@@ -16,13 +17,13 @@ async function deploy(req, res) {
     // fetch publications data for the team
     const foundPublication = await Publication.aggregate([
         {
-            $match: { teamId: mongoose.Types.ObjectId(team_id) }
+            $match: {teamId: mongoose.Types.ObjectId(team_id)}
         },
         {
-            $addFields: { year: { $year: "$yearPublished" } }
+            $addFields: {year: {$year: "$yearPublished"}}
         },
         {
-            $sort: { year: -1, title: 1 }
+            $sort: {year: -1, title: 1}
         }
     ]);
 
@@ -35,10 +36,14 @@ async function deploy(req, res) {
         ghToken: token
     }
 
-    await axios.post("http://localhost:8000/deploy/" + team_id, data);
-
-    res.status(200);
-    
+    try {
+        await axios.post("http://localhost:8000/deploy/" + team_id, data);
+        res.status(200).send('Successfully deployed client website.');
+        winston.debug(`Deployed client website for team ${team_id}`);
+    } catch (err) {
+        res.status(500).send('Could not deploy client website.');
+        winston.error(err);
+    }
 }
 
 module.exports = {deploy}

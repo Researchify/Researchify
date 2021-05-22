@@ -18,3 +18,5 @@ export const createBulkPublications = (teamId, publicationList) => api.post(`/pu
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
 export const registerTwitterHandle = (teamId, handle) => api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
+
+export const publishSiteToGitHubPages = (teamId, ghDetails) => api.post(`/deploy/${teamId}`, ghDetails);

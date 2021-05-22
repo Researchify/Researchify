@@ -5,7 +5,6 @@ import {GrLinkDown, GrLinkUp} from 'react-icons/gr'
 import {IconContext} from "react-icons"
 import '../publications.css'
 
-import PublicationBadge from "../attributes/PublicationBadge";
 
 const Publication = ({pub}) => {
     const [clicked, setClicked] = useState(false)
@@ -55,8 +54,7 @@ const Publication = ({pub}) => {
                     <Col md={11}>
                         <h3 className="ml-3 mt-3">
                             {pub.title}
-                            <PublicationBadge/><PublicationBadge/>
-                        </h3>
+                            </h3>
                     </Col>
                 </Row>
             </div>

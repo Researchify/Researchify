@@ -27,25 +27,26 @@ async function buildBaseApp(data) {
         env: {
             ...process.env,  // Keep the current process' Environment Variables
             [REACT_APP_TEAM_TWITTER_HANDLE]: data.teamTwitterHandle,
-            [REACT_APP_TEAM_PUBLICATIONS]: data.teamPublications
+            [REACT_APP_TEAM_PUBLICATIONS]: JSON.stringify(data.teamPublications)
         },
         timeout: BUILD_TIMEOUT
     });
-    console.log("done");
 
     build.stdout.on('data', (data) => {
         winston.debug(`stdout: ${data}`);
     });
-
     build.stderr.on('data', (data) => {
         winston.debug(`stderr: ${data}`);
     });
 
-    await build.on('close', (code) => {
-        winston.info(`child process exited with code ${code}`);
-        if (code) {
-            throw new Error('Failed to build base application.');
-        }
+    return new Promise((resolve, reject) => {
+        build.on('close', (code) => {
+            winston.info(`child process exited with code ${code}`);
+            if (code) {
+                reject(`Failed to build base application. Code: ${code}`)
+            }
+            resolve(code);
+        });
     });
 }
 

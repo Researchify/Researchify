@@ -7,7 +7,6 @@ import {TEAM_PUBLICATIONS} from "../../global/data";
 
 const Publications = () => {
     const teamPublications = TEAM_PUBLICATIONS;
-    console.log(teamPublications);
 
     return (
         <>

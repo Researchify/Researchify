@@ -1,4 +1,5 @@
 /**
+ * TODO: refactor promises to async-await inside build and push functions
  * @file This module contains handlers for the "deploy" route.
  * @module deploy
  */
@@ -28,8 +29,6 @@ async function handleDeployEvent(req, res) {
         winston.error(`Failed to deploy application for team ${teamId}`, err);
         return res.status(500).send("Something went wrong. Researchify couldn't build/push your application.");
     }
-
-
 }
 
 

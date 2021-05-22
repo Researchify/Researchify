@@ -6,7 +6,7 @@ const deployRouter = require('express').Router();
 const deployController = require('../controllers/deploy');
 
 
-deployRouter.post('/:team_id', deployController.handleDeployEvent);
+deployRouter.post('/:teamId', deployController.handleDeployEvent);
 
 
 module.exports = deployRouter;

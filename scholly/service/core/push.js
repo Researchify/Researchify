@@ -31,11 +31,11 @@ async function pushBuiltAppToPages(ghUsername, ghToken) {
     }, err => {
         if (err) {
             winston.error(`Failed to push built app to GitHub Pages for ${ghUsername}`, err);
-            throw new Error(`Failed to push built app to GitHub Pages for ${ghUsername}`);
+            throw err;
         } else {
             winston.info(`Successfully deployed app for ${ghUsername}`);
         }
-        cleanupBuild();
+        cleanupBuild();  // TODO this is not working for some reason
     });
 }
 
@@ -44,7 +44,11 @@ async function pushBuiltAppToPages(ghUsername, ghToken) {
  * We won't be requiring it anymore and can thus be removed.
  */
 function cleanupBuild() {
-    fs.rmdirSync(`${PATH_TO_BASE_REACT_APP}/build`, {recursive: true});
+    fs.rm(`${PATH_TO_BASE_REACT_APP}/build`, {recursive: true}, err => {
+        if (err) {
+            winston.error('Failed to remove built directory.');
+        }
+    });
 }
 
 
