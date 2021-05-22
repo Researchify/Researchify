@@ -1,12 +1,22 @@
 import * as api from '../api'
-import { GET_PUBLICATIONS_BY_TEAM_ID, CREATE_PUBLICATION, UPDATE_PUBLICATION, DELETE_PUBLICATION, SORT_PUBLICATIONS } from './types';
-
+import { 
+    GET_PUBLICATIONS_BY_TEAM_ID, 
+    CREATE_PUBLICATION, 
+    UPDATE_PUBLICATION, 
+    DELETE_PUBLICATION, 
+    SORT_PUBLICATIONS,
+    CREATE_BULK_PUBLICATIONS,
+    IMPORT_REQUEST,
+    IMPORT_SUCCESS, 
+    IMPORT_FAIL
+} from './types';
+import importedPublications from '../components/publications/importedPublication/importedPublications.json'// remove this once scholar api is implemented 
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     try{
         const { data } = await api.fetchPublicationsByTeamId(teamId);
 
-        data.map(pub => pub.yearPublished = pub.yearPublished.substring(0,4)) // only get from year from the date format
+        data.map(pub => pub.yearPublished = pub.yearPublished.substring(0,4)) // only get the year from the date format
 
         dispatch({
             type: GET_PUBLICATIONS_BY_TEAM_ID,
@@ -22,7 +32,7 @@ export const createPublication = (publication) => async(dispatch) => {
         const result = await api.createPublication(publication);
 
         console.log(result)
-        result.data.yearPublished = result.data.yearPublished.substring(0,4) // only get from year from the date format
+        result.data.yearPublished = result.data.yearPublished.substring(0,4) // only get the year from the date format
 
         dispatch({
             type: CREATE_PUBLICATION,
@@ -37,7 +47,7 @@ export const updatePublication = (id, publication) => async(dispatch) => {
     try{
         const { data } = await api.updatePublication(id, publication);
 
-        data.yearPublished = data.yearPublished.substring(0,4) // only get from year from the date format
+        data.yearPublished = data.yearPublished.substring(0,4) // only get the year from the date format
         
         dispatch({
             type: UPDATE_PUBLICATION,
@@ -87,4 +97,50 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
         type: SORT_PUBLICATIONS,
         payload: teamPublications
     })
+}
+
+export const importPublication = (profileLink) => async dispatch => {
+    try{
+        dispatch({
+            type: IMPORT_REQUEST
+        })
+
+        //TODO: api call to import publication from schloar
+
+        // pretending api call 
+        let id = setInterval(() => {
+            dispatch({
+                type: IMPORT_SUCCESS,
+                payload: importedPublications
+            })
+            // dispatch({
+            //     type: IMPORT_FAIL,
+            //     payload: "error.message"
+            // })
+            clearInterval(id)
+        }, 2500)
+
+    } catch(error){
+        dispatch({
+            type: IMPORT_FAIL,
+            payload: error.message
+        })
+    }
+}
+
+export const createBulkPublications = (teamId, publicationList) => async dispatch => {
+    try{
+        const result = await api.createBulkPublications(teamId, publicationList)
+        let createdPublications = result.data.map(pub => 
+            ({...pub, yearPublished: pub.yearPublished.substring(0,4), newlyAdded: true})
+        )
+
+        dispatch({
+            type: CREATE_BULK_PUBLICATIONS,
+            payload: createdPublications
+        })
+
+    } catch(error){
+        console.log(error)
+    }
 }

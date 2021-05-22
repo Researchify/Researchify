@@ -150,4 +150,17 @@ async function readAllPublicationsByTeam(req, res) {
     res.status(200).json(foundPublication);
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam};
+/**
+ * Handles a POST request, which will create a bluk publications in the database using the endpoint /publications/import/:team_id.
+ * @param req request object - team id given in the url, an array of publication in body (see Publication model)
+ * @param res response object
+ * @returns 201: the bulk publications has been created
+ * @returns 400: given team id is not in a valid hexadecimal format (validate via team middleware)
+ * @returns 404: no team was found to associate the publication with (validate via team middleware)
+ */
+async function importPublications(req, res) {
+    const importedPublications = await Publication.insertMany(req.body);
+    res.status(201).json(importedPublications);
+}
+
+module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam, importPublications};
