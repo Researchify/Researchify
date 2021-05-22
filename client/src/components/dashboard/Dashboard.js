@@ -1,8 +1,8 @@
 /**
  * This file exports the inner content of Researchify Dashboard Page
  */
-import React, {useState} from 'react'
-import { Container, Button, Modal, Image,CardGroup, Card } from "react-bootstrap"
+import React, { useState } from 'react'
+import { Container, Button, Modal, Image, CardGroup, Card, Form } from "react-bootstrap"
 
 /** Redux **/
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,7 +42,7 @@ const Dashboard = () => {
             <Card className="text-center researchify-dashboard-card">
 
                 <Card.Body>
-                    <Button  onClick={handleShowOne}>
+                    <Button onClick={handleShowOne}>
                         {websiteIsCreated ? "Edit the Website" : "Build a new Website"}
                     </Button>
                 </Card.Body>
@@ -84,19 +84,34 @@ const Dashboard = () => {
             <Modal show={show1} onHide={handleCloseOne}  centered size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                    Select a template
-                    </Modal.Title>
+                        Enter your GitHub Credentials
+                        </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4>Centered Modal</h4>
+
+                    <Form className="researchify-github-form">
+
+                        <Form.Group controlId="formGithubUsername">
+                            <Form.Label>Github Username</Form.Label>
+                            <Form.Control type="text" placeholder={"Enter your GitHub Username Here"} />
+                        </Form.Group>
+
+                        <Form.Group controlId="formGithubToken">
+                            <Form.Label>Github Personal Access Token</Form.Label>
+                            <Form.Control type="text" placeholder={"Enter your GitHub Personal Access Token Here"} />
+                        </Form.Group>
+
+                    </Form>
+
                 </Modal.Body>
-                
+
                 <Modal.Footer>
                     <Button onClick={() => {
-                    handleCloseOne();
-                    handleShowTwo()}}>
+                        handleCloseOne();
+                        handleShowTwo()
+                    }}>
                         Next
-                        </Button>
+                            </Button>
                 </Modal.Footer>
             </Modal>
             
