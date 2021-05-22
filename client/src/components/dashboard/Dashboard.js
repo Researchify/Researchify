@@ -80,7 +80,7 @@ const Dashboard = () => {
                 </CardGroup>
             </Card>
 
-            {'Entering User GitHub Pages Token'}
+            {/*'Entering User GitHub Pages Token'*/}
             <Modal show={show1} onHide={handleCloseOne}  centered size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -100,7 +100,7 @@ const Dashboard = () => {
                 </Modal.Footer>
             </Modal>
             
-            {'Selecting Template 1 Modal'}
+            {/*'Selecting Template 1 Modal'*/}
             <Modal show={show2} onHide={handleCloseTwo}  centered size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -129,7 +129,7 @@ const Dashboard = () => {
                 </Modal.Footer>
             </Modal>
 
-            {'Selecting Template 2 Modal'}
+            {/*'Selecting Template 2 Modal'*/}
             <Modal show={show3} onHide={handleCloseThree}  centered size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
