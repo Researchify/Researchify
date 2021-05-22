@@ -16,7 +16,7 @@ const importedPublicationReducer = (state=initialState, action) => {
         case IMPORT_FAIL:
             return { ...state, importStatus: "FAIL", loading: false, error: action.payload}
         case IMPORT_CLEAR_STATE:
-            return {...state, importStatus: null}
+            return initialState
         default:
             return state
     }

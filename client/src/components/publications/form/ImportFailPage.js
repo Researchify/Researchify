@@ -1,3 +1,7 @@
+/**
+ * The ImportFailPage component displays an error message sent by scholar api if the import is failed 
+ */
+
 import { Alert, Row, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from 'react-redux'
 import { IMPORT_CLEAR_STATE } from "../../../actions/types"

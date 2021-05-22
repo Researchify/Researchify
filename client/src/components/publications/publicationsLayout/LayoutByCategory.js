@@ -1,3 +1,7 @@
+/**
+ * The LayoutByCategory component displays a list of publications group by category type selcted by user
+ */
+
 import Publication from '../publication/Publication'
 import { CATEGORY_TYPE } from '../form/PublicationForm'
 

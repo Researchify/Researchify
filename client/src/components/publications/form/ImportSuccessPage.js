@@ -1,3 +1,7 @@
+/**
+ * The ImportSucessPage component displays a list of publications returned by scholar api if the import is success 
+ */
+
 import { useSelector, useDispatch } from 'react-redux'
 import ImportedPublication from "../importedPublication/ImportedPublication"
 import React, { useState } from 'react';
