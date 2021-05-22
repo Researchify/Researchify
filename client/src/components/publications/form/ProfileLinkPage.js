@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from 'react-redux'
-import { Row, InputGroup, Button, Form, Spinner } from "react-bootstrap";
+import { Row, InputGroup, Button, Form } from "react-bootstrap";
 import { importPublication } from "../../../actions/publications"
 import { BsFillPersonFill } from 'react-icons/bs'
 

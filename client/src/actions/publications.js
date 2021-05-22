@@ -8,8 +8,7 @@ import {
     CREATE_BULK_PUBLICATIONS,
     IMPORT_REQUEST,
     IMPORT_SUCCESS, 
-    IMPORT_FAIL, 
-    IMPORT_CLEAR_STATE
+    IMPORT_FAIL
 } from './types';
 import importedPublications from '../components/publications/importedPublication/importedPublications.json'// remove this once scholar api is implemented 
 

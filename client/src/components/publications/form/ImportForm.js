@@ -14,6 +14,8 @@ const ImportForm = ({closeModal}) => {
                 return <ImportSucessPage closeModal={closeModal}/>
             case "FAIL":
                 return <ImportFailPage closeModal={closeModal}/>
+            default:
+                return <ProfileLinkPage closeModal={closeModal}/> 
         }
     }
 

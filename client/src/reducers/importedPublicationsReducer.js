@@ -7,7 +7,7 @@ const initialState = {
     error: null
 }
 
-const importedPublciationReducer = (state=initialState, action) => {
+const importedPublicationReducer = (state=initialState, action) => {
     switch(action.type){
         case IMPORT_REQUEST:
             return {...state, loading: true}
@@ -22,4 +22,4 @@ const importedPublciationReducer = (state=initialState, action) => {
     }
 }
 
-export default importedPublciationReducer
+export default importedPublicationReducer

@@ -1,7 +1,7 @@
 import { InputGroup, Form, Card, Collapse } from 'react-bootstrap';
 import React, { useState } from 'react';
 
-const ImportedPublciation = ({pub, index, setChecked}) => {
+const ImportedPublication = ({pub, index, setChecked}) => {
     const [expand, setExpand] = useState(false)
     const dropDown = (
         <Collapse in={expand}>
@@ -45,4 +45,4 @@ const ImportedPublciation = ({pub, index, setChecked}) => {
     )
 }
 
-export default ImportedPublciation
+export default ImportedPublication

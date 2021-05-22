@@ -154,7 +154,7 @@ async function readAllPublicationsByTeam(req, res) {
 async function importPublications(req, res) {
     const {team_id: _id} = req.params;
 
-    var result = await Team.findById(_id);
+    const result = await Team.findById(_id);
     if (result == null) {
         return res.status(404).send('Error: Team not found.');
     }

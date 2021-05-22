@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getPublicationsByTeamId, sortPublications } from '../../actions/publications'
-import { Button, Modal, Dropdown, DropdownButton, Container, Col, Row, Spinner, Alert } from 'react-bootstrap';
+import { Button, Modal, Dropdown, DropdownButton, Spinner, Alert } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm'
 import ImportForm from './form/ImportForm'
 import './publications.css'
