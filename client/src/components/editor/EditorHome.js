@@ -4,6 +4,7 @@ import {BsFillPlusCircleFill} from "react-icons/bs";
 import toast, { Toaster } from 'react-hot-toast';
 
 import "./editorHome.css"
+import HomeSectionCard from  "./HomeSectionCard.js"
 
 const EditorHome = () => {
 
@@ -25,6 +26,8 @@ const EditorHome = () => {
                 </Button>
 
                 {/* Add home page editor template Viewer here */}
+
+                <HomeSectionCard />
 
 
             {/* Modal popup for home page editor text form */}
