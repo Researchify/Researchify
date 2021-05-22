@@ -34,6 +34,7 @@ async function buildBaseApp(data) {
         },
         timeout: BUILD_TIMEOUT
     });
+    console.log("done");
 
     build.stdout.on('data', (data) => {
         winston.debug(`stdout: ${data}`);

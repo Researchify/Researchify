@@ -5,13 +5,14 @@
  * TODO: Researchify needs an email!
  */
 const ghpages = require('gh-pages');
-const winston = require('winston');
+// const winston = require('winston');
 
 // TODO: remove
 const TEST_TOKEN = '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';
 
 
 function pushBuiltAppToPages(ghUsername, ghToken) {
+    console.log("in");
     ghpages.publish('../base/build', {
         branch: 'main',
         repo: `https://${ghUsername}:${ghToken}@github.com/${ghUsername}/${ghUsername}.github.io.git`,
@@ -23,9 +24,10 @@ function pushBuiltAppToPages(ghUsername, ghToken) {
         history: false
     }, err => {
         if (err) {
-            winston.error(err);
+            console.error(err);
         } else {
-            winston.info(`Successfully deployed app for ${ghUsername}`);
+            console.info(`Successfully deployed app for ${ghUsername}`);
+            console.log("out");
         }
     })
 }

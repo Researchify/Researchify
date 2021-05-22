@@ -2,6 +2,9 @@
  * @file This module contains handlers for the "deploy" route.
  * @module deploy
  */
+const buildBaseApp = require('../core/build');
+const pushBuiltAppToPages = require('../core/push');
+
 
 
 /**
@@ -18,8 +21,16 @@ async function handleDeployEvent(req, res) {
         ghUsername: username,
         ghToken: token
     } = req.body;
-    
-    res.status(200).send(twitterHandle);
+
+    const data = {
+        teamTwitterHandle: twitterHandle,
+        teamPublications: foundPublication
+    };
+
+    await buildBaseApp(data);
+    await pushBuiltAppToPages(username, token);
+
+    res.status(200);
 }
 
 
