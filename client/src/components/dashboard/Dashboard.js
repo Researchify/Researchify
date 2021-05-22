@@ -130,17 +130,16 @@ const Dashboard = () => {
                 </Modal.Body>
                 
                 <Modal.Footer>
-                    <Button onClick={() => {dispatch(createWebsite());
-                    handleCloseTwo()}}
-                    className="mr-auto">
-                        <BsCheck />
-                    </Button>
                     <Button variant="secondary"
                         onClick={() => {
                         handleCloseTwo();
                         handleShowThree()}}
                     >
                         <BsChevronRight />
+                    </Button>
+                    <Button onClick={() => {dispatch(createWebsite());
+                    handleCloseTwo()}}>
+                        <BsCheck />
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -160,17 +159,16 @@ const Dashboard = () => {
                 </Modal.Body>
                 
                 <Modal.Footer>
-                    <Button onClick={() => {dispatch(createWebsite());
-                    handleCloseThree()}}
-                    className="mr-auto">
-                        <BsCheck />
-                    </Button>
                     <Button variant="secondary"
                         onClick={() => {
                         handleShowTwo();
                         handleCloseThree()}}
                     >
                         <BsChevronLeft />
+                    </Button>
+                    <Button onClick={() => {dispatch(createWebsite());
+                    handleCloseThree()}}>
+                        <BsCheck />
                     </Button>
                 </Modal.Footer>
             </Modal>
