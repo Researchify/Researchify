@@ -4,7 +4,7 @@
 import {ADD_USER_DATA} from "../actions/types";
 
 
-const INITIAL_STATE = {email: '', givenName: '', familyName: '', password: ''};
+const INITIAL_STATE = {email: '', teamName: '', orgName: '', password: ''};
 
 /**
  * This userReducer will handle all user data-related actions.
