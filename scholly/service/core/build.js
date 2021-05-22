@@ -2,12 +2,8 @@
  * This module spawns a subprocess used to run an "npm run build" on the base React App, with the
  * environment variables set to the site preferences data. The react app uses these variables for customizing
  * the content displayed for the researcher's site.
- *
- * TODO: use path.resolve to get path of base react app
- * TODO: use logging
  */
 const {spawn} = require('child_process');
-const fs = require('fs');
 const path = require('path');
 const winston = require('winston');
 
@@ -23,6 +19,7 @@ const BUILD_TIMEOUT = 10000;
  * site preferences data.
  *
  * @param data the data to be used as environment variables for the base React app.
+ * @throws Error if the build failed.
  */
 async function buildBaseApp(data) {
     const build = spawn('npm', ['run', 'build', '--prefix', PATH_TO_BASE_REACT_APP], {
@@ -40,17 +37,15 @@ async function buildBaseApp(data) {
     });
 
     build.stderr.on('data', (data) => {
-        winston.error(`stderr: ${data}`);
+        winston.debug(`stderr: ${data}`);
     });
 
-    build.on('close', (code) => {
+    await build.on('close', (code) => {
         winston.info(`child process exited with code ${code}`);
+        if (code) {
+            throw new Error('Failed to build base application.');
+        }
     });
-}
-
-// to be executed after automated push to github repo
-function cleanupBuild() {
-    fs.rmdirSync(`${PATH_TO_BASE_REACT_APP}/build`, {recursive: true});
 }
 
 
