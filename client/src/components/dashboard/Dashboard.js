@@ -11,7 +11,7 @@ import { createWebsite } from '../../actions/website';
 import { Link } from 'react-router-dom';
 
 /** icons **/
-import { BsPencilSquare, BsServer, BsDisplayFill, BsChevronRight, BsChevronLeft } from 'react-icons/bs'
+import { BsPencilSquare, BsServer, BsDisplayFill, BsChevronRight, BsChevronLeft, BsCheck } from 'react-icons/bs'
 /** css **/
 import './Dashboard.css'
 // import DashboardModal from './DashboardModal'
@@ -116,8 +116,9 @@ const Dashboard = () => {
                 
                 <Modal.Footer>
                     <Button onClick={() => {dispatch(createWebsite());
-                    handleCloseTwo()}}>
-                        Select
+                    handleCloseTwo()}}
+                    className="mr-auto">
+                        <BsCheck />
                     </Button>
                     <Button variant="secondary"
                         onClick={() => {
@@ -145,8 +146,9 @@ const Dashboard = () => {
                 
                 <Modal.Footer>
                     <Button onClick={() => {dispatch(createWebsite());
-                    handleCloseThree()}}>
-                        Select
+                    handleCloseThree()}}
+                    className="mr-auto">
+                        <BsCheck />
                     </Button>
                     <Button variant="secondary"
                         onClick={() => {
