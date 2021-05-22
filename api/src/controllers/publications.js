@@ -75,7 +75,6 @@ async function updatePublication(req, res) {
  */
 async function createPublication(req, res) {
     const publication = req.body;
-    console.log(publication)
 
     if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
         return res.status(400).send('Error: Given team id is not in a valid hexadecimal format.');
