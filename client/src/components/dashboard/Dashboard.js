@@ -20,18 +20,17 @@ import homeTemplateImg2 from '../../images/home_page_template2.jpg'
 
 const Dashboard = () => {
 
-    const [show1, setShow1] = useState(false);
-    const [show2, setShow2] = useState(false);
-    const [show3, setShow3] = useState(false);
+    const [githubModal, setShowGithub] = useState(false);
+    const [template1, setShowTemplate1] = useState(false);
+    const [template2, setShowTemplate2] = useState(false);
 
-    const handleCloseOne = () => setShow1(false);
-    const handleCloseTwo = () => setShow2(false);
-    const handleCloseThree = () => setShow3(false);
+    const closeGithubModal = () => setShowGithub(false);
+    const closeTemplate1 = () => setShowTemplate1(false);
+    const closeTemplate2 = () => setShowTemplate2(false);
 
-    const handleShowOne = () => setShow1(true);
-    const handleShowTwo = () => setShow2(true);
-    const handleShowThree = () => setShow3(true);
-
+    const showGithubModal = () => setShowGithub(true);
+    const showTemplate1 = () => setShowTemplate1(true);
+    const showTemplate2 = () => setShowTemplate2(true);
 
     const dispatch = useDispatch();
     const websiteIsCreated = useSelector(state => state.website.isCreated);
@@ -42,7 +41,7 @@ const Dashboard = () => {
             <Card className="text-center researchify-dashboard-card">
 
                 <Card.Body>
-                    <Button onClick={handleShowOne}>
+                    <Button onClick={showGithubModal}>
                         {websiteIsCreated ? "Edit the Website" : "Build a new Website"}
                     </Button>
                 </Card.Body>
@@ -81,7 +80,7 @@ const Dashboard = () => {
             </Card>
 
             {/*'Entering User GitHub Pages Token'*/}
-            <Modal show={show1} onHide={handleCloseOne}  centered size="lg">
+            <Modal show={githubModal} onHide={closeGithubModal}  centered size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
                         Enter your GitHub Credentials
@@ -107,8 +106,8 @@ const Dashboard = () => {
 
                 <Modal.Footer>
                     <Button onClick={() => {
-                        handleCloseOne();
-                        handleShowTwo()
+                        closeGithubModal();
+                        showTemplate1()
                     }}>
                         Next
                             </Button>
@@ -116,7 +115,7 @@ const Dashboard = () => {
             </Modal>
             
             {/*'Selecting Template 1 Modal'*/}
-            <Modal show={show2} onHide={handleCloseTwo}  centered size="lg">
+            <Modal show={template1} onHide={closeTemplate1}  centered size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
                     Select a template
@@ -131,14 +130,14 @@ const Dashboard = () => {
                 
                 <Modal.Footer>
                     <Button onClick={() => {dispatch(createWebsite());
-                    handleCloseTwo()}}
+                    closeTemplate1()}}
                     className="mr-auto">
                         <BsCheck />
                     </Button>
                     <Button variant="secondary"
                         onClick={() => {
-                        handleCloseTwo();
-                        handleShowThree()}}
+                        closeTemplate1();
+                        showTemplate2()}}
                     >
                         <BsChevronRight />
                     </Button>
@@ -146,7 +145,7 @@ const Dashboard = () => {
             </Modal>
 
             {/*'Selecting Template 2 Modal'*/}
-            <Modal show={show3} onHide={handleCloseThree}  centered size="lg">
+            <Modal show={template2} onHide={closeTemplate2}  centered size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
                     Select a template
@@ -161,14 +160,14 @@ const Dashboard = () => {
                 
                 <Modal.Footer>
                     <Button onClick={() => {dispatch(createWebsite());
-                    handleCloseThree()}}
+                    closeTemplate2()}}
                     className="mr-auto">
                         <BsCheck />
                     </Button>
                     <Button variant="secondary"
                         onClick={() => {
-                        handleShowTwo();
-                        handleCloseThree()}}
+                        showTemplate1();
+                        closeTemplate2()}}
                     >
                         <BsChevronLeft />
                     </Button>
