@@ -2,6 +2,8 @@
  * This module contains handlers for the "team" route.
  */
 const axios = require("axios");
+const mongoose = require("mongoose");
+const Team = require("../models/team.model");
 
 
 const options = {
@@ -59,4 +61,28 @@ async function getTeam(req, res) {
 
 }
 
-module.exports = { storeHandle, getTeam };
+/**
+ * Handles a PATCH request to update a team's details on the endpoint /team/:id.
+ * @param {*} req request object - team id in url, json object containing atleast one field from team model.
+ * @param {*} res response object - updated team object
+ * @returns 200: returns updated team details
+ * @returns 404: team not found
+ * @returns 400: error updating team
+ */
+async function updateTeam(req, res) {
+    const { id: _id } = req.params;
+    const updates = req.body;
+    const options = {new: true};
+
+    if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("Error: No team with that id.");
+
+    try {
+        const result = await Team.findByIdAndUpdate(_id, updates, options);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(400).json(`Error: ${err.message}`);
+    }
+}
+
+module.exports = { storeHandle, getTeam, updateTeam };
