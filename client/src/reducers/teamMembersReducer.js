@@ -1,4 +1,4 @@
-import { GET_TEAM_MERMBERS_BY_TEAM_ID, CREATE_TEAM_MEMBER, UPDATE_TEAM_MEMBER, DELETE_TEAM_MEMBER } from '../actions/types';
+import { GET_TEAM_MEMBERS_BY_TEAM_ID, CREATE_TEAM_MEMBER, UPDATE_TEAM_MEMBER, DELETE_TEAM_MEMBER } from '../actions/types';
 
 const initialState = {
     loading: true,
@@ -7,7 +7,7 @@ const initialState = {
 
 const teamMembersReducer = (state=initialState, action) => {
     switch (action.type) {
-        case GET_TEAM_MERMBERS_BY_TEAM_ID:           
+        case GET_TEAM_MEMBERS_BY_TEAM_ID:           
             return {loading: false, teamMembers: action.payload}
         case CREATE_TEAM_MEMBER:
             return {...state, teamMembers: [...state.teamMembers, action.payload]}

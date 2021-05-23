@@ -6,7 +6,7 @@ import {
     LINK_TEAM_TWITTER, 
     UNLINK_TEAM_TWITTER, 
     FETCH_TEAM_INFO,     
-    GET_TEAM_MERMBERS_BY_TEAM_ID, 
+    GET_TEAM_MEMBERS_BY_TEAM_ID, 
     CREATE_TEAM_MEMBER, 
     UPDATE_TEAM_MEMBER, 
     DELETE_TEAM_MEMBER } from './types';
@@ -81,14 +81,14 @@ export const unlinkTwitter = (teamId) => async dispatch => {
  * This action creator will be called when a user click on the team page to retrive all the team members from that team
  *
  * @param teamId id of the team 
- * @returns a thunk responsible for calling the api and dispatching a GET_TEAM_MERMBERS_BY_TEAM_ID action
+ * @returns a thunk responsible for calling the api and dispatching a GET_TEAM_MEMBERS_BY_TEAM_ID action
  */
 export const getTeamMembersByTeamId = (teamId) => async(dispatch) => {
     try{
         const { data } = await api.fetchTeamMembersByTeamId(teamId);
 
         dispatch({
-            type: GET_TEAM_MERMBERS_BY_TEAM_ID,
+            type: GET_TEAM_MEMBERS_BY_TEAM_ID,
             payload: data
         })
     }catch (error) {
