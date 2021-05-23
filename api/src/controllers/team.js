@@ -4,6 +4,7 @@
  */
 const axios = require("axios");
 
+const Team = require("../models/team.model");
 
 const options = {
     headers: {'Authorization': "Bearer " + process.env.TWITTER_BEARER_TOKEN}
@@ -114,15 +115,17 @@ async function deleteTeamMember(req, res){
  * @returns 400: team id is not in a valid hexadecimal format
  */
 async function updateTeamMember(req, res){
-    let foundTeam = req.foundTeam;
     const updatedTeamMember = req.body;
-
-    console.log(updatedTeamMember)
-
-    let result = foundTeam.teamMembers.findOneAndUpdate({_id: updatedTeamMember._id, updatedTeamMember})
-    foundTeam.save()
-    return res.status(200).json(result)
+    try{
+        await Team.updateOne({'teamMembers._id': updatedTeamMember._id},{
+            '$set': {
+                'teamMembers.$': updatedTeamMember
+            }
+        })
+        return res.status(200).json(updatedTeamMember)
+    } catch(error){
+        return res.status(422).json(`Error: ${error.message}`)
+    }
 }
-
 
 module.exports = { storeHandle, getTeam, createTeamMember, readTeamMembersByTeam, deleteTeamMember, updateTeamMember };

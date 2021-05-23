@@ -131,7 +131,11 @@ export const createTeamMember = (teamId, teamMember) => async(dispatch) => {
  */
 export const updateTeamMember = (id, teamMember) => async(dispatch) => {
     try{
+
+        console.log("updateTeamMember")
         const { data } = await api.updateTeamMember(id, teamMember);
+
+        console.log(data)
         
         dispatch({
             type: UPDATE_TEAM_MEMBER,

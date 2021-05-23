@@ -21,5 +21,5 @@ export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team
 
 export const fetchTeamMembersByTeamId = (teamId) => api.get(`/team/${teamId}/member`);
 export const createTeamMember = (teamId, newTeamMember) => api.post(`/team/${teamId}/member`, newTeamMember);
-export const updateTeamMember = (teamId, teamMemberId, updatedTeamMember) => api.patch(`/team/${teamId}/member/${teamMemberId}`, updatedTeamMember);
+export const updateTeamMember = (teamId, updatedTeamMember) => api.patch(`/team/${teamId}/member`, updatedTeamMember);
 export const deleteTeamMember = (teamId, teamMemberId) => api.delete(`/team/${teamId}/member/${teamMemberId}`);

@@ -6,7 +6,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useSelector, useDispatch } from 'react-redux'
 import { Row, Button, Tooltip, OverlayTrigger, Form } from "react-bootstrap";
-import { createTeamMember } from "../../../actions/team";
+import { createTeamMember, updateTeamMember } from "../../../actions/team";
 
 
 const TeamMemberForm = ({closeModal, member, type}) => {
@@ -26,7 +26,11 @@ const TeamMemberForm = ({closeModal, member, type}) => {
 
     const submitForm = (values) => {
         console.log(values)
-        dispatch(createTeamMember(teamId, values))
+        if (type === "update"){
+            dispatch(updateTeamMember(teamId, values))
+        } else if (type === "create"){
+            dispatch(createTeamMember(teamId, values))
+        }
         closeModal()
     }
 
