@@ -1,16 +1,16 @@
+/**
+ * This file exports Sidebar component for layouts
+ */
 import "./Sidebar.css"
-import {SidebarData} from './SidebarData'
 import { Link, useLocation } from 'react-router-dom'
-
-
-const Sidebar = () => {
+const Sidebar = ({data}) => {
 
     let location = useLocation();
-
+    
     return (
         <div className="Sidebar">
             <ul className="SidebarList">
-                {SidebarData.map((val,key)=> {
+                {data.map((val,key)=> {
                     return(
                     <Link to={val.link} >
                         <li 
@@ -29,7 +29,8 @@ const Sidebar = () => {
                             </li>
                     </Link>
                     )
-                })}
+                })
+                }
             </ul>
         </div>
     )

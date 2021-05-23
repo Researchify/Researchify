@@ -10,18 +10,19 @@ import './ProfileInfoEdit.css';
 import profilePic from '../../images/profilepic.jpg';
 import {Link} from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import {useSelector} from 'react-redux';
+
 
 const profileUpdated = () => toast.success('Profile has been successfully updated')
 const profileDeleted = () => toast.error('Profile has not been deleted')
 
 const ProfileInfoEdit = () => {
 
-    const groupName = useSelector(state => state.user?.groupName); 
-    const orgName = useSelector(state => state.user?.orgName); 
-    const country = useSelector(state => state.user?.country); 
-    const email = useSelector(state => state.user?.email); 
-    const phoneNum = useSelector(state => state.user?.phoneNum);
+    
+    const groupName = "The Reseach Team"; 
+    const orgName ="Monash University"; 
+    const country ="Australia"; 
+    const email = "researh.team@monash.edu"; 
+    const phoneNum = "0412 345 678";
 
     return (
         <div className='mt-5' >
