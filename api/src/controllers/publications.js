@@ -261,7 +261,6 @@ async function getGoogleScholarPublications(req, res) {
  * @returns 404: no team was found to associate the publication with (validate via team middleware)
  */
 async function importPublications(req, res) {
-    console.log(req.body);
     const importedPublications = await Publication.insertMany(req.body);
     res.status(201).json(importedPublications);
 }
