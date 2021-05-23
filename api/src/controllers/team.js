@@ -89,4 +89,12 @@ async function updateTeam(req, res) {
   }
 }
 
-module.exports = { storeHandle, getTeam, updateTeam };
+async function addTeam(req, res) {
+    const team = req.body;
+
+    const createdTeam = await Team.create(team);
+    res.status(201).json(createdTeam);
+
+}
+
+module.exports = { storeHandle, getTeam, updateTeam, addTeam };

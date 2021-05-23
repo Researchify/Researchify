@@ -14,4 +14,7 @@ teamRouter.get('/:team_id', teamMiddleware.validateTeamId, teamController.getTea
 
 teamRouter.patch('/:id',teamController.updateTeam);
 
+teamRouter.post('/', teamController.addTeam);
+
+
 module.exports = teamRouter;
