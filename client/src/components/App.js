@@ -17,7 +17,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 
 import './layout/Layout.css'
 
-import TeamPage from './team/TeamPage'
+import TeamPage from './teamPage/TeamPage'
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
 
