@@ -1,35 +1,44 @@
 /**
  * This module exports a "Team" mongoose Schema, which represents a researcher team.
  */
- const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
- 
- const teamSchema = new mongoose.Schema({
-     teamName: {
-         type: String,
-         required: true
-     },
-     dateCreated: {
-         type: Date,
-         required: true
-     },
-     areaOfInterest: {
-        type: [{
-            type: String,
-            minlength: 1
-        }]
+const teamSchema = new mongoose.Schema(
+  {
+    teamName: {
+      type: String,
+      required: true,
     },
-     twitterHandle: {
-        type: String
+    dateCreated: {
+      type: Date,
+      required: true,
     },
-     githubToken: {
-        type: String
+    areaOfInterest: {
+      type: [
+        {
+          type: String,
+          minlength: 1,
+        },
+      ],
     },
-     githubUsername: {
-        type: String
-    }
- }, {timestamps: true})
- 
- const Team = mongoose.model('team', teamSchema);
- 
- module.exports = Team;
+    twitterHandle: {
+      type: String,
+    },
+    githubToken: {
+      type: String,
+    },
+    githubUsername: {
+      type: String,
+    },
+    templateId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "template",
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const Team = mongoose.model("team", teamSchema);
+
+module.exports = Team;

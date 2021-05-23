@@ -53,6 +53,21 @@ const createPublicationValidation = [
       .if(body("yearPublished")
       .exists())
       .isLength(4),
+    body("category.type", "Error: Category type must not be empty.")
+      .notEmpty(),
+    body("category.type", "Error: Category type does not match any of ['CONFERENCE', 'JOURNAL'].")
+      .if(body("category.type")
+      .exists()
+      .notEmpty())
+      .isIn(["CONFERENCE", "JOURNAL"]),
+    body("category.categoryTitle", "Error: Category title must not be empty.")
+      .notEmpty(),
+    body("category.categoryTitle", "Error: Category title must be at least 3 characters.")
+    .if(body("category.categoryTitle")
+    .exists()
+    .notEmpty())
+    .trim()
+    .isLength({ min: 3 }),  
       (req, res, next) => {
         // Finds the validation errors in this request and wraps them in an object with handy functions
         const errors = validationResult(req);
