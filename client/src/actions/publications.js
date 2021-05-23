@@ -59,7 +59,7 @@ export const updatePublication = (id, publication) => async(dispatch) => {
 export const deletePublication = (id) => async dispatch => {
     try {
         await api.deletePublication(id);
-        
+
         dispatch({
             type: DELETE_PUBLICATION, 
             payload: id
@@ -106,18 +106,24 @@ export const importPublication = (values) => async dispatch => {
 
         // extracting the authorId from the profileLink
         let position = values.profileLink.indexOf('user=') 
-        const author_id = values.profileLink.substring(position + 5, position+17) 
-
-        const result = await api.importPublications(author_id)
-        dispatch({
-            type: IMPORT_SUCCESS,
-            payload: result.data
-        })
+        if (position === -1){
+            dispatch({
+                type: IMPORT_FAIL,
+                payload: "Please provide a valid profile link"
+            })
+        } else{
+            const author_id = values.profileLink.substring(position + 5, position+17) 
+            const result = await api.importPublications(author_id)
+            dispatch({
+                type: IMPORT_SUCCESS,
+                payload: result.data
+            })
+        }
 
     } catch(error){
         dispatch({
             type: IMPORT_FAIL,
-            payload: error.message
+            payload: error.response.data
         })
     }
 }
