@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {Container,Accordion, Card, InputGroup, Form, Button, Modal} from "react-bootstrap"
+import {Container,Accordion, Card, InputGroup, Form, Button, Modal, Navbar, Nav, Carousel} from "react-bootstrap"
 import {BsFillPlusCircleFill} from "react-icons/bs";
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -9,7 +9,6 @@ import HomeSectionCard from  "./HomeSectionCard.js"
 const EditorHome = () => {
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [header, setHeader] = useState(null);
@@ -19,7 +18,7 @@ const EditorHome = () => {
     const [research, setResearch] = useState(null);
     const [publications, setPublications] = useState(null);
     const [contactInfo, setContactInfo] = useState(null);
-    
+
     const homePageUpdated = () => {
         toast.success('Page has been successfully updated')
     }
@@ -28,20 +27,65 @@ const EditorHome = () => {
         <>
             <Container className="editor-home-container border">
 
-                <Button variant="primary" block onClick={handleShow}>
-                    <BsFillPlusCircleFill />
-                </Button>
-
                 {/* Add home page editor template Viewer here */}
 
-                <HomeSectionCard
-                    info={{header: header, sHeader: sHeader, teamBio: teamBio, teamVision: teamVision, research: research, publications: publications, contactInfo: contactInfo}} />
+                <Navbar bg="dark" variant="dark">
+                    <Navbar.Brand href="#home">{header}</Navbar.Brand>
+                    <Nav className="mr-auto">
+                        <Nav.Link href="#home">Home</Nav.Link>
+                        <Nav.Link href="#publications">Publications</Nav.Link>
+                        <Nav.Link href="#awards">Awards</Nav.Link>
+                        <Nav.Link href="#team">Team</Nav.Link>
+                        <Nav.Link href="#contact">Contact</Nav.Link>
+                    </Nav>
+                </Navbar>
+                {/* Carousel will be made a separate component */}
+                    <Carousel>
+                        <Carousel.Item>
+                            <img
+                                className="d-block w-100"
+                                src="https://i.pinimg.com/originals/81/41/b8/8141b84f2bb2f78ad48c3c5bdb582038.jpg"
+                                alt="First slide"
+                            />
+                            <Carousel.Caption>
+                                <h3>First slide label</h3>
+                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                className="d-block w-100"
+                                src="https://i.pinimg.com/originals/81/41/b8/8141b84f2bb2f78ad48c3c5bdb582038.jpg"
+                                alt="Second slide"
+                            />
+
+                            <Carousel.Caption>
+                                <h3>Second slide label</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                className="d-block w-100"
+                                src="https://i.pinimg.com/originals/81/41/b8/8141b84f2bb2f78ad48c3c5bdb582038.jpg"
+                                alt="Third slide"
+                            />
+
+                            <Carousel.Caption>
+                                <h3>Third slide label</h3>
+                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    </Carousel>
+                <Button variant="primary" block onClick={handleShow} > Edit Sections
+                    {" "}<BsFillPlusCircleFill />
+                </Button>
 
                 {/*Display Cards*/}
                 <HomeSectionCard info={{title: "Biography", content: teamBio}} />
 
                 <HomeSectionCard info={{title: "Team Vision", content: teamVision}} />
-                <HomeSectionCard info={{title: "Contact Information", content: contactInfo}} />
+                <HomeSectionCard info={{title: "Contact Information", content: contactInfo}} />'
 
             {/* Modal popup for home page editor text form */}
             <Modal show={show} onHide={handleClose} centered>
