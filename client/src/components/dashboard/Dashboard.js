@@ -33,13 +33,13 @@ const handleRepoCreation = (created, response) => {
 }
 
 /** Pass the github username and token into api **/
-const storeGithubToken = (teamId, githubUsername, githubToken) => {
+const storeGithubToken = (teamId, username, token) => {
     // TODO: validate the input and token (token start with 'ghp_' and has total 40 characters)
 
     try {
         //createRepository(githubToken, githubUsername, "Team Name", handleRepoCreation)
-        api.patch(`team/${teamId}/githubToken`, githubToken);
-        api.patch(`team/${teamId}/githubUsername`, githubUsername);
+        api.patch(`team/${teamId}`, {githubToken: token});
+        api.patch(`team/${teamId}`, {githubUsername: username});
 
     } catch (err) {
         console.error(`Error in patching github token/username in Dashboard.js: ${err}`);
