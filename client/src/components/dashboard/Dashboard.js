@@ -21,13 +21,23 @@ import homeTemplateImg2 from '../../images/home_page_template2.jpg';
 
 /** api to patch github token **/
 import api from '../../api/api';
+import {createRepository} from '../github';
 
+const handleRepoCreation = (created, response) => {
+    if (created) {
+        console.log("Repo created");
+    }
+    else {
+        console.log("Repo failed to create");
+    }
+}
 
 /** Pass the github username and token into api **/
 const storeGithubToken = (teamId, githubUsername, githubToken) => {
     // TODO: validate the input and token (token start with 'ghp_' and has total 40 characters)
 
     try {
+        //createRepository(githubToken, githubUsername, "Team Name", handleRepoCreation)
         api.patch(`team/${teamId}/githubToken`, githubToken);
         api.patch(`team/${teamId}/githubUsername`, githubUsername);
 
