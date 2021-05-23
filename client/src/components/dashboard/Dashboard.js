@@ -28,8 +28,8 @@ const storeGithubToken = (teamId, githubUsername, githubToken) => {
     // TODO: validate the input and token (token start with 'ghp_' and has total 40 characters)
 
     try {
-        api.patch(`/team/${teamId}/githubToken`, githubToken);
-        api.patch(`/team/${teamId}/githubUsername`, githubUsername);
+        api.patch(`team/${teamId}/githubToken`, githubToken);
+        api.patch(`team/${teamId}/githubUsername`, githubUsername);
 
     } catch (err) {
         console.error(`Error in patching github token/username in Dashboard.js: ${err}`);
@@ -133,7 +133,6 @@ const Dashboard = () => {
                             <Form.Label>Github Personal Access Token</Form.Label>
                             <Form.Control
                                 onChange={e => setToken(e.target.value)}
-                                id="token"
                                 type="text"
                                 placeholder={"Enter your GitHub Personal Access Token Here"}
                             />
