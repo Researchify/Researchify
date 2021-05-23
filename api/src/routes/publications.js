@@ -7,6 +7,8 @@ const publicationsController = require('../controllers/publications');
 
 const publicationsMiddleware = require('../middleware/publications');
 
+const teamMiddleware = require('../middleware/team');
+
 publicationsRouter.delete('/:id', publicationsController.deletePublication);
 
 publicationsRouter.patch('/:id', publicationsController.updatePublication);
@@ -15,7 +17,10 @@ publicationsRouter.post('/', publicationsMiddleware.createPublicationValidation,
 
 publicationsRouter.get('/:id', publicationsController.readPublication);
 
+publicationsRouter.get("/import/:gScholarUserId", publicationsMiddleware.validateAuthorId, publicationsController.getGoogleScholarPublications);
+
 publicationsRouter.get('/team/:team_id', publicationsController.readAllPublicationsByTeam);
 
+publicationsRouter.post('/import/:team_id', teamMiddleware.validateTeamId, publicationsController.importPublications);
 
 module.exports = publicationsRouter;

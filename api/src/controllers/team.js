@@ -1,5 +1,6 @@
 /**
  * This module contains handlers for the "team" route.
+ * @module team
  */
 const axios = require("axios");
 
