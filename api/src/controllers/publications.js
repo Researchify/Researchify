@@ -12,6 +12,8 @@ const lambda = require('../config/aws/lambda');
 
 const { InvokeCommand } = require("@aws-sdk/client-lambda");
 
+const { gScholarLambdaParams } = require("../config/constants");
+
 
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
@@ -160,136 +162,78 @@ async function readAllPublicationsByTeam(req, res) {
  * Endpoint: /publications/import/:id
  * @param req request object - google scholar user id given in the url
  * @param res response object - array of publication objects
+ * @returns a list of publications of the given google scholar user id
  */
 async function getGoogleScholarPublications(req, res) {
-    let author = req.params.id;
-    console.log(author);
+    const author = req.params.id;
 
-    const client = lambda;
-    const params = {
-        FunctionName: 'import-pub-opt',
-        InvocationType: 'RequestResponse',
-        Payload: "{\"author_id\": \""+ author+"\"}"
-    };
-    const command = new InvokeCommand(params);
-    const response = await client.send(command);
+    // const client = lambda;
+    // const params = gScholarLambdaParams;
+    // params["Payload"] = "{\"author_id\": \""+ author+"\"}"
+    
+    // const command = new InvokeCommand(params);
+    // const response = await client.send(command);
 
-    const asciiDecoder = new TextDecoder('utf-8');
-    const output = asciiDecoder.decode(response.Payload);
+    // const asciiDecoder = new TextDecoder('utf-8');
+    // const output = asciiDecoder.decode(response.Payload);
 
-    const lambdaResult = JSON.parse(JSON.parse(output));
+    // const lambdaResult = JSON.parse(JSON.parse(output));
     // uncomment the lines below for testing if the lambda doesn't respond
     // comment out lines 168-180 to get rid of the lambda call
-    // const lambdaResult = {
-    //     "publications": [
-    //         {
-    //             "container_type": "Publication",
-    //             "bib": {
-    //                 "title": "The mathematics of juggling",
-    //                 "pub_year": 2006,
-    //                 "author": "Burkard Polster",
-    //                 "publisher": "Springer Science & Business Media",
-    //                 "abstract": "Learn to juggle numbers! This book is the first comprehensive account of the mathematical techniques and results used in the modelling of juggling patterns. This includes all known and many new results about juggling sequences and matrices, the mathematical skeletons of juggling patterns. Many useful and entertaining tips and tricks spice up the mathematical menu presented in this book. There are detailed descriptions of jugglable and attractive juggling sequences, easy zero-gravity juggling, robot juggling, as well as fun juggling of words, anti-balls, and irrational numbers. The book also includes novel, or at least not very well known connections with topics such as bell ringing, knot theory, and the many body problem. In fact, the chapter on mathematical bell ringing has been expanded into the most comprehensive survey in the literature of the mathematics used by bell ringers. Accessible at all levels of mathematical sophistication, this is a book for mathematically wired jugglers, mathematical bell ringers, combinatorists, mathematics educators, and just about anybody interested in beautiful and unusual applications of mathematics."
-    //             },
-    //             "filled": true,
-    //             "author_pub_id": "eRbvWqYAAAAJ:u5HHmVD_uO8C",
-    //             "num_citations": 99,
-    //             "pub_url": "http://books.google.com/books?hl=en&lr=&id=YCARBwAAQBAJ&oi=fnd&pg=PR7&dq=info:-qxGY874hFMJ:scholar.google.com&ots=-hU_2bXHcs&sig=GdbMwkW5-_-Q4ia6N0jZkNx7VPs",
-    //             "cites_id": "6018208567386352890",
-    //             "citedby_url": "/scholar?cites=6018208567386352890",
-    //             "url_related_articles": "/scholar?oi=bibs&hl=en&q=related:-qxGY874hFMJ:scholar.google.com/",
-    //             "cites_per_year": {
-    //                 "2005": 4,
-    //                 "2006": 5,
-    //                 "2007": 3,
-    //                 "2008": 6,
-    //                 "2009": 5,
-    //                 "2010": 7,
-    //                 "2011": 6,
-    //                 "2012": 5,
-    //                 "2013": 6,
-    //                 "2014": 6,
-    //                 "2015": 4,
-    //                 "2016": 5,
-    //                 "2017": 9,
-    //                 "2018": 5,
-    //                 "2019": 10,
-    //                 "2020": 7
-    //             },
-    //             "eprint_url": "https://www.jugglingedge.com/pdf/juggling_survey_Burkard_Polster.pdf"
-    //         },
-    //         {
-    //             "container_type": "Publication",
-    //             "bib": {
-    //                 "title": "What is the best way to lace your shoes?",
-    //                 "pub_year": 2002,
-    //                 "author": "Burkard Polster",
-    //                 "journal": "Nature",
-    //                 "volume": "420",
-    //                 "number": "6915",
-    //                 "pages": "476-476",
-    //                 "publisher": "Nature Publishing Group",
-    //                 "abstract": "The two most popular ways to lace shoes have historically been to use'criss-cross' or'straight'lacing—but are these the most efficient? Here we demonstrate mathematically that the shortest lacing is neither of these, but instead is a rarely used and unexpected type of lacing known as' bowtie'lacing. However, the traditional favourite lacings are still the strongest."
-    //             },
-    //             "filled": true,
-    //             "author_pub_id": "eRbvWqYAAAAJ:UeHWp8X0CEIC",
-    //             "num_citations": 21,
-    //             "pub_url": "https://www.nature.com/articles/420476a",
-    //             "cites_id": "5293738446634004508",
-    //             "citedby_url": "/scholar?cites=5293738446634004508",
-    //             "url_related_articles": "/scholar?oi=bibs&hl=en&q=related:HLBy3REjd0kJ:scholar.google.com/",
-    //             "cites_per_year": {
-    //                 "2002": 1,
-    //                 "2003": 2,
-    //                 "2004": 1,
-    //                 "2005": 1,
-    //                 "2006": 1,
-    //                 "2007": 0,
-    //                 "2008": 2,
-    //                 "2009": 1,
-    //                 "2010": 0,
-    //                 "2011": 2,
-    //                 "2012": 1,
-    //                 "2013": 1,
-    //                 "2014": 0,
-    //                 "2015": 1,
-    //                 "2016": 1,
-    //                 "2017": 0,
-    //                 "2018": 1,
-    //                 "2019": 3,
-    //                 "2020": 1
-    //             },
-    //             "eprint_url": "https://www.nature.com/articles/420476a"
-    //         }]};
+    const lambdaResult = {
+        "publications": [
+            {
+                "container_type": "Publication",
+                "bib": {
+                    "title": "Deepgauge: Multi-granularity testing criteria for deep learning systems",
+                    "pub_year": 2018,
+                    "author": "Lei Ma, Felix Juefei-Xu, Fuyuan Zhang, Jiyuan Sun, Minhui Xue, Bo Li, Chunyang Chen, Ting Su, Li Li, Yang Liu, Jianjun Zhao, Yadong Wang",
+                    "book": "Proceedings of the 33rd ACM/IEEE International Conference on Automated Software Engineering",
+                    "abstract": "Deep learning (DL) defines a new data-driven programming paradigm that constructs the internal system logic of a crafted neuron network through a set of training data. We have seen wide adoption of DL in many safety-critical scenarios. However, a plethora of studies have shown that the state-of-the-art DL systems suffer from various vulnerabilities which can lead to severe consequences when applied to real-world applications. Currently, the testing adequacy of a DL system is usually measured by the accuracy of test data. Considering the limitation of accessible high quality test data, good accuracy performance on test data can hardly provide confidence to the testing adequacy and generality of DL systems. Unlike traditional software systems that have clear and controllable logic and functionality, the lack of interpretability in a DL system makes system analysis and defect detection difficult, which could …",
+                    "pages": "120-131"
+                },
+                "num_citations": 99,
+                "eprint_url": "https://arxiv.org/pdf/1803.07519"
+            },
+            {
+                "container_type": "Publication",
+                "bib": {
+                    "title": "Techland: Assisting technology landscape inquiries with insights from stack overflow",
+                    "pub_year": 2016,
+                    "author": "Chunyang Chen, Zhenchang Xing, Lei Han",
+                    "conference": "IEEE International Conference on Software Maintenance and Evolution",
+                    "pages": "356-366",
+                    "publisher": "IEEE",
+                    "abstract": "Understanding the technology landscape is crucial for the success of the software-engineering project or organization. However, it can be difficult, even for experienced developers, due to the proliferation of similar technologies, the complex and often implicit dependencies among technologies, and the rapid development in which technology landscape evolves. Developers currently rely on online documents such as tutorials and blogs to find out best available technologies, technology correlations, and technology trends. Although helpful, online documents often lack objective, consistent summary of the technology landscape. In this paper, we present the TechLand system for assisting technology landscape inquiries with categorical, relational and trending knowledge of technologies that is aggregated from millions of Stack Overflow questions mentioning the relevant technologies. We implement the TechLand …"
+                },
+                "num_citations": 28
+            }]};
     const retrievedPublications = lambdaResult.publications;
 
-    var publicationsList = []
-    for(let i =0;i<retrievedPublications.length;i++){
-        var currentPub = retrievedPublications[i];
-        var categoryType;
-        var categoryTitle, volume, issue, pages = "";
+    const publicationsList = []
+    for (let i =0; i<retrievedPublications.length; i++) {
+        const currentPub = retrievedPublications[i];
+        let categoryType, categoryTitle, volume, issue, pages = "";
         if ("journal" in currentPub["bib"]) {
             categoryType = "JOURNAL";
             categoryTitle = currentPub["bib"]["journal"];
-            pages = currentPub["bib"]["pages"];
-            volume = currentPub["bib"]["volume"];
-            issue = currentPub["bib"]["issue"];
         } else if ("conference" in currentPub["bib"]) {
             categoryType = "CONFERENCE";
             categoryTitle = currentPub["bib"]["conference"];
-            pages = currentPub["bib"]["pages"];
-            volume = currentPub["bib"]["volume"];
         } else { // TODO: to handle book as a separate category in the future
             categoryType = "OTHER";
-            pages = currentPub["bib"]["pages"];
             // categoryTitle = currentPub["bib"]["book"];
         }
-        var publication = {
+        pages = currentPub["bib"]["pages"];
+        volume = currentPub["bib"]["volume"];
+        issue = currentPub["bib"]["issue"];
+
+        const publication = {
             "authors": [currentPub["bib"]["author"]],
             "title": currentPub["bib"]["title"],
             "description": currentPub["bib"]["abstract"],
             "yearPublished": currentPub["bib"]["pub_year"],
-            "link": currentPub["eprint_url"],
+            "link": currentPub["eprint_url"], // TODO: compare with pub_url
             "citedBy": currentPub["num_citations"],
             "category": {
                 "type": categoryType,
@@ -319,4 +263,5 @@ async function importPublications(req, res) {
     res.status(201).json(importedPublications);
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam, importPublications, getGoogleScholarPublications};
+module.exports = {deletePublication, updatePublication, createPublication, readPublication, 
+    readAllPublicationsByTeam, importPublications, getGoogleScholarPublications};

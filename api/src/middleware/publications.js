@@ -81,7 +81,7 @@ const createPublicationValidation = [
   ];
 
 async function validateAuthorId(req, res, next) {
-    const {id: _id} = req.params;
+    const {gScholarUserId: _id} = req.params;
 
     if (_id.length != 12) {
         return res.status(400).json(`Error: User ID needs to be 12 characters long.`);
