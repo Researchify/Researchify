@@ -89,6 +89,12 @@ async function updateTeam(req, res) {
   }
 }
 
+/**
+ * Handles a POST request to add a team on the endpoint /team.
+ * @param {*} req request object -  json object containing at least one field from team name and org name.
+ * @param {*} res response object - updated team object
+ * @returns 201: returns updated team details
+ */
 async function addTeam(req, res) {
     const team = req.body;
 

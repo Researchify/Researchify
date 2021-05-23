@@ -10,6 +10,7 @@
  import './Register.css';
  import {useDispatch} from 'react-redux';
  import {addUserAction} from '../../actions/users';
+ import {addTeamInfo} from '../../actions/team';
  import { useHistory } from "react-router-dom";
  import toast from 'react-hot-toast';
 
@@ -33,10 +34,19 @@
 
     const registrationResult = (isSuccessful) => {
         if (isSuccessful) {
-            history.push("/dashboard");
+            console.log("User added!");
         }
         else {
             toast.error('Team name already taken');
+        }
+    }
+
+    const registerTeamResult = (success) => {
+        if (success) {
+            history.push("/dashboard");
+        }
+        else {
+            toast.error('Team not registered :(');
         }
     }
 
@@ -48,7 +58,10 @@
       }
       else {
         const userData = {email: inputs.email, teamName:inputs.teamName, orgName: inputs.orgName, password: inputs.password};
+        const teamData = {teamName:inputs.teamName, orgName: inputs.orgName};
+        //TODO: Only need to have one model I think, user or team but for now use both
         dispatch(addUserAction(userData, registrationResult));
+        dispatch(addTeamInfo(teamData, registerTeamResult));
       }
       setValidated(true);
 

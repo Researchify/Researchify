@@ -1,9 +1,30 @@
 /**
  * This file houses our team-related Action Creators.
  */
-import {LINK_TEAM_TWITTER, UNLINK_TEAM_TWITTER, FETCH_TEAM_INFO} from './types';
+import {LINK_TEAM_TWITTER, UNLINK_TEAM_TWITTER, FETCH_TEAM_INFO, ADD_TEAM} from './types';
 import * as api from '../api';
 
+
+/**
+ * Adds a new team to redux store and our database
+ * @param teamInfo contains teamName and orgName
+ * @param result function that takes a boolean representing whether the api call was successfully or not
+ */
+export const addTeamInfo = (teamInfo, result) => async dispatch => {
+    try {
+        const data = await api.addTeam(teamInfo);
+        const teamData = {...teamInfo, repoCreated: false, teamId: data.data._id};
+        dispatch({
+            type: ADD_TEAM,
+            payload: teamData
+        });
+        console.log("Team added!");
+        result(true);
+    } catch (err) {
+        console.error(err);
+        result(false);
+    }
+}
 
 /**
  * This action creator will be called to populate a signed-in-user's team information.

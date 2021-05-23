@@ -9,6 +9,10 @@ const teamSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    orgName: {
+      type: String,
+      required: true
+    },
     areaOfInterest: {
       type: [
         {
@@ -29,7 +33,7 @@ const teamSchema = new mongoose.Schema(
     templateId: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "template",
-      required: true,
+      required: false,
     },
   },
   { timestamps: true }
