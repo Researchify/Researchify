@@ -3,7 +3,7 @@
  * @module team
  */
 const axios = require("axios");
-
+const Team = require("../models/team.model");
 
 const options = {
     headers: {'Authorization': "Bearer " + process.env.TWITTER_BEARER_TOKEN}
@@ -60,4 +60,12 @@ async function getTeam(req, res) {
 
 }
 
-module.exports = { storeHandle, getTeam };
+async function addTeam(req, res) {
+    const team = req.body;
+
+    const createdTeam = await Team.create(team);
+    res.status(201).json(createdTeam);
+
+}
+
+module.exports = { storeHandle, getTeam, addTeam };

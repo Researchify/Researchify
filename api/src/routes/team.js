@@ -12,4 +12,6 @@ teamRouter.patch('/:team_id/twitter-handle', teamMiddleware.validateTeamId, team
 
 teamRouter.get('/:team_id', teamMiddleware.validateTeamId, teamController.getTeam);
 
+teamRouter.post('/', teamController.addTeam);
+
 module.exports = teamRouter;
