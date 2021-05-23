@@ -8,6 +8,12 @@ const Publication = require("../models/publication.model");
 
 const Team = require("../models/team.model");
 
+// const lambda = require('../config/aws/lambda');
+
+// const { InvokeCommand } = require("@aws-sdk/client-lambda");
+
+// const { gScholarLambdaParams } = require("../config/constants");
+
 
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
@@ -151,6 +157,100 @@ async function readAllPublicationsByTeam(req, res) {
 }
 
 /**
+ * Given a google scholar user id, this function calls an AWS Lambda Python function that scrapes the publications off the user's profile and returns them.
+ * Some extra processing is done by this function to make the publications returned fit the publication model of the DB.
+ * Endpoint: /publications/import/:id
+ * @param req request object - google scholar user id given in the url
+ * @param res response object - array of publication objects
+ * @returns a list of publications of the given google scholar user id
+ */
+async function getGoogleScholarPublications(req, res) {
+    // const author = req.params.id;
+
+    // const client = lambda;
+    // const params = gScholarLambdaParams;
+    // params["Payload"] = "{\"author_id\": \""+ author+"\"}"
+    
+    // const command = new InvokeCommand(params);
+    // const response = await client.send(command);
+
+    // const asciiDecoder = new TextDecoder('utf-8');
+    // const output = asciiDecoder.decode(response.Payload);
+
+    // const lambdaResult = JSON.parse(JSON.parse(output));
+    // uncomment the lines below for testing if the lambda doesn't respond
+    // comment out lines 168-180 to get rid of the lambda call
+    const lambdaResult = {
+        "publications": [
+            {
+                "container_type": "Publication",
+                "bib": {
+                    "title": "Deepgauge: Multi-granularity testing criteria for deep learning systems",
+                    "pub_year": 2018,
+                    "author": "Lei Ma, Felix Juefei-Xu, Fuyuan Zhang, Jiyuan Sun, Minhui Xue, Bo Li, Chunyang Chen, Ting Su, Li Li, Yang Liu, Jianjun Zhao, Yadong Wang",
+                    "book": "Proceedings of the 33rd ACM/IEEE International Conference on Automated Software Engineering",
+                    "abstract": "Deep learning (DL) defines a new data-driven programming paradigm that constructs the internal system logic of a crafted neuron network through a set of training data. We have seen wide adoption of DL in many safety-critical scenarios. However, a plethora of studies have shown that the state-of-the-art DL systems suffer from various vulnerabilities which can lead to severe consequences when applied to real-world applications. Currently, the testing adequacy of a DL system is usually measured by the accuracy of test data. Considering the limitation of accessible high quality test data, good accuracy performance on test data can hardly provide confidence to the testing adequacy and generality of DL systems. Unlike traditional software systems that have clear and controllable logic and functionality, the lack of interpretability in a DL system makes system analysis and defect detection difficult, which could …",
+                    "pages": "120-131"
+                },
+                "num_citations": 99,
+                "eprint_url": "https://arxiv.org/pdf/1803.07519"
+            },
+            {
+                "container_type": "Publication",
+                "bib": {
+                    "title": "Techland: Assisting technology landscape inquiries with insights from stack overflow",
+                    "pub_year": 2016,
+                    "author": "Chunyang Chen, Zhenchang Xing, Lei Han",
+                    "conference": "IEEE International Conference on Software Maintenance and Evolution",
+                    "pages": "356-366",
+                    "publisher": "IEEE",
+                    "abstract": "Understanding the technology landscape is crucial for the success of the software-engineering project or organization. However, it can be difficult, even for experienced developers, due to the proliferation of similar technologies, the complex and often implicit dependencies among technologies, and the rapid development in which technology landscape evolves. Developers currently rely on online documents such as tutorials and blogs to find out best available technologies, technology correlations, and technology trends. Although helpful, online documents often lack objective, consistent summary of the technology landscape. In this paper, we present the TechLand system for assisting technology landscape inquiries with categorical, relational and trending knowledge of technologies that is aggregated from millions of Stack Overflow questions mentioning the relevant technologies. We implement the TechLand …"
+                },
+                "num_citations": 28
+            }]};
+    const retrievedPublications = lambdaResult.publications;
+
+    const publicationsList = []
+    for (let i =0; i<retrievedPublications.length; i++) {
+        const currentPub = retrievedPublications[i];
+        let categoryType, categoryTitle, volume, issue, pages = "";
+        if ("journal" in currentPub["bib"]) {
+            categoryType = "JOURNAL";
+            categoryTitle = currentPub["bib"]["journal"];
+        } else if ("conference" in currentPub["bib"]) {
+            categoryType = "CONFERENCE";
+            categoryTitle = currentPub["bib"]["conference"];
+        } else { // TODO: to handle book as a separate category in the future
+            categoryType = "OTHER";
+            // categoryTitle = currentPub["bib"]["book"];
+        }
+        pages = currentPub["bib"]["pages"];
+        volume = currentPub["bib"]["volume"];
+        issue = currentPub["bib"]["issue"];
+
+        const publication = {
+            "authors": [currentPub["bib"]["author"]],
+            "title": currentPub["bib"]["title"],
+            "description": currentPub["bib"]["abstract"],
+            "yearPublished": currentPub["bib"]["pub_year"],
+            "link": currentPub["eprint_url"], // TODO: compare with pub_url
+            "citedBy": currentPub["num_citations"],
+            "category": {
+                "type": categoryType,
+                "categoryTitle": categoryTitle,
+                "publisher": currentPub["bib"]["publisher"],
+                "volume": volume,
+                "issue": issue,
+                "pages": pages
+            }
+        }
+        publicationsList.push(publication);
+    }
+    res.status(200).json(publicationsList);
+
+}
+
+/**
  * Handles a POST request, which will create a bluk publications in the database using the endpoint /publications/import/:team_id.
  * @param req request object - team id given in the url, an array of publication in body (see Publication model)
  * @param res response object
@@ -163,4 +263,5 @@ async function importPublications(req, res) {
     res.status(201).json(importedPublications);
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, readAllPublicationsByTeam, importPublications};
+module.exports = {deletePublication, updatePublication, createPublication, readPublication, 
+    readAllPublicationsByTeam, importPublications, getGoogleScholarPublications};
