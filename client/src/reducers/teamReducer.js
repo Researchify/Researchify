@@ -1,13 +1,14 @@
 /**
  * This file exports our team reducer that will handle all dispatched team-related actions.
  */
-import {FETCH_TEAM_INFO, LINK_TEAM_TWITTER, UNLINK_TEAM_TWITTER} from '../actions/types';
+import {FETCH_TEAM_INFO, LINK_TEAM_TWITTER, UNLINK_TEAM_TWITTER, ADD_TEAM} from '../actions/types';
 
 
 const INITIAL_TEAM_STATE = {
     teamId: '609f5ad827b1d48257c321d3',  // todo: change to empty str when integrating
     teamName: 'testingTeam',
-    twitterHandle: 'JamesTurner_42'
+    twitterHandle: 'JamesTurner_42',
+    repoCreated: false
 };
 
 /**
@@ -26,6 +27,8 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
             return {...state, twitterHandle: action.payload};
         case UNLINK_TEAM_TWITTER:
             return {...state, twitterHandle: action.payload};
+        case ADD_TEAM:
+            return action.payload;
         default:
             return state;
     }

@@ -17,3 +17,4 @@ export const deletePublication = (id) => api.delete(`/publications/${id}`);
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
 export const registerTwitterHandle = (teamId, handle) => api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
+export const addTeam = (teamInfo) => api.post("/team", teamInfo);
