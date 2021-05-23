@@ -165,7 +165,7 @@ async function readAllPublicationsByTeam(req, res) {
  * @returns a list of publications of the given google scholar user id
  */
 async function getGoogleScholarPublications(req, res) {
-    // const author = req.params.id;
+    // const author = req.params.gScholarUserId;
 
     // const client = lambda;
     // const params = gScholarLambdaParams;
@@ -261,6 +261,7 @@ async function getGoogleScholarPublications(req, res) {
  * @returns 404: no team was found to associate the publication with (validate via team middleware)
  */
 async function importPublications(req, res) {
+    console.log(req.body);
     const importedPublications = await Publication.insertMany(req.body);
     res.status(201).json(importedPublications);
 }
