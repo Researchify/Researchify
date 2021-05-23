@@ -17,6 +17,8 @@ publicationsRouter.post('/', publicationsMiddleware.createPublicationValidation,
 
 publicationsRouter.get('/:id', publicationsController.readPublication);
 
+publicationsRouter.get("/import/:gScholarUserId", publicationsMiddleware.validateAuthorId, publicationsController.getGoogleScholarPublications);
+
 publicationsRouter.get('/team/:team_id', publicationsController.readAllPublicationsByTeam);
 
 publicationsRouter.post('/import/:team_id', teamMiddleware.validateTeamId, publicationsController.importPublications);
