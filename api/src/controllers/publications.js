@@ -8,11 +8,11 @@ const Publication = require("../models/publication.model");
 
 const Team = require("../models/team.model");
 
-const lambda = require('../config/aws/lambda');
+// const lambda = require('../config/aws/lambda');
 
-const { InvokeCommand } = require("@aws-sdk/client-lambda");
+// const { InvokeCommand } = require("@aws-sdk/client-lambda");
 
-const { gScholarLambdaParams } = require("../config/constants");
+// const { gScholarLambdaParams } = require("../config/constants");
 
 
 /**
@@ -165,7 +165,7 @@ async function readAllPublicationsByTeam(req, res) {
  * @returns a list of publications of the given google scholar user id
  */
 async function getGoogleScholarPublications(req, res) {
-    const author = req.params.id;
+    // const author = req.params.id;
 
     // const client = lambda;
     // const params = gScholarLambdaParams;
