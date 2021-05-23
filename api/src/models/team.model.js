@@ -9,10 +9,6 @@ const teamSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    dateCreated: {
-      type: Date,
-      required: true,
-    },
     areaOfInterest: {
       type: [
         {
