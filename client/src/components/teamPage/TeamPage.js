@@ -43,7 +43,7 @@ const TeamPage = () => {
                     There is no member for this team. Please add team members. 
                 </Alert> :
                 <Container>
-                    <CardDeck className="mt-4 mb-4">
+                    <CardDeck style={{display: 'flex', flexDirection: 'row'}} className="mt-4 mb-4">
                         {
                             teamMembers.map(member => <TeamMember member={member} key={member._id}/>)
                         }

@@ -15,7 +15,7 @@ const TeamMemberForm = ({closeModal, member, type}) => {
     const validationSchema = yup.object({
         fullName: yup.string().required("Name is required").min(3, "Name is at least 3 characters"),
         position: yup.string().required("Posiiton is required"),
-        summary: yup.string().required("Summary is required").min(3, "Summary is at least 3 characters")
+        summary: yup.string().required("Summary is required").min(3, "Summary is at least 3 characters").max(200, "Max 200 characters")
     })
 
     const initValues = {

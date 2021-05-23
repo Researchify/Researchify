@@ -34,7 +34,7 @@ const TeamMember = ({member}) => {
     return(
         <>
             <Col className="container-fluid mt-4">
-                <Card bg="light" style={{ width: '25rem' }}>
+                <Card bg="light" style={{ width: '25rem', height:"100%" }}>
                     <Row>
                         <Col md={{ span: 2, offset: 10 }}>    
                             <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={displayOptions}>
@@ -48,8 +48,8 @@ const TeamMember = ({member}) => {
                     </Row>
                     <Image src={profilePic} roundedCircle height="130px" width="130px" style={{ alignSelf: 'center' }}/>     
                     <Card.Body>
-                        <Card.Title>{member.fullName}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">{member.position}</Card.Subtitle>
+                        <Card.Title className="text-center">{member.fullName}</Card.Title>
+                        <Card.Subtitle className="text-center mb-2 text-muted">{member.position}</Card.Subtitle>
                         <Card.Text>
                             {member.summary}
                         </Card.Text>    
