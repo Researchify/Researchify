@@ -2,7 +2,6 @@
  * This file houses our team-related Action Creators.
  */
 import * as api from '../api';
-import { v4 as uuid_v4 } from "uuid";
 import {
     LINK_TEAM_TWITTER, 
     UNLINK_TEAM_TWITTER, 
@@ -107,11 +106,7 @@ export const getTeamMembersByTeamId = (teamId) => async(dispatch) => {
  */
 export const createTeamMember = (teamId, teamMember) => async(dispatch) => {
     try{
-        const id = uuid_v4()
         const { data } = await api.createTeamMember(teamId, teamMember);
-
-
-        console.log(data)
 
         dispatch({
             type: CREATE_TEAM_MEMBER,
