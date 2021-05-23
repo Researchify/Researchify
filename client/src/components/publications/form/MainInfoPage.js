@@ -1,46 +1,41 @@
+/**
+ * The MainInfoPage component displays a form of a publication's main attributes: Title, Published Year, Authours, Description and Link
+ */
+
 import { Formik } from "formik";
 import * as yup from "yup";
-import { Row, InputGroup, Button, Tooltip, OverlayTrigger, Form} from "react-bootstrap";
-import { updatePublication, createPublication } from '../../actions/publications'
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { Row, InputGroup, Button, Tooltip, OverlayTrigger, Form } from "react-bootstrap";
 
-const schema = yup.object({
-    title: yup.string().required("Title is required").min(3, "Title must be at least 3 characters"),
-    yearPublished: yup.string().required(),
-    authors: yup.array().of(yup.string().required("Authors must not be empty")).required("Author is required"), 
-    description: yup.string().required("Description is required").min(5, "Description must be at least 5 characters"),
-    link: yup.string().url("Link URL provided is not a valid URL, including the protocol (http/https)"),
-  })
+const MainInfoPage = ({next, data, type, pub, closeModal}) => {
+    const stepOneValidationSchema = yup.object({
+        title: yup.string()
+            .required("Title is required")
+            .min(3, "Title must be at least 3 characters"),
+        yearPublished: yup.string()
+            .required(),
+        authors: yup.array()
+            .of(yup.string().required("Authors must not be empty"))
+            .required("Author is required"), 
+        description: yup.string()
+            .required("Description is required")
+            .min(5, "Description must be at least 5 characters"),
+        link: yup.string()
+            .url("Link URL provided is not a valid URL, including the protocol (http/https)")
+    })
+    
+    const handleSubmit = (values) => {
+        next(values);
+    }
 
-const initialValues = {
-    title: "",
-    yearPublished: (new Date()).getFullYear().toString(),
-    authors: [""],
-    description: "",
-    link: "",
-    teamId: "606bb59c22201f529db920c9" // teamId should be get from redux state later
-}
-
-const PublicationForm = (props) => {
-    const dispatch = useDispatch()
     const year = (new Date()).getFullYear();
     const years = Array.from(new Array(year-1899),( val, index) => year - index);
-    
+
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             You will lose your progress
         </Tooltip>
     )
-
-    const onSubmit = (values) => {
-        console.log(values)
-        if (props.type === "update"){
-            dispatch(updatePublication(props.pub._id, values))
-        } else if (props.type === "create"){
-            dispatch(createPublication(values))
-        }
-        props.closeModal() 
-    }
 
     const renderAuthors = (values, touched, errors, handleChange, setValues) => {
         return(
@@ -75,12 +70,11 @@ const PublicationForm = (props) => {
 
     return(
         <>
-            <Formik
+             <Formik
                 enableReinitialize 
-                validationSchema={schema}
-                onSubmit={(values)=> onSubmit(values)}
-                initialValues={props.type === "update" ? props.pub : initialValues}
-            
+                validationSchema={stepOneValidationSchema}
+                onSubmit={handleSubmit}
+                initialValues={type === "update" ? pub : data}      
             >
                 {({ handleSubmit, handleChange, values, touched, errors, setValues }) => 
                 (
@@ -117,9 +111,8 @@ const PublicationForm = (props) => {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label>Authors </Form.Label>
+                            <Form.Label> Authors </Form.Label>
                             { renderAuthors(values, touched, errors, handleChange, setValues) }
-
                             <Button 
                                 variant="secondary" 
                                 onClick={()=> {
@@ -146,29 +139,31 @@ const PublicationForm = (props) => {
 
                         <Form.Group>
                             <Form.Label>link</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="link"
-                                    placeholder="link"
-                                    value={values.link}
-                                    onChange={handleChange}
-                                    isInvalid={touched.link && errors.link}
-                                />
+                            <Form.Control
+                                type="text"
+                                name="link"
+                                placeholder="link"
+                                value={values.link}
+                                onChange={handleChange}
+                                isInvalid={touched.link && errors.link}
+                            />
                             <Form.Control.Feedback type="invalid">{errors.link}</Form.Control.Feedback>
                         </Form.Group>
 
                         <Row>
-                            <div className="ml-auto mr-3">
+                            <div className="ml-3">
                                 <OverlayTrigger
                                     trigger={["hover", "focus"]}
                                     placement="bottom"
                                     overlay={renderTooltip}
                                 >
-                                    <Button className="mr-2" variant="outline-danger" onClick={props.closeModal}>
+                                    <Button className="mr-2" variant="outline-danger" onClick={closeModal}>
                                         Cancel
                                     </Button>
                                 </OverlayTrigger>
-                                <Button type="submit">Confirm</Button>
+                            </div>
+                            <div className="ml-auto mr-3">
+                                <Button  variant="outline-primary" type="submit"> Next </Button>
                             </div>
                         </Row>
                     </Form>
@@ -178,4 +173,4 @@ const PublicationForm = (props) => {
     )
 }
 
-export default PublicationForm
+export default MainInfoPage
