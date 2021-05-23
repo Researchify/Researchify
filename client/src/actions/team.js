@@ -155,6 +155,7 @@ export const updateTeamMember = (id, teamMember) => async(dispatch) => {
  */
 export const deleteTeamMember = (teamId, memberId) => async dispatch => {
     try {
+        console.log(teamId, memberId)
         await api.deleteTeamMember(teamId, memberId);
         dispatch({
             type: DELETE_TEAM_MEMBER, 

@@ -16,7 +16,7 @@ teamRouter.post('/:team_id/member', teamMiddleware.validateTeamId, teamControlle
 
 teamRouter.get('/:team_id/member', teamMiddleware.validateTeamId, teamController.readTeamMembersByTeam);
 
-teamRouter.delete('/:team_id/member/:teamMemberId', teamMiddleware.validateTeamId, teamController.deleteTeamMember);
+teamRouter.delete('/:team_id/member/:member_id', teamMiddleware.validateTeamId, teamController.deleteTeamMember);
 
 teamRouter.patch('/:team_id/member', teamMiddleware.validateTeamId, teamController.updateTeamMember);
 

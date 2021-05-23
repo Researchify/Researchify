@@ -6,6 +6,8 @@ const axios = require("axios");
 
 const Team = require("../models/team.model");
 
+const mongoose = require("mongoose");
+
 const options = {
     headers: {'Authorization': "Bearer " + process.env.TWITTER_BEARER_TOKEN}
 };
@@ -83,8 +85,10 @@ async function readTeamMembersByTeam(req, res){
  * @returns 400: team id is not in a valid hexadecimal format
  */
 async function createTeamMember(req, res) {
-    const teamMember = req.body;
+    let teamMember = req.body;
+    const memberId = new mongoose.Types.ObjectId()
     let foundTeam = req.foundTeam;
+    teamMember = {...teamMember, _id: memberId}
     await foundTeam.teamMembers.push(teamMember);
     foundTeam.save()
     res.status(201).json(teamMember);
@@ -100,8 +104,8 @@ async function createTeamMember(req, res) {
  */
 async function deleteTeamMember(req, res){
     let foundTeam = req.foundTeam;
-    const {teamMemberId} = req.params;
-    await foundTeam.teamMembers.pull({_id: teamMemberId})
+    const {member_id} = req.params;
+    await foundTeam.teamMembers.pull({_id: member_id})
     foundTeam.save()
     return res.status(200).json({message: 'Team member deleted successfully.'})
 }
