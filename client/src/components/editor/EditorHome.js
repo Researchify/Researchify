@@ -12,6 +12,13 @@ const EditorHome = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [header, setHeader] = useState(null);
+    const [sHeader, setSHeader] = useState(null);
+    const [teamBio, setTeamBio] = useState(null);
+    const [teamVision, setTeamVision] = useState(null);
+    const [research, setResearch] = useState(null);
+    const [publications, setPublications] = useState(null);
+    const [contactInfo, setContactInfo] = useState(null);
     
     const homePageUpdated = () => {
         toast.success('Page has been successfully updated')
@@ -27,8 +34,14 @@ const EditorHome = () => {
 
                 {/* Add home page editor template Viewer here */}
 
-                <HomeSectionCard />
+                <HomeSectionCard
+                    info={{header: header, sHeader: sHeader, teamBio: teamBio, teamVision: teamVision, research: research, publications: publications, contactInfo: contactInfo}} />
 
+                {/*Display Cards*/}
+                <HomeSectionCard info={{title: "Biography", content: teamBio}} />
+
+                <HomeSectionCard info={{title: "Team Vision", content: teamVision}} />
+                <HomeSectionCard info={{title: "Contact Information", content: contactInfo}} />
 
             {/* Modal popup for home page editor text form */}
             <Modal show={show} onHide={handleClose} centered>
@@ -48,7 +61,7 @@ const EditorHome = () => {
                                         <InputGroup.Prepend>
                                         <InputGroup.Text>Research group name</InputGroup.Text>
                                         </InputGroup.Prepend>
-                                        <Form.Control as="textarea" aria-label="With textarea" />
+                                        <Form.Control as="textarea" aria-label="With textarea" onChange={e => setHeader(e.target.value)} type="text"/>
                                     </InputGroup>
                                 </Form.Group>
                             </Card.Body>
@@ -64,7 +77,7 @@ const EditorHome = () => {
                                     <InputGroup.Prepend>
                                     <InputGroup.Text>Add description</InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <Form.Control as="textarea" aria-label="With textarea" />
+                                    <Form.Control as="textarea" aria-label="With textarea" onChange={e => setSHeader(e.target.value)} type="text"/>
                                 </InputGroup>
                             </Card.Body>
                             </Accordion.Collapse>
@@ -80,7 +93,7 @@ const EditorHome = () => {
                                         <InputGroup.Prepend>
                                         <InputGroup.Text>Team biography</InputGroup.Text>
                                         </InputGroup.Prepend>
-                                        <Form.Control as="textarea" aria-label="With textarea" />
+                                        <Form.Control as="textarea" aria-label="With textarea" onChange={e => setTeamBio(e.target.value)} type="text"/>
                                     </InputGroup>
                                 </Form.Group>
                                 <Form.Group>
@@ -88,7 +101,7 @@ const EditorHome = () => {
                                         <InputGroup.Prepend>
                                         <InputGroup.Text>Team vision</InputGroup.Text>
                                         </InputGroup.Prepend>
-                                        <Form.Control as="textarea" aria-label="With textarea" />
+                                        <Form.Control as="textarea" aria-label="With textarea" onChange={e => setTeamVision(e.target.value)} type="text"/>
                                     </InputGroup>
                                 </Form.Group>
                             </Card.Body>
@@ -104,7 +117,7 @@ const EditorHome = () => {
                                     <InputGroup.Prepend>
                                     <InputGroup.Text>Research Highlights</InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <Form.Control as="textarea" aria-label="With textarea" />
+                                    <Form.Control as="textarea" aria-label="With textarea" onChange={e => setResearch(e.target.value)} type="text"/>
                                 </InputGroup>
                             </Card.Body>
                             </Accordion.Collapse>
@@ -119,7 +132,7 @@ const EditorHome = () => {
                                     <InputGroup.Prepend>
                                     <InputGroup.Text>Journal Articles</InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <Form.Control as="textarea" aria-label="With textarea" />
+                                    <Form.Control as="textarea" aria-label="With textarea" onChange={e => setPublications(e.target.value)} type="text"/>
                                 </InputGroup>
                             </Card.Body>
                             </Accordion.Collapse>
@@ -134,7 +147,7 @@ const EditorHome = () => {
                                     <InputGroup.Prepend>
                                     <InputGroup.Text>Contact email</InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <Form.Control as="textarea" aria-label="With textarea" />
+                                    <Form.Control as="textarea" aria-label="With textarea" onChange={e => setContactInfo(e.target.value)} type="text"/>
                                 </InputGroup>
                             </Card.Body>
                             </Accordion.Collapse>

@@ -1,13 +1,15 @@
 import React from "react"
+import {Container,Accordion, Card, InputGroup, Form, Button, Modal, Badge} from "react-bootstrap"
 
-const HomeSectionCard = () => {
+const HomeSectionCard = (props) => {
 
-    return (
-        <>
-            
-        </>
 
-    )
+        return(
+            /*Insert card template, props."variableName" to access the data*/
+            <>
+            </>
+        );
+
 
 }
 
