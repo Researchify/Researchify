@@ -153,6 +153,7 @@ const Dashboard = () => {
                 </Modal.Footer>
             </Modal>
 
+            {/* TODO: refactor the modal into reusable component */}
             {/*'Selecting Template 1 Modal'*/}
             <Modal show={template1} onHide={closeTemplate1} centered size="lg">
                 <Modal.Header closeButton>
