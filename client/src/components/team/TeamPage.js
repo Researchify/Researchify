@@ -2,14 +2,14 @@
  * The TeamPage component displays the team member page 
  */
 
-
-import { Card, Container,CardDeck } from 'react-bootstrap'
+import { Container,CardDeck } from 'react-bootstrap'
 import TeamMember from './TeamMember'
 import { useSelector, useDispatch } from 'react-redux'
-import { Button, Modal, Dropdown, DropdownButton, Spinner, Alert } from 'react-bootstrap';
+import { Button, Modal, Spinner, Alert } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import TeamMemberForm from './form/TeamMemberForm';
 import { getTeamMembersByTeamId } from '../../actions/team'
+import './teamPage.css'
 
 const TeamPage = () => {
     const dispatch = useDispatch()
@@ -25,18 +25,31 @@ const TeamPage = () => {
     console.log(teamMembers)
 
     return(
-        <>
+        <div className="teamPageContainer">
             <h1>Meet Our Team Members</h1>
-            <Button className="mt-2 ml-2" onClick={() => setShowCreateForm(true)}>    
+            <Button className="mt-2" onClick={() => setShowCreateForm(true)}>    
                 Add Team Member
             </Button>
-            <Container>
-                <CardDeck className="mt-4 mb-4">
-                    {
-                        teamMembers.map(member => <TeamMember member={member} key={member._id}/>)
-                    }
-                </CardDeck>
-            </Container>
+
+            <div className="text-center">
+                {
+                    loading && <Spinner className="mt-5" animation="border" /> 
+                }
+            </div>
+
+            {
+                !loading && teamMembers.length === 0 ?
+                <Alert className="mt-3" variant="primary">
+                    There is no member for this team. Please add team members. 
+                </Alert> :
+                <Container>
+                    <CardDeck className="mt-4 mb-4">
+                        {
+                            teamMembers.map(member => <TeamMember member={member} key={member._id}/>)
+                        }
+                    </CardDeck>
+                </Container>
+            }
 
             {/* A modal for showing create a team member */}
             <Modal show={showCreateForm}>
@@ -47,7 +60,7 @@ const TeamPage = () => {
                     <TeamMemberForm type="create" closeModal={()=>setShowCreateForm(false)}/>
                 </Modal.Body>
             </Modal>
-        </>
+        </div>
     )
 }
 

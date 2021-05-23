@@ -78,7 +78,6 @@ const TeamMember = ({member}) => {
                     <Button variant="danger" onClick={handleDelete}> Confirm </Button>
                 </Modal.Footer>
             </Modal> 
-
         </>
     )
 }

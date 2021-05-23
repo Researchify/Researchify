@@ -77,7 +77,7 @@ const TeamMemberForm = ({closeModal, member, type}) => {
                             <Form.Label>Summary</Form.Label>
                             <Form.Control
                                 as="textarea"
-                                row={4}
+                                row={5}
                                 name="summary"
                                 placeholder="Summary"
                                 value={values.summary}
