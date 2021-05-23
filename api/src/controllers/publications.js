@@ -222,6 +222,7 @@ async function getGoogleScholarPublications(req, res) {
             categoryTitle = currentPub["bib"]["conference"];
         } else { // TODO: to handle book as a separate category in the future
             categoryType = "OTHER";
+            categoryTitle = "OTHER";
             // categoryTitle = currentPub["bib"]["book"];
         }
         pages = currentPub["bib"]["pages"];
