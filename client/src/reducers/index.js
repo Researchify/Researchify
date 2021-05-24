@@ -9,6 +9,7 @@ import userReducer from "./usersReducer";
 import teamReducer from "./teamReducer";
 import importedPublicationsReducer from "./importedPublicationsReducer";
 import publishReducer from "./publishReducer";
+import websiteReducer from './websiteReducer';
 
 
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
     user: userReducer,
     team: teamReducer,
     importedPublications: importedPublicationsReducer,
-    publish: publishReducer
+    publish: publishReducer,
+    website: websiteReducer
 });
