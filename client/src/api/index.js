@@ -19,3 +19,8 @@ export const importPublications = (author_id) => api.get(`/publications/import/$
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
 export const registerTwitterHandle = (teamId, handle) => api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
+
+export const fetchTeamMembersByTeamId = (teamId) => api.get(`/team/${teamId}/member`);
+export const createTeamMember = (teamId, newTeamMember) => api.post(`/team/${teamId}/member`, newTeamMember);
+export const updateTeamMember = (teamId, updatedTeamMember) => api.patch(`/team/${teamId}/member`, updatedTeamMember);
+export const deleteTeamMember = (teamId, teamMemberId) => api.delete(`/team/${teamId}/member/${teamMemberId}`);
