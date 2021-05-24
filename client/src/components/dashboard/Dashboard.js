@@ -64,7 +64,7 @@ const Dashboard = () => {
 
     /** Set the state of 'website.isCreated' to display different button**/
     const dispatch = useDispatch();
-    const websiteIsCreated = useSelector(state => state.website.isCreated);
+    const websiteIsCreated = useSelector(state => state.team.repoCreated);
 
     /** state of github token and username */
     const [token, setToken] = useState(null);
