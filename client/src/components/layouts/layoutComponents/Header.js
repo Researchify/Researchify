@@ -21,7 +21,7 @@ const Header = (props) => {
     // const userName = "Albert Einstein"; // hard coded name for demo
 
     //TODO: Remove hard-coded team id and publications id from the links
-    console.log(props)
+    
     return (
         <Fragment>
             <Navbar className="header" sticky="top">
