@@ -1,0 +1,19 @@
+.page-card{
+    width: 1024px;
+    height: 256px;
+    box-shadow: 1px 1px 18px #808080;
+}
+
+.page-icon{
+    color: #fff;
+    position: absolute;
+    right: 1%;
+    top: 1%;   
+}
+
+.page-title{
+    color: #fff;
+    position: absolute;
+    bottom: 115px;
+    font-size: xx-large;
+}
