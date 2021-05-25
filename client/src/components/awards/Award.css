@@ -17,3 +17,15 @@
     bottom: 115px;
     font-size: xx-large;
 }
+
+.page-desc{
+    color:grey;
+}
+
+.page-manage{
+    position: absolute;
+    bottom: 6%;
+    left: 3%;
+    font-size: medium;
+}
+
