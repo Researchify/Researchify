@@ -11,7 +11,7 @@ const ImportedPublication = ({pub, index, setChecked}) => {
     const [expand, setExpand] = useState(false)
     const dropDown = (
         <Collapse in={expand}>
-            <div>
+            <div className="ml-3">
                 <h6>  
                     {pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}:  {pub.category.categoryTitle}
                 </h6>
@@ -44,8 +44,8 @@ const ImportedPublication = ({pub, index, setChecked}) => {
                         </Form>
 
 
-                    <Card.Subtitle className="mb-2 text-muted"> {pub.authors.map((author) => `${author}`).join(', ')} </Card.Subtitle>
-                    <h6> Year Published : {pub.yearPublished} </h6>
+                    <Card.Subtitle className="m-3 text-muted"> {pub.authors.map((author) => `${author}`).join(', ')} </Card.Subtitle>
+                    <h6 className="ml-3"> Year Published : {pub.yearPublished} </h6>
                     { dropDown }
                 </Card.Body>
             </Card>
