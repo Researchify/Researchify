@@ -10,7 +10,6 @@ import {
     IMPORT_SUCCESS, 
     IMPORT_FAIL
 } from './types';
-import importedPublications from '../components/publications/importedPublication/importedPublications.json'// remove this once scholar api is implemented 
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     try{
@@ -31,7 +30,6 @@ export const createPublication = (publication) => async(dispatch) => {
     try{
         const result = await api.createPublication(publication);
 
-        console.log(result)
         result.data.yearPublished = result.data.yearPublished.substring(0,4) // only get the year from the date format
 
         dispatch({
@@ -61,6 +59,7 @@ export const updatePublication = (id, publication) => async(dispatch) => {
 export const deletePublication = (id) => async dispatch => {
     try {
         await api.deletePublication(id);
+
         dispatch({
             type: DELETE_PUBLICATION, 
             payload: id
@@ -99,31 +98,32 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
     })
 }
 
-export const importPublication = (profileLink) => async dispatch => {
+export const importPublication = (values) => async dispatch => {
     try{
         dispatch({
             type: IMPORT_REQUEST
         })
 
-        //TODO: api call to import publication from schloar
-
-        // pretending api call 
-        let id = setInterval(() => {
+        // extracting the authorId from the profileLink
+        let position = values.profileLink.indexOf('user=') 
+        if (position === -1){
+            dispatch({
+                type: IMPORT_FAIL,
+                payload: "Please provide a valid profile link"
+            })
+        } else{
+            const author_id = values.profileLink.substring(position + 5, position+17) 
+            const result = await api.importPublications(author_id)
             dispatch({
                 type: IMPORT_SUCCESS,
-                payload: importedPublications
+                payload: result.data
             })
-            // dispatch({
-            //     type: IMPORT_FAIL,
-            //     payload: "error.message"
-            // })
-            clearInterval(id)
-        }, 2500)
+        }
 
     } catch(error){
         dispatch({
             type: IMPORT_FAIL,
-            payload: error.message
+            payload: error.response.data
         })
     }
 }

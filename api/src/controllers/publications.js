@@ -165,7 +165,7 @@ async function readAllPublicationsByTeam(req, res) {
  * @returns a list of publications of the given google scholar user id
  */
 async function getGoogleScholarPublications(req, res) {
-    // const author = req.params.id;
+    // const author = req.params.gScholarUserId;
 
     // const client = lambda;
     // const params = gScholarLambdaParams;
@@ -213,7 +213,7 @@ async function getGoogleScholarPublications(req, res) {
     const publicationsList = []
     for (let i =0; i<retrievedPublications.length; i++) {
         const currentPub = retrievedPublications[i];
-        let categoryType, categoryTitle, volume, issue, pages = "";
+        let categoryType, categoryTitle, volume, issue, pages, authorsList = "";
         if ("journal" in currentPub["bib"]) {
             categoryType = "JOURNAL";
             categoryTitle = currentPub["bib"]["journal"];
@@ -222,14 +222,16 @@ async function getGoogleScholarPublications(req, res) {
             categoryTitle = currentPub["bib"]["conference"];
         } else { // TODO: to handle book as a separate category in the future
             categoryType = "OTHER";
+            categoryTitle = "OTHER";
             // categoryTitle = currentPub["bib"]["book"];
         }
         pages = currentPub["bib"]["pages"];
         volume = currentPub["bib"]["volume"];
         issue = currentPub["bib"]["issue"];
+        authorsList = currentPub["bib"]["author"].split(", ");
 
         const publication = {
-            "authors": [currentPub["bib"]["author"]],
+            "authors": authorsList,
             "title": currentPub["bib"]["title"],
             "description": currentPub["bib"]["abstract"],
             "yearPublished": currentPub["bib"]["pub_year"],
