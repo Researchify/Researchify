@@ -39,7 +39,10 @@
 }
 
 .researchify-dashboard-container{
-    padding-top: 5%;
+    padding-top: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .dashboard-modal {
     width: 200%;
@@ -58,8 +61,13 @@
 
 .researchify-dashboard-card-icons{
     font-size: 333%;
+
 }
 
 .researchify-dashboard-card-link{
     color: black;
+}
+
+.researchify-dashboard-card-link:hover{
+    text-decoration: none;
 }
