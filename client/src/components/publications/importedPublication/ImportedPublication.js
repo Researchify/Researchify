@@ -2,7 +2,7 @@
  * The ImportedPublication component displays an individual imported publication when the import is success
  */
 
-import { InputGroup, Form, Card, Collapse } from 'react-bootstrap';
+import { Form, Card, Collapse } from 'react-bootstrap';
 import "./importedPublication.css"
 import React, { useState } from 'react';
 
