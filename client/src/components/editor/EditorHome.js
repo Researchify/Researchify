@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import {Container,Accordion, Card, InputGroup, Form, Button, Modal, Navbar, Nav, Carousel} from "react-bootstrap"
 import {BsFillPlusCircleFill} from "react-icons/bs";
 import toast, { Toaster } from 'react-hot-toast';
-
+import { Link } from 'react-router-dom';
 import "./editorHome.css"
 import HomeSectionCard from  "./HomeSectionCard.js"
 
@@ -32,11 +32,11 @@ const EditorHome = () => {
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand href="#home">{header}</Navbar.Brand>
                     <Nav className="mr-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#publications">Publications</Nav.Link>
-                        <Nav.Link href="#awards">Awards</Nav.Link>
-                        <Nav.Link href="#team">Team</Nav.Link>
-                        <Nav.Link href="#contact">Contact</Nav.Link>
+                        <Nav.Link> <Link className='template_basic_nav_link' to='home'>Home </Link> </Nav.Link>
+                        <Nav.Link> <Link className='template_basic_nav_link' to='publications'>Publications </Link></Nav.Link>
+                        <Nav.Link> <Link className='template_basic_nav_link' to='awards'>Awards </Link> </Nav.Link>
+                        <Nav.Link> <Link className='template_basic_nav_link' to='team'>Team </Link> </Nav.Link>
+                        <Nav.Link> <Link className='template_basic_nav_link' to='/contact'>Contact </Link></Nav.Link>
                     </Nav>
                 </Navbar>
                 {/* Carousel will be made a separate component */}
@@ -49,7 +49,7 @@ const EditorHome = () => {
                             />
                             <Carousel.Caption>
                                 <h3>First slide label</h3>
-                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                <p>Some Description</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item>
@@ -61,7 +61,7 @@ const EditorHome = () => {
 
                             <Carousel.Caption>
                                 <h3>Second slide label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <p>Some Description</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item>
@@ -73,7 +73,7 @@ const EditorHome = () => {
 
                             <Carousel.Caption>
                                 <h3>Third slide label</h3>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                                <p>Some Description</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                     </Carousel>
