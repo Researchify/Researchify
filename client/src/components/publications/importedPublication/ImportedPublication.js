@@ -20,7 +20,7 @@ const ImportedPublication = ({pub, index, setChecked}) => {
                 { pub.category.pages && <h6> Pages: {pub.category.pages} </h6> }
                 { pub.category.publisher && <h6> Publisher: {pub.category.publisher} </h6> }   
                 <h6> Description: {pub.description} </h6>
-                <h6> Link: {pub.link} </h6>
+                { pub.link && <h6> Link: <a style={{cursor: 'pointer'}} onClick={() => window.open(`${pub.link}`, '_blank')}>{pub.link} </a> </h6> }
             </div>
         </Collapse>
     )
@@ -45,7 +45,7 @@ const ImportedPublication = ({pub, index, setChecked}) => {
 
 
                     <Card.Subtitle className="m-3 text-muted"> {pub.authors.map((author) => `${author}`).join(', ')} </Card.Subtitle>
-                    <h6 className="ml-3"> Year Published : {pub.yearPublished} </h6>
+                    <h6 className="ml-3"> Year Published: {pub.yearPublished} </h6>
                     { dropDown }
                 </Card.Body>
             </Card>
