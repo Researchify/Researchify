@@ -36,7 +36,7 @@ const EditorHome = () => {
                         <Nav.Link> <Link className='template_basic_nav_link' to='publications'>Publications </Link></Nav.Link>
                         <Nav.Link> <Link className='template_basic_nav_link' to='awards'>Awards </Link> </Nav.Link>
                         <Nav.Link> <Link className='template_basic_nav_link' to='team'>Team </Link> </Nav.Link>
-                        <Nav.Link> <Link className='template_basic_nav_link' to='/contact'>Contact </Link></Nav.Link>
+                        <Nav.Link> <Link className='template_basic_nav_link' to='contact'>Contact </Link></Nav.Link>
                     </Nav>
                 </Navbar>
                 {/* Carousel will be made a separate component */}
