@@ -5,14 +5,18 @@
 import { useSelector, useDispatch } from 'react-redux'
 import ImportedPublication from "../importedPublication/ImportedPublication"
 import React, { useState } from 'react';
-import { createBulkPublications } from "../../../actions/publications"
+import {createBulkPublications, retrieveMorePublications} from "../../../actions/publications"
 import { Row, Button, Tooltip, OverlayTrigger } from "react-bootstrap";
-import { IMPORT_CLEAR_STATE } from "../../../actions/types"
+import {IMPORT_CLEAR_STATE, UPDATE_START_FROM} from "../../../actions/types"
 
-const ImportSucessPage = ({closeModal}) => {
+const ImportSuccessPage = ({closeModal}) => {
     const { publications } = useSelector(state => state.importedPublications)
     const teamId = useSelector(state => state.team.teamId)
     const [checkedArray, setCheckedArray] = useState(new Array(publications.length).fill(true))
+    const { startFrom } = useSelector(state => state.importedPublications);
+
+    const { gScholarId } = useSelector(state => state.importedPublications);
+
     const dispatch = useDispatch()
 
     const checkPublication = (index) => {
@@ -32,6 +36,19 @@ const ImportSucessPage = ({closeModal}) => {
         dispatch({
             type: IMPORT_CLEAR_STATE
         })
+    }
+
+    const handlePagination = () => {
+        // store publications in local storage?
+        // or just concatenate the new ones
+        // pass in the startFrom
+        // console.log("before " + startFrom);
+        //
+        // console.log("after " + startFrom);
+        // console.log(gScholarId);
+        // console.log(publications);
+        dispatch(retrieveMorePublications(gScholarId, startFrom))
+
     }
 
     const handleConfirmImport = () => {
@@ -63,6 +80,9 @@ const ImportSucessPage = ({closeModal}) => {
                         </Button>
                     </OverlayTrigger>
                 </div>
+                <div className="mt-2 ml-auto mr-3 text-center">
+                    <Button variant="primary" onClick={handlePagination}> Show more </Button>
+                </div>
                 <div className="mt-2 ml-auto mr-3">
                     <Button variant="primary" onClick={handleConfirmImport}> Import </Button>
                 </div>
@@ -72,4 +92,4 @@ const ImportSucessPage = ({closeModal}) => {
     )
 }
 
-export default ImportSucessPage 
+export default ImportSuccessPage

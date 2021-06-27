@@ -166,7 +166,7 @@ async function readAllPublicationsByTeam(req, res) {
  */
 async function getGoogleScholarPublications(req, res) {
     const author = req.params.gScholarUserId;
-    const startFrom = req.body.startFrom;
+    const startFrom = req.params.startFrom;
 
     const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
     const noOfThreads = puppeteerConfig.noOfThreads;

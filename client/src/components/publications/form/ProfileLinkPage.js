@@ -17,7 +17,7 @@ const ProfileLinkPage = ({closeModal}) => {
 
     const submitForm = (values) => {
         console.log(values)
-        dispatch(importPublication(values))
+        dispatch(importPublication(values, 0))
     }
 
     return(
