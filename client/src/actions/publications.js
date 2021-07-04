@@ -10,8 +10,10 @@ import {
     IMPORT_SUCCESS,
     IMPORT_FAIL,
     UPDATE_GSCHOLAR_ID,
-    UPDATE_START_FROM
+    UPDATE_START_FROM,
+    IMPORT_END
 } from './types';
+import { pageSize } from '../config/publications';
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     try{
@@ -150,6 +152,13 @@ export const retrieveMorePublications = (author_id, startFrom) => async dispatch
         console.log(startFrom);
         const result = await api.importPublications(author_id, startFrom)
         console.log(result);
+
+        if (result.data.length < pageSize) {
+            // reached the end of the user's publications
+            dispatch({
+                type: IMPORT_END
+            })
+        }
 
         dispatch({
             type: IMPORT_SUCCESS,

@@ -232,12 +232,21 @@ async function getGoogleScholarPublications(req, res) {
           categoryTitle = values[2];
         }
 
+        let citedBy;
+        if (publicationInfo["Total citations"] === undefined) {
+          citedBy = "";
+        } else {
+          citedBy = publicationInfo["Total citations"]
+            .split("\n", 1)[0]
+            .split(" ")[2];
+        }
+
         const publication = {
             "authors": publicationInfo["Authors"].split(", "),
             "title": title[0],
             "link": link[0] || '',
             "description": publicationInfo["Description"] || '',
-            "citedBy": (publicationInfo["Total citations"].split("\n", 1)[0]).split(" ")[2],
+            "citedBy": citedBy,
             "yearPublished": (publicationInfo["Publication date"] || '').substr(0,4),  // assuming first 4 chars is year
             "category": {
                 "type": type,

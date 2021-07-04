@@ -1,4 +1,4 @@
-import { IMPORT_REQUEST, IMPORT_SUCCESS, IMPORT_FAIL, IMPORT_CLEAR_STATE, UPDATE_GSCHOLAR_ID, UPDATE_START_FROM } from '../actions/types'
+import { IMPORT_REQUEST, IMPORT_SUCCESS, IMPORT_FAIL, IMPORT_CLEAR_STATE, UPDATE_GSCHOLAR_ID, UPDATE_START_FROM, IMPORT_END } from '../actions/types'
 
 const initialState = {
     loading: false,
@@ -6,7 +6,8 @@ const initialState = {
     publications: [],
     error: null,
     gScholarId: "",
-    startFrom: 0
+    startFrom: 0,
+    reachedEnd: false
 }
 
 const importedPublicationReducer = (state=initialState, action) => {
@@ -23,6 +24,8 @@ const importedPublicationReducer = (state=initialState, action) => {
             return {...state, gScholarId: action.payload}
         case UPDATE_START_FROM:
             return {...state, startFrom: action.payload}
+        case IMPORT_END:
+            return {...state, reachedEnd: true}
         default:
             return state
     }

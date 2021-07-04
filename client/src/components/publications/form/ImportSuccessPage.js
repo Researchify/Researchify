@@ -14,8 +14,8 @@ const ImportSuccessPage = ({closeModal}) => {
     const teamId = useSelector(state => state.team.teamId)
     const [checkedArray, setCheckedArray] = useState(new Array(publications.length).fill(true))
     const { startFrom } = useSelector(state => state.importedPublications);
-
     const { gScholarId } = useSelector(state => state.importedPublications);
+    const { reachedEnd } = useSelector(state => state.importedPublications);
 
     const dispatch = useDispatch()
 
@@ -81,7 +81,7 @@ const ImportSuccessPage = ({closeModal}) => {
                     </OverlayTrigger>
                 </div>
                 <div className="mt-2 ml-auto mr-3 text-center">
-                    <Button variant="primary" onClick={handlePagination}> Show more </Button>
+                    <Button variant="primary" disabled={reachedEnd} onClick={handlePagination}> Show more </Button>
                 </div>
                 <div className="mt-2 ml-auto mr-3">
                     <Button variant="primary" onClick={handleConfirmImport}> Import </Button>
