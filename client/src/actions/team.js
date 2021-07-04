@@ -14,7 +14,7 @@ import {
 
 /**
   * Adds a new team to redux store and database
-  * @param teamInfo contains teamName, orgName, email and password
+  * @param teamInfo contains teamName, orgName and email
   * @param result function that takes a boolean representing whether the api call was successful or not
   */
  export const addTeamInfo = (teamInfo, result) => async dispatch => {
@@ -26,6 +26,28 @@ import {
             payload: teamData
         });
         console.log("Team added!");
+        result(true);
+    } catch (err) {
+        console.error(err);
+        result(false);
+    }
+}
+
+/**
+  * Finds a team
+  * @param teamCredentials team email and password as a dictionary
+  * @param teamPassword team account password
+  * @param result function that takes a boolean representing whether the api call was successful or not
+  */
+ export const getTeam = (teamCredentials, result) => async dispatch => {
+    try {
+        const data = await api.loginTeam(teamCredentials);
+        const teamData = data.data;
+        const team = {teamId: teamData._id, email: teamData.email, teamName: teamData.teamName, orgName: teamData.orgName};
+        dispatch({
+            type: ADD_TEAM,
+            payload: team
+        });
         result(true);
     } catch (err) {
         console.error(err);

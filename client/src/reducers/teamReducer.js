@@ -8,6 +8,7 @@ const INITIAL_TEAM_STATE = {
     teamId: '',  // todo: change to empty str when integrating
     teamName: '',
     orgName: '',
+    email: '',
     twitterHandle: '',
     repoCreated: false
 };
