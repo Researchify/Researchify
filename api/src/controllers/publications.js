@@ -175,6 +175,11 @@ async function getGoogleScholarPublications(req, res) {
         + startFrom + puppeteerConfig.pageSizeSuffix + pageSize;
     console.log(url);
     const publications = [];
+    const categoryType = {
+      CONFERENCE: "CONFERENCE",
+      JOURNAL: "JOURNAL",
+      OTHER: "OTHER",
+    };
 
     const cluster = await Cluster.launch({
         concurrency: Cluster.CONCURRENCY_CONTEXT,
@@ -218,20 +223,29 @@ async function getGoogleScholarPublications(req, res) {
         const publicationInfo = {};
         fields.forEach((key, i) => publicationInfo[key] = values[i]);
 
+        let type = fields[2].toUpperCase();
+        let categoryTitle;
+        if (!(type in categoryType)) {
+          type = "OTHER";
+          categoryTitle = "";
+        } else {
+          categoryTitle = values[2];
+        }
+
         const publication = {
             "authors": publicationInfo["Authors"].split(", "),
             "title": title[0],
-            "link": link[0],
-            "description": publicationInfo["Description"],
+            "link": link[0] || '',
+            "description": publicationInfo["Description"] || '',
             "citedBy": (publicationInfo["Total citations"].split("\n", 1)[0]).split(" ")[2],
-            "yearPublished": publicationInfo["Publication date"].substr(0,4),  // assuming first 4 chars is year
+            "yearPublished": (publicationInfo["Publication date"] || '').substr(0,4),  // assuming first 4 chars is year
             "category": {
-                "type": fields[2].toUpperCase(),
-                "categoryTitle": values[2],
-                "pages": publicationInfo["Pages"],
-                "publisher": publicationInfo["Publisher"],
-                "volume": publicationInfo["Volume"],
-                "issue": publicationInfo["Issue"]
+                "type": type,
+                "categoryTitle": categoryTitle,
+                "pages": publicationInfo["Pages"] || '',
+                "publisher": publicationInfo["Publisher"] || '',
+                "volume": publicationInfo["Volume"] || '',
+                "issue": publicationInfo["Issue"] ||''
             }
         }
 
