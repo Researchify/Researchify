@@ -3,11 +3,12 @@
  */
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Toaster } from "react-hot-toast";
 
-import Auth from './auth/Auth';
-import Home from './home/Home';
-import Dashboard from './dashboard/Dashboard';
-import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
+import Auth from "./auth/Auth";
+import Home from "./home/Home";
+import Dashboard from "./dashboard/Dashboard";
+import ProfileInfoEdit from "./profileInfoEdit/ProfileInfoEdit";
 
 import Register from './auth/Register';
 import Login from './auth/Login';
@@ -34,6 +35,8 @@ const App = () => {
   }, [dispatch]);
 
   return (
+    <>
+    <Toaster position="bottom-center" reverseOrder={false} />
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Home} />
@@ -55,7 +58,7 @@ const App = () => {
                 />
                 <Route path={urls.dashboard} exact component={Dashboard} />
                 <Route
-                  path="/dashboard/profile"
+                  path={urls.profile}
                   exact
                   component={ProfileInfoEdit}
                 />
@@ -66,6 +69,7 @@ const App = () => {
         </Fragment>
       </Switch>
     </BrowserRouter>
+    </>
   );
 };
 
