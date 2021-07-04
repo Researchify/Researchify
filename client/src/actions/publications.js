@@ -1,18 +1,17 @@
 import * as api from '../api'
 import {
-    GET_PUBLICATIONS_BY_TEAM_ID,
-    CREATE_PUBLICATION,
-    UPDATE_PUBLICATION,
-    DELETE_PUBLICATION,
-    SORT_PUBLICATIONS,
-    CREATE_BULK_PUBLICATIONS,
-    IMPORT_REQUEST,
-    IMPORT_SUCCESS,
-    IMPORT_FAIL,
-    UPDATE_GSCHOLAR_ID,
-    UPDATE_START_FROM,
-    IMPORT_END
-} from './types';
+  GET_PUBLICATIONS_BY_TEAM_ID,
+  CREATE_PUBLICATION,
+  UPDATE_PUBLICATION,
+  DELETE_PUBLICATION,
+  SORT_PUBLICATIONS,
+  CREATE_BULK_PUBLICATIONS,
+  IMPORT_REQUEST,
+  IMPORT_SUCCESS,
+  IMPORT_FAIL,
+  UPDATE_GSCHOLAR_ID,
+  IMPORT_END,
+} from "./types";
 import { pageSize } from '../config/publications';
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
@@ -129,10 +128,6 @@ export const importPublication = (values, startFrom) => async dispatch => {
                 payload: result.data
             })
 
-            dispatch({
-                type: UPDATE_START_FROM,
-                payload: startFrom + result.data.length
-            })
         }
 
     } catch(error){
@@ -164,10 +159,7 @@ export const retrieveMorePublications = (author_id, startFrom) => async dispatch
             type: IMPORT_SUCCESS,
             payload: result.data
         })
-        dispatch({
-            type: UPDATE_START_FROM,
-            payload: startFrom + result.data.length
-        })
+
     } catch(error) {
         dispatch({
             type: IMPORT_FAIL,

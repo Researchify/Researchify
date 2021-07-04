@@ -6,8 +6,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import ImportedPublication from "../importedPublication/ImportedPublication"
 import React, { useState } from 'react';
 import {createBulkPublications, retrieveMorePublications} from "../../../actions/publications"
-import { Row, Button, Tooltip, OverlayTrigger } from "react-bootstrap";
-import {IMPORT_CLEAR_STATE, UPDATE_START_FROM} from "../../../actions/types"
+import { Row, Button, Tooltip, OverlayTrigger , Pagination} from "react-bootstrap";
+import { IMPORT_CLEAR_STATE, CHANGE_ACTIVE_PAGE } from "../../../actions/types";
+import ReactPaginate from 'react-paginate';
+import { pageSize } from "../../../config/publications";
 
 const ImportSuccessPage = ({closeModal}) => {
     const { publications } = useSelector(state => state.importedPublications)
@@ -16,6 +18,26 @@ const ImportSuccessPage = ({closeModal}) => {
     const { startFrom } = useSelector(state => state.importedPublications);
     const { gScholarId } = useSelector(state => state.importedPublications);
     const { reachedEnd } = useSelector(state => state.importedPublications);
+    const { activePage } = useSelector(state => state.importedPublications);
+    const { totalPages } = useSelector(state => state.importedPublications);
+    const { shownPublications } = useSelector(state => state.importedPublications);
+
+    // const [shownPublications, changeShownPublications] = useState(publications);
+    const [count, setCount] = useState(0);
+
+
+    const renderPagination = () => {
+        let pageItems = [];
+        console.log("render pagination " + activePage);
+        for (let number = 1; number <= totalPages; number++) {
+            pageItems.push(
+                <Pagination.Item key={number} active={number === activePage}>
+                {number}
+                </Pagination.Item>
+            );
+        }
+        return pageItems;
+    }
 
     const dispatch = useDispatch()
 
@@ -39,16 +61,9 @@ const ImportSuccessPage = ({closeModal}) => {
     }
 
     const handlePagination = () => {
-        // store publications in local storage?
-        // or just concatenate the new ones
-        // pass in the startFrom
-        // console.log("before " + startFrom);
-        //
-        // console.log("after " + startFrom);
-        // console.log(gScholarId);
-        // console.log(publications);
+        console.log("handle pagination")
         dispatch(retrieveMorePublications(gScholarId, startFrom))
-
+        console.log(activePage);
     }
 
     const handleConfirmImport = () => {
@@ -61,35 +76,110 @@ const ImportSuccessPage = ({closeModal}) => {
         handleClose()
     }
 
-    return(
-        <>
-            {
-                publications.map((pub, idx) => 
-                    <ImportedPublication key={idx} pub={pub} index={idx} setChecked={checkPublication}/>
-                )
-            }
-            <Row>
-                <div className="mt-2 ml-3">
-                    <OverlayTrigger
-                        trigger={["hover", "focus"]}
-                        placement="bottom"
-                        overlay={renderTooltip}
-                    >
-                        <Button className="mr-2" variant="outline-danger" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                    </OverlayTrigger>
-                </div>
-                <div className="mt-2 ml-auto mr-3 text-center">
-                    <Button variant="primary" disabled={reachedEnd} onClick={handlePagination}> Show more </Button>
-                </div>
-                <div className="mt-2 ml-auto mr-3">
-                    <Button variant="primary" onClick={handleConfirmImport}> Import </Button>
-                </div>
-            </Row>
+    const handlePageForward = () => {
+        console.log("forward " + activePage);
+                console.log(
+                  publications.slice(
+                    (activePage) * pageSize,
+                    (activePage+1) * pageSize
+                  )
+                );
+        dispatch({
+          type: CHANGE_ACTIVE_PAGE,
+          payload: {
+            activePage: activePage + 1,
+            shownPublications: publications.slice(
+              (activePage) * pageSize,
+              (activePage+1) * pageSize
+            ),
+          },
+        });
+    }
 
-        </>
-    )
+    const handlePageBack = () => {
+        dispatch({
+          type: CHANGE_ACTIVE_PAGE,
+          payload: {
+            activePage: activePage - 1,
+            shownPublications: publications.slice(
+              (activePage - 2) * pageSize,
+              (activePage - 1) * pageSize
+            ),
+          },
+        });
+        setCount(count+1);
+    }
+
+    const handlePageClick = (pageNo) => {
+        dispatch({
+            type: CHANGE_ACTIVE_PAGE,
+            payload: {
+                activePage: pageNo,
+                shownPublications: publications.slice(pageNo*pageSize, (pageNo+1)*pageSize)
+            }
+        })
+    }
+
+    // ;
+
+    return (
+      <>
+        <div>
+          {shownPublications.map((pub, idx) => (
+            <ImportedPublication
+              key={idx}
+              pub={pub}
+              index={idx}
+              setChecked={checkPublication}
+            />
+          ))}
+          <Pagination size="sm">
+            <Pagination.Prev
+              onClick={handlePageBack}
+              disabled={activePage === 1}
+            />
+            {renderPagination()}
+            <Pagination.Next
+              onClick={handlePageForward}
+              disabled={activePage === totalPages}
+            />
+          </Pagination>
+        </div>
+        <Row>
+          <div className="mt-2 ml-3">
+            <OverlayTrigger
+              trigger={["hover", "focus"]}
+              placement="bottom"
+              overlay={renderTooltip}
+            >
+              <Button
+                className="mr-2"
+                variant="outline-danger"
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
+            </OverlayTrigger>
+          </div>
+          <div className="mt-2 ml-auto mr-3 text-center">
+            <Button
+              variant="primary"
+              disabled={reachedEnd}
+              onClick={handlePagination}
+            >
+              {" "}
+              Show more{" "}
+            </Button>
+          </div>
+          <div className="mt-2 ml-auto mr-3">
+            <Button variant="primary" onClick={handleConfirmImport}>
+              {" "}
+              Import{" "}
+            </Button>
+          </div>
+        </Row>
+      </>
+    );
 }
 
 export default ImportSuccessPage
