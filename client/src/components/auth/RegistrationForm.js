@@ -7,11 +7,13 @@
  import Button from 'react-bootstrap/Button';
  import Form from 'react-bootstrap/Form'
  import {Col} from "react-bootstrap";
+ import {addTeamInfo} from '../../actions/team';
  import './Register.css';
  import {useDispatch} from 'react-redux';
- import {addUserAction} from '../../actions/users';
  import { useHistory } from "react-router-dom";
  import toast from 'react-hot-toast';
+
+ // import {addUserAction} from '../../actions/users';
 
  export default function RegistrationForm() {
     const dispatch = useDispatch();
@@ -35,7 +37,7 @@
             history.push("/dashboard");
         }
         else {
-            toast.error('Team name already taken');
+            toast.error('Team could not be created :(');
         }
     }
 
@@ -46,8 +48,8 @@
         event.stopPropagation();
       }
       else {
-        const userData = {email: inputs.email, teamName:inputs.teamName, orgName: inputs.orgName, password: inputs.password};
-        dispatch(addUserAction(userData, registrationResult));
+        const teamData = {email: inputs.email, teamName:inputs.teamName, orgName: inputs.orgName, password: inputs.password};
+        dispatch(addTeamInfo(teamData, registrationResult));
       }
       setValidated(true);
 

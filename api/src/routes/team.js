@@ -45,4 +45,6 @@ teamRouter.patch(
   teamController.updateTeamMember
 );
 
+teamRouter.post('/', teamController.addTeam);
+
 module.exports = teamRouter;
