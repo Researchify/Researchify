@@ -101,7 +101,7 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
     })
 }
 
-export const importPublication = (values, startFrom) => async dispatch => {
+export const importPublication = (values, startFrom, teamId) => async dispatch => {
     try{
         dispatch({
             type: IMPORT_REQUEST
@@ -121,7 +121,7 @@ export const importPublication = (values, startFrom) => async dispatch => {
                 payload: author_id
             })
             console.log(startFrom);
-            const result = await api.importPublications(author_id, startFrom)
+            const result = await api.importPublications(author_id, startFrom, teamId)
             console.log(result);
             dispatch({
                 type: IMPORT_SUCCESS,
@@ -138,21 +138,21 @@ export const importPublication = (values, startFrom) => async dispatch => {
     }
 }
 
-export const retrieveMorePublications = (author_id, startFrom) => async dispatch => {
+export const retrieveMorePublications = (author_id, startFrom, teamId) => async dispatch => {
     try {
         dispatch({
             type: IMPORT_REQUEST
         })
         console.log("retrieve more");
         console.log(startFrom);
-        const result = await api.importPublications(author_id, startFrom)
+        const result = await api.importPublications(author_id, startFrom, teamId)
         console.log(result);
 
         if (result.data.length < pageSize) {
-            // reached the end of the user's publications
-            dispatch({
-                type: IMPORT_END
-            })
+          // reached the end of the user's publications
+          dispatch({
+            type: IMPORT_END,
+          });
         }
 
         dispatch({
@@ -182,16 +182,5 @@ export const createBulkPublications = (teamId, publicationList) => async dispatc
 
     } catch(error){
         console.log(error)
-    }
-}
-
-export const validateImportedPublications = (teamId, publicationList) => async dispatch => {
-    // call backend api to validate the publications have not already been imported
-    try {
-        // just extract the titles
-        const result = await api.validateImportedPublications(teamId, publicationList);
-
-    } catch (error) {
-        console.log(error);
     }
 }

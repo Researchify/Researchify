@@ -12,7 +12,7 @@ export const CATEGORY_TYPE = {
     Journal: "JOURNAL",
     Conference: "CONFERENCE",
     Other: "OTHER"
-}
+} // TODO: refactor this into config later
 
 const PublicationForm = (props) => {
     const dispatch = useDispatch()

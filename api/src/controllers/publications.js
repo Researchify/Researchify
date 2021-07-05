@@ -167,6 +167,7 @@ async function readAllPublicationsByTeam(req, res) {
 async function getGoogleScholarPublications(req, res) {
     const author = req.params.gScholarUserId;
     const startFrom = req.params.startFrom;
+    const teamId = req.params.teamId;
 
     const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
     const noOfThreads = puppeteerConfig.noOfThreads;
@@ -268,12 +269,48 @@ async function getGoogleScholarPublications(req, res) {
 
     console.timeEnd('doSomething');
 
-    res.status(200).json(publications);
+    const newPublications = await validateImportedPublications(teamId, publications);
+    console.log(newPublications);
+
+    res.status(200).json(newPublications);
 
 }
 
-async function validateImportedPublications(req, res) {
-    
+/**
+ * 
+ * @param req request object - team id given in the url, an array of publication in the body
+ * @param res response object
+ * @returns the list of publications that are not already in the db and can be added
+ */
+async function validateImportedPublications(_id, publications) {
+    const foundPublications = await Publication.aggregate([
+      {
+        $match: { teamId: mongoose.Types.ObjectId(_id) },
+      },
+      {
+        $addFields: { year: { $year: "$yearPublished" } },
+      },
+      {
+        $sort: { year: -1, title: 1 },
+      },
+    ]);
+
+    const foundPublicationTitles = foundPublications.map(pub => pub.title.toLowerCase());
+    // console.log(foundPublicationTitles);
+    let newPublications = []
+
+    for (let i = 0; i < publications.length; i++) {
+        const currentPublication = publications[i];
+        const currentPublicationTitle = currentPublication.title.toLowerCase();
+        if (!foundPublicationTitles.includes(currentPublicationTitle)) {
+          newPublications.push(currentPublication);
+          console.log("Added " + currentPublicationTitle);
+        }
+    }
+
+    // console.log(newPublications);
+    return newPublications;
+
 }
 
 /**
@@ -289,5 +326,13 @@ async function importPublications(req, res) {
     res.status(201).json(importedPublications);
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, 
-    readAllPublicationsByTeam, importPublications, getGoogleScholarPublications};
+module.exports = {
+  deletePublication,
+  updatePublication,
+  createPublication,
+  readPublication,
+  readAllPublicationsByTeam,
+  importPublications,
+  getGoogleScholarPublications,
+  validateImportedPublications,
+};

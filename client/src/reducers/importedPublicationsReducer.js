@@ -22,12 +22,12 @@ const initialState = {
 };
 
 const toggleActivePage = (state) => {
-    if (state.activePage != state.totalPages) {
-        return state.totalPages + 1
-    } else {
-        return state.activePage + 1
-    }
-}
+  if (state.activePage != state.totalPages) {
+    return state.totalPages + 1;
+  } else {
+    return state.activePage + 1;
+  }
+};
 
 const importedPublicationReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -42,7 +42,7 @@ const importedPublicationReducer = (state = initialState, action) => {
         shownPublications: action.payload,
         totalPages: state.totalPages + 1,
         activePage: toggleActivePage(state),
-        startFrom: state.startFrom + action.payload.length
+        startFrom: state.startFrom + action.payload.length,
       };
     case IMPORT_FAIL:
       return {

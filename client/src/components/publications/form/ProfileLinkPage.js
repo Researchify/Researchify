@@ -1,11 +1,13 @@
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Row, InputGroup, Button, Form } from "react-bootstrap";
 import { importPublication } from "../../../actions/publications"
 import { BsFillPersonFill } from 'react-icons/bs'
 
 const ProfileLinkPage = ({closeModal}) => {
+    const { publications } = useSelector(state => state.importedPublications)
+    const teamId = useSelector((state) => state.team.teamId);
     const dispatch = useDispatch()
 
     const validationSchema = yup.object({
@@ -17,7 +19,7 @@ const ProfileLinkPage = ({closeModal}) => {
 
     const submitForm = (values) => {
         console.log(values)
-        dispatch(importPublication(values, 0))
+        dispatch(importPublication(values, 0, teamId))
     }
 
     return(
