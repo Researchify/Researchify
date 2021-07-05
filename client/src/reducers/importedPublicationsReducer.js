@@ -6,6 +6,7 @@ import {
   UPDATE_GSCHOLAR_ID,
   IMPORT_END,
   CHANGE_ACTIVE_PAGE,
+  IMPORT_REQUEST_EMPTY
 } from "../actions/types";
 import { pageSize } from "../config/publications";
 

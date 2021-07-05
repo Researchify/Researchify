@@ -173,7 +173,7 @@ async function getGoogleScholarPublications(req, res) {
     const noOfThreads = puppeteerConfig.noOfThreads;
     const pageSize = puppeteerConfig.pageSize;
     const url = puppeteerConfig.baseUrl + author + puppeteerConfig.startSuffix
-        + startFrom + puppeteerConfig.pageSizeSuffix + pageSize;
+        + startFrom + puppeteerConfig.pageSizeSuffix + pageSize + puppeteerConfig.sortBySuffix;
     console.log(url);
     const publications = [];
 

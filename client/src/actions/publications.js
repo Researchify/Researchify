@@ -123,11 +123,19 @@ export const importPublication = (values, startFrom, teamId) => async dispatch =
             console.log(startFrom);
             const result = await api.importPublications(author_id, startFrom, teamId)
             console.log(result);
-            dispatch({
-              type: IMPORT_SUCCESS,
-              payload: result.data.newPublications,
-            });
-
+            if (result.data.newPublications.length == 0) { 
+                // all publications have already been imported into db
+                // TODO: logic can probably be improved in the future to be more thorough
+                dispatch({
+                    type: IMPORT_FAIL,
+                    payload: "All publications from the profile have already been imported"
+                })
+            } else {
+                dispatch({
+                  type: IMPORT_SUCCESS,
+                  payload: result.data.newPublications,
+                });
+            }
         }
 
     } catch(error){
