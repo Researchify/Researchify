@@ -7,7 +7,6 @@ import {
   IMPORT_END,
   CHANGE_ACTIVE_PAGE,
 } from "../actions/types";
-import { pageSize } from "../config/publications";
 
 const initialState = {
   loading: false,

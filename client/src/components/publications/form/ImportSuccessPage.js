@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 import {createBulkPublications, retrieveMorePublications} from "../../../actions/publications"
 import { Row, Button, Tooltip, OverlayTrigger , Pagination} from "react-bootstrap";
 import { IMPORT_CLEAR_STATE, CHANGE_ACTIVE_PAGE } from "../../../actions/types";
-import ReactPaginate from 'react-paginate';
 import { pageSize } from "../../../config/publications";
 
 const ImportSuccessPage = ({closeModal}) => {
@@ -21,10 +20,6 @@ const ImportSuccessPage = ({closeModal}) => {
     const { activePage } = useSelector(state => state.importedPublications);
     const { totalPages } = useSelector(state => state.importedPublications);
     const { shownPublications } = useSelector(state => state.importedPublications);
-
-    // const [shownPublications, changeShownPublications] = useState(publications);
-    const [count, setCount] = useState(0);
-
 
     const renderPagination = () => {
         let pageItems = [];
@@ -107,7 +102,6 @@ const ImportSuccessPage = ({closeModal}) => {
             ),
           },
         });
-        setCount(count+1);
     }
 
     const handlePageClick = (pageNo) => {
@@ -115,7 +109,10 @@ const ImportSuccessPage = ({closeModal}) => {
             type: CHANGE_ACTIVE_PAGE,
             payload: {
                 activePage: pageNo,
-                shownPublications: publications.slice(pageNo*pageSize, (pageNo+1)*pageSize)
+                shownPublications: publications.slice(
+                    pageNo*pageSize, 
+                    (pageNo+1)*pageSize
+                )
             }
         })
     }
@@ -124,26 +121,26 @@ const ImportSuccessPage = ({closeModal}) => {
 
     return (
       <>
-        <div>
-          {shownPublications.map((pub, idx) => (
-            <ImportedPublication
-              key={idx}
-              pub={pub}
-              index={idx}
-              setChecked={checkPublication}
-            />
-          ))}
-          <Pagination size="sm">
+        {shownPublications.map((pub, idx) => (
+        <ImportedPublication
+            key={idx}
+            pub={pub}
+            index={idx}
+            setChecked={checkPublication}
+        />
+        ))}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+        <Pagination size="sm">
             <Pagination.Prev
-              onClick={handlePageBack}
-              disabled={activePage === 1}
+            onClick={handlePageBack}
+            disabled={activePage === 1}
             />
             {renderPagination()}
             <Pagination.Next
-              onClick={handlePageForward}
-              disabled={activePage === totalPages}
+            onClick={handlePageForward}
+            disabled={activePage === totalPages}
             />
-          </Pagination>
+        </Pagination>
         </div>
         <Row>
           <div className="mt-2 ml-3">

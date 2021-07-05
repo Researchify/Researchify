@@ -184,3 +184,14 @@ export const createBulkPublications = (teamId, publicationList) => async dispatc
         console.log(error)
     }
 }
+
+export const validateImportedPublications = (teamId, publicationList) => async dispatch => {
+    // call backend api to validate the publications have not already been imported
+    try {
+        // just extract the titles
+        const result = await api.validateImportedPublications(teamId, publicationList);
+
+    } catch (error) {
+        console.log(error);
+    }
+}

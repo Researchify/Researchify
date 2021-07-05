@@ -10,7 +10,7 @@ const Team = require("../models/team.model");
 
 const { Cluster } = require('puppeteer-cluster');
 
-const { puppeteerConfig } = require("../config/puppeteer");
+const { puppeteerConfig, categoryType } = require("../config/puppeteer");
 
 
 
@@ -175,11 +175,6 @@ async function getGoogleScholarPublications(req, res) {
         + startFrom + puppeteerConfig.pageSizeSuffix + pageSize;
     console.log(url);
     const publications = [];
-    const categoryType = {
-      CONFERENCE: "CONFERENCE",
-      JOURNAL: "JOURNAL",
-      OTHER: "OTHER",
-    };
 
     const cluster = await Cluster.launch({
         concurrency: Cluster.CONCURRENCY_CONTEXT,
@@ -227,7 +222,7 @@ async function getGoogleScholarPublications(req, res) {
         let categoryTitle;
         if (!(type in categoryType)) {
           type = "OTHER";
-          categoryTitle = "";
+          categoryTitle = "OTHER";
         } else {
           categoryTitle = values[2];
         }
@@ -275,6 +270,10 @@ async function getGoogleScholarPublications(req, res) {
 
     res.status(200).json(publications);
 
+}
+
+async function validateImportedPublications(req, res) {
+    
 }
 
 /**
