@@ -124,9 +124,9 @@ export const importPublication = (values, startFrom, teamId) => async dispatch =
             const result = await api.importPublications(author_id, startFrom, teamId)
             console.log(result);
             dispatch({
-                type: IMPORT_SUCCESS,
-                payload: result.data
-            })
+              type: IMPORT_SUCCESS,
+              payload: result.data.newPublications,
+            });
 
         }
 
@@ -148,7 +148,7 @@ export const retrieveMorePublications = (author_id, startFrom, teamId) => async 
         const result = await api.importPublications(author_id, startFrom, teamId)
         console.log(result);
 
-        if (result.data.length < pageSize) {
+        if (result.data.retrieved < pageSize) {
           // reached the end of the user's publications
           dispatch({
             type: IMPORT_END,
@@ -157,7 +157,7 @@ export const retrieveMorePublications = (author_id, startFrom, teamId) => async 
 
         dispatch({
             type: IMPORT_SUCCESS,
-            payload: result.data
+            payload: result.data.newPublications
         })
 
     } catch(error) {

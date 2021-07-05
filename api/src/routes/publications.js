@@ -23,6 +23,4 @@ publicationsRouter.get('/team/:team_id', publicationsController.readAllPublicati
 
 publicationsRouter.post('/import/:team_id', teamMiddleware.validateTeamId, publicationsController.importPublications);
 
-// publicationsRouter.post('/import/:team_id/validate', teamMiddleware.validateTeamId, publicationsController.validateImportedPublications);
-
 module.exports = publicationsRouter;

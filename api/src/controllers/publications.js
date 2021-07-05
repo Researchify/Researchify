@@ -270,9 +270,15 @@ async function getGoogleScholarPublications(req, res) {
     console.timeEnd('doSomething');
 
     const newPublications = await validateImportedPublications(teamId, publications);
-    console.log(newPublications);
+    // console.log(newPublications);
+    console.log(publications.length);
+    console.log(newPublications.length);
+    const response = {
+        "retrieved": publications.length,
+        "newPublications": newPublications
+    }
 
-    res.status(200).json(newPublications);
+    res.status(200).json(response);
 
 }
 
@@ -334,5 +340,4 @@ module.exports = {
   readAllPublicationsByTeam,
   importPublications,
   getGoogleScholarPublications,
-  validateImportedPublications,
 };

@@ -7,6 +7,7 @@ import {
   IMPORT_END,
   CHANGE_ACTIVE_PAGE,
 } from "../actions/types";
+import { pageSize } from "../config/publications";
 
 const initialState = {
   loading: false,
@@ -21,13 +22,44 @@ const initialState = {
   shownPublications: [],
 };
 
-const toggleActivePage = (state) => {
-  if (state.activePage != state.totalPages) {
-    return state.totalPages + 1;
+const toggleActivePage = (state, retrievedPublications) => {
+  if (state.publications.length < pageSize) {
+    return 1
   } else {
-    return state.activePage + 1;
+    if (state.activePage != state.totalPages) { // they weren't on the latest page
+      console.log("in true");
+      const totalSize = state.publications.concat(retrievedPublications).length;
+      const activePage = Math.ceil(totalSize / pageSize);
+      return activePage;
+    } else {
+      const totalSize = state.publications.concat(retrievedPublications).length;
+      const activePage = Math.floor(totalSize / pageSize);
+      console.log("in else " + activePage);
+      return activePage + 1;
+    }
   }
 };
+
+const toggleShownPublications = (state, retrievedPublications) => {
+  if (state.publications.length < pageSize) { // initial case
+    console.log("in true for shown pubs");
+    return (state.publications.concat(retrievedPublications)).slice(0, pageSize);
+  } else {
+    const totalSize = (state.publications.concat(retrievedPublications)).length;
+    if (retrievedPublications.length < pageSize) { // reached end of user's profile
+      return (state.publications.concat(retrievedPublications)).slice(totalSize-pageSize, totalSize);
+    } else {
+      const activePage = Math.floor(totalSize/pageSize);
+      console.log("in else for shown publications " + activePage);
+      return state.publications.concat(retrievedPublications).slice((activePage-1)*pageSize, (activePage)*pageSize);
+    }
+  }
+}
+
+const calculateTotalPages = (state, retrievedPublications) => {
+  const totalSize = state.publications.concat(retrievedPublications).length;
+  return Math.ceil(totalSize/pageSize);
+}
 
 const importedPublicationReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -39,10 +71,10 @@ const importedPublicationReducer = (state = initialState, action) => {
         importStatus: "SUCCESS",
         loading: false,
         publications: state.publications.concat(action.payload),
-        shownPublications: action.payload,
-        totalPages: state.totalPages + 1,
+        shownPublications: toggleShownPublications(state, action.payload),
+        totalPages: calculateTotalPages(state, action.payload),
         activePage: toggleActivePage(state),
-        startFrom: state.startFrom + action.payload.length,
+        startFrom: state.startFrom + pageSize,
       };
     case IMPORT_FAIL:
       return {

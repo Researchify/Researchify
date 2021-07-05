@@ -57,7 +57,7 @@ const ImportSuccessPage = ({closeModal}) => {
 
     const handlePagination = () => {
         console.log("handle pagination")
-        dispatch(retrieveMorePublications(gScholarId, startFrom))
+        dispatch(retrieveMorePublications(gScholarId, startFrom, teamId))
         console.log(activePage);
     }
 
