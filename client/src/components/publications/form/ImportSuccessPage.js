@@ -48,6 +48,12 @@ const ImportSuccessPage = ({closeModal}) => {
       return newCheckArray[index];
     }
 
+    const renderNoPublicationsSelectedTooltip = (props) => (
+      <Tooltip id="button-tooltip" {...props}>
+        No publications have been selected to import
+      </Tooltip>
+    )
+
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             You will lose your progress
@@ -119,25 +125,25 @@ const ImportSuccessPage = ({closeModal}) => {
     return (
       <>
         {shownPublications.map((pub, idx) => (
-        <ImportedPublication
+          <ImportedPublication
             key={idx}
             pub={pub}
             index={idx}
             setChecked={checkPublication}
-        />
+          />
         ))}
         <div style={{ display: "flex", justifyContent: "center" }}>
-        <Pagination size="sm">
+          <Pagination size="sm">
             <Pagination.Prev
-            onClick={handlePageBack}
-            disabled={activePage === 1}
+              onClick={handlePageBack}
+              disabled={activePage === 1}
             />
             {renderPagination()}
             <Pagination.Next
-            onClick={handlePageForward}
-            disabled={activePage === totalPages}
+              onClick={handlePageForward}
+              disabled={activePage === totalPages}
             />
-        </Pagination>
+          </Pagination>
         </div>
         <Row>
           <div className="mt-2 ml-3">
@@ -166,10 +172,22 @@ const ImportSuccessPage = ({closeModal}) => {
             </Button>
           </div>
           <div className="mt-2 ml-auto mr-3">
-            <Button variant="primary" onClick={handleConfirmImport}>
-              {" "}
-              Import{" "}
-            </Button>
+            <OverlayTrigger
+              placement="bottom"
+              overlay={renderNoPublicationsSelectedTooltip}
+            >
+              <div style={{ display: "inline-block", cursor: "not-allowed" }}>
+                <Button
+                  variant="primary"
+                  disabled={!publicationsToImport.includes(true)}
+                  style={!publicationsToImport.includes(true) ? {pointerEvents : 'none'} : {}}
+                  onClick={handleConfirmImport}
+                >
+                  {" "}
+                  Import{" "}
+                </Button>
+              </div>
+            </OverlayTrigger>
           </div>
         </Row>
       </>
