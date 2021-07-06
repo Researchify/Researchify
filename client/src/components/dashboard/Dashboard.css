@@ -38,3 +38,36 @@
     padding-bottom: 1px;
 }
 
+.researchify-dashboard-container{
+    padding-top: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dashboard-modal {
+    width: 200%;
+    height: auto;
+}
+
+.researchify-dashboard-card{
+    width:70%;
+    padding-top: 100px;
+    padding-bottom: 1px;
+}
+
+.researchify-dashboard-card-group{
+    padding-top: 80px;
+}
+
+.researchify-dashboard-card-icons{
+    font-size: 333%;
+
+}
+
+.researchify-dashboard-card-link{
+    color: black;
+}
+
+.researchify-dashboard-card-link:hover{
+    text-decoration: none;
+}
