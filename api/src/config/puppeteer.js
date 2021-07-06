@@ -19,4 +19,6 @@ const categoryType = {
   BOOK: "BOOK",
 };
 
-module.exports = { puppeteerConfig, categoryType }
+const categoryTypEnum = ['CONFERENCE', 'JOURNAL', 'OTHER', 'BOOK'];
+
+module.exports = { puppeteerConfig, categoryType, categoryTypeEnum }

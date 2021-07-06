@@ -73,8 +73,6 @@ export const deletePublication = (id) => async dispatch => {
 };
 
 export const sortPublications = (teamPublications, sortingOption) => async(dispatch) => {
-    console.log(teamPublications);
-    console.log(sortingOption);
     switch (sortingOption) {
         case "Author":
             teamPublications.sort((a, b) => (a.authors[0].toLowerCase() > b.authors[0].toLowerCase()) ? 1 : -1);
@@ -93,7 +91,6 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
             teamPublications.sort((a, b) => (a.year > b.year) ? -1 : 1);
             break;
     }
-    console.log(teamPublications);
 
     dispatch({
         type: SORT_PUBLICATIONS,

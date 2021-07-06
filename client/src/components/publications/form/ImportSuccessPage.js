@@ -4,7 +4,7 @@
 
 import { useSelector, useDispatch } from 'react-redux'
 import ImportedPublication from "../importedPublication/ImportedPublication"
-import React, { useState } from 'react';
+import React from 'react';
 import {createBulkPublications, retrieveMorePublications} from "../../../actions/publications"
 import { Row, Button, Tooltip, OverlayTrigger , Pagination} from "react-bootstrap";
 import { IMPORT_CLEAR_STATE, CHANGE_ACTIVE_PAGE, UPDATE_PUBLICATIONS_TO_IMPORT } from "../../../actions/types";
@@ -154,7 +154,7 @@ const ImportSuccessPage = ({closeModal}) => {
             >
               <Button
                 className="mr-2"
-                variant="outline-danger"
+                variant="outline-danger" 
                 onClick={handleClose}
               >
                 Cancel

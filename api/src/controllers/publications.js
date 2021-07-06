@@ -258,7 +258,8 @@ async function getGoogleScholarPublications(req, res) {
 
     });
 
-    console.time('doSomething');
+    // time how long the scraping takes
+    // console.time('doSomething');
 
     for (let i = noOfDummyLinks; i < pageSize+noOfDummyLinks; i++) {
         await cluster.queue({ "url": url, "index": i})
@@ -267,12 +268,10 @@ async function getGoogleScholarPublications(req, res) {
     await cluster.idle();
     await cluster.close();
 
-    console.timeEnd('doSomething');
+    // console.timeEnd('doSomething');
 
     const newPublications = await validateImportedPublications(teamId, publications);
-    // console.log(newPublications);
-    console.log(publications.length);
-    console.log(newPublications.length);
+
     const response = {
         "retrieved": publications.length,
         "newPublications": newPublications
@@ -283,9 +282,10 @@ async function getGoogleScholarPublications(req, res) {
 }
 
 /**
- * 
- * @param req request object - team id given in the url, an array of publication in the body
- * @param res response object
+ * Helper function to compare the publications scraped from google scholar with the ones in db,
+ * and return the publications not already in the db.
+ * @param _id teamId
+ * @param publications list of publications scraped from google scholar
  * @returns the list of publications that are not already in the db and can be added
  */
 async function validateImportedPublications(_id, publications) {
@@ -302,7 +302,6 @@ async function validateImportedPublications(_id, publications) {
     ]);
 
     const foundPublicationTitles = foundPublications.map(pub => pub.title.toLowerCase());
-    // console.log(foundPublicationTitles);
     let newPublications = []
 
     for (let i = 0; i < publications.length; i++) {
@@ -314,7 +313,6 @@ async function validateImportedPublications(_id, publications) {
         }
     }
 
-    // console.log(newPublications);
     return newPublications;
 
 }

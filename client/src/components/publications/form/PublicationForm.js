@@ -7,31 +7,26 @@ import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import MainInfoPage from "./MainInfoPage"
 import CategoryPage from "./CategoryPage"
-
-export const CATEGORY_TYPE = {
-    Journal: "JOURNAL",
-    Conference: "CONFERENCE",
-    Other: "OTHER"
-} // TODO: refactor this into config later
+import { categoryType } from '../../../../../api/src/config/puppeteer';
 
 const PublicationForm = (props) => {
     const dispatch = useDispatch()
     const [data, setData] = useState({
-        title: "",
-        yearPublished: (new Date()).getFullYear().toString(),
-        authors: [""],
-        description: "",
-        link: "",
-        category: {
-            type: CATEGORY_TYPE.Journal,
-            categoryTitle: "",
-            volume: "",
-            issue: "",
-            pages: "",
-            publisher: ""
-        },
-        teamId: "609f5ad827b1d48257c321d3" // teamId should be get from redux state later
-    })
+      title: "",
+      yearPublished: new Date().getFullYear().toString(),
+      authors: [""],
+      description: "",
+      link: "",
+      category: {
+        type: categoryType.JOURNAL,
+        categoryTitle: "",
+        volume: "",
+        issue: "",
+        pages: "",
+        publisher: "",
+      },
+      teamId: "609f5ad827b1d48257c321d3", // teamId should be get from redux state later
+    });
 
     const [currentStep, setCurrentStep] = useState(0)
 
