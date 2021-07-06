@@ -1,10 +1,15 @@
 /**
  * This file exports our user reducer that will handle all dispatched user data related actions.
  */
-import {ADD_USER_DATA} from "../actions/types";
+import { ADD_USER_DATA, FETCH_USER_DATA } from '../actions/types';
 
-
-const INITIAL_STATE = {email: '', givenName: '', familyName: '', password: ''};
+const INITIAL_STATE = {
+  email: '',
+  givenName: '',
+  familyName: '',
+  password: '',
+  teamId: '',
+};
 
 /**
  * This userReducer will handle all user data-related actions.
@@ -14,12 +19,14 @@ const INITIAL_STATE = {email: '', givenName: '', familyName: '', password: ''};
  * @returns object representing the new state.
  */
 const userReducer = (state = INITIAL_STATE, action) => {
-    switch (action.type) {
-        case ADD_USER_DATA:
-            return action.payload;
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case FETCH_USER_DATA:
+      return action.payload;
+    case ADD_USER_DATA:
+      return action.payload;
+    default:
+      return state;
+  }
 };
 
 export default userReducer;
