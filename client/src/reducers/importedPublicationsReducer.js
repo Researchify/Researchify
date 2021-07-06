@@ -6,7 +6,7 @@ import {
   UPDATE_GSCHOLAR_ID,
   IMPORT_END,
   CHANGE_ACTIVE_PAGE,
-  IMPORT_REQUEST_EMPTY
+  UPDATE_PUBLICATIONS_TO_IMPORT,
 } from "../actions/types";
 import { pageSize } from "../config/publications";
 
@@ -21,6 +21,7 @@ const initialState = {
   totalPages: 0,
   activePage: 0,
   shownPublications: [],
+  publicationsToImport: []
 };
 
 const toggleActivePage = (state, retrievedPublications) => {
@@ -76,6 +77,7 @@ const importedPublicationReducer = (state = initialState, action) => {
         totalPages: calculateTotalPages(state, action.payload),
         activePage: toggleActivePage(state),
         startFrom: state.startFrom + pageSize,
+        publicationsToImport: state.publicationsToImport.concat(new Array(action.payload.length).fill(true))
       };
     case IMPORT_FAIL:
       return {
@@ -96,6 +98,8 @@ const importedPublicationReducer = (state = initialState, action) => {
         activePage: action.payload.activePage,
         shownPublications: action.payload.shownPublications,
       };
+    case UPDATE_PUBLICATIONS_TO_IMPORT:
+      return {...state, publicationsToImport: action.payload}
     default:
       return state;
   }

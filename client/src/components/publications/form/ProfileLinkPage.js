@@ -6,7 +6,6 @@ import { importPublication } from "../../../actions/publications"
 import { BsFillPersonFill } from 'react-icons/bs'
 
 const ProfileLinkPage = ({closeModal}) => {
-    const { publications } = useSelector(state => state.importedPublications)
     const teamId = useSelector((state) => state.team.teamId);
     const dispatch = useDispatch()
 

@@ -7,26 +7,26 @@ import ImportedPublication from "../importedPublication/ImportedPublication"
 import React, { useState } from 'react';
 import {createBulkPublications, retrieveMorePublications} from "../../../actions/publications"
 import { Row, Button, Tooltip, OverlayTrigger , Pagination} from "react-bootstrap";
-import { IMPORT_CLEAR_STATE, CHANGE_ACTIVE_PAGE } from "../../../actions/types";
+import { IMPORT_CLEAR_STATE, CHANGE_ACTIVE_PAGE, UPDATE_PUBLICATIONS_TO_IMPORT } from "../../../actions/types";
 import { pageSize } from "../../../config/publications";
 
 const ImportSuccessPage = ({closeModal}) => {
     const { publications } = useSelector(state => state.importedPublications)
     const teamId = useSelector(state => state.team.teamId)
-    const [checkedArray, setCheckedArray] = useState(new Array(publications.length).fill(true))
     const { startFrom } = useSelector(state => state.importedPublications);
     const { gScholarId } = useSelector(state => state.importedPublications);
     const { reachedEnd } = useSelector(state => state.importedPublications);
     const { activePage } = useSelector(state => state.importedPublications);
     const { totalPages } = useSelector(state => state.importedPublications);
     const { shownPublications } = useSelector(state => state.importedPublications);
+    const { publicationsToImport } = useSelector(state => state.importedPublications);
 
     const renderPagination = () => {
         let pageItems = [];
         console.log("render pagination " + activePage);
         for (let number = 1; number <= totalPages; number++) {
             pageItems.push(
-                <Pagination.Item key={number} active={number === activePage}>
+                <Pagination.Item key={number} active={number === activePage} onClick={(event) => handlePageClick(event)}>
                 {number}
                 </Pagination.Item>
             );
@@ -37,9 +37,15 @@ const ImportSuccessPage = ({closeModal}) => {
     const dispatch = useDispatch()
 
     const checkPublication = (index) => {
-        let newCheckArray = checkedArray
-        newCheckArray[index] = !newCheckArray[index]
-        setCheckedArray(newCheckArray)
+      const chosenPublication = shownPublications[index];
+      const globalIndex = publications.indexOf(chosenPublication);
+      let newCheckArray = publicationsToImport
+      newCheckArray[globalIndex] = !newCheckArray[globalIndex];
+      dispatch({
+        type: UPDATE_PUBLICATIONS_TO_IMPORT,
+        payload: newCheckArray
+      })
+      return newCheckArray[index];
     }
 
     const renderTooltip = (props) => (
@@ -62,7 +68,7 @@ const ImportSuccessPage = ({closeModal}) => {
     }
 
     const handleConfirmImport = () => {
-        let checkedPublications = publications.filter((pub, idx) => checkedArray[idx])
+        let checkedPublications = publications.filter((pub, idx) => publicationsToImport[idx])
         for (let i = 0; i < checkedPublications.length; i++) {
             checkedPublications[i].yearPublished = checkedPublications[i].yearPublished.toString() + "-01-01";
         }
@@ -72,13 +78,6 @@ const ImportSuccessPage = ({closeModal}) => {
     }
 
     const handlePageForward = () => {
-        console.log("forward " + activePage);
-                console.log(
-                  publications.slice(
-                    (activePage) * pageSize,
-                    (activePage+1) * pageSize
-                  )
-                );
         dispatch({
           type: CHANGE_ACTIVE_PAGE,
           payload: {
@@ -104,20 +103,18 @@ const ImportSuccessPage = ({closeModal}) => {
         });
     }
 
-    const handlePageClick = (pageNo) => {
+    const handlePageClick = (event) => {
         dispatch({
             type: CHANGE_ACTIVE_PAGE,
             payload: {
-                activePage: pageNo,
-                shownPublications: publications.slice(
-                    pageNo*pageSize, 
-                    (pageNo+1)*pageSize
-                )
+              activePage: parseInt(event.target.text),
+              shownPublications: publications.slice(
+                activePage*pageSize, 
+                (activePage+1)*pageSize
+              )
             }
-        })
+        });
     }
-
-    // ;
 
     return (
       <>
