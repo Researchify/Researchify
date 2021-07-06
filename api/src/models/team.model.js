@@ -3,31 +3,35 @@
  */
 const mongoose = require('mongoose');
 
-
-const teamSchema = new mongoose.Schema({
+const teamSchema = new mongoose.Schema(
+  {
     teamName: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     dateCreated: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
     areaOfInterest: {
-        type: [{
-            type: String,
-            minlength: 1
-        }]
+      type: [
+        {
+          type: String,
+          minlength: 1,
+        },
+      ],
     },
     twitterHandle: {
-        type: String
+      type: String,
     },
     templateId: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'template',
-        required: true
-    }
-}, {timestamps: true})
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'template',
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
 const Team = mongoose.model('team', teamSchema);
 
