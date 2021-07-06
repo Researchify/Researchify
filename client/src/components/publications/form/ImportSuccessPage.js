@@ -20,6 +20,7 @@ const ImportSuccessPage = ({closeModal}) => {
     const { totalPages } = useSelector(state => state.importedPublications);
     const { shownPublications } = useSelector(state => state.importedPublications);
     const { publicationsToImport } = useSelector(state => state.importedPublications);
+    const ConditionalWrapper = ({ condition, wrapper, children }) => condition ? wrapper(children) : children;
 
     const renderPagination = () => {
         let pageItems = [];
@@ -154,7 +155,7 @@ const ImportSuccessPage = ({closeModal}) => {
             >
               <Button
                 className="mr-2"
-                variant="outline-danger" 
+                variant="outline-danger"
                 onClick={handleClose}
               >
                 Cancel
@@ -172,22 +173,33 @@ const ImportSuccessPage = ({closeModal}) => {
             </Button>
           </div>
           <div className="mt-2 ml-auto mr-3">
-            <OverlayTrigger
-              placement="bottom"
-              overlay={renderNoPublicationsSelectedTooltip}
+            <ConditionalWrapper
+              condition={!publicationsToImport.includes(true)}
+              wrapper={(children) => (
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={renderNoPublicationsSelectedTooltip}
+                >
+                  {children}
+                </OverlayTrigger>
+              )}
             >
               <div style={{ display: "inline-block", cursor: "not-allowed" }}>
                 <Button
                   variant="primary"
                   disabled={!publicationsToImport.includes(true)}
-                  style={!publicationsToImport.includes(true) ? {pointerEvents : 'none'} : {}}
+                  style={
+                    !publicationsToImport.includes(true)
+                      ? { pointerEvents: "none" }
+                      : {}
+                  }
                   onClick={handleConfirmImport}
                 >
                   {" "}
                   Import{" "}
                 </Button>
               </div>
-            </OverlayTrigger>
+            </ConditionalWrapper>
           </div>
         </Row>
       </>
