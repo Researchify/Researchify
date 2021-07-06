@@ -1,7 +1,3 @@
-/**
- * The LayoutAllPublications component displays a list of publications 
- */
-
 import Publication from '../publication/Publication'
 
 const LayoutAllPublications = ({teamPublications}) => {    

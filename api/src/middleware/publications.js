@@ -3,8 +3,6 @@
  */
 
 const { body,validationResult } = require('express-validator');
-const axios = require("axios");
-
 
 /**
  * Handles the validation when creating (POST) a new publication in the database.
@@ -57,11 +55,11 @@ const createPublicationValidation = [
       .isLength(4),
     body("category.type", "Error: Category type must not be empty.")
       .notEmpty(),
-    body("category.type", "Error: Category type does not match any of ['CONFERENCE', 'JOURNAL', 'OTHER'].")
+    body("category.type", "Error: Category type does not match any of ['CONFERENCE', 'JOURNAL'].")
       .if(body("category.type")
       .exists()
       .notEmpty())
-      .isIn(["CONFERENCE", "JOURNAL", "OTHER"]),
+      .isIn(["CONFERENCE", "JOURNAL"]),
     body("category.categoryTitle", "Error: Category title must not be empty.")
       .notEmpty(),
     body("category.categoryTitle", "Error: Category title must be at least 3 characters.")
@@ -80,24 +78,4 @@ const createPublicationValidation = [
       },
   ];
 
-async function validateAuthorId(req, res, next) {
-    const {gScholarUserId: _id} = req.params;
-
-    if (_id.length != 12) {
-        return res.status(400).json(`Error: User ID needs to be 12 characters long.`);
-    }
-
-    try {
-        await axios.get("https://scholar.google.com.sg/citations?user=" + _id);
-    } catch(error) {
-        console.log(error);
-        if (error.response.status == 404) {
-            return res.status(404).json(`Error: There is no user profile found with the given id.`);
-        } else {
-            return res.status(error.response.status).json(error.message);
-        }
-    }
-    next();
-}
-
-  module.exports = { createPublicationValidation, validateAuthorId }
+  module.exports = { createPublicationValidation }

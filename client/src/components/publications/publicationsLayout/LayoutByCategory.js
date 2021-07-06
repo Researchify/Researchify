@@ -1,31 +1,27 @@
-/**
- * The LayoutByCategory component displays a list of publications group by category type selcted by user
- */
-
 import Publication from '../publication/Publication'
-import { CATEGORY_TYPE } from '../form/PublicationForm'
 
 const LayoutByCategory = ({teamPublications}) => {
+    const teamJournalPublications = teamPublications.filter(pub => pub.category.type === "JOURNAL")
+    const teamConferencePublications = teamPublications.filter(pub => pub.category.type === "CONFERENCE")
 
-    const renderPublicationsByCategory = (categoryType) => {
-        const publicationsByCategory = 
-            teamPublications.filter(pub => pub.category.type === categoryType.toUpperCase())
-        return(
-            publicationsByCategory.length > 0 &&
-            <>
-                <h2 className="publicationListHeader"> {categoryType} </h2>
-                <div className="publicationList">
-                {
-                    publicationsByCategory.map(pub => <Publication pub={pub} key={pub._id}/>)
-                }
-                </div>
-            </>
-        )
-    }
     return(
-        Object.keys(CATEGORY_TYPE).map(category => (
-            renderPublicationsByCategory(category)
-        ))
+        <>
+            <h2 className="publicationListHeader"> Journal </h2>
+            <div className="publicationList">
+            {
+                teamJournalPublications.map(pub => 
+                    <Publication pub={pub} key={pub._id}/>)
+            }
+            </div>
+
+            <h2 className="publicationListHeader"> Conference </h2>
+            <div className="publicationList">
+            {
+                teamConferencePublications.map(pub => 
+                    <Publication pub={pub} key={pub._id}/>)
+            }
+            </div>
+        </>
     )
 }
 

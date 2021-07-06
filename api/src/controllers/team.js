@@ -1,12 +1,8 @@
 /**
  * This module contains handlers for the "team" route.
- * @module team
  */
 const axios = require("axios");
 
-const Team = require("../models/team.model");
-
-const mongoose = require("mongoose");
 
 const options = {
     headers: {'Authorization': "Bearer " + process.env.TWITTER_BEARER_TOKEN}
@@ -63,73 +59,4 @@ async function getTeam(req, res) {
 
 }
 
-/**
- * Gets the team member arrray from the database on /team/:team_id/member.
- * @param {*} req request object, containing team id in the url 
- * @param {*} res response object, the returned team memeber array
- * @returns 200: the team member array was returned
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-async function readTeamMembersByTeam(req, res){
-    let foundTeam = req.foundTeam;
-    return res.status(200).send(foundTeam.teamMembers);
-}
-
-/**
- * POST request to create a new team member to the database on /team/:team_id/member.
- * @param {*} req request object, containing team id in the url 
- * @param {*} res response object, the created team member document
- * @returns 200: the team member was created 
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-async function createTeamMember(req, res) {
-    let teamMember = req.body;
-    const memberId = new mongoose.Types.ObjectId()
-    let foundTeam = req.foundTeam;
-    teamMember = {...teamMember, _id: memberId}
-    await foundTeam.teamMembers.push(teamMember);
-    foundTeam.save()
-    res.status(201).json(teamMember);
-}
-
-/**
- * Delete the team member from the database on /team/:team_id/member/:member_id.
- * @param {*} req request object, containing team id in the url 
- * @param {*} res response object, the relevant messgae returned
- * @returns 200: the team member was deleted
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-async function deleteTeamMember(req, res){
-    let foundTeam = req.foundTeam;
-    const {member_id} = req.params;
-    await foundTeam.teamMembers.pull({_id: member_id})
-    foundTeam.save()
-    return res.status(200).json({message: 'Team member deleted successfully.'})
-}
-
-/**
- * Update the team member from the database on /team/:team_id/member.
- * @param {*} req request object, containing team id in the url 
- * @param {*} res response object, the updated team member document
- * @returns 200: the team member was updated
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-async function updateTeamMember(req, res){
-    const updatedTeamMember = req.body;
-    try{
-        await Team.updateOne({'teamMembers._id': updatedTeamMember._id},{
-            '$set': {
-                'teamMembers.$': updatedTeamMember
-            }
-        })
-        return res.status(200).json(updatedTeamMember)
-    } catch(error){
-        return res.status(422).json(`Error: ${error.message}`)
-    }
-}
-
-module.exports = { storeHandle, getTeam, createTeamMember, readTeamMembersByTeam, deleteTeamMember, updateTeamMember };
+module.exports = { storeHandle, getTeam };
