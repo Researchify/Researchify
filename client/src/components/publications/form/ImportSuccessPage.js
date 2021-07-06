@@ -51,7 +51,13 @@ const ImportSuccessPage = ({closeModal}) => {
 
     const renderNoPublicationsSelectedTooltip = (props) => (
       <Tooltip id="button-tooltip" {...props}>
-        No publications have been selected to import
+        No publications are selected
+      </Tooltip>
+    )
+
+    const renderEndOfPublicationsTooltip = (props) => (
+      <Tooltip id="button-tooltip" {...props}>
+        All publications have been retrieved
       </Tooltip>
     )
 
@@ -160,16 +166,33 @@ const ImportSuccessPage = ({closeModal}) => {
               </Button>
             </OverlayTrigger>
           </div>
-          <div className="mt-2 ml-auto mr-3 text-center">
-            <Button
-              variant="primary"
-              disabled={reachedEnd}
-              onClick={handlePagination}
+          <ConditionalWrapper
+            condition={reachedEnd}
+            wrapper={(children) => (
+              <OverlayTrigger
+                placement="bottom"
+                overlay={renderEndOfPublicationsTooltip}
+              >
+                {children}
+              </OverlayTrigger>
+            )}
+          >
+            <div
+              className="mt-2 ml-auto mr-3 text-center"
+              style={{ display: "inline-block", cursor: "not-allowed" }}
             >
-              {" "}
-              Show more{" "}
-            </Button>
-          </div>
+              <Button
+                variant="primary"
+                disabled={reachedEnd}
+                onClick={handlePagination}
+                style={reachedEnd ? { pointerEvents: "none" } : {}}
+              >
+                {" "}
+                Show more{" "}
+              </Button>
+            </div>
+          </ConditionalWrapper>
+
           <div className="mt-2 ml-auto mr-3">
             <ConditionalWrapper
               condition={!publicationsToImport.includes(true)}
