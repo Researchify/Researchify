@@ -1,8 +1,7 @@
 """
 This file contains the AWS lambda handler for importing publications from google scholar.
 """
-
-from gscholar import get_publications
+from gscholar import get_publications 
 import logging
 import sys
 
