@@ -158,7 +158,6 @@ async function readAllPublicationsByTeam(req, res) {
 /**
  * Given a google scholar user id, this function uses a headless browser via Puppeteer to scrape
  * the publications info from a user's profile. This runs several threads in parallel specified in the config.
- * Endpoint: /publications/import/:id
  * @see config/puppeteerConfig.js
  * @param req request object - google scholar user id given in the url
  * @param res response object - array of publication objects
@@ -186,7 +185,6 @@ async function getGoogleScholarPublications(req, res) {
         const url = data["url"];
         const index = data["index"];
         await page.goto(url);
-        // console.log(index);
         const resultLinks = await page.$$('.gsc_a_t a');
 
         await Promise.all([
@@ -204,7 +202,6 @@ async function getGoogleScholarPublications(req, res) {
             // an error will be caught if its not a link, and try a diff html tag for title
             title = await page.$$eval("#gsc_vcd_title", (titles) => titles.map((title) => title.innerText));
         }
-        // console.log(title[0]);
 
         // pdf link
         const link = await page.$$eval("div.gsc_vcd_title_ggi a", (links) => links.map((link) => link.href));

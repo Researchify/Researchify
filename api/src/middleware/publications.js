@@ -4,7 +4,7 @@
 
 const { body,validationResult } = require('express-validator');
 const axios = require("axios");
-import { categoryTypeEnum } from '../config/puppeteer';
+const categoryTypeEnum = require("../config/puppeteer");
 
 
 /**

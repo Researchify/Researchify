@@ -6,7 +6,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import React from 'react';
 import { Row, Button, Tooltip, OverlayTrigger, Form, ButtonGroup, ToggleButton } from "react-bootstrap";
-import { CATEGORY_TYPE } from './PublicationForm'
+import { categoryType } from "../../../config/publications";
 
 const CategoryPage = ({next, prev, data, closeModal}) => {
     const stepTwoValidationSchema = yup.object({
@@ -46,7 +46,7 @@ const CategoryPage = ({next, prev, data, closeModal}) => {
                         <Form.Group>
                              <div className="text-center">
                                  <ButtonGroup toggle>
-                                     {Object.keys(CATEGORY_TYPE).map((category, idx) => (
+                                     {Object.keys(categoryType).map((category, idx) => (
                                         <ToggleButton
                                             key={idx}
                                             type="radio"
@@ -63,11 +63,11 @@ const CategoryPage = ({next, prev, data, closeModal}) => {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label> {Object.keys(CATEGORY_TYPE).find(category => category.toUpperCase() === values.category.type)} </Form.Label>
+                            <Form.Label> {Object.keys(categoryType).find(category => category.toUpperCase() === values.category.type)} </Form.Label>
                             <Form.Control
                                 type="text"
                                 name="category.categoryTitle"
-                                placeholder={Object.keys(CATEGORY_TYPE).find(category => category.toUpperCase() === values.category.type)}
+                                placeholder={Object.keys(categoryType).find(category => category.toUpperCase() === values.category.type)}
                                 value={values.category.categoryTitle}
                                 onChange={handleChange}
                                 isInvalid={touched.category && touched.category.categoryTitle && errors.category && errors.category.categoryTitle}

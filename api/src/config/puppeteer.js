@@ -19,6 +19,6 @@ const categoryType = {
   BOOK: "BOOK",
 };
 
-const categoryTypEnum = ['CONFERENCE', 'JOURNAL', 'OTHER', 'BOOK'];
+const categoryTypeEnum = ["CONFERENCE", "JOURNAL", "OTHER", "BOOK"];
 
 module.exports = { puppeteerConfig, categoryType, categoryTypeEnum }

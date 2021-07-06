@@ -2,7 +2,6 @@
  * This module exports a "Publication" mongoose Schema, which represents a researcher team's publication..
  */
 const mongoose = require('mongoose');
-import { categoryTypeEnum } from '../config/puppeteer';
 
 const publicationSchema = new mongoose.Schema(
   {
@@ -50,7 +49,7 @@ const publicationSchema = new mongoose.Schema(
     category: {
       type: {
         type: String,
-        enum: categoryTypeEnum,
+        enum: ['CONFERENCE', 'JOURNAL', 'OTHER', 'BOOK'],
         required: true,
       },
       categoryTitle: {

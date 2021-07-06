@@ -7,7 +7,7 @@ import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import MainInfoPage from "./MainInfoPage"
 import CategoryPage from "./CategoryPage"
-import { categoryType } from '../../../../../api/src/config/puppeteer';
+import { categoryType } from "../../../config/publications";
 
 const PublicationForm = (props) => {
     const dispatch = useDispatch()
