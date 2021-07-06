@@ -17,6 +17,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 
 import './layout/Layout.css'
 
+import TeamPage from './teamPage/TeamPage'
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
 
@@ -40,9 +41,10 @@ const App = () => {
                             <Sidebar />
                         </Col>
                         <Col className="page-content-wrapper" md={10} lg={10} xl={11}>
-                            <Route path="/publications/team" exact component={PublicationPage}/>
+                            <Route path="/publications" exact component={PublicationPage}/>
                             <Route path={urls.dashboard} exact component={Dashboard} />
                             <Route path="/dashboard/profile" exact component={ProfileInfoEdit} />
+                            <Route path="/team" exact component={TeamPage} />
                         </Col>
                         </Row>
                     </Container>
