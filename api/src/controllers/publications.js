@@ -256,7 +256,7 @@ async function getGoogleScholarPublications(req, res) {
     });
 
     // time how long the scraping takes
-    // console.time('doSomething');
+    console.time('doSomething');
 
     for (let i = noOfDummyLinks; i < pageSize+noOfDummyLinks; i++) {
         await cluster.queue({ "url": url, "index": i})
@@ -265,7 +265,7 @@ async function getGoogleScholarPublications(req, res) {
     await cluster.idle();
     await cluster.close();
 
-    // console.timeEnd('doSomething');
+    console.timeEnd('doSomething');
 
     const newPublications = await validateImportedPublications(teamId, publications);
 
@@ -306,7 +306,7 @@ async function validateImportedPublications(_id, publications) {
         const currentPublicationTitle = currentPublication.title.toLowerCase();
         if (!foundPublicationTitles.includes(currentPublicationTitle)) {
           newPublications.push(currentPublication);
-          console.log("Added " + currentPublicationTitle);
+        //   console.log("Added " + currentPublicationTitle);
         }
     }
 

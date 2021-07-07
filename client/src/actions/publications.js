@@ -120,7 +120,7 @@ export const importPublication = (values, startFrom, teamId) => async dispatch =
             console.log(startFrom);
             const result = await api.importPublications(author_id, startFrom, teamId)
             console.log(result);
-            if (result.data.newPublications.length == 0) { 
+            if (result.data.newPublications.length === 0) { 
                 // all publications have already been imported into db
                 // TODO: logic can probably be improved in the future to be more thorough
                 dispatch({

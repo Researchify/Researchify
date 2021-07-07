@@ -28,7 +28,7 @@ const toggleActivePage = (state, retrievedPublications) => {
   if (state.publications.length < pageSize) {
     return 1
   } else {
-    if (state.activePage != state.totalPages) { // they weren't on the latest page
+    if (state.activePage !== state.totalPages) { // they weren't on the latest page
       console.log("in true");
       const totalSize = state.publications.concat(retrievedPublications).length;
       const activePage = Math.ceil(totalSize / pageSize);
