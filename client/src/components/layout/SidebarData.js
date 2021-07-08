@@ -5,6 +5,7 @@ import {
   BsBookHalf,
   BsPerson,
   BsGearFill,
+  BsPeople,
   BsFillQuestionCircleFill,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';

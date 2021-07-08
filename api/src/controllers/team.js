@@ -150,6 +150,7 @@ async function updateTeamMember(req, res) {
 module.exports = {
   storeHandle,
   getTeam,
+  addTeam,
   createTeamMember,
   readTeamMembersByTeam,
   deleteTeamMember,

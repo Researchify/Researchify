@@ -7,7 +7,7 @@ import { ADD_USER_DATA, FETCH_USER_DATA } from './types';
 export const fetchUserAction = () => async (dispatch) => {
   try {
     // TODO: remove this when JWT available
-    const userId = '60e064e112c8b47402f730a5';
+    const userId = '606c54aa3baac51e9c5ced29';
     const res = await api.fetchUserData(userId);
     dispatch({ type: FETCH_USER_DATA, payload: res.data });
   } catch (err) {

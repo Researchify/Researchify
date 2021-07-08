@@ -54,6 +54,19 @@ export const deletePublication = (id) => async (dispatch) => {
   }
 };
 
+export const updatePublication = (id, publication) => async (dispatch) => {
+  try {
+    const { data } = await api.updatePublication(id, publication);
+    data.yearPublished = data.yearPublished.substring(0, 4); // only get the year from the date format
+    dispatch({
+      type: UPDATE_PUBLICATION,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const sortPublications =
   (teamPublications, sortingOption) => async (dispatch) => {
     console.log(teamPublications);

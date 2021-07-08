@@ -178,7 +178,7 @@ async function readAllPublicationsByTeam(req, res) {
  * @returns a list of publications of the given google scholar user id
  */
 async function getGoogleScholarPublications(req, res) {
-    // const author = req.params.gScholarUserId;
+  // const author = req.params.gScholarUserId;
 
   // const client = lambda;
   // const params = gScholarLambdaParams;
@@ -190,50 +190,71 @@ async function getGoogleScholarPublications(req, res) {
   // const asciiDecoder = new TextDecoder('utf-8');
   // const output = asciiDecoder.decode(response.Payload);
 
-    const publicationsList = []
-    for (let i =0; i<retrievedPublications.length; i++) {
-        const currentPub = retrievedPublications[i];
-        let categoryType, categoryTitle, volume, issue, pages, authorsList = "";
-        if ("journal" in currentPub["bib"]) {
-            categoryType = "JOURNAL";
-            categoryTitle = currentPub["bib"]["journal"];
-        } else if ("conference" in currentPub["bib"]) {
-            categoryType = "CONFERENCE";
-            categoryTitle = currentPub["bib"]["conference"];
-        } else { // TODO: to handle book as a separate category in the future
-            categoryType = "OTHER";
-            categoryTitle = "OTHER";
-            // categoryTitle = currentPub["bib"]["book"];
-        }
-        pages = currentPub["bib"]["pages"];
-        volume = currentPub["bib"]["volume"];
-        issue = currentPub["bib"]["issue"];
-        authorsList = currentPub["bib"]["author"].split(", ");
+  const lambdaResult = {
+    publications: [
+      {
+        container_type: 'Publication',
+        bib: {
+          title:
+            'Deepgauge: Multi-granularity testing criteria for deep learning systems',
+          pub_year: 2018,
+          author:
+            'Lei Ma, Felix Juefei-Xu, Fuyuan Zhang, Jiyuan Sun, Minhui Xue, Bo Li, Chunyang Chen, Ting Su, Li Li, Yang Liu, Jianjun Zhao, Yadong Wang',
+          book: 'Proceedings of the 33rd ACM/IEEE International Conference on Automated Software Engineering',
+          abstract:
+            'Deep learning (DL) defines a new data-driven programming paradigm that constructs the internal system logic of a crafted neuron network through a set of training data. We have seen wide adoption of DL in many safety-critical scenarios. However, a plethora of studies have shown that the state-of-the-art DL systems suffer from various vulnerabilities which can lead to severe consequences when applied to real-world applications. Currently, the testing adequacy of a DL system is usually measured by the accuracy of test data. Considering the limitation of accessible high quality test data, good accuracy performance on test data can hardly provide confidence to the testing adequacy and generality of DL systems. Unlike traditional software systems that have clear and controllable logic and functionality, the lack of interpretability in a DL system makes system analysis and defect detection difficult, which could …',
+          pages: '120-131',
+        },
+        num_citations: 99,
+        eprint_url: 'https://arxiv.org/pdf/1803.07519',
+      },
+      {
+        container_type: 'Publication',
+        bib: {
+          title:
+            'Techland: Assisting technology landscape inquiries with insights from stack overflow',
+          pub_year: 2016,
+          author: 'Chunyang Chen, Zhenchang Xing, Lei Han',
+          conference:
+            'IEEE International Conference on Software Maintenance and Evolution',
+          pages: '356-366',
+          publisher: 'IEEE',
+          abstract: `Understanding the technology landscape is crucial for the success of the software-engineering project or organization. However, it can be difficult, even for experienced developers, due to the proliferation of similar technologies, the complex and often implicit dependencies among technologies, and the rapid development in which technologylandscape evolves. Developers currently rely on online documents such as tutorials and blogs to find out best available technologies, technology correlations, and technology trends. Although helpful, online documents often lack objective, consistent summary of the technology landscape. In this paper, we present the TechLand system for assisting technology landscape inquiries with categorical, relational and trending knowledge of technologies that is aggregated from millions of Stack Overflow questions mentioning the relevant technologies. We implement the TechLand …`,
+        },
+        num_citations: 28,
+      },
+    ],
+  };
+  const retrievedPublications = lambdaResult.publications;
 
-        const publication = {
-            "authors": authorsList,
-            "title": currentPub["bib"]["title"],
-            "description": currentPub["bib"]["abstract"],
-            "yearPublished": currentPub["bib"]["pub_year"],
-            "link": currentPub["eprint_url"], // TODO: compare with pub_url
-            "citedBy": currentPub["num_citations"],
-            "category": {
-                "type": categoryType,
-                "categoryTitle": categoryTitle,
-                "publisher": currentPub["bib"]["publisher"],
-                "volume": volume,
-                "issue": issue,
-                "pages": pages
-            }
-        }
-        publicationsList.push(publication);
+  const publicationsList = [];
+  for (let i = 0; i < retrievedPublications.length; i++) {
+    const currentPub = retrievedPublications[i];
+    let categoryType,
+      categoryTitle,
+      volume,
+      issue,
+      pages,
+      authorsList = '';
+    if ('journal' in currentPub['bib']) {
+      categoryType = 'JOURNAL';
+      categoryTitle = currentPub['bib']['journal'];
+    } else if ('conference' in currentPub['bib']) {
+      categoryType = 'CONFERENCE';
+      categoryTitle = currentPub['bib']['conference'];
+    } else {
+      // TODO: to handle book as a separate category in the future
+      categoryType = 'OTHER';
+      categoryTitle = 'OTHER';
+      // categoryTitle = currentPub["bib"]["book"];
     }
     pages = currentPub['bib']['pages'];
     volume = currentPub['bib']['volume'];
     issue = currentPub['bib']['issue'];
+    authorsList = currentPub['bib']['author'].split(', ');
 
     const publication = {
-      authors: [currentPub['bib']['author']],
+      authors: authorsList,
       title: currentPub['bib']['title'],
       description: currentPub['bib']['abstract'],
       yearPublished: currentPub['bib']['pub_year'],
