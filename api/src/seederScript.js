@@ -130,7 +130,7 @@ const defaultTeams = [
 
 const populatePublications = async () => {
   try {
-    await Publication.deleteMany({});
+    // await Publication.deleteMany({});
 
     await Publication.insertMany(defaultPublications);
     console.log('Successfully imported data.');
@@ -143,7 +143,7 @@ const populatePublications = async () => {
 
 const populateUsers = async () => {
   try {
-    await User.deleteMany({});
+    // await User.deleteMany({});
 
     await User.insertMany(defaultUsers);
     console.log('Successfully imported users.');
@@ -156,7 +156,7 @@ const populateUsers = async () => {
 
 const populateThemes = async () => {
   try {
-    await Theme.deleteMany({});
+    // await Theme.deleteMany({});
 
     await Theme.insertMany(defaultThemes);
     console.log('Successfully imported themes.');
@@ -169,7 +169,7 @@ const populateThemes = async () => {
 
 const populateTemplates = async () => {
   try {
-    await Template.deleteMany({});
+    // await Template.deleteMany({});
 
     await Template.insertMany(defaultTemplates);
     console.log('Successfully imported templates.');
