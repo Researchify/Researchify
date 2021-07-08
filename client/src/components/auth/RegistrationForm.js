@@ -32,12 +32,13 @@
         setInputs({...inputs, [name]: value})
     };
 
-    const registrationResult = (isSuccessful) => {
+    const registrationResult = (isSuccessful, errorMessage) => {
         if (isSuccessful) {
             history.push("/dashboard");
         }
         else {
-            toast.error('Team could not be created :(');
+            console.error(errorMessage);
+            toast.error("Could not register");
         }
     }
 
@@ -48,7 +49,7 @@
         event.stopPropagation();
       }
       else {
-        const teamData = {email: inputs.email, teamName:inputs.teamName, orgName: inputs.orgName, password: inputs.password};
+        const teamData = {email: inputs.email, teamName:inputs.teamName, orgName: inputs.orgName, password: inputs.password, repoCreated: false};
         dispatch(addTeamInfo(teamData, registrationResult));
       }
       setValidated(true);

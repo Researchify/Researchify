@@ -30,13 +30,12 @@ Handles the UI for the log in page
 
     const [validated, setValidated] = useState(false);
 
-    const loginResult = (success) => {
+    const loginResult = (success, errMessage) => {
         if (success) {
-            console.log("Login was Successful");
             history.push("/dashboard");
         }
         else {
-            console.log("login failed");
+            console.error(errMessage);
             toast.error("Incorrect username/password");
         }
     }
