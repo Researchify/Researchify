@@ -1,7 +1,7 @@
 /**
  * Root component.
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Auth from './auth/Auth';

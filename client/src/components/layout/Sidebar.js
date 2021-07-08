@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Sidebar.css';
 import { SidebarData } from './SidebarData';
 import { Link, useLocation } from 'react-router-dom';

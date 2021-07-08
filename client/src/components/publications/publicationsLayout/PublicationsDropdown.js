@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { sortPublications } from '../../../actions/publications';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 const PublicationsDropdown = ({

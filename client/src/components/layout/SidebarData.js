@@ -9,7 +9,6 @@ import {
   BsFillQuestionCircleFill,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
-import store from '../../store';
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
