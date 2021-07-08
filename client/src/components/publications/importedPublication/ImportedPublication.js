@@ -40,7 +40,6 @@ const ImportedPublication = ({pub, index, setChecked}) => {
               >
                 {pub.link}{" "}
               </a>{" "}
-              <Button variant="link">{pub.link}</Button>
             </h6>
           )}
         </div>
