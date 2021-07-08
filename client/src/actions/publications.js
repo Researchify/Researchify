@@ -1,15 +1,18 @@
 import * as api from '../api'
-import { 
-    GET_PUBLICATIONS_BY_TEAM_ID, 
-    CREATE_PUBLICATION, 
-    UPDATE_PUBLICATION, 
-    DELETE_PUBLICATION, 
-    SORT_PUBLICATIONS,
-    CREATE_BULK_PUBLICATIONS,
-    IMPORT_REQUEST,
-    IMPORT_SUCCESS, 
-    IMPORT_FAIL
-} from './types';
+import {
+  GET_PUBLICATIONS_BY_TEAM_ID,
+  CREATE_PUBLICATION,
+  UPDATE_PUBLICATION,
+  DELETE_PUBLICATION,
+  SORT_PUBLICATIONS,
+  CREATE_BULK_PUBLICATIONS,
+  IMPORT_REQUEST,
+  IMPORT_SUCCESS,
+  IMPORT_FAIL,
+  UPDATE_GSCHOLAR_ID,
+  IMPORT_END,
+} from "./types";
+import { pageSize } from '../config/publications';
 
 export const getPublicationsByTeamId = (teamId) => async(dispatch) => {
     try{
@@ -70,8 +73,6 @@ export const deletePublication = (id) => async dispatch => {
 };
 
 export const sortPublications = (teamPublications, sortingOption) => async(dispatch) => {
-    console.log(teamPublications);
-    console.log(sortingOption);
     switch (sortingOption) {
         case "Author":
             teamPublications.sort((a, b) => (a.authors[0].toLowerCase() > b.authors[0].toLowerCase()) ? 1 : -1);
@@ -90,7 +91,6 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
             teamPublications.sort((a, b) => (a.year > b.year) ? -1 : 1);
             break;
     }
-    console.log(teamPublications);
 
     dispatch({
         type: SORT_PUBLICATIONS,
@@ -98,32 +98,77 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
     })
 }
 
-export const importPublication = (values) => async dispatch => {
+export const importPublication = (values, startFrom, teamId) => async dispatch => {
     try{
         dispatch({
             type: IMPORT_REQUEST
         })
 
         // extracting the authorId from the profileLink
-        let position = values.profileLink.indexOf('user=') 
+        let position = values.profileLink.indexOf('user=')
         if (position === -1){
             dispatch({
                 type: IMPORT_FAIL,
                 payload: "Please provide a valid profile link"
             })
         } else{
-            const author_id = values.profileLink.substring(position + 5, position+17) 
-            const result = await api.importPublications(author_id)
+            const author_id = values.profileLink.substring(position + 5, position+17)
             dispatch({
-                type: IMPORT_SUCCESS,
-                payload: result.data
+                type: UPDATE_GSCHOLAR_ID,
+                payload: author_id
             })
+            console.log(startFrom);
+            const result = await api.importPublications(author_id, startFrom, teamId)
+            console.log(result);
+            if (result.data.newPublications.length === 0) { 
+                // all publications have already been imported into db
+                // TODO: logic can probably be improved in the future to be more thorough
+                dispatch({
+                    type: IMPORT_FAIL,
+                    payload: "All publications from the profile have already been imported"
+                })
+            } else {
+                dispatch({
+                  type: IMPORT_SUCCESS,
+                  payload: result.data.newPublications,
+                });
+            }
         }
 
     } catch(error){
         dispatch({
             type: IMPORT_FAIL,
-            payload: error.response.data
+            payload: error.response
+        })
+    }
+}
+
+export const retrieveMorePublications = (author_id, startFrom, teamId) => async dispatch => {
+    try {
+        dispatch({
+            type: IMPORT_REQUEST
+        })
+        console.log("retrieve more");
+        console.log(startFrom);
+        const result = await api.importPublications(author_id, startFrom, teamId)
+        console.log(result);
+
+        if (result.data.retrieved < pageSize) {
+          // reached the end of the user's publications
+          dispatch({
+            type: IMPORT_END,
+          });
+        }
+
+        dispatch({
+            type: IMPORT_SUCCESS,
+            payload: result.data.newPublications
+        })
+
+    } catch(error) {
+        dispatch({
+            type: IMPORT_FAIL,
+            payload: error.response
         })
     }
 }

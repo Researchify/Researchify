@@ -8,11 +8,10 @@ const Publication = require("../models/publication.model");
 
 const Team = require("../models/team.model");
 
-// const lambda = require('../config/aws/lambda');
+const { Cluster } = require('puppeteer-cluster');
 
-// const { InvokeCommand } = require("@aws-sdk/client-lambda");
+const { puppeteerConfig, categoryType } = require("../config/puppeteer");
 
-// const { gScholarLambdaParams } = require("../config/constants");
 
 
 /**
@@ -157,98 +156,161 @@ async function readAllPublicationsByTeam(req, res) {
 }
 
 /**
- * Given a google scholar user id, this function calls an AWS Lambda Python function that scrapes the publications off the user's profile and returns them.
- * Some extra processing is done by this function to make the publications returned fit the publication model of the DB.
- * Endpoint: /publications/import/:id
+ * Given a google scholar user id, this function uses a headless browser via Puppeteer to scrape
+ * the publications info from a user's profile. This runs several threads in parallel specified in the config.
+ * @see config/puppeteerConfig.js
  * @param req request object - google scholar user id given in the url
  * @param res response object - array of publication objects
  * @returns a list of publications of the given google scholar user id
  */
 async function getGoogleScholarPublications(req, res) {
-    // const author = req.params.gScholarUserId;
+    const author = req.params.gScholarUserId;
+    const startFrom = req.params.startFrom;
+    const teamId = req.params.teamId;
 
-    // const client = lambda;
-    // const params = gScholarLambdaParams;
-    // params["Payload"] = "{\"author_id\": \""+ author+"\"}"
-    
-    // const command = new InvokeCommand(params);
-    // const response = await client.send(command);
+    const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
+    const noOfThreads = puppeteerConfig.noOfThreads;
+    const pageSize = puppeteerConfig.pageSize;
+    const url = puppeteerConfig.baseUrl + author + puppeteerConfig.startSuffix
+        + startFrom + puppeteerConfig.pageSizeSuffix + pageSize + puppeteerConfig.sortBySuffix;
+    console.log(url);
+    const publications = [];
 
-    // const asciiDecoder = new TextDecoder('utf-8');
-    // const output = asciiDecoder.decode(response.Payload);
+    const cluster = await Cluster.launch({
+        concurrency: Cluster.CONCURRENCY_CONTEXT,
+        maxConcurrency: noOfThreads,
+    });
 
-    // const lambdaResult = JSON.parse(JSON.parse(output));
-    // uncomment the lines below for testing if the lambda doesn't respond
-    // comment out lines 168-180 to get rid of the lambda call
-    const lambdaResult = {
-        "publications": [
-            {
-                "container_type": "Publication",
-                "bib": {
-                    "title": "Deepgauge: Multi-granularity testing criteria for deep learning systems",
-                    "pub_year": 2018,
-                    "author": "Lei Ma, Felix Juefei-Xu, Fuyuan Zhang, Jiyuan Sun, Minhui Xue, Bo Li, Chunyang Chen, Ting Su, Li Li, Yang Liu, Jianjun Zhao, Yadong Wang",
-                    "book": "Proceedings of the 33rd ACM/IEEE International Conference on Automated Software Engineering",
-                    "abstract": "Deep learning (DL) defines a new data-driven programming paradigm that constructs the internal system logic of a crafted neuron network through a set of training data. We have seen wide adoption of DL in many safety-critical scenarios. However, a plethora of studies have shown that the state-of-the-art DL systems suffer from various vulnerabilities which can lead to severe consequences when applied to real-world applications. Currently, the testing adequacy of a DL system is usually measured by the accuracy of test data. Considering the limitation of accessible high quality test data, good accuracy performance on test data can hardly provide confidence to the testing adequacy and generality of DL systems. Unlike traditional software systems that have clear and controllable logic and functionality, the lack of interpretability in a DL system makes system analysis and defect detection difficult, which could …",
-                    "pages": "120-131"
-                },
-                "num_citations": 99,
-                "eprint_url": "https://arxiv.org/pdf/1803.07519"
-            },
-            {
-                "container_type": "Publication",
-                "bib": {
-                    "title": "Techland: Assisting technology landscape inquiries with insights from stack overflow",
-                    "pub_year": 2016,
-                    "author": "Chunyang Chen, Zhenchang Xing, Lei Han",
-                    "conference": "IEEE International Conference on Software Maintenance and Evolution",
-                    "pages": "356-366",
-                    "publisher": "IEEE",
-                    "abstract": "Understanding the technology landscape is crucial for the success of the software-engineering project or organization. However, it can be difficult, even for experienced developers, due to the proliferation of similar technologies, the complex and often implicit dependencies among technologies, and the rapid development in which technology landscape evolves. Developers currently rely on online documents such as tutorials and blogs to find out best available technologies, technology correlations, and technology trends. Although helpful, online documents often lack objective, consistent summary of the technology landscape. In this paper, we present the TechLand system for assisting technology landscape inquiries with categorical, relational and trending knowledge of technologies that is aggregated from millions of Stack Overflow questions mentioning the relevant technologies. We implement the TechLand …"
-                },
-                "num_citations": 28
-            }]};
-    const retrievedPublications = lambdaResult.publications;
+    await cluster.task(async ({ page, data: data }) => {
+        const url = data["url"];
+        const index = data["index"];
+        await page.goto(url);
+        const resultLinks = await page.$$('.gsc_a_t a');
 
-    const publicationsList = []
-    for (let i =0; i<retrievedPublications.length; i++) {
-        const currentPub = retrievedPublications[i];
-        let categoryType, categoryTitle, volume, issue, pages, authorsList = "";
-        if ("journal" in currentPub["bib"]) {
-            categoryType = "JOURNAL";
-            categoryTitle = currentPub["bib"]["journal"];
-        } else if ("conference" in currentPub["bib"]) {
-            categoryType = "CONFERENCE";
-            categoryTitle = currentPub["bib"]["conference"];
-        } else { // TODO: to handle book as a separate category in the future
-            categoryType = "OTHER";
-            categoryTitle = "OTHER";
-            // categoryTitle = currentPub["bib"]["book"];
+        await Promise.all([
+            resultLinks[index].click(),
+            page.waitForSelector("div.gsc_vcd_field")
+        ]);
+
+        let title;
+
+        try {
+            // this html tag is for if the title of the publication is a link
+            title = await page.$eval("a.gsc_vcd_title_link", (titles) => titles.map((title) => title.innerText));
+
+        } catch (e) {
+            // an error will be caught if its not a link, and try a diff html tag for title
+            title = await page.$$eval("#gsc_vcd_title", (titles) => titles.map((title) => title.innerText));
         }
-        pages = currentPub["bib"]["pages"];
-        volume = currentPub["bib"]["volume"];
-        issue = currentPub["bib"]["issue"];
-        authorsList = currentPub["bib"]["author"].split(", ");
+
+        // pdf link
+        const link = await page.$$eval("div.gsc_vcd_title_ggi a", (links) => links.map((link) => link.href));
+
+        // this gives authors, pub date, journal/conf/book name, pages, description, cited by and other stuff
+        const values = await page.$$eval("div.gsc_vcd_value", (titles) => titles.map((title) => title.innerText));
+
+        // get fields
+        const fields = await page.$$eval("div.gsc_vcd_field", (titles) => titles.map((title) => title.innerText));
+
+        // collating the fields with the values
+        const publicationInfo = {};
+        fields.forEach((key, i) => publicationInfo[key] = values[i]);
+
+        let type = fields[2].toUpperCase();
+        let categoryTitle;
+        if (!(type in categoryType)) {
+          type = "OTHER";
+          categoryTitle = "OTHER";
+        } else {
+          categoryTitle = values[2];
+        }
+
+        let citedBy;
+        if (publicationInfo["Total citations"] === undefined) {
+          citedBy = "";
+        } else {
+          citedBy = publicationInfo["Total citations"]
+            .split("\n", 1)[0]
+            .split(" ")[2];
+        }
 
         const publication = {
-            "authors": authorsList,
-            "title": currentPub["bib"]["title"],
-            "description": currentPub["bib"]["abstract"],
-            "yearPublished": currentPub["bib"]["pub_year"],
-            "link": currentPub["eprint_url"], // TODO: compare with pub_url
-            "citedBy": currentPub["num_citations"],
+            "authors": publicationInfo["Authors"].split(", "),
+            "title": title[0],
+            "link": link[0] || '',
+            "description": publicationInfo["Description"] || '',
+            "citedBy": citedBy,
+            "yearPublished": (publicationInfo["Publication date"] || '').substr(0,4),  // assuming first 4 chars is year
             "category": {
-                "type": categoryType,
+                "type": type,
                 "categoryTitle": categoryTitle,
-                "publisher": currentPub["bib"]["publisher"],
-                "volume": volume,
-                "issue": issue,
-                "pages": pages
+                "pages": publicationInfo["Pages"] || '',
+                "publisher": publicationInfo["Publisher"] || '',
+                "volume": publicationInfo["Volume"] || '',
+                "issue": publicationInfo["Issue"] ||''
             }
         }
-        publicationsList.push(publication);
+
+        publications.push(publication);
+
+    });
+
+    // time how long the scraping takes
+    console.time('doSomething');
+
+    for (let i = noOfDummyLinks; i < pageSize+noOfDummyLinks; i++) {
+        await cluster.queue({ "url": url, "index": i})
     }
-    res.status(200).json(publicationsList);
+
+    await cluster.idle();
+    await cluster.close();
+
+    console.timeEnd('doSomething');
+
+    const newPublications = await validateImportedPublications(teamId, publications);
+
+    const response = {
+        "retrieved": publications.length,
+        "newPublications": newPublications
+    }
+
+    res.status(200).json(response);
+
+}
+
+/**
+ * Helper function to compare the publications scraped from google scholar with the ones in db,
+ * and return the publications not already in the db.
+ * @param _id teamId
+ * @param publications list of publications scraped from google scholar
+ * @returns the list of publications that are not already in the db and can be added
+ */
+async function validateImportedPublications(_id, publications) {
+    const foundPublications = await Publication.aggregate([
+      {
+        $match: { teamId: mongoose.Types.ObjectId(_id) },
+      },
+      {
+        $addFields: { year: { $year: "$yearPublished" } },
+      },
+      {
+        $sort: { year: -1, title: 1 },
+      },
+    ]);
+
+    const foundPublicationTitles = foundPublications.map(pub => pub.title.toLowerCase());
+    let newPublications = []
+
+    for (let i = 0; i < publications.length; i++) {
+        const currentPublication = publications[i];
+        const currentPublicationTitle = currentPublication.title.toLowerCase();
+        if (!foundPublicationTitles.includes(currentPublicationTitle)) {
+          newPublications.push(currentPublication);
+        //   console.log("Added " + currentPublicationTitle);
+        }
+    }
+
+    return newPublications;
 
 }
 
@@ -265,5 +327,12 @@ async function importPublications(req, res) {
     res.status(201).json(importedPublications);
 }
 
-module.exports = {deletePublication, updatePublication, createPublication, readPublication, 
-    readAllPublicationsByTeam, importPublications, getGoogleScholarPublications};
+module.exports = {
+  deletePublication,
+  updatePublication,
+  createPublication,
+  readPublication,
+  readAllPublicationsByTeam,
+  importPublications,
+  getGoogleScholarPublications,
+};

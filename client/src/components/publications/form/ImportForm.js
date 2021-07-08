@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
 import { Spinner } from "react-bootstrap";
-import ImportSucessPage from './ImportSuccessPage';
+import ImportSuccessPage from './ImportSuccessPage';
 import ImportFailPage from './ImportFailPage';
 import ProfileLinkPage from './ProfileLinkPage';
 
@@ -11,7 +11,7 @@ const ImportForm = ({closeModal}) => {
     const displayResult = () => {
         switch(importStatus){
             case "SUCCESS":
-                return <ImportSucessPage closeModal={closeModal}/>
+                return <ImportSuccessPage closeModal={closeModal}/>
             case "FAIL":
                 return <ImportFailPage closeModal={closeModal}/>
             default:

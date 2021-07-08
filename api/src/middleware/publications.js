@@ -4,6 +4,7 @@
 
 const { body,validationResult } = require('express-validator');
 const axios = require("axios");
+const categoryTypeEnum = require("../config/puppeteer");
 
 
 /**
@@ -57,11 +58,11 @@ const createPublicationValidation = [
       .isLength(4),
     body("category.type", "Error: Category type must not be empty.")
       .notEmpty(),
-    body("category.type", "Error: Category type does not match any of ['CONFERENCE', 'JOURNAL', 'OTHER'].")
+    body("category.type", `Error: Category type does not match any of ${categoryTypeEnum}.`)
       .if(body("category.type")
       .exists()
       .notEmpty())
-      .isIn(["CONFERENCE", "JOURNAL", "OTHER"]),
+      .isIn(categoryTypeEnum),
     body("category.categoryTitle", "Error: Category title must not be empty.")
       .notEmpty(),
     body("category.categoryTitle", "Error: Category title must be at least 3 characters.")
