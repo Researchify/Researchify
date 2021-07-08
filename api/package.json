@@ -14,14 +14,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-lambda": "^3.16.0",
-    "@aws-sdk/credential-provider-node": "^3.16.0",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "mongoose": "^5.12.2",
+    "puppeteer": "^10.0.0",
+    "puppeteer-cluster": "^0.22.0",
     "validator": "^13.5.2",
     "winston": "^3.3.3"
   },

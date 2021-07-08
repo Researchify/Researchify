@@ -19,8 +19,8 @@ export const updatePublication = (id, updatedPublication) =>
 export const deletePublication = (id) => api.delete(`/publications/${id}`);
 export const createBulkPublications = (teamId, publicationList) =>
   api.post(`/publications/import/${teamId}`, publicationList);
-export const importPublications = (author_id) =>
-  api.get(`/publications/import/${author_id}`);
+export const importPublications = (authorId, startFrom, teamId) =>
+  api.get(`/publications/import/${authorId}/${startFrom}/validate/${teamId}`);
 
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
 export const registerTwitterHandle = (teamId, handle) =>

@@ -3,7 +3,7 @@
  */
 
 import Publication from '../publication/Publication'
-import { CATEGORY_TYPE } from '../form/PublicationForm'
+import { categoryType } from '../../../config/publications';
 
 const LayoutByCategory = ({teamPublications}) => {
 
@@ -23,7 +23,7 @@ const LayoutByCategory = ({teamPublications}) => {
         )
     }
     return(
-        Object.keys(CATEGORY_TYPE).map(category => (
+        Object.keys(categoryType).map(category => (
             renderPublicationsByCategory(category)
         ))
     )
