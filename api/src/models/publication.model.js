@@ -32,8 +32,6 @@ const publicationSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
-      minlength: 5,
     },
     summary: {
       type: String,
