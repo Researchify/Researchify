@@ -70,35 +70,40 @@ const createPublicationValidation = [
     .exists()
     .notEmpty())
     .trim()
-    .isLength({ min: 3 }),  
-      (req, res, next) => {
-        // Finds the validation errors in this request and wraps them in an object with handy functions
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ errors: errors.array() });
-        }
-        next();
-      },
-  ];
-
-async function validateAuthorId(req, res, next) {
-    const {gScholarUserId: _id} = req.params;
-
-    if (_id.length != 12) {
-        return res.status(400).json(`Error: User ID needs to be 12 characters long.`);
-    }
-
-    try {
-        await axios.get("https://scholar.google.com.sg/citations?user=" + _id);
-    } catch(error) {
-        console.log(error);
-        if (error.response.status == 404) {
-            return res.status(404).json(`Error: There is no user profile found with the given id.`);
-        } else {
-            return res.status(error.response.status).json(error.message);
-        }
+    .isLength({ min: 3 }),
+  (req, res, next) => {
+    console.log('hello');
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
     next();
+  },
+];
+
+async function validateAuthorId(req, res, next) {
+  const { gScholarUserId: _id } = req.params;
+
+  if (_id.length != 12) {
+    return res
+      .status(400)
+      .json(`Error: User ID needs to be 12 characters long.`);
+  }
+
+  try {
+    await axios.get('https://scholar.google.com.sg/citations?user=' + _id);
+  } catch (error) {
+    console.log(error);
+    if (error.response.status == 404) {
+      return res
+        .status(404)
+        .json(`Error: There is no user profile found with the given id.`);
+    } else {
+      return res.status(error.response.status).json(error.message);
+    }
+  }
+  next();
 }
 
-  module.exports = { createPublicationValidation, validateAuthorId }
+module.exports = { createPublicationValidation, validateAuthorId };
