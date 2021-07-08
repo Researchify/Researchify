@@ -37,6 +37,11 @@ export const SidebarData = () => {
       link: '/dashboard/profile',
     },
     {
+      title: 'Team Member',
+      icon: <BsPeople />,
+      link: '/team',
+    },
+    {
       title: 'Settings',
       icon: <BsGearFill />,
       link: '/dashboard/settings',

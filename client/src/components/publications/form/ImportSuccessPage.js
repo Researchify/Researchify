@@ -36,7 +36,10 @@ const ImportSucessPage = ({closeModal}) => {
 
     const handleConfirmImport = () => {
         let checkedPublications = publications.filter((pub, idx) => checkedArray[idx])
-        checkedPublications.map(pub => ({...pub, teamId: teamId}))
+        for (let i = 0; i < checkedPublications.length; i++) {
+            checkedPublications[i].yearPublished = checkedPublications[i].yearPublished.toString() + "-01-01";
+        }
+        checkedPublications = checkedPublications.map(pub => ({...pub, teamId: teamId}))
         dispatch(createBulkPublications(teamId, checkedPublications))
         handleClose()
     }

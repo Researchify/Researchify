@@ -29,6 +29,13 @@ const teamSchema = new mongoose.Schema(
       ref: 'template',
       required: true,
     },
+    teamMembers: [
+      {
+        fullName: { type: String, required: true, minLength: 3 },
+        position: { type: String, required: true },
+        summary: { type: String, required: true, minLength: 3 },
+      },
+    ],
   },
   { timestamps: true }
 );

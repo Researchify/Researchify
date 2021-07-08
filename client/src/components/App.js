@@ -17,6 +17,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import './layout/Layout.css';
 
+import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
 import { fetchUserAction } from '../actions/users';
@@ -58,6 +59,7 @@ const App = () => {
                   exact
                   component={ProfileInfoEdit}
                 />
+                <Route path="/team" exact component={TeamPage} />
               </Col>
             </Row>
           </Container>
