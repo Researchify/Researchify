@@ -14,7 +14,7 @@ import {
 } from "./types";
 
 /**
- * Adds a new team to redux store and database. If api request fails the team state's requestFailed attribute will be 'true'
+ * Adds a new team to redux store and database.
  * @param teamInfo contains teamName, orgName and emailnot
  */
 export const addTeamInfo = (teamInfo, result) => async (dispatch) => {
@@ -23,8 +23,6 @@ export const addTeamInfo = (teamInfo, result) => async (dispatch) => {
     const teamData = {
       ...teamInfo,
       teamId: data.data._id,
-      requestFailed: false,
-      error: "",
     };
     dispatch({
       type: ADD_TEAM,
@@ -53,8 +51,6 @@ export const getTeam = (teamCredentials, result) => async (dispatch) => {
       orgName: teamData.orgName,
       twitterHandle: teamData.twitterHandle,
       repoCreated: teamData.repoCreated,
-      requestFailed: false,
-      error: "",
     };
     dispatch({
       type: ADD_TEAM,

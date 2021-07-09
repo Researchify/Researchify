@@ -68,13 +68,6 @@ async function getTeam(req, res) {
   return res.status(200).send(req.foundTeam);
 }
 
-async function addTeam(req, res) {
-  const team = req.body;
-
-  const createdTeam = await Team.create(team);
-  res.status(201).json(createdTeam);
-}
-
 /**
  * Gets the team document from the database on /team.
  * @param {*} req request object, containing team email and password in the body as JSON
