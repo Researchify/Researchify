@@ -15,23 +15,18 @@ import {
 
 /**
  * Adds a new team to redux store and database.
- * @param teamInfo contains teamName, orgName and emailnot
+ * @param teamInfo contains teamName, orgName and email
  */
-export const addTeamInfo = (teamInfo, result) => async (dispatch) => {
-  try {
-    const data = await api.addTeam(teamInfo);
-    const teamData = {
-      ...teamInfo,
-      teamId: data.data._id,
-    };
-    dispatch({
-      type: ADD_TEAM,
-      payload: teamData,
-    });
-    result(true, "");
-  } catch (err) {
-    result(false, err);
-  }
+export const addTeamInfo = (teamInfo) => async (dispatch) => {
+  const data = await api.addTeam(teamInfo);
+  const teamData = {
+    ...teamInfo,
+    teamId: data.data._id,
+  };
+  dispatch({
+    type: ADD_TEAM,
+    payload: teamData,
+  });
 };
 
 /**
@@ -39,27 +34,22 @@ export const addTeamInfo = (teamInfo, result) => async (dispatch) => {
  * @param teamCredentials team email and password as a dictionary
  * @param teamPassword team account password
  */
-export const getTeam = (teamCredentials, result) => async (dispatch) => {
-  try {
-    const data = await api.loginTeam(teamCredentials);
-    const teamData = data.data.team;
-    console.log(teamData);
-    const team = {
-      teamId: teamData._id,
-      email: teamData.email,
-      teamName: teamData.teamName,
-      orgName: teamData.orgName,
-      twitterHandle: teamData.twitterHandle,
-      repoCreated: teamData.repoCreated,
-    };
-    dispatch({
-      type: ADD_TEAM,
-      payload: team,
-    });
-    result(true, "");
-  } catch (err) {
-    result(false, err);
-  }
+export const getTeam = (teamCredentials) => async (dispatch) => {
+  const data = await api.loginTeam(teamCredentials);
+  const teamData = data.data.team;
+  console.log(teamData);
+  const team = {
+    teamId: teamData._id,
+    email: teamData.email,
+    teamName: teamData.teamName,
+    orgName: teamData.orgName,
+    twitterHandle: teamData.twitterHandle,
+    repoCreated: teamData.repoCreated,
+  };
+  dispatch({
+    type: ADD_TEAM,
+    payload: team,
+  });
 };
 
 /**
