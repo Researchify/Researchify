@@ -5,12 +5,14 @@ import {
   FETCH_TEAM_INFO,
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
+  GET_GH_ACCESS_TOKEN,
 } from '../actions/types';
 
 const INITIAL_TEAM_STATE = {
   teamId: '60e064e012c8b47402f7309f', // todo: change to empty str when integrating
   teamName: 'testingTeam',
   twitterHandle: 'JamesTurner_42',
+  accessToken: null
 };
 
 /**
@@ -29,6 +31,8 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return { ...state, twitterHandle: action.payload };
     case UNLINK_TEAM_TWITTER:
       return { ...state, twitterHandle: action.payload };
+    case GET_GH_ACCESS_TOKEN:
+      return { ...state, accessToken: action.payload };
     default:
       return state;
   }

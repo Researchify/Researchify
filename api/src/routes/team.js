@@ -45,4 +45,9 @@ teamRouter.patch(
   teamController.updateTeamMember
 );
 
+teamRouter.get(
+  '/:team_id/gh_auth/:code',
+  teamController.getGHAccessToken
+);
+
 module.exports = teamRouter;

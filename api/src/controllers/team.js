@@ -8,6 +8,8 @@ const Team = require('../models/team.model');
 
 const mongoose = require('mongoose');
 
+const {githubAccessTokenUrlStart, githubAccessTokenUrlEnd} = require('../config/deploy');
+
 const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
@@ -147,6 +149,26 @@ async function updateTeamMember(req, res) {
   }
 }
 
+async function getGHAccessToken(req, res) {
+  // const code = req.params.code;
+  const code = req.params.code;
+  console.log(req.params.code);
+  
+  const response = await axios({
+    url: githubAccessTokenUrlStart + code + githubAccessTokenUrlEnd,
+    method: 'post',
+    headers: { Accept: 'application/json' },
+  });
+    console.log(response.data);
+    // console.log(data);
+
+  if (response.data.error) {
+    return res.status(400).json(response.data)
+  }
+  
+  return res.status(200).json(response.data);
+}
+
 module.exports = {
   storeHandle,
   getTeam,
@@ -155,4 +177,5 @@ module.exports = {
   readTeamMembersByTeam,
   deleteTeamMember,
   updateTeamMember,
+  getGHAccessToken,
 };

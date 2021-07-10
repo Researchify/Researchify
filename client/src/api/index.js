@@ -36,3 +36,5 @@ export const updateTeamMember = (teamId, updatedTeamMember) =>
   api.patch(`/team/${teamId}/member`, updatedTeamMember);
 export const deleteTeamMember = (teamId, teamMemberId) =>
   api.delete(`/team/${teamId}/member/${teamMemberId}`);
+export const getGHAccessToken = (teamId, code) =>
+  api.get(`/team/${teamId}/gh_auth/${code}`);

@@ -8,6 +8,7 @@ import Auth from './auth/Auth';
 import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
+import DeployPage from './deploy/DeployPage';
 
 import Register from './auth/Register';
 import Login from './auth/Login';
@@ -60,6 +61,7 @@ const App = () => {
                   component={ProfileInfoEdit}
                 />
                 <Route path="/team" exact component={TeamPage} />
+                <Route path="/deploy" exact component={DeployPage} />
               </Col>
             </Row>
           </Container>

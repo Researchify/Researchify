@@ -9,7 +9,8 @@ import {
     GET_TEAM_MEMBERS_BY_TEAM_ID, 
     CREATE_TEAM_MEMBER, 
     UPDATE_TEAM_MEMBER, 
-    DELETE_TEAM_MEMBER } from './types';
+    DELETE_TEAM_MEMBER, 
+    GET_GH_ACCESS_TOKEN} from './types';
 
 /**
  * This action creator will be called to populate a signed-in-user's team information.
@@ -160,3 +161,15 @@ export const deleteTeamMember = (teamId, memberId) => async dispatch => {
         console.log(error);
     }
 };
+
+export const getGHAccessToken = (teamId, code) => async dispatch => {
+    try {
+        const response = await api.getGHAccessToken(teamId, code);
+        dispatch({
+            type: GET_GH_ACCESS_TOKEN,
+            payload: response.data
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}

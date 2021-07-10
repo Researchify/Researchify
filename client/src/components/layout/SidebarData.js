@@ -7,6 +7,7 @@ import {
   BsGearFill,
   BsPeople,
   BsFillQuestionCircleFill,
+  BsUpload
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 
@@ -40,6 +41,11 @@ export const SidebarData = () => {
       title: 'Team Member',
       icon: <BsPeople />,
       link: '/team',
+    },
+    {
+      title: 'Deploy Website',
+      icon: <BsUpload />,
+      link: '/deploy',
     },
     {
       title: 'Settings',
