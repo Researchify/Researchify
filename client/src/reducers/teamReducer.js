@@ -5,17 +5,20 @@ import {
   FETCH_TEAM_INFO,
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
-} from '../actions/types';
+  ADD_TEAM,
+} from "../actions/types";
 
 const INITIAL_TEAM_STATE = {
-  teamId: '60e064e012c8b47402f7309f', // todo: change to empty str when integrating
-  teamName: 'testingTeam',
-  twitterHandle: 'JamesTurner_42',
+  teamId: "", // todo: change to empty str when integrating
+  teamName: "",
+  orgName: "",
+  email: "",
+  twitterHandle: "",
+  repoCreated: false,
 };
 
 /**
- * This teamReducer will handle all dispatched team-related actions, i.e. FETCH_TEAM_INFO, LINK_TEAM_TWITTER, and
- * UNLINK_TEAM_TWITTER.
+ * This teamReducer will handle all dispatched team-related actions, i.e. FETCH_TEAM_INFO, LINK_TEAM_TWITTER, and UNLINK_TEAM_TWITTER.
  *
  * @param state the state for a team in our application, initialized to INITIAL_TEAM_STATE.
  * @param action the action that was dispatched, and now input into this reducer.
@@ -29,6 +32,8 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return { ...state, twitterHandle: action.payload };
     case UNLINK_TEAM_TWITTER:
       return { ...state, twitterHandle: action.payload };
+    case ADD_TEAM:
+      return action.payload;
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 /**
+ * Note: User Model not being used currently, but may be needed later
  * This module exports a "User" mongoose Schema, which stores a user's registration details.
  */
 const mongoose = require('mongoose');
