@@ -71,3 +71,28 @@
 .researchify-dashboard-card-link:hover{
     text-decoration: none;
 }
+
+.theme-icon{
+    color: transparent;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.lightblue-theme-icon{
+    background: linear-gradient(to right, #8da4d1 0%, #8da4d1 50%, #419aee 50%, #419aee 100%);
+}
+
+.blackwhite-theme-icon{
+    background: linear-gradient(to right, #ebe6e6, #ebe6e6 50%, #000000 50%, #000000 100%);
+}
+
+.green-theme-icon{
+    background: linear-gradient(to right, #868789 0%, #868789 50%, #008000 50%, #008000 100%);
+}
+
+.theme-selector, .layout-selector{
+    margin-bottom: 10px;
+}

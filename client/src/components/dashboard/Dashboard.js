@@ -1,235 +1,286 @@
 /**
- * This file exports the inner content of Researchify Dashboard Page
+ * This file exports the content in of Researchify Dashboard Page
  */
-import React, { useState } from 'react'
-import { Container, Button, Modal, Image, CardGroup, Card, Form } from "react-bootstrap"
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import {
+  Container,
+  Button,
+  Modal,
+  CardGroup,
+  Card,
+  Form,
+  Row,
+  Col,
+  Image,
+} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-/** Redux **/
-import { useDispatch, useSelector } from 'react-redux';
-import { createWebsite } from '../../actions/website';
+// /** Redux **/
+// import { useDispatch, useSelector } from "react-redux";
+// import { createWebsite } from "../../actions/website";
 
 /** icons **/
-import { BsPencilSquare, BsServer, BsDisplayFill, BsChevronRight, BsChevronLeft, BsCheck } from 'react-icons/bs'
+import {
+  BsPencilSquare,
+  BsServer,
+  BsDisplayFill,
+  BsCheck,
+} from "react-icons/bs";
 
 /** css **/
-import './Dashboard.css';
+import "./Dashboard.css";
 
-// import DashboardModal from './DashboardModal'
-import homeTemplateImg1 from '../../images/home_page_template1.jpg';
-import homeTemplateImg2 from '../../images/home_page_template2.jpg';
+// import picutre of each layout
+import singleColumnLayout from "../../images/single-column-layout.png";
+import fShapeLayout from "../../images/f-shape-layout.png";
+import zigZagLayout from "../../images/zig-zag-layout.png";
 
-/** api to patch github token **/
-import api from '../../api/api';
-import {createRepository} from '../github';
+// /** api to patch github token **/
+// import api from "../../api/api";
+// import { createRepository } from "../github";
 
-const handleRepoCreation = (created, response) => {
-    if (created) {
-        console.log("Repo created");
-    }
-    else {
-        console.log("Repo failed to create");
-    }
-}
+// const handleRepoCreation = (created, response) => {
+//   if (created) {
+//     console.log("Repo created");
+//   } else {
+//     console.log("Repo failed to create");
+//   }
+// };
 
-/** Pass the github username and token into api **/
-const storeGithubToken = (teamId, username, token) => {
-    // TODO: validate the input and token (token start with 'ghp_' and has total 40 characters)
+// /** Pass the github username and token into api **/
+// const storeGithubToken = (teamId, username, token) => {
+//   // TODO: validate the input and token (token start with 'ghp_' and has total 40 characters)
 
-    try {
-        //createRepository(githubToken, githubUsername, "Team Name", handleRepoCreation)
-        api.patch(`team/${teamId}`, {githubToken: token});
-        api.patch(`team/${teamId}`, {githubUsername: username});
+//   try {
+//     //createRepository(githubToken, githubUsername, "Team Name", handleRepoCreation)
+//     api.patch(`team/${teamId}`, { githubToken: token });
+//     api.patch(`team/${teamId}`, { githubUsername: username });
+//   } catch (err) {
+//     console.error(
+//       `Error in patching github token/username in Dashboard.js: ${err}`
+//     );
+//   }
+// };
 
-    } catch (err) {
-        console.error(`Error in patching github token/username in Dashboard.js: ${err}`);
-    }
-
+// Conditional Rendering - button to create a website
+const CreateWebsiteButton = (props) => {
+  if (!props.isCreated) {
+    return(
+      <Button onClick={props.clickFunction}> Build a new Website </Button>
+    )
+  }
+  return null;
 }
 
 const Dashboard = () => {
+  // check if website is created / github token is stored
+  // TODO: get the token info from database and check
+  const [websiteIsCreated, createWebsite] = useState(false);
 
-    /** Managing the navigation between modals **/
-    const [githubModal, setShowGithub] = useState(false);
-    const [template1, setShowTemplate1] = useState(false);
-    const [template2, setShowTemplate2] = useState(false);
+  // Managing the display of each modal
+  const [displayModal, setDisplay] = useState({
+    githubModal: false,
+    templateSelector: false,
+  });
+  // function to open/close window for inputting github token
+  const showGithubModal = () => setDisplay({ githubModal: true });
+  const closeGithubModal = () => setDisplay({ githubModal: false });
+  // function to open/close window for customising template
+  const showTemplateSelector = () => setDisplay({ templateSelector: true });
+  const closeTemplateSelector = () => setDisplay({ templateSelector: false });
 
-    const closeGithubModal = () => setShowGithub(false);
-    const closeTemplate1 = () => setShowTemplate1(false);
-    const closeTemplate2 = () => setShowTemplate2(false);
+  // Storing and passing github token and username
+  const [github, setGithub] = useState({
+    username: null,
+    token: null,
+  });
+  const updateGithub = (form) => {
+    const { name, value } = form.target;
+    setGithub({ ...github, [name]: value });
+  };
 
-    const showGithubModal = () => setShowGithub(true);
-    const showTemplate1 = () => setShowTemplate1(true);
-    const showTemplate2 = () => setShowTemplate2(true);
+  // Storing and passing layout and theme selection
+  const [templates, setTemplates] = useState({
+    theme: null,
+    layout: null,
+  });
+  // update the template selection
+  const updateTemplate = (form) => {
+    const { name, value } = form.target;
+    setTemplates({ ...templates, [name]: value });
+  };
 
-    /** Set the state of 'website.isCreated' to display different button**/
-    const dispatch = useDispatch();
-    const websiteIsCreated = useSelector(state => state.team.repoCreated);
+  // ---------- below is to get team id and use it to call api to update the github token and username -------
+  // const teamId = useSelector((state) => state.team.teamId);
 
-    /** state of github token and username */
-    const [token, setToken] = useState(null);
-    const [username, setUsername] = useState(null);
-    const teamId = useSelector(state => state.team.teamId);
+  //   // Set the state of 'website.isCreated' to display different button
+  //   const dispatch = useDispatch();
+  //   const websiteIsCreated = useSelector((state) => state.team.repoCreated);
+  // -----------------------------until here --------------------------------
 
+  return (
+    <Container fluid className="researchify-dashboard-container">
+      <Card className="text-center researchify-dashboard-card">
+        <Card.Body>
+          <CreateWebsiteButton isCreated={websiteIsCreated} clickFunction={showGithubModal} />
+        </Card.Body>
 
-    return (
+        <Card.Body className="researchify-dashboard-card-description">
+          {websiteIsCreated
+            ? "Your website is created, edit your website in editor."
+            : "Click the button to enter Personal Acess Token and get started."}
+        </Card.Body>
 
-        <Container fluid className="researchify-dashboard-container">
-            <Card className="text-center researchify-dashboard-card">
+        {/* Bottom layer of the three icons */}
+        <CardGroup className="researchify-dashboard-card-group">
+          <Card>
+            <Link className="researchify-dashboard-card-link">
+              <Card.Body>
+                <BsPencilSquare className="researchify-dashboard-card-icons" />
+              </Card.Body>
+              <p>Editor</p>
+            </Link>
+          </Card>
+          <Card>
+            <Link className="researchify-dashboard-card-link">
+              <Card.Body>
+                <BsServer className="researchify-dashboard-card-icons" />
+              </Card.Body>
+              <p>API Acess Manager</p>
+            </Link>
+          </Card>
+          <Card>
+            <Link className="researchify-dashboard-card-link">
+              <Card.Body>
+                <BsDisplayFill className="researchify-dashboard-card-icons" />
+              </Card.Body>
+              <p>Website</p>
+            </Link>
+          </Card>
+        </CardGroup>
+      </Card>
 
-                <Card.Body>
-                    {/* TODO: Use different button, edit button shouldnt pop out */}
-                    <Button onClick={showGithubModal}>
-                        {websiteIsCreated ? "Edit the Website" : "Build a new Website"}
-                    </Button>
-                </Card.Body>
+      {/*'Pop up - Entering User GitHub Pages Token'*/}
+      <Modal
+        show={displayModal.githubModal}
+        onHide={closeGithubModal}
+        centered
+        size="lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Enter your GitHub Credentials
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form className="researchify-github-form">
+            <Form.Group controlId="formGithubUsername">
+              <Form.Label>Github Username</Form.Label>
+              <Form.Control
+                onChange={updateGithub}
+                name="username"
+                type="text"
+                placeholder="Enter your GitHub Username Here"
+                required
+              />
+            </Form.Group>
 
-                <Card.Body className="researchify-dashboard-card-description">
-                    {websiteIsCreated ?
-                        "Click the button to edit the Website" :
-                        "Click the button to enter Personal Acess Token and get started."}
-                </Card.Body>
+            <Form.Group controlId="formGithubToken">
+              <Form.Label>Github Personal Access Token</Form.Label>
+              <Form.Control
+                onChange={updateGithub}
+                name="token"
+                type="text"
+                placeholder="Enter your GitHub Personal Access Token Here"
+                required
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
 
-                {/* Bottom layer of the three icons */}
-                <CardGroup className="researchify-dashboard-card-group">
-                    <Card>
-                        <Link className="researchify-dashboard-card-link">
-                            <Card.Body>
-                                <BsPencilSquare className="researchify-dashboard-card-icons" />
-                            </Card.Body>
-                            <p>Editor</p>
-                        </Link>
-                    </Card>
-                    <Card>
-                        <Link className="researchify-dashboard-card-link">
-                            <Card.Body>
-                                <BsServer className="researchify-dashboard-card-icons" />
-                            </Card.Body>
-                            <p>API Acess Manager</p>
-                        </Link>
-                    </Card>
-                    <Card>
-                        <Link className="researchify-dashboard-card-link">
-                            <Card.Body>
-                                <BsDisplayFill className="researchify-dashboard-card-icons" />
-                            </Card.Body>
-                            <p>Website</p>
-                        </Link>
-                    </Card>
-                </CardGroup>
-            </Card>
+        <Modal.Footer>
+          <Button
+            onClick={() => {
+              // storeGithubToken(teamId, username, token);
+              closeGithubModal(); // close the github pop up
+              showTemplateSelector(); // open template selector pop up
+            }}
+          >
+            Next
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
-            {/*'Entering User GitHub Pages Token'*/}
-            <Modal show={githubModal} onHide={closeGithubModal} centered size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Enter your GitHub Credentials
-                        </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+      {/* Pop up - modal to select a theme and layout*/}
+      <Modal
+        show={displayModal.templateSelector}
+        onHide={closeTemplateSelector}
+        centered
+        size="lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Select the a theme and layout for your website
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* Section to select a theme colour */}
+          <div className="theme-selection-column">
+            <p>Select a theme colour</p>
+            <Container fluid className="theme-selector">
+              <Row>
+                {/* TODO: Determine the final theme colour combination */}
+                <Button className="theme-icon-wrapper" variant="link">
+                  <div className="theme-icon green-theme-icon"></div>
+                </Button>
+                <Button className="theme-icon-wrapper" variant="link">
+                  <div className="theme-icon lightblue-theme-icon"></div>
+                </Button>
+                <Button className="theme-icon-wrapper" variant="link">
+                  <div className="theme-icon blackwhite-theme-icon"></div>
+                </Button>
+              </Row>
+            </Container>
+          </div>
 
-                    <Form className="researchify-github-form">
+          {/* Section to select a website layout */}
+          <div className="layout-selection-column">
+            <p>Select a layout</p>
+            <Container fluid className="layout-selector">
+              <Row>
+                <Col className="layout-display">
+                  <Button className="layout-icon-wrapper" variant="link">
+                    <Image src={singleColumnLayout} className="img-fluid" />
+                  </Button>
+                </Col>
+                <Col className="layout-display">
+                  <Button className="layout-icon-wrapper" variant="link">
+                    <Image src={fShapeLayout} className="img-fluid" />
+                  </Button>
+                </Col>
+                <Col className="layout-display">
+                  <Button className="layout-icon-wrapper" variant="link">
+                    <Image src={zigZagLayout} className="img-fluid" />
+                  </Button>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+        </Modal.Body>
 
-                        <Form.Group controlId="formGithubUsername">
-                            <Form.Label>Github Username</Form.Label>
-                            <Form.Control
-                                onChange={e => setUsername(e.target.value)}
-                                type="text"
-                                placeholder={"Enter your GitHub Username Here"}
-                            />
-                        </Form.Group>
+        <Modal.Footer>
+          <Button
+            onClick={() => {
+              closeTemplateSelector();
+              createWebsite(true);
+            }}
+          >
+            <BsCheck />
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </Container>
+  );
+};
 
-                        <Form.Group controlId="formGithubToken">
-                            <Form.Label>Github Personal Access Token</Form.Label>
-                            <Form.Control
-                                onChange={e => setToken(e.target.value)}
-                                type="text"
-                                placeholder={"Enter your GitHub Personal Access Token Here"}
-                            />
-                        </Form.Group>
-
-                    </Form>
-
-                </Modal.Body>
-
-                <Modal.Footer>
-                    <Button onClick={() => {
-                        storeGithubToken(teamId, username, token);
-                        closeGithubModal();
-                        showTemplate1()
-                    }}>
-                        Next
-                            </Button>
-                </Modal.Footer>
-            </Modal>
-
-            {/* TODO: refactor the modal into reusable component */}
-            {/*'Selecting Template 1 Modal'*/}
-            <Modal show={template1} onHide={closeTemplate1} centered size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Select a template
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Image src={homeTemplateImg1} className="img-fluid" />
-                    <p>
-                        Option 1: Light minimalist design with blue and white accents.
-                    </p>
-                </Modal.Body>
-
-                <Modal.Footer>
-                    <Button variant="secondary"
-                        onClick={() => {
-                            closeTemplate1();
-                            showTemplate2()
-                        }}
-                    >
-                        <BsChevronRight />
-                    </Button>
-                    <Button onClick={() => {
-                        dispatch(createWebsite());
-                        closeTemplate1()
-                    }}>
-                        <BsCheck />
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-            {/*'Selecting Template 2 Modal'*/}
-            <Modal show={template2} onHide={closeTemplate2} centered size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Select a template
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Image src={homeTemplateImg2} className="img-fluid" />
-                    <p>
-                        Option 2: Dark minimalist design with blue and black accents.
-                    </p>
-                </Modal.Body>
-
-                <Modal.Footer>
-                    <Button variant="secondary"
-                        onClick={() => {
-                            showTemplate1();
-                            closeTemplate2()
-                        }}
-                    >
-                        <BsChevronLeft />
-                    </Button>
-                    <Button onClick={() => {
-                        dispatch(createWebsite());
-                        closeTemplate2()
-                    }}>
-                        <BsCheck />
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-        </Container>
-    )
-}
-
-export default Dashboard
+export default Dashboard;
