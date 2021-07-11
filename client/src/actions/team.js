@@ -1,7 +1,7 @@
 /**
  * This file houses our team-related Action Creators.
  */
-import * as api from "../api";
+import * as api from '../api';
 import {
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
@@ -11,7 +11,7 @@ import {
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
   ADD_TEAM,
-} from "./types";
+} from './types';
 
 /**
  * Adds a new team to redux store and database.
@@ -112,7 +112,7 @@ export const linkTwitter = (teamId, handle) => async (dispatch) => {
 export const unlinkTwitter = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.deregisterTwitterHandle(teamId, {
-      twitterHandle: "",
+      twitterHandle: '',
     });
     dispatch({
       type: UNLINK_TEAM_TWITTER,
@@ -172,7 +172,7 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
  */
 export const updateTeamMember = (id, teamMember) => async (dispatch) => {
   try {
-    console.log("updateTeamMember");
+    console.log('updateTeamMember');
     const { data } = await api.updateTeamMember(id, teamMember);
 
     console.log(data);

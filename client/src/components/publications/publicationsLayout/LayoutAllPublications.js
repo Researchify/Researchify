@@ -1,20 +1,19 @@
 /**
- * The LayoutAllPublications component displays a list of publications 
+ * The LayoutAllPublications component displays a list of publications
  */
 
-import Publication from '../publication/Publication'
+import Publication from '../publication/Publication';
 
-const LayoutAllPublications = ({teamPublications}) => {    
-    return(
-        <>
-            <div className="publicationList">
-            {
-                teamPublications.map(pub => 
-                    <Publication pub={pub} key={pub._id}/>)
-            }
-            </div>
-        </>
-    )
-}
+const LayoutAllPublications = ({ teamPublications }) => {
+  return (
+    <>
+      <div className="publicationList">
+        {teamPublications.map((pub) => (
+          <Publication pub={pub} key={pub._id} />
+        ))}
+      </div>
+    </>
+  );
+};
 
-export default LayoutAllPublications
+export default LayoutAllPublications;

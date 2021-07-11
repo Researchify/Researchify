@@ -11,7 +11,7 @@ import {
   IMPORT_FAIL,
   UPDATE_GSCHOLAR_ID,
   IMPORT_END,
-} from "./types";
+} from './types';
 import { pageSize } from '../config/publications';
 
 export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
@@ -70,7 +70,8 @@ export const updatePublication = (id, publication) => async (dispatch) => {
   }
 };
 
-export const sortPublications = (teamPublications, sortingOption) => async(dispatch) => {
+export const sortPublications =
+  (teamPublications, sortingOption) => async (dispatch) => {
     switch (sortingOption) {
       case 'Author':
         teamPublications.sort((a, b) =>
@@ -102,84 +103,93 @@ export const sortPublications = (teamPublications, sortingOption) => async(dispa
     }
 
     dispatch({
-        type: SORT_PUBLICATIONS,
-        payload: teamPublications
-    })
-}
+      type: SORT_PUBLICATIONS,
+      payload: teamPublications,
+    });
+  };
 
-export const importPublication = (values, startFrom, teamId) => async dispatch => {
-    try{
-        dispatch({
-            type: IMPORT_REQUEST
-        })
-
-        // extracting the authorId from the profileLink
-        let position = values.profileLink.indexOf('user=')
-        if (position === -1){
-            dispatch({
-                type: IMPORT_FAIL,
-                payload: "Please provide a valid profile link"
-            })
-        } else{
-            const author_id = values.profileLink.substring(position + 5, position+17)
-            dispatch({
-                type: UPDATE_GSCHOLAR_ID,
-                payload: author_id
-            })
-            console.log(startFrom);
-            const result = await api.importPublications(author_id, startFrom, teamId)
-            console.log(result);
-            if (result.data.newPublications.length === 0) { 
-                // all publications have already been imported into db
-                // TODO: logic can probably be improved in the future to be more thorough
-                dispatch({
-                    type: IMPORT_FAIL,
-                    payload: "All publications from the profile have already been imported"
-                })
-            } else {
-                dispatch({
-                  type: IMPORT_SUCCESS,
-                  payload: result.data.newPublications,
-                });
-            }
-        }
-
-    } catch(error){
-        dispatch({
-            type: IMPORT_FAIL,
-            payload: error.response
-        })
-    }
-}
-
-export const retrieveMorePublications = (author_id, startFrom, teamId) => async dispatch => {
+export const importPublication =
+  (values, startFrom, teamId) => async (dispatch) => {
     try {
-        dispatch({
-            type: IMPORT_REQUEST
-        })
-        console.log("retrieve more");
-        console.log(startFrom);
-        const result = await api.importPublications(author_id, startFrom, teamId)
-        console.log(result);
+      dispatch({
+        type: IMPORT_REQUEST,
+      });
 
-        if (result.data.retrieved < pageSize) {
-          // reached the end of the user's publications
+      // extracting the authorId from the profileLink
+      let position = values.profileLink.indexOf('user=');
+      if (position === -1) {
+        dispatch({
+          type: IMPORT_FAIL,
+          payload: 'Please provide a valid profile link',
+        });
+      } else {
+        const author_id = values.profileLink.substring(
+          position + 5,
+          position + 17
+        );
+        dispatch({
+          type: UPDATE_GSCHOLAR_ID,
+          payload: author_id,
+        });
+        console.log(startFrom);
+        const result = await api.importPublications(
+          author_id,
+          startFrom,
+          teamId
+        );
+        console.log(result);
+        if (result.data.newPublications.length === 0) {
+          // all publications have already been imported into db
+          // TODO: logic can probably be improved in the future to be more thorough
           dispatch({
-            type: IMPORT_END,
+            type: IMPORT_FAIL,
+            payload:
+              'All publications from the profile have already been imported',
+          });
+        } else {
+          dispatch({
+            type: IMPORT_SUCCESS,
+            payload: result.data.newPublications,
           });
         }
+      }
+    } catch (error) {
+      dispatch({
+        type: IMPORT_FAIL,
+        payload: error.response,
+      });
+    }
+  };
 
+export const retrieveMorePublications =
+  (author_id, startFrom, teamId) => async (dispatch) => {
+    try {
+      dispatch({
+        type: IMPORT_REQUEST,
+      });
+      console.log('retrieve more');
+      console.log(startFrom);
+      const result = await api.importPublications(author_id, startFrom, teamId);
+      console.log(result);
+
+      if (result.data.retrieved < pageSize) {
+        // reached the end of the user's publications
         dispatch({
-            type: IMPORT_SUCCESS,
-            payload: result.data.newPublications
-        })
-  } catch (error) {
-    dispatch({
-      type: IMPORT_FAIL,
-      payload: error.response.data,
-    });
-  }
-};
+          type: IMPORT_END,
+        });
+      }
+
+      dispatch({
+        type: IMPORT_SUCCESS,
+        payload: result.data.newPublications,
+      });
+    } catch (error) {
+      dispatch({
+        type: IMPORT_FAIL,
+        payload: error.response.data,
+      });
+    }
+  };
 
 export const createBulkPublications =
   (teamId, publicationList) => async (dispatch) => {
@@ -198,4 +208,4 @@ export const createBulkPublications =
     } catch (error) {
       console.log(error);
     }
-}
+  };

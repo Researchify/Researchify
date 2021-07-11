@@ -10,8 +10,7 @@ const Team = require('../models/team.model');
 
 const { Cluster } = require('puppeteer-cluster');
 
-const { puppeteerConfig, categoryType } = require("../config/puppeteer");
-
+const { puppeteerConfig, categoryType } = require('../config/puppeteer');
 
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
@@ -177,118 +176,134 @@ async function readAllPublicationsByTeam(req, res) {
  * @returns a list of publications of the given google scholar user id
  */
 async function getGoogleScholarPublications(req, res) {
-    const author = req.params.gScholarUserId;
-    const startFrom = req.params.startFrom;
-    const teamId = req.params.teamId;
+  const author = req.params.gScholarUserId;
+  const startFrom = req.params.startFrom;
+  const teamId = req.params.teamId;
 
-    const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
-    const noOfThreads = puppeteerConfig.noOfThreads;
-    const pageSize = puppeteerConfig.pageSize;
-    const url = puppeteerConfig.baseUrl + author + puppeteerConfig.startSuffix
-        + startFrom + puppeteerConfig.pageSizeSuffix + pageSize + puppeteerConfig.sortBySuffix;
-    console.log(url);
-    const publications = [];
+  const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
+  const noOfThreads = puppeteerConfig.noOfThreads;
+  const pageSize = puppeteerConfig.pageSize;
+  const url =
+    puppeteerConfig.baseUrl +
+    author +
+    puppeteerConfig.startSuffix +
+    startFrom +
+    puppeteerConfig.pageSizeSuffix +
+    pageSize +
+    puppeteerConfig.sortBySuffix;
+  console.log(url);
+  const publications = [];
 
-    const cluster = await Cluster.launch({
-        concurrency: Cluster.CONCURRENCY_CONTEXT,
-        maxConcurrency: noOfThreads,
-    });
+  const cluster = await Cluster.launch({
+    concurrency: Cluster.CONCURRENCY_CONTEXT,
+    maxConcurrency: noOfThreads,
+  });
 
-    await cluster.task(async ({ page, data: data }) => {
-        const url = data["url"];
-        const index = data["index"];
-        await page.goto(url);
-        const resultLinks = await page.$$('.gsc_a_t a');
+  await cluster.task(async ({ page, data: data }) => {
+    const url = data['url'];
+    const index = data['index'];
+    await page.goto(url);
+    const resultLinks = await page.$$('.gsc_a_t a');
 
-        await Promise.all([
-            resultLinks[index].click(),
-            page.waitForSelector("div.gsc_vcd_field")
-        ]);
+    await Promise.all([
+      resultLinks[index].click(),
+      page.waitForSelector('div.gsc_vcd_field'),
+    ]);
 
-        let title;
+    let title;
 
-        try {
-            // this html tag is for if the title of the publication is a link
-            title = await page.$eval("a.gsc_vcd_title_link", (titles) => titles.map((title) => title.innerText));
-
-        } catch (e) {
-            // an error will be caught if its not a link, and try a diff html tag for title
-            title = await page.$$eval("#gsc_vcd_title", (titles) => titles.map((title) => title.innerText));
-        }
-
-        // pdf link
-        const link = await page.$$eval("div.gsc_vcd_title_ggi a", (links) => links.map((link) => link.href));
-
-        // this gives authors, pub date, journal/conf/book name, pages, description, cited by and other stuff
-        const values = await page.$$eval("div.gsc_vcd_value", (titles) => titles.map((title) => title.innerText));
-
-        // get fields
-        const fields = await page.$$eval("div.gsc_vcd_field", (titles) => titles.map((title) => title.innerText));
-
-        // collating the fields with the values
-        const publicationInfo = {};
-        fields.forEach((key, i) => publicationInfo[key] = values[i]);
-
-        let type = fields[2].toUpperCase();
-        let categoryTitle;
-        if (!(type in categoryType)) {
-          type = "OTHER";
-          categoryTitle = "OTHER";
-        } else {
-          categoryTitle = values[2];
-        }
-
-        let citedBy;
-        if (publicationInfo["Total citations"] === undefined) {
-          citedBy = "";
-        } else {
-          citedBy = publicationInfo["Total citations"]
-            .split("\n", 1)[0]
-            .split(" ")[2];
-        }
-
-        const publication = {
-            "authors": publicationInfo["Authors"].split(", "),
-            "title": title[0],
-            "link": link[0] || '',
-            "description": publicationInfo["Description"] || '',
-            "citedBy": citedBy,
-            "yearPublished": (publicationInfo["Publication date"] || '').substr(0,4),  // assuming first 4 chars is year
-            "category": {
-                "type": type,
-                "categoryTitle": categoryTitle,
-                "pages": publicationInfo["Pages"] || '',
-                "publisher": publicationInfo["Publisher"] || '',
-                "volume": publicationInfo["Volume"] || '',
-                "issue": publicationInfo["Issue"] ||''
-            }
-        }
-
-        publications.push(publication);
-
-    });
-
-    // time how long the scraping takes
-    console.time('doSomething');
-
-    for (let i = noOfDummyLinks; i < pageSize+noOfDummyLinks; i++) {
-        await cluster.queue({ "url": url, "index": i})
+    try {
+      // this html tag is for if the title of the publication is a link
+      title = await page.$eval('a.gsc_vcd_title_link', (titles) =>
+        titles.map((title) => title.innerText)
+      );
+    } catch (e) {
+      // an error will be caught if its not a link, and try a diff html tag for title
+      title = await page.$$eval('#gsc_vcd_title', (titles) =>
+        titles.map((title) => title.innerText)
+      );
     }
 
-    await cluster.idle();
-    await cluster.close();
+    // pdf link
+    const link = await page.$$eval('div.gsc_vcd_title_ggi a', (links) =>
+      links.map((link) => link.href)
+    );
 
-    console.timeEnd('doSomething');
+    // this gives authors, pub date, journal/conf/book name, pages, description, cited by and other stuff
+    const values = await page.$$eval('div.gsc_vcd_value', (titles) =>
+      titles.map((title) => title.innerText)
+    );
 
-    const newPublications = await validateImportedPublications(teamId, publications);
+    // get fields
+    const fields = await page.$$eval('div.gsc_vcd_field', (titles) =>
+      titles.map((title) => title.innerText)
+    );
 
-    const response = {
-        "retrieved": publications.length,
-        "newPublications": newPublications
+    // collating the fields with the values
+    const publicationInfo = {};
+    fields.forEach((key, i) => (publicationInfo[key] = values[i]));
+
+    let type = fields[2].toUpperCase();
+    let categoryTitle;
+    if (!(type in categoryType)) {
+      type = 'OTHER';
+      categoryTitle = 'OTHER';
+    } else {
+      categoryTitle = values[2];
     }
 
-    res.status(200).json(response);
+    let citedBy;
+    if (publicationInfo['Total citations'] === undefined) {
+      citedBy = '';
+    } else {
+      citedBy = publicationInfo['Total citations']
+        .split('\n', 1)[0]
+        .split(' ')[2];
+    }
 
+    const publication = {
+      authors: publicationInfo['Authors'].split(', '),
+      title: title[0],
+      link: link[0] || '',
+      description: publicationInfo['Description'] || '',
+      citedBy: citedBy,
+      yearPublished: (publicationInfo['Publication date'] || '').substr(0, 4), // assuming first 4 chars is year
+      category: {
+        type: type,
+        categoryTitle: categoryTitle,
+        pages: publicationInfo['Pages'] || '',
+        publisher: publicationInfo['Publisher'] || '',
+        volume: publicationInfo['Volume'] || '',
+        issue: publicationInfo['Issue'] || '',
+      },
+    };
+
+    publications.push(publication);
+  });
+
+  // time how long the scraping takes
+  console.time('doSomething');
+
+  for (let i = noOfDummyLinks; i < pageSize + noOfDummyLinks; i++) {
+    await cluster.queue({ url: url, index: i });
+  }
+
+  await cluster.idle();
+  await cluster.close();
+
+  console.timeEnd('doSomething');
+
+  const newPublications = await validateImportedPublications(
+    teamId,
+    publications
+  );
+
+  const response = {
+    retrieved: publications.length,
+    newPublications: newPublications,
+  };
+
+  res.status(200).json(response);
 }
 
 /**
@@ -299,32 +314,33 @@ async function getGoogleScholarPublications(req, res) {
  * @returns the list of publications that are not already in the db and can be added
  */
 async function validateImportedPublications(_id, publications) {
-    const foundPublications = await Publication.aggregate([
-      {
-        $match: { teamId: mongoose.Types.ObjectId(_id) },
-      },
-      {
-        $addFields: { year: { $year: "$yearPublished" } },
-      },
-      {
-        $sort: { year: -1, title: 1 },
-      },
-    ]);
+  const foundPublications = await Publication.aggregate([
+    {
+      $match: { teamId: mongoose.Types.ObjectId(_id) },
+    },
+    {
+      $addFields: { year: { $year: '$yearPublished' } },
+    },
+    {
+      $sort: { year: -1, title: 1 },
+    },
+  ]);
 
-    const foundPublicationTitles = foundPublications.map(pub => pub.title.toLowerCase());
-    let newPublications = []
+  const foundPublicationTitles = foundPublications.map((pub) =>
+    pub.title.toLowerCase()
+  );
+  let newPublications = [];
 
-    for (let i = 0; i < publications.length; i++) {
-        const currentPublication = publications[i];
-        const currentPublicationTitle = currentPublication.title.toLowerCase();
-        if (!foundPublicationTitles.includes(currentPublicationTitle)) {
-          newPublications.push(currentPublication);
-        //   console.log("Added " + currentPublicationTitle);
-        }
+  for (let i = 0; i < publications.length; i++) {
+    const currentPublication = publications[i];
+    const currentPublicationTitle = currentPublication.title.toLowerCase();
+    if (!foundPublicationTitles.includes(currentPublicationTitle)) {
+      newPublications.push(currentPublication);
+      //   console.log("Added " + currentPublicationTitle);
     }
+  }
 
-    return newPublications;
-
+  return newPublications;
 }
 
 /**

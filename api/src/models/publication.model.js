@@ -7,7 +7,7 @@ const publicationSchema = new mongoose.Schema(
   {
     teamId: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "team",
+      ref: 'team',
       required: true,
     },
     authors: {
