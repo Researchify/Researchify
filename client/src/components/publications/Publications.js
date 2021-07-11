@@ -19,7 +19,7 @@ import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
 
 const Publications = () => {
   const dispatch = useDispatch();
-  const teamId = useSelector((state) => state.user.teamId);
+  const teamId = useSelector((state) => state.team.teamId);
   const allLayouts = {
     allPublications: 'All Publications',
     byCategory: 'By Category',

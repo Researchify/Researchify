@@ -1,41 +1,41 @@
-.page-card{
-    width: 1024px;
-    height: 256px;
-    box-shadow: 1px 1px 18px #808080;
+.page-card {
+  width: 1024px;
+  height: 256px;
+  box-shadow: 1px 1px 18px #808080;
 }
 
-.page-icon{
-    color: #fff;
-    position: absolute;
-    right: 1%;
-    top: 1%;   
+.page-icon {
+  color: #fff;
+  position: absolute;
+  right: 1%;
+  top: 1%;
 }
 
-.page-title{
-    color: #fff;
-    position: absolute;
-    bottom: 115px;
-    font-size: xx-large;
+.page-title {
+  color: #fff;
+  position: absolute;
+  bottom: 115px;
+  font-size: xx-large;
 }
 
-.page-img{
-    height: 160px;
+.page-img {
+  height: 160px;
 }
 
-.page-manage{
-    position: absolute;
-    bottom: 6%;
-    left: 3%;
-    font-size: medium;
+.page-manage {
+  position: absolute;
+  bottom: 6%;
+  left: 3%;
+  font-size: medium;
 }
 
-.page-desc{
-    color:grey;
+.page-desc {
+  color: grey;
 }
 
-.page-row{
-    padding-top: 1px;
-    padding-bottom: 1px;
+.page-row {
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 .researchify-dashboard-container{
