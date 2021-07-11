@@ -6,7 +6,7 @@ import React, { Fragment } from 'react';
 import Sidebar from '../layoutComponents/Sidebar';
 import Header from '../layoutComponents/Header';
 import { Container, Col, Row } from 'react-bootstrap';
-import SidebarData from '../DashboardSidebarData';
+import DashboardSidebarData from '../DashboardSidebarData';
 import '../Layout.css';
 
 const headerData = {
@@ -24,7 +24,7 @@ const DashboardLayout = ({ children }) => {
             <Container fluid>
                 <Row>
                     <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>
-                        <Sidebar data={SidebarData} />
+                        <Sidebar data={DashboardSidebarData()} />
                     </Col>
                     <Col className="page-content-wrapper" md={10} lg={10} xl={11}>
                         {children}

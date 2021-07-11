@@ -3,30 +3,48 @@
  */
 const mongoose = require('mongoose');
 
-
-const teamSchema = new mongoose.Schema({
+const teamSchema = new mongoose.Schema(
+  {
     teamName: {
+      type: String,
+      required: true,
+    },
+    orgName: {
         type: String,
         required: true
+      },
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
-    dateCreated: {
-        type: Date,
-        required: true
+    password: { 
+        type: String, 
+        required: true 
     },
     areaOfInterest: {
-        type: [{
-            type: String,
-            minlength: 1
-        }]
+      type: [
+        {
+          type: String,
+          minlength: 1,
+        },
+      ],
     },
     twitterHandle: {
-        type: String
+      type: String,
     },
     templateId: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'template',
-        required: true
-    }
+        required: false
+    },
+    teamMembers: [
+        {
+            fullName: { type: String, required: false, minLength: 3},
+            position: { type: String, required: false},
+            summary: { type: String, required: false, minLength: 3}
+        }
+    ]
 }, {timestamps: true})
 
 const Team = mongoose.model('team', teamSchema);

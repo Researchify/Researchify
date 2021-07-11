@@ -112,3 +112,4 @@ dist
 
 # mac os
 .DS_Store
+.vscode/launch.json

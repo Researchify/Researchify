@@ -11,7 +11,6 @@ const publicationsRouter = require('./routes/publications');
 const usersRouter = require('./routes/users');
 const teamRouter = require('./routes/team');
 
-
 // Connect to the database
 connectDb();
 
@@ -21,8 +20,8 @@ const PORT = process.env.PORT || 5000;
 
 // Use cors and express.json
 app.use(cors());
-app.use(express.json({limit: "30mb", extended: true})); // express.json() parses requests with json payloads and uses "body-parser"
-app.use(express.urlencoded({limit: "30mb", extended: true}));
+app.use(express.json({ limit: '30mb', extended: true })); // express.json() parses requests with json payloads and uses "body-parser"
+app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 // "Welcome" route
 app.get('/', (req, res) => res.send('You have reached the Researchify API'));

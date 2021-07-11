@@ -3,7 +3,7 @@
  */
 
 import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { deletePublication } from '../../../actions/publications'
 import PublicationForm from '../form/PublicationForm'
 import { Button, Modal, OverlayTrigger, ButtonGroup, Row, Col, Collapse  } from 'react-bootstrap';
@@ -15,10 +15,21 @@ import '../publications.css'
 
 const Publication = ({pub}) => {
     const dispatch = useDispatch();
+    const [newlyAdded, setNewlyAdded] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [showDeleteMessage, setShowDeleteMessage] = useState(false)
     const [expand, setExpand] = useState(false)
-    
+
+    useEffect(() => {
+        if (pub.newlyAdded){
+            delete pub.newlyAdded
+            setInterval(() => {
+                setNewlyAdded(false)
+            }, 2500)
+            setNewlyAdded(true)
+        }
+    }, [pub.newlyAdded, pub._id])
+
     const handleDelete = () => {
         dispatch(deletePublication(pub._id))
         setShowDeleteMessage(false)
@@ -81,7 +92,7 @@ const Publication = ({pub}) => {
     
     return (
         <>
-            <div className="modalHeader">
+            <div className={newlyAdded?"newlyAddedPublicationHeader":"modalHeader"}>
                 <Row>
                     <Col md={11}>
                         <h3 className="ml-3 mt-3">{pub.title}</h3> 

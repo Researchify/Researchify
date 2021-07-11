@@ -2,9 +2,9 @@
  * This module implements handlers for the "users" route.
  * @module users
  */
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const User = require("../models/user.model");
+const User = require('../models/user.model');
 
 /**
  * Handles a GET request to get all users on the database on the endpoint /users.
@@ -17,30 +17,38 @@ const User = require("../models/user.model");
 async function getUsers(req, res) {
   User.find()
     .then((users) => res.json(users))
-    .catch((err) => res.status(500).json("Error: " + err));
+    .catch((err) => res.status(500).json('Error: ' + err));
 }
 
 /**
  * Handles a GET request, which will get a particular user using the given mongo id on the endpoint /users/:id
- * 
+ *
  * @param req request object - user id given in url
  * @param res response object - user object in body (see User model)
-* @returns 200: the specified user was found
+ * @returns 200: the specified user was found
  * @returns 400: given user id is not in a valid hexadecimal format
  * @returns 404: no user was found
  */
- async function getUser(req, res) {
-  const {id: _id} = req.params;
-
+async function getUser(req, res) {
+  const { id: _id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(_id))
-      return res.status(400).send('Error: The provided user id is not in a valid hexadecimal format.');
-  
-  const targetUser = await User.findById(_id);
+    return res
+      .status(400)
+      .send(
+        'Error: The provided user id is not in a valid hexadecimal format.'
+      );
 
-  if (targetUser == null) { 
-      res.status(404).send('Error: No user matching the id was found.');
+  const targetUser = await User.findById(_id).select({
+    _id: 1,
+    givenName: 1,
+    familyName: 1,
+    teamId: 1,
+  });
+
+  if (targetUser == null) {
+    res.status(404).send('Error: No user matching the id was found.');
   } else {
-      res.status(200).json(targetUser);
+    res.status(200).json(targetUser);
   }
 }
 
@@ -62,8 +70,8 @@ async function addUser(req, res) {
 
   newUser
     .save()
-    .then(() => res.status(201).json("User added!"))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .then(() => res.status(201).json('User added!'))
+    .catch((err) => res.status(400).json('Error: ' + err));
 }
 
 /**
@@ -79,14 +87,14 @@ async function loginUser(req, res) {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (user == null) {
-        res.status(400).send("User not found");
+        res.status(400).send('User not found');
       } else if (user.password != req.body.password) {
-        res.status(403).send("Incorrect password");
+        res.status(403).send('Incorrect password');
       } else {
-        res.send("Successfully logged in");
+        res.send('Successfully logged in');
       }
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(400).json('Error: ' + err));
 }
 
 /**
@@ -103,7 +111,7 @@ async function updateUser(req, res) {
   const user = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("Error: No user with that id.");
+    return res.status(404).send('Error: No user with that id.');
 
   try {
     const updatedUser = await User.findByIdAndUpdate(_id, user, {
