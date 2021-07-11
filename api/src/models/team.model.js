@@ -10,17 +10,17 @@ const teamSchema = new mongoose.Schema(
       required: true,
     },
     orgName: {
-        type: String,
-        required: true
-      },
-    email: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
     },
-    password: { 
-        type: String, 
-        required: true 
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
     },
     areaOfInterest: {
       type: [
@@ -34,18 +34,20 @@ const teamSchema = new mongoose.Schema(
       type: String,
     },
     templateId: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'template',
-        required: false
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'template',
+      required: false,
     },
     teamMembers: [
-        {
-            fullName: { type: String, required: false, minLength: 3},
-            position: { type: String, required: false},
-            summary: { type: String, required: false, minLength: 3}
-        }
-    ]
-}, {timestamps: true})
+      {
+        fullName: { type: String, required: false, minLength: 3 },
+        position: { type: String, required: false },
+        summary: { type: String, required: false, minLength: 3 },
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
 const Team = mongoose.model('team', teamSchema);
 

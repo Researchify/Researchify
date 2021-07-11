@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
 export const SidebarData = () => {
-  const teamId = useSelector((state) => state.user.teamId);
+  const teamId = useSelector((state) => state.team.teamId);
   return [
     {
       title: 'Dashboard',
