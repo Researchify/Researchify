@@ -27,7 +27,7 @@ const App = () => {
     dashboard: '/dashboard',
     profile: '/dashboard/profile',
   };
-  const teamId = useSelector((state) => state.user.teamId);
+  const teamId = useSelector((state) => state.team.teamId);
   const dispatch = useDispatch();
 
   useEffect(() => {
