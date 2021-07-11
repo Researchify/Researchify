@@ -21,7 +21,7 @@ import './layout/Layout.css';
 import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
-import { fetchUserAction } from '../actions/users';
+import { getTeamInfo } from '../actions/team';
 const App = () => {
   const urls = {
     dashboard: '/dashboard',
@@ -31,7 +31,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUserAction());
+    dispatch(getTeamInfo('60aa3a2fffa7020a52a4ca3d'));
   }, [dispatch]);
 
   return (

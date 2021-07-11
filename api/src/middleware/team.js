@@ -11,7 +11,6 @@ const Team = require('../models/team.model');
 async function validateTeamId(req, res, next) {
   const { team_id } = req.params;
   let foundTeam;
-
   if (mongoose.Types.ObjectId.isValid(team_id)) {
     foundTeam = await Team.findById(team_id);
     if (foundTeam == null) {

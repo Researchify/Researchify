@@ -38,14 +38,7 @@ export const getTeam = (teamCredentials) => async (dispatch) => {
   const data = await api.loginTeam(teamCredentials);
   const teamData = data.data.team;
   console.log(teamData);
-  const team = {
-    teamId: teamData._id,
-    email: teamData.email,
-    teamName: teamData.teamName,
-    orgName: teamData.orgName,
-    twitterHandle: teamData.twitterHandle,
-    repoCreated: teamData.repoCreated,
-  };
+  const team = teamDataAllocator(teamData);
   dispatch({
     type: ADD_TEAM,
     payload: team,
@@ -65,11 +58,11 @@ export const getTeam = (teamCredentials) => async (dispatch) => {
  */
 export const getTeamInfo = (teamId) => async (dispatch) => {
   try {
-    const { data } = api.fetchTeamInfo(teamId);
-    console.log(data);
+    const { data } = await api.fetchTeamInfo(teamId);
+    const team = teamDataAllocator(data);
     dispatch({
       type: FETCH_TEAM_INFO,
-      payload: data,
+      payload: team,
     });
   } catch (err) {
     console.error(err);
@@ -205,3 +198,20 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
     console.log(error);
   }
 };
+
+/**
+ * A function to allocates team data from back-end.
+ * @param {*} teamData raw data from back-end
+ * @returns full team data that adheres to team state
+ * @see teamReducer#INITIAL_TEAM_STATE
+ */
+function teamDataAllocator(teamData) {
+  return {
+    teamId: teamData._id,
+    email: teamData.email,
+    teamName: teamData.teamName,
+    orgName: teamData.orgName,
+    twitterHandle: teamData.twitterHandle,
+    repoCreated: teamData.repoCreated,
+  };
+}
