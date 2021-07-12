@@ -17,6 +17,7 @@ import Sidebar from './layout/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import './layout/Layout.css';
+import { ErrorToaster } from '../error/ErrorToaster';
 
 import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
@@ -31,13 +32,16 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTeamInfo('60aa3a2fffa7020a52a4ca3d'));
+    dispatch(getTeamInfo('60aa3a2fffa7020a52a4ca33')); // test with this to avoid error: 60aa3a2fffa7020a52a4ca3d, TODO: replace it with JWT token!!!
   }, [dispatch]);
+
+  const errorMessage = useSelector((state) => state.team.error); // TODO: should we make it state.global.error?
 
   return (
     <>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
+        <ErrorToaster message={errorMessage} />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/auth" exact component={Auth} />

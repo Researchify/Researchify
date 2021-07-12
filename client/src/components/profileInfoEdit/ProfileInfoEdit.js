@@ -8,7 +8,7 @@ import { Button, Form, Container, Image } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import profilePic from '../../images/profilepic.jpg';
 import { Link } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 
 const profileUpdated = () =>
@@ -75,7 +75,6 @@ const ProfileInfoEdit = () => {
             <Button color="primary" className="mr-2" onClick={profileUpdated}>
               Update
             </Button>
-            <Toaster />
 
             {/* Button is linked to react-router-dom Link*/}
             <Link to="/dashboard">

@@ -2,6 +2,7 @@
  * This file houses our team-related Action Creators.
  */
 import * as api from '../api';
+
 import {
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
@@ -11,7 +12,14 @@ import {
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
   ADD_TEAM,
+  TEAM_ERROR,
 } from './types';
+import {
+  createErrorSelector,
+  errorActionCreator,
+} from '../error/errorReduxFunctions';
+
+export const getTeamErrorMessage = createErrorSelector((state) => state.team);
 
 /**
  * Adds a new team to redux store and database.
@@ -34,15 +42,20 @@ export const addTeamInfo = (teamInfo) => async (dispatch) => {
  * @param teamCredentials team email and password as a dictionary
  * @param teamPassword team account password
  */
-export const getTeam = (teamCredentials) => async (dispatch) => {
-  const data = await api.loginTeam(teamCredentials);
-  const teamData = data.data.team;
-  console.log(teamData);
-  const team = teamDataAllocator(teamData);
-  dispatch({
-    type: ADD_TEAM,
-    payload: team,
-  });
+export const getTeam = (teamCredentials, history) => async (dispatch) => {
+  try {
+    const data = await api.loginTeam(teamCredentials);
+    console.log(data);
+    const teamData = data.data.team;
+    const team = teamDataAllocator(teamData);
+    dispatch({
+      type: ADD_TEAM,
+      payload: team,
+    });
+    history.push('/dashboard');
+  } catch (err) {
+    dispatch(errorActionCreator(TEAM_ERROR, err));
+  }
 };
 
 /**
@@ -65,7 +78,7 @@ export const getTeamInfo = (teamId) => async (dispatch) => {
       payload: team,
     });
   } catch (err) {
-    console.error(err);
+    dispatch(errorActionCreator(TEAM_ERROR, err));
   }
 };
 
@@ -93,6 +106,7 @@ export const linkTwitter = (teamId, handle) => async (dispatch) => {
       type: LINK_TEAM_TWITTER,
       payload: null,
     });
+    dispatch(errorActionCreator(TEAM_ERROR, err));
   }
 };
 
@@ -112,7 +126,7 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
       payload: data.twitterHandle,
     });
   } catch (err) {
-    console.log(err);
+    dispatch(errorActionCreator(TEAM_ERROR, err));
   }
 };
 
@@ -125,13 +139,12 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
 export const getTeamMembersByTeamId = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.fetchTeamMembersByTeamId(teamId);
-
     dispatch({
       type: GET_TEAM_MEMBERS_BY_TEAM_ID,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionCreator(TEAM_ERROR, err));
   }
 };
 
@@ -151,8 +164,8 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
       type: CREATE_TEAM_MEMBER,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionCreator(TEAM_ERROR, err));
   }
 };
 
@@ -174,8 +187,8 @@ export const updateTeamMember = (id, teamMember) => async (dispatch) => {
       type: UPDATE_TEAM_MEMBER,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionCreator(TEAM_ERROR, err));
   }
 };
 
@@ -194,8 +207,8 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
       type: DELETE_TEAM_MEMBER,
       payload: memberId,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionCreator(TEAM_ERROR, err));
   }
 };
 
