@@ -38,3 +38,5 @@ export const deleteTeamMember = (teamId, teamMemberId) =>
   api.delete(`/team/${teamId}/member/${teamMemberId}`);
 export const getGHAccessToken = (teamId, code) =>
   api.get(`/team/${teamId}/gh_auth/${code}`);
+export const deployToGHPages = (teamId) =>
+  api.get(`/team/${teamId}/deploy`);

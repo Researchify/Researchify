@@ -8,7 +8,7 @@ const Team = require('../models/team.model');
 
 const mongoose = require('mongoose');
 
-const {githubAccessTokenUrlStart, githubAccessTokenUrlEnd} = require('../config/deploy');
+const {githubAccessTokenUrlStart, githubAccessTokenUrlEnd, schollyHost} = require('../config/deploy');
 
 const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
@@ -150,7 +150,6 @@ async function updateTeamMember(req, res) {
 }
 
 async function getGHAccessToken(req, res) {
-  // const code = req.params.code;
   const code = req.params.code;
   console.log(req.params.code);
   
@@ -160,12 +159,38 @@ async function getGHAccessToken(req, res) {
     headers: { Accept: 'application/json' },
   });
     console.log(response.data);
-    // console.log(data);
 
   if (response.data.error) {
     return res.status(400).json(response.data)
   }
   
+  return res.status(200).json(response.data);
+}
+
+async function deployToGHPages(req, res) {
+  const ghToken = req.body.ghToken;
+  const teamId = req.params.team_id;
+  const publications = req.body.publications;
+  const twitterHandle = req.body.twitterHandle;
+  const ghUsername = req.body.ghUsername;
+
+  // pass this token to scholly to deploy
+  const body = {
+    "ghUsername": ghUsername,
+    "ghToken": ghToken,
+    "teamTwitterHandle": twitterHandle,
+    "teamPublications": publications
+  }
+  
+  const response = await axios({
+    url: schollyHost + '/deploy/' + teamId,
+    method: 'post',
+    data: body,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
   return res.status(200).json(response.data);
 }
 
@@ -178,4 +203,5 @@ module.exports = {
   deleteTeamMember,
   updateTeamMember,
   getGHAccessToken,
+  deployToGHPages,
 };

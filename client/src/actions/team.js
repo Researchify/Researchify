@@ -173,3 +173,7 @@ export const getGHAccessToken = (teamId, code) => async dispatch => {
         console.log(err);
     }
 }
+
+export const deployToGHPages = (teamId, accessToken) => async dispatch => {
+
+}

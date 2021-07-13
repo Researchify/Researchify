@@ -3,11 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { githubLoginUrl } from '../../config/deploy';
 import { GoMarkGithub } from 'react-icons/go';
 import { getGHAccessToken } from '../../actions/team';
+import { Button } from 'react-bootstrap';
 
 const DeployPage = () => {
   const dispatch = useDispatch();
-    const teamId = useSelector((state) => state.team.teamId);
-    const [accessToken, setAccessToken] = useState(false);
+  const teamId = useSelector((state) => state.team.teamId);
+  const accessToken = useSelector((state) => state.team.accessToken);
+  const [retrievedAccessToken, setRetrievedAccessToken] = useState(false);
+  const linkedHandle = useSelector((state) => state.team.twitterHandle);
+  const publications = useSelector(
+    (state) => state.publications.teamPublications
+  );
+
+
 
   useEffect(() => {
     // github returns a code in the url after user logs in
@@ -15,20 +23,40 @@ const DeployPage = () => {
     const hasCode = url.includes('?code=');
     // TODO: something is making this render twice without the extra condition
 
-    if (hasCode && !accessToken) {
+    if (hasCode && !(retrievedAccessToken)) {
       const code = url.split('?code=')[1];
       // we use this code to exchange an access token
-        console.log(code);
-        dispatch(getGHAccessToken(teamId, code));
-        setAccessToken(true);
+      console.log(code);
+      dispatch(getGHAccessToken(teamId, code));
+      setRetrievedAccessToken(true);
     }
   });
 
-  return (
+  const GitHubLoginButton = () => (
     <a href={githubLoginUrl}>
-      <GoMarkGithub />
-      <span>Login with GitHub</span>
-    </a>
+        <GoMarkGithub />
+        <span>Login with GitHub</span>
+      </a>
+  )
+
+  const handleDeploy = () => {
+    // call backend endpoint to deploy and give the access token
+
+  }
+
+  const DeployButton = () => (
+    <span>
+      <Button variant="primary" size="lg" disabled={!retrievedAccessToken} onClick={handleDeploy}>
+        Deploy to GitHub Pages
+      </Button>
+    </span>
+  );
+
+  return (
+    <>
+      <GitHubLoginButton disabled={!retrievedAccessToken} />
+      <DeployButton />{' '}
+    </>
   );
 };
 

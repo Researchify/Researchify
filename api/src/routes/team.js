@@ -50,4 +50,9 @@ teamRouter.get(
   teamController.getGHAccessToken
 );
 
+teamRouter.post(
+  '/:team_id/deploy',
+  teamController.deployToGHPages
+);
+
 module.exports = teamRouter;
