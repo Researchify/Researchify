@@ -9,11 +9,13 @@ import userReducer from './usersReducer';
 import teamReducer from './teamReducer';
 import importedPublicationsReducer from './importedPublicationsReducer';
 import teamMembersReducer from './teamMembersReducer';
+import mainReducer from './mainReducer';
 
 export default combineReducers({
-  auth: authReducer,
+  main: mainReducer,
+  auth: authReducer, // do we need this?
   publications: publicationsReducer,
-  user: userReducer,
+  user: userReducer, // do we need this?
   team: teamReducer,
   importedPublications: importedPublicationsReducer,
   teamMember: teamMembersReducer,

@@ -7,9 +7,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Login.css';
 import { getTeam } from '../../actions/team';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ErrorToaster } from '../../error/ErrorToaster';
 /** 
 Handles the UI for the log in page
 @returns JSX element

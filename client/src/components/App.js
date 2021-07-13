@@ -32,10 +32,10 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTeamInfo('60aa3a2fffa7020a52a4ca33')); // test with this to avoid error: 60aa3a2fffa7020a52a4ca3d, TODO: replace it with JWT token!!!
+    dispatch(getTeamInfo('60aa3a2fffa7020a52a4ca3d')); // test with this to avoid error: 60aa3a2fffa7020a52a4ca3d, TODO: replace it with JWT token!!!
   }, [dispatch]);
 
-  const errorMessage = useSelector((state) => state.team.error); // TODO: should we make it state.global.error?
+  const errorMessage = useSelector((state) => state.main.error);
 
   return (
     <>

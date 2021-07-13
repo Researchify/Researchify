@@ -12,14 +12,8 @@ import {
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
   ADD_TEAM,
-  TEAM_ERROR,
 } from './types';
-import {
-  createErrorSelector,
-  errorActionCreator,
-} from '../error/errorReduxFunctions';
-
-export const getTeamErrorMessage = createErrorSelector((state) => state.team);
+import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
 /**
  * Adds a new team to redux store and database.
@@ -54,7 +48,7 @@ export const getTeam = (teamCredentials, history) => async (dispatch) => {
     });
     history.push('/dashboard');
   } catch (err) {
-    dispatch(errorActionCreator(TEAM_ERROR, err));
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -78,7 +72,7 @@ export const getTeamInfo = (teamId) => async (dispatch) => {
       payload: team,
     });
   } catch (err) {
-    dispatch(errorActionCreator(TEAM_ERROR, err));
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -106,7 +100,7 @@ export const linkTwitter = (teamId, handle) => async (dispatch) => {
       type: LINK_TEAM_TWITTER,
       payload: null,
     });
-    dispatch(errorActionCreator(TEAM_ERROR, err));
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -126,7 +120,7 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
       payload: data.twitterHandle,
     });
   } catch (err) {
-    dispatch(errorActionCreator(TEAM_ERROR, err));
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -144,7 +138,7 @@ export const getTeamMembersByTeamId = (teamId) => async (dispatch) => {
       payload: data,
     });
   } catch (err) {
-    dispatch(errorActionCreator(TEAM_ERROR, err));
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -165,7 +159,7 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
       payload: data,
     });
   } catch (err) {
-    dispatch(errorActionCreator(TEAM_ERROR, err));
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -188,7 +182,7 @@ export const updateTeamMember = (id, teamMember) => async (dispatch) => {
       payload: data,
     });
   } catch (err) {
-    dispatch(errorActionCreator(TEAM_ERROR, err));
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -208,7 +202,7 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
       payload: memberId,
     });
   } catch (err) {
-    dispatch(errorActionCreator(TEAM_ERROR, err));
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 

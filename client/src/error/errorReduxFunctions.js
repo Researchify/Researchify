@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { get, rest } from 'lodash';
+import { get } from 'lodash';
+import { RESEARCHIFY_API_ERROR } from '../actions/types';
 
 export const DEFAULT_ERROR_MESSAGE = `Something went wrong!`;
 
@@ -10,7 +11,7 @@ export const errorReducer = (state, action) => {
       error: null,
     };
   }
-  // TODO: update with better error handling message from API
+  // TODO: update with better error handling message from API/server
   /** something like this:
    * {
       "errorCode": "1001",
@@ -33,6 +34,12 @@ export const errorReducer = (state, action) => {
   };
 };
 
+/**
+ * use this at dispatcher to assign unique ERROR type
+ * @param {*} errorType REDUX_REDUCER_FORMAT
+ * @param {*} error from catch
+ * @returns redux action format
+ */
 export const errorActionCreator = (errorType, error) => {
   return {
     type: errorType,
@@ -41,20 +48,15 @@ export const errorActionCreator = (errorType, error) => {
   };
 };
 
-export function tryCatchWrapper(dispatch, errorType, f) {
-  return (async function wrappedFn() {
-    try {
-      console.log(f);
-      return await f.apply(this, arguments);
-    } catch (err) {
-      console.log('error here!');
-      dispatch(errorActionCreator(errorType, err));
-      return null;
-    }
-  })();
-}
+export const errorActionGlobalCreator = (error) => {
+  return {
+    type: RESEARCHIFY_API_ERROR,
+    error: true,
+    payload: error,
+  };
+};
 
-// TODO: might remove this later
+// TODO: remove this if we don't have any selector
 export const createErrorSelector = (fn) => {
   return createSelector(fn, (storeIndex) =>
     get(storeIndex, 'error.data', null)

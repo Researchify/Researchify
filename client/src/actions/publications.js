@@ -13,6 +13,7 @@ import {
   IMPORT_END,
 } from './types';
 import { pageSize } from '../config/publications';
+import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
 export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
   try {
@@ -26,6 +27,7 @@ export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
     });
   } catch (error) {
     console.log(error);
+    dispatch(errorActionGlobalCreator(error));
   }
 };
 
@@ -41,6 +43,7 @@ export const createPublication = (publication) => async (dispatch) => {
     });
   } catch (error) {
     console.log(error);
+    dispatch(errorActionGlobalCreator(error));
   }
 };
 
@@ -54,6 +57,7 @@ export const deletePublication = (id) => async (dispatch) => {
     });
   } catch (error) {
     console.log(error);
+    dispatch(errorActionGlobalCreator(error));
   }
 };
 
@@ -67,6 +71,7 @@ export const updatePublication = (id, publication) => async (dispatch) => {
     });
   } catch (error) {
     console.log(error);
+    dispatch(errorActionGlobalCreator(error));
   }
 };
 
@@ -158,6 +163,7 @@ export const importPublication =
         type: IMPORT_FAIL,
         payload: error.response,
       });
+      dispatch(errorActionGlobalCreator(error));
     }
   };
 
@@ -188,6 +194,7 @@ export const retrieveMorePublications =
         type: IMPORT_FAIL,
         payload: error.response.data,
       });
+      dispatch(errorActionGlobalCreator(error));
     }
   };
 
@@ -207,5 +214,6 @@ export const createBulkPublications =
       });
     } catch (error) {
       console.log(error);
+      dispatch(errorActionGlobalCreator(error));
     }
   };
