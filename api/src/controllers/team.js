@@ -172,17 +172,28 @@ async function deployToGHPages(req, res) {
   const teamId = req.params.team_id;
   const publications = req.body.publications;
   const twitterHandle = req.body.twitterHandle;
-  const ghUsername = req.body.ghUsername;
+  console.log("here");
 
-  // pass this token to scholly to deploy
+  // call github API to get username
+  const response = await axios.get('https://api.github.com/user', {
+    headers: { Authorization: "token " + ghToken }
+  });
+
+  if (response.data.errors) {
+    return res.status(400).send('Error: ' + response.data.errors[0].detail);
+  }
+
+  const ghUser = response.data.login;
+  console.log(ghUser);
+
   const body = {
-    "ghUsername": ghUsername,
+    "ghUser": ghUser,
     "ghToken": ghToken,
     "teamTwitterHandle": twitterHandle,
     "teamPublications": publications
   }
   
-  const response = await axios({
+  const schollyResponse = await axios({
     url: schollyHost + '/deploy/' + teamId,
     method: 'post',
     data: body,
@@ -191,7 +202,7 @@ async function deployToGHPages(req, res) {
     }
   });
 
-  return res.status(200).json(response.data);
+  return res.status(200).json(schollyResponse.data);
 }
 
 module.exports = {

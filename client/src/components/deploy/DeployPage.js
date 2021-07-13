@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { githubLoginUrl } from '../../config/deploy';
 import { GoMarkGithub } from 'react-icons/go';
-import { getGHAccessToken } from '../../actions/team';
+import { getGHAccessToken, deployToGHPages } from '../../actions/team';
 import { Button } from 'react-bootstrap';
 
 const DeployPage = () => {
@@ -11,9 +11,6 @@ const DeployPage = () => {
   const accessToken = useSelector((state) => state.team.accessToken);
   const [retrievedAccessToken, setRetrievedAccessToken] = useState(false);
   const linkedHandle = useSelector((state) => state.team.twitterHandle);
-  const publications = useSelector(
-    (state) => state.publications.teamPublications
-  );
 
 
 
@@ -41,6 +38,7 @@ const DeployPage = () => {
 
   const handleDeploy = () => {
     // call backend endpoint to deploy and give the access token
+    dispatch(deployToGHPages(teamId, accessToken, linkedHandle));
 
   }
 

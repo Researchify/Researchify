@@ -10,7 +10,9 @@ import {
     CREATE_TEAM_MEMBER, 
     UPDATE_TEAM_MEMBER, 
     DELETE_TEAM_MEMBER, 
-    GET_GH_ACCESS_TOKEN} from './types';
+    GET_GH_ACCESS_TOKEN,
+    DEPLOY_SUCCESS,
+    DEPLOY_FAIL} from './types';
 
 /**
  * This action creator will be called to populate a signed-in-user's team information.
@@ -167,13 +169,39 @@ export const getGHAccessToken = (teamId, code) => async dispatch => {
         const response = await api.getGHAccessToken(teamId, code);
         dispatch({
             type: GET_GH_ACCESS_TOKEN,
-            payload: response.data
+            payload: response.data.access_token
         });
     } catch (err) {
         console.log(err);
     }
 }
 
-export const deployToGHPages = (teamId, accessToken) => async dispatch => {
+export const deployToGHPages = (teamId, accessToken, twitterHandle) => async dispatch => {
+    try {
+        // get publications
+        const { data } = await api.fetchPublicationsByTeamId(
+          '609f5ad827b1d48257c321d3' // TODO: remove this hardcoded
+        );
+        data.map((pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4)));
 
+        const body = {
+            ghToken: accessToken,
+            teamTwitterHandle: twitterHandle,
+            teamPublications: data
+        }
+
+        console.log(body);
+
+        const response = await api.deployToGHPages(teamId, body);
+        console.log(response.data);
+        dispatch({
+            type: DEPLOY_SUCCESS
+        }) // TODO: use this and DEPLOY_FAIL to show message to user?
+        
+    } catch (err) {
+        console.log(err);
+        dispatch({
+            type: DEPLOY_FAIL,
+        });
+    }
 }
