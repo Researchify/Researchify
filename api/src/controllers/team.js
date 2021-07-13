@@ -70,6 +70,34 @@ async function getTeam(req, res) {
   return res.status(200).send(req.foundTeam);
 }
 
+/**
+ * Gets the team document from the database on /team.
+ * @param {*} req request object, containing team email and password in the body as JSON
+ * @param {*} res response object, the found team document
+ * @returns 200: the team was found
+ * @returns 404: team is not found
+ */
+async function loginTeam(req, res) {
+  Team.findOne({ email: req.body.email })
+    .then((team) => {
+      if (team == null) {
+        res.status(400).send('User not found');
+      } else if (team.password != req.body.password) {
+        res.status(403).send('Incorrect password');
+      } else {
+        console.log(team);
+        res.send(JSON.stringify({ team: team }));
+      }
+    })
+    .catch((err) => res.status(400).json('Error: ' + err));
+}
+
+/**
+ * Handles a POST request to add a team on the endpoint /team.
+ * @param {*} req request object -  json object containing at least two fields - teamName and orgName.
+ * @param {*} res response object - updated team object
+ * @returns 201: returns updated team details
+ */
 async function addTeam(req, res) {
   const team = req.body;
 
@@ -78,9 +106,9 @@ async function addTeam(req, res) {
 }
 
 /**
- * Gets the team member arrray from the database on /team/:team_id/member.
+ * Gets the team member array from the database on /team/:team_id/member.
  * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the returned team memeber array
+ * @param {*} res response object, the returned team member array
  * @returns 200: the team member array was returned
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
@@ -111,7 +139,7 @@ async function createTeamMember(req, res) {
 /**
  * Delete the team member from the database on /team/:team_id/member/:member_id.
  * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the relevant messgae returned
+ * @param {*} res response object, the relevant message returned
  * @returns 200: the team member was deleted
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
@@ -215,4 +243,5 @@ module.exports = {
   updateTeamMember,
   getGHAccessToken,
   deployToGHPages,
+  loginTeam,
 };

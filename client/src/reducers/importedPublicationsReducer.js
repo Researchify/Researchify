@@ -7,61 +7,68 @@ import {
   IMPORT_END,
   CHANGE_ACTIVE_PAGE,
   UPDATE_PUBLICATIONS_TO_IMPORT,
-} from "../actions/types";
-import { pageSize } from "../config/publications";
+} from '../actions/types';
+import { pageSize } from '../config/publications';
 
 const initialState = {
   loading: false,
   importStatus: null,
   publications: [],
   error: null,
-  gScholarId: "",
+  gScholarId: '',
   startFrom: 0,
   reachedEnd: false,
   totalPages: 0,
   activePage: 0,
   shownPublications: [],
-  publicationsToImport: []
+  publicationsToImport: [],
 };
 
 const toggleActivePage = (state, retrievedPublications) => {
   if (state.publications.length < pageSize) {
-    return 1
+    return 1;
   } else {
-    if (state.activePage !== state.totalPages) { // they weren't on the latest page
-      console.log("in true");
+    if (state.activePage !== state.totalPages) {
+      // they weren't on the latest page
+      console.log('in true');
       const totalSize = state.publications.concat(retrievedPublications).length;
       const activePage = Math.ceil(totalSize / pageSize);
       return activePage;
     } else {
       const totalSize = state.publications.concat(retrievedPublications).length;
       const activePage = Math.floor(totalSize / pageSize);
-      console.log("in else " + activePage);
+      console.log('in else ' + activePage);
       return activePage + 1;
     }
   }
 };
 
 const toggleShownPublications = (state, retrievedPublications) => {
-  if (state.publications.length < pageSize) { // initial case
-    console.log("in true for shown pubs");
-    return (state.publications.concat(retrievedPublications)).slice(0, pageSize);
+  if (state.publications.length < pageSize) {
+    // initial case
+    console.log('in true for shown pubs');
+    return state.publications.concat(retrievedPublications).slice(0, pageSize);
   } else {
-    const totalSize = (state.publications.concat(retrievedPublications)).length;
-    if (retrievedPublications.length < pageSize) { // reached end of user's profile
-      return (state.publications.concat(retrievedPublications)).slice(totalSize-pageSize, totalSize);
+    const totalSize = state.publications.concat(retrievedPublications).length;
+    if (retrievedPublications.length < pageSize) {
+      // reached end of user's profile
+      return state.publications
+        .concat(retrievedPublications)
+        .slice(totalSize - pageSize, totalSize);
     } else {
-      const activePage = Math.floor(totalSize/pageSize);
-      console.log("in else for shown publications " + activePage);
-      return state.publications.concat(retrievedPublications).slice((activePage-1)*pageSize, (activePage)*pageSize);
+      const activePage = Math.floor(totalSize / pageSize);
+      console.log('in else for shown publications ' + activePage);
+      return state.publications
+        .concat(retrievedPublications)
+        .slice((activePage - 1) * pageSize, activePage * pageSize);
     }
   }
-}
+};
 
 const calculateTotalPages = (state, retrievedPublications) => {
   const totalSize = state.publications.concat(retrievedPublications).length;
-  return Math.ceil(totalSize/pageSize);
-}
+  return Math.ceil(totalSize / pageSize);
+};
 
 const importedPublicationReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -70,19 +77,21 @@ const importedPublicationReducer = (state = initialState, action) => {
     case IMPORT_SUCCESS:
       return {
         ...state,
-        importStatus: "SUCCESS",
+        importStatus: 'SUCCESS',
         loading: false,
         publications: state.publications.concat(action.payload),
         shownPublications: toggleShownPublications(state, action.payload),
         totalPages: calculateTotalPages(state, action.payload),
         activePage: toggleActivePage(state),
         startFrom: state.startFrom + pageSize,
-        publicationsToImport: state.publicationsToImport.concat(new Array(action.payload.length).fill(true))
+        publicationsToImport: state.publicationsToImport.concat(
+          new Array(action.payload.length).fill(true)
+        ),
       };
     case IMPORT_FAIL:
       return {
         ...state,
-        importStatus: "FAIL",
+        importStatus: 'FAIL',
         loading: false,
         error: action.payload,
       };
@@ -99,7 +108,7 @@ const importedPublicationReducer = (state = initialState, action) => {
         shownPublications: action.payload.shownPublications,
       };
     case UPDATE_PUBLICATIONS_TO_IMPORT:
-      return {...state, publicationsToImport: action.payload}
+      return { ...state, publicationsToImport: action.payload };
     default:
       return state;
   }

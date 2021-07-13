@@ -3,6 +3,7 @@
  */
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import Auth from './auth/Auth';
 import Home from './home/Home';
@@ -27,7 +28,7 @@ const App = () => {
     dashboard: '/dashboard',
     profile: '/dashboard/profile',
   };
-  const teamId = useSelector((state) => state.user.teamId);
+  const teamId = useSelector((state) => state.team.teamId);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,39 +36,42 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/auth" exact component={Auth} />
-        <Route path="/register" exact component={Register} />
-        <Route path="/login" exact component={Login} />
-        <Fragment>
-          <Header title={'Researchify'} urls={urls} />
-          <Container fluid>
-            <Row>
-              <Col className="sidebar-wrapper" md={1} lg={1}>
-                <Sidebar />
-              </Col>
-              <Col className="page-content-wrapper" md={10} lg={10}>
-                <Route
-                  path={`/publications/team/${teamId}`}
-                  exact
-                  component={PublicationPage}
-                />
-                <Route path={urls.dashboard} exact component={Dashboard} />
-                <Route
-                  path="/dashboard/profile"
-                  exact
-                  component={ProfileInfoEdit}
-                />
-                <Route path="/team" exact component={TeamPage} />
-                <Route path="/deploy" exact component={DeployPage} />
-              </Col>
-            </Row>
-          </Container>
-        </Fragment>
-      </Switch>
-    </BrowserRouter>
+    <>
+      <Toaster position="bottom-center" reverseOrder={false} />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/auth" exact component={Auth} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/login" exact component={Login} />
+          <Fragment>
+            <Header title={'Researchify'} urls={urls} />
+            <Container fluid>
+              <Row>
+                <Col className="sidebar-wrapper" md={1} lg={1}>
+                  <Sidebar />
+                </Col>
+                <Col className="page-content-wrapper" md={10} lg={10}>
+                  <Route
+                    path={`/publications/team/${teamId}`}
+                    exact
+                    component={PublicationPage}
+                  />
+                  <Route path={urls.dashboard} exact component={Dashboard} />
+                  <Route
+                    path={urls.profile}
+                    exact
+                    component={ProfileInfoEdit}
+                  />
+                  <Route path="/team" exact component={TeamPage} />
+                  <Route path="/deploy" exact component={DeployPage} />
+                </Col>
+              </Row>
+            </Container>
+          </Fragment>
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 };
 

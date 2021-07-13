@@ -9,8 +9,17 @@ const teamSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    dateCreated: {
-      type: Date,
+    orgName: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
       required: true,
     },
     areaOfInterest: {
@@ -27,13 +36,13 @@ const teamSchema = new mongoose.Schema(
     templateId: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'template',
-      required: true,
+      required: false,
     },
     teamMembers: [
       {
-        fullName: { type: String, required: true, minLength: 3 },
-        position: { type: String, required: true },
-        summary: { type: String, required: true, minLength: 3 },
+        fullName: { type: String, required: false, minLength: 3 },
+        position: { type: String, required: false },
+        summary: { type: String, required: false, minLength: 3 },
       },
     ],
   },
