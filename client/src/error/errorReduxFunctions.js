@@ -56,7 +56,7 @@ export const errorActionGlobalCreator = (error) => {
   };
 };
 
-// TODO: remove this if we don't have any selector
+// FIXME: remove this if we don't have any selector
 export const createErrorSelector = (fn) => {
   return createSelector(fn, (storeIndex) =>
     get(storeIndex, 'error.data', null)

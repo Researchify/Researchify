@@ -32,7 +32,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTeamInfo('60aa3a2fffa7020a52a4ca3d')); // test with this to avoid error: 60aa3a2fffa7020a52a4ca3d, TODO: replace it with JWT token!!!
+    dispatch(getTeamInfo('60aa3a2fffa7020a52a4ca3d')); // test with this to avoid error: 60aa3a2fffa7020a52a4ca3d, FIXME: replace it with JWT token!!!
   }, [dispatch]);
 
   const errorMessage = useSelector((state) => state.main.error);

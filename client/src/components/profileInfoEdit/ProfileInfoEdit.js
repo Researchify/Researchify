@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 
+// TODO: need to clean up these two methods!
 const profileUpdated = () =>
   toast.success('Profile has been successfully updated');
 const profileDeleted = () => toast.error('Profile has not been deleted');
