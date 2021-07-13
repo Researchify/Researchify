@@ -20,15 +20,19 @@ import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
  * @param teamInfo contains teamName, orgName and email
  */
 export const addTeamInfo = (teamInfo) => async (dispatch) => {
-  const data = await api.addTeam(teamInfo);
-  const teamData = {
-    ...teamInfo,
-    teamId: data.data._id,
-  };
-  dispatch({
-    type: ADD_TEAM,
-    payload: teamData,
-  });
+  try {
+    const data = await api.addTeam(teamInfo);
+    const teamData = {
+      ...teamInfo,
+      teamId: data.data._id,
+    };
+    dispatch({
+      type: ADD_TEAM,
+      payload: teamData,
+    });
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
 };
 
 /**
