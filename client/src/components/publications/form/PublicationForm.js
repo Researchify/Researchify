@@ -7,13 +7,14 @@ import {
   createPublication,
 } from '../../../actions/publications';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MainInfoPage from './MainInfoPage';
 import CategoryPage from './CategoryPage';
 import { categoryType } from '../../../config/publications';
 
 const PublicationForm = (props) => {
   const dispatch = useDispatch();
+  const teamId = useSelector((state) => state.team.teamId);
   const [data, setData] = useState({
     title: '',
     yearPublished: new Date().getFullYear().toString(),
@@ -28,7 +29,7 @@ const PublicationForm = (props) => {
       pages: '',
       publisher: '',
     },
-    teamId: '609f5ad827b1d48257c321d3', // teamId should be get from redux state later
+    teamId: teamId, // teamId should be get from redux state later
   });
 
   const [currentStep, setCurrentStep] = useState(0);

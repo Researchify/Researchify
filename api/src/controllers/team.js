@@ -8,7 +8,11 @@ const Team = require('../models/team.model');
 
 const mongoose = require('mongoose');
 
-const {githubAccessTokenUrlStart, githubAccessTokenUrlEnd, schollyHost} = require('../config/deploy');
+const {
+  githubAccessTokenUrlStart,
+  githubAccessTokenUrlEnd,
+  schollyHost,
+} = require('../config/deploy');
 
 const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
@@ -180,18 +184,18 @@ async function updateTeamMember(req, res) {
 async function getGHAccessToken(req, res) {
   const code = req.params.code;
   console.log(req.params.code);
-  
+
   const response = await axios({
     url: githubAccessTokenUrlStart + code + githubAccessTokenUrlEnd,
     method: 'post',
     headers: { Accept: 'application/json' },
   });
-    console.log(response.data);
+  console.log(response.data);
 
   if (response.data.error) {
-    return res.status(400).json(response.data)
+    return res.status(400).json(response.data);
   }
-  
+
   return res.status(200).json(response.data);
 }
 
@@ -200,11 +204,11 @@ async function deployToGHPages(req, res) {
   const teamId = req.params.team_id;
   const publications = req.body.publications;
   const twitterHandle = req.body.twitterHandle;
-  console.log("here");
+  console.log('here');
 
   // call github API to get username
   const response = await axios.get('https://api.github.com/user', {
-    headers: { Authorization: "token " + ghToken }
+    headers: { Authorization: 'token ' + ghToken },
   });
 
   if (response.data.errors) {
@@ -215,22 +219,25 @@ async function deployToGHPages(req, res) {
   console.log(ghUser);
 
   const body = {
-    "ghUser": ghUser,
-    "ghToken": ghToken,
-    "teamTwitterHandle": twitterHandle,
-    "teamPublications": publications
-  }
-  
-  const schollyResponse = await axios({
-    url: schollyHost + '/deploy/' + teamId,
-    method: 'post',
-    data: body,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
+    ghUsername: ghUser,
+    ghToken: ghToken,
+    teamTwitterHandle: twitterHandle,
+    teamPublications: publications,
+  };
 
-  return res.status(200).json(schollyResponse.data);
+  try {
+    const schollyResponse = await axios({
+      url: schollyHost + '/deploy/' + teamId,
+      method: 'post',
+      data: body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res.status(200).json(schollyResponse.data);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 module.exports = {

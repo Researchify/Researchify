@@ -211,6 +211,7 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
 
 export const getGHAccessToken = (teamId, code) => async dispatch => {
     try {
+        console.log(teamId);
         const response = await api.getGHAccessToken(teamId, code);
         dispatch({
             type: GET_GH_ACCESS_TOKEN,
