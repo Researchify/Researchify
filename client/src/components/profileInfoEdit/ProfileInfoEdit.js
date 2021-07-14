@@ -2,7 +2,7 @@
  * This file exports a profile page management component that displays the ability to edit user information
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Button, Form, Container, Image } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
@@ -10,12 +10,18 @@ import profilePic from '../../images/profilepic.jpg';
 import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
+import api from '../../api/api';
 
 /**
  * Update user profile
  */
-const profileUpdated = () => {
+const updateProfile = (teamId, profileData) => {
   try {
+    api.patch(`team/${teamId}`, {
+      teamName: profileData.teamName,
+      orgName: profileData.orgName,
+      // email: profileData.email,
+    });
     toast.success('Profile has been successfully updated');
   } catch (error) {
     console.error(error);
@@ -34,17 +40,40 @@ const profileDeleted = () => {
  * Form component for user update profile
  */
 const ProfileInfoEdit = () => {
-  const teamName = useSelector((state) => state.user?.teamName);
-  const orgName = useSelector((state) => state.user?.orgName);
-  const email = useSelector((state) => state.user?.email);
-  // We dont store country and phone number at the moment
-  // const country = useSelector((state) => state.user?.country);
-  // const phoneNum = useSelector((state) => state.user?.phoneNum);
+  const teamId = useSelector((state) => state.user?.teamName);
+
+  const [profileData, setInputs] = useState({
+    teamName: useSelector((state) => state.user?.teamName),
+    orgName: useSelector((state) => state.user?.orgName),
+    // email: useSelector((state) => state.user?.email),
+    // country: useSelector((state) => state.user?.country);
+  });
+  const updateInputs = (form) => {
+    const { name, value } = form.target;
+    setInputs({ ...profileData, [name]: value });
+  };
+
+  const [validated, setValidated] = useState(false);
+  const handleUpdate = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      updateProfile(teamId, profileData);
+    }
+    setValidated(true);
+  };
 
   return (
     <div className="mt-5">
       <Container className="profile-container">
-        <Form className="profile-form">
+        <Form
+          className="profile-form"
+          noValidate
+          validated={validated}
+          onSubmit={handleUpdate}
+        >
           <p className="profile-title-name">Team Profile Management</p>
 
           <Form.Group controlId="formProfilePic">
@@ -62,12 +91,26 @@ const ProfileInfoEdit = () => {
 
           <Form.Group controlId="formResearchGroupName">
             <Form.Label>Research Group Name</Form.Label>
-            <Form.Control type="text" placeholder={teamName} />
+            <Form.Control
+              type="text"
+              placeholder="Enter your group name here"
+              value={profileData.teamName}
+              onchange={updateInputs}
+              required
+              name="teamName"
+            />
           </Form.Group>
 
           <Form.Group controlId="formOrganisationName">
             <Form.Label>Organisation Name</Form.Label>
-            <Form.Control type="text" placeholder={orgName} />
+            <Form.Control
+              type="text"
+              placeholder="Enter your organisation name here"
+              value={profileData.orgName}
+              onchange={updateInputs}
+              required
+              name="orgName"
+            />
           </Form.Group>
 
           {/* <Form.Group controlId="formCountry">
@@ -80,18 +123,25 @@ const ProfileInfoEdit = () => {
             </Form.Control>
           </Form.Group> */}
 
-          <Form.Group controlId="formEmail">
+          {/* <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder={email} />
-          </Form.Group>
-
-          {/* <Form.Group controlId="formPhoneNumber">
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control type="text" placeholder={phoneNum} />
+            <Form.Control
+              type="text"
+              placeholder="Enter your email here"
+              value={profileData.email}
+              onchange={updateInputs}
+              required
+              name="email"
+            />
           </Form.Group> */}
 
           <div className="my-1">
-            <Button color="primary" className="mr-2" onClick={profileUpdated}>
+            <Button
+              id="updateButton"
+              type="submit"
+              color="primary"
+              className="mr-2"
+            >
               Update
             </Button>
             <Toaster />
