@@ -18,18 +18,18 @@ import InitialiseWebsiteForm from './InitialiseWebsiteForm';
 
 /**
  * Check if website is created.
- * Assume website is created when github token is stored.
+ * Assume website is created when template Id is stored.
  */
 const checkWebsiteCreated = (teamId) => {
   try {
-    let res = api.get(`team/${teamId}/githubToken`);
+    let res = api.get(`team/${teamId}/templateId`);
     if (Object.entries(res).length === 0) {
       return false;
     }
   } catch (err) {
     // TODO: change to toast.error
     console.error(
-      `Error when checking github token of user in Dashboard.js: ${err}`
+      `Error when checking websiteIsCreated of user in Dashboard.js: ${err}`
     );
     return false;
   }
@@ -65,7 +65,7 @@ const Dashboard = () => {
         <Card.Body className="researchify-dashboard-card-description">
           {websiteIsCreated
             ? 'Your website is created, edit your website in editor.'
-            : 'Click the button to enter Personal Acess Token and get started.'}
+            : 'Click the button to get started.'}
         </Card.Body>
 
         {/* Bottom layer of the card with three icons */}

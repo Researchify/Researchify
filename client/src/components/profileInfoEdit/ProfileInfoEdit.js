@@ -46,7 +46,6 @@ const ProfileInfoEdit = () => {
     teamName: useSelector((state) => state.user?.teamName),
     orgName: useSelector((state) => state.user?.orgName),
     email: useSelector((state) => state.user?.email),
-    // country: useSelector((state) => state.user?.country);
   });
   const updateInputs = (form) => {
     const { name, value } = form.target;
@@ -112,16 +111,6 @@ const ProfileInfoEdit = () => {
               name="orgName"
             />
           </Form.Group>
-
-          {/* <Form.Group controlId="formCountry">
-            <Form.Label>Country</Form.Label>
-            <Form.Control as="select" defaultValue={country}>
-              <option>{country}</option>
-              <option>Australia</option>
-              <option>USA</option>
-              <option>Canada</option>
-            </Form.Control>
-          </Form.Group> */}
 
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>

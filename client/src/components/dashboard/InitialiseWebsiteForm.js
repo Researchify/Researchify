@@ -1,6 +1,6 @@
 /**
  * This file exports a pop up window, that
- * prompts user for github token and teamplate
+ * prompts user for github username and template
  * selection, in Researchify dashboard page.
  */
 import React, { useState } from 'react';
@@ -19,15 +19,13 @@ const storeInputs = (teamId, inputObject) => {
   // assume templateId = theme1_layout1 etc. for now
   let template = inputObject.theme + '_' + inputObject.layout;
   try {
-    //createRepository(githubToken, githubUsername, "Team Name", handleRepoCreation)
     api.patch(`team/${teamId}`, {
-      githubToken: inputObject.token,
       githubUsername: inputObject.username,
       templateId: template,
     });
   } catch (err) {
     console.error(
-      `Error in patching github token/username in Dashboard.js: ${err}`
+      `Error in patching github username and template id in Dashboard.js: ${err}`
     );
   }
 };
@@ -39,7 +37,6 @@ const InitialiseWebsiteForm = (props) => {
   // Storing and passing form inputs
   const [formInputs, setInputs] = useState({
     username: null,
-    token: null,
     theme: 'theme1',
     layout: 'layout1',
   });
@@ -91,20 +88,6 @@ const InitialiseWebsiteForm = (props) => {
             />
             <Form.Control.Feedback type="invalid">
               Please input a valid Guthub username.
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group controlId="githubToken">
-            <Form.Label>Github Personal Access Token</Form.Label>
-            <Form.Control
-              onChange={updateForm}
-              name="token"
-              type="text"
-              placeholder="Enter your GitHub Personal Access Token Here"
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please input a valid Guthub Personal Access Token.
             </Form.Control.Feedback>
           </Form.Group>
 
