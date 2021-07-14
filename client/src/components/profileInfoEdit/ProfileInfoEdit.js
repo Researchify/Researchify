@@ -20,7 +20,7 @@ const updateProfile = (teamId, profileData) => {
     api.patch(`team/${teamId}`, {
       teamName: profileData.teamName,
       orgName: profileData.orgName,
-      // email: profileData.email,
+      email: profileData.email,
     });
     toast.success('Profile has been successfully updated');
   } catch (error) {
@@ -45,7 +45,7 @@ const ProfileInfoEdit = () => {
   const [profileData, setInputs] = useState({
     teamName: useSelector((state) => state.user?.teamName),
     orgName: useSelector((state) => state.user?.orgName),
-    // email: useSelector((state) => state.user?.email),
+    email: useSelector((state) => state.user?.email),
     // country: useSelector((state) => state.user?.country);
   });
   const updateInputs = (form) => {
@@ -94,7 +94,7 @@ const ProfileInfoEdit = () => {
             <Form.Control
               type="text"
               placeholder="Enter your group name here"
-              value={profileData.teamName}
+              defaultValue={profileData.teamName}
               onchange={updateInputs}
               required
               name="teamName"
@@ -106,7 +106,7 @@ const ProfileInfoEdit = () => {
             <Form.Control
               type="text"
               placeholder="Enter your organisation name here"
-              value={profileData.orgName}
+              defaultValue={profileData.orgName}
               onchange={updateInputs}
               required
               name="orgName"
@@ -123,17 +123,16 @@ const ProfileInfoEdit = () => {
             </Form.Control>
           </Form.Group> */}
 
-          {/* <Form.Group controlId="formEmail">
+          <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter your email here"
-              value={profileData.email}
+            <Form.Control 
+              type="email" 
+              placeholder='Enter your email here'
+              name='email'
+              defaultValue={profileData.email} 
               onchange={updateInputs}
-              required
-              name="email"
-            />
-          </Form.Group> */}
+              required/>
+          </Form.Group>
 
           <div className="my-1">
             <Button
