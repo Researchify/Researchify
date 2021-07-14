@@ -77,8 +77,8 @@
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: -5px;
+    margin-right: 30px;
 }
 
 .lightblue-theme-icon{
@@ -91,8 +91,4 @@
 
 .green-theme-icon{
     background: linear-gradient(to right, #868789 0%, #868789 50%, #008000 50%, #008000 100%);
-}
-
-.theme-selector, .layout-selector{
-    margin-bottom: 10px;
 }
