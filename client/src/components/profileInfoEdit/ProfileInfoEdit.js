@@ -11,16 +11,35 @@ import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 
-const profileUpdated = () =>
-  toast.success('Profile has been successfully updated');
-const profileDeleted = () => toast.error('Profile has not been deleted');
+/**
+ * Update user profile
+ */
+const profileUpdated = () => {
+  try {
+    toast.success('Profile has been successfully updated');
+  } catch (error) {
+    console.error(error);
+    toast.error('Profile has not been updated');
+  }
+};
 
+const profileDeleted = () => {
+  console.error(
+    'Delete profile function is not implemented yet in ProfileInfoEdit.js'
+  );
+  toast.error('Profile has not been deleted');
+};
+
+/**
+ * Form component for user update profile
+ */
 const ProfileInfoEdit = () => {
-  const groupName = useSelector((state) => state.user?.groupName);
+  const teamName = useSelector((state) => state.user?.teamName);
   const orgName = useSelector((state) => state.user?.orgName);
-  const country = useSelector((state) => state.user?.country);
   const email = useSelector((state) => state.user?.email);
-  const phoneNum = useSelector((state) => state.user?.phoneNum);
+  // We dont store country and phone number at the moment
+  // const country = useSelector((state) => state.user?.country);
+  // const phoneNum = useSelector((state) => state.user?.phoneNum);
 
   return (
     <div className="mt-5">
@@ -43,7 +62,7 @@ const ProfileInfoEdit = () => {
 
           <Form.Group controlId="formResearchGroupName">
             <Form.Label>Research Group Name</Form.Label>
-            <Form.Control type="text" placeholder={groupName} />
+            <Form.Control type="text" placeholder={teamName} />
           </Form.Group>
 
           <Form.Group controlId="formOrganisationName">
@@ -51,7 +70,7 @@ const ProfileInfoEdit = () => {
             <Form.Control type="text" placeholder={orgName} />
           </Form.Group>
 
-          <Form.Group controlId="formCountry">
+          {/* <Form.Group controlId="formCountry">
             <Form.Label>Country</Form.Label>
             <Form.Control as="select" defaultValue={country}>
               <option>{country}</option>
@@ -59,17 +78,17 @@ const ProfileInfoEdit = () => {
               <option>USA</option>
               <option>Canada</option>
             </Form.Control>
-          </Form.Group>
+          </Form.Group> */}
 
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" placeholder={email} />
           </Form.Group>
 
-          <Form.Group controlId="formPhoneNumber">
+          {/* <Form.Group controlId="formPhoneNumber">
             <Form.Label>Phone Number</Form.Label>
             <Form.Control type="text" placeholder={phoneNum} />
-          </Form.Group>
+          </Form.Group> */}
 
           <div className="my-1">
             <Button color="primary" className="mr-2" onClick={profileUpdated}>
