@@ -8,35 +8,38 @@ import { Button } from 'react-bootstrap';
 const DeployPage = () => {
   const dispatch = useDispatch();
   // const teamId = useSelector((state) => state.team.teamId);
-  // TODO: this is hardcode because redirect from github loses team info in the state
+  // TODO: this is hardcoded because redirect from github loses team info after the redirect
   const teamId = '60e92f81eaefdcaaa3ac724c';
-  const accessToken = useSelector((state) => state.team.accessToken);
-  const [retrievedAccessToken, setRetrievedAccessToken] = useState(false);
+  const retrievedAccessToken = useSelector(
+    (state) => state.team.retrievedAccessToken
+  );
   const linkedHandle = useSelector((state) => state.team.twitterHandle);
 
   useEffect(() => {
     // github returns a code in the url after user logs in
     const url = window.location.href;
     const hasCode = url.includes('?code=');
-    // TODO: something is making this render twice without the extra condition
 
     if (hasCode && !retrievedAccessToken) {
       const code = url.split('?code=')[1];
       // we use this code to exchange an access token
-      console.log(code);
       dispatch(getGHAccessToken(teamId, code));
-      setRetrievedAccessToken(true);
     }
-  });
+  }, [dispatch, retrievedAccessToken]);
 
   const GitHubLoginButton = () => (
-    <a href={githubLoginUrl}>
+    <Button
+      variant="outline-primary"
+      href={githubLoginUrl}
+      disabled={retrievedAccessToken}
+    >
       <GoMarkGithub />
-      <span>Login with GitHub</span>
-    </a>
+      Login with Github
+    </Button>
   );
 
   const handleDeploy = () => {
+    const accessToken = localStorage.getItem('GH_access_token');
     // call backend endpoint to deploy and give the access token
     dispatch(deployToGHPages(teamId, accessToken, linkedHandle));
   };
@@ -56,10 +59,10 @@ const DeployPage = () => {
 
   return (
     <>
-      <GitHubLoginButton disabled={!retrievedAccessToken} />
+      <GitHubLoginButton />
       <DeployButton />{' '}
     </>
   );
-};;
+};
 
 export default DeployPage;

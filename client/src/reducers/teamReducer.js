@@ -7,7 +7,7 @@ import {
   UNLINK_TEAM_TWITTER,
   ADD_TEAM,
   GET_GH_ACCESS_TOKEN,
-  TEAM_ERROR
+  TEAM_ERROR,
 } from '../actions/types';
 
 import { errorReducer } from '../error/errorReduxFunctions';
@@ -20,6 +20,7 @@ const INITIAL_TEAM_STATE = {
   twitterHandle: '',
   repoCreated: false,
   error: null,
+  retrievedAccessToken: false,
 };
 
 /**
@@ -38,9 +39,9 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
     case UNLINK_TEAM_TWITTER:
       return { ...state, twitterHandle: action.payload };
     case GET_GH_ACCESS_TOKEN:
-      return { ...state, accessToken: action.payload };
+      return { ...state, retrievedAccessToken: true };
     case ADD_TEAM:
-      return action.payload;
+      return { ...action.payload };
     case TEAM_ERROR:
       return {
         ...errorReducer(state, action),

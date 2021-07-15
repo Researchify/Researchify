@@ -48,6 +48,7 @@ export const getTeam = (teamCredentials, history) => async (dispatch) => {
     const data = await api.loginTeam(teamCredentials);
     console.log(data);
     const teamData = data.data.team;
+    console.log(teamData);
     const team = teamDataAllocator(teamData);
     dispatch({
       type: ADD_TEAM,
@@ -217,12 +218,12 @@ export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   try {
     console.log(teamId);
     const response = await api.getGHAccessToken(teamId, code);
+    localStorage.setItem('GH_access_token', response.data.access_token);
     dispatch({
       type: GET_GH_ACCESS_TOKEN,
-      payload: response.data.access_token,
     });
   } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
+    console.log(err);
   }
 };
 
@@ -272,5 +273,7 @@ function teamDataAllocator(teamData) {
     orgName: teamData.orgName,
     twitterHandle: teamData.twitterHandle,
     repoCreated: teamData.repoCreated,
+    error: null,
+    retrievedAccessToken: false,
   };
 }
