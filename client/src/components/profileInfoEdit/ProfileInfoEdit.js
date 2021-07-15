@@ -40,12 +40,13 @@ const profileDeleted = () => {
  * Form component for user update profile
  */
 const ProfileInfoEdit = () => {
-  const teamId = useSelector((state) => state.user?.teamName);
+  const teamId = useSelector((state) => state.team?.teamId);
+  console.log(teamId);
 
   const [profileData, setInputs] = useState({
-    teamName: useSelector((state) => state.user?.teamName),
-    orgName: useSelector((state) => state.user?.orgName),
-    email: useSelector((state) => state.user?.email),
+    teamName: useSelector((state) => state.team?.teamName),
+    orgName: useSelector((state) => state.team?.orgName),
+    email: useSelector((state) => state.team?.email),
   });
   const updateInputs = (form) => {
     const { name, value } = form.target;
@@ -55,14 +56,18 @@ const ProfileInfoEdit = () => {
   const [validated, setValidated] = useState(false);
   const handleUpdate = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     } else {
       updateProfile(teamId, profileData);
     }
     setValidated(true);
   };
+
+  console.log('below is the profile data');
+  console.log(teamId);
+  console.log(profileData);
 
   return (
     <div className="mt-5">
@@ -94,7 +99,7 @@ const ProfileInfoEdit = () => {
               type="text"
               placeholder="Enter your group name here"
               defaultValue={profileData.teamName}
-              onchange={updateInputs}
+              onChange={updateInputs}
               required
               name="teamName"
             />
@@ -106,7 +111,7 @@ const ProfileInfoEdit = () => {
               type="text"
               placeholder="Enter your organisation name here"
               defaultValue={profileData.orgName}
-              onchange={updateInputs}
+              onChange={updateInputs}
               required
               name="orgName"
             />
@@ -114,13 +119,14 @@ const ProfileInfoEdit = () => {
 
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control 
-              type="email" 
-              placeholder='Enter your email here'
-              name='email'
-              defaultValue={profileData.email} 
-              onchange={updateInputs}
-              required/>
+            <Form.Control
+              type="email"
+              placeholder="Enter your email here"
+              name="email"
+              defaultValue={profileData.email}
+              onChange={updateInputs}
+              required
+            />
           </Form.Group>
 
           <div className="my-1">

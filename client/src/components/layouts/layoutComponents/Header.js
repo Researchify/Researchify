@@ -1,24 +1,21 @@
-/**
- * This file exports header components for layouts
- */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import {useSelector} from 'react-redux';
-
-/** icons **/
+import { useSelector } from 'react-redux';
 import { BsPeopleCircle } from 'react-icons/bs';
 
-/** css */
 import './Header.css';
+
+import { Fragment } from 'react';
 
 /**
  * This function provides header for Layout.js
  * @returns Header component to be rendered in Layout.js
  */
 const Header = (props) => {
-  const username = useSelector(state => state.user?.givenName + " " + state.user?.familyName);
-
+  const userName = useSelector(
+    (state) => state.team?.teamName + ' ' + state.team?.orgName
+  );
   //TODO: Remove hard-coded team id and publications id from the links
   return (
     <Fragment>
@@ -30,10 +27,9 @@ const Header = (props) => {
         </Navbar.Brand>
         <Nav className="mr-auto" />
         <Nav>
-          <Nav.Link className="header-username">
-            <Link className="header-link" to={props.data.profileURL}>
-              {/* {userName} */}
-              <BsPeopleCircle className="header-profile-icon" /> {username}
+          <Nav.Link className="header-profile">
+            <Link className="header-link" to="/dashboard/profile">
+              <BsPeopleCircle className="header-profile-icon" /> {userName}
             </Link>
           </Nav.Link>
         </Nav>

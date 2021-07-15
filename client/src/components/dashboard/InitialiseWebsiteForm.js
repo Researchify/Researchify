@@ -49,11 +49,12 @@ const InitialiseWebsiteForm = (props) => {
   const [validated, setValidated] = useState(false);
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     } else {
       storeInputs(props.teamId, formInputs);
+      props.createWebsite();
     }
     setValidated(true);
   };
