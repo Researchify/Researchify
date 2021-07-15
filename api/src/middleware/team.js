@@ -13,7 +13,7 @@ async function validateTeamId(req, res, next) {
   let foundTeam;
 
   if (mongoose.Types.ObjectId.isValid(team_id)) {
-    foundTeam = await Team.findById(team_id);
+    foundTeam = await Team.findById(team_id).select({ _id, teamName, orgName });
     if (foundTeam == null) {
       return res.status(404).send(`Error: No team found with given id.`);
     }

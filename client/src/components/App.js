@@ -1,7 +1,7 @@
 /**
  * Root component.
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
@@ -21,6 +21,7 @@ import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
 import { getTeamInfo } from '../actions/team';
+import { useDispatch } from 'react-redux';
 const App = () => {
   const urls = {
     dashboard: '/dashboard',
@@ -29,7 +30,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTeamInfo('60aa3540f16fc807d045c7d5')); // once we have implemented JWT (see below):
+    dispatch(getTeamInfo('609f5ad827b1d48257c321d3')); // once we have implemented JWT (see below):
     // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
   }, [dispatch]);
 
