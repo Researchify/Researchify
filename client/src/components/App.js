@@ -1,7 +1,7 @@
 /**
  * Root component.
  */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
@@ -15,24 +15,16 @@ import Login from './auth/Login';
 import Header from './layout/Header';
 import Sidebar from './layout/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import './layout/Layout.css';
 
 import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
-import { fetchUserAction } from '../actions/users';
 const App = () => {
   const urls = {
     dashboard: '/dashboard',
     profile: '/dashboard/profile',
   };
-  const teamId = useSelector((state) => state.team.teamId);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchUserAction());
-  }, [dispatch]);
 
   return (
     <>
@@ -52,7 +44,7 @@ const App = () => {
                 </Col>
                 <Col className="page-content-wrapper" md={10} lg={10}>
                   <Route
-                    path={`/publications/team/${teamId}`}
+                    path={`/publications`}
                     exact
                     component={PublicationPage}
                   />
