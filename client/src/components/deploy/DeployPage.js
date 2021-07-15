@@ -24,6 +24,9 @@ const DeployPage = () => {
       const code = url.split('?code=')[1];
       // we use this code to exchange an access token
       dispatch(getGHAccessToken(teamId, code));
+    } else if (!retrievedAccessToken) {
+      // we refreshed so we should clear local storage
+      localStorage.clear();
     }
   }, [dispatch, retrievedAccessToken]);
 
