@@ -9,8 +9,6 @@ import './Login.css';
 import { getTeam } from '../../actions/team';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import toast from 'react-hot-toast';
-
 /** 
 Handles the UI for the log in page
 @returns JSX element
@@ -38,12 +36,7 @@ export default function Login() {
     }
     const credentials = { email: inputs.email, password: inputs.password };
     setValidated(true);
-    dispatch(getTeam(credentials))
-      .then(() => history.push('/dashboard'))
-      .catch((err) => {
-        console.error(err);
-        toast.error('Incorrect username/password');
-      });
+    dispatch(getTeam(credentials, history));
   };
 
   return (

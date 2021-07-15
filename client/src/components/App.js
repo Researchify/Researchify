@@ -18,11 +18,12 @@ import Sidebar from './layout/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import './layout/Layout.css';
+import { ErrorToaster } from '../error/ErrorToaster';
 
 import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
-import { fetchUserAction } from '../actions/users';
+import { getTeamInfo } from '../actions/team';
 const App = () => {
   const urls = {
     dashboard: '/dashboard',
@@ -32,13 +33,16 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUserAction());
+    dispatch(getTeamInfo('60aa3a2fffa7020a52a4ca3d')); // test with this to avoid error: 60aa3a2fffa7020a52a4ca3d, FIXME: replace it with JWT token!!!
   }, [dispatch]);
+
+  const errorMessage = useSelector((state) => state.main.error);
 
   return (
     <>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
+        <ErrorToaster message={errorMessage} />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/auth" exact component={Auth} />

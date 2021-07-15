@@ -54,6 +54,7 @@ teamRouter.post(
   '/:team_id/deploy',
   teamController.deployToGHPages
 );
+
 teamRouter.post('/', teamController.addTeam);
 
 teamRouter.post('/login', teamController.loginTeam);

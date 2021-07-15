@@ -3,10 +3,8 @@ import { useSelector } from 'react-redux';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const userName = useSelector((state) => {
-    console.log(state);
-    return state.team?.teamName;
-  });
+  const userName = useSelector((state) => state.team?.teamName);
+
   return (
     <main>
       <Container fluid>

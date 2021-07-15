@@ -2,6 +2,7 @@
  * This file houses our team-related Action Creators.
  */
 import * as api from '../api';
+
 import {
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
@@ -15,21 +16,26 @@ import {
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
 } from './types';
+import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
 /**
  * Adds a new team to redux store and database.
  * @param teamInfo contains teamName, orgName and email
  */
 export const addTeamInfo = (teamInfo) => async (dispatch) => {
-  const data = await api.addTeam(teamInfo);
-  const teamData = {
-    ...teamInfo,
-    teamId: data.data._id,
-  };
-  dispatch({
-    type: ADD_TEAM,
-    payload: teamData,
-  });
+  try {
+    const data = await api.addTeam(teamInfo);
+    const teamData = {
+      ...teamInfo,
+      teamId: data.data._id,
+    };
+    dispatch({
+      type: ADD_TEAM,
+      payload: teamData,
+    });
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
 };
 
 /**
@@ -37,22 +43,20 @@ export const addTeamInfo = (teamInfo) => async (dispatch) => {
  * @param teamCredentials team email and password as a dictionary
  * @param teamPassword team account password
  */
-export const getTeam = (teamCredentials) => async (dispatch) => {
-  const data = await api.loginTeam(teamCredentials);
-  const teamData = data.data.team;
-  console.log(teamData);
-  const team = {
-    teamId: teamData._id,
-    email: teamData.email,
-    teamName: teamData.teamName,
-    orgName: teamData.orgName,
-    twitterHandle: teamData.twitterHandle,
-    repoCreated: teamData.repoCreated,
-  };
-  dispatch({
-    type: ADD_TEAM,
-    payload: team,
-  });
+export const getTeam = (teamCredentials, history) => async (dispatch) => {
+  try {
+    const data = await api.loginTeam(teamCredentials);
+    console.log(data);
+    const teamData = data.data.team;
+    const team = teamDataAllocator(teamData);
+    dispatch({
+      type: ADD_TEAM,
+      payload: team,
+    });
+    history.push('/dashboard');
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
 };
 
 /**
@@ -68,14 +72,14 @@ export const getTeam = (teamCredentials) => async (dispatch) => {
  */
 export const getTeamInfo = (teamId) => async (dispatch) => {
   try {
-    const { data } = api.fetchTeamInfo(teamId);
-    console.log(data);
+    const { data } = await api.fetchTeamInfo(teamId);
+    const team = teamDataAllocator(data);
     dispatch({
       type: FETCH_TEAM_INFO,
-      payload: data,
+      payload: team,
     });
   } catch (err) {
-    console.error(err);
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -103,6 +107,7 @@ export const linkTwitter = (teamId, handle) => async (dispatch) => {
       type: LINK_TEAM_TWITTER,
       payload: null,
     });
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -122,7 +127,7 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
       payload: data.twitterHandle,
     });
   } catch (err) {
-    console.log(err);
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -135,13 +140,12 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
 export const getTeamMembersByTeamId = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.fetchTeamMembersByTeamId(teamId);
-
     dispatch({
       type: GET_TEAM_MEMBERS_BY_TEAM_ID,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -161,8 +165,8 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
       type: CREATE_TEAM_MEMBER,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -184,8 +188,8 @@ export const updateTeamMember = (id, teamMember) => async (dispatch) => {
       type: UPDATE_TEAM_MEMBER,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -209,45 +213,64 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
   }
 };
 
-export const getGHAccessToken = (teamId, code) => async dispatch => {
+export const getGHAccessToken = (teamId, code) => async (dispatch) => {
+  try {
+    console.log(teamId);
+    const response = await api.getGHAccessToken(teamId, code);
+    dispatch({
+      type: GET_GH_ACCESS_TOKEN,
+      payload: response.data.access_token,
+    });
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
+};
+
+export const deployToGHPages =
+  (teamId, accessToken, twitterHandle) => async (dispatch) => {
     try {
-        console.log(teamId);
-        const response = await api.getGHAccessToken(teamId, code);
-        dispatch({
-            type: GET_GH_ACCESS_TOKEN,
-            payload: response.data.access_token
-        });
+      // get publications
+      const { data } = await api.fetchPublicationsByTeamId(
+        '609f5ad827b1d48257c321d3' // TODO: remove this hardcoded
+      );
+      data.map(
+        (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
+      );
+
+      const body = {
+        ghToken: accessToken,
+        teamTwitterHandle: twitterHandle,
+        teamPublications: data,
+      };
+
+      console.log(body);
+
+      const response = await api.deployToGHPages(teamId, body);
+      console.log(response.data);
+      dispatch({
+        type: DEPLOY_SUCCESS,
+      }); // TODO: use this and DEPLOY_FAIL to show message to user?
     } catch (err) {
-        console.log(err);
+      console.log(err);
+      dispatch({
+        type: DEPLOY_FAIL,
+      });
     }
-}
+  };
 
-export const deployToGHPages = (teamId, accessToken, twitterHandle) => async dispatch => {
-    try {
-        // get publications
-        const { data } = await api.fetchPublicationsByTeamId(
-          '609f5ad827b1d48257c321d3' // TODO: remove this hardcoded
-        );
-        data.map((pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4)));
-
-        const body = {
-            ghToken: accessToken,
-            teamTwitterHandle: twitterHandle,
-            teamPublications: data
-        }
-
-        console.log(body);
-
-        const response = await api.deployToGHPages(teamId, body);
-        console.log(response.data);
-        dispatch({
-            type: DEPLOY_SUCCESS
-        }) // TODO: use this and DEPLOY_FAIL to show message to user?
-        
-    } catch (err) {
-        console.log(err);
-        dispatch({
-            type: DEPLOY_FAIL,
-        });
-    }
+/**
+ * A function to allocates team data from back-end.
+ * @param {*} teamData raw data from back-end
+ * @returns full team data that adheres to team state
+ * @see teamReducer#INITIAL_TEAM_STATE
+ */
+function teamDataAllocator(teamData) {
+  return {
+    teamId: teamData._id,
+    email: teamData.email,
+    teamName: teamData.teamName,
+    orgName: teamData.orgName,
+    twitterHandle: teamData.twitterHandle,
+    repoCreated: teamData.repoCreated,
+  };
 }

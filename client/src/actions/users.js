@@ -2,18 +2,7 @@
  * This file houses our user-related Action Creators.
  */
 import * as api from '../api';
-import { ADD_USER_DATA, FETCH_USER_DATA } from './types';
-
-export const fetchUserAction = () => async (dispatch) => {
-  try {
-    // TODO: remove this when JWT available
-    const userId = '606c54aa3baac51e9c5ced29';
-    const res = await api.fetchUserData(userId);
-    dispatch({ type: FETCH_USER_DATA, payload: res.data });
-  } catch (err) {
-    console.error(`Error in getting user data from the api: ${err}`);
-  }
-};
+import { ADD_USER_DATA } from './types';
 
 /**
  * This action creator will be called when a user registers.

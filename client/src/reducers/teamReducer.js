@@ -6,8 +6,11 @@ import {
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
   ADD_TEAM,
-  GET_GH_ACCESS_TOKEN
+  GET_GH_ACCESS_TOKEN,
+  TEAM_ERROR
 } from '../actions/types';
+
+import { errorReducer } from '../error/errorReduxFunctions';
 
 const INITIAL_TEAM_STATE = {
   teamId: '', // todo: change to empty str when integrating
@@ -16,6 +19,7 @@ const INITIAL_TEAM_STATE = {
   email: '',
   twitterHandle: '',
   repoCreated: false,
+  error: null,
 };
 
 /**
@@ -37,6 +41,10 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return { ...state, accessToken: action.payload };
     case ADD_TEAM:
       return action.payload;
+    case TEAM_ERROR:
+      return {
+        ...errorReducer(state, action),
+      };
     default:
       return state;
   }

@@ -24,7 +24,7 @@ export const UNLINK_TEAM_TWITTER = 'UNLINK_TEAM_TWITTER';
 export const IMPORT_REQUEST = 'IMPORT_REQUEST';
 export const IMPORT_SUCCESS = 'IMPORT_SUCCESS';
 export const VALIDATE_IMPORT = 'VALIDATE_IMPORT';
-export const IMPORT_FAIL = 'IMPORT_FAIL';
+export const IMPORT_FAIL = 'IMPORT_FAIL'; // todo: check this one with PUBLICATION_ERROR
 export const IMPORT_CLEAR_STATE = 'IMPORT_CLEAR_STATE';
 export const UPDATE_GSCHOLAR_ID = 'UPDATE_GSCHOLAR_ID';
 export const IMPORT_END = 'IMPORT_END';
@@ -38,3 +38,8 @@ export const DELETE_TEAM_MEMBER = 'DELETE_TEAM_MEMBER';
 export const GET_GH_ACCESS_TOKEN = 'GET_GH_ACCESS_TOKEN';
 export const DEPLOY_SUCCESS = 'DEPLOY_SUCCESS';
 export const DEPLOY_FAIL = 'DEPLOY_FAIL';
+
+// ERRORS
+export const TEAM_ERROR = 'TEAM_ERROR'; // use this if you want to create specific error handling
+export const PUBLICATION_ERROR = 'PUBLICATION_ERROR'; // use this if you want to create specific error handling
+export const RESEARCHIFY_API_ERROR = 'RESEARCHIFY_API_ERROR';

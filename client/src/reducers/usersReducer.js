@@ -1,7 +1,7 @@
 /**
  * This file exports our user reducer that will handle all dispatched user data related actions.
  */
-import { ADD_USER_DATA, FETCH_USER_DATA } from '../actions/types';
+import { ADD_USER_DATA } from '../actions/types';
 
 const INITIAL_STATE = {
   email: '',
@@ -20,8 +20,6 @@ const INITIAL_STATE = {
  */
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FETCH_USER_DATA:
-      return action.payload;
     case ADD_USER_DATA:
       return action.payload;
     default:
