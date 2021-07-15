@@ -20,11 +20,18 @@ import './layout/Layout.css';
 import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
+import { getTeamInfo } from '../actions/team';
 const App = () => {
   const urls = {
     dashboard: '/dashboard',
     profile: '/dashboard/profile',
   };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTeamInfo('60aa3540f16fc807d045c7d5')); // once we have implemented JWT (see below):
+    // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
+  }, [dispatch]);
 
   return (
     <>
