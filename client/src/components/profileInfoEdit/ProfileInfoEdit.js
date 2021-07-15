@@ -9,45 +9,24 @@ import './ProfileInfoEdit.css';
 import profilePic from '../../images/profilepic.jpg';
 import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
-import api from '../../api/api';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateTeam } from '../../actions/team';
 
-/**
- * Update user profile
- */
-const updateProfile = (teamId, profileData) => {
-  try {
-    api.patch(`team/${teamId}`, {
-      teamName: profileData.teamName,
-      orgName: profileData.orgName,
-      email: profileData.email,
-    });
-    toast.success('Profile has been successfully updated');
-  } catch (error) {
-    console.error(error);
-    toast.error('Profile has not been updated');
-  }
-};
-
-const profileDeleted = () => {
-  console.error(
-    'Delete profile function is not implemented yet in ProfileInfoEdit.js'
-  );
-  toast.error('Profile has not been deleted');
-};
 
 /**
  * Form component for user update profile
  */
 const ProfileInfoEdit = () => {
+  const dispatch = useDispatch(); 
+
   const teamId = useSelector((state) => state.team?.teamId);
-  console.log(teamId);
 
   const [profileData, setInputs] = useState({
     teamName: useSelector((state) => state.team?.teamName),
     orgName: useSelector((state) => state.team?.orgName),
     email: useSelector((state) => state.team?.email),
   });
+
   const updateInputs = (form) => {
     const { name, value } = form.target;
     setInputs({ ...profileData, [name]: value });
@@ -65,9 +44,25 @@ const ProfileInfoEdit = () => {
     setValidated(true);
   };
 
-  console.log('below is the profile data');
-  console.log(teamId);
-  console.log(profileData);
+  const updateProfile = (teamId, profileData) => {
+    console.log("your team data to be patch: ");
+    console.log(profileData);
+    try {
+      dispatch(updateTeam(teamId, profileData))
+      toast.success('Profile has been successfully updated');
+    } catch (error) {
+      console.error(error);
+      toast.error('Profile has not been updated');
+    }
+  };
+
+  const profileDeleted = () => {
+    console.error(
+      'Delete profile function is not implemented yet in ProfileInfoEdit.js'
+    );
+    toast.error('Profile has not been deleted');
+  };
+  
 
   return (
     <div className="mt-5">
