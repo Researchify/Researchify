@@ -40,7 +40,7 @@ export const addTeamInfo = (teamInfo) => async (dispatch) => {
  * @param teamCredentials team email and password as a dictionary
  * @param teamPassword team account password
  */
-export const getTeam = (teamCredentials, history) => async (dispatch) => {
+export const getTeam = (teamCredentials) => async (dispatch) => {
   try {
     const data = await api.loginTeam(teamCredentials);
     console.log(data);
@@ -50,7 +50,6 @@ export const getTeam = (teamCredentials, history) => async (dispatch) => {
       type: ADD_TEAM,
       payload: team,
     });
-    history.push('/dashboard');
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }

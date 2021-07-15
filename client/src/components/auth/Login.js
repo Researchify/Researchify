@@ -36,7 +36,9 @@ export default function Login() {
     }
     const credentials = { email: inputs.email, password: inputs.password };
     setValidated(true);
-    dispatch(getTeam(credentials, history));
+    dispatch(getTeam(credentials, history)).then(() =>
+      history.push('/dashboard')
+    );
   };
 
   return (
