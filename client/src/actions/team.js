@@ -11,6 +11,7 @@ import {
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
   ADD_TEAM,
+  UPDATE_TEAM,
 } from './types';
 
 /**
@@ -205,3 +206,22 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
     console.log(error);
   }
 };
+
+/**
+ * Update the data of team
+ * @param {*} teamId id of the team
+ * @param {*} teamData data object of the data to be patched
+ * @returns 
+ */
+export const updateTeam = (teamId, teamData) => async (dispatch) => {
+  try{
+    const {data} = await api.updateTeam(teamId, teamData);
+    dispatch({
+      type: UPDATE_TEAM,
+      payload: data,
+    })
+  } catch (error) {
+    console.error(error);
+  };
+};
+

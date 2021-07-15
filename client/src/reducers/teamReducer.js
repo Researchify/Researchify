@@ -6,6 +6,7 @@ import {
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
   ADD_TEAM,
+  UPDATE_TEAM,
 } from '../actions/types';
 
 const INITIAL_TEAM_STATE = {
@@ -33,6 +34,8 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
     case UNLINK_TEAM_TWITTER:
       return { ...state, twitterHandle: action.payload };
     case ADD_TEAM:
+      return action.payload;
+    case UPDATE_TEAM:
       return action.payload;
     default:
       return state;

@@ -175,6 +175,30 @@ async function updateTeamMember(req, res) {
   }
 }
 
+/**
+ * Update the team from the database on /team/:team_id
+ * @param {} req 
+ * @param {*} res 
+ * @returns 
+ */
+async function updateTeam(req, res) {
+  const { team_id: _id } = req.params;
+  const team = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send('Error: No team with that id.');
+
+  try {
+    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json(updatedTeam);
+  } catch (err) {
+    res.status(422).json(`Error: ${err.message}`);
+  }
+}
+
 module.exports = {
   storeHandle,
   getTeam,
@@ -184,4 +208,5 @@ module.exports = {
   deleteTeamMember,
   updateTeamMember,
   loginTeam,
+  updateTeam,
 };
