@@ -49,4 +49,6 @@ teamRouter.post('/', teamController.addTeam);
 
 teamRouter.post('/login', teamController.loginTeam);
 
+teamRouter.post('/logout', teamController.logoutTeam);
+
 module.exports = teamRouter;

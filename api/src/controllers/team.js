@@ -8,6 +8,10 @@ const Team = require('../models/team.model');
 
 const mongoose = require('mongoose');
 
+const bcrypt = require('bcrypt');
+
+const jwt = require('jsonwebtoken');
+
 const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
@@ -76,18 +80,24 @@ async function getTeam(req, res) {
  * @returns 404: team is not found
  */
 async function loginTeam(req, res) {
-  Team.findOne({ email: req.body.email })
-    .then((team) => {
-      if (team == null) {
-        res.status(400).send('User not found');
-      } else if (team.password != req.body.password) {
-        res.status(403).send('Incorrect password');
-      } else {
-        console.log(team);
-        res.send(JSON.stringify({ team: team }));
-      }
-    })
-    .catch((err) => res.status(400).json('Error: ' + err));
+  try {
+    const foundTeam = await Team.findOne({ email: req.body.email })
+    if (!foundTeam) {
+      return res.status(400).send('User not found');
+    } 
+    if (await bcrypt.compare(req.body.password, foundTeam.password)){
+      const teamObj = foundTeam.toObject()
+      console.log(teamObj)
+      const token = jwt.sign(JSON.stringify(teamObj._id), "jwtSecret")
+      
+      res.cookie('authToken', token, { signed: true, httpOnly: true })
+      res.status(200).send({token: token, teamId: foundTeam._id}); // send token here 
+      return
+    } 
+    return res.status(403).send('Incorrect password');
+  } catch (error){
+    return res.status(422).json(`Error: ${error.message}`);
+  }
 }
 
 /**
@@ -97,10 +107,16 @@ async function loginTeam(req, res) {
  * @returns 201: returns updated team details
  */
 async function addTeam(req, res) {
-  const team = req.body;
-
-  const createdTeam = await Team.create(team);
-  res.status(201).json(createdTeam);
+  console.log(req.foundTeam)
+  if (req.foundTeam) {
+    res.status(400).json("Team email already existing")
+  }
+  const salt = await bcrypt.genSalt()
+  const hashedPassword =  await bcrypt.hash(req.body.password, salt)
+  const hashedTeam = {...req.body, password: hashedPassword}
+  const createdTeam = await Team.create(hashedTeam);
+  console.log(createdTeam)
+  res.status(201).json(createdTeam._id);
 }
 
 /**
@@ -175,6 +191,13 @@ async function updateTeamMember(req, res) {
   }
 }
 
+
+
+async function logoutTeam(req, res) {
+  res.clearCookie("authToken")
+  res.status(200).json('success');
+}
+
 module.exports = {
   storeHandle,
   getTeam,
@@ -184,4 +207,5 @@ module.exports = {
   deleteTeamMember,
   updateTeamMember,
   loginTeam,
+  logoutTeam
 };
