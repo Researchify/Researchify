@@ -211,17 +211,24 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
  * Update the data of team
  * @param {*} teamId id of the team
  * @param {*} teamData data object of the data to be patched
- * @returns 
+ * @returns
  */
 export const updateTeam = (teamId, teamData) => async (dispatch) => {
-  try{
-    const {data} = await api.updateTeam(teamId, teamData);
+  try {
+    const { data } = await api.updateTeam(teamId, teamData);
+    const updatedData = {
+      teamId: data._id,
+      email: data.email,
+      teamName: data.teamName,
+      orgName: data.orgName,
+      twitterHandle: data.twitterHandle,
+      repoCreated: data.repoCreated,
+    };
     dispatch({
       type: UPDATE_TEAM,
-      payload: data,
-    })
+      payload: updatedData,
+    });
   } catch (error) {
     console.error(error);
-  };
+  }
 };
-
