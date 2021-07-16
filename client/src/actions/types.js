@@ -1,7 +1,9 @@
 /**
  * This file houses our Action Creator type constants.
  */
-export const AUTH_SIGN_IN = 'AUTH_SIGN_IN';
+export const AUTH_SIGN_IN_REQUEST = 'AUTH_SIGN_IN_REQUEST';
+export const AUTH_SIGN_IN_SUCCESS = 'AUTH_SIGN_IN_SUCCESS';
+export const AUTH_SIGN_IN_FAIL = 'AUTH_SIGN_IN_FAIL';
 export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
 
 export const GET_PUBLICATION_BY_ID = 'GET_PUBLICATION_BY_ID';

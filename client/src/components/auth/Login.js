@@ -1,13 +1,13 @@
 /**
  * This file exports an Auth component used to display sign-ins and sign-ups.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Login.css';
-import { getTeam } from '../../actions/team';
-import { useDispatch } from 'react-redux';
+import { signIn } from '../../actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -18,6 +18,7 @@ Handles the UI for the log in page
 export default function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const auth = useSelector(state => state.auth)
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
@@ -30,21 +31,27 @@ export default function Login() {
 
   const [validated, setValidated] = useState(false);
 
+  useEffect(() => {
+    console.log("LoginIn Page", auth.signIn)
+    if (auth.signIn){
+      history.push('/dashboard')
+    }
+    if (auth.error){
+      toast.error(auth.error);
+    }
+  }, [history, auth])
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
-    const credentials = { email: inputs.email, password: inputs.password };
     setValidated(true);
-    dispatch(getTeam(credentials))
-      .then(() => history.push('/dashboard'))
-      .catch((err) => {
-        console.error(err);
-        toast.error('Incorrect username/password');
-      });
+    dispatch(signIn(inputs))
   };
+
+  console.log(auth)
 
   return (
     <div>

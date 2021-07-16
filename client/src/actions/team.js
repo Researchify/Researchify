@@ -18,38 +18,20 @@ import {
  * @param teamInfo contains teamName, orgName and email
  */
 export const addTeamInfo = (teamInfo) => async (dispatch) => {
-  const data = await api.addTeam(teamInfo);
-  const teamData = {
-    ...teamInfo,
-    teamId: data.data._id,
-  };
-  dispatch({
-    type: ADD_TEAM,
-    payload: teamData,
-  });
-};
+  try{
+    const teamId = await api.addTeam(teamInfo);
+    console.log(teamId)
+    const teamData = {
+      ...teamInfo,
+      teamId: teamId,
+    };
+    dispatch({
+      type: ADD_TEAM,
+      payload: teamData,
+    });
+  } catch (error) {
 
-/**
- * Finds a team
- * @param teamCredentials team email and password as a dictionary
- * @param teamPassword team account password
- */
-export const getTeam = (teamCredentials) => async (dispatch) => {
-  const data = await api.loginTeam(teamCredentials);
-  const teamData = data.data.team;
-  console.log(teamData);
-  const team = {
-    teamId: teamData._id,
-    email: teamData.email,
-    teamName: teamData.teamName,
-    orgName: teamData.orgName,
-    twitterHandle: teamData.twitterHandle,
-    repoCreated: teamData.repoCreated,
-  };
-  dispatch({
-    type: ADD_TEAM,
-    payload: team,
-  });
+  }
 };
 
 /**
