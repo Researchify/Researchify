@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json({ limit: '30mb', extended: true })); // express.json() parses requests with json payloads and uses "body-parser"
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
-app.use(cookieParser('MY SECRET'))
+app.use(cookieParser())
 
 // "Welcome" route
 app.get('/', (req, res) => res.send('You have reached the Researchify API'));
