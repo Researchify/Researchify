@@ -2,7 +2,7 @@
  * This file exports the content in of Researchify Dashboard Page
  */
 import React, { useState } from 'react';
-import { Container, CardGroup, Card } from 'react-bootstrap';
+import { Container, CardGroup, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 // Redux
 import { useSelector } from 'react-redux';
@@ -10,42 +10,14 @@ import { useSelector } from 'react-redux';
 import { BsPencilSquare, BsServer, BsDisplayFill } from 'react-icons/bs';
 // css
 import './Dashboard.css';
-// Api
-import api from '../../api/api';
 // Component
-import CreateWebsiteButton from './CreateWebsiteButton';
-import InitialiseWebsiteForm from './InitialiseWebsiteForm';
-
-/**
- * Check if website is created.
- * Assume website is created when template Id is stored.
- */
-const checkWebsiteCreated = (teamId) => {
-  try {
-    let res = api.get(`team/${teamId}/templateId`);
-    if (Object.entries(res).length === 0) {
-      return false;
-    }
-  } catch (err) {
-    // TODO: change to toast.error
-    console.error(
-      `Error when checking websiteIsCreated of user in Dashboard.js: ${err}`
-    );
-    return false;
-  }
-  return true;
-};
+import TemplateSelector from './TemplateSelector';
 
 /**
  * Dashboard Component
  */
 const Dashboard = () => {
   const teamId = useSelector((state) => state.team.teamId);
-
-  const [websiteIsCreated, setWebsiteIsCreated] = useState(
-    checkWebsiteCreated(teamId)
-  );
-  const createWebsite = () => setWebsiteIsCreated(true);
 
   // Display pop up window
   const [displayModal, setDisplay] = useState(false);
@@ -56,16 +28,11 @@ const Dashboard = () => {
     <Container fluid className="researchify-dashboard-container">
       <Card className="text-center researchify-dashboard-card">
         <Card.Body>
-          <CreateWebsiteButton
-            websiteIsCreated={websiteIsCreated}
-            clickFunction={showModal}
-          />
+          <Button onClick={showModal}> Select a theme </Button>
         </Card.Body>
 
         <Card.Body className="researchify-dashboard-card-description">
-          {websiteIsCreated
-            ? 'Your website is created, edit your website in editor.'
-            : 'Click the button to get started.'}
+          Click the button to select or update your website theme.
         </Card.Body>
 
         {/* Bottom layer of the card with three icons */}
@@ -97,11 +64,10 @@ const Dashboard = () => {
         </CardGroup>
       </Card>
 
-      <InitialiseWebsiteForm
+      <TemplateSelector
         teamId={teamId}
         displayModal={displayModal}
         closeModal={closeModal}
-        createWebsite={createWebsite}
       />
     </Container>
   );

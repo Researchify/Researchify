@@ -26,7 +26,7 @@ const ProfileInfoEdit = () => {
     orgName: useSelector((state) => state.team?.orgName),
     email: useSelector((state) => state.team?.email),
   });
-
+  
   const updateInputs = (form) => {
     const { name, value } = form.target;
     setInputs({ ...profileData, [name]: value });
@@ -45,8 +45,6 @@ const ProfileInfoEdit = () => {
   };
 
   const updateProfile = (teamId, profileData) => {
-    console.log("your team data to be patch: ");
-    console.log(profileData);
     try {
       dispatch(updateTeam(teamId, profileData))
       toast.success('Profile has been successfully updated');

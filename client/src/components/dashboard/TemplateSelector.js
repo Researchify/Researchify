@@ -1,52 +1,66 @@
 /**
- * This file exports a pop up window, that
- * prompts user for github username and template
- * selection, in Researchify dashboard page.
+ * This file exports a pop up window, that prompts user
+ * to select a theme in Researchify dashboard page.
  */
 import React, { useState } from 'react';
 import { Container, Button, Modal, Form, Col, Image } from 'react-bootstrap';
+// import { useDispatch } from 'react-redux';
+// import { updateTeamTheme } from '../../actions/team';
+
 // Picutre of each layout
 import singleColumnLayout from '../../images/single-column-layout.png';
 import fShapeLayout from '../../images/f-shape-layout.png';
 import zigZagLayout from '../../images/zig-zag-layout.png';
-// Api
-import api from '../../api/api';
 
-/**
- * Function patching github details and template
- */
-const storeInputs = (teamId, inputObject) => {
-  // assume templateId = theme1_layout1 etc. for now
-  let template = inputObject.theme + '_' + inputObject.layout;
-  try {
-    api.patch(`team/${teamId}`, {
-      githubUsername: inputObject.username,
-      templateId: template,
-    });
-  } catch (err) {
-    console.error(
-      `Error in patching github username and template id in Dashboard.js: ${err}`
-    );
-  }
-};
 
 /**
  * Form for user input github credentials and select template.
  */
-const InitialiseWebsiteForm = (props) => {
-  // Storing and passing form inputs
+const TemplateSelector = (props) => {
+  // const dispatch = useDispatch();
+
+  // Storing and passing Form Inputs, theme1 & layout1 as defualt
   const [formInputs, setInputs] = useState({
-    username: null,
-    theme: 'theme1',
-    layout: 'layout1',
+    layout: 1,
+    primaryColor: '#419aee',
+    secondaryColor: '#8da4d1',
   });
+
   const updateForm = (form) => {
     const { name, value } = form.target;
-    setInputs({ ...formInputs, [name]: value });
+    if (name === 'theme') {
+      let primaryColor;
+      let secondaryColor;
+      switch (value) {
+        case 'theme1':
+          primaryColor = '#419aee';
+          secondaryColor = '#8da4d1';
+          break;
+        case 'theme2':
+          primaryColor = '#000000';
+          secondaryColor = '#ebe6e6';
+          break;
+        case 'theme3':
+          primaryColor = '#008000';
+          secondaryColor = '#868789';
+          break;
+        default:
+          console.log('error in updateForm()')
+      }
+      setInputs({
+        ...formInputs,
+        primaryColor: primaryColor,
+        secondaryColor: secondaryColor,
+      });
+    } else {
+      setInputs({ ...formInputs, [name]: parseInt(value) });
+    }
+    console.log(formInputs);
   };
 
-  // validation of each field
+  // validating each field in the form when submit
   const [validated, setValidated] = useState(false);
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
@@ -54,10 +68,17 @@ const InitialiseWebsiteForm = (props) => {
       event.stopPropagation();
     } else {
       storeInputs(props.teamId, formInputs);
-      props.createWebsite();
     }
     setValidated(true);
   };
+
+  const storeInputs = (teamId, inputObject) => {
+    try{
+      // dispatch(updateTeamTheme(teamId, inputObject));
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <Modal
@@ -78,20 +99,6 @@ const InitialiseWebsiteForm = (props) => {
           validated={validated}
           onSubmit={handleSubmit}
         >
-          <Form.Group controlId="githubUsername">
-            <Form.Label>Github Username</Form.Label>
-            <Form.Control
-              required
-              onChange={updateForm}
-              name="username"
-              type="text"
-              placeholder="Enter your GitHub Username Here"
-            />
-            <Form.Control.Feedback type="invalid">
-              Please input a valid Guthub username.
-            </Form.Control.Feedback>
-          </Form.Group>
-
           <Form.Group controlId="theme">
             <Form.Label>Select a Theme Colour</Form.Label>
             <Container fluid>
@@ -139,7 +146,7 @@ const InitialiseWebsiteForm = (props) => {
                     type="radio"
                     name="layout"
                     label="Layout 1"
-                    value="layout1"
+                    value={1}
                     onChange={updateForm}
                   />
                   <Image src={singleColumnLayout} className="img-fluid" />
@@ -150,7 +157,7 @@ const InitialiseWebsiteForm = (props) => {
                     type="radio"
                     name="layout"
                     label="Layout 2"
-                    value="layout2"
+                    value={2}
                     onChange={updateForm}
                   />
                   <Image src={fShapeLayout} className="img-fluid" />
@@ -161,7 +168,7 @@ const InitialiseWebsiteForm = (props) => {
                     type="radio"
                     name="layout"
                     label="Layout 3"
-                    value="layout3"
+                    value={3}
                     onChange={updateForm}
                   />
                   <Image src={zigZagLayout} className="img-fluid" />
@@ -179,4 +186,4 @@ const InitialiseWebsiteForm = (props) => {
   );
 };
 
-export default InitialiseWebsiteForm;
+export default TemplateSelector;
