@@ -88,6 +88,9 @@ async function loginTeam(req, res) {
     if (await bcrypt.compare(req.body.password, foundTeam.password)){
       const teamObj = foundTeam.toObject(); // converts a mongoose object to a plain object 
 
+      // remove sensitive data 
+      delete teamObj.password 
+
       const accessToken = jwt.sign(teamObj, process.env.JWT_SECRET_1 || "JWT_SECRET_1", {
         expiresIn: '15m'
       });
@@ -105,7 +108,7 @@ async function loginTeam(req, res) {
         maxAge: 3.154e10, // 1 year
       })
 
-      return res.status(200).send({accessToken: accessToken, teamId: foundTeam._id});
+      return res.status(200).send(foundTeam._id);
     } 
     return res.status(403).send('Incorrect email/password'); // incorrect password 
   } catch (error){
