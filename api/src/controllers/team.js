@@ -73,9 +73,9 @@ async function getTeam(req, res) {
 }
 
 /**
- * Gets the team document from the database on /team.
+ * Handle login request from /team/login
  * @param {*} req request object, containing team email and password in the body as JSON
- * @param {*} res response object, the found team document
+ * @param {*} res response object, the found teamId
  * @returns 200: the team was found
  * @returns 404: team is not found
  */
@@ -87,27 +87,22 @@ async function loginTeam(req, res) {
     } 
     if (await bcrypt.compare(req.body.password, foundTeam.password)){
       const teamObj = foundTeam.toObject(); // converts a mongoose object to a plain object 
-
       // remove sensitive data 
       delete teamObj.password 
-
       const accessToken = jwt.sign(teamObj, process.env.JWT_SECRET_1 || "JWT_SECRET_1", {
         expiresIn: '15m'
       });
       const refreshToken = jwt.sign(teamObj, process.env.JWT_SECRET_2 || "JWT_SECRET_2", {
         expiresIn: '1y'
       });
-
       res.cookie('accessToken', accessToken, { 
         httpOnly: true,
         maxAge: 30000, // 5 mins
       });
-
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         maxAge: 3.154e10, // 1 year
       })
-
       return res.status(200).send(foundTeam._id);
     } 
     return res.status(403).send('Incorrect email/password'); // incorrect password 
@@ -123,15 +118,19 @@ async function loginTeam(req, res) {
  * @returns 201: returns updated team details
  */
 async function addTeam(req, res) {
-  const foundTeam = await Team.findOne({ email: req.body.email })
-  if (foundTeam) {
-    return res.status(400).send('Email had been registered');
-  } 
-  const salt = await bcrypt.genSalt()
-  const hashedPassword =  await bcrypt.hash(req.body.password, salt)
-  const hashedTeam = {...req.body, password: hashedPassword}
-  const createdTeam = await Team.create(hashedTeam);
-  res.status(201).json(createdTeam._id);
+  try{
+    const foundTeam = await Team.findOne({ email: req.body.email })
+    if (foundTeam) {
+      return res.status(400).send('Email had been registered');
+    } 
+    const salt = await bcrypt.genSalt()
+    const hashedPassword =  await bcrypt.hash(req.body.password, salt)
+    const hashedTeam = {...req.body, password: hashedPassword}
+    const createdTeam = await Team.create(hashedTeam);
+    res.status(201).json(createdTeam._id);
+  } catch(error){ 
+    return res.status(422).json(`Error: ${error.message}`);
+  }
 }
 
 /**
@@ -206,19 +205,27 @@ async function updateTeamMember(req, res) {
   }
 }
 
-
-
+/**
+ * Update the a logout request on /team/logout
+ * @param {*} req request object
+ * @param {*} res response object
+ * @returns 200: logout successfully
+ * @returns 404: error occur 
+ */
 async function logoutTeam(req, res) {
-  res.cookie('accessToken', "", { 
-    httpOnly: true,
-    maxAge: 0,
-  });
-
-  res.cookie('refreshToken', "", { 
-    httpOnly: true,
-    maxAge: 0,
-  });
-  res.status(200).json('Logout Successfully');
+  try{
+    res.cookie('accessToken', "", { 
+      httpOnly: true,
+      maxAge: 0,
+    });
+    res.cookie('refreshToken', "", { 
+      httpOnly: true,
+      maxAge: 0,
+    });
+    res.status(200).json('Logout Successfully');
+  } catch (error){
+    return res.status(422).json(`Error: ${error.message}`);
+  }
 }
 
 module.exports = {

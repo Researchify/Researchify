@@ -11,19 +11,19 @@ const Sidebar = () => {
       <ul className="SidebarList">
         {SidebarData().map((val, key) => {
           return (
-              <Link to={val.link}>
-                <li
-                  key={key}
-                  className="row"
-                  id={location.pathname === val.link ? 'active' : ''}
-                  onClick={val.action}
-                >
-                  {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
+            <Link to={val.link}>
+              <li
+                key={key}
+                className="row"
+                id={location.pathname === val.link ? 'active' : ''}
+                onClick={val.action}
+              >
+                {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
 
-                  <div id="icon">{val.icon}</div>
-                  <div id="title">{val.title}</div>
-                </li>
-              </Link>
+                <div id="icon">{val.icon}</div>
+                <div id="title">{val.title}</div>
+              </li>
+            </Link>
           );
         })}
       </ul>
