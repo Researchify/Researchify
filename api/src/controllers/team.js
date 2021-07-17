@@ -103,7 +103,12 @@ async function loginTeam(req, res) {
         httpOnly: true,
         maxAge: 3.154e10, // 1 year
       })
-      return res.status(200).send(foundTeam._id);
+      return res.status(200).send({
+        teamId: teamObj._id, 
+        email: teamObj.email,
+        teamName: teamObj.teamName,
+        orgName: teamObj.orgName
+      });
     } 
     return res.status(403).send('Incorrect email/password'); // incorrect password 
   } catch (error){

@@ -2,7 +2,7 @@
  * This file houses our auth-related Action Creators.
  */
 import * as api from '../api';
-import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL } from './types';
+import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO } from './types';
 
 /**
  * This action creator will be called when a user signs in.
@@ -16,10 +16,12 @@ export const signIn = (authData) => async(dispatch) => {
       type: AUTH_SIGN_IN_REQUEST
     })
     const result = await api.loginTeam(authData)
-
-    console.log(result)
-    dispatch ({
+    dispatch({
       type: AUTH_SIGN_IN_SUCCESS
+    })
+    dispatch({
+      type: FETCH_TEAM_INFO,
+      payload: result.data
     })
   } catch (error){
     dispatch ({
