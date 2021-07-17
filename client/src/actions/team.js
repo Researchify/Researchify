@@ -65,11 +65,14 @@ export const getTeam = (teamCredentials) => async (dispatch) => {
  */
 export const getTeamInfo = (teamId) => async (dispatch) => {
   try {
-    const { data } = api.fetchTeamInfo(teamId);
-    console.log(data);
+    const { data } = await api.fetchTeamInfo(teamId);
+    const teamData = {
+      ...data,
+      teamId: data._id,
+    };
     dispatch({
       type: FETCH_TEAM_INFO,
-      payload: data,
+      payload: teamData,
     });
   } catch (err) {
     console.error(err);

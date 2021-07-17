@@ -8,7 +8,6 @@ require('dotenv').config();
 const connectDb = require('./config/db');
 const logger = require('./config/log');
 const publicationsRouter = require('./routes/publications');
-const usersRouter = require('./routes/users');
 const teamRouter = require('./routes/team');
 
 // Connect to the database
@@ -28,7 +27,6 @@ app.get('/', (req, res) => res.send('You have reached the Researchify API'));
 
 // Use the routes
 app.use('/publications', publicationsRouter);
-app.use('/users', usersRouter);
 app.use('/team', teamRouter);
 
 // Listen for connections

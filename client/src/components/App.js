@@ -15,23 +15,23 @@ import Login from './auth/Login';
 import Header from './layout/Header';
 import Sidebar from './layout/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import './layout/Layout.css';
 
 import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
-import { fetchUserAction } from '../actions/users';
+import { getTeamInfo } from '../actions/team';
+import { useDispatch } from 'react-redux';
 const App = () => {
   const urls = {
     dashboard: '/dashboard',
     profile: '/dashboard/profile',
   };
-  const teamId = useSelector((state) => state.team.teamId);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUserAction());
+    dispatch(getTeamInfo('609f5ad827b1d48257c321d3')); // once we have implemented JWT (see below):
+    // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
   }, [dispatch]);
 
   return (
@@ -52,7 +52,7 @@ const App = () => {
                 </Col>
                 <Col className="page-content-wrapper" md={10} lg={10}>
                   <Route
-                    path={`/publications/team/${teamId}`}
+                    path={`/publications`}
                     exact
                     component={PublicationPage}
                   />
