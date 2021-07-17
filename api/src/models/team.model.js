@@ -22,14 +22,6 @@ const teamSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    areaOfInterest: {
-      type: [
-        {
-          type: String,
-          minlength: 1,
-        },
-      ],
-    },
     twitterHandle: {
       type: String,
     },

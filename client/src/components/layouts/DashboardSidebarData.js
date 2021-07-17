@@ -1,15 +1,14 @@
 /*
  * This file stores the link data of side bar
  */
-
 import React from 'react';
-import { useSelector } from 'react-redux';
 // icons
 import {
   BsFillGridFill,
   BsBookHalf,
   BsPencilSquare,
   BsPerson,
+  BsPeople,
   BsGearFill,
   BsFillQuestionCircleFill,
 } from 'react-icons/bs';
@@ -18,7 +17,6 @@ import {
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
 const DashboardSidebarData = () => {
-  const teamId = useSelector((state) => state.user.teamId);
   return [
     {
       title: 'Dashboard',
@@ -33,12 +31,17 @@ const DashboardSidebarData = () => {
     {
       title: 'Publications',
       icon: <BsBookHalf />,
-      link: `/publications/team/${teamId}`,
+      link: `/publications`,
     },
     {
-      title: 'Account Management',
+      title: 'Team Profile',
       icon: <BsPerson />,
       link: '/dashboard/profile',
+    },
+    {
+      title: 'Team Member',
+      icon: <BsPeople />,
+      link: '/team',
     },
     {
       title: 'Settings',
