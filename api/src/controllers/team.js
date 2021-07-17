@@ -58,7 +58,7 @@ async function storeHandle(req, res) {
 
 /**
  * Gets the team document from the database on /team/:team_id.
- * @param {*} req request object, containing team id in the url
+ * @param {*} req request object, containing team id in the urlz
  * @param {*} res response object, the found team document
  * @returns 200: the team was found
  * @returns 404: team is not found
@@ -177,17 +177,16 @@ async function updateTeamMember(req, res) {
 
 /**
  * Update the team from the database on /team/:team_id
- * @param {} req 
- * @param {*} res 
- * @returns 
+ * @param {} req
+ * @param {*} res
+ * @returns
  */
 async function updateTeam(req, res) {
   const { team_id: _id } = req.params;
   const team = req.body;
-
-  if (!mongoose.Types.ObjectId.isValid(_id))
+  if (!mongoose.Types.ObjectId.isValid(_id)){
     return res.status(404).send('Error: No team with that id.');
-
+  }
   try {
     const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
       new: true,
