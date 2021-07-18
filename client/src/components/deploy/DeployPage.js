@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { githubLoginUrl } from '../../config/deploy';
 import { GoMarkGithub } from 'react-icons/go';
@@ -28,7 +28,7 @@ const DeployPage = () => {
       // we refreshed so we should clear local storage
       localStorage.clear();
     }
-  }, [dispatch, retrievedAccessToken]);
+  }, [dispatch]);
 
   const GitHubLoginButton = () => (
     <Button

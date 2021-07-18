@@ -213,23 +213,6 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
   }
 };
 
-/**
- * A function to allocates team data from back-end.
- * @param {*} teamData raw data from back-end
- * @returns full team data that adheres to team state
- * @see teamReducer#INITIAL_TEAM_STATE
- */
-function teamDataAllocator(teamData) {
-  return {
-    teamId: teamData._id,
-    email: teamData.email,
-    teamName: teamData.teamName,
-    orgName: teamData.orgName,
-    twitterHandle: teamData.twitterHandle,
-    repoCreated: teamData.repoCreated,
-  };
-}
-
 export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   try {
     console.log(teamId);
