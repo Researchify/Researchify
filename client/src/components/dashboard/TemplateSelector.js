@@ -58,9 +58,6 @@ const TemplateSelector = (props) => {
     console.log(formInputs);
   };
 
-  // validating each field in the form when submit
-  const [validated, setValidated] = useState(false);
-
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
@@ -69,12 +66,12 @@ const TemplateSelector = (props) => {
     } else {
       storeInputs(props.teamId, formInputs);
     }
-    setValidated(true);
   };
 
   const storeInputs = (teamId, inputObject) => {
     try{
       // dispatch(updateTeamTheme(teamId, inputObject));
+      props.closeModal();
     } catch (error) {
       console.error(error);
     }
@@ -89,14 +86,13 @@ const TemplateSelector = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Enter your GitHub Credentials and Customize your Template
+          Select a colour combination and layout.
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form
           className="researchify-github-form"
           noValidate
-          validated={validated}
           onSubmit={handleSubmit}
         >
           <Form.Group controlId="theme">
@@ -147,6 +143,7 @@ const TemplateSelector = (props) => {
                     name="layout"
                     label="Layout 1"
                     value={1}
+                    className='form-radio-text'
                     onChange={updateForm}
                   />
                   <Image src={singleColumnLayout} className="img-fluid" />
@@ -158,6 +155,7 @@ const TemplateSelector = (props) => {
                     name="layout"
                     label="Layout 2"
                     value={2}
+                    className='form-radio-text'
                     onChange={updateForm}
                   />
                   <Image src={fShapeLayout} className="img-fluid" />
@@ -169,6 +167,7 @@ const TemplateSelector = (props) => {
                     name="layout"
                     label="Layout 3"
                     value={3}
+                    className='form-radio-text'
                     onChange={updateForm}
                   />
                   <Image src={zigZagLayout} className="img-fluid" />
