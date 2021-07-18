@@ -229,7 +229,7 @@ export const deployToGHPages =
     try {
       // get publications
       const { data } = await api.fetchPublicationsByTeamId(
-        '609f5ad827b1d48257c321d3' // TODO: remove this hardcoded
+        '609f5ad827b1d48257c321d3' // FIXME: hardcoded for testing, remove after authentication is implemented
       );
       data.map(
         (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
