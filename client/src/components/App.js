@@ -32,7 +32,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getTeamInfo('609f5ad827b1d48257c321d3')); // once we have implemented JWT (see below):
-    // test with this to avoid error: 60aa3a2fffa7020a52a4ca3d, FIXME: replace it with JWT token!!!
     // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
   }, [dispatch]);
 
