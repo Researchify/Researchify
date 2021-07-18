@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // Redux
 import { useSelector } from 'react-redux';
 // icons
-import { BsPencilSquare, BsServer, BsDisplayFill } from 'react-icons/bs';
+import { BsPencilSquare, BsDisplayFill } from 'react-icons/bs';
 // css
 import './Dashboard.css';
 // Component
@@ -43,14 +43,6 @@ const Dashboard = () => {
                 <BsPencilSquare className="researchify-dashboard-card-icons" />
               </Card.Body>
               <p>Editor</p>
-            </Link>
-          </Card>
-          <Card>
-            <Link className="researchify-dashboard-card-link">
-              <Card.Body>
-                <BsServer className="researchify-dashboard-card-icons" />
-              </Card.Body>
-              <p>API Access Manager</p>
             </Link>
           </Card>
           <Card>
