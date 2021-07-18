@@ -131,7 +131,6 @@ const ProfileInfoEdit = () => {
             >
               Update
             </Button>
-            <Toaster />
 
             {/* Button is linked to react-router-dom Link*/}
             <Link to="/dashboard">

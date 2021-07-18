@@ -7,7 +7,10 @@ import {
   UNLINK_TEAM_TWITTER,
   ADD_TEAM,
   UPDATE_TEAM,
+  TEAM_ERROR,
 } from '../actions/types';
+
+import { errorReducer } from '../error/errorReduxFunctions';
 
 const INITIAL_TEAM_STATE = {
   teamId: '', // todo: change to empty str when integrating
@@ -16,6 +19,7 @@ const INITIAL_TEAM_STATE = {
   email: '',
   twitterHandle: '',
   repoCreated: false,
+  error: null,
 };
 
 /**
@@ -37,6 +41,10 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return action.payload;
     case UPDATE_TEAM:
       return action.payload;
+    case TEAM_ERROR:
+      return {
+        ...errorReducer(state, action),
+      };
     default:
       return state;
   }

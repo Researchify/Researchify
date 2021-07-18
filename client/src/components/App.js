@@ -6,16 +6,15 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { getTeamInfo } from '../actions/team';
+import { ErrorToaster } from '../error/ErrorToaster';
 
 // Pages
-import Home from './home/Home';
+import Home from './home/Home'; 
 import Auth from './auth/Auth';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
-
 import Login from './auth/Login';
 import Register from './auth/Register';
-
 import PublicationPage from './publications/PublicationPage';
 import EditorHome from './editor/EditorHome';
 import TeamPage from './teamPage/TeamPage';
@@ -32,10 +31,13 @@ const App = () => {
     // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
   }, [dispatch]);
 
+  const errorMessage = useSelector((state) => state.main.error);
+
   return (
     <Fragment>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
+        <ErrorToaster message={errorMessage} />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/auth" exact component={Auth} />
