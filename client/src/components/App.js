@@ -4,7 +4,7 @@
 import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTeamInfo } from '../actions/team';
 import { ErrorToaster } from '../error/ErrorToaster';
 

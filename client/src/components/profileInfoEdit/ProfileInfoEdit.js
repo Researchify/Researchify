@@ -8,7 +8,7 @@ import { Button, Form, Container, Image } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import profilePic from '../../images/profilepic.jpg';
 import { Link } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateTeam } from '../../actions/team';
 
