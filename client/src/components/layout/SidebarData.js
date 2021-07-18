@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   BsFillGridFill,
-  BsFillHouseDoorFill,
   BsBookHalf,
   BsPerson,
   BsGearFill,
@@ -18,11 +17,6 @@ export const SidebarData = () => {
       title: 'Dashboard',
       icon: <BsFillGridFill />,
       link: '/dashboard',
-    },
-    {
-      title: 'Home',
-      icon: <BsFillHouseDoorFill />,
-      link: '/dashboard/home',
     },
     {
       title: 'Publications',

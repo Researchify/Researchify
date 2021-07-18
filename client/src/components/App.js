@@ -16,12 +16,13 @@ import Header from './layout/Header';
 import Sidebar from './layout/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
 import './layout/Layout.css';
+import { ErrorToaster } from '../error/ErrorToaster';
 
 import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
 import { getTeamInfo } from '../actions/team';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 const App = () => {
   const urls = {
     dashboard: '/dashboard',
@@ -34,10 +35,13 @@ const App = () => {
     // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
   }, [dispatch]);
 
+  const errorMessage = useSelector((state) => state.main.error);
+
   return (
     <>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
+        <ErrorToaster message={errorMessage} />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/auth" exact component={Auth} />

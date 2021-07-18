@@ -12,21 +12,26 @@ import {
   DELETE_TEAM_MEMBER,
   ADD_TEAM,
 } from './types';
+import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
 /**
  * Adds a new team to redux store and database.
  * @param teamInfo contains teamName, orgName and email
  */
 export const addTeamInfo = (teamInfo) => async (dispatch) => {
-  const data = await api.addTeam(teamInfo);
-  const teamData = {
-    ...teamInfo,
-    teamId: data.data._id,
-  };
-  dispatch({
-    type: ADD_TEAM,
-    payload: teamData,
-  });
+  try {
+    const data = await api.addTeam(teamInfo);
+    const teamData = {
+      ...teamInfo,
+      teamId: data.data._id,
+    };
+    dispatch({
+      type: ADD_TEAM,
+      payload: teamData,
+    });
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
 };
 
 /**
@@ -35,21 +40,18 @@ export const addTeamInfo = (teamInfo) => async (dispatch) => {
  * @param teamPassword team account password
  */
 export const getTeam = (teamCredentials) => async (dispatch) => {
-  const data = await api.loginTeam(teamCredentials);
-  const teamData = data.data.team;
-  console.log(teamData);
-  const team = {
-    teamId: teamData._id,
-    email: teamData.email,
-    teamName: teamData.teamName,
-    orgName: teamData.orgName,
-    twitterHandle: teamData.twitterHandle,
-    repoCreated: teamData.repoCreated,
-  };
-  dispatch({
-    type: ADD_TEAM,
-    payload: team,
-  });
+  try {
+    const data = await api.loginTeam(teamCredentials);
+    console.log(data);
+    const teamData = data.data.team;
+    const team = teamDataAllocator(teamData);
+    dispatch({
+      type: ADD_TEAM,
+      payload: team,
+    });
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
 };
 
 /**
@@ -66,16 +68,13 @@ export const getTeam = (teamCredentials) => async (dispatch) => {
 export const getTeamInfo = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.fetchTeamInfo(teamId);
-    const teamData = {
-      ...data,
-      teamId: data._id,
-    };
+    const teamData = teamDataAllocator(data);
     dispatch({
       type: FETCH_TEAM_INFO,
       payload: teamData,
     });
   } catch (err) {
-    console.error(err);
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -103,6 +102,7 @@ export const linkTwitter = (teamId, handle) => async (dispatch) => {
       type: LINK_TEAM_TWITTER,
       payload: null,
     });
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -122,7 +122,7 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
       payload: data.twitterHandle,
     });
   } catch (err) {
-    console.log(err);
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -135,13 +135,12 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
 export const getTeamMembersByTeamId = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.fetchTeamMembersByTeamId(teamId);
-
     dispatch({
       type: GET_TEAM_MEMBERS_BY_TEAM_ID,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -161,8 +160,8 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
       type: CREATE_TEAM_MEMBER,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -184,8 +183,8 @@ export const updateTeamMember = (id, teamMember) => async (dispatch) => {
       type: UPDATE_TEAM_MEMBER,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -204,7 +203,24 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
       type: DELETE_TEAM_MEMBER,
       payload: memberId,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
+
+/**
+ * A function to allocates team data from back-end.
+ * @param {*} teamData raw data from back-end
+ * @returns full team data that adheres to team state
+ * @see teamReducer#INITIAL_TEAM_STATE
+ */
+function teamDataAllocator(teamData) {
+  return {
+    teamId: teamData._id,
+    email: teamData.email,
+    teamName: teamData.teamName,
+    orgName: teamData.orgName,
+    twitterHandle: teamData.twitterHandle,
+    repoCreated: teamData.repoCreated,
+  };
+}
