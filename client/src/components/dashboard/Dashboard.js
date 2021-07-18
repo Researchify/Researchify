@@ -50,7 +50,7 @@ const Dashboard = () => {
               <Card.Body>
                 <BsServer className="researchify-dashboard-card-icons" />
               </Card.Body>
-              <p>API Acess Manager</p>
+              <p>API Access Manager</p>
             </Link>
           </Card>
           <Card>
