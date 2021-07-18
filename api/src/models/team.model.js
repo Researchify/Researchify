@@ -36,14 +36,7 @@ const teamSchema = new mongoose.Schema(
         position: { type: String, required: false },
         summary: { type: String, required: false, minLength: 3 },
       },
-    ],
-    githubToken: {
-      type: String,
-      required: false 
-    },
-    repoName: {
-      type: String, 
-    },
+    ]
   },
   { timestamps: true }
 );

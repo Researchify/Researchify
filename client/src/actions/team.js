@@ -12,6 +12,7 @@ import {
   DELETE_TEAM_MEMBER,
   ADD_TEAM,
 } from './types';
+import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
 /**
  * Adds a new team to redux store and database.
@@ -25,12 +26,33 @@ export const addTeamInfo = (teamInfo) => async (dispatch) => {
       ...teamInfo,
       teamId: teamId,
     };
+    // TODO: do we need to dispatch this action? 
     dispatch({
       type: ADD_TEAM,
       payload: teamData,
     });
-  } catch (error) {
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
+};
 
+/**
+ * Finds a team
+ * @param teamCredentials team email and password as a dictionary
+ * @param teamPassword team account password
+ */
+export const getTeam = (teamCredentials) => async (dispatch) => {
+  try {
+    const data = await api.loginTeam(teamCredentials);
+    console.log(data);
+    const teamData = data.data.team;
+    const team = teamDataAllocator(teamData);
+    dispatch({
+      type: ADD_TEAM,
+      payload: team,
+    });
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -47,14 +69,14 @@ export const addTeamInfo = (teamInfo) => async (dispatch) => {
  */
 export const getTeamInfo = (teamId) => async (dispatch) => {
   try {
-    const { data } = api.fetchTeamInfo(teamId);
-    console.log(data);
+    const { data } = await api.fetchTeamInfo(teamId);
+    const teamData = teamDataAllocator(data);
     dispatch({
       type: FETCH_TEAM_INFO,
-      payload: data,
+      payload: teamData,
     });
   } catch (err) {
-    console.error(err);
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -82,6 +104,7 @@ export const linkTwitter = (teamId, handle) => async (dispatch) => {
       type: LINK_TEAM_TWITTER,
       payload: null,
     });
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -101,7 +124,7 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
       payload: data.twitterHandle,
     });
   } catch (err) {
-    console.log(err);
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -114,13 +137,12 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
 export const getTeamMembersByTeamId = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.fetchTeamMembersByTeamId(teamId);
-
     dispatch({
       type: GET_TEAM_MEMBERS_BY_TEAM_ID,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -140,8 +162,8 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
       type: CREATE_TEAM_MEMBER,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -163,8 +185,8 @@ export const updateTeamMember = (id, teamMember) => async (dispatch) => {
       type: UPDATE_TEAM_MEMBER,
       payload: data,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -183,7 +205,24 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
       type: DELETE_TEAM_MEMBER,
       payload: memberId,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
+
+/**
+ * A function to allocates team data from back-end.
+ * @param {*} teamData raw data from back-end
+ * @returns full team data that adheres to team state
+ * @see teamReducer#INITIAL_TEAM_STATE
+ */
+function teamDataAllocator(teamData) {
+  return {
+    teamId: teamData._id,
+    email: teamData.email,
+    teamName: teamData.teamName,
+    orgName: teamData.orgName,
+    twitterHandle: teamData.twitterHandle,
+    repoCreated: teamData.repoCreated,
+  };
+}

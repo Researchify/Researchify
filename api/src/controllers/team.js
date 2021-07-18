@@ -69,6 +69,7 @@ async function storeHandle(req, res) {
  * @returns 400: team id is not in a valid hexadecimal format
  */
 async function getTeam(req, res) {
+  console.log(req.foundTeam);
   return res.status(200).send(req.foundTeam);
 }
 

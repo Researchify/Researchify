@@ -5,8 +5,11 @@ import {
   FETCH_TEAM_INFO,
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
-  ADD_TEAM
+  ADD_TEAM,
+  TEAM_ERROR,
 } from '../actions/types';
+
+import { errorReducer } from '../error/errorReduxFunctions';
 
 const INITIAL_TEAM_STATE = {
   teamId: '', // todo: change to empty str when integrating
@@ -15,6 +18,7 @@ const INITIAL_TEAM_STATE = {
   email: '',
   twitterHandle: '',
   repoCreated: false,
+  error: null,
 };
 
 /**
@@ -24,21 +28,25 @@ const INITIAL_TEAM_STATE = {
  * @param action the action that was dispatched, and now input into this reducer.
  * @returns updated state.
  */
-const teamReducer = (state = INITIAL_TEAM_STATE, { type, payload }) => {
-  switch (type) {
+const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
+  switch (action.type) {
     case FETCH_TEAM_INFO:
       return { ...state, 
-        teamId: payload.teamId, 
-        email: payload.email,
-        teamName: payload.teamName, 
-        orgName: payload.orgName
+        teamId: action.payload.teamId, 
+        email: action.payload.email,
+        teamName: action.payload.teamName, 
+        orgName: action.payload.orgName
       };
     case LINK_TEAM_TWITTER:
-      return { ...state, twitterHandle: payload };
+      return { ...state, twitterHandle: action.payload };
     case UNLINK_TEAM_TWITTER:
-      return { ...state, twitterHandle: payload };
+      return { ...state, twitterHandle: action.payload };
     case ADD_TEAM:
-      return payload;
+      return action.payload;
+    case TEAM_ERROR:
+      return {
+        ...errorReducer(state, action),
+      };
     default:
       return state;
   }
