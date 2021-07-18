@@ -205,7 +205,6 @@ async function deployToGHPages(req, res) {
   const teamId = req.params.team_id;
   const publications = req.body.publications;
   const twitterHandle = req.body.twitterHandle;
-  console.log('here');
 
   // call github API to get username
   const response = await axios.get('https://api.github.com/user', {
