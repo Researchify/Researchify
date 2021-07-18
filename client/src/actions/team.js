@@ -2,7 +2,6 @@
  * This file houses our team-related Action Creators.
  */
 import * as api from '../api';
-
 import {
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
