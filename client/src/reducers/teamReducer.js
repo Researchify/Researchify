@@ -5,7 +5,7 @@ import {
   FETCH_TEAM_INFO,
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
-  ADD_TEAM,
+  ADD_TEAM
 } from '../actions/types';
 
 const INITIAL_TEAM_STATE = {
@@ -24,16 +24,21 @@ const INITIAL_TEAM_STATE = {
  * @param action the action that was dispatched, and now input into this reducer.
  * @returns updated state.
  */
-const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
-  switch (action.type) {
+const teamReducer = (state = INITIAL_TEAM_STATE, { type, payload }) => {
+  switch (type) {
     case FETCH_TEAM_INFO:
-      return action.payload;
+      return { ...state, 
+        teamId: payload.teamId, 
+        email: payload.email,
+        teamName: payload.teamName, 
+        orgName: payload.orgName
+      };
     case LINK_TEAM_TWITTER:
-      return { ...state, twitterHandle: action.payload };
+      return { ...state, twitterHandle: payload };
     case UNLINK_TEAM_TWITTER:
-      return { ...state, twitterHandle: action.payload };
+      return { ...state, twitterHandle: payload };
     case ADD_TEAM:
-      return action.payload;
+      return payload;
     default:
       return state;
   }
