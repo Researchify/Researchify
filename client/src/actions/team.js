@@ -2,7 +2,6 @@
  * This file houses our team-related Action Creators.
  */
 import * as api from '../api';
-
 import {
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
@@ -74,10 +73,10 @@ export const getTeam = (teamCredentials, history) => async (dispatch) => {
 export const getTeamInfo = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.fetchTeamInfo(teamId);
-    const team = teamDataAllocator(data);
+    const teamData = teamDataAllocator(data);
     dispatch({
       type: FETCH_TEAM_INFO,
-      payload: team,
+      payload: teamData,
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
@@ -209,10 +208,27 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
       type: DELETE_TEAM_MEMBER,
       payload: memberId,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
   }
 };
+
+/**
+ * A function to allocates team data from back-end.
+ * @param {*} teamData raw data from back-end
+ * @returns full team data that adheres to team state
+ * @see teamReducer#INITIAL_TEAM_STATE
+ */
+function teamDataAllocator(teamData) {
+  return {
+    teamId: teamData._id,
+    email: teamData.email,
+    teamName: teamData.teamName,
+    orgName: teamData.orgName,
+    twitterHandle: teamData.twitterHandle,
+    repoCreated: teamData.repoCreated,
+  };
+}
 
 export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   try {

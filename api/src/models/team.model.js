@@ -22,14 +22,6 @@ const teamSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    areaOfInterest: {
-      type: [
-        {
-          type: String,
-          minlength: 1,
-        },
-      ],
-    },
     twitterHandle: {
       type: String,
     },
@@ -44,7 +36,7 @@ const teamSchema = new mongoose.Schema(
         position: { type: String, required: false },
         summary: { type: String, required: false, minLength: 3 },
       },
-    ],
+    ]
   },
   { timestamps: true }
 );

@@ -20,7 +20,6 @@ const INITIAL_TEAM_STATE = {
   twitterHandle: '',
   repoCreated: false,
   error: null,
-  retrievedAccessToken: false,
 };
 
 /**

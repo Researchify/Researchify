@@ -16,7 +16,6 @@ import Login from './auth/Login';
 import Header from './layout/Header';
 import Sidebar from './layout/Sidebar';
 import { Container, Col, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import './layout/Layout.css';
 import { ErrorToaster } from '../error/ErrorToaster';
 
@@ -24,6 +23,7 @@ import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
 import { getTeamInfo } from '../actions/team';
+import { useDispatch, useSelector } from 'react-redux';
 const App = () => {
   const urls = {
     dashboard: '/dashboard',
@@ -33,7 +33,8 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTeamInfo('60aa3a2fffa7020a52a4ca3d')); // test with this to avoid error: 60aa3a2fffa7020a52a4ca3d, FIXME: replace it with JWT token!!!
+    dispatch(getTeamInfo('609f5ad827b1d48257c321d3')); // once we have implemented JWT (see below):
+    // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
   }, [dispatch]);
 
   const errorMessage = useSelector((state) => state.main.error);
@@ -57,7 +58,7 @@ const App = () => {
                 </Col>
                 <Col className="page-content-wrapper" md={10} lg={10}>
                   <Route
-                    path={`/publications/team/${teamId}`}
+                    path={`/publications`}
                     exact
                     component={PublicationPage}
                   />

@@ -5,7 +5,6 @@ import { combineReducers } from 'redux';
 
 import authReducer from './authReducer';
 import publicationsReducer from './publicationsReducer';
-import userReducer from './usersReducer';
 import teamReducer from './teamReducer';
 import importedPublicationsReducer from './importedPublicationsReducer';
 import teamMembersReducer from './teamMembersReducer';
@@ -15,7 +14,6 @@ export default combineReducers({
   main: mainReducer,
   auth: authReducer, // do we need this?
   publications: publicationsReducer,
-  user: userReducer, // do we need this?
   team: teamReducer,
   importedPublications: importedPublicationsReducer,
   teamMember: teamMembersReducer,
