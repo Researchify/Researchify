@@ -223,11 +223,14 @@ function teamDataAllocator(teamData) {
     orgName: teamData.orgName,
     twitterHandle: teamData.twitterHandle,
     repoCreated: teamData.repoCreated,
+    themeId: teamData.themeId,
   };
 }
 
 /**
- * Update the data of team
+ * This action creator will be called when a user want to update the team profile
+ *
+>>>>>>> layouts
  * @param {*} teamId id of the team
  * @param {*} teamData data object of the data to be patched
  * @returns
@@ -235,17 +238,33 @@ function teamDataAllocator(teamData) {
 export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
     const { data } = await api.updateTeam(teamId, teamData);
-    const updatedData = {
-      teamId: data._id,
-      email: data.email,
-      teamName: data.teamName,
-      orgName: data.orgName,
-      twitterHandle: data.twitterHandle,
-      repoCreated: data.repoCreated,
-    };
+    const updatedData = teamDataAllocator(data);
     dispatch({
       type: UPDATE_TEAM,
       payload: updatedData,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
+ * This action creater find/create a new theme and update it in team data.
+ * @param {*} teamId
+ * @param {*} themeData
+ * @returns
+ */
+export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
+  try {
+    const updatedTheme = await api.findOrCreateTheme(themeData);
+    const updatedThemeId = updatedTheme.data._id;
+    const { data } = await api.updateTeam(teamId, {
+      themeId: updatedThemeId,
+    });
+    const updatedTeam = teamDataAllocator(data);
+    dispatch({
+      type: UPDATE_TEAM,
+      payload: updatedTeam,
     });
   } catch (error) {
     console.error(error);

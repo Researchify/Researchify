@@ -81,14 +81,15 @@
     margin-right: 30px;
 }
 
-.lightblue-theme-icon{
-    background: linear-gradient(to right, #8da4d1 0%, #8da4d1 50%, #419aee 50%, #419aee 100%);
+.theme-1-icon{
+  background: linear-gradient(to right, #8da4d1 0%, #8da4d1 50%, #419aee 50%, #419aee 100%);
 }
 
-.blackwhite-theme-icon{
+.theme-3-icon{
+  background: linear-gradient(to right, #868789 0%, #868789 50%, #008000 50%, #008000 100%);
+}
+
+.theme-2-icon{
     background: linear-gradient(to right, #ebe6e6, #ebe6e6 50%, #000000 50%, #000000 100%);
 }
 
-.green-theme-icon{
-    background: linear-gradient(to right, #868789 0%, #868789 50%, #008000 50%, #008000 100%);
-}

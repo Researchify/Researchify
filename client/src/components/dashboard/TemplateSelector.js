@@ -4,20 +4,20 @@
  */
 import React, { useState } from 'react';
 import { Container, Button, Modal, Form, Col, Image } from 'react-bootstrap';
-// import { useDispatch } from 'react-redux';
-// import { updateTeamTheme } from '../../actions/team';
+import { useDispatch } from 'react-redux';
+import { updateTeamTheme } from '../../actions/team';
+import toast from 'react-hot-toast';
 
 // Picutre of each layout
 import singleColumnLayout from '../../images/single-column-layout.png';
 import fShapeLayout from '../../images/f-shape-layout.png';
 import zigZagLayout from '../../images/zig-zag-layout.png';
 
-
 /**
  * Form for user input github credentials and select template.
  */
 const TemplateSelector = (props) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // Storing and passing Form Inputs, theme1 & layout1 as defualt
   const [formInputs, setInputs] = useState({
@@ -25,6 +25,7 @@ const TemplateSelector = (props) => {
     primaryColor: '#419aee',
     secondaryColor: '#8da4d1',
   });
+  const [theme, setTheme] = useState(1);
 
   const updateForm = (form) => {
     const { name, value } = form.target;
@@ -33,19 +34,22 @@ const TemplateSelector = (props) => {
       let secondaryColor;
       switch (value) {
         case 'theme1':
+          setTheme(1);
           primaryColor = '#419aee';
           secondaryColor = '#8da4d1';
           break;
         case 'theme2':
+          setTheme(2);
           primaryColor = '#000000';
           secondaryColor = '#ebe6e6';
           break;
         case 'theme3':
+          setTheme(3);
           primaryColor = '#008000';
           secondaryColor = '#868789';
           break;
         default:
-          console.log('error in updateForm()')
+          console.log('error in updateForm()');
       }
       setInputs({
         ...formInputs,
@@ -55,7 +59,6 @@ const TemplateSelector = (props) => {
     } else {
       setInputs({ ...formInputs, [name]: parseInt(value) });
     }
-    console.log(formInputs);
   };
 
   const handleSubmit = (event) => {
@@ -69,13 +72,14 @@ const TemplateSelector = (props) => {
   };
 
   const storeInputs = (teamId, inputObject) => {
-    try{
-      // dispatch(updateTeamTheme(teamId, inputObject));
+    try {
+      dispatch(updateTeamTheme(teamId, inputObject));
+      toast.success('Theme is updated.');
       props.closeModal();
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <Modal
@@ -105,25 +109,27 @@ const TemplateSelector = (props) => {
                   name="theme"
                   value="theme1"
                   onChange={updateForm}
-                  defaultChecked
+                  checked={theme === 1}
                 />
-                <div className="theme-icon green-theme-icon"></div>
+                <div className="theme-icon theme-1-icon"></div>
                 <Form.Check
                   inline
                   type="radio"
                   name="theme"
                   value="theme2"
                   onChange={updateForm}
+                  checked={theme === 2}
                 />
-                <div className="theme-icon lightblue-theme-icon"></div>
+                <div className="theme-icon theme-2-icon"></div>
                 <Form.Check
                   inline
                   type="radio"
                   name="theme"
                   value="theme3"
                   onChange={updateForm}
+                  checked={theme === 3}
                 />
-                <div className="theme-icon blackwhite-theme-icon"></div>
+                <div className="theme-icon theme-3-icon"></div>
               </Form.Row>
             </Container>
             <Form.Control.Feedback type="invalid">
@@ -137,37 +143,39 @@ const TemplateSelector = (props) => {
               <Form.Row>
                 <Col className="layout-display">
                   <Form.Check
-                    defaultChecked
+                    checked={formInputs.layout === 1}
                     inline
                     type="radio"
                     name="layout"
                     label="Layout 1"
                     value={1}
-                    className='form-radio-text'
+                    className="form-radio-text"
                     onChange={updateForm}
                   />
                   <Image src={singleColumnLayout} className="img-fluid" />
                 </Col>
                 <Col className="layout-display">
                   <Form.Check
+                    checked={formInputs.layout === 2}
                     inline
                     type="radio"
                     name="layout"
                     label="Layout 2"
                     value={2}
-                    className='form-radio-text'
+                    className="form-radio-text"
                     onChange={updateForm}
                   />
                   <Image src={fShapeLayout} className="img-fluid" />
                 </Col>
                 <Col className="layout-display">
                   <Form.Check
+                    checked={formInputs.layout === 3}
                     inline
                     type="radio"
                     name="layout"
                     label="Layout 3"
                     value={3}
-                    className='form-radio-text'
+                    className="form-radio-text"
                     onChange={updateForm}
                   />
                   <Image src={zigZagLayout} className="img-fluid" />

@@ -32,7 +32,7 @@ const Dashboard = () => {
         </Card.Body>
 
         <Card.Body className="researchify-dashboard-card-description">
-          Click the button to select or update your website theme.
+          Select your website theme to get started.
         </Card.Body>
 
         {/* Bottom layer of the card with three icons */}
