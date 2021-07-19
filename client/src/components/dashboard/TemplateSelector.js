@@ -4,8 +4,9 @@
  */
 import React, { useState } from 'react';
 import { Container, Button, Modal, Form, Col, Image } from 'react-bootstrap';
-// import { useDispatch } from 'react-redux';
-// import { updateTeamTheme } from '../../actions/team';
+import { useDispatch } from 'react-redux';
+import { updateTeamTheme } from '../../actions/team';
+import toast from 'react-hot-toast';
 
 // Picutre of each layout
 import singleColumnLayout from '../../images/single-column-layout.png';
@@ -17,7 +18,7 @@ import zigZagLayout from '../../images/zig-zag-layout.png';
  * Form for user input github credentials and select template.
  */
 const TemplateSelector = (props) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // Storing and passing Form Inputs, theme1 & layout1 as defualt
   const [formInputs, setInputs] = useState({
@@ -55,7 +56,6 @@ const TemplateSelector = (props) => {
     } else {
       setInputs({ ...formInputs, [name]: parseInt(value) });
     }
-    console.log(formInputs);
   };
 
   // validating each field in the form when submit
@@ -74,7 +74,9 @@ const TemplateSelector = (props) => {
 
   const storeInputs = (teamId, inputObject) => {
     try{
-      // dispatch(updateTeamTheme(teamId, inputObject));
+      dispatch(updateTeamTheme(teamId, inputObject));
+      toast.success('Theme is updated.')
+      props.closeModal();
     } catch (error) {
       console.error(error);
     }

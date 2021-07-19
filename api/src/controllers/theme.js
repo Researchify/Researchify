@@ -12,7 +12,6 @@ const Theme = require('../models/editor/theme.model');
  */
 async function findOrCreateTheme(req, res) {
   const themeData = req.body;
-  console.log(themeData);
   try {
     const foundTheme = await Theme.findOne(themeData);
     if (!foundTheme) {

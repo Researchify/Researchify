@@ -245,8 +245,9 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
 export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
   try {
     const updatedTheme = await api.findOrCreateTheme(themeData);
+    const updatedThemeId = updatedTheme.data._id;
     const { data } = await api.updateTeam(teamId, {
-      themeId: updatedTheme._id,
+      themeId: updatedThemeId,
     });
     const updatedTeam = {
       teamId: data._id,
@@ -262,7 +263,6 @@ export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
       payload: updatedTeam,
     });
   } catch (error) {
-    console.log(error);
     console.error(error);
   }
 };
