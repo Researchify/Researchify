@@ -4,7 +4,8 @@
 
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
-const categoryTypeEnum = require('../config/puppeteer');
+const { categoryTypeEnum } = require('../config/puppeteer');
+const { fillErrorObject } = require('./error');
 
 /**
  * Handles the validation when creating (POST) a new publication in the database.
@@ -77,13 +78,14 @@ const createPublicationValidation = [
     .trim()
     .isLength({ min: 3 }),
   (req, res, next) => {
-    console.log('hello');
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      console.log({ errors: errors.array() });
+      next(fillErrorObject(400, 'Validation error has occurred', errors.array()));
+    } else {
+      next();
     }
-    next();
   },
 ];
 

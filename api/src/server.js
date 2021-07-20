@@ -28,6 +28,10 @@ app.get('/', (req, res) => res.send('You have reached the Researchify API'));
 // Use the routes
 app.use('/publications', publicationsRouter);
 app.use('/team', teamRouter);
+app.use(function (err, req, res, next) {
+  console.log('in error handler function');
+  res.status(err.errorCode).json(err);
+});
 
 // Listen for connections
 app.listen(PORT, () => logger.info(`Server running on port: ${PORT}`));
