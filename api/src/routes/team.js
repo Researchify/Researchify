@@ -13,7 +13,7 @@ const mongooseMiddleware = require('../middleware/mongoose');
 
 teamRouter.patch(
   '/:team_id/twitter-handle',
-  mongooseMiddleware.validateObjectId,
+  mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamMiddleware.validateTwitterHandle,
   teamController.storeHandle
@@ -21,35 +21,35 @@ teamRouter.patch(
 
 teamRouter.get(
   '/:team_id',
-  mongooseMiddleware.validateObjectId,
+  mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.getTeam
 );
 
 teamRouter.post(
   '/:team_id/member',
-  mongooseMiddleware.validateObjectId,
+  mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.createTeamMember
 );
 
 teamRouter.get(
   '/:team_id/member',
-  mongooseMiddleware.validateObjectId,
+  mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.readTeamMembersByTeam
 );
 
 teamRouter.delete(
   '/:team_id/member/:member_id',
-  mongooseMiddleware.validateObjectId,
+  mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.deleteTeamMember
 );
 
 teamRouter.patch(
   '/:team_id/member',
-  mongooseMiddleware.validateObjectId,
+  mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.updateTeamMember
 );

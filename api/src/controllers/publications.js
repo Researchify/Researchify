@@ -52,15 +52,6 @@ async function updatePublication(req, res, next) {
   const { id: _id } = req.params;
   const publication = req.body;
 
-  await Publication.findById(_id, function (err, doc) {
-    if (err) {
-      next(
-        fillErrorObject(404, 'Validation error has occurred', [
-          'Publication could not be found',
-        ])
-      );
-    }
-  });
   const updatedPublication = await Publication.findByIdAndUpdate(
     _id,
     publication,
@@ -69,7 +60,17 @@ async function updatePublication(req, res, next) {
       runValidators: true,
     }
   );
-  return res.status(200).json(updatedPublication);
+
+  if (updatedPublication == null) {
+    // nothing returned by the query
+    next(
+      fillErrorObject(404, 'Validation error has occurred', [
+        'Publication could not be found',
+      ])
+    );
+  } else {
+    return res.status(200).json(updatedPublication);
+  }
 }
 
 /**
@@ -92,9 +93,12 @@ async function createPublication(req, res, next) {
   console.log(publication.teamId);
   var result = await Team.findById({ _id: publication.teamId });
 
-  // TODO: check if this can be moved out
   if (result == null) {
-    return res.status(404).send('Error: Team not found.');
+    next(
+      fillErrorObject(404, 'Validation error has occurred', [
+        'Team was not found',
+      ])
+    );
   }
 
   const createdPublication = await Publication.create(publication);
@@ -110,15 +114,18 @@ async function createPublication(req, res, next) {
  * @returns 400: given publication id is not in a valid hexadecimal format
  * @returns 404: no publications were found
  */
-async function readPublication(req, res) {
+async function readPublication(req, res, next) {
   const { id: _id } = req.params;
 
   const foundPublication = await Publication.findById(_id);
 
-  // TODO: check if this can be moved out
   if (foundPublication == null) {
     // nothing returned by the query
-    res.status(404).send('Error: No publication found.'); // no content
+    next(
+      fillErrorObject(404, 'Validation error has occurred', [
+        'Publication could not be found',
+      ])
+    );
   } else {
     res.status(200).json(foundPublication);
   }
@@ -136,12 +143,6 @@ async function readPublication(req, res) {
  */
 async function readAllPublicationsByTeam(req, res) {
   const { team_id: _id } = req.params;
-
-    // TODO: check if this can be moved out
-    var result = await Team.find({ _id });
-    if (result.length == 0) {
-      return res.status(404).send('Error: Team not found.');
-    }
 
   const foundPublication = await Publication.aggregate([
     {
