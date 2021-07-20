@@ -89,7 +89,7 @@ async function makeGHRepo(ghUsername, ghToken) {
     // if it doesn't, make one
     const createRepoBody = {
       name: repoName,
-      private: true, // depends?
+      private: false, // free accounts can only use a public repo for GH pages
       auto_init: true,
     };
     try {
