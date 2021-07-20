@@ -344,7 +344,7 @@ async function validateImportedPublications(_id, publications) {
 }
 
 /**
- * Handles a POST request, which will create a bluk publications in the database using the endpoint /publications/import/:team_id.
+ * Handles a POST request, which will create a bulk publications in the database using the endpoint /publications/import/:team_id.
  * @param req request object - team id given in the url, an array of publication in body (see Publication model)
  * @param res response object
  * @returns 201: the bulk publications has been created

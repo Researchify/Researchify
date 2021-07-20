@@ -82,7 +82,9 @@ const createPublicationValidation = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log({ errors: errors.array() });
-      next(fillErrorObject(400, 'Validation error has occurred', errors.array()));
+      next(
+        fillErrorObject(400, 'Validation error has occurred', errors.array())
+      );
     } else {
       next();
     }
@@ -93,24 +95,25 @@ async function validateAuthorId(req, res, next) {
   const { gScholarUserId: _id } = req.params;
 
   if (_id.length != 12) {
-    return res
-      .status(400)
-      .json(`Error: User ID needs to be 12 characters long.`);
+    next(
+      fillErrorObject(400, 'Validation error has occurred', [
+        'Google Scholar User ID needs to be 12 characters long',
+      ])
+    );
   }
-
-  try {
-    await axios.get('https://scholar.google.com.sg/citations?user=' + _id);
-  } catch (error) {
-    console.log(error);
-    if (error.response.status == 404) {
-      return res
-        .status(404)
-        .json(`Error: There is no user profile found with the given id.`);
-    } else {
-      return res.status(error.response.status).json(error.message);
-    }
-  }
-  next();
+  await axios
+    .get('https://scholar.google.com.sg/citations?user=' + _id)
+    .then((response) => { next() })
+    .catch((error) => {
+      // if you mess around with the user id you only get 404
+      next(
+        fillErrorObject(
+          error.response.status,
+          'Validation error has occurred',
+          ['No Google Scholar user profile found with the given id']
+        )
+      );
+    });
 }
 
 module.exports = { createPublicationValidation, validateAuthorId };
