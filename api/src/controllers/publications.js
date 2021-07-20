@@ -12,6 +12,8 @@ const { Cluster } = require('puppeteer-cluster');
 
 const { puppeteerConfig, categoryType } = require('../config/puppeteer');
 
+const { fillErrorObject } = require('../middleware/error');
+
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
  *
@@ -21,18 +23,19 @@ const { puppeteerConfig, categoryType } = require('../config/puppeteer');
  * @returns 404: publication not found
  * @returns 400: error deleting publication
  */
-async function deletePublication(req, res) {
+async function deletePublication(req, res, next) {
   const { id: _id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send('Error: No publication with that id.');
-
-  try {
-    await Publication.findByIdAndRemove(_id);
+  const foundPublication = await Publication.findByIdAndRemove(_id);
+  if (foundPublication === null) {
+    next(
+      fillErrorObject(400, 'Validation error has occurred', [
+        'Publication could not be found',
+      ])
+    );
+  } else {
     return res
       .status(200)
       .json({ message: 'Publication deleted successfully.' });
-  } catch (err) {
-    res.status(400).json(`Error: ${err.message}`);
   }
 }
 
@@ -45,26 +48,28 @@ async function deletePublication(req, res) {
  * @returns 404: publication not found
  * @returns 422: error in the request object, unable to update publication
  */
-async function updatePublication(req, res) {
+async function updatePublication(req, res, next) {
   const { id: _id } = req.params;
   const publication = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send('Error: No publication with that id.');
-
-  try {
-    const updatedPublication = await Publication.findByIdAndUpdate(
-      _id,
-      publication,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-    res.status(200).json(updatedPublication);
-  } catch (err) {
-    res.status(422).json(`Error: ${err.message}`);
-  }
+  await Publication.findById(_id, function (err, doc) {
+    if (err) {
+      next(
+        fillErrorObject(404, 'Validation error has occurred', [
+          'Publication could not be found',
+        ])
+      );
+    }
+  });
+  const updatedPublication = await Publication.findByIdAndUpdate(
+    _id,
+    publication,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  return res.status(200).json(updatedPublication);
 }
 
 /**
@@ -82,18 +87,14 @@ async function updatePublication(req, res) {
  * @returns 400: the publication given in the request fails some validation also @see validationMiddlewares
  * @returns 404: no team was found to associate the publication with
  */
-async function createPublication(req, res) {
+async function createPublication(req, res, next) {
   const publication = req.body;
   console.log(publication.teamId);
-  if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
-    return res
-      .status(400)
-      .send('Error: Given team id is not in a valid hexadecimal format.');
-  } else {
-    var result = await Team.findById({ _id: publication.teamId });
-    if (result == null) {
-      return res.status(404).send('Error: Team not found.');
-    }
+  var result = await Team.findById({ _id: publication.teamId });
+
+  // TODO: check if this can be moved out
+  if (result == null) {
+    return res.status(404).send('Error: Team not found.');
   }
 
   const createdPublication = await Publication.create(publication);
@@ -112,15 +113,9 @@ async function createPublication(req, res) {
 async function readPublication(req, res) {
   const { id: _id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res
-      .status(400)
-      .send(
-        'Error: Given publication id is not in a valid hexadecimal format.'
-      );
-
   const foundPublication = await Publication.findById(_id);
 
+  // TODO: check if this can be moved out
   if (foundPublication == null) {
     // nothing returned by the query
     res.status(404).send('Error: No publication found.'); // no content
@@ -142,16 +137,11 @@ async function readPublication(req, res) {
 async function readAllPublicationsByTeam(req, res) {
   const { team_id: _id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(_id)) {
-    return res
-      .status(400)
-      .send('Error: Given team id is not in a valid hexadecimal format.');
-  } else {
+    // TODO: check if this can be moved out
     var result = await Team.find({ _id });
     if (result.length == 0) {
       return res.status(404).send('Error: Team not found.');
     }
-  }
 
   const foundPublication = await Publication.aggregate([
     {
@@ -178,7 +168,7 @@ async function readAllPublicationsByTeam(req, res) {
 async function getGoogleScholarPublications(req, res) {
   const author = req.params.gScholarUserId;
   const startFrom = req.params.startFrom;
-  const teamId = req.params.teamId;
+  const teamId = req.params.team_id;
 
   const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
   const noOfThreads = puppeteerConfig.noOfThreads;

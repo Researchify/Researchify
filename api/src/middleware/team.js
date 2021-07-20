@@ -13,21 +13,13 @@ const { fillErrorObject } = require('./error');
 async function validateTeamId(req, res, next) {
   const { team_id } = req.params;
   let foundTeam;
-  if (mongoose.Types.ObjectId.isValid(team_id)) {
-    foundTeam = await Team.findById(team_id).select('_id teamName orgName');
-    console.log(foundTeam);
+  foundTeam = await Team.findById(team_id).select('_id teamName orgName');
+  console.log(foundTeam);
 
-    if (foundTeam == null) {
-      next(
-        fillErrorObject(404, 'Validation error has occurred', [
-          'No team found with the given id',
-        ])
-      );
-    }
-  } else {
+  if (foundTeam == null) {
     next(
-      fillErrorObject(400, 'Validation error has occurred', [
-        'Given team id is not in a valid hexadecimal format',
+      fillErrorObject(404, 'Validation error has occurred', [
+        'No team found with the given id',
       ])
     );
   }
