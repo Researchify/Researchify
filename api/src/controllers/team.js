@@ -8,6 +8,8 @@ const Team = require('../models/team.model');
 
 const mongoose = require('mongoose');
 
+const { fillErrorObject } = require('../middleware/error');
+
 const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
@@ -21,7 +23,7 @@ const options = {
  * @returns 404: team is not found, or handle is invalid
  * @returns 500: error trying to update the document in db
  */
-async function storeHandle(req, res) {
+async function storeHandle(req, res, next) {
   const { twitterHandle: handle } = req.body;
   let foundTeam = req.foundTeam;
 
@@ -32,27 +34,30 @@ async function storeHandle(req, res) {
     // update the handle
     // validate the handle by getting user id
     if (!process.env.TWITTER_BEARER_TOKEN) {
-      return res
-        .status(500)
-        .send('Error: No Twitter API Bearer Token found in .env file');
-    }
-    let response = await axios.get(
-      'https://api.twitter.com/2/users/by/username/' + handle,
-      options
-    );
-    if (response.data.errors) {
-      return res.status(400).send('Error: ' + response.data.errors[0].detail);
+      next(
+        fillErrorObject(500, 'Missing environment variable', [
+          'No Twitter API Bearer Token found in .env file',
+        ])
+      );
     } else {
-      foundTeam.twitterHandle = handle;
+      let response = await axios.get(
+        'https://api.twitter.com/2/users/by/username/' + handle,
+        options
+      );
+      if (response.data.errors) {
+        next(
+          fillErrorObject(400, 'Validation error has occurred', [
+            response.data.errors[0].detail,
+          ])
+        );
+      } else {
+        foundTeam.twitterHandle = handle;
+      }
+      foundTeam
+        .save()
+        .then(() => res.status(200).json(foundTeam))
+        .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
     }
-  }
-
-  try {
-    // update in db
-    foundTeam.save();
-    return res.status(200).json(foundTeam);
-  } catch (err) {
-    return res.status(500).send(`Error: ${err.message}`);
   }
 }
 
@@ -76,19 +81,27 @@ async function getTeam(req, res) {
  * @returns 200: the team was found
  * @returns 404: team is not found
  */
-async function loginTeam(req, res) {
+async function loginTeam(req, res, next) {
   Team.findOne({ email: req.body.email })
     .then((team) => {
       if (team == null) {
-        res.status(400).send('User not found');
+        next(
+          fillErrorObject(400, 'Validation error has occurred', [
+            'Team could not be found',
+          ])
+        );
       } else if (team.password != req.body.password) {
-        res.status(403).send('Incorrect password');
+        next(
+          fillErrorObject(403, 'Validation error has occurred', [
+            'Incorrect password provided',
+          ])
+        );
       } else {
         console.log(team);
         res.send(JSON.stringify({ team: team }));
       }
     })
-    .catch((err) => res.status(400).json('Error: ' + err));
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
@@ -97,11 +110,12 @@ async function loginTeam(req, res) {
  * @param {*} res response object - updated team object
  * @returns 201: returns updated team details
  */
-async function addTeam(req, res) {
+async function addTeam(req, res, next) {
   const team = req.body;
 
-  const createdTeam = await Team.create(team);
-  res.status(201).json(createdTeam);
+  await Team.create(team)
+    .then((createdTeam) => res.status(201).json(createdTeam))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
@@ -130,9 +144,12 @@ async function createTeamMember(req, res) {
   const memberId = new mongoose.Types.ObjectId();
   let foundTeam = req.foundTeam;
   teamMember = { ...teamMember, _id: memberId };
+
   await foundTeam.teamMembers.push(teamMember);
-  foundTeam.save();
-  res.status(201).json(teamMember);
+  foundTeam
+    .save()
+    .then(() => res.status(200).json(foundTeam.teamMembers))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
 /**
@@ -147,8 +164,10 @@ async function deleteTeamMember(req, res) {
   let foundTeam = req.foundTeam;
   const { member_id } = req.params;
   await foundTeam.teamMembers.pull({ _id: member_id });
-  foundTeam.save();
-  return res.status(200).json({ message: 'Team member deleted successfully.' });
+  foundTeam
+    .save()
+    .then(() => res.status(200).json(foundTeam.teamMembers))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
 /**
@@ -161,19 +180,16 @@ async function deleteTeamMember(req, res) {
  */
 async function updateTeamMember(req, res) {
   const updatedTeamMember = req.body;
-  try {
-    await Team.updateOne(
-      { 'teamMembers._id': updatedTeamMember._id },
-      {
-        $set: {
-          'teamMembers.$': updatedTeamMember,
-        },
-      }
-    );
-    return res.status(200).json(updatedTeamMember);
-  } catch (error) {
-    return res.status(422).json(`Error: ${error.message}`);
-  }
+  await Team.updateOne(
+    { 'teamMembers._id': updatedTeamMember._id },
+    {
+      $set: {
+        'teamMembers.$': updatedTeamMember,
+      },
+    }
+  )
+    .then(() => res.status(200).json(updatedTeamMember))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
 module.exports = {

@@ -105,6 +105,7 @@ async function createPublication(req, res, next) {
   res.status(201).json(createdPublication);
 }
 
+// TODO: not being used, can be removed?
 /**
  * Handles a GET request, which will retrieve the specified publication in the database with the given mongo object id in the endpoint /publications/:id
  *

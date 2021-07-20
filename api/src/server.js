@@ -31,8 +31,14 @@ app.use('/team', teamRouter);
 
 // error handler middleware
 app.use(function (err, req, res, next) {
+  const errorObject = err;
+  if (errorObject) {
+    res.status(err.errorCode).json(err);
+  } else {
+    // if error object is not passed, server error
+    res.status(500).send('Something went wrong!');
+  }
   console.log('in error handler function');
-  res.status(err.errorCode).json(err);
 });
 
 // Listen for connections
