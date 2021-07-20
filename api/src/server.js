@@ -38,7 +38,6 @@ app.use(function (err, req, res, next) {
     // if error object is not passed, server error
     res.status(500).send('Something went wrong!');
   }
-  console.log('in error handler function');
 });
 
 // Listen for connections

@@ -30,12 +30,6 @@ publicationsRouter.post(
 );
 
 publicationsRouter.get(
-  '/:id',
-  mongooseMiddleware.validatePublicationObjectId,
-  publicationsController.readPublication
-);
-
-publicationsRouter.get(
   '/import/:gScholarUserId/:startFrom/validate/:team_id',
   mongooseMiddleware.validateTeamObjectId,
   publicationsMiddleware.validateAuthorId,
