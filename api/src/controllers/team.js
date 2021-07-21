@@ -139,7 +139,7 @@ async function readTeamMembersByTeam(req, res) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function createTeamMember(req, res) {
+async function createTeamMember(req, res, next) {
   let teamMember = req.body;
   const memberId = new mongoose.Types.ObjectId();
   let foundTeam = req.foundTeam;
@@ -160,7 +160,7 @@ async function createTeamMember(req, res) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function deleteTeamMember(req, res) {
+async function deleteTeamMember(req, res, next) {
   let foundTeam = req.foundTeam;
   const { member_id } = req.params;
   await foundTeam.teamMembers.pull({ _id: member_id });
@@ -178,7 +178,7 @@ async function deleteTeamMember(req, res) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function updateTeamMember(req, res) {
+async function updateTeamMember(req, res, next) {
   const updatedTeamMember = req.body;
   await Team.updateOne(
     { 'teamMembers._id': updatedTeamMember._id },

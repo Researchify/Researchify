@@ -103,7 +103,7 @@ async function validateAuthorId(req, res, next) {
   }
   await axios
     .get('https://scholar.google.com.sg/citations?user=' + _id)
-    .then((response) => { next() })
+    .then(() => { next() })
     .catch((error) => {
       // if you mess around with the user id you only get 404
       next(

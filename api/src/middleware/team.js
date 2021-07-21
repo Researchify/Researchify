@@ -2,7 +2,6 @@
  * This module contains middleware functions for the team route (/routes/teams.js).
  */
 
-const mongoose = require('mongoose');
 
 const { body, validationResult } = require('express-validator');
 

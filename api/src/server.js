@@ -30,7 +30,7 @@ app.use('/publications', publicationsRouter);
 app.use('/team', teamRouter);
 
 // error handler middleware
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   const errorObject = err;
   if (errorObject) {
     res.status(err.errorCode).json(err);
