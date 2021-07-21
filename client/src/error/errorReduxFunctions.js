@@ -12,13 +12,12 @@ export const errorReducer = (state, action) => {
     };
   }
   const res = action.payload.response;
-  console.log(res);
   return {
     ...state,
     error: {
       data: res.data !== '' ? res.data.errors[0] : DEFAULT_ERROR_MESSAGE,
-      status: res.data.errorCode,
-      statusText: res.data.errors[0],
+      status: res.status,
+      statusText: res.statusText,
     },
   };
 };
