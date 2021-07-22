@@ -11,12 +11,17 @@ import {
   BsPeople,
   BsGearFill,
   BsFillQuestionCircleFill,
+  BsBoxArrowLeft,
 } from 'react-icons/bs';
+import { signOut } from '../../actions/auth';
+import { useDispatch } from 'react-redux';
+
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
 const DashboardSidebarData = () => {
+  const dispatch = useDispatch();
   return [
     {
       title: 'Dashboard',
@@ -53,6 +58,12 @@ const DashboardSidebarData = () => {
       icon: <BsFillQuestionCircleFill />,
       link: '/dashboard/help',
     },
+    {
+      title: "Logout",
+      icon: <BsBoxArrowLeft />,
+      link: '/',
+      action: () => dispatch(signOut())
+    }
   ];
 };
 

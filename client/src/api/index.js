@@ -24,6 +24,8 @@ export const addTeam = (teamInfo) => api.post('/team', teamInfo);
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
 export const loginTeam = (teamCredentials) =>
   api.post(`/team/login`, teamCredentials);
+  export const logoutTeam = () =>
+  api.post(`/team/logout`);
 export const registerTwitterHandle = (teamId, handle) =>
   api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) =>

@@ -20,12 +20,13 @@ import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
  * @param teamInfo contains teamName, orgName and email
  */
 export const addTeamInfo = (teamInfo) => async (dispatch) => {
-  try {
-    const data = await api.addTeam(teamInfo);
+  try{
+    const teamId = await api.addTeam(teamInfo);
     const teamData = {
       ...teamInfo,
-      teamId: data.data._id,
+      teamId: teamId,
     };
+    // TODO: do we need to dispatch this action? 
     dispatch({
       type: ADD_TEAM,
       payload: teamData,
