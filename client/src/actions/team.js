@@ -21,7 +21,6 @@ import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 export const addTeamInfo = (teamInfo) => async (dispatch) => {
   try{
     const teamId = await api.addTeam(teamInfo);
-    console.log(teamId)
     const teamData = {
       ...teamInfo,
       teamId: teamId,

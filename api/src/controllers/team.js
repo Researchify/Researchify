@@ -16,7 +16,7 @@ const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
 
-const { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry } = require('../config/tokenExpiry');
+const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry } = require('../config/tokenExpiry');
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
@@ -93,7 +93,7 @@ async function loginTeam(req, res) {
       // remove sensitive data 
       delete teamObj.password 
       const accessToken = jwt.sign(teamObj, process.env.JWT_SECRET_1 || "JWT_SECRET_1", {
-        expiresIn: aceessTokenExpiry
+        expiresIn: accessTokenExpiry
       });
       const refreshToken = jwt.sign(teamObj, process.env.JWT_SECRET_2 || "JWT_SECRET_2", {
         expiresIn: refreshTokenExpiry
