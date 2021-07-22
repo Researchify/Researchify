@@ -214,6 +214,31 @@ async function updateTeamMember(req, res) {
 }
 
 /**
+ * Update the team from the database on /team/:team_id
+ * @param {} req request object, containing team id in the url
+ * @param {*} res response object, the updated team document
+ * @returns 200: team updated
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+async function updateTeam(req, res) {
+  const { team_id: _id } = req.params;
+  const team = req.body;
+  if (!mongoose.Types.ObjectId.isValid(_id)){
+    return res.status(404).send('Error: No team with that id.');
+  }
+  try {
+    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json(updatedTeam);
+  } catch (err) {
+    res.status(422).json(`Error: ${err.message}`);
+  }
+}
+
+/**
  * Update the a logout request on /team/logout
  * @param {*} req request object
  * @param {*} res response object
@@ -245,5 +270,6 @@ module.exports = {
   deleteTeamMember,
   updateTeamMember,
   loginTeam,
+  updateTeam,
   logoutTeam
 };

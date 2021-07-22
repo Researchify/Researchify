@@ -39,3 +39,8 @@ export const updateTeamMember = (teamId, updatedTeamMember) =>
   api.patch(`/team/${teamId}/member`, updatedTeamMember);
 export const deleteTeamMember = (teamId, teamMemberId) =>
   api.delete(`/team/${teamId}/member/${teamMemberId}`);
+export const updateTeam = (teamId, updatedTeam) =>
+  api.patch(`/team/${teamId}`, updatedTeam);
+
+export const findOrCreateTheme = (themeData) =>
+  api.post(`/theme`, themeData);

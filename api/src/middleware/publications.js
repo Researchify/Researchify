@@ -6,6 +6,7 @@ const { body, validationResult } = require('express-validator');
 const axios = require('axios');
 const categoryTypeEnum = require('../config/puppeteer');
 
+
 /**
  * Handles the validation when creating (POST) a new publication in the database.
  * There are validators for: authors, title, description, summary, citedBy.

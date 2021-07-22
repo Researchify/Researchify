@@ -1,0 +1,9 @@
+.page-content-wrapper{
+    left: 50px;
+}
+
+/* Move this to global css later. Fix to horizontal scrollable in Researchify site. */
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+ }

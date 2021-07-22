@@ -49,6 +49,8 @@ teamRouter.post('/', teamController.addTeam);
 
 teamRouter.post('/login', teamController.loginTeam);
 
+teamRouter.patch('/:team_id', teamController.updateTeam);
+
 teamRouter.post('/logout', teamController.logoutTeam);
 
 module.exports = teamRouter;
