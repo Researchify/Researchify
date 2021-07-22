@@ -10,13 +10,9 @@ const mongoose = require('mongoose');
 
 const bcrypt = require('bcrypt');
 
-const jwt = require('jsonwebtoken');
-
 const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
-
-const { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry } = require('../config/tokenExpiry');
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
@@ -73,50 +69,6 @@ async function storeHandle(req, res) {
 async function getTeam(req, res) {
   console.log(req.foundTeam);
   return res.status(200).send(req.foundTeam);
-}
-
-/**
- * Handle login request from /team/login
- * @param {*} req request object, containing team email and password in the body as JSON
- * @param {*} res response object, the found teamId
- * @returns 200: the team was found
- * @returns 404: team is not found
- */
-async function loginTeam(req, res) {
-  try {
-    const foundTeam = await Team.findOne({ email: req.body.email })
-    if (!foundTeam) {
-      return res.status(400).send('Incorrect email/password'); // user not found 
-    } 
-    if (await bcrypt.compare(req.body.password, foundTeam.password)){
-      const teamObj = foundTeam.toObject(); // converts a mongoose object to a plain object 
-      // remove sensitive data 
-      delete teamObj.password 
-      const accessToken = jwt.sign(teamObj, process.env.JWT_SECRET_1 || "JWT_SECRET_1", {
-        expiresIn: aceessTokenExpiry
-      });
-      const refreshToken = jwt.sign(teamObj, process.env.JWT_SECRET_2 || "JWT_SECRET_2", {
-        expiresIn: refreshTokenExpiry
-      });
-      res.cookie('accessToken', accessToken, { 
-        httpOnly: true,
-        maxAge: accessTokenCookieExpiry, // 5 mins
-      });
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        maxAge: refreshTokenCookieExpiry, // 1 year
-      })
-      return res.status(200).send({
-        teamId: teamObj._id, 
-        email: teamObj.email,
-        teamName: teamObj.teamName,
-        orgName: teamObj.orgName
-      });
-    } 
-    return res.status(403).send('Incorrect email/password'); // incorrect password 
-  } catch (error){
-    return res.status(422).json(`Error: ${error.message}`);
-  }
 }
 
 /**
@@ -213,28 +165,7 @@ async function updateTeamMember(req, res) {
   }
 }
 
-/**
- * Update the a logout request on /team/logout
- * @param {*} req request object
- * @param {*} res response object
- * @returns 200: logout successfully
- * @returns 404: error occur 
- */
-async function logoutTeam(req, res) {
-  try{
-    res.cookie('accessToken', "", { 
-      httpOnly: true,
-      maxAge: 0,
-    });
-    res.cookie('refreshToken', "", { 
-      httpOnly: true,
-      maxAge: 0,
-    });
-    res.status(200).json('Logout Successfully');
-  } catch (error){
-    return res.status(422).json(`Error: ${error.message}`);
-  }
-}
+
 
 module.exports = {
   storeHandle,
@@ -244,6 +175,4 @@ module.exports = {
   readTeamMembersByTeam,
   deleteTeamMember,
   updateTeamMember,
-  loginTeam,
-  logoutTeam
 };

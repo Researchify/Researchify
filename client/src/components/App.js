@@ -30,10 +30,10 @@ const App = () => {
   };
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getTeamInfo('609f5ad827b1d48257c321d3')); // once we have implemented JWT (see below):
-    // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getTeamInfo('609f5ad827b1d48257c321d3')); // once we have implemented JWT (see below):
+  //   // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
+  // }, [dispatch]);
 
   const errorMessage = useSelector((state) => state.main.error);
 

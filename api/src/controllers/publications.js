@@ -140,6 +140,8 @@ async function readPublication(req, res) {
  * @todo filter by other fields like year passed in through req.query
  */
 async function readAllPublicationsByTeam(req, res) {
+  console.log(req.cookies)
+  console.log('@@@@@@@@')
   const { team_id: _id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(_id)) {

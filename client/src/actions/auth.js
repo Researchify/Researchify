@@ -2,7 +2,8 @@
  * This file houses our auth-related Action Creators.
  */
 import * as api from '../api';
-import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO } from './types';
+import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, FETCH_TEAM_INFO } from './types';
+import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
 /**
  * This action creator will be called when a user signs in.
@@ -24,10 +25,7 @@ export const signIn = (authData) => async(dispatch) => {
       payload: result.data
     })
   } catch (error){
-    dispatch ({
-      type: AUTH_SIGN_IN_FAIL,
-      payload: error.response.data
-    })
+    dispatch(errorActionGlobalCreator(error));
   }
 };
 
@@ -42,7 +40,7 @@ export const signOut = () => async(dispatch) => {
     dispatch ({
       type: AUTH_SIGN_OUT
     })
-  } catch(error){
-    console.log(error.response.data)
+  } catch(err){
+    dispatch(errorActionGlobalCreator(err));
   }
 };

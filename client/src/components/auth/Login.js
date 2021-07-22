@@ -9,7 +9,6 @@ import './Login.css';
 import { signIn } from '../../actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import toast from 'react-hot-toast';
 
 /** 
 Handles the UI for the log in page
@@ -35,9 +34,6 @@ export default function Login() {
     console.log("LoginIn Page", auth.signIn)
     if (auth.signIn){
       history.push('/dashboard')
-    }
-    if (auth.error){
-      toast.error(auth.error);
     }
   }, [history, auth])
 
