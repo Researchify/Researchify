@@ -49,6 +49,8 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return { ...action.payload };
     case UPDATE_TEAM:
       return action.payload;
+    case UPDATE_TEAM:
+      return action.payload;
     case TEAM_ERROR:
       return {
         ...errorReducer(state, action),

@@ -281,7 +281,6 @@ function teamDataAllocator(teamData) {
 /**
  * This action creator will be called when a user want to update the team profile
  *
->>>>>>> layouts
  * @param {*} teamId id of the team
  * @param {*} teamData data object of the data to be patched
  * @returns

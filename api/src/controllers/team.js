@@ -13,6 +13,7 @@ const {
   githubAccessTokenUrlEnd,
   schollyHost,
 } = require('../config/deploy');
+
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
@@ -275,6 +276,7 @@ async function deployToGHPages(req, res) {
     console.log(err);
   }
 }
+
 /**
  * Update the team from the database on /team/:team_id
  * @param {} req request object, containing team id in the url
