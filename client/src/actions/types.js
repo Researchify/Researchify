@@ -1,7 +1,9 @@
 /**
  * This file houses our Action Creator type constants.
  */
-export const AUTH_SIGN_IN = 'AUTH_SIGN_IN';
+export const AUTH_SIGN_IN_REQUEST = 'AUTH_SIGN_IN_REQUEST';
+export const AUTH_SIGN_IN_SUCCESS = 'AUTH_SIGN_IN_SUCCESS';
+export const AUTH_SIGN_IN_FAIL = 'AUTH_SIGN_IN_FAIL';
 export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
 
 export const GET_PUBLICATION_BY_ID = 'GET_PUBLICATION_BY_ID';
@@ -18,6 +20,7 @@ export const CREATE_BULK_PUBLICATIONS = 'CREATE_BULK_PUBLICATIONS';
 export const FETCH_TEAM_INFO = 'FETCH_TEAM_INFO';
 export const LINK_TEAM_TWITTER = 'LINK_TEAM_TWITTER';
 export const UNLINK_TEAM_TWITTER = 'UNLINK_TEAM_TWITTER';
+export const UPDATE_TEAM = 'UPDATE_TEAM';
 
 export const IMPORT_REQUEST = 'IMPORT_REQUEST';
 export const IMPORT_SUCCESS = 'IMPORT_SUCCESS';

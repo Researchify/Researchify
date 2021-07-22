@@ -24,6 +24,8 @@ export const addTeam = (teamInfo) => api.post('/team', teamInfo);
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
 export const loginTeam = (teamCredentials) =>
   api.post(`/team/login`, teamCredentials);
+  export const logoutTeam = () =>
+  api.post(`/team/logout`);
 export const registerTwitterHandle = (teamId, handle) =>
   api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) =>
@@ -37,3 +39,8 @@ export const updateTeamMember = (teamId, updatedTeamMember) =>
   api.patch(`/team/${teamId}/member`, updatedTeamMember);
 export const deleteTeamMember = (teamId, teamMemberId) =>
   api.delete(`/team/${teamId}/member/${teamMemberId}`);
+export const updateTeam = (teamId, updatedTeam) =>
+  api.patch(`/team/${teamId}`, updatedTeam);
+
+export const findOrCreateTheme = (themeData) =>
+  api.post(`/theme`, themeData);

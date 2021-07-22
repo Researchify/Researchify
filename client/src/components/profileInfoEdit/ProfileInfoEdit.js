@@ -2,31 +2,75 @@
  * This file exports a profile page management component that displays the ability to edit user information
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Button, Form, Container, Image } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import profilePic from '../../images/profilepic.jpg';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateTeam } from '../../actions/team';
 
-// TODO: need to clean up these two methods!
-const profileUpdated = () =>
-  toast.success('Profile has been successfully updated');
-const profileDeleted = () => toast.error('Profile has not been deleted');
 
+/**
+ * Form component for user update profile
+ */
 const ProfileInfoEdit = () => {
-  const groupName = useSelector((state) => state.user?.groupName);
-  const orgName = useSelector((state) => state.user?.orgName);
-  const country = useSelector((state) => state.user?.country);
-  const email = useSelector((state) => state.user?.email);
-  const phoneNum = useSelector((state) => state.user?.phoneNum);
+  const dispatch = useDispatch(); 
+
+  const teamId = useSelector((state) => state.team?.teamId);
+
+  const [profileData, setInputs] = useState({
+    teamName: useSelector((state) => state.team?.teamName),
+    orgName: useSelector((state) => state.team?.orgName),
+    email: useSelector((state) => state.team?.email),
+  });
+  
+  const updateInputs = (form) => {
+    const { name, value } = form.target;
+    setInputs({ ...profileData, [name]: value });
+  };
+
+  const [validated, setValidated] = useState(false);
+  const handleUpdate = (event) => {
+    const form = event.currentTarget;
+    event.preventDefault();
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      updateProfile(teamId, profileData);
+    }
+    setValidated(true);
+  };
+
+  const updateProfile = (teamId, profileData) => {
+    try {
+      dispatch(updateTeam(teamId, profileData))
+      toast.success('Profile has been successfully updated');
+    } catch (error) {
+      console.error(error);
+      toast.error('Profile has not been updated');
+    }
+  };
+
+  const profileDeleted = () => {
+    console.error(
+      'Delete profile function is not implemented yet in ProfileInfoEdit.js'
+    );
+    toast.error('Profile has not been deleted');
+  };
+  
 
   return (
     <div className="mt-5">
       <Container className="profile-container">
-        <Form className="profile-form">
+        <Form
+          className="profile-form"
+          noValidate
+          validated={validated}
+          onSubmit={handleUpdate}
+        >
           <p className="profile-title-name">Team Profile Management</p>
 
           <Form.Group controlId="formProfilePic">
@@ -44,36 +88,47 @@ const ProfileInfoEdit = () => {
 
           <Form.Group controlId="formResearchGroupName">
             <Form.Label>Research Group Name</Form.Label>
-            <Form.Control type="text" placeholder={groupName} />
+            <Form.Control
+              type="text"
+              placeholder="Enter your group name here"
+              defaultValue={profileData.teamName}
+              onChange={updateInputs}
+              required
+              name="teamName"
+            />
           </Form.Group>
 
           <Form.Group controlId="formOrganisationName">
             <Form.Label>Organisation Name</Form.Label>
-            <Form.Control type="text" placeholder={orgName} />
-          </Form.Group>
-
-          <Form.Group controlId="formCountry">
-            <Form.Label>Country</Form.Label>
-            <Form.Control as="select" defaultValue={country}>
-              <option>{country}</option>
-              <option>Australia</option>
-              <option>USA</option>
-              <option>Canada</option>
-            </Form.Control>
+            <Form.Control
+              type="text"
+              placeholder="Enter your organisation name here"
+              defaultValue={profileData.orgName}
+              onChange={updateInputs}
+              required
+              name="orgName"
+            />
           </Form.Group>
 
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder={email} />
-          </Form.Group>
-
-          <Form.Group controlId="formPhoneNumber">
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control type="text" placeholder={phoneNum} />
+            <Form.Control
+              type="email"
+              placeholder="Enter your email here"
+              name="email"
+              defaultValue={profileData.email}
+              onChange={updateInputs}
+              required
+            />
           </Form.Group>
 
           <div className="my-1">
-            <Button color="primary" className="mr-2" onClick={profileUpdated}>
+            <Button
+              id="updateButton"
+              type="submit"
+              color="primary"
+              className="mr-2"
+            >
               Update
             </Button>
 

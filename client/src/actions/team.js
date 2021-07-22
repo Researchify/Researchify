@@ -11,6 +11,7 @@ import {
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
   ADD_TEAM,
+  UPDATE_TEAM,
 } from './types';
 import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
@@ -19,12 +20,13 @@ import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
  * @param teamInfo contains teamName, orgName and email
  */
 export const addTeamInfo = (teamInfo) => async (dispatch) => {
-  try {
-    const data = await api.addTeam(teamInfo);
+  try{
+    const teamId = await api.addTeam(teamInfo);
     const teamData = {
       ...teamInfo,
-      teamId: data.data._id,
+      teamId: teamId,
     };
+    // TODO: do we need to dispatch this action? 
     dispatch({
       type: ADD_TEAM,
       payload: teamData,
@@ -222,5 +224,50 @@ function teamDataAllocator(teamData) {
     orgName: teamData.orgName,
     twitterHandle: teamData.twitterHandle,
     repoCreated: teamData.repoCreated,
+    themeId: teamData.themeId,
   };
 }
+
+/**
+ * This action creator will be called when a user want to update the team profile
+ *
+>>>>>>> layouts
+ * @param {*} teamId id of the team
+ * @param {*} teamData data object of the data to be patched
+ * @returns
+ */
+export const updateTeam = (teamId, teamData) => async (dispatch) => {
+  try {
+    const { data } = await api.updateTeam(teamId, teamData);
+    const updatedData = teamDataAllocator(data);
+    dispatch({
+      type: UPDATE_TEAM,
+      payload: updatedData,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
+ * This action creater find/create a new theme and update it in team data.
+ * @param {*} teamId
+ * @param {*} themeData
+ * @returns
+ */
+export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
+  try {
+    const updatedTheme = await api.findOrCreateTheme(themeData);
+    const updatedThemeId = updatedTheme.data._id;
+    const { data } = await api.updateTeam(teamId, {
+      themeId: updatedThemeId,
+    });
+    const updatedTeam = teamDataAllocator(data);
+    dispatch({
+      type: UPDATE_TEAM,
+      payload: updatedTeam,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
