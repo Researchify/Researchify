@@ -13,8 +13,6 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-// import {addUserAction} from '../../actions/users';
-
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const history = useHistory();
