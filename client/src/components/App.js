@@ -1,34 +1,31 @@
 /**
  * Root component.
  */
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTeamInfo } from '../actions/team';
+import { ErrorToaster } from '../error/ErrorToaster';
 
+// Pages
+import Home from './home/Home'; 
 import Auth from './auth/Auth';
-import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 import DeployPage from './deploy/DeployPage';
 
-import Register from './auth/Register';
 import Login from './auth/Login';
-import Header from './layout/Header';
-import Sidebar from './layout/Sidebar';
-import { Container, Col, Row } from 'react-bootstrap';
-import './layout/Layout.css';
-import { ErrorToaster } from '../error/ErrorToaster';
-
-import TeamPage from './teamPage/TeamPage';
+import Register from './auth/Register';
 import PublicationPage from './publications/PublicationPage';
-import { Fragment } from 'react';
-import { getTeamInfo } from '../actions/team';
-import { useDispatch, useSelector } from 'react-redux';
+import EditorHome from './editor/EditorHome';
+import TeamPage from './teamPage/TeamPage';
+
+// Layout
+import DashboardLayoutRoute from './layouts/dashboardLayout/DashboardLayoutRoute';
+import EditorLayoutRoute from './layouts/editorLayout/EditorLayoutRoute';
+
 const App = () => {
-  const urls = {
-    dashboard: '/dashboard',
-    profile: '/dashboard/profile',
-  };
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,7 +36,7 @@ const App = () => {
   const errorMessage = useSelector((state) => state.main.error);
 
   return (
-    <>
+    <Fragment>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
         <ErrorToaster message={errorMessage} />
@@ -48,35 +45,24 @@ const App = () => {
           <Route path="/auth" exact component={Auth} />
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />
-          <Fragment>
-            <Header title={'Researchify'} urls={urls} />
-            <Container fluid>
-              <Row>
-                <Col className="sidebar-wrapper" md={1} lg={1}>
-                  <Sidebar />
-                </Col>
-                <Col className="page-content-wrapper" md={10} lg={10}>
-                  <Route
-                    path={`/publications`}
-                    exact
-                    component={PublicationPage}
-                  />
-                  <Route path={urls.dashboard} exact component={Dashboard} />
-                  <Route
-                    path={urls.profile}
-                    exact
-                    component={ProfileInfoEdit}
-                  />
-                  <Route path="/team" exact component={TeamPage} />
-                  <Route path="/deploy" exact component={DeployPage} />
-                </Col>
-              </Row>
-            </Container>
-          </Fragment>
+          <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
+          <DashboardLayoutRoute
+            path="/dashboard/profile"
+            exact
+            component={ProfileInfoEdit}
+          />
+          <DashboardLayoutRoute
+            path={`/publications`}
+            exact
+            component={PublicationPage}
+          />
+          <DashboardLayoutRoute path="/team" exact component={TeamPage} />
+          <DashboardLayoutRoute path="/deploy" exact component={DeployPage} />
+          <EditorLayoutRoute path="/editor" exact component={EditorHome} />
+          <EditorLayoutRoute path="/editor/home" exact component={EditorHome} />
         </Switch>
       </BrowserRouter>
-    </>
+    </Fragment>
   );
 };
-
 export default App;

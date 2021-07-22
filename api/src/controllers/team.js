@@ -13,10 +13,15 @@ const {
   githubAccessTokenUrlEnd,
   schollyHost,
 } = require('../config/deploy');
+const bcrypt = require('bcrypt');
+
+const jwt = require('jsonwebtoken');
 
 const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
+
+const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry } = require('../config/tokenExpiry');
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
@@ -76,25 +81,47 @@ async function getTeam(req, res) {
 }
 
 /**
- * Gets the team document from the database on /team.
+ * Handle login request from /team/login
  * @param {*} req request object, containing team email and password in the body as JSON
- * @param {*} res response object, the found team document
+ * @param {*} res response object, the found teamId
  * @returns 200: the team was found
  * @returns 404: team is not found
  */
 async function loginTeam(req, res) {
-  Team.findOne({ email: req.body.email })
-    .then((team) => {
-      if (team == null) {
-        res.status(400).send('User not found');
-      } else if (team.password != req.body.password) {
-        res.status(403).send('Incorrect password');
-      } else {
-        console.log(team);
-        res.send(JSON.stringify({ team: team }));
-      }
-    })
-    .catch((err) => res.status(400).json('Error: ' + err));
+  try {
+    const foundTeam = await Team.findOne({ email: req.body.email })
+    if (!foundTeam) {
+      return res.status(400).send('Incorrect email/password'); // user not found 
+    } 
+    if (await bcrypt.compare(req.body.password, foundTeam.password)){
+      const teamObj = foundTeam.toObject(); // converts a mongoose object to a plain object 
+      // remove sensitive data 
+      delete teamObj.password 
+      const accessToken = jwt.sign(teamObj, process.env.JWT_SECRET_1 || "JWT_SECRET_1", {
+        expiresIn: accessTokenExpiry
+      });
+      const refreshToken = jwt.sign(teamObj, process.env.JWT_SECRET_2 || "JWT_SECRET_2", {
+        expiresIn: refreshTokenExpiry
+      });
+      res.cookie('accessToken', accessToken, { 
+        httpOnly: true,
+        maxAge: accessTokenCookieExpiry, // 5 mins
+      });
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        maxAge: refreshTokenCookieExpiry, // 1 year
+      })
+      return res.status(200).send({
+        teamId: teamObj._id, 
+        email: teamObj.email,
+        teamName: teamObj.teamName,
+        orgName: teamObj.orgName
+      });
+    } 
+    return res.status(403).send('Incorrect email/password'); // incorrect password 
+  } catch (error){
+    return res.status(422).json(`Error: ${error.message}`);
+  }
 }
 
 /**
@@ -104,10 +131,19 @@ async function loginTeam(req, res) {
  * @returns 201: returns updated team details
  */
 async function addTeam(req, res) {
-  const team = req.body;
-
-  const createdTeam = await Team.create(team);
-  res.status(201).json(createdTeam);
+  try{
+    const foundTeam = await Team.findOne({ email: req.body.email })
+    if (foundTeam) {
+      return res.status(400).send('Email had been registered');
+    } 
+    const salt = await bcrypt.genSalt()
+    const hashedPassword =  await bcrypt.hash(req.body.password, salt)
+    const hashedTeam = {...req.body, password: hashedPassword}
+    const createdTeam = await Team.create(hashedTeam);
+    res.status(201).json(createdTeam._id);
+  } catch(error){ 
+    return res.status(422).json(`Error: ${error.message}`);
+  }
 }
 
 /**
@@ -239,6 +275,53 @@ async function deployToGHPages(req, res) {
     console.log(err);
   }
 }
+/**
+ * Update the team from the database on /team/:team_id
+ * @param {} req request object, containing team id in the url
+ * @param {*} res response object, the updated team document
+ * @returns 200: team updated
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+async function updateTeam(req, res) {
+  const { team_id: _id } = req.params;
+  const team = req.body;
+  if (!mongoose.Types.ObjectId.isValid(_id)){
+    return res.status(404).send('Error: No team with that id.');
+  }
+  try {
+    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json(updatedTeam);
+  } catch (err) {
+    res.status(422).json(`Error: ${err.message}`);
+  }
+}
+
+/**
+ * Update the a logout request on /team/logout
+ * @param {*} req request object
+ * @param {*} res response object
+ * @returns 200: logout successfully
+ * @returns 404: error occur 
+ */
+async function logoutTeam(req, res) {
+  try{
+    res.cookie('accessToken', "", { 
+      httpOnly: true,
+      maxAge: 0,
+    });
+    res.cookie('refreshToken', "", { 
+      httpOnly: true,
+      maxAge: 0,
+    });
+    res.status(200).json('Logout Successfully');
+  } catch (error){
+    return res.status(422).json(`Error: ${error.message}`);
+  }
+}
 
 module.exports = {
   storeHandle,
@@ -251,4 +334,6 @@ module.exports = {
   getGHAccessToken,
   deployToGHPages,
   loginTeam,
+  updateTeam,
+  logoutTeam
 };

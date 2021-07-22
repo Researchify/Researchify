@@ -7,6 +7,7 @@ import {
   UNLINK_TEAM_TWITTER,
   ADD_TEAM,
   GET_GH_ACCESS_TOKEN,
+  UPDATE_TEAM,
   TEAM_ERROR,
 } from '../actions/types';
 
@@ -32,7 +33,12 @@ const INITIAL_TEAM_STATE = {
 const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
   switch (action.type) {
     case FETCH_TEAM_INFO:
-      return action.payload;
+      return { ...state, 
+        teamId: action.payload.teamId, 
+        email: action.payload.email,
+        teamName: action.payload.teamName, 
+        orgName: action.payload.orgName
+      };
     case LINK_TEAM_TWITTER:
       return { ...state, twitterHandle: action.payload };
     case UNLINK_TEAM_TWITTER:
@@ -41,6 +47,8 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return { ...state, retrievedAccessToken: true };
     case ADD_TEAM:
       return { ...action.payload };
+    case UPDATE_TEAM:
+      return action.payload;
     case TEAM_ERROR:
       return {
         ...errorReducer(state, action),
