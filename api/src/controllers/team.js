@@ -25,7 +25,6 @@ const {
   refreshTokenCookieExpiry,
 } = require('../config/tokenExpiry');
 
-
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
  * @param {*} req request object, containing the team_id in the url and twitter handle in the body
@@ -65,8 +64,10 @@ async function storeHandle(req, res, next) {
       } else {
         foundTeam.twitterHandle = handle;
       }
-      foundTeam.save().then(() => res.status(200).json(foundTeam));
-      next(fillErrorObject(500, 'Server error', [err.errors]));
+      foundTeam
+        .save()
+        .then(() => res.status(200).json(foundTeam))
+        .catch(next(fillErrorObject(500, 'Server error', [err.errors])));
     }
   }
 }
@@ -241,7 +242,7 @@ async function updateTeamMember(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function updateTeam(req, res) {
+async function updateTeam(req, res, next) {
   const { team_id: _id } = req.params;
   const team = req.body;
 
@@ -272,54 +273,6 @@ async function logoutTeam(req, res) {
     });
     res.status(200).json('Logout Successfully');
   } catch (error) {
-    return res.status(422).json(`Error: ${error.message}`);
-  }
-}
-
-/**
- * Update the team from the database on /team/:team_id
- * @param {} req request object, containing team id in the url
- * @param {*} res response object, the updated team document
- * @returns 200: team updated
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-async function updateTeam(req, res) {
-  const { team_id: _id } = req.params;
-  const team = req.body;
-  if (!mongoose.Types.ObjectId.isValid(_id)){
-    return res.status(404).send('Error: No team with that id.');
-  }
-  try {
-    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
-      new: true,
-      runValidators: true,
-    });
-    res.status(200).json(updatedTeam);
-  } catch (err) {
-    res.status(422).json(`Error: ${err.message}`);
-  }
-}
-
-/**
- * Update the a logout request on /team/logout
- * @param {*} req request object
- * @param {*} res response object
- * @returns 200: logout successfully
- * @returns 404: error occur 
- */
-async function logoutTeam(req, res) {
-  try{
-    res.cookie('accessToken', "", { 
-      httpOnly: true,
-      maxAge: 0,
-    });
-    res.cookie('refreshToken', "", { 
-      httpOnly: true,
-      maxAge: 0,
-    });
-    res.status(200).json('Logout Successfully');
-  } catch (error){
     return res.status(422).json(`Error: ${error.message}`);
   }
 }
