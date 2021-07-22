@@ -4,7 +4,7 @@
 import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT } from '../actions/types';
 
 const INITIAL_AUTH_STATE = { 
-  signIn: false,
+  signIn: localStorage.getItem('login')? true : false,
   loading: false
 }
 

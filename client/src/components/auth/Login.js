@@ -33,7 +33,7 @@ export default function Login() {
   useEffect(() => {
     console.log("LoginIn Page", auth.signIn)
     if (auth.signIn){
-      history.push('/dashboard')
+      history.push('/publications')
     }
   }, [history, auth])
 

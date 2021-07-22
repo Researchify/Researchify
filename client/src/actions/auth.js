@@ -24,6 +24,8 @@ export const signIn = (authData) => async(dispatch) => {
       type: FETCH_TEAM_INFO,
       payload: result.data
     })
+
+    localStorage.setItem('login', 'true')
   } catch (error){
     dispatch(errorActionGlobalCreator(error));
   }
@@ -40,6 +42,7 @@ export const signOut = () => async(dispatch) => {
     dispatch ({
       type: AUTH_SIGN_OUT
     })
+    localStorage.removeItem('login')
   } catch(err){
     dispatch(errorActionGlobalCreator(err));
   }
@@ -57,6 +60,8 @@ export const authorizeJWT = () => async(dispatch) => {
       type: GET_TEAM_JWT,
       payload: data
     })
+
+    
   }catch(err){
     dispatch(errorActionGlobalCreator(err));
   }

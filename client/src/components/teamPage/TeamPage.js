@@ -19,7 +19,9 @@ const TeamPage = () => {
   console.log(teamId)
 
   useEffect(() => {
-    dispatch(getTeamMembersByTeamId(teamId));
+    if(teamId){
+      dispatch(getTeamMembersByTeamId(teamId));
+    }
   }, [dispatch, teamId]);
 
   const { loading, teamMembers } = useSelector((state) => state.teamMember);

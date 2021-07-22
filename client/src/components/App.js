@@ -36,13 +36,15 @@ const App = () => {
   const dispatch = useDispatch()
   const { signIn } = useSelector(state => state.auth)
 
+  console.log("render App!!!!!!!!!!!")
   console.log("signIn", signIn)
 
   useEffect(() => {
-      //dispatch(getTeamInfo('609f5ad827b1d48257c321d3')); // once we have implemented JWT (see below):
+    if(signIn){
       dispatch(authorizeJWT())
-      // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
-    }, [dispatch]);
+    }
+    // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
+  }, [dispatch]);
 
   return (
     <>
@@ -65,14 +67,14 @@ const App = () => {
                   <PrivateRoute
                     path={`/publications`}
                     exact
-                    signIn
+                    signIn = {signIn}
                     component={PublicationPage}
                     authenticationPath='/login'
                   />
                   <PrivateRoute 
                     path={urls.dashboard} 
                     exact 
-                    signIn
+                    signIn = {signIn}
                     component={Dashboard} 
                     authenticationPath='/login'
                   />
@@ -84,7 +86,7 @@ const App = () => {
                   <PrivateRoute 
                     path="/team" 
                     exact 
-                    signIn
+                    signIn = {signIn}
                     component={TeamPage} 
                     authenticationPath='/login'
                   />
