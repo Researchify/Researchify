@@ -7,6 +7,7 @@ import {
   UNLINK_TEAM_TWITTER,
   ADD_TEAM,
   TEAM_ERROR,
+  GET_TEAM_JWT
 } from '../actions/types';
 
 import { errorReducer } from '../error/errorReduxFunctions';
@@ -46,6 +47,14 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
     case TEAM_ERROR:
       return {
         ...errorReducer(state, action),
+      };
+    case GET_TEAM_JWT:
+      console.log(action.payload)
+      return { ...state, 
+        teamId: action.payload._id, 
+        email: action.payload.email,
+        teamName: action.payload.teamName, 
+        orgName: action.payload.orgName
       };
     default:
       return state;

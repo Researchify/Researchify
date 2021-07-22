@@ -13,19 +13,19 @@ const teamMiddleware = require('../middleware/team');
 
 publicationsRouter.delete(
   '/:id', 
-  authMiddleware.authorizeUser,
+  authMiddleware.cookieJwtAuth,
   publicationsController.deletePublication
 );
 
 publicationsRouter.patch(
   '/:id', 
-  authMiddleware.authorizeUser,
+  authMiddleware.cookieJwtAuth,
   publicationsController.updatePublication
 );
 
 publicationsRouter.post(
   '/',
-  authMiddleware.authorizeUser,
+  authMiddleware.cookieJwtAuth,
   publicationsMiddleware.createPublicationValidation,
   publicationsController.createPublication
 );
@@ -34,20 +34,20 @@ publicationsRouter.get('/:id', publicationsController.readPublication);
 
 publicationsRouter.get(
   '/import/:gScholarUserId/:startFrom/validate/:teamId',
-  authMiddleware.authorizeUser,
+  authMiddleware.cookieJwtAuth,
   publicationsMiddleware.validateAuthorId,
   publicationsController.getGoogleScholarPublications
 );
 
 publicationsRouter.get(
   '/team/:team_id',
-  authMiddleware.authorizeUser,
+  authMiddleware.cookieJwtAuth,
   publicationsController.readAllPublicationsByTeam
 );
 
 publicationsRouter.post(
   '/import/:team_id',
-  authMiddleware.authorizeUser,
+  authMiddleware.cookieJwtAuth,
   teamMiddleware.validateTeamId,
   publicationsController.importPublications
 );

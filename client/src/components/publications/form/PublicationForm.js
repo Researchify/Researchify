@@ -27,8 +27,7 @@ const PublicationForm = (props) => {
       issue: '',
       pages: '',
       publisher: '',
-    },
-    teamId: '609f5ad827b1d48257c321d3', // teamId should be get from redux state later
+    }
   });
 
   const [currentStep, setCurrentStep] = useState(0);

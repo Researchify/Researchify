@@ -26,6 +26,7 @@ export const registerTwitterHandle = (teamId, handle) =>
 api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) =>
 api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
+export const getTeamJWT = () => api.get(`/team`);
 
 export const fetchTeamMembersByTeamId = (teamId) =>
 api.get(`/team/${teamId}/member`);

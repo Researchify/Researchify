@@ -21,21 +21,28 @@ import { ErrorToaster } from '../error/ErrorToaster';
 import TeamPage from './teamPage/TeamPage';
 import PublicationPage from './publications/PublicationPage';
 import { Fragment } from 'react';
-import { getTeamInfo } from '../actions/team';
 import { useDispatch, useSelector } from 'react-redux';
+import PrivateRoute from '../route/PrivateRoute';
+import { authorizeJWT } from '../actions/auth';
+
 const App = () => {
   const urls = {
     dashboard: '/dashboard',
     profile: '/dashboard/profile',
   };
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getTeamInfo('609f5ad827b1d48257c321d3')); // once we have implemented JWT (see below):
-  //   // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
-  // }, [dispatch]);
 
   const errorMessage = useSelector((state) => state.main.error);
+
+  const dispatch = useDispatch()
+  const { signIn } = useSelector(state => state.auth)
+
+  console.log("signIn", signIn)
+
+  useEffect(() => {
+      //dispatch(getTeamInfo('609f5ad827b1d48257c321d3')); // once we have implemented JWT (see below):
+      dispatch(authorizeJWT())
+      // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
+    }, [dispatch]);
 
   return (
     <>
@@ -55,18 +62,32 @@ const App = () => {
                   <Sidebar />
                 </Col>
                 <Col className="page-content-wrapper" md={10} lg={10}>
-                  <Route
+                  <PrivateRoute
                     path={`/publications`}
                     exact
+                    signIn
                     component={PublicationPage}
+                    authenticationPath='/login'
                   />
-                  <Route path={urls.dashboard} exact component={Dashboard} />
+                  <PrivateRoute 
+                    path={urls.dashboard} 
+                    exact 
+                    signIn
+                    component={Dashboard} 
+                    authenticationPath='/login'
+                  />
                   <Route
                     path={urls.profile}
                     exact
                     component={ProfileInfoEdit}
                   />
-                  <Route path="/team" exact component={TeamPage} />
+                  <PrivateRoute 
+                    path="/team" 
+                    exact 
+                    signIn
+                    component={TeamPage} 
+                    authenticationPath='/login'
+                  />
                 </Col>
               </Row>
             </Container>

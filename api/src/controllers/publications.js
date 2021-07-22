@@ -83,8 +83,10 @@ async function updatePublication(req, res) {
  * @returns 404: no team was found to associate the publication with
  */
 async function createPublication(req, res) {
-  const publication = req.body;
-  console.log(publication.teamId);
+  let publication = req.body;
+  console.log(req.team)
+  publication = {...publication, teamId: req.team._id}
+  console.log("teamId", publication);
   if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
     return res
       .status(400)

@@ -43,7 +43,7 @@ export const createPublication = (publication) => async (dispatch) => {
     });
   } catch (error) {
     console.log(error);
-    dispatch(errorActionGlobalCreator(error));
+    //dispatch(errorActionGlobalCreator(error));
   }
 };
 

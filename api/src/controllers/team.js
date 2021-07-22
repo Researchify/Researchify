@@ -103,6 +103,7 @@ async function addTeam(req, res) {
  */
 async function readTeamMembersByTeam(req, res) {
   let foundTeam = req.foundTeam;
+  console.log('foundTeam', foundTeam)
   return res.status(200).send(foundTeam.teamMembers);
 }
 
@@ -119,9 +120,14 @@ async function createTeamMember(req, res) {
   const memberId = new mongoose.Types.ObjectId();
   let foundTeam = req.foundTeam;
   teamMember = { ...teamMember, _id: memberId };
-  await foundTeam.teamMembers.push(teamMember);
-  foundTeam.save();
-  res.status(201).json(teamMember);
+  try{
+    await foundTeam.teamMembers.push(teamMember);
+    foundTeam.save();
+    res.status(201).json(teamMember);
+  }catch (error) {
+    console.log(error)
+    return res.status(422).json(`Error: ${error.message}`);
+  }
 }
 
 /**
@@ -165,6 +171,18 @@ async function updateTeamMember(req, res) {
   }
 }
 
+/**
+ * Gets the team document from the database on /team/:team_id.
+ * @param {*} req request object, containing team id in the url
+ * @param {*} res response object, the found team document
+ * @returns 200: the team was found
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+ async function getTeamJWT(req, res) {
+  console.log(req.team._id);
+  return res.status(200).send(req.team);
+}
 
 
 module.exports = {
@@ -175,4 +193,5 @@ module.exports = {
   readTeamMembersByTeam,
   deleteTeamMember,
   updateTeamMember,
+  getTeamJWT
 };

@@ -12,7 +12,7 @@ async function validateTeamId(req, res, next) {
   const { team_id } = req.params;
   let foundTeam;
   if (mongoose.Types.ObjectId.isValid(team_id)) {
-    foundTeam = await Team.findById(team_id).select('_id teamName orgName');
+    foundTeam = await Team.findById(team_id).select('_id teamName orgName teamMembers');
     console.log(foundTeam);
 
     if (foundTeam == null) {

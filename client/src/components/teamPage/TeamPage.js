@@ -16,6 +16,8 @@ const TeamPage = () => {
   const teamId = useSelector((state) => state.team.teamId);
   const [showCreateForm, setShowCreateForm] = useState(false);
 
+  console.log(teamId)
+
   useEffect(() => {
     dispatch(getTeamMembersByTeamId(teamId));
   }, [dispatch, teamId]);
