@@ -67,7 +67,7 @@ async function storeHandle(req, res, next) {
       foundTeam
         .save()
         .then(() => res.status(200).json(foundTeam))
-        .catch(next(fillErrorObject(500, 'Server error', [err.errors])));
+        .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
     }
   }
 }
