@@ -8,6 +8,7 @@ const { categoryTypeEnum } = require('../config/puppeteer');
 const { fillErrorObject } = require('./error');
 
 
+
 /**
  * Handles the validation when creating (POST) a new publication in the database.
  * There are validators for: authors, title, description, summary, citedBy.
