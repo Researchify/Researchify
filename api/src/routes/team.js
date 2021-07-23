@@ -55,10 +55,4 @@ teamRouter.patch(
 
 teamRouter.post('/', teamController.addTeam);
 
-teamRouter.get(
-  '/',
-  authMiddleware.cookieJwtAuth,
-  teamController.getTeamJWT
-);
-
 module.exports = teamRouter;

@@ -14,8 +14,6 @@ const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
 
-const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry } = require('../config/tokenExpiry');
-
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
  * @param {*} req request object, containing the team_id in the url and twitter handle in the body
