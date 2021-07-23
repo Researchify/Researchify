@@ -24,8 +24,6 @@ const TeamPage = () => {
 
   const { loading, teamMembers } = useSelector((state) => state.teamMember);
 
-  console.log(teamMembers);
-
   return (
     <div className="teamPageContainer">
       <h1>Meet Our Team Members</h1>

@@ -32,8 +32,6 @@ const PublicationForm = (props) => {
     teamId: teamId,
   });
 
-  console.log(data)
-
   const [currentStep, setCurrentStep] = useState(0);
 
   const submitForm = (newData) => {
