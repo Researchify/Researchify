@@ -35,5 +35,18 @@ app.use('/team', teamRouter);
 app.use('/auth', authRouter);
 app.use('/theme', themeRouter);
 
+// error handler middleware
+app.use(function (err, req, res, next) {
+  const errorObject = err;
+  console.log(errorObject);
+  if (errorObject) {
+    res.status(err.errorCode).json(err);
+  } else {
+    // if error object is not passed, server error
+    res.status(500).send('Something went wrong in the backend that couldn\'t be handled!');
+  }
+});
+
+
 // Listen for connections
 app.listen(PORT, () => logger.info(`Server running on port: ${PORT}`));
