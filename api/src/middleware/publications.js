@@ -4,7 +4,9 @@
 
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
-const categoryTypeEnum = require('../config/puppeteer');
+const { categoryTypeEnum } = require('../config/puppeteer');
+const { fillErrorObject } = require('./error');
+
 
 
 /**
@@ -78,13 +80,20 @@ const createPublicationValidation = [
     .trim()
     .isLength({ min: 3 }),
   (req, res, next) => {
-    console.log('hello');
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      console.log({ errors: errors.array() });
+      next(
+        fillErrorObject(
+          400,
+          'Validation error',
+          errors.errors.map((a) => a.msg)
+        )
+      );
+    } else {
+      next();
     }
-    next();
   },
 ];
 
@@ -92,24 +101,25 @@ async function validateAuthorId(req, res, next) {
   const { gScholarUserId: _id } = req.params;
 
   if (_id.length != 12) {
-    return res
-      .status(400)
-      .json(`Error: User ID needs to be 12 characters long.`);
+    next(
+      fillErrorObject(400, 'Validation error', [
+        'Google Scholar User ID needs to be 12 characters long',
+      ])
+    );
   }
-
-  try {
-    await axios.get('https://scholar.google.com.sg/citations?user=' + _id);
-  } catch (error) {
-    console.log(error);
-    if (error.response.status == 404) {
-      return res
-        .status(404)
-        .json(`Error: There is no user profile found with the given id.`);
-    } else {
-      return res.status(error.response.status).json(error.message);
-    }
-  }
-  next();
+  await axios
+    .get('https://scholar.google.com.sg/citations?user=' + _id)
+    .then(() => { next() })
+    .catch((error) => {
+      // if you mess around with the user id you only get 404
+      next(
+        fillErrorObject(
+          error.response.status,
+          'Validation error',
+          ['No Google Scholar user profile found with the given id']
+        )
+      );
+    });
 }
 
 module.exports = { createPublicationValidation, validateAuthorId };

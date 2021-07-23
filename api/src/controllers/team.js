@@ -8,6 +8,8 @@ const Team = require('../models/team.model');
 
 const mongoose = require('mongoose');
 
+const { fillErrorObject } = require('../middleware/error');
+
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
@@ -16,7 +18,12 @@ const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
 
-const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry } = require('../config/tokenExpiry');
+const {
+  accessTokenExpiry,
+  refreshTokenExpiry,
+  accessTokenCookieExpiry,
+  refreshTokenCookieExpiry,
+} = require('../config/tokenExpiry');
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
@@ -27,9 +34,10 @@ const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
  * @returns 404: team is not found, or handle is invalid
  * @returns 500: error trying to update the document in db
  */
-async function storeHandle(req, res) {
+async function storeHandle(req, res, next) {
   const { twitterHandle: handle } = req.body;
   let foundTeam = req.foundTeam;
+  console.log("in here");
 
   if (handle.length == 0) {
     // remove the handle from the doc
@@ -38,27 +46,30 @@ async function storeHandle(req, res) {
     // update the handle
     // validate the handle by getting user id
     if (!process.env.TWITTER_BEARER_TOKEN) {
-      return res
-        .status(500)
-        .send('Error: No Twitter API Bearer Token found in .env file');
-    }
-    let response = await axios.get(
-      'https://api.twitter.com/2/users/by/username/' + handle,
-      options
-    );
-    if (response.data.errors) {
-      return res.status(400).send('Error: ' + response.data.errors[0].detail);
+      next(
+        fillErrorObject(500, 'Missing environment variable', [
+          'No Twitter API Bearer Token found in .env file',
+        ])
+      );
     } else {
-      foundTeam.twitterHandle = handle;
+      let response = await axios.get(
+        'https://api.twitter.com/2/users/by/username/' + handle,
+        options
+      );
+      if (response.data.errors) {
+        next(
+          fillErrorObject(400, 'Validation error', [
+            response.data.errors[0].detail,
+          ])
+        );
+      } else {
+        foundTeam.twitterHandle = handle;
+      }
+      foundTeam
+        .save()
+        .then(() => res.status(200).json(foundTeam))
+        .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
     }
-  }
-
-  try {
-    // update in db
-    foundTeam.save();
-    return res.status(200).json(foundTeam);
-  } catch (err) {
-    return res.status(500).send(`Error: ${err.message}`);
   }
 }
 
@@ -84,37 +95,45 @@ async function getTeam(req, res) {
  */
 async function loginTeam(req, res) {
   try {
-    const foundTeam = await Team.findOne({ email: req.body.email })
+    const foundTeam = await Team.findOne({ email: req.body.email });
     if (!foundTeam) {
-      return res.status(400).send('Incorrect email/password'); // user not found 
-    } 
-    if (await bcrypt.compare(req.body.password, foundTeam.password)){
-      const teamObj = foundTeam.toObject(); // converts a mongoose object to a plain object 
-      // remove sensitive data 
-      delete teamObj.password 
-      const accessToken = jwt.sign(teamObj, process.env.JWT_SECRET_1 || "JWT_SECRET_1", {
-        expiresIn: accessTokenExpiry
-      });
-      const refreshToken = jwt.sign(teamObj, process.env.JWT_SECRET_2 || "JWT_SECRET_2", {
-        expiresIn: refreshTokenExpiry
-      });
-      res.cookie('accessToken', accessToken, { 
+      return res.status(400).send('Incorrect email/password'); // user not found
+    }
+    if (await bcrypt.compare(req.body.password, foundTeam.password)) {
+      const teamObj = foundTeam.toObject(); // converts a mongoose object to a plain object
+      // remove sensitive data
+      delete teamObj.password;
+      const accessToken = jwt.sign(
+        teamObj,
+        process.env.JWT_SECRET_1 || 'JWT_SECRET_1',
+        {
+          expiresIn: accessTokenExpiry,
+        }
+      );
+      const refreshToken = jwt.sign(
+        teamObj,
+        process.env.JWT_SECRET_2 || 'JWT_SECRET_2',
+        {
+          expiresIn: refreshTokenExpiry,
+        }
+      );
+      res.cookie('accessToken', accessToken, {
         httpOnly: true,
         maxAge: accessTokenCookieExpiry, // 5 mins
       });
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         maxAge: refreshTokenCookieExpiry, // 1 year
-      })
+      });
       return res.status(200).send({
-        teamId: teamObj._id, 
+        teamId: teamObj._id,
         email: teamObj.email,
         teamName: teamObj.teamName,
-        orgName: teamObj.orgName
+        orgName: teamObj.orgName,
       });
-    } 
-    return res.status(403).send('Incorrect email/password'); // incorrect password 
-  } catch (error){
+    }
+    return res.status(403).send('Incorrect email/password'); // incorrect password
+  } catch (error) {
     return res.status(422).json(`Error: ${error.message}`);
   }
 }
@@ -125,20 +144,21 @@ async function loginTeam(req, res) {
  * @param {*} res response object - updated team object
  * @returns 201: returns updated team details
  */
-async function addTeam(req, res) {
-  try{
-    const foundTeam = await Team.findOne({ email: req.body.email })
-    if (foundTeam) {
-      return res.status(400).send('Email had been registered');
-    } 
-    const salt = await bcrypt.genSalt()
-    const hashedPassword =  await bcrypt.hash(req.body.password, salt)
-    const hashedTeam = {...req.body, password: hashedPassword}
-    const createdTeam = await Team.create(hashedTeam);
-    res.status(201).json(createdTeam._id);
-  } catch(error){ 
-    return res.status(422).json(`Error: ${error.message}`);
-  }
+async function addTeam(req, res, next) {
+  Team.findOne({ email: req.body.email })
+    .then((foundTeam) => {
+      if (foundTeam) {
+        return res.status(400).send('Email had been registered');
+      }
+    })
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  const hashedTeam = { ...req.body, password: hashedPassword };
+  Team.create(hashedTeam)
+    .then((createdTeam) => res.status(201).json(createdTeam._id))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
@@ -162,14 +182,17 @@ async function readTeamMembersByTeam(req, res) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function createTeamMember(req, res) {
+function createTeamMember(req, res, next) {
   let teamMember = req.body;
   const memberId = new mongoose.Types.ObjectId();
   let foundTeam = req.foundTeam;
   teamMember = { ...teamMember, _id: memberId };
-  await foundTeam.teamMembers.push(teamMember);
-  foundTeam.save();
-  res.status(201).json(teamMember);
+
+  foundTeam.teamMembers.push(teamMember);
+  foundTeam
+    .save()
+    .then(() => res.status(200).json(foundTeam.teamMembers))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
 /**
@@ -180,12 +203,14 @@ async function createTeamMember(req, res) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function deleteTeamMember(req, res) {
+function deleteTeamMember(req, res, next) {
   let foundTeam = req.foundTeam;
   const { member_id } = req.params;
-  await foundTeam.teamMembers.pull({ _id: member_id });
-  foundTeam.save();
-  return res.status(200).json({ message: 'Team member deleted successfully.' });
+  foundTeam.teamMembers.pull({ _id: member_id });
+  foundTeam
+    .save()
+    .then(() => res.status(200).json(foundTeam.teamMembers))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
 /**
@@ -196,21 +221,18 @@ async function deleteTeamMember(req, res) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function updateTeamMember(req, res) {
+function updateTeamMember(req, res, next) {
   const updatedTeamMember = req.body;
-  try {
-    await Team.updateOne(
-      { 'teamMembers._id': updatedTeamMember._id },
-      {
-        $set: {
-          'teamMembers.$': updatedTeamMember,
-        },
-      }
-    );
-    return res.status(200).json(updatedTeamMember);
-  } catch (error) {
-    return res.status(422).json(`Error: ${error.message}`);
-  }
+  Team.updateOne(
+    { 'teamMembers._id': updatedTeamMember._id },
+    {
+      $set: {
+        'teamMembers.$': updatedTeamMember,
+      },
+    }
+  )
+    .then(() => res.status(200).json(updatedTeamMember))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
 /**
@@ -221,21 +243,16 @@ async function updateTeamMember(req, res) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function updateTeam(req, res) {
+function updateTeam(req, res, next) {
   const { team_id: _id } = req.params;
   const team = req.body;
-  if (!mongoose.Types.ObjectId.isValid(_id)){
-    return res.status(404).send('Error: No team with that id.');
-  }
-  try {
-    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
-      new: true,
-      runValidators: true,
-    });
-    res.status(200).json(updatedTeam);
-  } catch (err) {
-    res.status(422).json(`Error: ${err.message}`);
-  }
+
+  Team.findByIdAndUpdate(_id, team, {
+    new: true,
+    runValidators: true,
+  })
+    .then((updatedTeam) => res.status(200).json(updatedTeam))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
 /**
@@ -243,20 +260,20 @@ async function updateTeam(req, res) {
  * @param {*} req request object
  * @param {*} res response object
  * @returns 200: logout successfully
- * @returns 404: error occur 
+ * @returns 404: error occur
  */
 async function logoutTeam(req, res) {
-  try{
-    res.cookie('accessToken', "", { 
+  try {
+    res.cookie('accessToken', '', {
       httpOnly: true,
       maxAge: 0,
     });
-    res.cookie('refreshToken', "", { 
+    res.cookie('refreshToken', '', {
       httpOnly: true,
       maxAge: 0,
     });
     res.status(200).json('Logout Successfully');
-  } catch (error){
+  } catch (error) {
     return res.status(422).json(`Error: ${error.message}`);
   }
 }
@@ -271,5 +288,5 @@ module.exports = {
   updateTeamMember,
   loginTeam,
   updateTeam,
-  logoutTeam
+  logoutTeam,
 };
