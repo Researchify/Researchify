@@ -34,13 +34,14 @@ app.use('/team', teamRouter);
 app.use('/theme', themeRouter);
 
 // error handler middleware
-app.use(function (err, req, res) {
+app.use(function (err, req, res, next) {
   const errorObject = err;
+  console.log(errorObject);
   if (errorObject) {
     res.status(err.errorCode).json(err);
   } else {
     // if error object is not passed, server error
-    res.status(500).send('Something went wrong!');
+    res.status(500).send('Something went wrong in the backend that couldn\'t be handled!');
   }
 });
 

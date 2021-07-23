@@ -23,13 +23,13 @@ const { fillErrorObject } = require('../middleware/error');
  * @returns 404: publication not found
  * @returns 400: error deleting publication
  */
-async function deletePublication(req, res, next) {
+function deletePublication(req, res, next) {
   const { id: _id } = req.params;
-  await Publication.findByIdAndRemove(_id)
+  Publication.findByIdAndRemove(_id)
     .then((foundPublication) => {
       if (foundPublication === null) {
         next(
-          fillErrorObject(400, 'Validation error has occurred', [
+          fillErrorObject(400, 'Validation error', [
             'Publication could not be found',
           ])
         );
@@ -51,11 +51,11 @@ async function deletePublication(req, res, next) {
  * @returns 404: publication not found
  * @returns 422: error in the request object, unable to update publication
  */
-async function updatePublication(req, res, next) {
+function updatePublication(req, res, next) {
   const { id: _id } = req.params;
   const publication = req.body;
 
-  await Publication.findByIdAndUpdate(_id, publication, {
+  Publication.findByIdAndUpdate(_id, publication, {
     new: true,
     runValidators: true,
   })
@@ -63,7 +63,7 @@ async function updatePublication(req, res, next) {
       if (updatedPublication == null) {
         // nothing returned by the query
         next(
-          fillErrorObject(404, 'Validation error has occurred', [
+          fillErrorObject(404, 'Validation error', [
             'Publication could not be found',
           ])
         );
@@ -89,21 +89,17 @@ async function updatePublication(req, res, next) {
  * @returns 400: the publication given in the request fails some validation also @see validationMiddlewares
  * @returns 404: no team was found to associate the publication with
  */
-async function createPublication(req, res, next) {
+function createPublication(req, res, next) {
   const publication = req.body;
   console.log(publication.teamId);
-  const result = await Team.findById({ _id: publication.teamId }).catch((err) =>
+  const result = Team.findById({ _id: publication.teamId }).catch((err) =>
     next(fillErrorObject(500, 'Server error', [err.errors]))
   );
 
   if (result == null) {
-    next(
-      fillErrorObject(404, 'Validation error has occurred', [
-        'Team was not found',
-      ])
-    );
+    next(fillErrorObject(404, 'Validation error', ['Team was not found']));
   } else {
-    await Publication.create(publication)
+    Publication.create(publication)
       .then((createdPublication) => res.status(201).json(createdPublication))
       .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
   }
@@ -119,10 +115,10 @@ async function createPublication(req, res, next) {
  * @returns 404: the specified team or publication was not found
  * @todo filter by other fields like year passed in through req.query
  */
-async function readAllPublicationsByTeam(req, res, next) {
+function readAllPublicationsByTeam(req, res, next) {
   const { team_id: _id } = req.params;
 
-  await Publication.aggregate([
+  Publication.aggregate([
     {
       $match: { teamId: mongoose.Types.ObjectId(_id) },
     },
@@ -321,8 +317,8 @@ async function validateImportedPublications(_id, publications) {
  * @returns 400: given team id is not in a valid hexadecimal format (validate via team middleware)
  * @returns 404: no team was found to associate the publication with (validate via team middleware)
  */
-async function importPublications(req, res, next) {
-  await Publication.insertMany(req.body)
+function importPublications(req, res, next) {
+  Publication.insertMany(req.body)
     .then((importedPublications) => res.status(201).json(importedPublications))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }

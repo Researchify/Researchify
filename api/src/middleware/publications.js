@@ -85,7 +85,11 @@ const createPublicationValidation = [
     if (!errors.isEmpty()) {
       console.log({ errors: errors.array() });
       next(
-        fillErrorObject(400, 'Validation error has occurred', errors.array())
+        fillErrorObject(
+          400,
+          'Validation error',
+          errors.errors.map((a) => a.msg)
+        )
       );
     } else {
       next();
@@ -98,7 +102,7 @@ async function validateAuthorId(req, res, next) {
 
   if (_id.length != 12) {
     next(
-      fillErrorObject(400, 'Validation error has occurred', [
+      fillErrorObject(400, 'Validation error', [
         'Google Scholar User ID needs to be 12 characters long',
       ])
     );
@@ -111,7 +115,7 @@ async function validateAuthorId(req, res, next) {
       next(
         fillErrorObject(
           error.response.status,
-          'Validation error has occurred',
+          'Validation error',
           ['No Google Scholar user profile found with the given id']
         )
       );

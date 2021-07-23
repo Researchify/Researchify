@@ -13,7 +13,6 @@ const mongooseMiddleware = require('../middleware/mongoose');
 
 teamRouter.patch(
   '/:team_id/twitter-handle',
-  mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamMiddleware.validateTwitterHandle,
   teamController.storeHandle

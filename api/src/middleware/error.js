@@ -8,7 +8,7 @@ function fillErrorObject(code, msg, err) {
       errors: [...err],
       errorTimestamp: localISOTime
     };
-    console.log(errObject);
+    // console.log(errObject);
 
     return errObject;
 }

@@ -6,7 +6,7 @@ async function validateObjectId(_id, type, res, next) {
     console.log('in here');
     console.log(_id);
     next(
-      fillErrorObject(400, 'Validation error has occurred', [
+      fillErrorObject(400, 'Validation error', [
         'Given ' + type + ' id is not in a valid hexadecimal format',
       ])
     );

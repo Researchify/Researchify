@@ -17,7 +17,7 @@ async function validateTeamId(req, res, next) {
 
   if (foundTeam == null) {
     next(
-      fillErrorObject(404, 'Validation error has occurred', [
+      fillErrorObject(404, 'Validation error', [
         'No team found with the given id',
       ])
     );
@@ -30,18 +30,19 @@ async function validateTeamId(req, res, next) {
 const validateTwitterHandle = [
   body(
     'twitterHandle',
-    'Error: Twitter handle must be between 1 to 15 characters.'
+    'Error: Twitter handle must be between 0 to 15 characters.' // 0 because it means remove the handle
   )
-    .isLength({ min: 1, max: 15 })
+    .isLength({ min: 0, max: 15 })
     .escape(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       next(
-        fillErrorObject(400, 'Validation error has occurred', errors.array())
+        fillErrorObject(400, 'Validation error', errors.errors.map(a => a.msg))
       );
+    } else {
+      next();
     }
-    next();
   },
 ];
 

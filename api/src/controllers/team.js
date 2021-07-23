@@ -37,6 +37,7 @@ const {
 async function storeHandle(req, res, next) {
   const { twitterHandle: handle } = req.body;
   let foundTeam = req.foundTeam;
+  console.log("in here");
 
   if (handle.length == 0) {
     // remove the handle from the doc
@@ -57,7 +58,7 @@ async function storeHandle(req, res, next) {
       );
       if (response.data.errors) {
         next(
-          fillErrorObject(400, 'Validation error has occurred', [
+          fillErrorObject(400, 'Validation error', [
             response.data.errors[0].detail,
           ])
         );
@@ -144,7 +145,7 @@ async function loginTeam(req, res) {
  * @returns 201: returns updated team details
  */
 async function addTeam(req, res, next) {
-  await Team.findOne({ email: req.body.email })
+  Team.findOne({ email: req.body.email })
     .then((foundTeam) => {
       if (foundTeam) {
         return res.status(400).send('Email had been registered');
@@ -155,7 +156,7 @@ async function addTeam(req, res, next) {
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const hashedTeam = { ...req.body, password: hashedPassword };
-  await Team.create(hashedTeam)
+  Team.create(hashedTeam)
     .then((createdTeam) => res.status(201).json(createdTeam._id))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
@@ -181,13 +182,13 @@ async function readTeamMembersByTeam(req, res) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function createTeamMember(req, res, next) {
+function createTeamMember(req, res, next) {
   let teamMember = req.body;
   const memberId = new mongoose.Types.ObjectId();
   let foundTeam = req.foundTeam;
   teamMember = { ...teamMember, _id: memberId };
 
-  await foundTeam.teamMembers.push(teamMember);
+  foundTeam.teamMembers.push(teamMember);
   foundTeam
     .save()
     .then(() => res.status(200).json(foundTeam.teamMembers))
@@ -202,10 +203,10 @@ async function createTeamMember(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function deleteTeamMember(req, res, next) {
+function deleteTeamMember(req, res, next) {
   let foundTeam = req.foundTeam;
   const { member_id } = req.params;
-  await foundTeam.teamMembers.pull({ _id: member_id });
+  foundTeam.teamMembers.pull({ _id: member_id });
   foundTeam
     .save()
     .then(() => res.status(200).json(foundTeam.teamMembers))
@@ -220,9 +221,9 @@ async function deleteTeamMember(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function updateTeamMember(req, res, next) {
+function updateTeamMember(req, res, next) {
   const updatedTeamMember = req.body;
-  await Team.updateOne(
+  Team.updateOne(
     { 'teamMembers._id': updatedTeamMember._id },
     {
       $set: {
@@ -242,11 +243,11 @@ async function updateTeamMember(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function updateTeam(req, res, next) {
+function updateTeam(req, res, next) {
   const { team_id: _id } = req.params;
   const team = req.body;
 
-  await Team.findByIdAndUpdate(_id, team, {
+  Team.findByIdAndUpdate(_id, team, {
     new: true,
     runValidators: true,
   })
