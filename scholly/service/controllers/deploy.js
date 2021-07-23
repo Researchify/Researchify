@@ -19,11 +19,11 @@ const winston = require('winston');
 async function handleDeployEvent(req, res) {
     const {teamId} = req.params;
     winston.info(`Attempting to build and deploy application for team ${teamId}`);
-
     const data = req.body;
+    const repoName = data.ghUsername + '.github.io';
     try {
         await build(data);
-        await push(data.ghUsername, data.ghToken);
+        await push(data.ghUsername, data.ghToken, repoName);
         return res.status(200).send('Successfully deployed application to GitHub Pages.');
     } catch (err) {
         winston.error(`Failed to deploy application for team ${teamId}`, err);

@@ -20,10 +20,10 @@ const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
  * @param ghToken the Personal Access Token (PAT) of the user's account with push permissions.
  * @throws Error if the push failed.
  */
-async function pushBuiltAppToPages(ghUsername, ghToken) {
+async function pushBuiltAppToPages(ghUsername, ghToken, repoName) {
   console.log(ghUsername);
   console.log(ghToken);
-  await makeGHRepo(ghUsername, ghToken);
+  await makeGHRepo(ghUsername, ghToken, repoName);
   await ghpages.publish(
     '../base/build',
     {
@@ -48,7 +48,7 @@ async function pushBuiltAppToPages(ghUsername, ghToken) {
       cleanupBuild(); // TODO this is not working for some reason
     }
   );
-  await buildPages(ghUsername, ghToken);
+  await buildPages(ghUsername, ghToken, repoName);
 }
 
 /**
@@ -63,9 +63,8 @@ function cleanupBuild() {
   });
 }
 
-async function makeGHRepo(ghUsername, ghToken) {
+async function makeGHRepo(ghUsername, ghToken, repoName) {
   // check if the repo exists
-  const repoName = ghUsername + '.github.io';
   const searchQuery = 'q=user:' + ghUsername + ' ' + repoName + ' in:name';
   const options = {
     Authorization: 'token ' + ghToken,
@@ -108,7 +107,7 @@ async function makeGHRepo(ghUsername, ghToken) {
   // set up pages for the repo regardless of whether its new or not
   // see https://docs.github.com/en/rest/reference/repos#pages
   try {
-    const pagesResponse = await axios.get(
+    await axios.get(
       'https://api.github.com/repos/' + ghUsername + '/' + repoName + '/pages',
       {
         headers: {
@@ -121,18 +120,17 @@ async function makeGHRepo(ghUsername, ghToken) {
   } catch (err) {
     console.log(err);
     console.log('GH pages not created yet');
-    createPagesSite(ghUsername, ghToken);
+    createPagesSite(ghUsername, ghToken, repoName);
   }
 }
 
-async function createPagesSite(ghUsername, ghToken) {
+async function createPagesSite(ghUsername, ghToken, repoName) {
   const pagesBody = {
     source: {
       branch: 'main',
       path: '/',
     },
   };
-  const repoName = ghUsername + '.github.io';
   let createPagesResponse;
   try {
     createPagesResponse = await axios({
@@ -160,12 +158,11 @@ async function createPagesSite(ghUsername, ghToken) {
   }
 }
 
-async function buildPages(ghUsername, ghToken) {
+async function buildPages(ghUsername, ghToken, repoName) {
   const options = {
     Authorization: 'token ' + ghToken,
     Accept: 'application/vnd.github.v3+json',
   };
-  const repoName = ghUsername + '.github.io';
   try {
     await axios({
       url:

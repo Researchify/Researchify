@@ -46,8 +46,6 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
     case GET_GH_ACCESS_TOKEN:
       return { ...state, retrievedAccessToken: true };
     case ADD_TEAM:
-      return { ...action.payload };
-    case UPDATE_TEAM:
       return action.payload;
     case UPDATE_TEAM:
       return action.payload;
