@@ -8,6 +8,7 @@ const winston = require('winston');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const { response } = require('express');
 
 const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
 
@@ -77,9 +78,14 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
         headers: options,
       }
     );
-    console.log('repo exists already');
   } catch (err) {
-    // it will error out with 404 if it doesn't exist, so make one
+    console.log(err);
+  }
+
+  if (repoResponse.data.total_count === 1) {
+    console.log('repo exists already');
+  } else {
+    // if it doesn't, make one
     const createRepoBody = {
       name: repoName,
       private: false, // free accounts can only use a public repo for GH pages
@@ -94,7 +100,7 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
       });
       console.log('Repo was created successfully');
     } catch (err) {
-      console.log('Error when creating the repo');
+      console.log(err);
     }
   }
 
@@ -112,6 +118,7 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
     );
     console.log('GH Pages already configured for repo');
   } catch (err) {
+    console.log(err);
     console.log('GH pages not created yet');
     createPagesSite(ghUsername, ghToken, repoName);
   }
@@ -147,7 +154,7 @@ async function createPagesSite(ghUsername, ghToken, repoName) {
       console.log(createPagesResponse.data);
     }
   } catch (err) {
-    console.log('Error when trying to configure Pages');
+    console.log(err);
   }
 }
 
@@ -169,7 +176,7 @@ async function buildPages(ghUsername, ghToken, repoName) {
     });
     console.log('Build queued');
   } catch (err) {
-    console.log('Error in triggering GH pages build');
+    console.log(err);
   }
 }
 
