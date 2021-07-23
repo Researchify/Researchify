@@ -36,6 +36,7 @@ app.use('/auth', authRouter);
 app.use('/theme', themeRouter);
 
 // error handler middleware
+// eslint-disable-next-line no-unused-vars
 app.use(function (err, req, res, next) {
   const errorObject = err;
   console.log(errorObject);
