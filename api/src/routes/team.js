@@ -8,10 +8,9 @@ const teamController = require('../controllers/team');
 
 const teamMiddleware = require('../middleware/team');
 
-const authMiddleware = require('../middleware/auth');
-
 const mongooseMiddleware = require('../middleware/mongoose');
 
+const authMiddleware = require('../middleware/auth');
 
 teamRouter.patch(
   '/:team_id/twitter-handle',

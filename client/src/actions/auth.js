@@ -2,7 +2,7 @@
  * This file houses our auth-related Action Creators.
  */
 import * as api from '../api';
-import { GET_TEAM_JWT, AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, FETCH_TEAM_INFO } from './types';
+import { GET_TEAM_JWT, AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO } from './types';
 import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
 
@@ -19,17 +19,19 @@ export const signIn = (authData) => async(dispatch) => {
     })
     const { data } = await api.loginTeam(authData)
 
-    console.log("data", data)
+    console.log("action auth", data)
     dispatch({
       type: AUTH_SIGN_IN_SUCCESS
     })
 
-    console.log("sign in successfully")
     dispatch({
       type: FETCH_TEAM_INFO,
       payload: data
     })
   } catch (error){
+    dispatch({
+      type: AUTH_SIGN_IN_FAIL
+    })
     dispatch(errorActionGlobalCreator(error));
   }
 };
@@ -59,7 +61,7 @@ export const authorizeJWT = () => async(dispatch) => {
       type: AUTH_SIGN_IN_SUCCESS
     })
     dispatch({
-      type: GET_TEAM_JWT,
+      type: FETCH_TEAM_INFO,
       payload: data
     })
   }catch(err){

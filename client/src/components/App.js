@@ -9,7 +9,6 @@ import { ErrorToaster } from '../error/ErrorToaster';
 
 // Pages
 import Home from './home/Home'; 
-import Auth from './auth/Auth';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
 import Login from './auth/Login';
@@ -27,64 +26,60 @@ import { authorizeJWT } from '../actions/auth';
 
 const App = () => {
   const errorMessage = useSelector((state) => state.main.error);
+  const { signIn } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  console.log("signIn", signIn)
+  useEffect(() => {
+    if(signIn){
+      console.log("dispatch authorizaJWT")
+      dispatch(authorizeJWT())
+    }
+  }, [dispatch, signIn]);
 
   return (
     <Fragment>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
         <ErrorToaster message={errorMessage} />
-        <Switch>
-          {/* public route */}
-          <Route path="/" exact component={Home} />
-          <Route path="/auth" exact component={Auth} />
-          <Route path="/register" exact component={Register} />
-          <Route path="/login" exact component={Login} />      
-
-          {/* private route */}
-          <Route render={props => <AuthenticationRouter {...props} />} />
-         
-        </Switch>
+          { signIn ? <PrivateRoute /> : <PublicRoute /> }
       </BrowserRouter>
     </Fragment>
   );
 };
 
+const PublicRoute = () => {
+  console.log("PublicRoute")
+  return (
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/login" exact component={Login} /> 
+        <Redirect to="/"/>
+      </Switch> 
+  )
+}
 
-const AuthenticationRouter = (props) => {
-  const { signIn } = useSelector(state => state.auth);
-  const dispatch = useDispatch();
-  console.log(signIn)
-
-  useEffect(() => {
-    if(signIn){
-      console.log("dispatch authorizaJWT")
-      dispatch(authorizeJWT())
-    }
-  }, [dispatch]);
-
-  if(signIn) {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
-          <DashboardLayoutRoute
-            path="/dashboard/profile"
-            exact
-            component={ProfileInfoEdit}
-          />
-          <DashboardLayoutRoute
-            path={`/publications`}
-            exact
-            component={PublicationPage}
-          />
-          <DashboardLayoutRoute path="/team" exact component={TeamPage} />
-          <EditorLayoutRoute path="/editor" exact component={EditorHome} />
-          <EditorLayoutRoute path="/editor/home" exact component={EditorHome} />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-  return <Redirect to="/login" /> 
+const PrivateRoute = () => {
+  console.log('PrivateRoute')
+  return (
+      <Switch>
+        <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
+        <DashboardLayoutRoute
+          path="/dashboard/profile"
+          exact
+          component={ProfileInfoEdit}
+        />
+        <DashboardLayoutRoute
+          path={`/publications`}
+          exact
+          component={PublicationPage}
+        />
+        <DashboardLayoutRoute path="/team" exact component={TeamPage} />
+        <EditorLayoutRoute path="/editor" exact component={EditorHome} />
+        <EditorLayoutRoute path="/editor/home" exact component={EditorHome} />
+        <Redirect to="/dashboard"/>
+      </Switch>
+  );
 };
 
 

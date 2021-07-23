@@ -8,7 +8,6 @@ import {
   ADD_TEAM,
   UPDATE_TEAM,
   TEAM_ERROR,
-  GET_TEAM_JWT
 } from '../actions/types';
 
 import { errorReducer } from '../error/errorReduxFunctions';
@@ -35,7 +34,7 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
     case FETCH_TEAM_INFO:
       console.log("action.payload!!!!!!", action.payload)
       return { ...state, 
-        teamId: action.payload.teamId, 
+        teamId: action.payload._id, 
         email: action.payload.email,
         teamName: action.payload.teamName, 
         orgName: action.payload.orgName
@@ -51,14 +50,6 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
     case TEAM_ERROR:
       return {
         ...errorReducer(state, action),
-      };
-    case GET_TEAM_JWT:
-      console.log(action.payload)
-      return { ...state, 
-        teamId: action.payload.teamId, 
-        email: action.payload.email,
-        teamName: action.payload.teamName, 
-        orgName: action.payload.orgName
       };
     default:
       return state;

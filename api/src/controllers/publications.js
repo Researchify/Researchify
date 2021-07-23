@@ -55,6 +55,8 @@ function updatePublication(req, res, next) {
   const { id: _id } = req.params;
   const publication = req.body;
 
+  console.log("id", _id)
+
   Publication.findByIdAndUpdate(_id, publication, {
     new: true,
     runValidators: true,
@@ -91,15 +93,13 @@ function updatePublication(req, res, next) {
  */
 function createPublication(req, res, next) {
   const publication = req.body;
-  console.log(publication.teamId);
-  const result = Team.findById({ _id: publication.teamId }).catch((err) =>
+  const result = Team.findById({ _id: req.team._id }).catch((err) =>
     next(fillErrorObject(500, 'Server error', [err.errors]))
   );
-
   if (result == null) {
     next(fillErrorObject(404, 'Validation error', ['Team was not found']));
   } else {
-    Publication.create(publication)
+    Publication.create({...publication, teamId: req.team._id})
       .then((createdPublication) => res.status(201).json(createdPublication))
       .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
   }

@@ -26,7 +26,6 @@ export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
     dispatch(errorActionGlobalCreator(error));
   }
 };
@@ -42,8 +41,7 @@ export const createPublication = (publication) => async (dispatch) => {
       payload: { ...result.data, newlyAdded: true },
     });
   } catch (error) {
-    console.log(error);
-    //dispatch(errorActionGlobalCreator(error));
+    dispatch(errorActionGlobalCreator(error));
   }
 };
 
@@ -56,7 +54,6 @@ export const deletePublication = (id) => async (dispatch) => {
       payload: id,
     });
   } catch (error) {
-    console.log(error);
     dispatch(errorActionGlobalCreator(error));
   }
 };
@@ -70,7 +67,6 @@ export const updatePublication = (id, publication) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
     dispatch(errorActionGlobalCreator(error));
   }
 };
@@ -213,7 +209,6 @@ export const createBulkPublications =
         payload: createdPublications,
       });
     } catch (error) {
-      console.log(error);
       dispatch(errorActionGlobalCreator(error));
     }
   };

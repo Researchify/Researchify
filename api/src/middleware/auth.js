@@ -2,12 +2,24 @@ const jwt = require('jsonwebtoken');
 
 const { aceessTokenExpiry, accessTokenCookieExpiry } = require('../config/tokenExpiry');
 
+const { fillErrorObject } = require('./error');
+
 const cookieJwtAuth = (req, res, next) => {
     const accessToken = req.cookies.accessToken
-    if (!accessToken) return res.status(403).json('User not authenicated.') // access token does not exist
+    // return error if access token does not exist
+    if (!accessToken){ 
+        next(
+            fillErrorObject(
+              403,
+              'Authorization error',
+              ['User not authorized: access token does not exist. ']
+            )
+        );
+        return
+    }
 
     try{
-        const { team } = jwt.verify(accessToken, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", { complete:  false });
+        const { team } = jwt.verify(accessToken, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN");
         req.team = team;
         console.log("!!!", team)
         next();
@@ -17,7 +29,13 @@ const cookieJwtAuth = (req, res, next) => {
         res.clearCookie('accessToken')
 
         const refreshToken = req.cookies.refreshToken
-        if (!refreshToken) return res.status(403).json('User not authenicated. ')
+        // return error if refresh token does not exist
+        if (!refreshToken){ 
+            next(
+                fillErrorObject( 403, 'Authorization error', ['User not authorized: refresh token does not exist'])
+            );
+            return
+        }
 
         try{
             // verfiy the refresh token 
@@ -39,18 +57,82 @@ const cookieJwtAuth = (req, res, next) => {
             res.clearCookie('refreshToken')
             res.clearCookie('isLogin')
             console.log('token clear')
-            return res.status(403).json('Both tokens expire, please login in again. ');
+            next(
+                fillErrorObject(403, 'Authorization error', [
+                    'User not authorized: Tokens expired, please login in again.',
+                ])
+            );
         }
     }
-
-
-    // jwt.verify(accessToken, process.env.JWT_SECRET_1 || "JWT_SECRET_1", (err, team) => { // why the team is contained in jwt token?? 
-    //     console.log("verifying ")
-    //     if (err) return res.sendStatus(403) // token is no longer valid
-    //     req.team =  team
-    //     console.log("!!!", team)
-    //     next()
-    // })
 }
 
 module.exports = { cookieJwtAuth };
+
+
+
+
+// const jwt = require('jsonwebtoken');
+
+// const { aceessTokenExpiry, accessTokenCookieExpiry } = require('../config/tokenExpiry');
+
+// const { fillErrorObject } = require('./error');
+
+// const cookieJwtAuth = (req, res, next) => {
+//     const accessToken = req.cookies.accessToken
+
+//     // return error if access token does not exist
+//     if (!accessToken){ 
+//         return next(
+//             fillErrorObject(
+//               403,
+//               'Authorization error',
+//               ['User not authorized: access token does not exist. ']
+//             )
+//         );
+//     }
+
+//     // verfiy access token 
+//     jwt.verify(accessToken, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", (err, result1) => { 
+//         if (err) { // access token expired/ does not match with jwt secret 
+//             res.clearCookie('accessToken') 
+//             const refreshToken = req.cookies.refreshToken
+
+//             // return error if refresh token does not exist
+//             if (!refreshToken){ 
+//                 return next(
+//                     fillErrorObject( 403, 'Authorization error', ['User not authorized: refresh token does not exist'])
+//                 );
+//             }
+            
+//             // verfiy refresh token
+//             jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH_TOKEN || "JWT_SECRET_REFRESH_TOKEN", (err, result2) => { 
+//                 if (err) { // refresh token expired/ does not match with jwt secret 
+//                     res.clearCookie('refreshToken')
+//                     res.clearCookie('isLogin')
+//                     return next(
+//                         fillErrorObject(403, 'Authorization error', [
+//                           'User not authorized: Tokens expired, please login in again.',
+//                         ])
+//                     );
+//                 }
+//                 console.log("result2", result2)
+//                 // refresh token verfication passes, re-gernerate the accessToken and pass the team object to the next function
+//                 const accessToken = jwt.sign({ team: result2.team }, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", {
+//                     expiresIn: aceessTokenExpiry
+//                 });
+//                 res.cookie('accessToken', accessToken, { 
+//                     httpOnly: true,
+//                     maxAge: accessTokenCookieExpiry,
+//                 });
+//                 req.team = result2.team;
+//                 next();
+//             })
+//         }
+//         console.log("result1", result1)
+//         // access token verfication passes, pass the team object to the next function 
+//         req.team =  result1.team;
+//         next();
+//     })
+// }
+
+// module.exports = { cookieJwtAuth };

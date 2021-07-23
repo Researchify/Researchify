@@ -65,16 +65,12 @@ async function storeHandle(req, res, next) {
 }
 
 /**
- * Gets the team document from the database on /team/:team_id.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the found team document
- * @returns 200: the team was found
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
+ * Gets the team document from the auth middleware
+ * @param {*} req request object, containing the team object 
+ * @param {*} res response object, the team object 
+ * @returns 200: return the team passed by the auth middleware 
  */
-async function getTeam(req, res) {
-  console.log("get team!!!!!!!!!!")
-  console.log(req.team);
+function getTeam(req, res) {
   return res.status(200).send(req.team);
 }
 
@@ -109,9 +105,8 @@ async function addTeam(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function readTeamMembersByTeam(req, res) {
-  let foundTeam = req.foundTeam;
-  console.log('foundTeam', foundTeam)
+function readTeamMembersByTeam(req, res) {
+  const foundTeam = req.foundTeam;
   return res.status(200).send(foundTeam.teamMembers);
 }
 
@@ -132,7 +127,7 @@ function createTeamMember(req, res, next) {
   foundTeam.teamMembers.push(teamMember);
   foundTeam
     .save()
-    .then(() => res.status(200).json(foundTeam.teamMembers))
+    .then(() => res.status(200).json(teamMember))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 

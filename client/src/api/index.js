@@ -23,22 +23,21 @@ export const importPublications = (authorId, startFrom, teamId) =>
 export const addTeam = (teamInfo) => api.post('/team', teamInfo);
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
 export const registerTwitterHandle = (teamId, handle) =>
-api.patch(`/team/${teamId}/twitter-handle`, handle);
+  api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) =>
-api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
+  api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
 
 export const getTeamJWT = () => api.get(`/team`);
-export const loginTeam = (teamCredentials) =>
+export const loginTeam = (teamCredentials) => 
   api.post(`/auth/login`, teamCredentials);
-  export const logoutTeam = () =>
-  api.post(`/auth/logout`);
+export const logoutTeam = () => api.post(`/auth/logout`);
 
 export const fetchTeamMembersByTeamId = (teamId) =>
-api.get(`/team/${teamId}/member`);
+  api.get(`/team/${teamId}/member`);
 export const createTeamMember = (teamId, newTeamMember) =>
-api.post(`/team/${teamId}/member`, newTeamMember);
+  api.post(`/team/${teamId}/member`, newTeamMember);
 export const updateTeamMember = (teamId, updatedTeamMember) =>
-api.patch(`/team/${teamId}/member`, updatedTeamMember);
+  api.patch(`/team/${teamId}/member`, updatedTeamMember);
 export const deleteTeamMember = (teamId, teamMemberId) =>
   api.delete(`/team/${teamId}/member/${teamMemberId}`);
 export const updateTeam = (teamId, updatedTeam) =>
