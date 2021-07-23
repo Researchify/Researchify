@@ -2,7 +2,7 @@
  * This file houses our auth-related Action Creators.
  */
 import * as api from '../api';
-import { GET_TEAM_JWT, AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO } from './types';
+import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO } from './types';
 import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
 
@@ -18,12 +18,9 @@ export const signIn = (authData) => async(dispatch) => {
       type: AUTH_SIGN_IN_REQUEST
     })
     const { data } = await api.loginTeam(authData)
-
-    console.log("action auth", data)
     dispatch({
       type: AUTH_SIGN_IN_SUCCESS
     })
-
     dispatch({
       type: FETCH_TEAM_INFO,
       payload: data
@@ -42,8 +39,7 @@ export const signIn = (authData) => async(dispatch) => {
  */
 export const signOut = () => async(dispatch) => {
   try{
-    const result = await api.logoutTeam()
-    console.log(result)
+    await api.logoutTeam()
     dispatch ({
       type: AUTH_SIGN_OUT
     })
@@ -54,9 +50,7 @@ export const signOut = () => async(dispatch) => {
 
 export const authorizeJWT = () => async(dispatch) => {
   try{
-    console.log("authorize JWT")
     const { data } = await api.getTeamJWT()
-    console.log("jwt decoded team", data)
     dispatch({
       type: AUTH_SIGN_IN_SUCCESS
     })
@@ -64,7 +58,7 @@ export const authorizeJWT = () => async(dispatch) => {
       type: FETCH_TEAM_INFO,
       payload: data
     })
-  }catch(err){
+  } catch(err){
     dispatch(errorActionGlobalCreator(err));
   }
 }

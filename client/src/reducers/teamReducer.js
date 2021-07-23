@@ -32,7 +32,6 @@ const INITIAL_TEAM_STATE = {
 const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
   switch (action.type) {
     case FETCH_TEAM_INFO:
-      console.log("action.payload!!!!!!", action.payload)
       return { ...state, 
         teamId: action.payload._id, 
         email: action.payload.email,
