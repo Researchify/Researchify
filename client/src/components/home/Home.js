@@ -4,7 +4,7 @@
 import React, { useEffect } from 'react';
 import './home.css';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 

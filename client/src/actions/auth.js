@@ -17,13 +17,17 @@ export const signIn = (authData) => async(dispatch) => {
     dispatch ({
       type: AUTH_SIGN_IN_REQUEST
     })
-    const result = await api.loginTeam(authData)
+    const { data } = await api.loginTeam(authData)
+
+    console.log("data", data)
     dispatch({
       type: AUTH_SIGN_IN_SUCCESS
     })
+
+    console.log("sign in successfully")
     dispatch({
       type: FETCH_TEAM_INFO,
-      payload: result.data
+      payload: data
     })
   } catch (error){
     dispatch(errorActionGlobalCreator(error));
@@ -58,8 +62,6 @@ export const authorizeJWT = () => async(dispatch) => {
       type: GET_TEAM_JWT,
       payload: data
     })
-
-
   }catch(err){
     dispatch(errorActionGlobalCreator(err));
   }

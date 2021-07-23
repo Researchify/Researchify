@@ -19,9 +19,8 @@ teamRouter.patch(
 );
 
 teamRouter.get(
-  '/:team_id',
+  '/',
   authMiddleware.cookieJwtAuth,
-  teamMiddleware.validateTeamId,
   teamController.getTeam
 );
 

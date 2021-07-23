@@ -33,6 +33,7 @@ const INITIAL_TEAM_STATE = {
 const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
   switch (action.type) {
     case FETCH_TEAM_INFO:
+      console.log("action.payload!!!!!!", action.payload)
       return { ...state, 
         teamId: action.payload.teamId, 
         email: action.payload.email,
@@ -54,7 +55,7 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
     case GET_TEAM_JWT:
       console.log(action.payload)
       return { ...state, 
-        teamId: action.payload._id, 
+        teamId: action.payload.teamId, 
         email: action.payload.email,
         teamName: action.payload.teamName, 
         orgName: action.payload.orgName

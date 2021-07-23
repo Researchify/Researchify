@@ -20,30 +20,34 @@ const { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
         return res.status(400).send('Incorrect email/password'); // user not found 
       } 
       if (await bcrypt.compare(req.body.password, foundTeam.password)){
-        const teamObj = foundTeam.toObject(); // converts a mongoose object to a plain object 
-        // remove sensitive data 
-        delete teamObj.password 
-        const accessToken = jwt.sign(teamObj, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", {
+        
+        const jwtPayload = {
+          teamId: foundTeam._id,
+          email: foundTeam.email,
+          teamName: foundTeam.teamName,
+          orgName: foundTeam.orgName
+        }
+
+        const accessToken = jwt.sign({ team: jwtPayload }, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", {
           expiresIn: aceessTokenExpiry
         });
-        const refreshToken = jwt.sign(teamObj, process.env.JWT_SECRET_REFRESH_TOKEN || "JWT_SECRET_REFRESH_TOKEN", {
+        const refreshToken = jwt.sign({ team: jwtPayload }, process.env.JWT_SECRET_REFRESH_TOKEN || "JWT_SECRET_REFRESH_TOKEN", {
           expiresIn: refreshTokenExpiry
         });
+
         res.cookie('accessToken', accessToken, { 
           httpOnly: true,
-          maxAge: accessTokenCookieExpiry, // 5 mins
+          maxAge: accessTokenCookieExpiry, 
         });
         res.cookie('refreshToken', refreshToken, {
           httpOnly: true,
-          maxAge: refreshTokenCookieExpiry, // 1 year
+          maxAge: refreshTokenCookieExpiry, 
         })
-        res.cookie('isLogin', true) // TODO: no expiration? 
-        return res.status(200).send({
-          teamId: teamObj._id, 
-          email: teamObj.email,
-          teamName: teamObj.teamName,
-          orgName: teamObj.orgName
-        });
+        res.cookie('isLogin', true, {
+          maxAge: refreshTokenCookieExpiry,
+        }) 
+
+        return res.status(200).send(jwtPayload);
       } 
       return res.status(403).send('Incorrect email/password'); // incorrect password 
     } catch (error){
@@ -60,25 +64,14 @@ const { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
  * @returns 404: error occur 
  */
  async function logout(req, res) {
-    try{
-        res.clearCookie('accessToken')
-        res.clearCookie('refreshToken')
-        res.clearCookie('isLogin')
-    //   res.cookie('accessToken', "", { 
-    //     httpOnly: true,
-    //     maxAge: 0,
-    //   });
-    //   res.cookie('refreshToken', "", { 
-    //     httpOnly: true,
-    //     maxAge: 0,
-    //   });
-    //   res.cookie('isLogin', false, { 
-    //     maxAge: 0,
-    //   });
-      res.status(200).json('Logout Successfully');
-    } catch (error){
-      return res.status(422).json(`Error: ${error.message}`);
-    }
+  try{
+    res.clearCookie('accessToken')
+    res.clearCookie('refreshToken')
+    res.clearCookie('isLogin')
+    res.status(200).json('Logout Successfully');
+  } catch (error){
+    return res.status(422).json(`Error: ${error.message}`);
+  }
 }
 
 module.exports = {

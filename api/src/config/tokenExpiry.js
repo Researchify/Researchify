@@ -1,5 +1,5 @@
-const aceessTokenExpiry = '5s';
-const refreshTokenExpiry = '30s';
+const aceessTokenExpiry = '60s';
+const refreshTokenExpiry = '30min';
 const accessTokenCookieExpiry = 500000; 
 const refreshTokenCookieExpiry = 3.154e10;
 

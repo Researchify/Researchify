@@ -7,8 +7,9 @@ const cookieJwtAuth = (req, res, next) => {
     if (!accessToken) return res.status(403).json('User not authenicated.') // access token does not exist
 
     try{
-        const team = jwt.verify(accessToken, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN");
+        const { team } = jwt.verify(accessToken, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", { complete:  false });
         req.team = team;
+        console.log("!!!", team)
         next();
     } catch (error){ // access token expire 
         console.log('access token expired')
@@ -20,18 +21,12 @@ const cookieJwtAuth = (req, res, next) => {
 
         try{
             // verfiy the refresh token 
-            const team = jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH_TOKEN || "JWT_SECRET_REFRESH_TOKEN");
-
-            delete team.createdAt
-            delete team.updatedAt
-            delete team.__v
-            delete team.iat
-            delete team.exp
+            const { team } = jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH_TOKEN || "JWT_SECRET_REFRESH_TOKEN");
 
             console.log(team)
 
             // re-gernerate the accessToken 
-            const accessToken = jwt.sign(team, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", {
+            const accessToken = jwt.sign({ team: team }, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", {
                 expiresIn: aceessTokenExpiry
             });
             res.cookie('accessToken', accessToken, { 

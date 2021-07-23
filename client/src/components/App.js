@@ -2,11 +2,10 @@
  * Root component.
  */
 import React, { useEffect, Fragment } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorToaster } from '../error/ErrorToaster';
-import PrivateRoute from '../route/PrivateRoute';
 
 // Pages
 import Home from './home/Home'; 
@@ -27,19 +26,7 @@ import EditorLayoutRoute from './layouts/editorLayout/EditorLayoutRoute';
 import { authorizeJWT } from '../actions/auth';
 
 const App = () => {
-  const urls = {
-    dashboard: '/dashboard',
-    profile: '/dashboard/profile',
-  };
-  const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.main.error);
-  const { signIn } = useSelector(state => state.auth);
-
-  useEffect(() => {
-    if(signIn){
-      dispatch(authorizeJWT())
-    }
-  }, [dispatch]);
 
   return (
     <Fragment>
@@ -47,48 +34,38 @@ const App = () => {
       <BrowserRouter>
         <ErrorToaster message={errorMessage} />
         <Switch>
+          {/* public route */}
           <Route path="/" exact component={Home} />
           <Route path="/auth" exact component={Auth} />
           <Route path="/register" exact component={Register} />
-          <Route path="/login" exact component={Login} />
-          <Fragment>
-            <Header title={'Researchify'} urls={urls} />
-            <Container fluid>
-              <Row>
-                <Col className="sidebar-wrapper" md={1} lg={1}>
-                  <Sidebar />
-                </Col>
-                <Col className="page-content-wrapper" md={10} lg={10}>
-                  <PrivateRoute
-                    path={`/publications`}
-                    exact
-                    signIn = {signIn}
-                    component={PublicationPage}
-                    authenticationPath='/login'
-                  />
-                  <PrivateRoute 
-                    path={urls.dashboard} 
-                    exact 
-                    signIn = {signIn}
-                    component={Dashboard} 
-                    authenticationPath='/login'
-                  />
-                  <Route
-                    path={urls.profile}
-                    exact
-                    component={ProfileInfoEdit}
-                  />
-                  <PrivateRoute 
-                    path="/team" 
-                    exact 
-                    signIn = {signIn}
-                    component={TeamPage} 
-                    authenticationPath='/login'
-                  />
-                </Col>
-              </Row>
-            </Container>
-          </Fragment>
+          <Route path="/login" exact component={Login} />      
+
+          {/* private route */}
+          <Route render={props => <AuthenticationRouter {...props} />} />
+         
+        </Switch>
+      </BrowserRouter>
+    </Fragment>
+  );
+};
+
+
+const AuthenticationRouter = (props) => {
+  const { signIn } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  console.log(signIn)
+
+  useEffect(() => {
+    if(signIn){
+      console.log("dispatch authorizaJWT")
+      dispatch(authorizeJWT())
+    }
+  }, [dispatch]);
+
+  if(signIn) {
+    return (
+      <BrowserRouter>
+        <Switch>
           <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
           <DashboardLayoutRoute
             path="/dashboard/profile"
@@ -105,7 +82,10 @@ const App = () => {
           <EditorLayoutRoute path="/editor/home" exact component={EditorHome} />
         </Switch>
       </BrowserRouter>
-    </Fragment>
-  );
+    );
+  }
+  return <Redirect to="/login" /> 
 };
+
+
 export default App;
