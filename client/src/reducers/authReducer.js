@@ -2,9 +2,10 @@
  * This file exports our auth reducer that will handle all dispatched auth-related actions.
  */
 import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT } from '../actions/types';
+import Cookies from 'js-cookie';
 
 const INITIAL_AUTH_STATE = { 
-  signIn: localStorage.getItem('login')? true : false,
+  signIn: Cookies.get('isLogin') ? true : false,
   loading: false
 }
 

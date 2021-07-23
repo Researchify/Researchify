@@ -33,7 +33,7 @@ export default function Login() {
   useEffect(() => {
     console.log("LoginIn Page", auth.signIn)
     if (auth.signIn){
-      history.push('/publications')
+      history.push('/dashboard')
     }
   }, [history, auth])
 
@@ -46,9 +46,7 @@ export default function Login() {
     setValidated(true);
     dispatch(signIn(inputs))
   };
-
-  console.log(auth)
-
+  
   return (
     <div>
       <div id="login-page">

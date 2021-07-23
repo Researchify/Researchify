@@ -23,10 +23,10 @@ const { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
         const teamObj = foundTeam.toObject(); // converts a mongoose object to a plain object 
         // remove sensitive data 
         delete teamObj.password 
-        const accessToken = jwt.sign(teamObj, process.env.JWT_SECRET_1 || "JWT_SECRET_1", {
+        const accessToken = jwt.sign(teamObj, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", {
           expiresIn: aceessTokenExpiry
         });
-        const refreshToken = jwt.sign(teamObj, process.env.JWT_SECRET_2 || "JWT_SECRET_2", {
+        const refreshToken = jwt.sign(teamObj, process.env.JWT_SECRET_REFRESH_TOKEN || "JWT_SECRET_REFRESH_TOKEN", {
           expiresIn: refreshTokenExpiry
         });
         res.cookie('accessToken', accessToken, { 
@@ -37,6 +37,7 @@ const { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
           httpOnly: true,
           maxAge: refreshTokenCookieExpiry, // 1 year
         })
+        res.cookie('isLogin', true) // TODO: no expiration? 
         return res.status(200).send({
           teamId: teamObj._id, 
           email: teamObj.email,
@@ -60,20 +61,25 @@ const { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
  */
  async function logout(req, res) {
     try{
-      res.cookie('accessToken', "", { 
-        httpOnly: true,
-        maxAge: 0,
-      });
-      res.cookie('refreshToken', "", { 
-        httpOnly: true,
-        maxAge: 0,
-      });
+        res.clearCookie('accessToken')
+        res.clearCookie('refreshToken')
+        res.clearCookie('isLogin')
+    //   res.cookie('accessToken', "", { 
+    //     httpOnly: true,
+    //     maxAge: 0,
+    //   });
+    //   res.cookie('refreshToken', "", { 
+    //     httpOnly: true,
+    //     maxAge: 0,
+    //   });
+    //   res.cookie('isLogin', false, { 
+    //     maxAge: 0,
+    //   });
       res.status(200).json('Logout Successfully');
     } catch (error){
       return res.status(422).json(`Error: ${error.message}`);
     }
-  }
-
+}
 
 module.exports = {
     login,

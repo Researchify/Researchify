@@ -43,7 +43,6 @@ const App = () => {
     if(signIn){
       dispatch(authorizeJWT())
     }
-    // replace it with new `auth` action, pass jwt token, call api, authorise, get teamData, dispatch teamData to FETCH_TEAM_INFO.
   }, [dispatch]);
 
   return (
