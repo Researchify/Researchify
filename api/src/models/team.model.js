@@ -26,8 +26,7 @@ const teamSchema = new mongoose.Schema(
       type: String,
     },
     templateId: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'template',
+      type: String,
       required: false,
     },
     teamMembers: [
@@ -36,7 +35,15 @@ const teamSchema = new mongoose.Schema(
         position: { type: String, required: false },
         summary: { type: String, required: false, minLength: 3 },
       },
-    ]
+    ],
+    githubUsername: {
+      type: String,
+      required: false,
+    },
+    themeId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'theme',
+    },
   },
   { timestamps: true }
 );

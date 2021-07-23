@@ -1,26 +1,37 @@
+/*
+ * This file stores the link data of side bar
+ */
 import React from 'react';
+// icons
 import {
   BsFillGridFill,
   BsBookHalf,
+  BsPencilSquare,
   BsPerson,
-  BsGearFill,
   BsPeople,
+  BsGearFill,
   BsFillQuestionCircleFill,
   BsBoxArrowLeft
 } from 'react-icons/bs';
 import { signOut } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 
+
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-export const SidebarData = () => {
+const DashboardSidebarData = () => {
   const dispatch = useDispatch();
   return [
     {
       title: 'Dashboard',
       icon: <BsFillGridFill />,
       link: '/dashboard',
+    },
+    {
+      title: 'Editor',
+      icon: <BsPencilSquare />,
+      link: '/editor',
     },
     {
       title: 'Publications',
@@ -55,3 +66,5 @@ export const SidebarData = () => {
     }
   ];
 };
+
+export default DashboardSidebarData;

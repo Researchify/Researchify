@@ -14,6 +14,8 @@ const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
 
+const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry } = require('../config/tokenExpiry');
+
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
  * @param {*} req request object, containing the team_id in the url and twitter handle in the body
@@ -172,18 +174,29 @@ async function updateTeamMember(req, res) {
 }
 
 /**
- * Gets the team document from the database on /team/:team_id.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the found team document
- * @returns 200: the team was found
+ * Update the team from the database on /team/:team_id
+ * @param {} req request object, containing team id in the url
+ * @param {*} res response object, the updated team document
+ * @returns 200: team updated
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
- async function getTeamJWT(req, res) {
-  console.log(req.team._id);
-  return res.status(200).send(req.team);
+async function updateTeam(req, res) {
+  const { team_id: _id } = req.params;
+  const team = req.body;
+  if (!mongoose.Types.ObjectId.isValid(_id)){
+    return res.status(404).send('Error: No team with that id.');
+  }
+  try {
+    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json(updatedTeam);
+  } catch (err) {
+    res.status(422).json(`Error: ${err.message}`);
+  }
 }
-
 
 module.exports = {
   storeHandle,
@@ -193,5 +206,5 @@ module.exports = {
   readTeamMembersByTeam,
   deleteTeamMember,
   updateTeamMember,
-  getTeamJWT
+  updateTeam
 };

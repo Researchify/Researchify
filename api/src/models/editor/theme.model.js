@@ -5,6 +5,10 @@ const mongoose = require('mongoose');
 
 const themeSchema = new mongoose.Schema(
   {
+    layout: {
+      type: Number,
+      required: true,
+    },
     primaryColor: {
       type: String,
       required: true,

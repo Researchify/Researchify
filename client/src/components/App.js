@@ -1,28 +1,29 @@
 /**
  * Root component.
  */
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { ErrorToaster } from '../error/ErrorToaster';
+import PrivateRoute from '../route/PrivateRoute';
 
+// Pages
+import Home from './home/Home'; 
 import Auth from './auth/Auth';
-import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
-
-import Register from './auth/Register';
 import Login from './auth/Login';
-import Header from './layout/Header';
-import Sidebar from './layout/Sidebar';
-import { Container, Col, Row } from 'react-bootstrap';
-import './layout/Layout.css';
-import { ErrorToaster } from '../error/ErrorToaster';
-
-import TeamPage from './teamPage/TeamPage';
+import Register from './auth/Register';
 import PublicationPage from './publications/PublicationPage';
-import { Fragment } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import PrivateRoute from '../route/PrivateRoute';
+import EditorHome from './editor/EditorHome';
+import TeamPage from './teamPage/TeamPage';
+
+// Layout
+import DashboardLayoutRoute from './layouts/dashboardLayout/DashboardLayoutRoute';
+import EditorLayoutRoute from './layouts/editorLayout/EditorLayoutRoute';
+
+// Function
 import { authorizeJWT } from '../actions/auth';
 
 const App = () => {
@@ -30,14 +31,9 @@ const App = () => {
     dashboard: '/dashboard',
     profile: '/dashboard/profile',
   };
-
+  const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.main.error);
-
-  const dispatch = useDispatch()
-  const { signIn } = useSelector(state => state.auth)
-
-  console.log("render App!!!!!!!!!!!")
-  console.log("signIn", signIn)
+  const { signIn } = useSelector(state => state.auth);
 
   useEffect(() => {
     if(signIn){
@@ -46,7 +42,7 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <Fragment>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
         <ErrorToaster message={errorMessage} />
@@ -93,10 +89,23 @@ const App = () => {
               </Row>
             </Container>
           </Fragment>
+          <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
+          <DashboardLayoutRoute
+            path="/dashboard/profile"
+            exact
+            component={ProfileInfoEdit}
+          />
+          <DashboardLayoutRoute
+            path={`/publications`}
+            exact
+            component={PublicationPage}
+          />
+          <DashboardLayoutRoute path="/team" exact component={TeamPage} />
+          <EditorLayoutRoute path="/editor" exact component={EditorHome} />
+          <EditorLayoutRoute path="/editor/home" exact component={EditorHome} />
         </Switch>
       </BrowserRouter>
-    </>
+    </Fragment>
   );
 };
-
 export default App;

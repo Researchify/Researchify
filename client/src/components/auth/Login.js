@@ -9,6 +9,7 @@ import './Login.css';
 import { signIn } from '../../actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 /** 
 Handles the UI for the log in page
@@ -31,9 +32,13 @@ export default function Login() {
   const [validated, setValidated] = useState(false);
 
   useEffect(() => {
-    console.log("LoginIn Page", auth.signIn)
     if (auth.signIn){
       history.push('/dashboard')
+      return 
+    }
+    if (auth.error){
+      toast.error(auth.error);
+      return
     }
   }, [history, auth])
 
@@ -46,7 +51,7 @@ export default function Login() {
     setValidated(true);
     dispatch(signIn(inputs))
   };
-  
+
   return (
     <div>
       <div id="login-page">
