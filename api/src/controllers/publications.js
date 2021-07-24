@@ -12,6 +12,8 @@ const { Cluster } = require('puppeteer-cluster');
 
 const { puppeteerConfig, categoryType } = require('../config/puppeteer');
 
+const { fillErrorObject } = require('../middleware/error');
+
 /**
  * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
  *
@@ -21,19 +23,23 @@ const { puppeteerConfig, categoryType } = require('../config/puppeteer');
  * @returns 404: publication not found
  * @returns 400: error deleting publication
  */
-async function deletePublication(req, res) {
+function deletePublication(req, res, next) {
   const { id: _id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send('Error: No publication with that id.');
-
-  try {
-    await Publication.findByIdAndRemove(_id);
-    return res
-      .status(200)
-      .json({ message: 'Publication deleted successfully.' });
-  } catch (err) {
-    res.status(400).json(`Error: ${err.message}`);
-  }
+  Publication.findByIdAndRemove(_id)
+    .then((foundPublication) => {
+      if (foundPublication === null) {
+        next(
+          fillErrorObject(400, 'Validation error', [
+            'Publication could not be found',
+          ])
+        );
+      } else {
+        return res
+          .status(200)
+          .json({ message: 'Publication deleted successfully.' });
+      }
+    })
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
@@ -45,26 +51,27 @@ async function deletePublication(req, res) {
  * @returns 404: publication not found
  * @returns 422: error in the request object, unable to update publication
  */
-async function updatePublication(req, res) {
+function updatePublication(req, res, next) {
   const { id: _id } = req.params;
   const publication = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send('Error: No publication with that id.');
-
-  try {
-    const updatedPublication = await Publication.findByIdAndUpdate(
-      _id,
-      publication,
-      {
-        new: true,
-        runValidators: true,
+  Publication.findByIdAndUpdate(_id, publication, {
+    new: true,
+    runValidators: true,
+  })
+    .then((updatedPublication) => {
+      if (updatedPublication == null) {
+        // nothing returned by the query
+        next(
+          fillErrorObject(404, 'Validation error', [
+            'Publication could not be found',
+          ])
+        );
+      } else {
+        return res.status(200).json(updatedPublication);
       }
-    );
-    res.status(200).json(updatedPublication);
-  } catch (err) {
-    res.status(422).json(`Error: ${err.message}`);
-  }
+    })
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
@@ -82,50 +89,19 @@ async function updatePublication(req, res) {
  * @returns 400: the publication given in the request fails some validation also @see validationMiddlewares
  * @returns 404: no team was found to associate the publication with
  */
-async function createPublication(req, res) {
+function createPublication(req, res, next) {
   const publication = req.body;
   console.log(publication.teamId);
-  if (!mongoose.Types.ObjectId.isValid(publication.teamId)) {
-    return res
-      .status(400)
-      .send('Error: Given team id is not in a valid hexadecimal format.');
+  const result = Team.findById({ _id: publication.teamId }).catch((err) =>
+    next(fillErrorObject(500, 'Server error', [err.errors]))
+  );
+
+  if (result == null) {
+    next(fillErrorObject(404, 'Validation error', ['Team was not found']));
   } else {
-    var result = await Team.findById({ _id: publication.teamId });
-    if (result == null) {
-      return res.status(404).send('Error: Team not found.');
-    }
-  }
-
-  const createdPublication = await Publication.create(publication);
-  res.status(201).json(createdPublication);
-}
-
-/**
- * Handles a GET request, which will retrieve the specified publication in the database with the given mongo object id in the endpoint /publications/:id
- *
- * @param req request object - including the publication id given in the url
- * @param res response object - publication (see Publications model)
- * @returns 200: the specified publication was found
- * @returns 400: given publication id is not in a valid hexadecimal format
- * @returns 404: no publications were found
- */
-async function readPublication(req, res) {
-  const { id: _id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res
-      .status(400)
-      .send(
-        'Error: Given publication id is not in a valid hexadecimal format.'
-      );
-
-  const foundPublication = await Publication.findById(_id);
-
-  if (foundPublication == null) {
-    // nothing returned by the query
-    res.status(404).send('Error: No publication found.'); // no content
-  } else {
-    res.status(200).json(foundPublication);
+    Publication.create(publication)
+      .then((createdPublication) => res.status(201).json(createdPublication))
+      .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
   }
 }
 
@@ -139,21 +115,10 @@ async function readPublication(req, res) {
  * @returns 404: the specified team or publication was not found
  * @todo filter by other fields like year passed in through req.query
  */
-async function readAllPublicationsByTeam(req, res) {
+function readAllPublicationsByTeam(req, res, next) {
   const { team_id: _id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(_id)) {
-    return res
-      .status(400)
-      .send('Error: Given team id is not in a valid hexadecimal format.');
-  } else {
-    var result = await Team.find({ _id });
-    if (result.length == 0) {
-      return res.status(404).send('Error: Team not found.');
-    }
-  }
-
-  const foundPublication = await Publication.aggregate([
+  Publication.aggregate([
     {
       $match: { teamId: mongoose.Types.ObjectId(_id) },
     },
@@ -163,8 +128,9 @@ async function readAllPublicationsByTeam(req, res) {
     {
       $sort: { year: -1, title: 1 },
     },
-  ]);
-  res.status(200).json(foundPublication);
+  ])
+    .then((foundPublication) => res.status(200).json(foundPublication))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
@@ -178,7 +144,7 @@ async function readAllPublicationsByTeam(req, res) {
 async function getGoogleScholarPublications(req, res) {
   const author = req.params.gScholarUserId;
   const startFrom = req.params.startFrom;
-  const teamId = req.params.teamId;
+  const teamId = req.params.team_id;
 
   const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
   const noOfThreads = puppeteerConfig.noOfThreads;
@@ -344,23 +310,23 @@ async function validateImportedPublications(_id, publications) {
 }
 
 /**
- * Handles a POST request, which will create a bluk publications in the database using the endpoint /publications/import/:team_id.
+ * Handles a POST request, which will create a bulk publications in the database using the endpoint /publications/import/:team_id.
  * @param req request object - team id given in the url, an array of publication in body (see Publication model)
  * @param res response object
  * @returns 201: the bulk publications has been created
  * @returns 400: given team id is not in a valid hexadecimal format (validate via team middleware)
  * @returns 404: no team was found to associate the publication with (validate via team middleware)
  */
-async function importPublications(req, res) {
-  const importedPublications = await Publication.insertMany(req.body);
-  res.status(201).json(importedPublications);
+function importPublications(req, res, next) {
+  Publication.insertMany(req.body)
+    .then((importedPublications) => res.status(201).json(importedPublications))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 module.exports = {
   deletePublication,
   updatePublication,
   createPublication,
-  readPublication,
   readAllPublicationsByTeam,
   importPublications,
   getGoogleScholarPublications,

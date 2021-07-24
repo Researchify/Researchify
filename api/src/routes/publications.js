@@ -9,9 +9,19 @@ const publicationsMiddleware = require('../middleware/publications');
 
 const teamMiddleware = require('../middleware/team');
 
-publicationsRouter.delete('/:id', publicationsController.deletePublication);
+const mongooseMiddleware = require('../middleware/mongoose');
 
-publicationsRouter.patch('/:id', publicationsController.updatePublication);
+publicationsRouter.delete(
+  '/:id',
+  mongooseMiddleware.validatePublicationObjectId,
+  publicationsController.deletePublication
+);
+
+publicationsRouter.patch(
+  '/:id',
+  mongooseMiddleware.validatePublicationObjectId,
+  publicationsController.updatePublication
+);
 
 publicationsRouter.post(
   '/',
@@ -19,21 +29,23 @@ publicationsRouter.post(
   publicationsController.createPublication
 );
 
-publicationsRouter.get('/:id', publicationsController.readPublication);
-
 publicationsRouter.get(
-  '/import/:gScholarUserId/:startFrom/validate/:teamId',
+  '/import/:gScholarUserId/:startFrom/validate/:team_id',
+  mongooseMiddleware.validateTeamObjectId,
   publicationsMiddleware.validateAuthorId,
   publicationsController.getGoogleScholarPublications
 );
 
 publicationsRouter.get(
   '/team/:team_id',
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
   publicationsController.readAllPublicationsByTeam
 );
 
 publicationsRouter.post(
   '/import/:team_id',
+  mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   publicationsController.importPublications
 );
