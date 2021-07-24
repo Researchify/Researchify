@@ -13,6 +13,8 @@ import Home from './home/Home';
 import Auth from './auth/Auth';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
+import DeployPage from './deploy/DeployPage';
+
 import Login from './auth/Login';
 import Register from './auth/Register';
 import PublicationPage from './publications/PublicationPage';
@@ -55,6 +57,7 @@ const App = () => {
             component={PublicationPage}
           />
           <DashboardLayoutRoute path="/team" exact component={TeamPage} />
+          <DashboardLayoutRoute path="/deploy" exact component={DeployPage} />
           <EditorLayoutRoute path="/editor" exact component={EditorHome} />
           <EditorLayoutRoute path="/editor/home" exact component={EditorHome} />
         </Switch>

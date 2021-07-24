@@ -11,6 +11,9 @@ import {
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
   ADD_TEAM,
+  GET_GH_ACCESS_TOKEN,
+  DEPLOY_SUCCESS,
+  DEPLOY_FAIL,
   UPDATE_TEAM,
 } from './types';
 import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
@@ -210,6 +213,51 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
   }
 };
 
+export const getGHAccessToken = (teamId, code) => async (dispatch) => {
+  try {
+    console.log(teamId);
+    const response = await api.getGHAccessToken(teamId, code);
+    localStorage.setItem('GH_access_token', response.data.access_token);
+    dispatch({
+      type: GET_GH_ACCESS_TOKEN,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deployToGHPages =
+  (teamId, accessToken, twitterHandle) => async (dispatch) => {
+    try {
+      // get publications
+      const { data } = await api.fetchPublicationsByTeamId(
+        '609f5ad827b1d48257c321d3' // FIXME: hardcoded for testing, remove after authentication is implemented
+      );
+      data.map(
+        (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
+      );
+
+      const body = {
+        ghToken: accessToken,
+        teamTwitterHandle: twitterHandle,
+        teamPublications: data,
+      };
+
+      console.log(body);
+
+      const response = await api.deployToGHPages(teamId, body);
+      console.log(response.data);
+      dispatch({
+        type: DEPLOY_SUCCESS,
+      }); // TODO: use this and DEPLOY_FAIL to show message to user?
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: DEPLOY_FAIL,
+      });
+    }
+  };
+
 /**
  * A function to allocates team data from back-end.
  * @param {*} teamData raw data from back-end
@@ -224,6 +272,8 @@ function teamDataAllocator(teamData) {
     orgName: teamData.orgName,
     twitterHandle: teamData.twitterHandle,
     repoCreated: teamData.repoCreated,
+    error: null,
+    retrievedAccessToken: false,
     themeId: teamData.themeId,
   };
 }
@@ -231,7 +281,6 @@ function teamDataAllocator(teamData) {
 /**
  * This action creator will be called when a user want to update the team profile
  *
->>>>>>> layouts
  * @param {*} teamId id of the team
  * @param {*} teamData data object of the data to be patched
  * @returns

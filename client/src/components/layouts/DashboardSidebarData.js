@@ -11,6 +11,7 @@ import {
   BsPeople,
   BsGearFill,
   BsFillQuestionCircleFill,
+  BsUpload,
   BsBoxArrowLeft,
 } from 'react-icons/bs';
 import { signOut } from '../../actions/auth';
@@ -47,6 +48,11 @@ const DashboardSidebarData = () => {
       title: 'Team Member',
       icon: <BsPeople />,
       link: '/team',
+    },
+    {
+      title: 'Deploy Website',
+      icon: <BsUpload />,
+      link: '/deploy',
     },
     {
       title: 'Settings',
