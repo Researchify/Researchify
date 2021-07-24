@@ -7,7 +7,6 @@ const build = require('../core/build');
 const push = require('../core/push');
 const winston = require('winston');
 
-
 /**
  * Handles a POST request to deploy a team's website on the endpoint /deploy/:teamId.
  *
@@ -17,19 +16,24 @@ const winston = require('winston');
  * @returns 500: the team's site failed to build or deploy.
  */
 async function handleDeployEvent(req, res) {
-    const {teamId} = req.params;
-    winston.info(`Attempting to build and deploy application for team ${teamId}`);
-    const data = req.body;
-    const repoName = data.ghUsername + '.github.io';
-    try {
-        await build(data);
-        await push(data.ghUsername, data.ghToken, repoName);
-        return res.status(200).send('Successfully deployed application to GitHub Pages.');
-    } catch (err) {
-        winston.error(`Failed to deploy application for team ${teamId}`, err);
-        return res.status(500).send("Something went wrong. Researchify couldn't build/push your application.");
-    }
+  const { teamId } = req.params;
+  winston.info(`Attempting to build and deploy application for team ${teamId}`);
+  const data = req.body;
+  const repoName = data.ghUsername + '.github.io';
+  try {
+    await build(data);
+    await push(data.ghUsername, data.ghToken, repoName);
+    return res
+      .status(200)
+      .send('Successfully deployed application to GitHub Pages.');
+  } catch (err) {
+    winston.error(`Failed to deploy application for team ${teamId}`, err);
+    return res
+      .status(500)
+      .send(
+        "Something went wrong. Researchify couldn't build/push your application."
+      );
+  }
 }
 
-
-module.exports = {handleDeployEvent};
+module.exports = { handleDeployEvent };
