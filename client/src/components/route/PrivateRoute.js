@@ -25,11 +25,11 @@ const PrivateRoute = () => {
     // after a user signIn, we need to keep track of the signInCookie as it might be removed after the tokens expire
     // if that the case, a sign out action need to be dispatched 
     if(!signInCookie){
-      setTimeout(
+      setTimeout(() => {
         dispatch({
           type: AUTH_SIGN_OUT
-        }), 4000
-      )
+        })
+      }, 3000)
     }
   }, [dispatch, signInCookie])
 

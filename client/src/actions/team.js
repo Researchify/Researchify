@@ -244,7 +244,7 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
       payload: updatedData,
     });
   } catch (error) {
-    console.error(error);
+    dispatch(errorActionGlobalCreator(error));
   }
 };
 
