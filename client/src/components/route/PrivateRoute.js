@@ -11,6 +11,7 @@ import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
 import PublicationPage from '../publications/PublicationPage';
 import EditorHome from '../editor/EditorHome';
 import TeamPage from '../teamPage/TeamPage';
+import DeployPage from '../deploy/DeployPage';
 
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
@@ -45,6 +46,7 @@ const PrivateRoute = () => {
             component={PublicationPage}
           />
           <DashboardLayoutRoute path="/team" exact component={TeamPage} />
+          <DashboardLayoutRoute path="/deploy" exact component={DeployPage} />
           <EditorLayoutRoute path="/editor" exact component={EditorHome} />
           <EditorLayoutRoute path="/editor/home" exact component={EditorHome} />
           {/*  If login, any other route not stated above will be redirect dashbroad page */}
