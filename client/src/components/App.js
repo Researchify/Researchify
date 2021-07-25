@@ -9,7 +9,7 @@ import { getTeamInfo } from '../actions/team';
 import { ErrorToaster } from '../error/ErrorToaster';
 
 // Pages
-import Home from './home/Home'; 
+import Home from './home/Home';
 import Auth from './auth/Auth';
 import Dashboard from './dashboard/Dashboard';
 import ProfileInfoEdit from './profileInfoEdit/ProfileInfoEdit';
@@ -24,6 +24,7 @@ import TeamPage from './teamPage/TeamPage';
 // Layout
 import DashboardLayoutRoute from './layouts/dashboardLayout/DashboardLayoutRoute';
 import EditorLayoutRoute from './layouts/editorLayout/EditorLayoutRoute';
+import LandingPage from './landing-pages/LandingPage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,8 @@ const App = () => {
       <BrowserRouter>
         <ErrorToaster message={errorMessage} />
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={LandingPage} />
+          <Route path="/home" exact component={Home} />
           <Route path="/auth" exact component={Auth} />
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />
