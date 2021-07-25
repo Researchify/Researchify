@@ -3,63 +3,66 @@
  */
 const mongoose = require('mongoose');
 
-const publicationSchema = new mongoose.Schema({
+const publicationSchema = new mongoose.Schema(
+  {
     teamId: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'team',
-        required: true
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'team',
+      required: true,
     },
     authors: {
-        type: [{
-            type: String,
-            minlength: 1
-        }],
-        required: true
+      type: [
+        {
+          type: String,
+          minlength: 1,
+        },
+      ],
+      required: true,
     },
     title: {
-        type: String,
-        required: true,
-        minlength: 3
+      type: String,
+      required: true,
+      minlength: 3,
     },
     thumbnail: {
-        type: String
+      type: String,
     },
     link: {
-        type: String
+      type: String,
     },
     description: {
-        type: String,
-        required: true,
-        minlength: 5
+      type: String,
     },
     summary: {
-        type: String,
-        minlength: 5
+      type: String,
+      minlength: 5,
     },
     citedBy: {
-        type: Number,
-        min: 0
+      type: Number,
+      min: 0,
     },
     yearPublished: {
-        type: Date
+      type: Date,
     },
     category: {
-        type: {
-            type: String,
-            enum: ['CONFERENCE', 'JOURNAL'],
-            required: true
-        },
-        categoryTitle: {
-            type: String,
-            required: true,
-            minlength: 3
-        },
-        volume: String,
-        issue: String,
-        pages: String,
-        publisher: String
+      type: {
+        type: String,
+        enum: ['CONFERENCE', 'JOURNAL', 'OTHER', 'BOOK'],
+        required: true,
+      },
+      categoryTitle: {
+        type: String,
+        required: true,
+        minlength: 3,
+      },
+      volume: String,
+      issue: String,
+      pages: String,
+      publisher: String,
     },
-}, {timestamps: true})
+  },
+  { timestamps: true }
+);
 
 const Publication = mongoose.model('publication', publicationSchema);
 

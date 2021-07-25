@@ -3,17 +3,20 @@
  */
 const mongoose = require('mongoose');
 
-const templateSchema = new mongoose.Schema({
+const templateSchema = new mongoose.Schema(
+  {
     isDefault: {
-        type: Boolean,
-        required: true
+      type: Boolean,
+      required: true,
     },
     themeId: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'theme',
-        required: true
-    }
-}, {timestamps: true})
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'theme',
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
 const Template = mongoose.model('template', templateSchema);
 

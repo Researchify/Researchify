@@ -1,10 +1,13 @@
 /**
  * This file exports our auth reducer that will handle all dispatched auth-related actions.
  */
-import {AUTH_SIGN_IN, AUTH_SIGN_OUT} from "../actions/types";
+import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_IN_FAIL, AUTH_SIGN_OUT } from '../actions/types';
+import Cookies from 'js-cookie';
 
-
-const INITIAL_AUTH_STATE = {authData: null};
+const INITIAL_AUTH_STATE = { 
+  signIn: Cookies.get('isLogin') ? true : false,
+  loading: false
+}
 
 /**
  * This authReducer will handle all auth-related actions, i.e. AUTH_SIGN_IN and AUTH_SIGN_OUT.
@@ -14,14 +17,18 @@ const INITIAL_AUTH_STATE = {authData: null};
  * @returns updated state.
  */
 const authReducer = (state = INITIAL_AUTH_STATE, action) => {
-    switch (action.type) {
-        case AUTH_SIGN_IN:
-            return {authData: action.payload};
-        case AUTH_SIGN_OUT:
-            return {authData: null};
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case AUTH_SIGN_IN_REQUEST:
+      return { ...state, loading: true };
+    case AUTH_SIGN_IN_SUCCESS:
+      return { loading: false, signIn: true };
+    case AUTH_SIGN_IN_FAIL: 
+      return { ...state, loading: false };
+    case AUTH_SIGN_OUT:
+      return { loading: false, signIn: false };
+    default:
+      return state;
+  }
 };
 
 export default authReducer;

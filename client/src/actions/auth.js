@@ -1,7 +1,9 @@
 /**
  * This file houses our auth-related Action Creators.
  */
-import {AUTH_SIGN_IN, AUTH_SIGN_OUT} from "./types";
+import * as api from '../api';
+import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO, CLEAR_ERROR } from './types';
+import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
 
 
 /**
@@ -10,19 +12,58 @@ import {AUTH_SIGN_IN, AUTH_SIGN_OUT} from "./types";
  * @param authData data associated to the authentication response.
  * @returns an action of type AUTH_SIGN_IN with the payload as the authData.
  */
-export const signIn = authData => {
-    return {
-        type: AUTH_SIGN_IN,
-        payload: authData
-    };
+export const signIn = (authData) => async(dispatch) => {
+  try{
+    dispatch ({
+      type: AUTH_SIGN_IN_REQUEST
+    })
+    const { data } = await api.loginTeam(authData)
+    dispatch({
+      type: AUTH_SIGN_IN_SUCCESS
+    })
+    dispatch({
+      type: FETCH_TEAM_INFO,
+      payload: data
+    })
+  } catch (error){
+    dispatch({
+      type: AUTH_SIGN_IN_FAIL
+    })
+    dispatch(errorActionGlobalCreator(error));
+  }
 };
 
 /**
  * This action creator will be called when a user signs out.
  * @returns an action of type AUTH_SIGN_OUT.
  */
-export const signOut = () => {
-    return {
-        type: AUTH_SIGN_OUT
-    };
+export const signOut = () => async(dispatch) => {
+  try{
+    await api.logoutTeam()
+    dispatch ({
+      type: AUTH_SIGN_OUT
+    })
+
+    dispatch({
+      type: CLEAR_ERROR
+    })
+
+  } catch(err){
+    dispatch(errorActionGlobalCreator(err));
+  }
 };
+
+export const authorizeJWT = () => async(dispatch) => {
+  try{
+    const { data } = await api.getTeamJWT()
+    dispatch({
+      type: AUTH_SIGN_IN_SUCCESS
+    })
+    dispatch({
+      type: FETCH_TEAM_INFO,
+      payload: data
+    })
+  } catch(err){
+    dispatch(errorActionGlobalCreator(err));
+  }
+}

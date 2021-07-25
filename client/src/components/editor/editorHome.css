@@ -1,0 +1,12 @@
+.editor-home-container {
+    margin-top:10px;
+    background-color: darkgray;
+}
+.template_basic_nav_link{
+    color: #f2f2f2;
+
+}
+.template_basic_nav_link:hover{
+    color: #03A9F4;
+    text-decoration: none;
+}

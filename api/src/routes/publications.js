@@ -1,21 +1,61 @@
 /**
  * This module defines endpoints for the "/publications" route and exports its corresponding Router.
  */
-const publicationsRouter = require("express").Router();
+const publicationsRouter = require('express').Router();
 
 const publicationsController = require('../controllers/publications');
 
 const publicationsMiddleware = require('../middleware/publications');
 
-publicationsRouter.delete('/:id', publicationsController.deletePublication);
+const authMiddleware = require('../middleware/auth')
 
-publicationsRouter.patch('/:id', publicationsController.updatePublication);
+const teamMiddleware = require('../middleware/team');
 
-publicationsRouter.post('/', publicationsMiddleware.createPublicationValidation, publicationsController.createPublication);
+const mongooseMiddleware = require('../middleware/mongoose');
 
-publicationsRouter.get('/:id', publicationsController.readPublication);
+publicationsRouter.delete(
+  '/:id',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validatePublicationObjectId,
+  publicationsController.deletePublication
+);
 
-publicationsRouter.get('/team/:team_id', publicationsController.readAllPublicationsByTeam);
+publicationsRouter.patch(
+  '/:id',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validatePublicationObjectId,
+  publicationsController.updatePublication
+);
 
+publicationsRouter.post(
+  '/',
+  authMiddleware.cookieJwtAuth,
+  publicationsMiddleware.createPublicationValidation,
+  publicationsController.createPublication
+);
+
+publicationsRouter.get(
+  '/import/:gScholarUserId/:startFrom/validate/:team_id',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  publicationsMiddleware.validateAuthorId,
+  publicationsController.getGoogleScholarPublications
+);
+
+publicationsRouter.get(
+  '/team/:team_id',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  publicationsController.readAllPublicationsByTeam
+);
+
+publicationsRouter.post(
+  '/import/:team_id',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  publicationsController.importPublications
+);
 
 module.exports = publicationsRouter;
