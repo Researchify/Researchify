@@ -49,7 +49,7 @@ const cookieJwtAuth = (req, res, next) => {
             res.clearCookie('isLogin')
             return next(
                 fillErrorObject(403, 'Authorization error', [
-                    'User not authorized: Tokens expired, please login in again'])
+                    'User not authorized: Tokens expired, please login again'])
             );
         }
     }
