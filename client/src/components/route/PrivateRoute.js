@@ -2,7 +2,9 @@
  * Root component.
  */
 import { Switch, Redirect } from 'react-router-dom';
-
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
 // Pages 
 import Dashboard from '../dashboard/Dashboard';
 import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
@@ -13,8 +15,22 @@ import TeamPage from '../teamPage/TeamPage';
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
 import EditorLayoutRoute from '../layouts/editorLayout/EditorLayoutRoute';
+import { AUTH_SIGN_OUT } from '../../actions/types';
 
 const PrivateRoute = () => {
+  const dispatch = useDispatch()
+  const signInCookie = Cookies.get('isLogin') ? true : false;
+
+  useEffect(() => {
+    if(!signInCookie){
+      setTimeout(
+        dispatch({
+          type: AUTH_SIGN_OUT
+        }), 4000
+      )
+    }
+  }, [dispatch, signInCookie])
+
     return (
         <Switch>
           <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
@@ -31,8 +47,9 @@ const PrivateRoute = () => {
           <DashboardLayoutRoute path="/team" exact component={TeamPage} />
           <EditorLayoutRoute path="/editor" exact component={EditorHome} />
           <EditorLayoutRoute path="/editor/home" exact component={EditorHome} />
-          <Redirect to="/dashboard"/>
-        </Switch>
+          {/*  If login, any other route not stated above will be redirect dashbroad page */}
+          <Redirect to="/dashboard"/> 
+        </Switch> 
     );
   };
 

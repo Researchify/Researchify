@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 
 const { fillErrorObject } = require('../middleware/error');
 
-const { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry } = require('../config/tokenExpiry');
+const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry } = require('../config/tokenExpiry');
 
 /**
  * Handle login request from /team/login
@@ -38,7 +38,7 @@ const { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
       }
 
       const accessToken = jwt.sign({ team: jwtPayload }, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", {
-        expiresIn: aceessTokenExpiry
+        expiresIn: accessTokenExpiry
       });
       const refreshToken = jwt.sign({ team: jwtPayload }, process.env.JWT_SECRET_REFRESH_TOKEN || "JWT_SECRET_REFRESH_TOKEN", {
         expiresIn: refreshTokenExpiry

@@ -62,6 +62,7 @@ teamRouter.post('/', teamController.addTeam);
 
 teamRouter.patch(
   '/:team_id',
+  authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.updateTeam

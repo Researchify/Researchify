@@ -1,6 +1,9 @@
-const aceessTokenExpiry = '15m';
-const refreshTokenExpiry = '7d';
-const accessTokenCookieExpiry = 900000; // 15 min 
-const refreshTokenCookieExpiry = 604800000; // 7 days 
+const refreshTokenExpiryValue = 10080; // 7 days in minute 
+const cookiesExpiryValue = refreshTokenExpiryValue
 
-module.exports = { aceessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry }
+const accessTokenExpiry = '2s';
+const refreshTokenExpiry = '10s'//refreshTokenExpiryValue.toString() + 'm';
+const accessTokenCookieExpiry = cookiesExpiryValue * 600000;  
+const refreshTokenCookieExpiry = cookiesExpiryValue * 600000; 
+
+module.exports = { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshTokenCookieExpiry }

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { aceessTokenExpiry, accessTokenCookieExpiry } = require('../config/tokenExpiry');
+const { accessTokenExpiry, accessTokenCookieExpiry } = require('../config/tokenExpiry');
 
 const { fillErrorObject } = require('./error');
 
@@ -19,7 +19,6 @@ const cookieJwtAuth = (req, res, next) => {
         req.team = team;
         next();
     } catch (error){ // access token expire 
-        console.log('access token expired')
         // clear the expired access token 
         res.clearCookie('accessToken')
 
@@ -37,18 +36,17 @@ const cookieJwtAuth = (req, res, next) => {
 
             // re-gernerate the accessToken 
             const accessToken = jwt.sign({ team: team }, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", {
-                expiresIn: aceessTokenExpiry
+                expiresIn: accessTokenExpiry
             });
             res.cookie('accessToken', accessToken, { 
                 httpOnly: true,
-                maxAge: accessTokenCookieExpiry, // 5 mins
+                maxAge: accessTokenCookieExpiry, 
               });
             req.team = team;
             next();
         } catch (error){ // both access and refresh token expire 
             res.clearCookie('refreshToken')
             res.clearCookie('isLogin')
-            console.log('token clear')
             return next(
                 fillErrorObject(403, 'Authorization error', [
                     'User not authorized: Tokens expired, please login in again'])
