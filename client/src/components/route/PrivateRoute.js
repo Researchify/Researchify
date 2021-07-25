@@ -22,6 +22,8 @@ const PrivateRoute = () => {
   const signInCookie = Cookies.get('isLogin') ? true : false;
 
   useEffect(() => {
+    // after a user signIn, we need to keep track of the signInCookie as it might be removed after the tokens expire
+    // if that the case, a sign out action need to be dispatched 
     if(!signInCookie){
       setTimeout(
         dispatch({
