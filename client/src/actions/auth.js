@@ -2,7 +2,9 @@
  * This file houses our auth-related Action Creators.
  */
 import * as api from '../api';
-import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO } from './types';
+import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO, CLEAR_ERROR } from './types';
+import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
+
 
 /**
  * This action creator will be called when a user signs in.
@@ -15,19 +17,19 @@ export const signIn = (authData) => async(dispatch) => {
     dispatch ({
       type: AUTH_SIGN_IN_REQUEST
     })
-    const result = await api.loginTeam(authData)
+    const { data } = await api.loginTeam(authData)
     dispatch({
       type: AUTH_SIGN_IN_SUCCESS
     })
     dispatch({
       type: FETCH_TEAM_INFO,
-      payload: result.data
+      payload: data
     })
   } catch (error){
-    dispatch ({
-      type: AUTH_SIGN_IN_FAIL,
-      payload: error.response.data
+    dispatch({
+      type: AUTH_SIGN_IN_FAIL
     })
+    dispatch(errorActionGlobalCreator(error));
   }
 };
 
@@ -37,12 +39,31 @@ export const signIn = (authData) => async(dispatch) => {
  */
 export const signOut = () => async(dispatch) => {
   try{
-    const result = await api.logoutTeam()
-    console.log(result)
+    await api.logoutTeam()
     dispatch ({
       type: AUTH_SIGN_OUT
     })
-  } catch(error){
-    console.log(error.response.data)
+
+    dispatch({
+      type: CLEAR_ERROR
+    })
+
+  } catch(err){
+    dispatch(errorActionGlobalCreator(err));
   }
 };
+
+export const authorizeJWT = () => async(dispatch) => {
+  try{
+    const { data } = await api.getTeamJWT()
+    dispatch({
+      type: AUTH_SIGN_IN_SUCCESS
+    })
+    dispatch({
+      type: FETCH_TEAM_INFO,
+      payload: data
+    })
+  } catch(err){
+    dispatch(errorActionGlobalCreator(err));
+  }
+}

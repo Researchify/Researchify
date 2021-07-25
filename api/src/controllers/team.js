@@ -18,18 +18,9 @@ const { fillErrorObject } = require('../middleware/error');
 
 const bcrypt = require('bcrypt');
 
-const jwt = require('jsonwebtoken');
-
 const options = {
   headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
 };
-
-const {
-  accessTokenExpiry,
-  refreshTokenExpiry,
-  accessTokenCookieExpiry,
-  refreshTokenCookieExpiry,
-} = require('../config/tokenExpiry');
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
@@ -80,68 +71,13 @@ async function storeHandle(req, res, next) {
 }
 
 /**
- * Gets the team document from the database on /team/:team_id.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the found team document
- * @returns 200: the team was found
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
+ * Gets the team document from the auth middleware
+ * @param {*} req request object, containing the team object 
+ * @param {*} res response object, the team object 
+ * @returns 200: return the team passed by the auth middleware 
  */
-async function getTeam(req, res) {
-  console.log(req.foundTeam);
-  return res.status(200).send(req.foundTeam);
-}
-
-/**
- * Handle login request from /team/login
- * @param {*} req request object, containing team email and password in the body as JSON
- * @param {*} res response object, the found teamId
- * @returns 200: the team was found
- * @returns 404: team is not found
- */
-async function loginTeam(req, res) {
-  try {
-    const foundTeam = await Team.findOne({ email: req.body.email });
-    if (!foundTeam) {
-      return res.status(400).send('Incorrect email/password'); // user not found
-    }
-    if (await bcrypt.compare(req.body.password, foundTeam.password)) {
-      const teamObj = foundTeam.toObject(); // converts a mongoose object to a plain object
-      // remove sensitive data
-      delete teamObj.password;
-      const accessToken = jwt.sign(
-        teamObj,
-        process.env.JWT_SECRET_1 || 'JWT_SECRET_1',
-        {
-          expiresIn: accessTokenExpiry,
-        }
-      );
-      const refreshToken = jwt.sign(
-        teamObj,
-        process.env.JWT_SECRET_2 || 'JWT_SECRET_2',
-        {
-          expiresIn: refreshTokenExpiry,
-        }
-      );
-      res.cookie('accessToken', accessToken, {
-        httpOnly: true,
-        maxAge: accessTokenCookieExpiry, // 5 mins
-      });
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        maxAge: refreshTokenCookieExpiry, // 1 year
-      });
-      return res.status(200).send({
-        teamId: teamObj._id,
-        email: teamObj.email,
-        teamName: teamObj.teamName,
-        orgName: teamObj.orgName,
-      });
-    }
-    return res.status(403).send('Incorrect email/password'); // incorrect password
-  } catch (error) {
-    return res.status(422).json(`Error: ${error.message}`);
-  }
+function getTeam(req, res) {
+  return res.status(200).send(req.team);
 }
 
 /**
@@ -175,8 +111,8 @@ async function addTeam(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function readTeamMembersByTeam(req, res) {
-  let foundTeam = req.foundTeam;
+function readTeamMembersByTeam(req, res) {
+  const foundTeam = req.foundTeam;
   return res.status(200).send(foundTeam.teamMembers);
 }
 
@@ -197,7 +133,7 @@ function createTeamMember(req, res, next) {
   foundTeam.teamMembers.push(teamMember);
   foundTeam
     .save()
-    .then(() => res.status(200).json(foundTeam.teamMembers))
+    .then(() => res.status(200).json(teamMember))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
@@ -319,29 +255,6 @@ function updateTeam(req, res, next) {
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
-/**
- * Update the a logout request on /team/logout
- * @param {*} req request object
- * @param {*} res response object
- * @returns 200: logout successfully
- * @returns 404: error occur
- */
-async function logoutTeam(req, res) {
-  try {
-    res.cookie('accessToken', '', {
-      httpOnly: true,
-      maxAge: 0,
-    });
-    res.cookie('refreshToken', '', {
-      httpOnly: true,
-      maxAge: 0,
-    });
-    res.status(200).json('Logout Successfully');
-  } catch (error) {
-    return res.status(422).json(`Error: ${error.message}`);
-  }
-}
-
 module.exports = {
   storeHandle,
   getTeam,
@@ -350,9 +263,7 @@ module.exports = {
   readTeamMembersByTeam,
   deleteTeamMember,
   updateTeamMember,
+  updateTeam,
   getGHAccessToken,
   deployToGHPages,
-  loginTeam,
-  updateTeam,
-  logoutTeam,
 };

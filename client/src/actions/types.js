@@ -44,3 +44,4 @@ export const DEPLOY_FAIL = 'DEPLOY_FAIL';
 export const TEAM_ERROR = 'TEAM_ERROR'; // use this if you want to create specific error handling
 export const PUBLICATION_ERROR = 'PUBLICATION_ERROR'; // use this if you want to create specific error handling
 export const RESEARCHIFY_API_ERROR = 'RESEARCHIFY_API_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';

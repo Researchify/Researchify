@@ -34,7 +34,7 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
   switch (action.type) {
     case FETCH_TEAM_INFO:
       return { ...state, 
-        teamId: action.payload.teamId, 
+        teamId: action.payload._id, 
         email: action.payload.email,
         teamName: action.payload.teamName, 
         orgName: action.payload.orgName

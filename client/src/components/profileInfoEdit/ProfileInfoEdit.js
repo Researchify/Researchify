@@ -39,20 +39,20 @@ const ProfileInfoEdit = () => {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      updateProfile(teamId, profileData);
+      dispatch(updateTeam(teamId, profileData));
     }
     setValidated(true);
   };
 
-  const updateProfile = (teamId, profileData) => {
-    try {
-      dispatch(updateTeam(teamId, profileData))
-      toast.success('Profile has been successfully updated');
-    } catch (error) {
-      console.error(error);
-      toast.error('Profile has not been updated');
-    }
-  };
+  // const updateProfile = (teamId, profileData) => {
+  //   try {
+  //     dispatch(updateTeam(teamId, profileData))
+  //     toast.success('Profile has been successfully updated');
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error('Profile has not been updated');
+  //   }
+  // };
 
   const profileDeleted = () => {
     console.error(

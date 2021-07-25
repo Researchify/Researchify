@@ -91,11 +91,9 @@ function updatePublication(req, res, next) {
  */
 function createPublication(req, res, next) {
   const publication = req.body;
-  console.log(publication.teamId);
   const result = Team.findById({ _id: publication.teamId }).catch((err) =>
     next(fillErrorObject(500, 'Server error', [err.errors]))
   );
-
   if (result == null) {
     next(fillErrorObject(404, 'Validation error', ['Team was not found']));
   } else {

@@ -10,6 +10,7 @@ const connectDb = require('./config/db');
 const logger = require('./config/log');
 const publicationsRouter = require('./routes/publications');
 const teamRouter = require('./routes/team');
+const authRouter = require('./routes/auth');
 const themeRouter = require('./routes/theme');
 
 // Connect to the database
@@ -31,6 +32,7 @@ app.get('/', (req, res) => res.send('You have reached the Researchify API'));
 // Use the routes
 app.use('/publications', publicationsRouter);
 app.use('/team', teamRouter);
+app.use('/auth', authRouter);
 app.use('/theme', themeRouter);
 
 // error handler middleware
