@@ -10,7 +10,7 @@ const cookieJwtAuth = (req, res, next) => {
     if (!accessToken){ 
         return next(
             fillErrorObject(403, 'Authorization error',[
-                'User not authorized: access token does not exist'])
+                'User not authorized: Please login again'])
         );
     }
 
@@ -27,7 +27,7 @@ const cookieJwtAuth = (req, res, next) => {
         if (!refreshToken){ 
             return next(
                 fillErrorObject( 403, 'Authorization error', [
-                    'User not authorized: refresh token does not exist'])
+                    'User not authorized: Please login again'])
             );
         }
         try{
@@ -49,7 +49,7 @@ const cookieJwtAuth = (req, res, next) => {
             res.clearCookie('isLogin')
             return next(
                 fillErrorObject(403, 'Authorization error', [
-                    'User not authorized: Tokens expired, please login again'])
+                    'User not authorized: Please login again'])
             );
         }
     }
