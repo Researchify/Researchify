@@ -41,3 +41,4 @@ export const DELETE_TEAM_MEMBER = 'DELETE_TEAM_MEMBER';
 export const TEAM_ERROR = 'TEAM_ERROR'; // use this if you want to create specific error handling
 export const PUBLICATION_ERROR = 'PUBLICATION_ERROR'; // use this if you want to create specific error handling
 export const RESEARCHIFY_API_ERROR = 'RESEARCHIFY_API_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';

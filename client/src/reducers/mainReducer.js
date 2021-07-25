@@ -1,4 +1,4 @@
-import { RESEARCHIFY_API_ERROR } from '../actions/types';
+import { CLEAR_ERROR, RESEARCHIFY_API_ERROR } from '../actions/types';
 
 import { errorReducer } from '../error/errorReduxFunctions';
 
@@ -12,6 +12,8 @@ const mainReducer = (state = INITIAL_TEAM_STATE, action) => {
       return {
         ...errorReducer(state, action),
       };
+    case CLEAR_ERROR:
+      return {...state, error: null }
     default:
       return state;
   }
