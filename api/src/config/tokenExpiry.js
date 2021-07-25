@@ -1,3 +1,6 @@
+// Note: both cookies expiry values should be the same or longer than the refresh token expiry
+// whereas the access token expiry should be less than the above three.
+
 const refreshTokenExpiryValue = 10080; // 7 days in minute 
 const cookiesExpiryValue = refreshTokenExpiryValue
 
