@@ -44,6 +44,8 @@ const ProfileInfoEdit = () => {
     setValidated(true);
   };
 
+
+  // TODO: the error message won't appear on the screen even if the update team Api request not successfully updated
   const updateProfile = (teamId, profileData) => {
     try {
       dispatch(updateTeam(teamId, profileData))
