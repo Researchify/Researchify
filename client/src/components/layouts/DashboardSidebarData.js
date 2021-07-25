@@ -11,7 +11,8 @@ import {
   BsPeople,
   BsGearFill,
   BsFillQuestionCircleFill,
-  BsBoxArrowLeft
+  BsUpload,
+  BsBoxArrowLeft,
 } from 'react-icons/bs';
 import { signOut } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
@@ -47,6 +48,11 @@ const DashboardSidebarData = () => {
       title: 'Team Member',
       icon: <BsPeople />,
       link: '/team',
+    },
+    {
+      title: 'Deploy Website',
+      icon: <BsUpload />,
+      link: '/deploy',
     },
     {
       title: 'Settings',

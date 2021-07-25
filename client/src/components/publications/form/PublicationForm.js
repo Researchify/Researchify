@@ -7,7 +7,7 @@ import {
   createPublication,
 } from '../../../actions/publications';
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MainInfoPage from './MainInfoPage';
 import CategoryPage from './CategoryPage';
 import { categoryType } from '../../../config/publications';

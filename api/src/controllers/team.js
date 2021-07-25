@@ -8,6 +8,12 @@ const Team = require('../models/team.model');
 
 const mongoose = require('mongoose');
 
+const {
+  githubAccessTokenUrlStart,
+  githubAccessTokenUrlEnd,
+  schollyHost,
+} = require('../config/deploy');
+
 const { fillErrorObject } = require('../middleware/error');
 
 const bcrypt = require('bcrypt');
@@ -171,6 +177,64 @@ function updateTeamMember(req, res, next) {
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
+async function getGHAccessToken(req, res) {
+  const code = req.params.code;
+  console.log(req.params.code);
+
+  const response = await axios({
+    url: githubAccessTokenUrlStart + code + githubAccessTokenUrlEnd,
+    method: 'post',
+    headers: { Accept: 'application/json' },
+  });
+  console.log(response.data);
+
+  if (response.data.error) {
+    return res.status(400).json(response.data);
+  }
+
+  return res.status(200).json(response.data);
+}
+
+async function deployToGHPages(req, res) {
+  const ghToken = req.body.ghToken;
+  const teamId = req.params.team_id;
+  const publications = req.body.publications;
+  const twitterHandle = req.body.twitterHandle;
+
+  // call github API to get username
+  const response = await axios.get('https://api.github.com/user', {
+    headers: { Authorization: 'token ' + ghToken },
+  });
+
+  if (response.data.errors) {
+    return res.status(400).send('Error: ' + response.data.errors[0].detail);
+  }
+
+  const ghUser = response.data.login;
+  console.log(ghUser);
+
+  const body = {
+    ghUsername: ghUser,
+    ghToken: ghToken,
+    teamTwitterHandle: twitterHandle,
+    teamPublications: publications,
+  };
+
+  try {
+    const schollyResponse = await axios({
+      url: schollyHost + '/deploy/' + teamId,
+      method: 'post',
+      data: body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res.status(200).json(schollyResponse.data);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 /**
  * Update the team from the database on /team/:team_id
  * @param {} req request object, containing team id in the url
@@ -199,5 +263,7 @@ module.exports = {
   readTeamMembersByTeam,
   deleteTeamMember,
   updateTeamMember,
-  updateTeam
+  updateTeam,
+  getGHAccessToken,
+  deployToGHPages,
 };

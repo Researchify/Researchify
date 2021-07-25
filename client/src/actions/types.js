@@ -36,6 +36,9 @@ export const GET_TEAM_MEMBERS_BY_TEAM_ID = 'GET_TEAM_MEMBERS_BY_TEAM_ID';
 export const CREATE_TEAM_MEMBER = 'CREATE_TEAM_MEMBER';
 export const UPDATE_TEAM_MEMBER = 'UPDATE_TEAM_MEMBER';
 export const DELETE_TEAM_MEMBER = 'DELETE_TEAM_MEMBER';
+export const GET_GH_ACCESS_TOKEN = 'GET_GH_ACCESS_TOKEN';
+export const DEPLOY_SUCCESS = 'DEPLOY_SUCCESS';
+export const DEPLOY_FAIL = 'DEPLOY_FAIL';
 
 // ERRORS
 export const TEAM_ERROR = 'TEAM_ERROR'; // use this if you want to create specific error handling

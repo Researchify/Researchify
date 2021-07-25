@@ -58,6 +58,16 @@ teamRouter.patch(
   teamController.updateTeamMember
 );
 
+teamRouter.get(
+  '/:team_id/gh_auth/:code',
+  teamController.getGHAccessToken
+);
+
+teamRouter.post(
+  '/:team_id/deploy',
+  teamController.deployToGHPages
+);
+
 teamRouter.post('/', teamController.addTeam);
 
 teamRouter.patch(
