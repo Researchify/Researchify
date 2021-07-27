@@ -20,15 +20,9 @@ var ObjectId = require('mongoose').Types.ObjectId;
  */
 async function getWebPageDetails(req, res) {
   try {
-    console.log(
-      `DEBUG Inside getWebPageDetails (team id): ${req.params.team_id}`
-    );
     const websiteInfo = await Website.findOne({
-      teamId: new ObjectId(req.params.teamId),
+      teamId: new ObjectId(req.params.team_id),
     });
-    console.log(
-      `DEBUG Inside getWebPageDetails (website info): ${websiteInfo}`
-    );
     if (!websiteInfo) {
       return res
         .status(404)
@@ -52,7 +46,6 @@ async function createInitialWebsiteInfo(info) {
   Website.findOne({ teamId: info.teamId })
     .then((website) => {
       if (website == null) {
-        console.log(info);
         // Create Website data
         Website.create(info).catch((err) => {
           throw err;
@@ -74,9 +67,7 @@ async function createInitialWebsiteInfo(info) {
  */
 async function addWebPage(req, res, next) {
   const { team_id } = req.params;
-  console.log('Pirnting req:');
-  console.log(req.body);
-  console.log(req.body.pageName);
+
   Website.findOne({ teamId: team_id })
     .then((website) => {
       if (website == null) {
@@ -87,12 +78,10 @@ async function addWebPage(req, res, next) {
         };
         try {
           createInitialWebsiteInfo(webInfo);
-          console.log('COmplete');
         } catch (err) {
           next(fillErrorObject(500, 'Server error', [err.errors]));
         }
       } else {
-        console.log(`DEBUG: Website: ${website}`);
         website.pages.push(req.body.pageName);
 
         try {
@@ -122,11 +111,11 @@ async function deleteWebPage(req, res, next) {
       if (website == null) {
         res.status(400).send('This team does not have a website created');
       } else {
-        console.log(`DEBUG: Website: ${website}`);
-        index = website.pages.indexOf(req.body.pageName);
 
+        index = website.pages.indexOf(req.body.pageName);
         try {
           website.pages.splice(index, 1);
+          
           // update in db
           website.save();
           return res.status(200).json(website);

@@ -25,7 +25,7 @@ const Dashboard = () => {
   const repoCreated = useSelector((state) => state.team.repoCreated);
   const teamId = useSelector((state) => state.team.teamId);
   const currentWebPages = useSelector((state) => state.website.pages);
-  console.log(currentWebPages);
+
   // All our web-page offerings
   const availablePages = useSelector((state) => state.website.availablePages);
 
@@ -36,7 +36,7 @@ const Dashboard = () => {
 
   const pagePlaceholder = 'Select page to add';
   const [selectedPage, setSelectedPage] = useState(pagePlaceholder);
-
+  
   // To control disabling the 'Next' Button in the pop-up
   const [displayButton, setDisplayButton] = useState(true);
 
@@ -70,8 +70,6 @@ const Dashboard = () => {
     setSelectedPage(pageName);
     showDeleteModal();
   };
-
-  console.log(useSelector((state) => state.website));
 
   // Function runs when user selects a web-page to add to their website
   const onEditPage = () => {

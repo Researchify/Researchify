@@ -24,12 +24,12 @@ import {
    */
   const websiteReducer = (state = INITIAL_WEBSITE_STATE, action) => {
     const payload = action.payload;
-    console.log(payload);
+
     switch (action.type) {
       case CREATE_WEBSITE:
         return { ...state, url: payload.url, title: payload.title };
       case ADD_WEBPAGE:
-        return { ...state, pages: state.pages.push(payload) };
+        return { ...state, pages: [...state.pages, payload] };
       case DELETE_WEBPAGE:
         return {
           ...state,

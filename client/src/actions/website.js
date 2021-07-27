@@ -53,7 +53,10 @@ export const addPage = (teamId, pageName) => async (dispatch) => {
  * @param teamInfo contains teamName, orgName and email
  */
 export const deletePage = (teamId, pageName) => async (dispatch) => {
-  await api.deleteWebPage(teamId, pageName).then(
+  const apiBody = {
+    pageName: pageName,
+  };
+  await api.deleteWebPage(teamId, apiBody).then(
     dispatch({
       type: DELETE_WEBPAGE,
       payload: pageName,
