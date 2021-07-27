@@ -12,6 +12,7 @@ const publicationsRouter = require('./routes/publications');
 const teamRouter = require('./routes/team');
 const authRouter = require('./routes/auth');
 const themeRouter = require('./routes/theme');
+const websiteRouter = require('./routes/website.js');
 
 // Connect to the database
 connectDb();
@@ -34,6 +35,7 @@ app.use('/publications', publicationsRouter);
 app.use('/team', teamRouter);
 app.use('/auth', authRouter);
 app.use('/theme', themeRouter);
+app.use('/clientWebsite', websiteRouter);
 
 // error handler middleware
 // eslint-disable-next-line no-unused-vars

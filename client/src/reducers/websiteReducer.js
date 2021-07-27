@@ -1,23 +1,50 @@
 /**
- * This file exports website reducer that will handle all dispatched website-related actions.
+ * This file exports our team reducer that will handle all dispatched team-related actions.
  */
- import {CREATE_WEBSITE, DELETE_WEBSITE} from "../actions/types";
-
-
- const INITIAL_WEBSITE_STATE = {isCreated: false};
- 
- /**
-  * Handle all website-related actions
-  */
- const websiteReducer = (state = INITIAL_WEBSITE_STATE, action) => {
-     switch (action.type) {
-         case CREATE_WEBSITE:
-             return {isCreated: true};
-         case DELETE_WEBSITE:
-             return {isCreated: false};
-         default:
-             return state;
-     }
- };
- 
- export default websiteReducer;
+import {
+    CREATE_WEBSITE,
+    ADD_WEBPAGE,
+    DELETE_WEBPAGE,
+    FETCH_WEBSITE_INFO,
+  } from '../actions/types';
+  
+  const INITIAL_WEBSITE_STATE = {
+    url: '',
+    title: '',
+    pages: [],
+    availablePages: ['PUBLICATIONS', 'TEAM'],
+  };
+  
+  /**
+   * This websiteReducer will handle all dispatched client website-related actions, i.e. CREATE_WEBSITE and ADD_WEBPAGE.
+   *
+   * @param state the state for a client website in our application, initialized to INITIAL_WEBSITE_STATE.
+   * @param action the action that was dispatched, and now input into this reducer.
+   * @returns updated state.
+   */
+  const websiteReducer = (state = INITIAL_WEBSITE_STATE, action) => {
+    const payload = action.payload;
+    console.log(payload);
+    switch (action.type) {
+      case CREATE_WEBSITE:
+        return { ...state, url: payload.url, title: payload.title };
+      case ADD_WEBPAGE:
+        return { ...state, pages: state.pages.push(payload) };
+      case DELETE_WEBPAGE:
+        return {
+          ...state,
+          pages: state.pages.filter((page) => page !== payload),
+        };
+      case FETCH_WEBSITE_INFO:
+        return {
+          ...state,
+          url: payload.url ?? state.url,
+          title: payload.title ?? state.title,
+          pages: payload.pages,
+        };
+      default:
+        return state;
+    }
+  };
+  
+  export default websiteReducer;
