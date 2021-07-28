@@ -22,7 +22,6 @@ const DeployPage = () => {
     // github returns a code in the url after user logs in
     const url = window.location.href;
     const hasCode = url.includes('?code=');
-    console.log(teamId);
     if (hasCode && !retrievedAccessToken && teamId) {
       const code = url.split('?code=')[1];
       // we use this code to exchange an access token
@@ -66,8 +65,6 @@ const DeployPage = () => {
 
   return (
     <>
-      {/* <GitHubLoginButton />
-      <DeployButton />{' '} */}
       <ConditionalWrapper
         condition={retrievedAccessToken}
         wrapper={(children) => <DeployButton> {children}</DeployButton>}
