@@ -34,7 +34,6 @@ const options = {
 async function storeHandle(req, res, next) {
   const { twitterHandle: handle } = req.body;
   let foundTeam = req.foundTeam;
-  console.log('in here');
 
   if (handle.length == 0) {
     // remove the handle from the doc

@@ -31,6 +31,7 @@ const DeployPage = () => {
       // we refreshed so we should clear local storage
       localStorage.clear();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, teamId]);
 
   const GitHubLoginButton = () => (
