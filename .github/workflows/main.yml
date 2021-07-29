@@ -98,7 +98,7 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: "researchify"
-          environment_name: "Researchify-env"
+          environment_name: "Researchify-env-2"
           version_label: 1
           region: "ap-southeast-2"
           deployment_package: deploy.zip
