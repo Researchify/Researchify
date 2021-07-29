@@ -1,6 +1,6 @@
 name: Researchify CI
 
-on: [push, pull_request, workflow_dispatch]
+on: [ push, pull_request, workflow_dispatch ]
 
 jobs:
   static_analysis:
@@ -91,7 +91,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Generate Deployment Package
-        run: zip -r deploy.zip . -x '*.git*' '**/node_modules/*'
+        #        run: zip -r deploy.zip . -x '*.git*' '**/node_modules/*'
+        run: zip -r deploy.zip Dockerrun.aws.json
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v16
         with:
