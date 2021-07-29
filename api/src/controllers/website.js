@@ -2,13 +2,10 @@
  * This module contains handlers for the "clientWebsite" route.
  * @module website
  */
-const axios = require('axios');
 
 const Website = require('../models/website.model');
 
 const { fillErrorObject } = require('../middleware/error');
-
-var ObjectId = require('mongoose').Types.ObjectId;
 
 /**
  * Handle GET request from /clientWebsite/:team_id
@@ -19,21 +16,22 @@ var ObjectId = require('mongoose').Types.ObjectId;
  * @returns 500: server error
  */
 async function getWebPageDetails(req, res) {
-  try {
-    const websiteInfo = await Website.findOne({
-      teamId: new ObjectId(req.params.team_id),
+  Website.findOne({
+    teamId: req.params.team_id,
+  })
+    .then((websiteInfo) => {
+      if (!websiteInfo) {
+        return res
+          .status(404)
+          .send(
+            'No Website info found for this Team (This is likely because they have not added any website information yet)'
+          );
+      }
+      return res.status(200).send(websiteInfo);
+    })
+    .catch((error) => {
+      return res.status(500).json(`Server Error: ${error.message}`);
     });
-    if (!websiteInfo) {
-      return res
-        .status(404)
-        .send(
-          'No Website info found for this Team (This is likely because they have not added any website information yet)'
-        );
-    }
-    return res.status(200).send(websiteInfo);
-  } catch (error) {
-    return res.status(500).json(`Server Error: ${error.message}`);
-  }
 }
 
 /**
@@ -76,21 +74,21 @@ async function addWebPage(req, res, next) {
           teamId: team_id,
           pages: [req.body.pageName],
         };
-        try {
-          createInitialWebsiteInfo(webInfo);
-        } catch (err) {
+        createInitialWebsiteInfo(webInfo).catch((err) => {
           next(fillErrorObject(500, 'Server error', [err.errors]));
-        }
+        });
       } else {
         website.pages.push(req.body.pageName);
 
-        try {
-          // update in db
-          website.save();
-          return res.status(200).json(website);
-        } catch (err) {
-          return res.status(500).send(`Error: ${err.message}`);
-        }
+        // update in db
+        website
+          .save()
+          .then((website) => {
+            return res.status(200).json(website);
+          })
+          .catch((err) => {
+            return res.status(500).send(`Error: ${err.message}`);
+          });
       }
     })
     .catch((err) => res.status(500).json('Server Error: ' + err));
@@ -111,11 +109,10 @@ async function deleteWebPage(req, res, next) {
       if (website == null) {
         res.status(400).send('This team does not have a website created');
       } else {
-
         index = website.pages.indexOf(req.body.pageName);
         try {
           website.pages.splice(index, 1);
-          
+
           // update in db
           website.save();
           return res.status(200).json(website);
