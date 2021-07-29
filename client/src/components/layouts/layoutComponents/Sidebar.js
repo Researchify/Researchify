@@ -1,19 +1,19 @@
 /**
  * This file exports Sidebar component for layouts
  */
-import './Sidebar.css';
-import { Link, useLocation } from 'react-router-dom';
+import './Sidebar.css'
+import { Link, useLocation } from 'react-router-dom'
+
 const Sidebar = ({ data }) => {
-  let location = useLocation();
+  let location = useLocation()
 
   return (
     <div className="Sidebar">
       <ul className="SidebarList">
         {data.map((val, key) => {
           return (
-            <Link to={val.link}>
+            <Link to={val.link} key={key}>
               <li
-                key={key}
                 className="row"
                 id={location.pathname === val.link ? 'active' : ''}
                 onClick={val.action}
@@ -24,11 +24,11 @@ const Sidebar = ({ data }) => {
                 <div id="title">{val.title}</div>
               </li>
             </Link>
-          );
+          )
         })}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
