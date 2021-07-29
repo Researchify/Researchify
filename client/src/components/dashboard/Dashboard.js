@@ -12,11 +12,11 @@ import {
   DropdownButton,
   Dropdown,
 } from 'react-bootstrap';
+import { BsPencilSquare } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
 import { addPage, deletePage } from '../../actions/website';
-
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -29,14 +29,14 @@ const Dashboard = () => {
   // All our web-page offerings
   const availablePages = useSelector((state) => state.website.availablePages);
 
-   // webpageOfferings = availablePages - currentWebPages
-   const webpageOfferings = availablePages.filter(
+  // webpageOfferings = availablePages - currentWebPages
+  const webpageOfferings = availablePages.filter(
     (page) => !currentWebPages.includes(page)
   );
 
   const pagePlaceholder = 'Select page to add';
   const [selectedPage, setSelectedPage] = useState(pagePlaceholder);
-  
+
   // To control disabling the 'Next' Button in the pop-up
   const [displayButton, setDisplayButton] = useState(true);
 
@@ -71,14 +71,19 @@ const Dashboard = () => {
     showDeleteModal();
   };
 
-  // Function runs when user selects a web-page to add to their website
-  const onEditPage = () => {
-    if (selectedPage === 'PUBLICATIONS') {
+  const directToAnotherPage = (pageName) => {
+    if (pageName === 'PUBLICATIONS') {
       history.push(`/publications`);
-    } else if (selectedPage === 'TEAM') {
+    } else if (pageName === 'TEAM') {
       history.push(`/team`);
     }
-    dispatch(addPage(teamId, selectedPage));
+  };
+
+  // Function runs when user selects a web-page to add to their website
+  const onEditPage = () => {
+    dispatch(addPage(teamId, selectedPage)).then(() => {
+      directToAnotherPage(selectedPage);
+    });
   };
 
   const handlePageSelection = (e) => {
@@ -183,6 +188,15 @@ const Dashboard = () => {
                         onClick={() => promptDeleteConfirmation(webPage)}
                       >
                         Delete
+                      </Button>
+                      <Button
+                        variant="outline-success"
+                        className="action float-right mx-2"
+                        onClick={() => {
+                          directToAnotherPage(webPage);
+                        }}
+                      >
+                        <BsPencilSquare />
                       </Button>
                     </td>
                   </tr>
