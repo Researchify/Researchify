@@ -35,16 +35,16 @@ jobs:
       - name: Run Tests on React Client
         run: npm run testcov
         working-directory: ./client
-  trigger-deploy-doc:
-    name: Generate and deploy docs for researchify.github.io
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.DOCS_WORKFLOW_PAT }}
-          repository: Researchify/researchify.github.io
-          event-type: trigger-deploy
+#   trigger-deploy-doc:
+#     name: Generate and deploy docs for researchify.github.io
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/main'
+#     steps:
+#       - uses: peter-evans/repository-dispatch@v1
+#         with:
+#           token: ${{ secrets.DOCS_WORKFLOW_PAT }}
+#           repository: Researchify/researchify.github.io
+#           event-type: trigger-deploy
   publish:
     name: Publish Images to Docker Hub
     needs:
