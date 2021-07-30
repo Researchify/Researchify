@@ -7,9 +7,6 @@ import { Button } from 'react-bootstrap';
 
 const DeployPage = () => {
   const dispatch = useDispatch();
-  // const teamId = useSelector((state) => state.team.teamId);
-  // FIXME: this is hardcoded because redirect from github loses team info after the redirect
-  // this issue should be fixed once authorization and jwt is implemented
   const teamId = useSelector((state) => state.team.teamId);
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken
