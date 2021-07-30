@@ -22,18 +22,9 @@ import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
  * Adds a new team to redux store and database.
  * @param teamInfo contains teamName, orgName and email
  */
-export const addTeamInfo = (teamInfo) => async (dispatch) => {
+export const registerTeam = (teamInfo) => async (dispatch) => {
   try{
-    const teamId = await api.addTeam(teamInfo);
-    const teamData = {
-      ...teamInfo,
-      teamId: teamId,
-    };
-    // TODO: do we need to dispatch this action? 
-    dispatch({
-      type: ADD_TEAM,
-      payload: teamData,
-    });
+    await api.registerTeam(teamInfo);
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }

@@ -7,7 +7,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
-import { addTeamInfo } from '../../actions/team';
+import { registerTeam } from '../../actions/team';
 import './Register.css';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -35,21 +35,18 @@ export default function RegistrationForm() {
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.stopPropagation();
-    } else {
-      const teamData = {
-        email: inputs.email,
-        teamName: inputs.teamName,
-        orgName: inputs.orgName,
-        password: inputs.password,
-        repoCreated: false,
-      };
-      dispatch(addTeamInfo(teamData))
-        .then(() => history.push('/dashboard'))
-        .catch((err) => {
-          console.error(err);
-          toast.error('Could not register');
-        });
+    } 
+    if (inputs.password !== inputs.confirmPassword){
+      return toast.error('Passwords does not match');
     }
+    const teamData = {
+      email: inputs.email,
+      teamName: inputs.teamName,
+      orgName: inputs.orgName,
+      password: inputs.password,
+      repoCreated: false,
+    };
+    dispatch(registerTeam(teamData))
     setValidated(true);
   };
 

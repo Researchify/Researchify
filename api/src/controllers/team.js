@@ -86,20 +86,26 @@ function getTeam(req, res) {
  * @param {*} res response object - updated team object
  * @returns 201: returns updated team details
  */
-async function addTeam(req, res, next) {
+function addTeam(req, res, next) {
   Team.findOne({ email: req.body.email })
     .then((foundTeam) => {
       if (foundTeam) {
-        return res.status(400).send('Email had been registered');
+        return next(
+          fillErrorObject(400, 'User input error', [
+            'Email had been registered',
+          ])
+        );
       }
+      bcrypt.genSalt().then((salt) => 
+        bcrypt.hash(req.body.password, salt).then((hashedPassword) => {
+          const hashedTeam = { ...req.body, password: hashedPassword };
+          Team.create(hashedTeam)
+            .then((createdTeam) => {
+              return res.status(201).json(createdTeam._id)
+            })
+        })
+      );
     })
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
-
-  const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-  const hashedTeam = { ...req.body, password: hashedPassword };
-  Team.create(hashedTeam)
-    .then((createdTeam) => res.status(201).json(createdTeam._id))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
