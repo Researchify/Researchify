@@ -1,11 +1,11 @@
 /**
  * This file exports Sidebar component for layouts
  */
-import './Sidebar.css'
-import { Link, useLocation } from 'react-router-dom'
+import './Sidebar.css';
+import { Link, useLocation } from 'react-router-dom';
 
-const Sidebar = ({ data }) => {
-  let location = useLocation()
+const Sidebar = ({data}) => {
+  let location = useLocation();
 
   return (
     <div className="Sidebar">
@@ -24,11 +24,11 @@ const Sidebar = ({ data }) => {
                 <div id="title">{val.title}</div>
               </li>
             </Link>
-          )
+          );
         })}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
