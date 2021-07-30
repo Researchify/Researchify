@@ -15,7 +15,7 @@ const { fillErrorObject } = require('../middleware/error');
  * @returns 404: team's website info is not found
  * @returns 500: server error
  */
-async function getWebPageDetails(req, res) {
+function getWebPageDetails(req, res) {
   Website.findOne({
     teamId: req.params.team_id,
   })
@@ -40,7 +40,7 @@ async function getWebPageDetails(req, res) {
  * @returns 200: Initial website Info successfully added to DB
  * @returns 400: Team Id given already has a website created
  */
-async function createInitialWebsiteInfo(info) {
+function createInitialWebsiteInfo(info) {
   Website.findOne({ teamId: info.teamId })
     .then((website) => {
       if (website == null) {
@@ -63,7 +63,7 @@ async function createInitialWebsiteInfo(info) {
  * @returns 400: Team Id given does not have a website created yet
  * @returns 500: Server error while saving new page name to DB
  */
-async function addWebPage(req, res, next) {
+function addWebPage(req, res, next) {
   const { team_id } = req.params;
 
   Website.findOne({ teamId: team_id })
@@ -102,14 +102,14 @@ async function addWebPage(req, res, next) {
  * @returns 400: Team Id given does not have a website created yet
  * @returns 500: Server error while saving new page name to DB
  */
-async function deleteWebPage(req, res, next) {
+function deleteWebPage(req, res, next) {
   const { team_id } = req.params;
   Website.findOne({ teamId: team_id })
     .then((website) => {
       if (website == null) {
         res.status(400).send('This team does not have a website created');
       } else {
-        index = website.pages.indexOf(req.body.pageName);
+        const index = website.pages.indexOf(req.body.pageName);
         try {
           website.pages.splice(index, 1);
 

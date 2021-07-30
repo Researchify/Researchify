@@ -56,7 +56,7 @@ export const deletePage = (teamId, pageName) => async (dispatch) => {
   const apiBody = {
     pageName: pageName,
   };
-  await api.deleteWebPage(teamId, apiBody).then(
+  api.deleteWebPage(teamId, apiBody).then(
     dispatch({
       type: DELETE_WEBPAGE,
       payload: pageName,
