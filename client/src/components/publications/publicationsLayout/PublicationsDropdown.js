@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { sortPublications } from '../../../actions/publications'
-import { useDispatch } from 'react-redux'
-import { Dropdown, DropdownButton } from 'react-bootstrap'
+import React, { useState } from 'react';
+import { sortPublications } from '../../../actions/publications';
+import { useDispatch } from 'react-redux';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 const PublicationsDropdown = ({
   allLayouts,
@@ -10,8 +10,8 @@ const PublicationsDropdown = ({
   teamPublications,
   toggleSortingOptions,
 }) => {
-  const [sortingOption, setSortingOption] = useState('Year')
-  const dispatch = useDispatch()
+  const [sortingOption, setSortingOption] = useState('Year');
+  const dispatch = useDispatch();
 
   return (
     <div className="mb-3 mt-3 text-center">
@@ -41,8 +41,8 @@ const PublicationsDropdown = ({
           as="button"
           value="Year"
           onClick={(e) => {
-            dispatch(sortPublications(teamPublications, e.target.value))
-            setSortingOption(e.target.value)
+            dispatch(sortPublications(teamPublications, e.target.value));
+            setSortingOption(e.target.value);
           }}
         >
           Year
@@ -51,8 +51,8 @@ const PublicationsDropdown = ({
           as="button"
           value="Author"
           onClick={(e) => {
-            dispatch(sortPublications(teamPublications, e.target.value))
-            setSortingOption(e.target.value)
+            dispatch(sortPublications(teamPublications, e.target.value));
+            setSortingOption(e.target.value);
           }}
         >
           Author
@@ -61,8 +61,8 @@ const PublicationsDropdown = ({
           as="button"
           value="Title"
           onClick={(e) => {
-            dispatch(sortPublications(teamPublications, e.target.value))
-            setSortingOption(e.target.value)
+            dispatch(sortPublications(teamPublications, e.target.value));
+            setSortingOption(e.target.value);
           }}
         >
           Title
@@ -70,7 +70,7 @@ const PublicationsDropdown = ({
         {toggleSortingOptions(setSortingOption)}
       </DropdownButton>
     </div>
-  )
-}
+  );
+};
 
-export default PublicationsDropdown
+export default PublicationsDropdown;
