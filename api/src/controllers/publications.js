@@ -226,6 +226,8 @@ async function scrapeGoogleScholar(url) {
   const publicationInfo = {};
   fields.forEach((key, i) => (publicationInfo[key] = values[i]));
 
+  // TODO: this logic depends on the order of the fields, 
+  // which will differ based on the info of the publication, can be improved
   let type = fields[2].toUpperCase();
   let categoryTitle;
   if (!(type in categoryType)) {
