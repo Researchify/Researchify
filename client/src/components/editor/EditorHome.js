@@ -32,11 +32,11 @@ const EditorHome = () => {
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand href="#home">{header}</Navbar.Brand>
                     <Nav className="mr-auto">
-                        <Nav.Link> <Link className='template_basic_nav_link' to='home'>Home </Link> </Nav.Link>
-                        <Nav.Link> <Link className='template_basic_nav_link' to='publications'>Publications </Link></Nav.Link>
-                        <Nav.Link> <Link className='template_basic_nav_link' to='awards'>Awards </Link> </Nav.Link>
-                        <Nav.Link> <Link className='template_basic_nav_link' to='team'>Team </Link> </Nav.Link>
-                        <Nav.Link> <Link className='template_basic_nav_link' to='contact'>Contact </Link></Nav.Link>
+                        <Nav.Link as={Link} className='template_basic_nav_link' to='home'>Home</Nav.Link>
+                        <Nav.Link as={Link} className='template_basic_nav_link' to='publications'>Publications</Nav.Link>
+                        <Nav.Link as={Link} className='template_basic_nav_link' to='awards'>Awards</Nav.Link>
+                        <Nav.Link as={Link} className='template_basic_nav_link' to='team'>Team</Nav.Link>
+                        <Nav.Link as={Link} className='template_basic_nav_link' to='contact'>Contact</Nav.Link>
                     </Nav>
                 </Navbar>
                 {/* Carousel will be made a separate component */}
