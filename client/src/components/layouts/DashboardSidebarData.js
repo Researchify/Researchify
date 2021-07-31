@@ -37,7 +37,7 @@ const DashboardSidebarData = () => {
     {
       title: 'Publications',
       icon: <BsBookHalf />,
-      link: `/publications`,
+      link: '/publications',
     },
     {
       title: 'Team Profile',
@@ -65,7 +65,7 @@ const DashboardSidebarData = () => {
       link: '/dashboard/help',
     },
     {
-      title: "Logout",
+      title: 'Logout',
       icon: <BsBoxArrowLeft />,
       link: '/',
       action: () => dispatch(signOut())

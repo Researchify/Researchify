@@ -27,11 +27,9 @@ const Header = (props) => {
         </Navbar.Brand>
         <Nav className="mr-auto" />
         <Nav>
-          <Nav.Link className="header-profile">
-            <Link className="header-link" to="/dashboard/profile">
-              <BsPeopleCircle className="header-profile-icon" /> {userName}
-            </Link>
-          </Nav.Link>
+          <Link className="header-link" to="/dashboard/profile">
+            <BsPeopleCircle className="header-profile-icon"/> {userName}
+          </Link>
         </Nav>
       </Navbar>
     </Fragment>

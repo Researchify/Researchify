@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { githubLoginUrl } from '../../config/deploy';
 import { GoMarkGithub } from 'react-icons/go';
-import { getGHAccessToken, deployToGHPages } from '../../actions/team';
+import { deployToGHPages, getGHAccessToken } from '../../actions/team';
 import { Button } from 'react-bootstrap';
 
 const DeployPage = () => {

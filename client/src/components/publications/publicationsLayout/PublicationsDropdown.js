@@ -20,8 +20,9 @@ const PublicationsDropdown = ({
           Layout: {layout}
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {Object.keys(allLayouts).map((layout) => (
+          {Object.keys(allLayouts).map((layout, i) => (
             <Dropdown.Item
+              key={i}
               as="button"
               onClick={() => setLayout(allLayouts[layout])}
             >
