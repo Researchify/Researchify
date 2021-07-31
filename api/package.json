@@ -24,8 +24,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.2",
     "playwright": "^1.13.1",
-    "puppeteer": "^10.0.0",
-    "puppeteer-cluster": "^0.22.0",
     "validator": "^13.5.2",
     "winston": "^3.3.3"
   },

@@ -8,11 +8,9 @@ const Publication = require('../models/publication.model');
 
 const Team = require('../models/team.model');
 
-const { Cluster } = require('puppeteer-cluster');
-
 const { firefox } = require('playwright');
 
-const { puppeteerConfig, categoryType } = require('../config/puppeteer');
+const { playwrightConfig, categoryType } = require('../config/playwright');
 
 const { fillErrorObject } = require('../middleware/error');
 
@@ -136,7 +134,7 @@ function readAllPublicationsByTeam(req, res, next) {
 /**
  * Given a google scholar user id, this function uses a headless browser via Puppeteer to scrape
  * the publications info from a user's profile. This runs several threads in parallel specified in the config.
- * @see config/puppeteerConfig.js
+ * @see config/playwright.js
  * @param req request object - google scholar user id given in the url
  * @param res response object - array of publication objects
  * @returns a list of publications of the given google scholar user id
@@ -146,25 +144,23 @@ async function getGoogleScholarPublications(req, res) {
   const startFrom = req.params.startFrom;
   const teamId = req.params.team_id;
 
-  const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
-  const pageSize = puppeteerConfig.pageSize;
+  const noOfDummyLinks = playwrightConfig.noOfDummyLinks;
+  const pageSize = playwrightConfig.pageSize;
   const url =
-    puppeteerConfig.baseUrl +
+    playwrightConfig.baseUrl +
     author +
-    puppeteerConfig.startSuffix +
+    playwrightConfig.startSuffix +
     startFrom +
-    puppeteerConfig.pageSizeSuffix +
+    playwrightConfig.pageSizeSuffix +
     pageSize +
-    puppeteerConfig.sortBySuffix;
+    playwrightConfig.sortBySuffix;
   console.log(url);
-  // make this global
-  var publications = [];
+  let publications = [];
 
   const browser = await firefox.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
-  console.time('doSomething');
-
+  console.time('timeToScrape');
   await page.goto(url);
 
   const resultLinks = await page.$$('.gsc_a_t a');
@@ -174,17 +170,18 @@ async function getGoogleScholarPublications(req, res) {
     links.push(await resultLinks[i].getAttribute('href'));
   }
 
-  console.log(links);
   await browser.close();
 
-  await Promise.all(links.map((x) => helper(x))).then((pub) => publications.push(...pub));
+  await Promise.all(links.map((x) => scrapeGoogleScholar(x))).then((pub) =>
+    publications.push(...pub)
+  );
 
-  console.timeEnd('doSomething');
+  console.timeEnd('timeToScrape');
   console.log(publications);
 
   const newPublications = await validateImportedPublications(
     teamId,
-      publications
+    publications
   );
 
   const response = {
@@ -195,16 +192,13 @@ async function getGoogleScholarPublications(req, res) {
   res.status(200).json(response);
 }
 
-async function helper(url) {
-  console.log("in helper");
-  console.log(puppeteerConfig.base + url);
+async function scrapeGoogleScholar(url) {
+  console.log(playwrightConfig.gScholarHome + url);
   const browser = await firefox.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
-  await page.goto(puppeteerConfig.base + url);
-  // await page.waitForEvent('load');
+  await page.goto(playwrightConfig.gScholarHome + url);
 
-  // await page.screenshot({ path: 'digimon-website.png' });
   let title;
 
   try {
@@ -217,30 +211,20 @@ async function helper(url) {
     console.log('default title not found');
   }
 
-  // console.log(title);
   const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) =>
     links.map((link) => link.href)
   );
-  // console.log(link);
   const values = await page.$$eval('div.gsc_oci_value', (titles) =>
     titles.map((title) => title.innerText)
   );
-  // console.log(values);
   const fields = await page.$$eval('div.gsc_oci_field', (titles) =>
     titles.map((title) => title.innerText)
   );
-  // console.log(fields);
 
   await browser.close();
 
   const publicationInfo = {};
   fields.forEach((key, i) => (publicationInfo[key] = values[i]));
-
-  const categoryType = {
-    CONFERENCE: 'CONFERENCE',
-    JOURNAL: 'JOURNAL',
-    OTHER: 'OTHER',
-  };
 
   let type = fields[2].toUpperCase();
   let categoryTitle;
@@ -277,12 +261,11 @@ async function helper(url) {
     },
   };
 
-  // publications.push(publication);
   return publication;
 }
 
 /**
- * Helper function to compare the publications scraped from google scholar with the ones in db,
+ * scrapeGoogleScholar function to compare the publications scraped from google scholar with the ones in db,
  * and return the publications not already in the db.
  * @param _id teamId
  * @param publications list of publications scraped from google scholar
