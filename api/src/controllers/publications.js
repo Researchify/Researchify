@@ -132,7 +132,7 @@ function readAllPublicationsByTeam(req, res, next) {
 }
 
 /**
- * Given a google scholar user id, this function uses a headless browser via Puppeteer to scrape
+ * Given a google scholar user id, this function uses a headless browser via Playwright to scrape
  * the publications info from a user's profile. This runs several threads in parallel specified in the config.
  * @see config/playwright.js
  * @param req request object - google scholar user id given in the url
@@ -267,7 +267,7 @@ async function scrapeGoogleScholar(url) {
 }
 
 /**
- * scrapeGoogleScholar function to compare the publications scraped from google scholar with the ones in db,
+ * Helper function to compare the publications scraped from google scholar with the ones in db,
  * and return the publications not already in the db.
  * @param _id teamId
  * @param publications list of publications scraped from google scholar
