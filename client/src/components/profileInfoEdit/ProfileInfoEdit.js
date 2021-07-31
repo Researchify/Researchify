@@ -25,7 +25,7 @@ const ProfileInfoEdit = () => {
 
   useEffect(() => {
     setInputs({teamName, orgName, email})
-  }, [email, orgName, teamId, teamName])
+  }, [email, orgName, teamName])
   
   const updateInputs = (form) => {
     const { name, value } = form.target;
