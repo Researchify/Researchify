@@ -199,17 +199,9 @@ async function scrapeGoogleScholar(url) {
   const page = await context.newPage();
   await page.goto(playwrightConfig.gScholarHome + url);
 
-  let title;
-
-  try {
-    // this html tag is for if the title of the publication is a link
-    title = await page.$$eval('a.gsc_oci_title_link', (titles) =>
-      titles.map((title) => title.innerText)
-    );
-  } catch (e) {
-    // an error will be caught if its not a link, and try a diff html tag for title
-    console.log('default title not found');
-  }
+  const title = await page.$$eval('a.gsc_oci_title_link', (titles) =>
+    titles.map((title) => title.innerText)
+  );
 
   const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) =>
     links.map((link) => link.href)
