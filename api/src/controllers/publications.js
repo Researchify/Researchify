@@ -10,6 +10,8 @@ const Team = require('../models/team.model');
 
 const { Cluster } = require('puppeteer-cluster');
 
+const { firefox } = require('playwright');
+
 const { puppeteerConfig, categoryType } = require('../config/puppeteer');
 
 const { fillErrorObject } = require('../middleware/error');
@@ -145,7 +147,6 @@ async function getGoogleScholarPublications(req, res) {
   const teamId = req.params.team_id;
 
   const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
-  const noOfThreads = puppeteerConfig.noOfThreads;
   const pageSize = puppeteerConfig.pageSize;
   const url =
     puppeteerConfig.baseUrl +
@@ -156,110 +157,34 @@ async function getGoogleScholarPublications(req, res) {
     pageSize +
     puppeteerConfig.sortBySuffix;
   console.log(url);
-  const publications = [];
+  // make this global
+  var publications = [];
 
-  const cluster = await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_CONTEXT,
-    maxConcurrency: noOfThreads,
-  });
-
-  await cluster.task(async ({ page, data: data }) => {
-    const url = data['url'];
-    const index = data['index'];
-    await page.goto(url);
-    const resultLinks = await page.$$('.gsc_a_t a');
-
-    await Promise.all([
-      resultLinks[index].click(),
-      page.waitForSelector('div.gsc_vcd_field'),
-    ]);
-
-    let title;
-
-    try {
-      // this html tag is for if the title of the publication is a link
-      title = await page.$eval('a.gsc_vcd_title_link', (titles) =>
-        titles.map((title) => title.innerText)
-      );
-    } catch (e) {
-      // an error will be caught if its not a link, and try a diff html tag for title
-      title = await page.$$eval('#gsc_vcd_title', (titles) =>
-        titles.map((title) => title.innerText)
-      );
-    }
-
-    // pdf link
-    const link = await page.$$eval('div.gsc_vcd_title_ggi a', (links) =>
-      links.map((link) => link.href)
-    );
-
-    // this gives authors, pub date, journal/conf/book name, pages, description, cited by and other stuff
-    const values = await page.$$eval('div.gsc_vcd_value', (titles) =>
-      titles.map((title) => title.innerText)
-    );
-
-    // get fields
-    const fields = await page.$$eval('div.gsc_vcd_field', (titles) =>
-      titles.map((title) => title.innerText)
-    );
-
-    // collating the fields with the values
-    const publicationInfo = {};
-    fields.forEach((key, i) => (publicationInfo[key] = values[i]));
-
-    let type = fields[2].toUpperCase();
-    let categoryTitle;
-    if (!(type in categoryType)) {
-      type = 'OTHER';
-      categoryTitle = 'OTHER';
-    } else {
-      categoryTitle = values[2];
-    }
-
-    let citedBy;
-    if (publicationInfo['Total citations'] === undefined) {
-      citedBy = '';
-    } else {
-      citedBy = publicationInfo['Total citations']
-        .split('\n', 1)[0]
-        .split(' ')[2];
-    }
-
-    const publication = {
-      authors: publicationInfo['Authors'].split(', '),
-      title: title[0],
-      link: link[0] || '',
-      description: publicationInfo['Description'] || '',
-      citedBy: citedBy,
-      yearPublished: (publicationInfo['Publication date'] || '').substr(0, 4), // assuming first 4 chars is year
-      category: {
-        type: type,
-        categoryTitle: categoryTitle,
-        pages: publicationInfo['Pages'] || '',
-        publisher: publicationInfo['Publisher'] || '',
-        volume: publicationInfo['Volume'] || '',
-        issue: publicationInfo['Issue'] || '',
-      },
-    };
-
-    publications.push(publication);
-  });
-
-  // time how long the scraping takes
+  const browser = await firefox.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
   console.time('doSomething');
 
-  for (let i = noOfDummyLinks; i < pageSize + noOfDummyLinks; i++) {
-    await cluster.queue({ url: url, index: i });
+  await page.goto(url);
+
+  const resultLinks = await page.$$('.gsc_a_t a');
+  let links = [];
+
+  for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
+    links.push(await resultLinks[i].getAttribute('href'));
   }
 
-  await cluster.idle();
-  await cluster.close();
+  console.log(links);
+  await browser.close();
+
+  await Promise.all(links.map((x) => helper(x))).then((pub) => publications.push(...pub));
 
   console.timeEnd('doSomething');
+  console.log(publications);
 
   const newPublications = await validateImportedPublications(
     teamId,
-    publications
+      publications
   );
 
   const response = {
@@ -268,6 +193,92 @@ async function getGoogleScholarPublications(req, res) {
   };
 
   res.status(200).json(response);
+}
+
+async function helper(url) {
+  console.log("in helper");
+  console.log(puppeteerConfig.base + url);
+  const browser = await firefox.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto(puppeteerConfig.base + url);
+  // await page.waitForEvent('load');
+
+  // await page.screenshot({ path: 'digimon-website.png' });
+  let title;
+
+  try {
+    // this html tag is for if the title of the publication is a link
+    title = await page.$$eval('a.gsc_oci_title_link', (titles) =>
+      titles.map((title) => title.innerText)
+    );
+  } catch (e) {
+    // an error will be caught if its not a link, and try a diff html tag for title
+    console.log('default title not found');
+  }
+
+  // console.log(title);
+  const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) =>
+    links.map((link) => link.href)
+  );
+  // console.log(link);
+  const values = await page.$$eval('div.gsc_oci_value', (titles) =>
+    titles.map((title) => title.innerText)
+  );
+  // console.log(values);
+  const fields = await page.$$eval('div.gsc_oci_field', (titles) =>
+    titles.map((title) => title.innerText)
+  );
+  // console.log(fields);
+
+  await browser.close();
+
+  const publicationInfo = {};
+  fields.forEach((key, i) => (publicationInfo[key] = values[i]));
+
+  const categoryType = {
+    CONFERENCE: 'CONFERENCE',
+    JOURNAL: 'JOURNAL',
+    OTHER: 'OTHER',
+  };
+
+  let type = fields[2].toUpperCase();
+  let categoryTitle;
+  if (!(type in categoryType)) {
+    type = 'OTHER';
+    categoryTitle = '';
+  } else {
+    categoryTitle = values[2];
+  }
+
+  let citedBy;
+  if (publicationInfo['Total citations'] === undefined) {
+    citedBy = '';
+  } else {
+    citedBy = publicationInfo['Total citations']
+      .split('\n', 1)[0]
+      .split(' ')[2];
+  }
+
+  const publication = {
+    authors: publicationInfo['Authors'].split(', '),
+    title: title[0],
+    link: link[0] || '',
+    description: publicationInfo['Description'] || '',
+    yearPublished: (publicationInfo['Publication date'] || '').substr(0, 4), // assuming first 4 chars is year
+    citedBy: citedBy,
+    category: {
+      type: type,
+      categoryTitle: categoryTitle,
+      pages: publicationInfo['Pages'] || '',
+      publisher: publicationInfo['Publisher'] || '',
+      volume: publicationInfo['Volume'] || '',
+      issue: publicationInfo['Issue'] || '',
+    },
+  };
+
+  // publications.push(publication);
+  return publication;
 }
 
 /**
