@@ -45,9 +45,13 @@ function createInitialWebsiteInfo(info) {
     .then((website) => {
       if (website == null) {
         // Create Website data
-        Website.create(info).then((webData) => {return webData}).catch((err) => {
-          throw err;
-        });
+        Website.create(info)
+          .then((webData) => {
+            return webData;
+          })
+          .catch((err) => {
+            throw err;
+          });
       }
     })
     .catch((err) => {
@@ -77,11 +81,14 @@ function addWebPage(req, res, next) {
         try {
           const webData = createInitialWebsiteInfo(webInfo);
           return res.status(200).json(webData);
-        }
-        catch(err) {
+        } catch (err) {
           next(fillErrorObject(500, 'Server error', [err.errors]));
-        };
+        }
       } else {
+        if (website.pages.includes(req.body.pageName)) {
+          // Already includes this page, no work for us to do...
+          return res.status(200).json(website);
+        }
         website.pages.push(req.body.pageName);
 
         // update in db
@@ -91,11 +98,11 @@ function addWebPage(req, res, next) {
             return res.status(200).json(website);
           })
           .catch((err) => {
-            return res.status(500).send(`Error: ${err.message}`);
+            return next(fillErrorObject(500, 'Server error', [err.errors]));
           });
       }
     })
-    .catch((err) => res.status(500).json('Server Error: ' + err));
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
