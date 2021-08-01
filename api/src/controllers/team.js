@@ -223,7 +223,7 @@ async function deployToGHPages(req, res, next) {
     teamPublications: publications,
   };
 
-  const schollyResponse = await axios({
+  await axios({
     url: schollyHost + '/deploy/' + teamId,
     method: 'post',
     data: body,
@@ -231,7 +231,7 @@ async function deployToGHPages(req, res, next) {
       'Content-Type': 'application/json',
     },
   })
-    .then(() => res.status(200).json(schollyResponse.data))
+    .then(() => res.status(200).json('Successfully deployed'))
     .catch(() => next(fillErrorObject(500, 'Server error', ["Error occurred with scholly"])));
 }
 
