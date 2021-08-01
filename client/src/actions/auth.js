@@ -20,13 +20,27 @@ import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
  * @returns an action of type AUTH_SIGN_IN with the payload as the authData.
  */
 export const signIn = (authData) => async (dispatch) => {
-  let teamId;
+
   try {
     dispatch({
       type: AUTH_SIGN_IN_REQUEST,
     });
     const { data } = await api.loginTeam(authData);
-    teamId = data._id;
+    const teamId = data._id;
+    await api
+    .getWebsiteInfo(teamId)
+    .then((clientWebsiteInfo) => {
+      console.log(clientWebsiteInfo);
+      dispatch({
+        type: FETCH_WEBSITE_INFO,
+        payload: clientWebsiteInfo.data,
+      });
+    })
+    .catch((err) => {
+      if (err.response.status !== 404) {
+        throw err;
+      }
+    });
     dispatch({
       type: AUTH_SIGN_IN_SUCCESS,
     });
@@ -40,24 +54,6 @@ export const signIn = (authData) => async (dispatch) => {
     });
     dispatch(errorActionGlobalCreator(error));
   }
-
-  await api
-    .getWebsiteInfo(teamId)
-    .then((clientWebsiteInfo) => {
-      console.log(clientWebsiteInfo);
-      dispatch({
-        type: FETCH_WEBSITE_INFO,
-        payload: clientWebsiteInfo.data,
-      });
-    })
-    .catch((err) => {
-      if (err.response.status !== 404) {
-        dispatch({
-          type: AUTH_SIGN_IN_FAIL,
-          payload: err.response.data,
-        });
-      }
-    });
 };
 
 /**
@@ -82,6 +78,23 @@ export const signOut = () => async (dispatch) => {
 export const authorizeJWT = () => async (dispatch) => {
   try {
     const { data } = await api.getTeamJWT();
+    const teamId = data._id;
+    await api
+    .getWebsiteInfo(teamId)
+    .then((clientWebsiteInfo) => {
+      console.log(clientWebsiteInfo);
+      dispatch({
+        type: FETCH_WEBSITE_INFO,
+        payload: clientWebsiteInfo.data,
+      });
+    })
+    .catch((err) => {
+      if (err.response.status !== 404) {
+        console.log("Found ! 404");
+        throw err;
+      }
+      console.log("Error, if 404 that's fine");
+    });
     dispatch({
       type: AUTH_SIGN_IN_SUCCESS,
     });

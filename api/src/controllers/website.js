@@ -45,7 +45,7 @@ function createInitialWebsiteInfo(info) {
     .then((website) => {
       if (website == null) {
         // Create Website data
-        Website.create(info).catch((err) => {
+        Website.create(info).then((webData) => {return webData}).catch((err) => {
           throw err;
         });
       }
@@ -74,9 +74,13 @@ function addWebPage(req, res, next) {
           teamId: team_id,
           pages: [req.body.pageName],
         };
-        createInitialWebsiteInfo(webInfo).catch((err) => {
+        try {
+          const webData = createInitialWebsiteInfo(webInfo);
+          return res.status(200).json(webData);
+        }
+        catch(err) {
           next(fillErrorObject(500, 'Server error', [err.errors]));
-        });
+        };
       } else {
         website.pages.push(req.body.pageName);
 
