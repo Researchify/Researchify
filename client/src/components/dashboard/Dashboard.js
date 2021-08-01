@@ -146,8 +146,8 @@ const Dashboard = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Deleting the page would permanently remove all data associated with
-          this page and the page will not be shown on your website
+          Deleting the page will NOT remove the data associated with
+          this page, but the page will not be shown on your website
           <Modal.Footer className="p-0">
             <Button variant="secondary" onClick={closeDeleteModal}>
               Cancel
