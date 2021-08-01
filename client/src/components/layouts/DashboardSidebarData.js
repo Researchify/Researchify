@@ -6,7 +6,6 @@ import React from 'react';
 import {
   BsFillGridFill,
   BsBookHalf,
-  BsPencilSquare,
   BsPerson,
   BsPeople,
   BsGearFill,

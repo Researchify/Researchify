@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
 import { addPage, deletePage } from '../../actions/website';
+import { availablePages as pages } from '../../config/clientWebsite';
+import toast from 'react-hot-toast';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -27,7 +29,7 @@ const Dashboard = () => {
   const currentWebPages = useSelector((state) => state.website.pages);
 
   // All our web-page offerings
-  const availablePages = useSelector((state) => state.website.availablePages);
+  const availablePages = pages;
 
   // webpageOfferings = availablePages - currentWebPages
   const webpageOfferings = availablePages.filter(
@@ -42,9 +44,14 @@ const Dashboard = () => {
 
   // Display pop up window for Adding a page
   const [displayAddModal, setAddModal] = useState(false);
+
   const showAddModal = () => {
-    // Show modal to ass web-pages if the client has already selected a theme (which happens when creating their repository)
-    if (repoCreated) {
+    // Show modal to add web-pages if the client has already selected a theme (which happens when creating their repository)
+    //TODO: Once `repoCreated` is correctly used, this if statement should go inside the 'else if'
+    if (webpageOfferings.length === 0) {
+      toast.success("You've already added all available web pages");
+    }
+    else if (repoCreated) {
       setAddModal(true);
     } else {
       showThemeModal(true);

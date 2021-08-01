@@ -20,27 +20,15 @@ import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
  * @returns an action of type AUTH_SIGN_IN with the payload as the authData.
  */
 export const signIn = (authData) => async (dispatch) => {
-
   try {
     dispatch({
       type: AUTH_SIGN_IN_REQUEST,
     });
     const { data } = await api.loginTeam(authData);
     const teamId = data._id;
-    await api
-    .getWebsiteInfo(teamId)
-    .then((clientWebsiteInfo) => {
-      console.log(clientWebsiteInfo);
-      dispatch({
-        type: FETCH_WEBSITE_INFO,
-        payload: clientWebsiteInfo.data,
-      });
-    })
-    .catch((err) => {
-      if (err.response.status !== 404) {
-        throw err;
-      }
-    });
+
+    const clientWebsiteData = await getClientWebsiteData(teamId);
+  
     dispatch({
       type: AUTH_SIGN_IN_SUCCESS,
     });
@@ -48,6 +36,11 @@ export const signIn = (authData) => async (dispatch) => {
       type: FETCH_TEAM_INFO,
       payload: data,
     });
+    dispatch({
+      type: FETCH_WEBSITE_INFO,
+      payload: clientWebsiteData,
+    });
+
   } catch (error) {
     dispatch({
       type: AUTH_SIGN_IN_FAIL,
@@ -79,22 +72,8 @@ export const authorizeJWT = () => async (dispatch) => {
   try {
     const { data } = await api.getTeamJWT();
     const teamId = data._id;
-    await api
-    .getWebsiteInfo(teamId)
-    .then((clientWebsiteInfo) => {
-      console.log(clientWebsiteInfo);
-      dispatch({
-        type: FETCH_WEBSITE_INFO,
-        payload: clientWebsiteInfo.data,
-      });
-    })
-    .catch((err) => {
-      if (err.response.status !== 404) {
-        console.log("Found ! 404");
-        throw err;
-      }
-      console.log("Error, if 404 that's fine");
-    });
+    const clientWebsiteData = await getClientWebsiteData(teamId);
+
     dispatch({
       type: AUTH_SIGN_IN_SUCCESS,
     });
@@ -102,7 +81,25 @@ export const authorizeJWT = () => async (dispatch) => {
       type: FETCH_TEAM_INFO,
       payload: data,
     });
+    dispatch({
+      type: FETCH_WEBSITE_INFO,
+      payload: clientWebsiteData,
+    });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
+  }
+};
+
+
+const getClientWebsiteData = async (teamId) => {
+  try {
+    const clientWebsiteInfo = await api.getWebsiteInfo(teamId);
+    return clientWebsiteInfo.data;
+  } catch (err) {
+    // 404 (Not found) errors are fine, team may not have added any web page to their website yet
+    if (err.response.status !== 404) {
+      throw err;
+    }
+    return [];
   }
 };
