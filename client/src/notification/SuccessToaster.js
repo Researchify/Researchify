@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 /**
@@ -6,10 +6,11 @@ import toast from 'react-hot-toast';
  * @param {string} message error response message from the server
  * @returns null if no error message, otherwise empty fragment.
  */
-export const ErrorToaster = ({ message }) => {
-  if (!message) {
-    return null;
-  }
-  toast.error(message.data);
+export const SuccessToaster = ({ message }) => {
+  useEffect(() => {
+    if(message){
+      toast.success(message.data);
+    }
+  }, [message])
   return <Fragment />;
 };

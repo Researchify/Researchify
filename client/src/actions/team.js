@@ -16,7 +16,7 @@ import {
   DEPLOY_FAIL,
   UPDATE_TEAM,
 } from './types';
-import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
+import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
 /**
  * Adds a new team to redux store and database.
@@ -24,16 +24,7 @@ import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
  */
 export const addTeamInfo = (teamInfo) => async (dispatch) => {
   try{
-    const teamId = await api.addTeam(teamInfo);
-    const teamData = {
-      ...teamInfo,
-      teamId: teamId,
-    };
-    // TODO: do we need to dispatch this action? 
-    dispatch({
-      type: ADD_TEAM,
-      payload: teamData,
-    });
+    dispatch(successMessageCreator(await api.addTeam(teamInfo)));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -47,7 +38,6 @@ export const addTeamInfo = (teamInfo) => async (dispatch) => {
 export const getTeam = (teamCredentials) => async (dispatch) => {
   try {
     const data = await api.loginTeam(teamCredentials);
-    console.log(data);
     const teamData = data.data.team;
     const team = teamDataAllocator(teamData);
     dispatch({
@@ -287,11 +277,12 @@ function teamDataAllocator(teamData) {
  */
 export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
-    const { data } = await api.updateTeam(teamId, teamData);
-    const updatedData = teamDataAllocator(data);
+    const result = await api.updateTeam(teamId, teamData)
+    console.log(result)
+    dispatch(successMessageCreator(result));
     dispatch({
       type: UPDATE_TEAM,
-      payload: updatedData,
+      payload: teamData,
     });
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));

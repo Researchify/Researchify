@@ -92,6 +92,15 @@ async function addTeam(req, res, next) {
       if (foundTeam) {
         return res.status(400).send('Email had been registered');
       }
+      bcrypt.genSalt().then((salt) => 
+        bcrypt.hash(req.body.password, salt).then((hashedPassword) => {
+          const hashedTeam = { ...req.body, password: hashedPassword };
+          Team.create(hashedTeam)
+            .then(() => {
+              return res.status(201).json('Team had been created successfully')
+            })
+        })
+      );
     })
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 
@@ -251,7 +260,7 @@ function updateTeam(req, res, next) {
     new: true,
     runValidators: true,
   })
-    .then((updatedTeam) => res.status(200).json(updatedTeam))
+    .then(() => res.status(200).json('Team had been updated'))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
