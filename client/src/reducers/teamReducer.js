@@ -19,6 +19,7 @@ const INITIAL_TEAM_STATE = {
   orgName: '',
   email: '',
   twitterHandle: '',
+  themeId: '',
   repoCreated: false,
   error: null,
 };

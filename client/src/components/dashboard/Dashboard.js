@@ -24,7 +24,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const repoCreated = useSelector((state) => state.team.repoCreated);
+  const themePicked = useSelector((state) => state.team?.themeId ? true : false);
   const teamId = useSelector((state) => state.team.teamId);
   const currentWebPages = useSelector((state) => state.website.pages);
 
@@ -46,13 +46,14 @@ const Dashboard = () => {
   const [displayAddModal, setAddModal] = useState(false);
 
   const showAddModal = () => {
-    // Show modal to add web-pages if the client has already selected a theme (which happens when creating their repository)
-    //TODO: Once `repoCreated` is correctly used, this if statement should go inside the 'else if'
-    if (webpageOfferings.length === 0) {
-      toast.success("You've already added all available web pages");
-    }
-    else if (repoCreated) {
-      setAddModal(true);
+    // Show modal to add web-pages if the client has already selected a theme
+    if (themePicked) {
+      if (webpageOfferings.length === 0) {
+        toast.success("You've already added all available web pages");
+      }
+      else {
+        setAddModal(true);
+      }
     } else {
       showThemeModal(true);
     }
