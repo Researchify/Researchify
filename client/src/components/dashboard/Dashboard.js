@@ -38,7 +38,7 @@ const Dashboard = () => {
         {/* Bottom layer of the card with three icons */}
         <CardGroup className="researchify-dashboard-card-group">
           <Card>
-            <Link className="researchify-dashboard-card-link">
+            <Link className="researchify-dashboard-card-link" to="/editor">
               <Card.Body>
                 <BsPencilSquare className="researchify-dashboard-card-icons" />
               </Card.Body>
@@ -46,7 +46,7 @@ const Dashboard = () => {
             </Link>
           </Card>
           <Card>
-            <Link className="researchify-dashboard-card-link">
+            <Link className="researchify-dashboard-card-link" to="/home">
               <Card.Body>
                 <BsDisplayFill className="researchify-dashboard-card-icons" />
               </Card.Body>
