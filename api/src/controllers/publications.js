@@ -156,7 +156,7 @@ async function getGoogleScholarPublications(req, res) {
     playwrightConfig.pageSizeSuffix +
     pageSize +
     playwrightConfig.sortBySuffix;
-  logger.info(url);
+  logger.info(`GScholar profile for user id ${author}: ${url}`);
   let publications = [];
 
   const browser = await firefox.launch();
@@ -200,7 +200,7 @@ async function getGoogleScholarPublications(req, res) {
  * @returns a publication
  */
 async function scrapeGoogleScholar(url) {
-  logger.info(playwrightConfig.gScholarHome + url);
+  logger.info(`Publication url: ${playwrightConfig.gScholarHome + url}`);
   const browser = await firefox.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
