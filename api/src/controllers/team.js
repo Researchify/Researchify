@@ -92,7 +92,7 @@ function getTeam(req, res, next) {
  * @param {*} res response object - updated team object
  * @returns 201: returns updated team details
  */
-async function addTeam(req, res, next) {
+function addTeam(req, res, next) {
   Team.findOne({ email: req.body.email })
     .then((foundTeam) => {
       if (foundTeam) {
