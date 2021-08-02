@@ -31,10 +31,7 @@ const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
 
     if (await bcrypt.compare(req.body.password, foundTeam.password)){
       const jwtPayload = {
-        _id: foundTeam._id,
-        email: foundTeam.email,
-        teamName: foundTeam.teamName,
-        orgName: foundTeam.orgName
+        _id: foundTeam._id
       }
 
       const accessToken = jwt.sign({ team: jwtPayload }, process.env.JWT_SECRET_ACCESS_TOKEN || "JWT_SECRET_ACCESS_TOKEN", {
