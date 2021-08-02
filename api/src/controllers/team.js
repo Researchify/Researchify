@@ -223,16 +223,14 @@ async function deployToGHPages(req, res, next) {
     teamPublications: publications,
   };
 
-  await axios({
-    url: schollyHost + '/deploy/' + teamId,
-    method: 'post',
-    data: body,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  await axios
+    .post(`${schollyHost}/deploy/${teamId}`, body)
     .then(() => res.status(200).json('Successfully deployed'))
-    .catch(() => next(fillErrorObject(500, 'Server error', ["Error occurred with scholly"])));
+    .catch(() =>
+      next(
+        fillErrorObject(500, 'Server error', ['Error occurred with scholly'])
+      )
+    );
 }
 
 /**
