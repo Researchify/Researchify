@@ -8,6 +8,8 @@ const Publication = require('../models/publication.model');
 
 const Team = require('../models/team.model');
 
+const logger = require('winston');
+
 const { firefox } = require('playwright');
 
 const { playwrightConfig, categoryType } = require('../config/playwright');
@@ -133,7 +135,7 @@ function readAllPublicationsByTeam(req, res, next) {
 
 /**
  * Given a google scholar user id, this function uses a headless browser via Playwright to scrape
- * the publications info from a user's profile. This runs several threads in parallel specified in the config.
+ * the publications info from a user's profile.
  * @see config/playwright.js
  * @param req request object - google scholar user id given in the url
  * @param res response object - array of publication objects
@@ -154,7 +156,7 @@ async function getGoogleScholarPublications(req, res) {
     playwrightConfig.pageSizeSuffix +
     pageSize +
     playwrightConfig.sortBySuffix;
-  console.log(url);
+  logger.info(url);
   let publications = [];
 
   const browser = await firefox.launch();
@@ -177,7 +179,6 @@ async function getGoogleScholarPublications(req, res) {
   );
 
   console.timeEnd('timeToScrape');
-  console.log(publications);
 
   const newPublications = await validateImportedPublications(
     teamId,
@@ -192,8 +193,14 @@ async function getGoogleScholarPublications(req, res) {
   res.status(200).json(response);
 }
 
+/***
+ * The function performs the scraping logic to get the Google Scholar publications
+ * and returns it in a format that fits the publication model.
+ * @see models/publication.model.js
+ * @returns a publication
+ */
 async function scrapeGoogleScholar(url) {
-  console.log(playwrightConfig.gScholarHome + url);
+  logger.info(playwrightConfig.gScholarHome + url);
   const browser = await firefox.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
