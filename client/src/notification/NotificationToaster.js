@@ -9,9 +9,6 @@ import { useSelector } from 'react-redux';
 export const ErrorToaster = () => {
   const { error, success } = useSelector((state) => state.main);
 
-  console.log(error, success)
-
-
   useEffect(() => {
     if(error){
       toast.error(error.data);

@@ -5,7 +5,7 @@ import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { ErrorToaster } from '../notification/ErrorToaster';
+import { ErrorToaster } from '../notification/NotificationToaster';
 
 // Pages
 import PrivateRoute from './route/PrivateRoute';
@@ -16,7 +16,6 @@ import { authorizeJWT } from '../actions/auth';
 
 const App = () => {
   const { signIn } = useSelector(state => state.auth);
-  console.log(signIn)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +28,7 @@ const App = () => {
     <Fragment>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
-        <ErrorToaster />
+      <ErrorToaster/>
         { signIn ? <PrivateRoute /> : <PublicRoute /> }
       </BrowserRouter>
     </Fragment>

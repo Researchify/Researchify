@@ -45,7 +45,6 @@ export const errorActionGlobalCreator = (error) => {
 };
 
 export const successMessageCreator = (successMessage) => {
-  console.log(successMessage)
   return {
     type: SUCCESS_MESSAGE,
     payload: successMessage
