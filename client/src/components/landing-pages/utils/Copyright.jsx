@@ -8,9 +8,9 @@ const Copyright = ({ invert }) => {
       <Typography variant="body1" color={colour} align="center">
         Copyright &copy;
         <Link color="inherit" href="/">
-          DeltaCore
+          Researchify&nbsp;
         </Link>
-        {new Date().getFullYear()}
+        { new Date().getFullYear()}
         {". All rights reserved."}
       </Typography>
     </Fragment>
