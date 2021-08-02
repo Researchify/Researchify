@@ -25,7 +25,7 @@ const ProfileInfoEdit = () => {
 
   useEffect(() => {
     setInputs({teamName, orgName, email})
-  }, [email, orgName, teamName])
+  }, [email, orgName, teamName, teamId])
   
   const updateInputs = (form) => {
     const { name, value } = form.target;
@@ -39,6 +39,7 @@ const ProfileInfoEdit = () => {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
+      console.log(teamId, profileData)
       dispatch(updateTeam(teamId, profileData));
     }
     setValidated(true);

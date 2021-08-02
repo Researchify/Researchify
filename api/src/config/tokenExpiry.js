@@ -4,8 +4,8 @@
 const refreshTokenExpiryValue = 1//4320; // 3 days in minute 
 const cookiesExpiryValue = refreshTokenExpiryValue
 
-const accessTokenExpiry = '5s';
-const refreshTokenExpiry = '20s'//refreshTokenExpiryValue.toString() + 'm';
+const accessTokenExpiry = '15m';
+const refreshTokenExpiry = refreshTokenExpiryValue.toString() + 'm';
 const accessTokenCookieExpiry = cookiesExpiryValue * 600000;  
 const refreshTokenCookieExpiry = cookiesExpiryValue * 600000; 
 

@@ -103,18 +103,11 @@ async function addTeam(req, res, next) {
           const hashedTeam = { ...req.body, password: hashedPassword };
           Team.create(hashedTeam)
             .then(() => {
-              return res.status(201).json('Team had been created successfully')
+              return res.status(201).json('Team has been created successfully')
             })
         })
       );
     })
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
-
-  const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-  const hashedTeam = { ...req.body, password: hashedPassword };
-  Team.create(hashedTeam)
-    .then((createdTeam) => res.status(201).json(createdTeam._id))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
@@ -266,7 +259,7 @@ function updateTeam(req, res, next) {
     new: true,
     runValidators: true,
   })
-    .then(() => res.status(200).json('Team had been updated'))
+    .then(() => res.status(200).json('Team has been updated'))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 

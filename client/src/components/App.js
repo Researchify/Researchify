@@ -5,7 +5,7 @@ import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { ErrorToaster } from '../notification/NotificationToaster';
+import { NotificationToaster } from '../notification/NotificationToaster';
 
 // Pages
 import PrivateRoute from './route/PrivateRoute';
@@ -28,7 +28,7 @@ const App = () => {
     <Fragment>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
-      <ErrorToaster/>
+      <NotificationToaster/>
         { signIn ? <PrivateRoute /> : <PublicRoute /> }
       </BrowserRouter>
     </Fragment>

@@ -277,12 +277,11 @@ function teamDataAllocator(teamData) {
  */
 export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
-    const result = await api.updateTeam(teamId, teamData)
-    console.log(result)
-    dispatch(successMessageCreator(result));
+    const successMessage = await api.updateTeam(teamId, teamData)
+    dispatch(successMessageCreator(successMessage));
     dispatch({
       type: UPDATE_TEAM,
-      payload: teamData,
+      payload: {...teamData, teamId},
     });
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));

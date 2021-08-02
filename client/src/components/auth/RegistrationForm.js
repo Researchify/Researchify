@@ -43,6 +43,7 @@ export default function RegistrationForm() {
         password: inputs.password,
         repoCreated: false,
       };
+      console.log(teamData)
       dispatch(addTeamInfo(teamData))
         .then(() => history.push('/dashboard'))
         .catch((err) => {

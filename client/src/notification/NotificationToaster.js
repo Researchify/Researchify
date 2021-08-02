@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
  * @param {string} message error response message from the server
  * @returns null if no error message, otherwise empty fragment.
  */
-export const ErrorToaster = () => {
+export const NotificationToaster = () => {
   const { error, success } = useSelector((state) => state.main);
 
   useEffect(() => {
