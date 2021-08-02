@@ -72,13 +72,19 @@ async function storeHandle(req, res, next) {
 }
 
 /**
- * Gets the team document from the auth middleware
- * @param {*} req request object, containing the team object
- * @param {*} res response object, the team object
- * @returns 200: return the team passed by the auth middleware
+ * Gets the team info
+ * @param {*} req request object contains the teamId decoded in auth middleware
+ * @param {*} res response object, the team related info 
+ * @returns 200: the team related info  
  */
-function getTeam(req, res) {
-  return res.status(200).send(req.team);
+function getTeam(req, res, next) {
+  Team.findById(req.team._id).select('_id teamName orgName email')
+  .then((foundTeam) => {
+    if (foundTeam) {
+      return res.status(200).send(foundTeam);
+    }
+  })
+  .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
