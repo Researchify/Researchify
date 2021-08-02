@@ -3,7 +3,8 @@
  */
 import './Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
-const Sidebar = ({ data }) => {
+
+const Sidebar = ({data}) => {
   let location = useLocation();
 
   return (
@@ -11,9 +12,8 @@ const Sidebar = ({ data }) => {
       <ul className="SidebarList">
         {data.map((val, key) => {
           return (
-            <Link to={val.link}>
+            <Link to={val.link} key={key}>
               <li
-                key={key}
                 className="row"
                 id={location.pathname === val.link ? 'active' : ''}
                 onClick={val.action}

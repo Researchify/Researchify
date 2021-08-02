@@ -1,19 +1,22 @@
-import { CLEAR_ERROR, RESEARCHIFY_API_ERROR } from '../actions/types';
+import { CLEAR_NOTIFICATION, RESEARCHIFY_API_ERROR, SUCCESS_MESSAGE } from '../actions/types';
 
-import { errorReducer } from '../error/errorReduxFunctions';
+import { errorReducer } from '../notification/notificationReduxFunctions';
 
-const INITIAL_TEAM_STATE = {
+const INITIAL_NOTIFICATION_STATE = {
   error: null,
+  success: null,
 };
 
-const mainReducer = (state = INITIAL_TEAM_STATE, action) => {
+const mainReducer = (state = INITIAL_NOTIFICATION_STATE, action) => {
   switch (action.type) {
     case RESEARCHIFY_API_ERROR:
       return {
         ...errorReducer(state, action),
       };
-    case CLEAR_ERROR:
-      return {...state, error: null }
+    case CLEAR_NOTIFICATION:
+      return INITIAL_NOTIFICATION_STATE
+    case SUCCESS_MESSAGE:
+      return {...state, success: action.payload }
     default:
       return state;
   }

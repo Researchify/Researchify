@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { get } from 'lodash';
-import { RESEARCHIFY_API_ERROR } from '../actions/types';
+import { RESEARCHIFY_API_ERROR, SUCCESS_MESSAGE } from '../actions/types';
 
 export const DEFAULT_ERROR_MESSAGE = `Something went wrong!`;
 
@@ -43,6 +43,13 @@ export const errorActionGlobalCreator = (error) => {
     payload: error,
   };
 };
+
+export const successMessageCreator = (successMessage) => {
+  return {
+    type: SUCCESS_MESSAGE,
+    payload: successMessage
+  }
+}
 
 // FIXME: remove this if we don't have any selector
 export const createErrorSelector = (fn) => {

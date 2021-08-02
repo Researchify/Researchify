@@ -2,8 +2,8 @@
  * This file houses our auth-related Action Creators.
  */
 import * as api from '../api';
-import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO, CLEAR_ERROR } from './types';
-import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
+import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO, CLEAR_NOTIFICATION } from './types';
+import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 
 
 /**
@@ -45,7 +45,7 @@ export const signOut = () => async(dispatch) => {
     })
 
     dispatch({
-      type: CLEAR_ERROR
+      type: CLEAR_NOTIFICATION
     })
 
   } catch(err){
