@@ -19,12 +19,13 @@ import {
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
 /**
- * Adds a new team to redux store and database.
+ * Create a new team to database.
  * @param teamInfo contains teamName, orgName and email
  */
 export const addTeamInfo = (teamInfo) => async (dispatch) => {
   try{
-    dispatch(successMessageCreator(await api.addTeam(teamInfo)));
+    const successMessage = await api.addTeam(teamInfo)
+    dispatch(successMessageCreator(successMessage));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }

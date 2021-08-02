@@ -25,7 +25,7 @@ const ProfileInfoEdit = () => {
 
   useEffect(() => {
     setInputs({teamName, orgName, email})
-  }, [email, orgName, teamName, teamId])
+  }, [email, orgName, teamName])
   
   const updateInputs = (form) => {
     const { name, value } = form.target;
@@ -39,21 +39,10 @@ const ProfileInfoEdit = () => {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      console.log(teamId, profileData)
       dispatch(updateTeam(teamId, profileData));
     }
     setValidated(true);
   };
-
-  // const updateProfile = (teamId, profileData) => {
-  //   try {
-  //     dispatch(updateTeam(teamId, profileData))
-  //     toast.success('Profile has been successfully updated');
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error('Profile has not been updated');
-  //   }
-  // };
 
   const profileDeleted = () => {
     console.error(
