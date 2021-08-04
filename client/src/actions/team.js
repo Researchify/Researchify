@@ -278,7 +278,8 @@ function teamDataAllocator(teamData) {
  */
 export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
-    const updatedTeam = await api.updateTeam(teamId, teamData)
+    const { data } = await api.updateTeam(teamId, teamData)
+    const updatedTeam = teamDataAllocator(data);
     dispatch({
       type: UPDATE_TEAM,
       payload: updatedTeam,

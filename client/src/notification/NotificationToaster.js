@@ -7,7 +7,7 @@ import React, { Fragment, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 export const NotificationToaster = () => {
-  const { error, success } = useSelector((state) => state.main);
+  const { error, success } = useSelector((state) => state.notification);
 
   useEffect(() => {
     if(error){
@@ -17,7 +17,7 @@ export const NotificationToaster = () => {
 
   useEffect(() => {
     if(success){
-      toast.success(success.data);
+      toast.success(success);
     }
   }, [success])
   
