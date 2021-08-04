@@ -96,7 +96,7 @@ function getTeam(req, res, next) {
 async function createTeam(req, res, next) {
   const foundTeam = await Team.findOne({ email: req.body.email })
   if (foundTeam) {
-    next(fillErrorObject(400, 'Bad request', ['Email had been registered']))  //TODO?? 
+    next(fillErrorObject(400, 'Duplicate email error', ['Email had been registered']))
   }
   const salt = await bcrypt.genSalt()
   const hashedPassword = await bcrypt.hash(req.body.password, salt)
