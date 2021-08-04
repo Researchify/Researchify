@@ -244,8 +244,7 @@ async function deployToGHPages(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-// eslint-disable-next-line no-unused-vars
-async function updateTeam(req, res, next) {
+async function updateTeam(req, res, next) { // eslint-disable-line no-unused-vars
   const { team_id: _id } = req.params;
   const team = req.body;
 
