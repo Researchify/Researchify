@@ -4,6 +4,7 @@
  *
  * Ref: https://expressjs.com/en/guide/error-handling.html
  */
+const logger = require('winston');
 
 /**
  * Utility function to construct an error object used by our custom error handling middleware.
@@ -35,9 +36,11 @@ function fillErrorObject(code, message, err = []) {
  */
 function errorHandler(err, req, res, next) {  // eslint-disable-line no-unused-vars
   if (err) {
+    logger.error('Error encountered while processing request: ',  err);
     res.status(err.code).json(err);
   } else {
     // If error object is not passed, send a generic server error
+    logger.error('Some unknown error occurred while processing request.');
     res.status(500).
       send('Something went wrong in the backend that couldn\'t be handled!');
   }
