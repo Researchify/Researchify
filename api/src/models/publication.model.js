@@ -52,8 +52,6 @@ const publicationSchema = new mongoose.Schema(
       },
       categoryTitle: {
         type: String,
-        required: true,
-        minlength: 3,
       },
       volume: String,
       issue: String,

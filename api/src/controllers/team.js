@@ -34,7 +34,6 @@ const options = {
 async function storeHandle(req, res, next) {
   const { twitterHandle: handle } = req.body;
   let foundTeam = req.foundTeam;
-  console.log("in here");
 
   if (handle.length == 0) {
     // remove the handle from the doc
@@ -65,7 +64,9 @@ async function storeHandle(req, res, next) {
       foundTeam
         .save()
         .then(() => res.status(200).json(foundTeam))
-        .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+        .catch((err) =>
+          next(fillErrorObject(500, 'Server error', [err.errors]))
+        );
     }
   }
 }
@@ -198,11 +199,11 @@ async function getGHAccessToken(req, res) {
   return res.status(200).json(response.data);
 }
 
-async function deployToGHPages(req, res) {
+async function deployToGHPages(req, res, next) {
   const ghToken = req.body.ghToken;
   const teamId = req.params.team_id;
-  const publications = req.body.publications;
-  const twitterHandle = req.body.twitterHandle;
+  const publications = req.body.teamPublications;
+  const twitterHandle = req.body.teamTwitterHandle;
 
   // call github API to get username
   const response = await axios.get('https://api.github.com/user', {
@@ -210,7 +211,9 @@ async function deployToGHPages(req, res) {
   });
 
   if (response.data.errors) {
-    return res.status(400).send('Error: ' + response.data.errors[0].detail);
+    next(
+      fillErrorObject(400, 'Validation error', [response.data.errors[0].detail])
+    );
   }
 
   const ghUser = response.data.login;
@@ -223,19 +226,14 @@ async function deployToGHPages(req, res) {
     teamPublications: publications,
   };
 
-  try {
-    const schollyResponse = await axios({
-      url: schollyHost + '/deploy/' + teamId,
-      method: 'post',
-      data: body,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return res.status(200).json(schollyResponse.data);
-  } catch (err) {
-    console.log(err);
-  }
+  await axios
+    .post(`${schollyHost}/deploy/${teamId}`, body)
+    .then(() => res.status(200).json('Successfully deployed'))
+    .catch(() =>
+      next(
+        fillErrorObject(500, 'Server error', ['Error occurred with scholly'])
+      )
+    );
 }
 
 /**

@@ -221,9 +221,7 @@ export const deployToGHPages =
   (teamId, accessToken, twitterHandle) => async (dispatch) => {
     try {
       // get publications
-      const { data } = await api.fetchPublicationsByTeamId(
-        '609f5ad827b1d48257c321d3' // FIXME: hardcoded for testing, remove after authentication is implemented
-      );
+      const { data } = await api.fetchPublicationsByTeamId(teamId);
       data.map(
         (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
       );
@@ -234,15 +232,13 @@ export const deployToGHPages =
         teamPublications: data,
       };
 
-      console.log(body);
-
       const response = await api.deployToGHPages(teamId, body);
       console.log(response.data);
       dispatch({
         type: DEPLOY_SUCCESS,
       }); // TODO: use this and DEPLOY_FAIL to show message to user?
     } catch (err) {
-      console.log(err);
+      dispatch(errorActionGlobalCreator(err));
       dispatch({
         type: DEPLOY_FAIL,
       });
