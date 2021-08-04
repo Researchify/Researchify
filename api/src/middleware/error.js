@@ -32,8 +32,8 @@ function fillErrorObject(code, message, err = []) {
  * @param req the express request
  * @param res the express response
  * @param next the handle of the next middleware function (currently non-existent)
- */ // eslint-disable-next-line no-unused-vars
-function errorHandler(err, req, res, next) {
+ */
+function errorHandler(err, req, res, next) {  // eslint-disable-line no-unused-vars
   if (err) {
     res.status(err.code).json(err);
   } else {
