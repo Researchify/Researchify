@@ -1,3 +1,6 @@
+/**
+ * This file exports our notification reducer that will handle all dispatched notification-related actions.
+ */
 import { CLEAR_NOTIFICATION, RESEARCHIFY_API_ERROR, SUCCESS_MESSAGE } from '../actions/types';
 
 import { errorReducer } from '../notification/notificationReduxFunctions';
@@ -7,7 +10,7 @@ const INITIAL_NOTIFICATION_STATE = {
   success: null,
 };
 
-const mainReducer = (state = INITIAL_NOTIFICATION_STATE, action) => {
+const notificationReducer = (state = INITIAL_NOTIFICATION_STATE, action) => {
   switch (action.type) {
     case RESEARCHIFY_API_ERROR:
       return {
@@ -21,4 +24,4 @@ const mainReducer = (state = INITIAL_NOTIFICATION_STATE, action) => {
       return state;
   }
 };
-export default mainReducer;
+export default notificationReducer;

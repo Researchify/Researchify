@@ -22,10 +22,10 @@ import { errorActionGlobalCreator, successMessageCreator } from '../notification
  * Create a new team to database.
  * @param teamInfo contains teamName, orgName and email
  */
-export const addTeamInfo = (teamInfo) => async (dispatch) => {
+export const createTeam = (teamInfo) => async (dispatch) => {
   try{
-    const successMessage = await api.addTeam(teamInfo)
-    dispatch(successMessageCreator(successMessage));
+    await api.createTeam(teamInfo)
+    dispatch(successMessageCreator("Team has been created"));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -278,12 +278,12 @@ function teamDataAllocator(teamData) {
  */
 export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
-    const successMessage = await api.updateTeam(teamId, teamData)
-    dispatch(successMessageCreator(successMessage));
+    const updatedTeam = await api.updateTeam(teamId, teamData)
     dispatch({
       type: UPDATE_TEAM,
-      payload: {...teamData, teamId},
+      payload: updatedTeam,
     });
+    dispatch(successMessageCreator("Team has been updated"));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
