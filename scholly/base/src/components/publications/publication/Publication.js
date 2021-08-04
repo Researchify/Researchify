@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Col, Row} from 'react-bootstrap';
+import {Button, Col, Row,Collapse} from 'react-bootstrap';
 import {BsLink45Deg} from 'react-icons/bs'
 import {GrLinkDown, GrLinkUp} from 'react-icons/gr'
 import {IconContext} from "react-icons"
@@ -28,23 +28,51 @@ const Publication = ({pub}) => {
     }
 
     const dropDown = (
-        <div className="mb-3 ml-3 mr-2">
-            <h5><b>Description:</b> {pub.description} </h5>
-            <Row>
-                <Col md={11}>
-                    <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
-                        <IconContext.Provider value={{color: 'black', size: '25px'}}>
-                            <BsLink45Deg/>
-                        </IconContext.Provider>
-                    </Button>
-                </Col>
-                <Col md={1}>
-                    <span onClick={() => setClicked(!clicked)}>
-                        {displayUpArrow()}
-                    </span>
-                </Col>
-            </Row>
-        </div>
+        <Collapse in={clicked}>
+            <div className="mb-3 ml-3 mr-2">
+                <h5>
+                    <b>Description:</b> {pub.description}
+                </h5>
+                <h5>
+                    <b>
+                        {pub.category.type.charAt(0) +
+                        pub.category.type.slice(1).toLowerCase()}:
+                    </b> {pub.category.categoryTitle}
+                </h5>
+                {
+                    pub.category.issue && (
+                    <h5> <b>Issue:</b> {pub.category.issue} </h5>)
+                }
+                {
+                    pub.category.volume && (
+                    <h5> <b>Volume:</b> {pub.category.volume} </h5>)
+                }
+                {
+                    pub.category.pages && (
+                    <h5><b>Pages:</b> {pub.category.pages} </h5>)
+                }
+                {
+                    pub.category.publisher && (
+                    <h5> <b>Publisher:</b> {pub.category.publisher} </h5>)
+                }
+                <Row>
+                    <Col md={11}>
+                        {pub.link && (
+                            <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
+                                <IconContext.Provider value={{color: 'black', size: '25px'}}>
+                                    <BsLink45Deg/>
+                                </IconContext.Provider>
+                            </Button>
+                        )}
+                    </Col>
+                    <Col md={1}>
+                        <span onClick={() => setClicked(!clicked)}>
+                            {displayUpArrow()}
+                        </span>
+                    </Col>
+                </Row>
+            </div>
+        </Collapse>
     )
 
     return (
@@ -72,7 +100,7 @@ const Publication = ({pub}) => {
                     </Col>
                 </Row>
             </div>
-            {clicked && dropDown}
+            {dropDown}
         </>
     )
 }
