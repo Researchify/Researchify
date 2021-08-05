@@ -14,6 +14,7 @@ import {
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
+  REGISTRATE_SUCCESS,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
@@ -26,7 +27,7 @@ export const createTeam = (teamInfo) => async (dispatch) => {
     await api.createTeam(teamInfo)
     dispatch(successMessageCreator("Team has been created"));
     dispatch({
-      type: 'registrate_success'
+      type: REGISTRATE_SUCCESS
     })
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
@@ -259,7 +260,6 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
     const { data } = await api.updateTeam(teamId, teamData)
     const updatedTeam = teamDataAllocator(data);
-    console.log("updated Team", updatedTeam)
     dispatch({
       type: UPDATE_TEAM,
       payload: updatedTeam,

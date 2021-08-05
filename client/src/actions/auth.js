@@ -17,9 +17,7 @@ export const signIn = (authData) => async(dispatch) => {
     dispatch ({
       type: SIGN_IN_REQUEST
     })
-    
     await api.loginTeam(authData)
-
     dispatch({
       type: SIGN_IN_SUCCESS
     })
