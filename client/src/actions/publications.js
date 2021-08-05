@@ -9,7 +9,6 @@ import {
   IMPORT_REQUEST,
   IMPORT_SUCCESS,
   IMPORT_FAIL,
-  UPDATE_GSCHOLAR_ID,
   IMPORT_END,
   IMPORT_EMPTY,
 } from './types';
@@ -114,58 +113,37 @@ export const sortPublications =
   };
 
 export const importPublication =
-  (values, startFrom, teamId) => async (dispatch) => {
+  (gScholarId, startFrom, teamId) => async (dispatch) => {
     try {
       dispatch({
         type: IMPORT_REQUEST,
       });
-
-      // extracting the authorId from the profileLink
-      let position = values.profileLink.indexOf('user=');
-      if (position === -1) {
+      console.log(startFrom);
+      const result = await api.importPublications(
+        gScholarId,
+        startFrom,
+        teamId
+      );
+      if (
+        result.data.newPublications.length === 0 &&
+        result.data.retrieved > 0
+      ) {
+        const pageNo = startFrom / pageSize + 1;
         dispatch({
-          type: IMPORT_FAIL,
-          payload: 'Please provide a valid profile link',
+          type: IMPORT_EMPTY,
+          payload:
+            'No new publications found so far...We can continue searching.',
         });
+        dispatch(
+          successMessageCreator(
+            'No new publications were found on page ' + pageNo
+          )
+        );
       } else {
-        const author_id = values.profileLink.substring(
-          position + 5,
-          position + 17
-        );
         dispatch({
-          type: UPDATE_GSCHOLAR_ID,
-          payload: author_id,
+          type: IMPORT_SUCCESS,
+          payload: result.data.newPublications,
         });
-        console.log(startFrom);
-        const result = await api.importPublications(
-          author_id,
-          startFrom,
-          teamId
-        );
-        console.log(result);
-        if (
-          result.data.newPublications.length === 0 &&
-          result.data.retrieved > 0
-        ) {
-          // for the initial fetch, the publications found were already in the db
-          // need to handle this case on the frontend
-          const pageNo = startFrom / pageSize + 1;
-          dispatch({
-            type: IMPORT_EMPTY,
-            payload:
-              'No new publications found so far...We can continue searching.',
-          });
-          dispatch(
-            successMessageCreator(
-              'No new publications were found on page ' + pageNo
-            )
-          );
-        } else {
-          dispatch({
-            type: IMPORT_SUCCESS,
-            payload: result.data.newPublications,
-          });
-        }
       }
     } catch (error) {
       dispatch({
@@ -185,7 +163,6 @@ export const retrieveMorePublications =
       console.log('retrieve more');
       console.log(startFrom);
       const result = await api.importPublications(author_id, startFrom, teamId);
-      console.log(result);
       const pageNo = startFrom / pageSize + 1;
 
       if (result.data.reachedEnd === true) {
@@ -222,6 +199,11 @@ export const retrieveMorePublications =
           type: IMPORT_SUCCESS,
           payload: result.data.newPublications,
         });
+        dispatch(
+          successMessageCreator(
+            'New publications were found on page ' + pageNo
+          )
+        );
       }
     } catch (error) {
       dispatch({

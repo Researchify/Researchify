@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Row, InputGroup, Button, Form } from 'react-bootstrap';
 import { importPublication } from '../../../actions/publications';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { IMPORT_FAIL, UPDATE_GSCHOLAR_ID } from '../../../actions/types';
 
 const ProfileLinkPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);
   const dispatch = useDispatch();
+  let gScholarId;
 
   const validationSchema = yup.object({
     profileLink: yup
@@ -18,9 +20,32 @@ const ProfileLinkPage = ({ closeModal }) => {
     profileLink: '',
   };
 
+  const validation = (values) => {
+    // extracting the authorId from the profileLink
+    const position = values.profileLink.indexOf('user=');
+    if (position === -1) {
+      dispatch({
+        type: IMPORT_FAIL,
+        payload: 'Please provide a valid profile link',
+      });
+      return false;
+    } else {
+      gScholarId = values.profileLink.substring(
+        position + 5,
+        position + 17
+      );
+      dispatch({
+        type: UPDATE_GSCHOLAR_ID,
+        payload: gScholarId,
+      });
+      return true;
+    }
+  };
+
   const submitForm = (values) => {
-    console.log(values);
-    dispatch(importPublication(values, 0, teamId));
+    if (validation(values)) {
+      dispatch(importPublication(gScholarId, 0, teamId));
+    }
   };
 
   return (
