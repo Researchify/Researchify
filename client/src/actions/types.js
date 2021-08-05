@@ -41,8 +41,9 @@ export const GET_GH_ACCESS_TOKEN = 'GET_GH_ACCESS_TOKEN';
 export const DEPLOY_SUCCESS = 'DEPLOY_SUCCESS';
 export const DEPLOY_FAIL = 'DEPLOY_FAIL';
 
-// ERRORS
+// NOTIFICATIONS
 export const TEAM_ERROR = 'TEAM_ERROR'; // use this if you want to create specific error handling
 export const PUBLICATION_ERROR = 'PUBLICATION_ERROR'; // use this if you want to create specific error handling
 export const RESEARCHIFY_API_ERROR = 'RESEARCHIFY_API_ERROR';
-export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
+export const SUCCESS_MESSAGE = 'SUCCESS_MESSAGE';

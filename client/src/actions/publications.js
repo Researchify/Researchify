@@ -14,7 +14,7 @@ import {
   IMPORT_EMPTY,
 } from './types';
 import { pageSize } from '../config/publications';
-import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
+import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 
 export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
   try {
