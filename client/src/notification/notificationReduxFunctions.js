@@ -1,3 +1,7 @@
+/**
+ * This file exports notification related function and actions. 
+ */
+
 import { RESEARCHIFY_API_ERROR, SUCCESS_MESSAGE } from '../actions/types';
 
 export const DEFAULT_ERROR_MESSAGE = `Something went wrong!`;

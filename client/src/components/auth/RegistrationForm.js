@@ -35,18 +35,19 @@ export default function RegistrationForm() {
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.stopPropagation();
-    } 
-    if (inputs.password !== inputs.confirmPassword){
-      return toast.error('Passwords does not match');
+    } else{
+      if (inputs.password !== inputs.confirmPassword){
+        return toast.error('Passwords does not match');
+      }
+      const teamData = {
+        email: inputs.email,
+        teamName: inputs.teamName,
+        orgName: inputs.orgName,
+        password: inputs.password,
+        repoCreated: false,
+      };
+      dispatch(createTeam(teamData))
     }
-    const teamData = {
-      email: inputs.email,
-      teamName: inputs.teamName,
-      orgName: inputs.orgName,
-      password: inputs.password,
-      repoCreated: false,
-    };
-    dispatch(createTeam(teamData))
     setValidated(true);
   };
 
