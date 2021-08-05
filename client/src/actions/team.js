@@ -12,6 +12,7 @@ import {
   DELETE_TEAM_MEMBER,
   ADD_TEAM,
   GET_GH_ACCESS_TOKEN,
+  DEPLOY_REQUEST,
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
@@ -220,6 +221,10 @@ export const getGHAccessToken = (teamId, code) => async (dispatch) => {
 export const deployToGHPages =
   (teamId, accessToken, twitterHandle) => async (dispatch) => {
     try {
+      dispatch({
+        type: DEPLOY_REQUEST,
+      });
+
       // get publications
       const { data } = await api.fetchPublicationsByTeamId(teamId);
       data.map(
@@ -236,7 +241,8 @@ export const deployToGHPages =
       console.log(response.data);
       dispatch({
         type: DEPLOY_SUCCESS,
-      }); // TODO: use this and DEPLOY_FAIL to show message to user?
+      }); 
+      dispatch(successMessageCreator('Deployed successfully'))
     } catch (err) {
       dispatch(errorActionGlobalCreator(err));
       dispatch({

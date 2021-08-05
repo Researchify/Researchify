@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { githubLoginUrl } from '../../config/deploy';
 import { GoMarkGithub } from 'react-icons/go';
 import { deployToGHPages, getGHAccessToken } from '../../actions/team';
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 
 const DeployPage = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
+  const loading = useSelector((state) => state.deploy.loading);
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken
   );
@@ -62,12 +63,18 @@ const DeployPage = () => {
 
   return (
     <>
+    {
+      loading ? 
+      <div className="mb-3 mt-3 text-center">
+        <Spinner animation="border" />
+      </div> : 
       <ConditionalWrapper
         condition={retrievedAccessToken}
         wrapper={(children) => <DeployButton> {children}</DeployButton>}
       >
         <GitHubLoginButton />
       </ConditionalWrapper>
+    }
     </>
   );
 };

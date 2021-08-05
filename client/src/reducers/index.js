@@ -9,6 +9,7 @@ import teamReducer from './teamReducer';
 import importedPublicationsReducer from './importedPublicationsReducer';
 import teamMembersReducer from './teamMembersReducer';
 import notificationReducer from './notificationReducer';
+import deployReducer from './deployReducer';
 
 export default combineReducers({
   notification: notificationReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   team: teamReducer,
   importedPublications: importedPublicationsReducer,
   teamMember: teamMembersReducer,
+  deploy: deployReducer,
 });
