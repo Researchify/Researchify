@@ -24,7 +24,7 @@ async function handleDeployEvent(req, res) {
 
   const repoName = data.ghUsername + '.github.io';
   try {
-    await build(data);
+    await build(data, repoName);
     await push(data.ghUsername, data.ghToken, repoName);
     return res
       .status(200)

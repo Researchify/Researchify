@@ -1,4 +1,4 @@
-import {TEAM_MEMBERS} from "../../global/data";
+import {TEAM_MEMBERS} from '../../global/data';
 
 const TeamPage = () => {
     const teamMembers = TEAM_MEMBERS;

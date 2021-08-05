@@ -11,7 +11,8 @@ const which = require('which');
 const {
   REACT_APP_TEAM_INFO,
   REACT_APP_TEAM_PUBLICATIONS,
-  REACT_APP_TEAM_MEMBERS
+  REACT_APP_TEAM_MEMBERS,
+  REACT_APP_REPO_URL
 } = require('./data');
 
 const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
@@ -24,12 +25,9 @@ const BUILD_TIMEOUT = 10000;
  * @param data the data to be used as environment variables for the base React app.
  * @throws Error if the build failed.
  */
-async function buildBaseApp(data) {
+async function buildBaseApp(data, repoName) {
   // windows users: see https://stackoverflow.com/questions/22575662/filename-too-long-in-git-for-windows
   // if it fails here
-
-  console.log("data in build", data)
-
   const npm = which.sync('npm');
   const build = spawn(
     npm,
@@ -41,6 +39,7 @@ async function buildBaseApp(data) {
         [REACT_APP_TEAM_PUBLICATIONS]: JSON.stringify(data.teamPublications),
         [REACT_APP_TEAM_INFO]: JSON.stringify(data.teamInfo),
         [REACT_APP_TEAM_MEMBERS]: JSON.stringify(data.teamMembers),
+        [REACT_APP_REPO_URL]: 'https://' + repoName + '/',
       },
       timeout: BUILD_TIMEOUT,
     }
