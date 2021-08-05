@@ -11,7 +11,7 @@ import {
   IMPORT_FAIL,
   UPDATE_GSCHOLAR_ID,
   IMPORT_END,
-  IMPORT_EMPTY
+  IMPORT_EMPTY,
 } from './types';
 import { pageSize } from '../config/publications';
 import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
@@ -140,8 +140,10 @@ export const importPublication =
           teamId
         );
         console.log(result);
-        // TODO: logic can probably be improved in the future to be more thorough
-        if (result.data.newPublications.length === 0 && result.data.retrieved > 0) {
+        if (
+          result.data.newPublications.length === 0 &&
+          result.data.retrieved > 0
+        ) {
           // for the initial fetch, the publications found were already in the db
           dispatch({
             type: IMPORT_EMPTY,
@@ -176,16 +178,45 @@ export const retrieveMorePublications =
       console.log(result);
 
       if (result.data.reachedEnd === true) {
-        // reached the end of the user's publications
+        // reached the end of the user's profile
+        if (result.data.newPublications.length > 0) {
+          dispatch({
+            type: IMPORT_SUCCESS,
+            payload: result.data.newPublications,
+          });
+        } else {
+          // TODO: there may be an edge case here that gets through that isn't supposed to
+          // use toast here
+          dispatch({
+            type: IMPORT_EMPTY,
+            payload:
+              'In the end, no new publications were found from the specified profile!',
+          });
+        }
         dispatch({
           type: IMPORT_END,
         });
+      } else if (
+        result.data.newPublications.length === 0 &&
+        result.data.retrieved > 0
+      ) {
+        // use toast
+        // no new pubs retrieved but not end of profile
+        // dispatch({
+        //   type: IMPORT_EMPTY,
+        //   payload:
+        //     'No new publications found so far...We can continue searching.',
+        // });
+        dispatch({
+          type: IMPORT_SUCCESS,
+          payload: result.data.newPublications,
+        });
+      } else {
+        dispatch({
+          type: IMPORT_SUCCESS,
+          payload: result.data.newPublications,
+        });
       }
-
-      dispatch({
-        type: IMPORT_SUCCESS,
-        payload: result.data.newPublications,
-      });
     } catch (error) {
       dispatch({
         type: IMPORT_FAIL,

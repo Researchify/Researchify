@@ -25,7 +25,7 @@ const ImportEmptyPage = ({ closeModal }) => {
 
   const handlePagination = () => {
     dispatch(
-      retrieveMorePublications(gScholarId, startFrom + pageSize, teamId)
+      retrieveMorePublications(gScholarId, startFrom, teamId)
     );
   };
 

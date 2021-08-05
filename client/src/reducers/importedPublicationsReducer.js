@@ -101,7 +101,7 @@ const importedPublicationReducer = (state = initialState, action) => {
     case UPDATE_GSCHOLAR_ID:
       return { ...state, gScholarId: action.payload };
     case IMPORT_END:
-      return { ...state, reachedEnd: true };
+      return { ...state, reachedEnd: true, loading: false };
     case CHANGE_ACTIVE_PAGE:
       return {
         ...state,
@@ -111,7 +111,7 @@ const importedPublicationReducer = (state = initialState, action) => {
     case UPDATE_PUBLICATIONS_TO_IMPORT:
       return { ...state, publicationsToImport: action.payload };
     case IMPORT_EMPTY:
-      return { ...state, importStatus: 'EMPTY', loading: false, error: action.payload }
+      return { ...state, importStatus: 'EMPTY', loading: false, startFrom: state.startFrom + pageSize, error: action.payload }
     default:
       return state;
   }

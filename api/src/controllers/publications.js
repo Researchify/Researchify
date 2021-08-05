@@ -172,12 +172,7 @@ async function getGoogleScholarPublications(req, res) {
   const resultLinks = await page.$$('.gsc_a_t a');
   let links = [];
 
-  console.log(resultLinks.length === 4); // there were no pubs found
-  // check for the text 'there are no articles in this profile'
-  // const articlesFound = await page.$$('.gsc_a_e');
-  // if (articlesFound.length === 1) {
-  //   endOfProfile = true;
-  // } 
+  // console.log(resultLinks.length === 4); // there were no pubs found
 
   if (resultLinks.length === noOfDummyLinks) {
     // no pubs found
@@ -206,6 +201,12 @@ async function getGoogleScholarPublications(req, res) {
       teamId,
       publications
     );
+
+    // if the no of pubs is less than the page size,
+    // then we've reached the end of the profile
+    if (publications.length < pageSize) {
+      endOfProfile = true;
+    }
 
     response = {
       retrieved: publications.length,
