@@ -2,9 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import { IMPORT_CLEAR_STATE } from '../../../actions/types';
 import { Row, Button, Alert } from 'react-bootstrap';
-import {
-  retrieveMorePublications,
-} from '../../../actions/publications';
+import { retrieveMorePublications } from '../../../actions/publications';
 
 const ImportEmptyPage = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -13,6 +11,7 @@ const ImportEmptyPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);
   const { reachedEnd } = useSelector((state) => state.importedPublications);
   const { error } = useSelector((state) => state.importedPublications);
+  const { publications } = useSelector((state) => state.importedPublications);
 
   const handleClose = () => {
     closeModal();
@@ -22,9 +21,7 @@ const ImportEmptyPage = ({ closeModal }) => {
   };
 
   const handlePagination = () => {
-    dispatch(
-      retrieveMorePublications(gScholarId, startFrom, teamId)
-    );
+    dispatch(retrieveMorePublications(gScholarId, startFrom, teamId));
   };
 
   return (

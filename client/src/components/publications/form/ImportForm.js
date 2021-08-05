@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 import ImportSuccessPage from './ImportSuccessPage';
 import ImportFailPage from './ImportFailPage';
+import ImportEmptyPage from './ImportEmptyPage';
 import ProfileLinkPage from './ProfileLinkPage';
 
 const ImportForm = ({ closeModal }) => {
@@ -17,7 +18,7 @@ const ImportForm = ({ closeModal }) => {
       case 'FAIL':
         return <ImportFailPage closeModal={closeModal} />;
       case 'EMPTY':
-        return <ImportSuccessPage closeModal={closeModal} />;
+        return <ImportEmptyPage closeModal={closeModal} />;
       default:
         return <ProfileLinkPage closeModal={closeModal} />;
     }

@@ -12,6 +12,7 @@ import {
   UPDATE_GSCHOLAR_ID,
   IMPORT_END,
   IMPORT_EMPTY,
+  IMPORT_EMPTY_INITIAL
 } from './types';
 import {
   errorActionGlobalCreator,
@@ -147,8 +148,9 @@ export const importPublication =
           result.data.retrieved > 0
         ) {
           // for the initial fetch, the publications found were already in the db
+          // need to handle this case on the frontend
           dispatch({
-            type: IMPORT_EMPTY,
+            type: IMPORT_EMPTY_INITIAL,
             payload:
               'No new publications found so far...We can continue searching.',
           });
@@ -187,11 +189,8 @@ export const retrieveMorePublications =
             payload: result.data.newPublications,
           });
         } else {
-          // TODO: there may be an edge case here that gets through that isn't supposed to
           dispatch({
             type: IMPORT_EMPTY,
-            // payload:
-            //   'In the end, no new publications were found from the specified profile!',
           });
           dispatch(successMessageCreator('No new publications were found'));
         }
@@ -205,8 +204,6 @@ export const retrieveMorePublications =
         // no new pubs retrieved but not end of profile
         dispatch({
           type: IMPORT_EMPTY,
-          // payload:
-          //   'No new publications found so far...We can continue searching.',
         });
         dispatch(successMessageCreator('No new publications were found!'));
       } else {

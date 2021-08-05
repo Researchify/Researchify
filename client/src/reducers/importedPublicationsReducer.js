@@ -7,7 +7,8 @@ import {
   IMPORT_END,
   CHANGE_ACTIVE_PAGE,
   UPDATE_PUBLICATIONS_TO_IMPORT,
-  IMPORT_EMPTY
+  IMPORT_EMPTY,
+  IMPORT_EMPTY_INITIAL
 } from '../actions/types';
 import { pageSize } from '../config/publications';
 
@@ -111,7 +112,21 @@ const importedPublicationReducer = (state = initialState, action) => {
     case UPDATE_PUBLICATIONS_TO_IMPORT:
       return { ...state, publicationsToImport: action.payload };
     case IMPORT_EMPTY:
-      return { ...state, importStatus: 'EMPTY', loading: false, startFrom: state.startFrom + pageSize, error: action.payload }
+      return {
+        ...state,
+        importStatus: 'SUCCESS',
+        loading: false,
+        startFrom: state.startFrom + pageSize,
+        error: action.payload,
+      };
+    case IMPORT_EMPTY_INITIAL:
+      return {
+        ...state,
+        importStatus: 'EMPTY',
+        loading: false,
+        startFrom: state.startFrom + pageSize,
+        error: action.payload,
+      };
     default:
       return state;
   }
