@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 import ImportSuccessPage from './ImportSuccessPage';
 import ImportFailPage from './ImportFailPage';
-import ImportEmptyPage from './ImportEmptyPage';
 import ProfileLinkPage from './ProfileLinkPage';
 
 const ImportForm = ({ closeModal }) => {

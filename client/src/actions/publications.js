@@ -208,7 +208,7 @@ export const retrieveMorePublications =
           // payload:
           //   'No new publications found so far...We can continue searching.',
         });
-        dispatch(successMessageCreator('No new publications were found'));
+        dispatch(successMessageCreator('No new publications were found!'));
       } else {
         dispatch({
           type: IMPORT_SUCCESS,

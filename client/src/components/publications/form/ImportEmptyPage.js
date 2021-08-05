@@ -1,10 +1,8 @@
-import { pageSize } from '../../../config/publications';
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import { IMPORT_CLEAR_STATE } from '../../../actions/types';
 import { Row, Button, Alert } from 'react-bootstrap';
 import {
-  createBulkPublications,
   retrieveMorePublications,
 } from '../../../actions/publications';
 
