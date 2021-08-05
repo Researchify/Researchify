@@ -214,7 +214,7 @@ async function deployToGHPages(req, res, next) {
   });
 
   if (response.data.errors) {
-    next(
+    return next(
       fillErrorObject(400, 'Validation error', [response.data.errors[0].detail])
     );
   }
