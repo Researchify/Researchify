@@ -21,7 +21,7 @@ export const NotificationToaster = () => {
     dispatch({
       type: CLEAR_NOTIFICATION,
     });
-  }, [error, success]);
+  }, [error, success]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <Fragment />;
 };
