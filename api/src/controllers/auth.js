@@ -21,13 +21,13 @@ const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
  */
  async function login(req, res, next) {
     const foundTeam = await Team.findOne({ email: req.body.email })
-    if (!foundTeam) { // team not found 
-      next(
-        fillErrorObject(400, 'Authenication error', [
+    if (!foundTeam) {
+      return next(
+        fillErrorObject(400, 'Authentication error', [
           'Incorrect email/password',
         ])
       );
-    } 
+    }
 
     if (await bcrypt.compare(req.body.password, foundTeam.password)){
       const jwtPayload = {
@@ -41,26 +41,26 @@ const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
         expiresIn: refreshTokenExpiry
       });
 
-      res.cookie('accessToken', accessToken, { 
+      res.cookie('accessToken', accessToken, {
         httpOnly: true,
-        maxAge: accessTokenCookieExpiry, 
+        maxAge: accessTokenCookieExpiry,
       });
       res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        maxAge: refreshTokenCookieExpiry, 
+        maxAge: refreshTokenCookieExpiry,
       })
       res.cookie('isLogin', true, {
         maxAge: refreshTokenCookieExpiry,
-      }) 
+      })
       return res.status(200).send(jwtPayload);
-    } 
+    }
 
-    // incorrect password 
-    next(
+    // Incorrect password.
+    return next(
       fillErrorObject(400, 'Authenication error', [
         'Incorrect email/password',
       ])
-    ); 
+    );
   }
 
 
@@ -69,7 +69,7 @@ const { accessTokenExpiry, refreshTokenExpiry, accessTokenCookieExpiry, refreshT
  * @param {*} req request object
  * @param {*} res response object
  * @returns 200: logout successfully
- * @returns 404: error occur 
+ * @returns 404: error occur
  */
 function logout(req, res) {
   res.clearCookie('accessToken')
