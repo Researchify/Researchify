@@ -13,6 +13,8 @@ const teamRouter = require('./routes/team');
 const authRouter = require('./routes/auth');
 const themeRouter = require('./routes/theme');
 
+const { errorHandler } = require('./middleware/error');
+
 // Connect to the database
 connectDb();
 
@@ -24,7 +26,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json({ limit: '30mb', extended: true })); // express.json() parses requests with json payloads and uses "body-parser"
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
-app.use(cookieParser())
+app.use(cookieParser());
 
 // "Welcome" route
 app.get('/', (req, res) => res.send('You have reached the Researchify API'));
@@ -35,19 +37,8 @@ app.use('/team', teamRouter);
 app.use('/auth', authRouter);
 app.use('/theme', themeRouter);
 
-// error handler middleware
-// eslint-disable-next-line no-unused-vars
-app.use(function (err, req, res, next) {
-  const errorObject = err;
-  console.log(errorObject);
-  if (errorObject) {
-    res.status(err.errorCode).json(err);
-  } else {
-    // if error object is not passed, server error
-    res.status(500).send('Something went wrong in the backend that couldn\'t be handled!');
-  }
-});
-
+// Use the custom error handling middleware
+app.use(errorHandler);
 
 // Listen for connections
 app.listen(PORT, () => logger.info(`Server running on port: ${PORT}`));
