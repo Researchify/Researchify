@@ -156,8 +156,12 @@ async function getGoogleScholarPublications(req, res) {
     playwrightConfig.pageSizeSuffix +
     pageSize +
     playwrightConfig.sortBySuffix;
+  // const url =
+  //   'https://scholar.google.com.sg/citations?user=3tyGlPsAAAAJ&hl=en&cstart=40&pagesize=80';
   logger.info(`GScholar profile for user id ${author}: ${url}`);
   let publications = [];
+  let endOfProfile = false;
+  let response;
 
   const browser = await firefox.launch();
   const context = await browser.newContext();
@@ -168,29 +172,52 @@ async function getGoogleScholarPublications(req, res) {
   const resultLinks = await page.$$('.gsc_a_t a');
   let links = [];
 
-  for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
-    links.push(await resultLinks[i].getAttribute('href'));
+  console.log(resultLinks.length === 4); // there were no pubs found
+  // check for the text 'there are no articles in this profile'
+  // const articlesFound = await page.$$('.gsc_a_e');
+  // if (articlesFound.length === 1) {
+  //   endOfProfile = true;
+  // } 
+
+  if (resultLinks.length === noOfDummyLinks) {
+    // no pubs found
+    endOfProfile = true;
+    await browser.close();
+
+    response = {
+      retrieved: publications.length,
+      newPublications: [],
+      reachedEnd: endOfProfile,
+    };
+  } else {
+    for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
+      links.push(await resultLinks[i].getAttribute('href'));
+    }
+
+    await browser.close();
+
+    await Promise.all(links.map((x) => scrapeGoogleScholar(x))).then((pub) =>
+      publications.push(...pub)
+    );
+
+    console.timeEnd('timeToScrape');
+
+    const newPublications = await validateImportedPublications(
+      teamId,
+      publications
+    );
+
+    response = {
+      retrieved: publications.length,
+      newPublications: newPublications,
+      reachedEnd: endOfProfile,
+    };
+
   }
 
-  await browser.close();
-
-  await Promise.all(links.map((x) => scrapeGoogleScholar(x))).then((pub) =>
-    publications.push(...pub)
-  );
-
-  console.timeEnd('timeToScrape');
-
-  const newPublications = await validateImportedPublications(
-    teamId,
-    publications
-  );
-
-  const response = {
-    retrieved: publications.length,
-    newPublications: newPublications,
-  };
-
   res.status(200).json(response);
+
+  
 }
 
 /***

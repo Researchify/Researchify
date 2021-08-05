@@ -11,6 +11,7 @@ import {
   IMPORT_FAIL,
   UPDATE_GSCHOLAR_ID,
   IMPORT_END,
+  IMPORT_EMPTY
 } from './types';
 import { pageSize } from '../config/publications';
 import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
@@ -139,13 +140,13 @@ export const importPublication =
           teamId
         );
         console.log(result);
-        if (result.data.newPublications.length === 0) {
-          // all publications have already been imported into db
-          // TODO: logic can probably be improved in the future to be more thorough
+        // TODO: logic can probably be improved in the future to be more thorough
+        if (result.data.newPublications.length === 0 && result.data.retrieved > 0) {
+          // for the initial fetch, the publications found were already in the db
           dispatch({
-            type: IMPORT_FAIL,
+            type: IMPORT_EMPTY,
             payload:
-              'All publications from the profile have already been imported',
+              'No new publications found so far...We can continue searching.',
           });
         } else {
           dispatch({
@@ -174,7 +175,7 @@ export const retrieveMorePublications =
       const result = await api.importPublications(author_id, startFrom, teamId);
       console.log(result);
 
-      if (result.data.retrieved < pageSize) {
+      if (result.data.reachedEnd === true) {
         // reached the end of the user's publications
         dispatch({
           type: IMPORT_END,
