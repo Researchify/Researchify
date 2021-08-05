@@ -6,7 +6,7 @@ import './landingPage.css';
 const landingPage = () => {
   return (
     <Fragment>
-      <Carousel>
+      <Carousel className="top-padding">
         <Carousel.Item interval={8000}>
           <Image src={TestImg} fluid className="carousel-img" />
         </Carousel.Item>

@@ -22,6 +22,6 @@
   font-size: medium;
 }
 
-.client-header {
-  top: 0;
+.top-padding {
+  padding-top: 50px;
 }
