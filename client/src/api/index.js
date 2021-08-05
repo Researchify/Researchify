@@ -20,7 +20,7 @@ export const createBulkPublications = (teamId, publicationList) =>
 export const importPublications = (authorId, startFrom, teamId) =>
   api.get(`/publications/import/${authorId}/${startFrom}/validate/${teamId}`);
 
-export const registerTeam = (teamInfo) => api.post('/team', teamInfo);
+export const createTeam = (teamInfo) => api.post('/team', teamInfo);
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
 export const registerTwitterHandle = (teamId, handle) =>
   api.patch(`/team/${teamId}/twitter-handle`, handle);

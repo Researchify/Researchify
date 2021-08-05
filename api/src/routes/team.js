@@ -68,7 +68,7 @@ teamRouter.post(
   teamController.deployToGHPages
 );
 
-teamRouter.post('/', teamController.addTeam);
+teamRouter.post('/', teamController.createTeam);
 
 teamRouter.patch(
   '/:team_id',

@@ -22,10 +22,10 @@ import { errorActionGlobalCreator, successMessageCreator } from '../notification
  * Create a new team to database.
  * @param teamInfo contains teamName, orgName and email
  */
-export const registerTeam = (teamInfo) => async (dispatch) => {
+export const createTeam = (teamInfo) => async (dispatch) => {
   try{
-    const successMessage = await api.addTeam(teamInfo)
-    dispatch(successMessageCreator(successMessage));
+    await api.createTeam(teamInfo)
+    dispatch(successMessageCreator("Team has been created"));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -221,9 +221,7 @@ export const deployToGHPages =
   (teamId, accessToken, twitterHandle) => async (dispatch) => {
     try {
       // get publications
-      const { data } = await api.fetchPublicationsByTeamId(
-        '609f5ad827b1d48257c321d3' // FIXME: hardcoded for testing, remove after authentication is implemented
-      );
+      const { data } = await api.fetchPublicationsByTeamId(teamId);
       data.map(
         (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
       );
@@ -234,15 +232,13 @@ export const deployToGHPages =
         teamPublications: data,
       };
 
-      console.log(body);
-
       const response = await api.deployToGHPages(teamId, body);
       console.log(response.data);
       dispatch({
         type: DEPLOY_SUCCESS,
       }); // TODO: use this and DEPLOY_FAIL to show message to user?
     } catch (err) {
-      console.log(err);
+      dispatch(errorActionGlobalCreator(err));
       dispatch({
         type: DEPLOY_FAIL,
       });
@@ -278,12 +274,13 @@ function teamDataAllocator(teamData) {
  */
 export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
-    const successMessage = await api.updateTeam(teamId, teamData)
-    dispatch(successMessageCreator(successMessage));
+    const { data } = await api.updateTeam(teamId, teamData)
+    const updatedTeam = teamDataAllocator(data);
     dispatch({
       type: UPDATE_TEAM,
-      payload: {...teamData, teamId},
+      payload: updatedTeam,
     });
+    dispatch(successMessageCreator("Team has been updated"));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

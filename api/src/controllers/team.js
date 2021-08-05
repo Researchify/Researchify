@@ -34,7 +34,6 @@ const options = {
 async function storeHandle(req, res, next) {
   const { twitterHandle: handle } = req.body;
   let foundTeam = req.foundTeam;
-  console.log("in here");
 
   if (handle.length == 0) {
     // remove the handle from the doc
@@ -65,7 +64,9 @@ async function storeHandle(req, res, next) {
       foundTeam
         .save()
         .then(() => res.status(200).json(foundTeam))
-        .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+        .catch((err) =>
+          next(fillErrorObject(500, 'Server error', [err.errors]))
+        );
     }
   }
 }
@@ -92,27 +93,18 @@ function getTeam(req, res, next) {
  * @param {*} res response object - updated team object
  * @returns 201: returns updated team details
  */
-function addTeam(req, res, next) {
-  Team.findOne({ email: req.body.email })
-    .then((foundTeam) => {
-      if (foundTeam) {
-        return next(
-          fillErrorObject(400, 'User input error', [
-            'Email had been registered',
-          ])
-        );
-      }
-      bcrypt.genSalt().then((salt) => 
-        bcrypt.hash(req.body.password, salt).then((hashedPassword) => {
-          const hashedTeam = { ...req.body, password: hashedPassword };
-          Team.create(hashedTeam)
-            .then(() => {
-              return res.status(201).json('Team has been created successfully')
-            })
-        })
-      );
-    })
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+async function createTeam(req, res, next) {
+  const foundTeam = await Team.findOne({ email: req.body.email })
+  if (foundTeam) {
+    next(fillErrorObject(400, 'Duplicate email error', ['Email had been registered']))
+  }
+  const salt = await bcrypt.genSalt()
+  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+  const hashedTeam = { ...req.body, password: hashedPassword };
+  const createdTeam = await Team.create(hashedTeam)
+  // remove sensitive data
+  delete createTeam.password
+  return res.status(201).json(createdTeam)
 }
 
 /**
@@ -207,11 +199,11 @@ async function getGHAccessToken(req, res) {
   return res.status(200).json(response.data);
 }
 
-async function deployToGHPages(req, res) {
+async function deployToGHPages(req, res, next) {
   const ghToken = req.body.ghToken;
   const teamId = req.params.team_id;
-  const publications = req.body.publications;
-  const twitterHandle = req.body.twitterHandle;
+  const publications = req.body.teamPublications;
+  const twitterHandle = req.body.teamTwitterHandle;
 
   // call github API to get username
   const response = await axios.get('https://api.github.com/user', {
@@ -219,7 +211,9 @@ async function deployToGHPages(req, res) {
   });
 
   if (response.data.errors) {
-    return res.status(400).send('Error: ' + response.data.errors[0].detail);
+    next(
+      fillErrorObject(400, 'Validation error', [response.data.errors[0].detail])
+    );
   }
 
   const ghUser = response.data.login;
@@ -232,19 +226,14 @@ async function deployToGHPages(req, res) {
     teamPublications: publications,
   };
 
-  try {
-    const schollyResponse = await axios({
-      url: schollyHost + '/deploy/' + teamId,
-      method: 'post',
-      data: body,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return res.status(200).json(schollyResponse.data);
-  } catch (err) {
-    console.log(err);
-  }
+  await axios
+    .post(`${schollyHost}/deploy/${teamId}`, body)
+    .then(() => res.status(200).json('Successfully deployed'))
+    .catch(() =>
+      next(
+        fillErrorObject(500, 'Server error', ['Error occurred with scholly'])
+      )
+    );
 }
 
 /**
@@ -255,22 +244,21 @@ async function deployToGHPages(req, res) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-function updateTeam(req, res, next) {
+async function updateTeam(req, res, next) { // eslint-disable-line no-unused-vars
   const { team_id: _id } = req.params;
   const team = req.body;
 
-  Team.findByIdAndUpdate(_id, team, {
+  const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
     new: true,
     runValidators: true,
   })
-    .then(() => res.status(200).json('Team has been updated'))
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
+  res.status(200).json(updatedTeam)
 }
 
 module.exports = {
   storeHandle,
   getTeam,
-  addTeam,
+  createTeam,
   createTeamMember,
   readTeamMembersByTeam,
   deleteTeamMember,

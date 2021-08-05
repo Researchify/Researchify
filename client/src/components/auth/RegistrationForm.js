@@ -7,7 +7,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
-import { registerTeam } from '../../actions/team';
+import { createTeam } from '../../actions/team';
 import './Register.css';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -46,7 +46,7 @@ export default function RegistrationForm() {
       password: inputs.password,
       repoCreated: false,
     };
-    dispatch(registerTeam(teamData))
+    dispatch(createTeam(teamData))
     setValidated(true);
   };
 
