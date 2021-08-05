@@ -94,7 +94,7 @@ export default function RegistrationForm() {
           </Form.Group>
         </Form.Row>
 
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
@@ -108,7 +108,7 @@ export default function RegistrationForm() {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group controlId="formPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -121,7 +121,7 @@ export default function RegistrationForm() {
             Please input a valid password.
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group controlId="formConfirmedPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
