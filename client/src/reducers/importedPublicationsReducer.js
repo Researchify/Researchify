@@ -122,7 +122,7 @@ const importedPublicationReducer = (state = initialState, action) => {
     case IMPORT_EMPTY_INITIAL:
       return {
         ...state,
-        importStatus: 'EMPTY',
+        importStatus: 'SUCCESS',
         loading: false,
         startFrom: state.startFrom + pageSize,
         error: action.payload,

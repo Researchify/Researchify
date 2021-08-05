@@ -12,12 +12,12 @@ import {
   UPDATE_GSCHOLAR_ID,
   IMPORT_END,
   IMPORT_EMPTY,
-  IMPORT_EMPTY_INITIAL
 } from './types';
 import {
   errorActionGlobalCreator,
   successMessageCreator,
 } from '../notification/notificationReduxFunctions';
+import { pageSize } from '../config/publications';
 
 export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
   try {
@@ -149,11 +149,17 @@ export const importPublication =
         ) {
           // for the initial fetch, the publications found were already in the db
           // need to handle this case on the frontend
+          const pageNo = startFrom / pageSize + 1;
           dispatch({
-            type: IMPORT_EMPTY_INITIAL,
+            type: IMPORT_EMPTY,
             payload:
               'No new publications found so far...We can continue searching.',
           });
+          dispatch(
+            successMessageCreator(
+              'No new publications were found on page ' + pageNo
+            )
+          );
         } else {
           dispatch({
             type: IMPORT_SUCCESS,
@@ -180,6 +186,7 @@ export const retrieveMorePublications =
       console.log(startFrom);
       const result = await api.importPublications(author_id, startFrom, teamId);
       console.log(result);
+      const pageNo = startFrom / pageSize + 1;
 
       if (result.data.reachedEnd === true) {
         // reached the end of the user's profile
@@ -192,7 +199,7 @@ export const retrieveMorePublications =
           dispatch({
             type: IMPORT_EMPTY,
           });
-          dispatch(successMessageCreator('No new publications were found'));
+          dispatch(successMessageCreator('No publications left to retrieve!'));
         }
         dispatch({
           type: IMPORT_END,
@@ -205,7 +212,11 @@ export const retrieveMorePublications =
         dispatch({
           type: IMPORT_EMPTY,
         });
-        dispatch(successMessageCreator('No new publications were found!'));
+        dispatch(
+          successMessageCreator(
+            'No new publications were found on page ' + pageNo
+          )
+        );
       } else {
         dispatch({
           type: IMPORT_SUCCESS,

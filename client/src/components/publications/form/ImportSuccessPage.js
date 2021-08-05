@@ -166,7 +166,8 @@ const ImportSuccessPage = ({ closeModal }) => {
         />
       ))}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Pagination size="sm">
+        {publications.length > 0 ? (
+          <Pagination size="sm">
           <Pagination.Prev
             onClick={handlePageBack}
             disabled={activePage === 1}
@@ -177,6 +178,10 @@ const ImportSuccessPage = ({ closeModal }) => {
             disabled={activePage === totalPages}
           />
         </Pagination>
+        ) : (
+          <h4>No publications retrieved so far...</h4>
+        )}
+        
       </div>
       <Row>
         <div className="mt-2 ml-3">
