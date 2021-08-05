@@ -12,16 +12,16 @@ export const NotificationToaster = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(error){
+    if (error) {
       toast.error(error.data);
     }
-    if(success){
+    if (success) {
       toast.success(success);
     }
     dispatch({
-      type: CLEAR_NOTIFICATION
-    })
-  }, [error, success])
-  
+      type: CLEAR_NOTIFICATION,
+    });
+  }, [error, success]);
+
   return <Fragment />;
 };
