@@ -131,8 +131,6 @@ export const importPublication =
         const pageNo = startFrom / pageSize + 1;
         dispatch({
           type: IMPORT_EMPTY,
-          payload:
-            'No new publications found so far...We can continue searching.',
         });
         dispatch(
           successMessageCreator(

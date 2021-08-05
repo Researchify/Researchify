@@ -116,7 +116,6 @@ const importedPublicationReducer = (state = initialState, action) => {
         importStatus: 'SUCCESS',
         loading: false,
         startFrom: state.startFrom + pageSize,
-        error: action.payload,
       };
     default:
       return state;
