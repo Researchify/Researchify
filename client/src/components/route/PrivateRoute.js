@@ -1,5 +1,5 @@
 /**
- * Root component.
+ * This file export all the private route
  */
 import { Switch, Redirect } from 'react-router-dom';
 import React, { useEffect } from 'react';

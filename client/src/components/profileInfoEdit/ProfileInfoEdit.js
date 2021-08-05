@@ -44,16 +44,6 @@ const ProfileInfoEdit = () => {
     setValidated(true);
   };
 
-  // const updateProfile = (teamId, profileData) => {
-  //   try {
-  //     dispatch(updateTeam(teamId, profileData))
-  //     toast.success('Profile has been successfully updated');
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error('Profile has not been updated');
-  //   }
-  // };
-
   const profileDeleted = () => {
     console.error(
       'Delete profile function is not implemented yet in ProfileInfoEdit.js'
