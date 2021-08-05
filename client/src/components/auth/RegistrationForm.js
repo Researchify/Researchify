@@ -2,14 +2,14 @@
  * This file exports a Registration Form component used to display registration input.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
 import { createTeam } from '../../actions/team';
 import './Register.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -17,6 +17,14 @@ export default function RegistrationForm() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [validated, setValidated] = useState(false);
+  const isRegistrated = useSelector(state => state.auth.isRegistrated)
+
+  useEffect(() => {
+    if(isRegistrated){
+      history.push('/login')
+    }
+  }, [history, isRegistrated])
+
   const [inputs, setInputs] = useState({
     teamName: '',
     orgName: '',

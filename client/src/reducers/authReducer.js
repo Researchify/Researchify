@@ -1,12 +1,13 @@
 /**
  * This file exports our auth reducer that will handle all dispatched auth-related actions.
  */
-import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_IN_FAIL, AUTH_SIGN_OUT } from '../actions/types';
+import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAIL, SIGN_OUT } from '../actions/types';
 import Cookies from 'js-cookie';
 
 const INITIAL_AUTH_STATE = { 
   signIn: Cookies.get('isLogin') ? true : false,
-  loading: false
+  loading: false,
+  isRegistrated: null,
 }
 
 /**
@@ -18,14 +19,16 @@ const INITIAL_AUTH_STATE = {
  */
 const authReducer = (state = INITIAL_AUTH_STATE, action) => {
   switch (action.type) {
-    case AUTH_SIGN_IN_REQUEST:
+    case SIGN_IN_REQUEST:
       return { ...state, loading: true };
-    case AUTH_SIGN_IN_SUCCESS:
-      return { loading: false, signIn: true };
-    case AUTH_SIGN_IN_FAIL: 
+    case SIGN_IN_SUCCESS:
+      return { ...state, loading: false, signIn: true };
+    case SIGN_IN_FAIL: 
       return { ...state, loading: false };
-    case AUTH_SIGN_OUT:
-      return { loading: false, signIn: false };
+    case SIGN_OUT:
+      return { ...state, loading: false, signIn: false };
+    case 'registrate_success':
+      return { ...state, isRegistrated: true};
     default:
       return state;
   }

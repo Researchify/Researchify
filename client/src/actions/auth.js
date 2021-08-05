@@ -2,7 +2,7 @@
  * This file houses our auth-related Action Creators.
  */
 import * as api from '../api';
-import { AUTH_SIGN_IN_REQUEST, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_IN_FAIL, FETCH_TEAM_INFO, CLEAR_NOTIFICATION } from './types';
+import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_OUT, SIGN_IN_FAIL, FETCH_TEAM_INFO, CLEAR_NOTIFICATION } from './types';
 import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 
 
@@ -15,19 +15,17 @@ import { errorActionGlobalCreator } from '../notification/notificationReduxFunct
 export const signIn = (authData) => async(dispatch) => {
   try{
     dispatch ({
-      type: AUTH_SIGN_IN_REQUEST
+      type: SIGN_IN_REQUEST
     })
-    const { data } = await api.loginTeam(authData)
+    
+    await api.loginTeam(authData)
+
     dispatch({
-      type: AUTH_SIGN_IN_SUCCESS
-    })
-    dispatch({
-      type: FETCH_TEAM_INFO,
-      payload: data
+      type: SIGN_IN_SUCCESS
     })
   } catch (error){
     dispatch({
-      type: AUTH_SIGN_IN_FAIL
+      type: SIGN_IN_FAIL
     })
     dispatch(errorActionGlobalCreator(error));
   }
@@ -41,7 +39,7 @@ export const signOut = () => async(dispatch) => {
   try{
     await api.logoutTeam()
     dispatch ({
-      type: AUTH_SIGN_OUT
+      type: SIGN_OUT
     })
 
     dispatch({
@@ -57,7 +55,7 @@ export const authorizeJWT = () => async(dispatch) => {
   try{
     const { data } = await api.getTeamJWT()
     dispatch({
-      type: AUTH_SIGN_IN_SUCCESS
+      type: SIGN_IN_SUCCESS
     })
     dispatch({
       type: FETCH_TEAM_INFO,

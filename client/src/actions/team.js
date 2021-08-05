@@ -10,7 +10,6 @@ import {
   CREATE_TEAM_MEMBER,
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
-  ADD_TEAM,
   GET_GH_ACCESS_TOKEN,
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
@@ -26,25 +25,9 @@ export const createTeam = (teamInfo) => async (dispatch) => {
   try{
     await api.createTeam(teamInfo)
     dispatch(successMessageCreator("Team has been created"));
-  } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
-  }
-};
-
-/**
- * Finds a team
- * @param teamCredentials team email and password as a dictionary
- * @param teamPassword team account password
- */
-export const getTeam = (teamCredentials) => async (dispatch) => {
-  try {
-    const data = await api.loginTeam(teamCredentials);
-    const teamData = data.data.team;
-    const team = teamDataAllocator(teamData);
     dispatch({
-      type: ADD_TEAM,
-      payload: team,
-    });
+      type: 'registrate_success'
+    })
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -276,6 +259,7 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
     const { data } = await api.updateTeam(teamId, teamData)
     const updatedTeam = teamDataAllocator(data);
+    console.log("updated Team", updatedTeam)
     dispatch({
       type: UPDATE_TEAM,
       payload: updatedTeam,
