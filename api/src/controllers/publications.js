@@ -156,8 +156,6 @@ async function getGoogleScholarPublications(req, res) {
     playwrightConfig.pageSizeSuffix +
     pageSize +
     playwrightConfig.sortBySuffix;
-  // const url =
-  //   'https://scholar.google.com.sg/citations?user=3tyGlPsAAAAJ&hl=en&cstart=40&pagesize=80';
   logger.info(`GScholar profile for user id ${author}: ${url}`);
   let publications = [];
   let endOfProfile = false;
@@ -171,8 +169,6 @@ async function getGoogleScholarPublications(req, res) {
 
   const resultLinks = await page.$$('.gsc_a_t a');
   let links = [];
-
-  // console.log(resultLinks.length === 4); // there were no pubs found
 
   if (resultLinks.length === noOfDummyLinks) {
     // no pubs found
@@ -213,12 +209,9 @@ async function getGoogleScholarPublications(req, res) {
       newPublications: newPublications,
       reachedEnd: endOfProfile,
     };
-
   }
 
   res.status(200).json(response);
-
-  
 }
 
 /***
@@ -253,7 +246,7 @@ async function scrapeGoogleScholar(url) {
   const publicationInfo = {};
   fields.forEach((key, i) => (publicationInfo[key] = values[i]));
 
-  // TODO: this logic depends on the order of the fields, 
+  // TODO: this logic depends on the order of the fields,
   // which will differ based on the info of the publication, can be improved
   let type = fields[2].toUpperCase();
   let categoryTitle;
