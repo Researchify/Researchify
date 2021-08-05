@@ -10,10 +10,7 @@ const TwitterFeed = ({linkedHandle}) => {
 
     return (
         <div className="twitter-feed">
-        <div>
-            <h2> { linkedHandle } </h2>
-        </div>
-            <button> Test </button>
+            <h2> Twitter Handle: { linkedHandle } </h2>
             <Timeline dataSource={{sourceType: 'profile', screenName: linkedHandle}} options={{height: 800}}/>
         </div>
     );

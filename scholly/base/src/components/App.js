@@ -14,10 +14,10 @@ const App = () => {
             <Header />
             <Container fluid>
                 <Row>
-                    <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>
+                    <Col className="sidebar-wrapper" sm={4} md={2}>
                         <Sidebar data={SidebarData()} />
                     </Col>
-                    <Col className="page-content-wrapper" md={10} lg={10} xl={11}>
+                    <Col className="page-content-wrapper" sm={8} md={10}>
                         <Switch>
                             <Route exact path ='/' component = {HomePage} />
                             <Route exact path="/publication" component={PublicationPage} />
