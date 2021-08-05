@@ -5,12 +5,11 @@ import Col from "react-bootstrap/Col";
 
 import TwitterFeed from "../twitter/TwitterFeed";
 import Publications from "./Publications"
-import {TEAM_TWITTER_HANDLE} from "../../global/data";
+import {TEAM_INFO} from "../../global/data";
 
 
 const PublicationPage = () => {
-    const linkedHandle = TEAM_TWITTER_HANDLE;
-
+    const linkedHandle = TEAM_INFO.twitterHandle;
     return (
         <>
             <Container fluid>
@@ -20,7 +19,7 @@ const PublicationPage = () => {
                     </Col>
                     <Col xs={4} md={2}>
                         {
-                            linkedHandle ? <TwitterFeed linkedHandle={linkedHandle}/> : null
+                            linkedHandle && <TwitterFeed linkedHandle={linkedHandle}/>
                         }
                     </Col>
                 </Row>

@@ -4,12 +4,14 @@ import TeamPage from './teampage/TeamPage'
 import HomePage from './home/HomePage';
 import Sidebar from './layout/Sidebar';
 import SidebarData from './layout/SidebarData';
+import Header from './layout/Header';
 import { Switch, Route } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
 
 const App = () => {
     return (
         <>
+            <Header />
             <Container fluid>
                 <Row>
                     <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>

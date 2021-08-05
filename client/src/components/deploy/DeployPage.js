@@ -7,11 +7,11 @@ import { Button } from 'react-bootstrap';
 
 const DeployPage = () => {
   const dispatch = useDispatch();
+
   const teamId = useSelector((state) => state.team.teamId);
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken
   );
-  const linkedHandle = useSelector((state) => state.team.twitterHandle);
   const ConditionalWrapper = ({ condition, wrapper, children }) =>
     condition ? wrapper(children) : children;
 
@@ -44,7 +44,7 @@ const DeployPage = () => {
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token');
     // call backend endpoint to deploy and give the access token
-    dispatch(deployToGHPages(teamId, accessToken, linkedHandle));
+    dispatch(deployToGHPages(teamId, accessToken));
   };
 
   const DeployButton = () => (
