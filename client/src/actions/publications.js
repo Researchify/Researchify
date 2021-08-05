@@ -13,8 +13,10 @@ import {
   IMPORT_END,
   IMPORT_EMPTY,
 } from './types';
-import { pageSize } from '../config/publications';
-import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
+import {
+  errorActionGlobalCreator,
+  successMessageCreator,
+} from '../notification/notificationReduxFunctions';
 
 export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
   try {
@@ -186,12 +188,12 @@ export const retrieveMorePublications =
           });
         } else {
           // TODO: there may be an edge case here that gets through that isn't supposed to
-          // use toast here
           dispatch({
             type: IMPORT_EMPTY,
-            payload:
-              'In the end, no new publications were found from the specified profile!',
+            // payload:
+            //   'In the end, no new publications were found from the specified profile!',
           });
+          dispatch(successMessageCreator('No new publications were found'));
         }
         dispatch({
           type: IMPORT_END,
@@ -200,17 +202,13 @@ export const retrieveMorePublications =
         result.data.newPublications.length === 0 &&
         result.data.retrieved > 0
       ) {
-        // use toast
         // no new pubs retrieved but not end of profile
-        // dispatch({
-        //   type: IMPORT_EMPTY,
-        //   payload:
-        //     'No new publications found so far...We can continue searching.',
-        // });
         dispatch({
-          type: IMPORT_SUCCESS,
-          payload: result.data.newPublications,
+          type: IMPORT_EMPTY,
+          // payload:
+          //   'No new publications found so far...We can continue searching.',
         });
+        dispatch(successMessageCreator('No new publications were found'));
       } else {
         dispatch({
           type: IMPORT_SUCCESS,

@@ -18,7 +18,7 @@ const ImportForm = ({ closeModal }) => {
       case 'FAIL':
         return <ImportFailPage closeModal={closeModal} />;
       case 'EMPTY':
-        return <ImportEmptyPage closeModal={closeModal} />;
+        return <ImportSuccessPage closeModal={closeModal} />;
       default:
         return <ProfileLinkPage closeModal={closeModal} />;
     }
