@@ -119,7 +119,6 @@ export const importPublication =
       dispatch({
         type: IMPORT_REQUEST,
       });
-      console.log(startFrom);
       const result = await api.importPublications(
         gScholarId,
         startFrom,
@@ -161,8 +160,7 @@ export const retrieveMorePublications =
       dispatch({
         type: IMPORT_REQUEST,
       });
-      console.log('retrieve more');
-      console.log(startFrom);
+
       const result = await api.importPublications(author_id, startFrom, teamId);
       const pageNo = startFrom / pageSize + 1;
 
@@ -201,9 +199,7 @@ export const retrieveMorePublications =
           payload: result.data.newPublications,
         });
         dispatch(
-          successMessageCreator(
-            'New publications were found on page ' + pageNo
-          )
+          successMessageCreator('New publications were found on page ' + pageNo)
         );
       }
     } catch (error) {

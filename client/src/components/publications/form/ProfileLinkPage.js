@@ -30,10 +30,7 @@ const ProfileLinkPage = ({ closeModal }) => {
       });
       return false;
     } else {
-      gScholarId = values.profileLink.substring(
-        position + 5,
-        position + 17
-      );
+      gScholarId = values.profileLink.substring(position + 5, position + 17);
       dispatch({
         type: UPDATE_GSCHOLAR_ID,
         payload: gScholarId,
