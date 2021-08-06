@@ -93,21 +93,18 @@ function getTeam(req, res, next) {
  * @param {*} res response object - updated team object
  * @returns 201: returns updated team details
  */
-async function addTeam(req, res, next) {
-  Team.findOne({ email: req.body.email })
-    .then((foundTeam) => {
-      if (foundTeam) {
-        return res.status(400).send('Email had been registered');
-      }
-    })
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
-
-  const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+async function createTeam(req, res, next) {
+  const foundTeam = await Team.findOne({ email: req.body.email })
+  if (foundTeam) {
+    next(fillErrorObject(400, 'Duplicate email error', ['Email had been registered']))
+  }
+  const salt = await bcrypt.genSalt()
+  const hashedPassword = await bcrypt.hash(req.body.password, salt)
   const hashedTeam = { ...req.body, password: hashedPassword };
-  Team.create(hashedTeam)
-    .then((createdTeam) => res.status(201).json(createdTeam._id))
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+  const createdTeam = await Team.create(hashedTeam)
+  // remove sensitive data
+  delete createTeam.password
+  return res.status(201).json(createdTeam)
 }
 
 /**
@@ -214,7 +211,7 @@ async function deployToGHPages(req, res, next) {
   });
 
   if (response.data.errors) {
-    next(
+    return next(
       fillErrorObject(400, 'Validation error', [response.data.errors[0].detail])
     );
   }
@@ -248,22 +245,21 @@ async function deployToGHPages(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-function updateTeam(req, res, next) {
+async function updateTeam(req, res, next) { // eslint-disable-line no-unused-vars
   const { team_id: _id } = req.params;
   const team = req.body;
 
-  Team.findByIdAndUpdate(_id, team, {
+  const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
     new: true,
     runValidators: true,
   })
-    .then((updatedTeam) => res.status(200).json(updatedTeam))
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
+  res.status(200).json(updatedTeam)
 }
 
 module.exports = {
   storeHandle,
   getTeam,
-  addTeam,
+  createTeam,
   createTeamMember,
   readTeamMembersByTeam,
   deleteTeamMember,
