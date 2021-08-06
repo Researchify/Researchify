@@ -16,6 +16,3 @@ export const TEAM_INFO = JSON.parse(process.env.REACT_APP_TEAM_INFO);
 
 /// The twitter handle associated with the team account for displaying twitter feed
 export const TEAM_MEMBERS = JSON.parse(process.env.REACT_APP_TEAM_MEMBERS);
-
-/// The twitter handle associated with the team account for displaying twitter feed
-export const REPO_URL = process.env.REACT_APP_REPO_URL;

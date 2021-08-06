@@ -37,7 +37,8 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
         teamId: action.payload._id, 
         email: action.payload.email,
         teamName: action.payload.teamName, 
-        orgName: action.payload.orgName
+        orgName: action.payload.orgName,
+        twitterHandle: action.payload.twitterHandle,
       };
     case LINK_TEAM_TWITTER:
       return { ...state, twitterHandle: action.payload };
