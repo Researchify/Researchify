@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, InputGroup, Button, Form } from 'react-bootstrap';
-import { importPublication } from '../../../actions/publications';
+import { importPublications } from '../../../actions/publications';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { IMPORT_FAIL, UPDATE_GSCHOLAR_ID } from '../../../actions/types';
 
@@ -41,7 +41,7 @@ const ProfileLinkPage = ({ closeModal }) => {
 
   const submitForm = (values) => {
     if (validation(values)) {
-      dispatch(importPublication(gScholarId, 0, teamId));
+      dispatch(importPublications(gScholarId, 0, teamId));
     }
   };
 

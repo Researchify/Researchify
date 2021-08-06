@@ -112,46 +112,7 @@ export const sortPublications =
     });
   };
 
-export const importPublication =
-  (gScholarId, startFrom, teamId) => async (dispatch) => {
-    try {
-      dispatch({
-        type: IMPORT_REQUEST,
-      });
-      const result = await api.importPublications(
-        gScholarId,
-        startFrom,
-        teamId
-      );
-      if (
-        result.data.newPublications.length === 0 &&
-        result.data.retrieved > 0
-      ) {
-        const pageNo = startFrom / pageSize + 1;
-        dispatch({
-          type: IMPORT_EMPTY,
-        });
-        dispatch(
-          successMessageCreator(
-            'No new publications were found on page ' + pageNo
-          )
-        );
-      } else {
-        dispatch({
-          type: IMPORT_SUCCESS,
-          payload: result.data.newPublications,
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: IMPORT_FAIL,
-        payload: error.response,
-      });
-      dispatch(errorActionGlobalCreator(error));
-    }
-  };
-
-export const retrieveMorePublications =
+export const importPublications =
   (author_id, startFrom, teamId) => async (dispatch) => {
     try {
       dispatch({

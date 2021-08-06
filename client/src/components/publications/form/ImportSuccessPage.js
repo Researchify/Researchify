@@ -7,7 +7,7 @@ import ImportedPublication from '../importedPublication/ImportedPublication';
 import React from 'react';
 import {
   createBulkPublications,
-  retrieveMorePublications,
+  importPublications,
 } from '../../../actions/publications';
 import {
   Row,
@@ -97,7 +97,7 @@ const ImportSuccessPage = ({ closeModal }) => {
   };
 
   const handlePagination = () => {
-    dispatch(retrieveMorePublications(gScholarId, startFrom, teamId));
+    dispatch(importPublications(gScholarId, startFrom, teamId));
   };
 
   const handleConfirmImport = () => {
