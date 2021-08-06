@@ -225,12 +225,8 @@ export const deployToGHPages =
       teamPublications.map(
         (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
       );
-
       //get teamInfo
       const { data: teamInfo } = await api.getTeamJWT()
-
-      console.log('teamInfo', teamInfo)
-      
       //get team members
       const { data: teamMembers } = await api.fetchTeamMembersByTeamId(teamId);
 
@@ -240,8 +236,6 @@ export const deployToGHPages =
         teamInfo,
         teamMembers
       };
-
-      console.log("body", body)
 
       const response = await api.deployToGHPages(teamId, body);
       console.log(response.data);

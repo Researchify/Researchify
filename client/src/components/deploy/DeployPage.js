@@ -7,7 +7,6 @@ import { Button } from 'react-bootstrap';
 
 const DeployPage = () => {
   const dispatch = useDispatch();
-
   const teamId = useSelector((state) => state.team.teamId);
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken

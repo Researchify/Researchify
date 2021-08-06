@@ -19,7 +19,7 @@ const PublicationPage = () => {
                     </Col>
                     <Col xs={4} md={2}>
                         {
-                            linkedHandle && <TwitterFeed linkedHandle={linkedHandle}/>
+                            linkedHandle ? <TwitterFeed linkedHandle={linkedHandle}/> : null
                         }
                     </Col>
                 </Row>

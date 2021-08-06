@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Col, Row,Collapse} from 'react-bootstrap';
+import {Button, Col, Row, Collapse} from 'react-bootstrap';
 import {BsLink45Deg} from 'react-icons/bs'
 import {GrLinkDown, GrLinkUp} from 'react-icons/gr'
 import {IconContext} from "react-icons"

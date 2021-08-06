@@ -200,7 +200,6 @@ async function getGHAccessToken(req, res) {
 }
 
 async function deployToGHPages(req, res, next) {
-  console.log("backend: ", req.body)
   const ghToken = req.body.ghToken;
   const teamId = req.params.team_id;
   const { teamPublications, teamInfo, teamMembers } = req.body;

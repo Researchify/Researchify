@@ -7,7 +7,6 @@ import './TwitterFeed.css';
 
 
 const TwitterFeed = ({linkedHandle}) => {
-
     return (
         <div className="twitter-feed">
             <h2> Twitter Handle: { linkedHandle } </h2>

@@ -19,9 +19,6 @@ async function handleDeployEvent(req, res) {
   const { teamId } = req.params;
   winston.info(`Attempting to build and deploy application for team ${teamId}`);
   const data = req.body;
-
-  console.log("data: ", data)
-
   const repoName = data.ghUsername + '.github.io';
   try {
     await build(data, repoName);
