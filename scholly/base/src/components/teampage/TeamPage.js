@@ -7,12 +7,13 @@ const TeamPage = () => {
             <h2> Team Page </h2>
             {
                 teamMembers.map((member, idx) => 
-                    <div>
+                    <div key={idx}>
                         <h4> Member {idx+1} </h4>
                         <li> full Name: {member.fullName} </li>
                         <li> position: {member.position} </li>
                         <li> summary: {member.position} </li>
-                    </div>)
+                    </div>
+                )
             }
         </>
     )
