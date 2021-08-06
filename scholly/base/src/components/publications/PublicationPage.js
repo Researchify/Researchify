@@ -10,6 +10,7 @@ import {TEAM_INFO} from "../../global/data";
 
 const PublicationPage = () => {
     const linkedHandle = TEAM_INFO.twitterHandle;
+    
     return (
         <>
             <Container fluid>

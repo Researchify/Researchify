@@ -9,7 +9,6 @@ import './TwitterFeed.css';
 const TwitterFeed = ({linkedHandle}) => {
     return (
         <div className="twitter-feed">
-            <h2> Twitter Handle: { linkedHandle } </h2>
             <Timeline dataSource={{sourceType: 'profile', screenName: linkedHandle}} options={{height: 800}}/>
         </div>
     );

@@ -10,13 +10,13 @@ import { Fragment } from 'react';
  * @returns Header component to be rendered in Layout.js
  */
 const Header = () => {
-    const orgName = TEAM_INFO.orgName;
+    const {orgName, teamName} = TEAM_INFO;
     return (
         <Fragment>
         <Navbar className="header" sticky="top">
             <Navbar.Brand>
             <div className="header-brand">
-                {orgName}
+                {teamName} @ {orgName}
             </div>
             </Navbar.Brand>
         </Navbar>
