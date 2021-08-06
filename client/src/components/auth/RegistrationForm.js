@@ -17,13 +17,13 @@ export default function RegistrationForm() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [validated, setValidated] = useState(false);
-  const isRegistrated = useSelector(state => state.auth.isRegistrated)
+  const isRegistered = useSelector(state => state.auth.isRegistered)
 
   useEffect(() => {
-    if(isRegistrated && validated){
+    if(isRegistered && validated){
       history.push('/login')
     }
-  }, [history, isRegistrated, validated])
+  }, [history, isRegistered, validated])
 
   const [inputs, setInputs] = useState({
     teamName: '',

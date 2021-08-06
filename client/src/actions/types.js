@@ -1,11 +1,11 @@
 /**
  * This file houses our Action Creator type constants.
  */
-export const SIGN_IN_REQUEST = 'IGN_IN_REQUEST';
+export const SIGN_IN_REQUEST = 'SIGN_IN_REQUEST';
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_FAIL = 'SIGN_IN_FAIL';
 export const SIGN_OUT = 'SIGN_OUT';
-export const REGISTRATE_SUCCESS = 'REGISTRATE_SUCCESS';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 
 export const GET_PUBLICATION_BY_ID = 'GET_PUBLICATION_BY_ID';
 export const GET_PUBLICATIONS_BY_TEAM_ID = 'GET_PUBLICATIONS_BY_TEAM_ID';

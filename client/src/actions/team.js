@@ -14,7 +14,7 @@ import {
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
-  REGISTRATE_SUCCESS,
+  REGISTER_SUCCESS,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
@@ -25,9 +25,9 @@ import { errorActionGlobalCreator, successMessageCreator } from '../notification
 export const createTeam = (teamInfo) => async (dispatch) => {
   try{
     await api.createTeam(teamInfo)
-    dispatch(successMessageCreator("Team has been created"));
-    dispatch({
-      type: REGISTRATE_SUCCESS
+    dispatch(successMessageCreator("Team has been created")); // showing a success notification  
+    dispatch({ // when user has been registered successfully to allow us to go back to the login page
+      type: REGISTER_SUCCESS
     })
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
