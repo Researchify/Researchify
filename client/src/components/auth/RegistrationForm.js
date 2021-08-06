@@ -45,7 +45,7 @@ export default function RegistrationForm() {
       event.stopPropagation();
     } else{
       if (inputs.password !== inputs.confirmPassword){
-        return toast.error('Passwords does not match');
+        return toast.error('Passwords do not match');
       }
       const teamData = {
         email: inputs.email,
