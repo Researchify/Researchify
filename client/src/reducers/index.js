@@ -8,7 +8,6 @@ import publicationsReducer from './publicationsReducer';
 import teamReducer from './teamReducer';
 import importedPublicationsReducer from './importedPublicationsReducer';
 import teamMembersReducer from './teamMembersReducer';
-import mainReducer from './mainReducer';
 import websiteReducer from './websiteReducer';
 import notificationReducer from './notificationReducer';
 

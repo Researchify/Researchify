@@ -8,10 +8,10 @@ import {
   AUTH_SIGN_OUT,
   AUTH_SIGN_IN_FAIL,
   FETCH_TEAM_INFO,
-  CLEAR_ERROR,
+  CLEAR_NOTIFICATION,
   FETCH_WEBSITE_INFO,
 } from './types';
-import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
+import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 
 /**
  * This action creator will be called when a user signs in.

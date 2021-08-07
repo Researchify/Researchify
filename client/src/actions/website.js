@@ -7,7 +7,7 @@ import {
   ADD_WEBPAGE,
   DELETE_WEBPAGE,
 } from './types';
-import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
+import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 import * as api from '../api';
 
 /**
