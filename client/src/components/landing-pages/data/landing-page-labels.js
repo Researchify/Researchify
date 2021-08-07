@@ -42,7 +42,7 @@ const featuresData = [
   },
   {
     logo: <AccountTreeIcon style={styles.icon} />,
-    title: 'Integrated',
+    title: 'Social Media',
     description:
       'Compatible and integrated with Machine Learning technologies.',
   },
@@ -53,12 +53,12 @@ const featuresData = [
   },
   {
     logo: <MonetizationOnIcon style={styles.icon} />,
-    title: 'Valuable',
+    title: 'Teams',
     description: 'lalala',
   },
   {
     logo: <NetworkWifiIcon style={styles.icon} />,
-    title: 'Availability',
+    title: 'Publications',
     description: 'Available everywhere anywhere you are.',
   },
   {
