@@ -1,5 +1,5 @@
 /**
- * Root component.
+ * This file export all the public route
  */
  import { Switch, Route, Redirect } from 'react-router-dom';
 

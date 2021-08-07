@@ -11,7 +11,7 @@ import {
   TEAM_ERROR,
 } from '../actions/types';
 
-import { errorReducer } from '../error/errorReduxFunctions';
+import { errorReducer } from '../notification/notificationReduxFunctions';
 
 const INITIAL_TEAM_STATE = {
   teamId: '', // todo: change to empty str when integrating

@@ -10,10 +10,11 @@ import importedPublicationsReducer from './importedPublicationsReducer';
 import teamMembersReducer from './teamMembersReducer';
 import mainReducer from './mainReducer';
 import websiteReducer from './websiteReducer';
+import notificationReducer from './notificationReducer';
 
 export default combineReducers({
-  main: mainReducer,
-  auth: authReducer, // do we need this?
+  notification: notificationReducer,
+  auth: authReducer, 
   publications: publicationsReducer,
   team: teamReducer,
   importedPublications: importedPublicationsReducer,

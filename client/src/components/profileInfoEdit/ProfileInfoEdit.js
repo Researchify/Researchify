@@ -2,7 +2,7 @@
  * This file exports a profile page management component that displays the ability to edit user information
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Button, Form, Container, Image } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
@@ -19,13 +19,13 @@ import { updateTeam } from '../../actions/team';
 const ProfileInfoEdit = () => {
   const dispatch = useDispatch(); 
 
-  const teamId = useSelector((state) => state.team?.teamId);
+  const { teamId, teamName, orgName, email } = useSelector((state) => state.team);
 
-  const [profileData, setInputs] = useState({
-    teamName: useSelector((state) => state.team?.teamName),
-    orgName: useSelector((state) => state.team?.orgName),
-    email: useSelector((state) => state.team?.email),
-  });
+  const [profileData, setInputs] = useState({ teamName, orgName, email});
+
+  useEffect(() => {
+    setInputs({teamName, orgName, email})
+  }, [email, orgName, teamName])
   
   const updateInputs = (form) => {
     const { name, value } = form.target;
@@ -43,16 +43,6 @@ const ProfileInfoEdit = () => {
     }
     setValidated(true);
   };
-
-  // const updateProfile = (teamId, profileData) => {
-  //   try {
-  //     dispatch(updateTeam(teamId, profileData))
-  //     toast.success('Profile has been successfully updated');
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error('Profile has not been updated');
-  //   }
-  // };
 
   const profileDeleted = () => {
     console.error(

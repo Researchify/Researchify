@@ -16,24 +16,16 @@ import {
   DEPLOY_FAIL,
   UPDATE_TEAM,
 } from './types';
-import { errorActionGlobalCreator } from '../error/errorReduxFunctions';
+import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
 /**
- * Adds a new team to redux store and database.
+ * Create a new team to database.
  * @param teamInfo contains teamName, orgName and email
  */
-export const addTeamInfo = (teamInfo) => async (dispatch) => {
+export const createTeam = (teamInfo) => async (dispatch) => {
   try{
-    const teamId = await api.addTeam(teamInfo);
-    const teamData = {
-      ...teamInfo,
-      teamId: teamId,
-    };
-    // TODO: do we need to dispatch this action? 
-    dispatch({
-      type: ADD_TEAM,
-      payload: teamData,
-    });
+    await api.createTeam(teamInfo)
+    dispatch(successMessageCreator("Team has been created"));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -47,7 +39,6 @@ export const addTeamInfo = (teamInfo) => async (dispatch) => {
 export const getTeam = (teamCredentials) => async (dispatch) => {
   try {
     const data = await api.loginTeam(teamCredentials);
-    console.log(data);
     const teamData = data.data.team;
     const team = teamDataAllocator(teamData);
     dispatch({
@@ -230,9 +221,7 @@ export const deployToGHPages =
   (teamId, accessToken, twitterHandle) => async (dispatch) => {
     try {
       // get publications
-      const { data } = await api.fetchPublicationsByTeamId(
-        '609f5ad827b1d48257c321d3' // FIXME: hardcoded for testing, remove after authentication is implemented
-      );
+      const { data } = await api.fetchPublicationsByTeamId(teamId);
       data.map(
         (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
       );
@@ -243,15 +232,13 @@ export const deployToGHPages =
         teamPublications: data,
       };
 
-      console.log(body);
-
       const response = await api.deployToGHPages(teamId, body);
       console.log(response.data);
       dispatch({
         type: DEPLOY_SUCCESS,
       }); // TODO: use this and DEPLOY_FAIL to show message to user?
     } catch (err) {
-      console.log(err);
+      dispatch(errorActionGlobalCreator(err));
       dispatch({
         type: DEPLOY_FAIL,
       });
@@ -287,12 +274,13 @@ function teamDataAllocator(teamData) {
  */
 export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
-    const { data } = await api.updateTeam(teamId, teamData);
-    const updatedData = teamDataAllocator(data);
+    const { data } = await api.updateTeam(teamId, teamData)
+    const updatedTeam = teamDataAllocator(data);
     dispatch({
       type: UPDATE_TEAM,
-      payload: updatedData,
+      payload: updatedTeam,
     });
+    dispatch(successMessageCreator("Team has been updated"));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

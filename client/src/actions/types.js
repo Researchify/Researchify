@@ -46,8 +46,9 @@ export const ADD_WEBPAGE = 'ADD_WEBPAGE';
 export const DELETE_WEBPAGE = 'DELETE_WEBPAGE';
 export const FETCH_WEBSITE_INFO = 'FETCH_WEBSITE_INFO';
 
-// ERRORS
+// NOTIFICATIONS
 export const TEAM_ERROR = 'TEAM_ERROR'; // use this if you want to create specific error handling
 export const PUBLICATION_ERROR = 'PUBLICATION_ERROR'; // use this if you want to create specific error handling
 export const RESEARCHIFY_API_ERROR = 'RESEARCHIFY_API_ERROR';
-export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
+export const SUCCESS_MESSAGE = 'SUCCESS_MESSAGE';

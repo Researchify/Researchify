@@ -61,7 +61,7 @@ export const signOut = () => async (dispatch) => {
     });
 
     dispatch({
-      type: CLEAR_ERROR,
+      type: CLEAR_NOTIFICATION,
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
