@@ -31,7 +31,7 @@ const Content = () => {
             </h1>
             <p>
               Researchify is a web application that helps researchers without programming nor 
-              graphic design knowledge to publish a research profile website.
+              graphic design knowledge to build and publish their own research profile website.
             </p>
 
             <DiscoverButtonLink href="#about" style={{}}>

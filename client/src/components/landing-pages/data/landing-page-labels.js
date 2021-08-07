@@ -23,35 +23,11 @@ const headerLinks = [
   },
 ];
 
-const GartnerLink = () => {
-  return <a href="gartner.com/en">Gartner</a>;
-};
-
 const aboutDescription = {
-  one: ` Enterprise Business Capabilities (EBC) is considered by ${(
-    <GartnerLink />
-  )}
-  research team to be the fourth era of ERP. By implementing machine
-  learning (ML), artificial intelligence (AI) and Internet of Things
-  (IoT), EBC extends the capabilities of ERP into a more developed,
-  effective format that meets the needs of modern businesses and their
-  customers. Similar to ERP, EBC is a business process management
-  software that allows businesses to collect, manage, and interpret
-  data from its everyday business activities. It integrates the
-  company's sales, financials (accounting), supply chains (delivery
-  and warehousing), and operations (human resource activities and
-  CRM), etc. thus helping your company grow.`,
-  two: `  As the current business world evolves rapidly, many businesses are
-  challenged to adapt and change their system to keep up with the
-  current environment. In order to survive, they need to utilize the
-  power of IT to stay competitive and be customer-oriented. This is
-  where EBC comes in. EBC's main purpose is to help enterprises across
-  industries to enhance their competitiveness as it provides a tightly
-  integrated solution to the organisation’s information system needs.
-  With current advancements in the technology and business world, EBC
-  has the potential to bring all your business processes together to
-  improve your business’s insight, enhance collaboration, increase
-  efficiency and productivity, and reduce risks.`,
+  one: `Organize all your research projects into a single collection and share it online. Compatible with Google Scholar or manually insert your research projects,
+  Researchify provides flexible options in customizing your own website.`,
+  two: `No coding experience necessary. From registration to choosing your website design, to filtering which content to display in your website and having your website hosted publically,
+   Researchify will ensure its users a smooth journey.`,
 };
 
 const styles = {
@@ -61,7 +37,7 @@ const styles = {
 const featuresData = [
   {
     logo: <AccountBalanceIcon style={styles.icon} />,
-    title: 'Accountable',
+    title: 'Themes',
     description: 'asd123',
   },
   {
@@ -72,7 +48,7 @@ const featuresData = [
   },
   {
     logo: <ShoppingCartIcon style={styles.icon} />,
-    title: 'Shoppable',
+    title: 'Customizable',
     description: 'lalala',
   },
   {
