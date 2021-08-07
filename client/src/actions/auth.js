@@ -3,10 +3,10 @@
  */
 import * as api from '../api';
 import {
-  AUTH_SIGN_IN_REQUEST,
-  AUTH_SIGN_IN_SUCCESS,
-  AUTH_SIGN_OUT,
-  AUTH_SIGN_IN_FAIL,
+  SIGN_IN_REQUEST,
+  SIGN_IN_SUCCESS,
+  SIGN_OUT,
+  SIGN_IN_FAIL,
   FETCH_TEAM_INFO,
   CLEAR_NOTIFICATION,
   FETCH_WEBSITE_INFO,
@@ -22,7 +22,7 @@ import { errorActionGlobalCreator } from '../notification/notificationReduxFunct
 export const signIn = (authData) => async (dispatch) => {
   try {
     dispatch({
-      type: AUTH_SIGN_IN_REQUEST,
+      type: SIGN_IN_REQUEST,
     });
     const { data } = await api.loginTeam(authData);
     const teamId = data._id;
@@ -30,7 +30,7 @@ export const signIn = (authData) => async (dispatch) => {
     const clientWebsiteData = await getClientWebsiteData(teamId);
   
     dispatch({
-      type: AUTH_SIGN_IN_SUCCESS,
+      type: SIGN_IN_SUCCESS,
     });
     dispatch({
       type: FETCH_TEAM_INFO,
@@ -43,7 +43,7 @@ export const signIn = (authData) => async (dispatch) => {
 
   } catch (error) {
     dispatch({
-      type: AUTH_SIGN_IN_FAIL,
+      type: SIGN_IN_FAIL,
     });
     dispatch(errorActionGlobalCreator(error));
   }
@@ -53,12 +53,12 @@ export const signIn = (authData) => async (dispatch) => {
  * This action creator will be called when a user signs out.
  * @returns an action of type AUTH_SIGN_OUT.
  */
-export const signOut = () => async (dispatch) => {
-  try {
-    await api.logoutTeam();
-    dispatch({
-      type: AUTH_SIGN_OUT,
-    });
+export const signOut = () => async(dispatch) => {
+  try{
+    await api.logoutTeam()
+    dispatch ({
+      type: SIGN_OUT
+    })
 
     dispatch({
       type: CLEAR_NOTIFICATION,
@@ -75,8 +75,8 @@ export const authorizeJWT = () => async (dispatch) => {
     const clientWebsiteData = await getClientWebsiteData(teamId);
 
     dispatch({
-      type: AUTH_SIGN_IN_SUCCESS,
-    });
+      type: SIGN_IN_SUCCESS
+    })
     dispatch({
       type: FETCH_TEAM_INFO,
       payload: data,

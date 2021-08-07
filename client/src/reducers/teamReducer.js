@@ -5,7 +5,6 @@ import {
   FETCH_TEAM_INFO,
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
-  ADD_TEAM,
   GET_GH_ACCESS_TOKEN,
   UPDATE_TEAM,
   TEAM_ERROR,
@@ -46,8 +45,6 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return { ...state, twitterHandle: action.payload };
     case GET_GH_ACCESS_TOKEN:
       return { ...state, retrievedAccessToken: true };
-    case ADD_TEAM:
-      return action.payload;
     case UPDATE_TEAM:
       return action.payload;
     case TEAM_ERROR:
