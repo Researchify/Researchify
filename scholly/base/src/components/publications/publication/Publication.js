@@ -16,7 +16,7 @@ const Publication = ({pub}) => {
         return (
             clicked &&
             <IconContext.Provider value={{color: 'black', size: '25px'}}>
-                <GrLinkUp className="ml-2"/>
+                <GrLinkUp style={{marginLeft: '10px'}}/>
             </IconContext.Provider>
         )
     }
@@ -25,14 +25,14 @@ const Publication = ({pub}) => {
         return (
             !clicked &&
             <IconContext.Provider value={{color: 'black', size: '25px'}}>
-                <GrLinkDown className="ml-2"/>
+                <GrLinkDown style={{marginLeft: '10px'}}/>
             </IconContext.Provider>
         )
     }
 
     const dropDown = (
         <Collapse in={clicked}>
-            <div className="mb-3 ml-3 mr-2">
+            <div style={{marginLeft: '15px', marginRight: '10px', marginBottom: '15px'}}>
                 <h5>
                     <b>Description:</b> {pub.description}
                 </h5>
@@ -73,14 +73,14 @@ const Publication = ({pub}) => {
             <div className="modalHeader">
                 <Row>
                     <Col md={11}>
-                        <h3 className="ml-3 mt-3">
+                        <h3 style={{marginLeft: '15px', marginTop: '15px'}}>
                             {pub.title}
-                            </h3>
+                        </h3>
                     </Col>
                 </Row>
             </div>
 
-            <div className={clicked ? "ml-3 mt-3" : "ml-3 mt-3 mb-2"}>
+            <div style={{marginLeft: '15px'}} className={clicked ? "mt-3" : "mt-3 mb-2"}>
                 <h5><b> Authors: </b>{pub.authors.map((author) => `${author}`).join(', ')}</h5>
                 <Row>
                     <Col md={11}>
