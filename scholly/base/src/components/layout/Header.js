@@ -1,19 +1,20 @@
+/**
+ * This file exports header for Scholly (client) page.
+ */
 import React, { Fragment } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { TEAM_INFO } from '../../global/data';
-import './Header.css';
+import { Link } from 'react-router-dom';
+import HeaderData from './HeaderData.js';
 
-/**
- * This function provides header for Layout.js
- * @returns Header component to be rendered in Layout.js
- */
 const Header = () => {
   const { orgName, teamName } = TEAM_INFO;
+  const headerData = HeaderData();
   return (
     <Fragment>
       <Navbar
         collapseOnSelect
-        expand="lg"
+        expand="md"
         bg="light"
         variant="light"
         fixed="top"
@@ -26,9 +27,13 @@ const Header = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto" />
             <Nav>
-              <Nav.Link>Home</Nav.Link>
-              <Nav.Link>Team</Nav.Link>
-              <Nav.Link>Publications</Nav.Link>
+              {headerData.map((val) => {
+                return (
+                  <Nav.Link as={Link} to={val.link}>
+                    {val.title}
+                  </Nav.Link>
+                );
+              })}
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -1,11 +1,15 @@
-.carousel-img {
+.scholly-header {
+  top: 0;
+}
+
+.landing-carousel-img {
   height: 300px;
   width: 100%;
   overflow: hidden;
   object-fit: cover;
 }
 
-.center-title {
+.landing-center-title {
   text-align: center;
   padding-top: 25px;
   font-weight: bolder;
@@ -14,7 +18,7 @@
   font-size: xx-large;
 }
 
-.center-content {
+.landing-center-content {
   text-align: center;
   padding-top: 20px;
   padding-left: 40px;
@@ -22,6 +26,6 @@
   font-size: medium;
 }
 
-.top-padding {
+.landing-top-padding {
   padding-top: 50px;
 }

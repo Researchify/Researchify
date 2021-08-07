@@ -3,7 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import PublicationPage from './publications/PublicationPage.js';
 import LandingPage from './landingPage/LandingPage.js';
 import Header from './layout/Header.js';
-import TeamPage from './teampage/TeamPage.js';
+import TeamPage from './team/TeamPage.js';
+import './centred.css';
 
 const App = () => {
   return (
