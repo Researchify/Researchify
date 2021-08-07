@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap-reboot.css';
 
 import App from "./components/App";
 
+
 ReactDOM.render(
     <HashRouter>
         <App />

@@ -1,3 +1,6 @@
+/**
+ * Homepage component, to be discussed what should be inside this page 
+ */
 import { Link } from 'react-router-dom'
 
 const HomePage = () => {

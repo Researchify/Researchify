@@ -28,10 +28,6 @@
     'Lucida Sans', Arial, sans-serif;
 }
 
-.SidebarList a:hover {
-  text-decoration: none;
-}
-
 .SidebarList .row:hover {
   cursor: pointer;
   background-color: #2b61f2;

@@ -1,3 +1,6 @@
+/**
+ * The PublicationPage component displays a list of publications and a twitter panel.
+ */
 import React from 'react';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -10,7 +13,7 @@ import {TEAM_INFO} from "../../global/data";
 
 const PublicationPage = () => {
     const linkedHandle = TEAM_INFO.twitterHandle;
-    
+
     return (
         <>
             <Container fluid>

@@ -200,9 +200,8 @@ async function getGHAccessToken(req, res) {
 }
 
 async function deployToGHPages(req, res, next) {
-  const ghToken = req.body.ghToken;
   const teamId = req.params.team_id;
-  const { teamPublications, teamInfo, teamMembers } = req.body;
+  const { ghToken, teamPublications, teamInfo, teamMembers } = req.body;
 
   // call github API to get username
   const response = await axios.get('https://api.github.com/user', {
@@ -220,12 +219,12 @@ async function deployToGHPages(req, res, next) {
 
   const body = {
     ghUsername: ghUser,
-    ghToken: ghToken,
+    ghToken,
     teamPublications,
     teamInfo,
     teamMembers,
   };
-  
+
   await axios
     .post(`${schollyHost}/deploy/${teamId}`, body)
     .then(() => res.status(200).json('Successfully deployed'))

@@ -2,7 +2,6 @@
  * This file stores the link data of side bar
  */
 import React from 'react';
-// icons
 import {
   BsFillGridFill,
   BsBookHalf,

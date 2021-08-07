@@ -16,7 +16,6 @@
                <li
                  className="row"
                  id={location.pathname === val.link ? 'active' : ''}
-                 onClick={val.action}
                >
                  {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
  
