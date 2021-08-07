@@ -1,0 +1,27 @@
+.carousel-img {
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.center-title {
+  text-align: center;
+  padding-top: 25px;
+  font-weight: bolder;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: xx-large;
+}
+
+.center-content {
+  text-align: center;
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: medium;
+}
+
+.top-padding {
+  padding-top: 50px;
+}
