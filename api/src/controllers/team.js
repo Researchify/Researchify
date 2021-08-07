@@ -78,7 +78,7 @@ async function storeHandle(req, res, next) {
  * @returns 200: the team related info  
  */
 function getTeam(req, res, next) {
-  Team.findById(req.team._id).select('_id teamName orgName email')
+  Team.findById(req.team._id).select('_id teamName orgName email twitterHandle')
   .then((foundTeam) => {
     if (foundTeam) {
       return res.status(200).send(foundTeam);
@@ -202,8 +202,7 @@ async function getGHAccessToken(req, res) {
 async function deployToGHPages(req, res, next) {
   const ghToken = req.body.ghToken;
   const teamId = req.params.team_id;
-  const publications = req.body.teamPublications;
-  const twitterHandle = req.body.teamTwitterHandle;
+  const { teamPublications, teamInfo, teamMembers } = req.body;
 
   // call github API to get username
   const response = await axios.get('https://api.github.com/user', {
@@ -211,7 +210,7 @@ async function deployToGHPages(req, res, next) {
   });
 
   if (response.data.errors) {
-    next(
+    return next(
       fillErrorObject(400, 'Validation error', [response.data.errors[0].detail])
     );
   }
@@ -222,10 +221,11 @@ async function deployToGHPages(req, res, next) {
   const body = {
     ghUsername: ghUser,
     ghToken: ghToken,
-    teamTwitterHandle: twitterHandle,
-    teamPublications: publications,
+    teamPublications,
+    teamInfo,
+    teamMembers,
   };
-
+  
   await axios
     .post(`${schollyHost}/deploy/${teamId}`, body)
     .then(() => res.status(200).json('Successfully deployed'))

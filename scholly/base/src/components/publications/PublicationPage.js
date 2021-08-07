@@ -5,12 +5,12 @@ import Col from "react-bootstrap/Col";
 
 import TwitterFeed from "../twitter/TwitterFeed";
 import Publications from "./Publications"
-import {TEAM_TWITTER_HANDLE} from "../../global/data";
+import {TEAM_INFO} from "../../global/data";
 
 
 const PublicationPage = () => {
-    const linkedHandle = TEAM_TWITTER_HANDLE;
-
+    const linkedHandle = TEAM_INFO.twitterHandle;
+    
     return (
         <>
             <Container fluid>

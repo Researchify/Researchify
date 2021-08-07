@@ -218,18 +218,23 @@ export const getGHAccessToken = (teamId, code) => async (dispatch) => {
 };
 
 export const deployToGHPages =
-  (teamId, accessToken, twitterHandle) => async (dispatch) => {
+  (teamId, accessToken) => async (dispatch) => {
     try {
       // get publications
-      const { data } = await api.fetchPublicationsByTeamId(teamId);
-      data.map(
+      const { data: teamPublications } = await api.fetchPublicationsByTeamId(teamId);
+      teamPublications.map(
         (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
       );
+      //get teamInfo
+      const { data: teamInfo } = await api.getTeamJWT()
+      //get team members
+      const { data: teamMembers } = await api.fetchTeamMembersByTeamId(teamId);
 
       const body = {
         ghToken: accessToken,
-        teamTwitterHandle: twitterHandle,
-        teamPublications: data,
+        teamPublications,
+        teamInfo,
+        teamMembers
       };
 
       const response = await api.deployToGHPages(teamId, body);
