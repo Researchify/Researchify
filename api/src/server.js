@@ -12,6 +12,7 @@ const publicationsRouter = require('./routes/publications');
 const teamRouter = require('./routes/team');
 const authRouter = require('./routes/auth');
 const themeRouter = require('./routes/theme');
+const websiteRouter = require('./routes/website.js');
 
 const { errorHandler } = require('./middleware/error');
 
@@ -36,6 +37,7 @@ app.use('/publications', publicationsRouter);
 app.use('/team', teamRouter);
 app.use('/auth', authRouter);
 app.use('/theme', themeRouter);
+app.use('/clientWebsite', websiteRouter);
 
 // Use the custom error handling middleware
 app.use(errorHandler);
