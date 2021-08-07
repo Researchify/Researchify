@@ -142,13 +142,13 @@ export const importPublications =
         result.data.newPublications.length === 0 &&
         result.data.retrieved > 0
       ) {
-        // no new pubs retrieved but not end of profile
+        // no new publications retrieved but not end of profile
         dispatch({
           type: IMPORT_EMPTY,
         });
         dispatch(
           successMessageCreator(
-            'No new publications were found on page ' + pageNo
+            `No new publications were found on page ${pageNo}`
           )
         );
       } else {
@@ -157,7 +157,7 @@ export const importPublications =
           payload: result.data.newPublications,
         });
         dispatch(
-          successMessageCreator('New publications were found on page ' + pageNo)
+          successMessageCreator(`New publications were found on page ${pageNo}`)
         );
       }
     } catch (error) {

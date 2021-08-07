@@ -14,8 +14,7 @@ export const NotificationToaster = () => {
   useEffect(() => {
     if (error) {
       toast.error(error.data);
-    }
-    if (success) {
+    } else if (success) {
       toast.success(success);
     }
     dispatch({

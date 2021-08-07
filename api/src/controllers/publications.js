@@ -159,27 +159,24 @@ async function getGoogleScholarPublications(req, res) {
   logger.info(`GScholar profile for user id ${author}: ${url}`);
   let publications = [];
   let endOfProfile = false;
-  let response;
+  let response = {
+    retrieved: publications.length,
+    newPublications: [],
+    reachedEnd: false,
+  };
 
   const browser = await firefox.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
-  console.time('timeToScrape');
   await page.goto(url);
 
   const resultLinks = await page.$$('.gsc_a_t a');
   let links = [];
 
   if (resultLinks.length === noOfDummyLinks) {
-    // no pubs found
-    endOfProfile = true;
+    // no publications found
+    response.reachedEnd = true;
     await browser.close();
-
-    response = {
-      retrieved: publications.length,
-      newPublications: [],
-      reachedEnd: endOfProfile,
-    };
   } else {
     for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
       links.push(await resultLinks[i].getAttribute('href'));
@@ -191,14 +188,12 @@ async function getGoogleScholarPublications(req, res) {
       publications.push(...pub)
     );
 
-    console.timeEnd('timeToScrape');
-
     const newPublications = await validateImportedPublications(
       teamId,
       publications
     );
 
-    // if the no of pubs is less than the page size,
+    // if the number of publications retrieved is less than the page size,
     // then we've reached the end of the profile
     if (publications.length < pageSize) {
       endOfProfile = true;
