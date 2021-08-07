@@ -39,6 +39,12 @@ export const GET_GH_ACCESS_TOKEN = 'GET_GH_ACCESS_TOKEN';
 export const DEPLOY_SUCCESS = 'DEPLOY_SUCCESS';
 export const DEPLOY_FAIL = 'DEPLOY_FAIL';
 
+export const CREATE_WEBSITE = 'CREATE_WEBSITE';
+export const DELETE_WEBSITE = 'DELETE_WEBSITE';
+export const ADD_WEBPAGE = 'ADD_WEBPAGE';
+export const DELETE_WEBPAGE = 'DELETE_WEBPAGE';
+export const FETCH_WEBSITE_INFO = 'FETCH_WEBSITE_INFO';
+
 // NOTIFICATIONS
 export const TEAM_ERROR = 'TEAM_ERROR'; // use this if you want to create specific error handling
 export const PUBLICATION_ERROR = 'PUBLICATION_ERROR'; // use this if you want to create specific error handling
