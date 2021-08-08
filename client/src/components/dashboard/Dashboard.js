@@ -12,13 +12,14 @@ import {
   DropdownButton,
   Dropdown,
 } from 'react-bootstrap';
-import { BsPencilSquare } from 'react-icons/bs';
+
 import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
 import { addPage, deletePage } from '../../actions/website';
 import { availablePages as pages } from '../../config/clientWebsite';
 import toast from 'react-hot-toast';
+import Webpages from './webpage/Webpages';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -72,11 +73,6 @@ const Dashboard = () => {
     setDisplayThemeModel(false);
     // Show modal to add web-page
     setAddModal(true);
-  };
-
-  const promptDeleteConfirmation = (pageName) => {
-    setSelectedPage(pageName);
-    showDeleteModal();
   };
 
   const directToAnotherPage = (pageName) => {
@@ -170,47 +166,12 @@ const Dashboard = () => {
             </Button>
           </Card.Header>
           <Card.Body>
-            <Table striped bordered hover>
-              {
-                // Display appropriate message when no webpage is added
-                currentWebPages.length === 0 ? (
-                  <thead>
-                    <tr>
-                      <th className="reduced-column tableHeading">
-                        No web-page added yet...
-                      </th>
-                    </tr>
-                  </thead>
-                ) : (
-                  ''
-                )
-              }
-              <tbody>
-                {currentWebPages.map((webPage, index) => (
-                  <tr key={index}>
-                    <td className="body">
-                      {webPage}
-                      <Button
-                        variant="outline-danger"
-                        className="action primary-danger float-right"
-                        onClick={() => promptDeleteConfirmation(webPage)}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="outline-success"
-                        className="action float-right mx-2"
-                        onClick={() => {
-                          directToAnotherPage(webPage);
-                        }}
-                      >
-                        <BsPencilSquare />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            <Webpages 
+              currentWebPages={currentWebPages} 
+              directToAnotherPage={directToAnotherPage} 
+              showDeleteModal={showDeleteModal}
+              setSelectedPage={setSelectedPage}
+            />
           </Card.Body>
         </Card>
         <TemplateSelector

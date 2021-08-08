@@ -5,9 +5,10 @@ import { GoMarkGithub } from 'react-icons/go';
 import { deployToGHPages, getGHAccessToken } from '../../actions/team';
 import { Button, Spinner } from 'react-bootstrap';
 
-const DeployPage = () => {
+const DeployPage = ({ teamId }) => {
+
+  console.log("deploy page ")
   const dispatch = useDispatch();
-  const teamId = useSelector((state) => state.team.teamId);
   const loading = useSelector((state) => state.deploy.loading);
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken
@@ -37,7 +38,7 @@ const DeployPage = () => {
       href={githubLoginUrl}
       disabled={retrievedAccessToken}
     >
-      <GoMarkGithub />
+      <GoMarkGithub className="mr-2"/>
       Login with Github
     </Button>
   );
