@@ -12,7 +12,7 @@ import {
   ButtonGroup,
   OverlayTrigger,
 } from 'react-bootstrap';
-import profilePic from './profilepic.jpg';
+import profilePic from '../../images/profilepic.jpg';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
