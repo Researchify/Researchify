@@ -1,3 +1,6 @@
+/**
+ * The TeamPage component displays a list of team members.
+ */
 import {TEAM_MEMBERS} from '../../global/data';
 
 const TeamPage = () => {
