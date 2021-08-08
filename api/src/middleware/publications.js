@@ -99,7 +99,6 @@ const createPublicationValidation = [
 
 async function validateAuthorId(req, res, next) {
   const { gScholarUserId: _id } = req.params;
-
   if (_id.length != 12) {
     next(
       fillErrorObject(400, 'Validation error', [
