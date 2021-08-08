@@ -4,7 +4,7 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
 import {TEAM_INFO} from "../../global/data";
-import './Header.css';
+import './header.css';
 
 import { Fragment } from 'react';
 
