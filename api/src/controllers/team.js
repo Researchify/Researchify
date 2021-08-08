@@ -96,7 +96,7 @@ function getTeam(req, res, next) {
 async function createTeam(req, res, next) {
   const foundTeam = await Team.findOne({ email: req.body.email })
   if (foundTeam) {
-    next(fillErrorObject(400, 'Duplicate email error', ['Email had been registered']))
+    return next(fillErrorObject(400, 'Duplicate email error', ['Email had been registered']))
   }
   const salt = await bcrypt.genSalt()
   const hashedPassword = await bcrypt.hash(req.body.password, salt)
@@ -211,7 +211,7 @@ async function deployToGHPages(req, res, next) {
   });
 
   if (response.data.errors) {
-    next(
+    return next(
       fillErrorObject(400, 'Validation error', [response.data.errors[0].detail])
     );
   }

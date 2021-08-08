@@ -8,6 +8,7 @@ import publicationsReducer from './publicationsReducer';
 import teamReducer from './teamReducer';
 import importedPublicationsReducer from './importedPublicationsReducer';
 import teamMembersReducer from './teamMembersReducer';
+import websiteReducer from './websiteReducer';
 import notificationReducer from './notificationReducer';
 import deployReducer from './deployReducer';
 
@@ -19,4 +20,5 @@ export default combineReducers({
   importedPublications: importedPublicationsReducer,
   teamMember: teamMembersReducer,
   deploy: deployReducer,
+  website: websiteReducer,
 });

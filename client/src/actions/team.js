@@ -10,12 +10,12 @@ import {
   CREATE_TEAM_MEMBER,
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
-  ADD_TEAM,
   GET_GH_ACCESS_TOKEN,
   DEPLOY_REQUEST,
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
+  REGISTER_SUCCESS,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
@@ -26,26 +26,10 @@ import { errorActionGlobalCreator, successMessageCreator } from '../notification
 export const createTeam = (teamInfo) => async (dispatch) => {
   try{
     await api.createTeam(teamInfo)
-    dispatch(successMessageCreator("Team has been created"));
-  } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
-  }
-};
-
-/**
- * Finds a team
- * @param teamCredentials team email and password as a dictionary
- * @param teamPassword team account password
- */
-export const getTeam = (teamCredentials) => async (dispatch) => {
-  try {
-    const data = await api.loginTeam(teamCredentials);
-    const teamData = data.data.team;
-    const team = teamDataAllocator(teamData);
-    dispatch({
-      type: ADD_TEAM,
-      payload: team,
-    });
+    dispatch(successMessageCreator("Team has been created")); // showing a success notification  
+    dispatch({ // when user has been registered successfully to allow us to go back to the login page
+      type: REGISTER_SUCCESS
+    })
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
