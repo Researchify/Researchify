@@ -214,11 +214,11 @@ async function deployToGHPages(req, res, next) {
     );
   }
 
-  const ghUser = response.data.login;
-  console.log(ghUser);
+  const ghUsername = response.data.login;
+  console.log(ghUsername);
 
   const body = {
-    ghUsername: ghUser,
+    ghUsername,
     ghToken,
     teamPublications,
     teamInfo,
