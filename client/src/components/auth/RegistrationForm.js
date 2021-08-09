@@ -32,6 +32,7 @@ export default function RegistrationForm() {
       .min(3, 'Team Name must be at least 3 characters'),
     orgName: yup
       .string()
+      .required('Organization Name is required')
       .min(3, 'Organization Name must be at least 3 characters'),
     email: yup
       .string()
@@ -42,8 +43,7 @@ export default function RegistrationForm() {
       .required('Please Enter your password')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        "Use 8 or more characters with a mix of letters, numbers & symbols"
-      ),
+        "Use 8 or more characters with a mix of letters, numbers & symbols"),
     confirmedPassword: yup
       .string()
       .required('Please re-enter your password')
@@ -90,7 +90,6 @@ export default function RegistrationForm() {
                   {errors.teamName}
                 </Form.Control.Feedback>
             </Form.Group>
-
             <Form.Group as={Col} md="6">
               <Form.Label> Organization name </Form.Label>
                 <Form.Control
@@ -106,7 +105,6 @@ export default function RegistrationForm() {
                 </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
-
           <Form.Group>
             <Form.Label> Email address </Form.Label>
               <Form.Control
@@ -121,7 +119,6 @@ export default function RegistrationForm() {
                 {errors.email}
               </Form.Control.Feedback>
           </Form.Group>
-
           <Form.Group>
             <Form.Label> Password </Form.Label>
               <Form.Control
@@ -136,7 +133,6 @@ export default function RegistrationForm() {
                 {errors.password}
               </Form.Control.Feedback>
           </Form.Group>
-
           <Form.Group>
             <Form.Label> Confirm Password </Form.Label>
               <Form.Control
@@ -151,7 +147,6 @@ export default function RegistrationForm() {
                 {errors.confirmedPassword}
               </Form.Control.Feedback>
           </Form.Group>
-
           <div>
             <a id="signInLink" href="login">
               Already have an account? Sign in
@@ -159,8 +154,9 @@ export default function RegistrationForm() {
             <Button id="submitButton" type="submit" variant="primary">
               Sign Up
             </Button>
-        </div>
-      </Form>)}
+          </div>
+        </Form>
+      )}
     </Formik>
     </Jumbotron>
   );
