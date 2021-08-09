@@ -1,3 +1,6 @@
+/**
+ * The Publications component displays a list of publications.
+ */
 import React from 'react';
 
 import Publication from './publication/Publication'
@@ -10,7 +13,7 @@ const Publications = () => {
 
     return (
         <>
-            <div className="text-center">
+            <div className="text-center mt-3 mb-3">
                 <h4>
                     Total of {teamPublications.length} publications
                 </h4>
