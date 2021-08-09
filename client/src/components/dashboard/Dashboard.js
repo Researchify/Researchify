@@ -1,11 +1,10 @@
 /**
  * This file exports the content in of Researchify Dashboard Page
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
-  Table,
   Button,
   Card,
   Modal,
@@ -20,14 +19,22 @@ import { addPage, deletePage } from '../../actions/website';
 import { availablePages as pages } from '../../config/clientWebsite';
 import toast from 'react-hot-toast';
 import Webpages from './webpage/Webpages';
+import DeployPage from '../deploy/DeployPage';
+import { getGHAccessToken } from '../../actions/team';
 
 const Dashboard = () => {
+
+  console.log("dashborad")
   const dispatch = useDispatch();
   const history = useHistory();
 
   const themePicked = useSelector((state) => state.team?.themeId ? true : false);
   const teamId = useSelector((state) => state.team.teamId);
   const currentWebPages = useSelector((state) => state.website.pages);
+
+  const retrievedAccessToken = useSelector(
+    (state) => state.team.retrievedAccessToken
+  );
 
   // All our web-page offerings
   const availablePages = pages;
@@ -101,6 +108,8 @@ const Dashboard = () => {
     setSelectedPage(pagePlaceholder);
   };
 
+
+
   return (
     <main>
       <Modal show={displayAddModal} onHide={closeAddModal} centered size="lg">
@@ -173,6 +182,9 @@ const Dashboard = () => {
               setSelectedPage={setSelectedPage}
             />
           </Card.Body>
+          <Card.Footer>
+            <DeployPage teamId={teamId} retrievedAccessToken={retrievedAccessToken}/>
+          </Card.Footer>
         </Card>
         <TemplateSelector
           teamId={teamId}

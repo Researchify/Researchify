@@ -5,21 +5,27 @@ import { GoMarkGithub } from 'react-icons/go';
 import { deployToGHPages, getGHAccessToken } from '../../actions/team';
 import { Button, Spinner } from 'react-bootstrap';
 
-const DeployPage = ({ teamId }) => {
+const DeployPage = ({ teamId, retrievedAccessToken }) => {
 
   console.log("deploy page ")
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.deploy.loading);
-  const retrievedAccessToken = useSelector(
-    (state) => state.team.retrievedAccessToken
-  );
-  const linkedHandle = useSelector((state) => state.team.twitterHandle);
-  const ConditionalWrapper = ({ condition, wrapper, children }) =>
-    condition ? wrapper(children) : children;
+
+  console.log(githubLoginUrl)
+  
+  const handleDeploy = () => {
+    const accessToken = localStorage.getItem('GH_access_token');
+    // call backend endpoint to deploy and give the access token
+    dispatch(deployToGHPages(teamId, accessToken));
+  };
+
 
   useEffect(() => {
     // github returns a code in the url after user logs in
     const url = window.location.href;
+
+    console.log("url", url)
+
     const hasCode = url.includes('?code=');
     if (hasCode && !retrievedAccessToken && teamId) {
       const code = url.split('?code=')[1];
@@ -30,10 +36,13 @@ const DeployPage = ({ teamId }) => {
       localStorage.clear();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, teamId]);
+  }, [dispatch, teamId, window.location.href]);
 
-  const GitHubLoginButton = () => (
+
+
+  const GitHubLoginButton = (
     <Button
+      className="ml-3"
       variant="outline-primary"
       href={githubLoginUrl}
       disabled={retrievedAccessToken}
@@ -43,39 +52,32 @@ const DeployPage = ({ teamId }) => {
     </Button>
   );
 
-  const handleDeploy = () => {
-    const accessToken = localStorage.getItem('GH_access_token');
-    // call backend endpoint to deploy and give the access token
-    dispatch(deployToGHPages(teamId, accessToken, linkedHandle));
-  };
-
-  const DeployButton = () => (
-    <span>
-      <Button
-        variant="primary"
-        size="lg"
-        disabled={!retrievedAccessToken}
-        onClick={handleDeploy}
-      >
-        Deploy to GitHub Pages
-      </Button>
-    </span>
+  const DeployButton = (
+    <Button
+      variant="primary"
+      size="lg"
+      disabled={!retrievedAccessToken}
+      onClick={handleDeploy}
+    >
+      Deploy to GitHub Pages
+    </Button>
   );
 
   return (
     <>
-    {
-      loading ? 
-      <div className="mb-3 mt-3 text-center">
-        <Spinner animation="border" />
-      </div> : 
-      <ConditionalWrapper
-        condition={retrievedAccessToken}
-        wrapper={(children) => <DeployButton> {children}</DeployButton>}
-      >
-        <GitHubLoginButton />
-      </ConditionalWrapper>
-    }
+      Deploy Website with GitHub
+      {
+        loading ? 
+        <div className="mb-3 mt-3 text-center">
+          <Spinner animation="border" />
+        </div> : 
+        (
+          retrievedAccessToken? 
+          DeployButton:
+          GitHubLoginButton 
+
+        )
+      }
     </>
   );
 };

@@ -193,6 +193,8 @@ export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   try {
     console.log(teamId);
     const response = await api.getGHAccessToken(teamId, code);
+    console.log(response)
+    
     localStorage.setItem('GH_access_token', response.data.access_token);
     dispatch({
       type: GET_GH_ACCESS_TOKEN,
