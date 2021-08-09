@@ -9,11 +9,14 @@ import {
   IMPORT_REQUEST,
   IMPORT_SUCCESS,
   IMPORT_FAIL,
-  UPDATE_GSCHOLAR_ID,
   IMPORT_END,
+  IMPORT_EMPTY,
 } from './types';
+import {
+  errorActionGlobalCreator,
+  successMessageCreator,
+} from '../notification/notificationReduxFunctions';
 import { pageSize } from '../config/publications';
-import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 
 export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
   try {
@@ -109,82 +112,54 @@ export const sortPublications =
     });
   };
 
-export const importPublication =
-  (values, startFrom, teamId) => async (dispatch) => {
-    try {
-      dispatch({
-        type: IMPORT_REQUEST,
-      });
-
-      // extracting the authorId from the profileLink
-      let position = values.profileLink.indexOf('user=');
-      if (position === -1) {
-        dispatch({
-          type: IMPORT_FAIL,
-          payload: 'Please provide a valid profile link',
-        });
-      } else {
-        const author_id = values.profileLink.substring(
-          position + 5,
-          position + 17
-        );
-        dispatch({
-          type: UPDATE_GSCHOLAR_ID,
-          payload: author_id,
-        });
-        console.log(startFrom);
-        const result = await api.importPublications(
-          author_id,
-          startFrom,
-          teamId
-        );
-        console.log(result);
-        if (result.data.newPublications.length === 0) {
-          // all publications have already been imported into db
-          // TODO: logic can probably be improved in the future to be more thorough
-          dispatch({
-            type: IMPORT_FAIL,
-            payload:
-              'All publications from the profile have already been imported',
-          });
-        } else {
-          dispatch({
-            type: IMPORT_SUCCESS,
-            payload: result.data.newPublications,
-          });
-        }
-      }
-    } catch (error) {
-      dispatch({
-        type: IMPORT_FAIL,
-        payload: error.response,
-      });
-      dispatch(errorActionGlobalCreator(error));
-    }
-  };
-
-export const retrieveMorePublications =
+export const importPublications =
   (author_id, startFrom, teamId) => async (dispatch) => {
     try {
       dispatch({
         type: IMPORT_REQUEST,
       });
-      console.log('retrieve more');
-      console.log(startFrom);
-      const result = await api.importPublications(author_id, startFrom, teamId);
-      console.log(result);
 
-      if (result.data.retrieved < pageSize) {
-        // reached the end of the user's publications
+      const result = await api.importPublications(author_id, startFrom, teamId);
+      const pageNo = startFrom / pageSize + 1;
+
+      if (result.data.reachedEnd === true) {
+        // reached the end of the user's profile
+        if (result.data.newPublications.length > 0) {
+          dispatch({
+            type: IMPORT_SUCCESS,
+            payload: result.data.newPublications,
+          });
+        } else {
+          dispatch({
+            type: IMPORT_EMPTY,
+          });
+          dispatch(successMessageCreator('No publications left to retrieve!'));
+        }
         dispatch({
           type: IMPORT_END,
         });
+      } else if (
+        result.data.newPublications.length === 0 &&
+        result.data.retrieved > 0
+      ) {
+        // no new publications retrieved but not end of profile
+        dispatch({
+          type: IMPORT_EMPTY,
+        });
+        dispatch(
+          successMessageCreator(
+            `No new publications were found on page ${pageNo}`
+          )
+        );
+      } else {
+        dispatch({
+          type: IMPORT_SUCCESS,
+          payload: result.data.newPublications,
+        });
+        dispatch(
+          successMessageCreator(`New publications were found on page ${pageNo}`)
+        );
       }
-
-      dispatch({
-        type: IMPORT_SUCCESS,
-        payload: result.data.newPublications,
-      });
     } catch (error) {
       dispatch({
         type: IMPORT_FAIL,
