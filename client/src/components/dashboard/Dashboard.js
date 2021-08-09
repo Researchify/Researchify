@@ -32,9 +32,6 @@ const Dashboard = () => {
   const teamId = useSelector((state) => state.team.teamId);
   const currentWebPages = useSelector((state) => state.website.pages);
 
-  const retrievedAccessToken = useSelector(
-    (state) => state.team.retrievedAccessToken
-  );
 
   // All our web-page offerings
   const availablePages = pages;
@@ -183,7 +180,7 @@ const Dashboard = () => {
             />
           </Card.Body>
           <Card.Footer>
-            <DeployPage teamId={teamId} retrievedAccessToken={retrievedAccessToken}/>
+            <DeployPage teamId={teamId}/>
           </Card.Footer>
         </Card>
         <TemplateSelector

@@ -5,16 +5,22 @@ import { GoMarkGithub } from 'react-icons/go';
 import { deployToGHPages, getGHAccessToken } from '../../actions/team';
 import { Button, Spinner } from 'react-bootstrap';
 
-const DeployPage = ({ teamId, retrievedAccessToken }) => {
+const DeployPage = ({ teamId }) => {
 
   console.log("deploy page ")
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.deploy.loading);
+  const retrievedAccessToken = useSelector(
+    (state) => state.team.retrievedAccessToken
+  );
 
   console.log(githubLoginUrl)
   
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token');
+
+
+    console.log("handle deploy")
     // call backend endpoint to deploy and give the access token
     dispatch(deployToGHPages(teamId, accessToken));
   };
@@ -24,10 +30,12 @@ const DeployPage = ({ teamId, retrievedAccessToken }) => {
     // github returns a code in the url after user logs in
     const url = window.location.href;
 
-    console.log("url", url)
-
     const hasCode = url.includes('?code=');
     if (hasCode && !retrievedAccessToken && teamId) {
+
+
+
+      console.log("@@@@@@@@@@@@@@")
       const code = url.split('?code=')[1];
       // we use this code to exchange an access token
       dispatch(getGHAccessToken(teamId, code));
@@ -42,7 +50,7 @@ const DeployPage = ({ teamId, retrievedAccessToken }) => {
 
   const GitHubLoginButton = (
     <Button
-      className="ml-3"
+      className="action primary-danger float-right"
       variant="outline-primary"
       href={githubLoginUrl}
       disabled={retrievedAccessToken}
@@ -54,8 +62,8 @@ const DeployPage = ({ teamId, retrievedAccessToken }) => {
 
   const DeployButton = (
     <Button
+      className="action primary-danger float-right"
       variant="primary"
-      size="lg"
       disabled={!retrievedAccessToken}
       onClick={handleDeploy}
     >
