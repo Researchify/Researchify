@@ -50,28 +50,6 @@ const Description = () => {
         </Box>
       </Box>
 
-      {/*
-      <Box
-        alignItems={"flex-end"}
-        className={`${classes.layout} ${classes.white}`}
-      >
-        <Box
-          fontSize={isMobile ? "2rem" : "h3.fontSize"}
-          style={{ textAlign: "center" }}
-        >
-          Box 2
-        </Box>
-        <Box
-          fontSize={isMobile ? "1rem" : "1.2rem"}
-          padding={4}
-          lineHeight={1.8}
-        >
-          {aboutDescription.two}
-        </Box>
-      </Box>
-    </div>
-      */}
-
       <Box
         alignItems={"flex-end"}
         className={`${classes.layout} ${classes.white}`}

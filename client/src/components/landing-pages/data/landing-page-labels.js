@@ -1,10 +1,10 @@
 import React from 'react';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import NetworkWifiIcon from '@material-ui/icons/NetworkWifi';
-import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import ImportContacts from '@material-ui/icons/ImportContacts';
+import Twitter from '@material-ui/icons/Twitter';
+import Palette from '@material-ui/icons/Palette';
+import Group from '@material-ui/icons/Group';
+import MoneyOff from '@material-ui/icons/MoneyOff';
+import GitHub from '@material-ui/icons/GitHub';
 
 import { theme } from '../theme';
 
@@ -36,35 +36,35 @@ const styles = {
 
 const featuresData = [
   {
-    logo: <AccountBalanceIcon style={styles.icon} />,
-    title: 'Themes',
-    description: 'asd123',
+    logo: <ImportContacts style={styles.icon} />,
+    title: 'Publication',
+    description: 'Import your existing publications from Google scholar.',
   },
   {
-    logo: <AccountTreeIcon style={styles.icon} />,
+    logo: <Twitter style={styles.icon} />,
     title: 'Social Media',
     description:
-      'Compatible and integrated with Machine Learning technologies.',
+      'Update your website with real time social media feeds.',
   },
   {
-    logo: <ShoppingCartIcon style={styles.icon} />,
-    title: 'Customizable',
-    description: 'lalala',
+    logo: <Palette style={styles.icon} />,
+    title: 'Themes',
+    description: 'Choose from a variety of colour and layout for your website.',
   },
   {
-    logo: <MonetizationOnIcon style={styles.icon} />,
+    logo: <Group style={styles.icon} />,
     title: 'Teams',
-    description: 'lalala',
+    description: 'Showcase the members of your organization to the community',
   },
   {
-    logo: <NetworkWifiIcon style={styles.icon} />,
-    title: 'Publications',
-    description: 'Available everywhere anywhere you are.',
+    logo: <GitHub style={styles.icon} />,
+    title: 'Hosting',
+    description: 'Researchify uses GitHub pages to host your website. Totally free!',
   },
   {
-    logo: <NetworkWifiIcon style={styles.icon} />,
-    title: 'Availability',
-    description: 'Available everywhere anywhere you are.',
+    logo: <MoneyOff style={styles.icon} />,
+    title: 'Free',
+    description: 'Researchify is a free to use service.',
   },
 ];
 

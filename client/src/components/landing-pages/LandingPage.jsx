@@ -9,7 +9,11 @@ import { createTheme } from "@material-ui/core/styles";
 import { theme as colour } from "./theme";
 import { ThemeProvider } from "@material-ui/styles";
 
-
+/**
+ * Landing page component gets called by App.js
+ * @param {*} route of component
+ * @returns 
+ */
 const LandingPage = ({ match }) => {
   const theme = createTheme({
     palette: {
