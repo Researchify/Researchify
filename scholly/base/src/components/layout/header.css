@@ -1,0 +1,13 @@
+.header {
+  top: 0;
+  padding-top: 5px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #26282a;
+  height: 70px;
+}
+
+.header-brand {
+  color: #03a9f4;
+  margin-left: 12px;
+  font-family: 'Fredoka One', cursive;
+}

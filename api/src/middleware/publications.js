@@ -4,7 +4,7 @@
 
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
-const { categoryTypeEnum } = require('../config/puppeteer');
+const { categoryTypeEnum } = require('../config/playwright');
 const { fillErrorObject } = require('./error');
 
 
@@ -99,7 +99,6 @@ const createPublicationValidation = [
 
 async function validateAuthorId(req, res, next) {
   const { gScholarUserId: _id } = req.params;
-
   if (_id.length != 12) {
     next(
       fillErrorObject(400, 'Validation error', [

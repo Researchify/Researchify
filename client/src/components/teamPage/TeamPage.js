@@ -17,12 +17,12 @@ const TeamPage = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
 
   useEffect(() => {
-    dispatch(getTeamMembersByTeamId(teamId));
+    if(teamId){
+      dispatch(getTeamMembersByTeamId(teamId));
+    }
   }, [dispatch, teamId]);
 
   const { loading, teamMembers } = useSelector((state) => state.teamMember);
-
-  console.log(teamMembers);
 
   return (
     <div className="teamPageContainer">

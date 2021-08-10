@@ -23,8 +23,7 @@
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.2",
-    "puppeteer": "^10.0.0",
-    "puppeteer-cluster": "^0.22.0",
+    "playwright": "^1.13.1",
     "validator": "^13.5.2",
     "winston": "^3.3.3"
   },

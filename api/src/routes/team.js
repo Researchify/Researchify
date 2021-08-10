@@ -10,23 +10,25 @@ const teamMiddleware = require('../middleware/team');
 
 const mongooseMiddleware = require('../middleware/mongoose');
 
+const authMiddleware = require('../middleware/auth');
 
 teamRouter.patch(
   '/:team_id/twitter-handle',
+  authMiddleware.cookieJwtAuth,
   teamMiddleware.validateTeamId,
   teamMiddleware.validateTwitterHandle,
   teamController.storeHandle
 );
 
 teamRouter.get(
-  '/:team_id',
-  mongooseMiddleware.validateTeamObjectId,
-  teamMiddleware.validateTeamId,
+  '/',
+  authMiddleware.cookieJwtAuth,
   teamController.getTeam
 );
 
 teamRouter.post(
   '/:team_id/member',
+  authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.createTeamMember
@@ -34,6 +36,7 @@ teamRouter.post(
 
 teamRouter.get(
   '/:team_id/member',
+  authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.readTeamMembersByTeam
@@ -41,6 +44,7 @@ teamRouter.get(
 
 teamRouter.delete(
   '/:team_id/member/:member_id',
+  authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.deleteTeamMember
@@ -48,6 +52,7 @@ teamRouter.delete(
 
 teamRouter.patch(
   '/:team_id/member',
+  authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.updateTeamMember
@@ -63,17 +68,14 @@ teamRouter.post(
   teamController.deployToGHPages
 );
 
-teamRouter.post('/', teamController.addTeam);
-
-teamRouter.post('/login', teamController.loginTeam);
+teamRouter.post('/', teamController.createTeam);
 
 teamRouter.patch(
   '/:team_id',
+  authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   teamController.updateTeam
 );
-
-teamRouter.post('/logout', teamController.logoutTeam);
 
 module.exports = teamRouter;

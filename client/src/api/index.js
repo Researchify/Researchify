@@ -20,16 +20,17 @@ export const createBulkPublications = (teamId, publicationList) =>
 export const importPublications = (authorId, startFrom, teamId) =>
   api.get(`/publications/import/${authorId}/${startFrom}/validate/${teamId}`);
 
-export const addTeam = (teamInfo) => api.post('/team', teamInfo);
+export const createTeam = (teamInfo) => api.post('/team', teamInfo);
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
-export const loginTeam = (teamCredentials) =>
-  api.post(`/team/login`, teamCredentials);
-  export const logoutTeam = () =>
-  api.post(`/team/logout`);
 export const registerTwitterHandle = (teamId, handle) =>
   api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) =>
   api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
+
+export const getTeamJWT = () => api.get(`/team`);
+export const loginTeam = (teamCredentials) =>
+  api.post(`/auth/login`, teamCredentials);
+export const logoutTeam = () => api.post(`/auth/logout`);
 
 export const fetchTeamMembersByTeamId = (teamId) =>
   api.get(`/team/${teamId}/member`);
@@ -46,5 +47,10 @@ export const deployToGHPages = (teamId, body) =>
 export const updateTeam = (teamId, updatedTeam) =>
   api.patch(`/team/${teamId}`, updatedTeam);
 
-export const findOrCreateTheme = (themeData) =>
-  api.post(`/theme`, themeData);
+export const findOrCreateTheme = (themeData) => api.post(`/theme`, themeData);
+
+export const addWebPage = (teamId, pageName) =>
+  api.post(`/clientWebsite/${teamId}/add_page`, pageName);
+export const getWebsiteInfo = (teamId) => api.get(`/clientWebsite/${teamId}`);
+export const deleteWebPage = (teamId, pageName) =>
+  api.post(`/clientWebsite/${teamId}/delete_page`, pageName);

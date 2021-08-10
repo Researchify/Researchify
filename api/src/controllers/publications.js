@@ -8,9 +8,11 @@ const Publication = require('../models/publication.model');
 
 const Team = require('../models/team.model');
 
-const { Cluster } = require('puppeteer-cluster');
+const logger = require('winston');
 
-const { puppeteerConfig, categoryType } = require('../config/puppeteer');
+const { firefox } = require('playwright');
+
+const { playwrightConfig, categoryType } = require('../config/playwright');
 
 const { fillErrorObject } = require('../middleware/error');
 
@@ -91,11 +93,9 @@ function updatePublication(req, res, next) {
  */
 function createPublication(req, res, next) {
   const publication = req.body;
-  console.log(publication.teamId);
   const result = Team.findById({ _id: publication.teamId }).catch((err) =>
     next(fillErrorObject(500, 'Server error', [err.errors]))
   );
-
   if (result == null) {
     next(fillErrorObject(404, 'Validation error', ['Team was not found']));
   } else {
@@ -134,9 +134,9 @@ function readAllPublicationsByTeam(req, res, next) {
 }
 
 /**
- * Given a google scholar user id, this function uses a headless browser via Puppeteer to scrape
- * the publications info from a user's profile. This runs several threads in parallel specified in the config.
- * @see config/puppeteerConfig.js
+ * Given a google scholar user id, this function uses a headless browser via Playwright to scrape
+ * the publications info from a user's profile.
+ * @see config/playwright.js
  * @param req request object - google scholar user id given in the url
  * @param res response object - array of publication objects
  * @returns a list of publications of the given google scholar user id
@@ -146,130 +146,139 @@ async function getGoogleScholarPublications(req, res) {
   const startFrom = req.params.startFrom;
   const teamId = req.params.team_id;
 
-  const noOfDummyLinks = puppeteerConfig.noOfDummyLinks;
-  const noOfThreads = puppeteerConfig.noOfThreads;
-  const pageSize = puppeteerConfig.pageSize;
+  const noOfDummyLinks = playwrightConfig.noOfDummyLinks;
+  const pageSize = playwrightConfig.pageSize;
   const url =
-    puppeteerConfig.baseUrl +
+    playwrightConfig.baseUrl +
     author +
-    puppeteerConfig.startSuffix +
+    playwrightConfig.startSuffix +
     startFrom +
-    puppeteerConfig.pageSizeSuffix +
+    playwrightConfig.pageSizeSuffix +
     pageSize +
-    puppeteerConfig.sortBySuffix;
-  console.log(url);
-  const publications = [];
-
-  const cluster = await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_CONTEXT,
-    maxConcurrency: noOfThreads,
-  });
-
-  await cluster.task(async ({ page, data: data }) => {
-    const url = data['url'];
-    const index = data['index'];
-    await page.goto(url);
-    const resultLinks = await page.$$('.gsc_a_t a');
-
-    await Promise.all([
-      resultLinks[index].click(),
-      page.waitForSelector('div.gsc_vcd_field'),
-    ]);
-
-    let title;
-
-    try {
-      // this html tag is for if the title of the publication is a link
-      title = await page.$eval('a.gsc_vcd_title_link', (titles) =>
-        titles.map((title) => title.innerText)
-      );
-    } catch (e) {
-      // an error will be caught if its not a link, and try a diff html tag for title
-      title = await page.$$eval('#gsc_vcd_title', (titles) =>
-        titles.map((title) => title.innerText)
-      );
-    }
-
-    // pdf link
-    const link = await page.$$eval('div.gsc_vcd_title_ggi a', (links) =>
-      links.map((link) => link.href)
-    );
-
-    // this gives authors, pub date, journal/conf/book name, pages, description, cited by and other stuff
-    const values = await page.$$eval('div.gsc_vcd_value', (titles) =>
-      titles.map((title) => title.innerText)
-    );
-
-    // get fields
-    const fields = await page.$$eval('div.gsc_vcd_field', (titles) =>
-      titles.map((title) => title.innerText)
-    );
-
-    // collating the fields with the values
-    const publicationInfo = {};
-    fields.forEach((key, i) => (publicationInfo[key] = values[i]));
-
-    let type = fields[2].toUpperCase();
-    let categoryTitle;
-    if (!(type in categoryType)) {
-      type = 'OTHER';
-      categoryTitle = 'OTHER';
-    } else {
-      categoryTitle = values[2];
-    }
-
-    let citedBy;
-    if (publicationInfo['Total citations'] === undefined) {
-      citedBy = '';
-    } else {
-      citedBy = publicationInfo['Total citations']
-        .split('\n', 1)[0]
-        .split(' ')[2];
-    }
-
-    const publication = {
-      authors: publicationInfo['Authors'].split(', '),
-      title: title[0],
-      link: link[0] || '',
-      description: publicationInfo['Description'] || '',
-      citedBy: citedBy,
-      yearPublished: (publicationInfo['Publication date'] || '').substr(0, 4), // assuming first 4 chars is year
-      category: {
-        type: type,
-        categoryTitle: categoryTitle,
-        pages: publicationInfo['Pages'] || '',
-        publisher: publicationInfo['Publisher'] || '',
-        volume: publicationInfo['Volume'] || '',
-        issue: publicationInfo['Issue'] || '',
-      },
-    };
-
-    publications.push(publication);
-  });
-
-  // time how long the scraping takes
-  console.time('doSomething');
-
-  for (let i = noOfDummyLinks; i < pageSize + noOfDummyLinks; i++) {
-    await cluster.queue({ url: url, index: i });
-  }
-
-  await cluster.idle();
-  await cluster.close();
-
-  console.timeEnd('doSomething');
-
-  const newPublications = await validateImportedPublications(
-    teamId,
-    publications
-  );
-
-  const response = {
+    playwrightConfig.sortBySuffix;
+  logger.info(`GScholar profile for user id ${author}: ${url}`);
+  let publications = [];
+  let endOfProfile = false;
+  let response = {
     retrieved: publications.length,
-    newPublications: newPublications,
+    newPublications: [],
+    reachedEnd: false,
   };
 
+  const browser = await firefox.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto(url);
+
+  const resultLinks = await page.$$('.gsc_a_t a');
+  let links = [];
+
+  if (resultLinks.length === noOfDummyLinks) {
+    // no publications found
+    response.reachedEnd = true;
+    await browser.close();
+  } else {
+    for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
+      links.push(await resultLinks[i].getAttribute('href'));
+    }
+
+    await browser.close();
+
+    await Promise.all(links.map((x) => scrapeGoogleScholar(x))).then((pub) =>
+      publications.push(...pub)
+    );
+
+    const newPublications = await validateImportedPublications(
+      teamId,
+      publications
+    );
+
+    // if the number of publications retrieved is less than the page size,
+    // then we've reached the end of the profile
+    if (publications.length < pageSize) {
+      endOfProfile = true;
+    }
+
+    response = {
+      retrieved: publications.length,
+      newPublications: newPublications,
+      reachedEnd: endOfProfile,
+    };
+  }
+
   res.status(200).json(response);
+}
+
+/***
+ * The function performs the scraping logic to get the Google Scholar publications
+ * and returns it in a format that fits the publication model.
+ * @see models/publication.model.js
+ * @returns a publication
+ */
+async function scrapeGoogleScholar(url) {
+  logger.info(`Publication url: ${playwrightConfig.gScholarHome + url}`);
+  const browser = await firefox.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.goto(playwrightConfig.gScholarHome + url);
+
+  const title = await page.$$eval('a.gsc_oci_title_link', (titles) =>
+    titles.map((title) => title.innerText)
+  );
+
+  const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) =>
+    links.map((link) => link.href)
+  );
+  const values = await page.$$eval('div.gsc_oci_value', (titles) =>
+    titles.map((title) => title.innerText)
+  );
+  const fields = await page.$$eval('div.gsc_oci_field', (titles) =>
+    titles.map((title) => title.innerText)
+  );
+
+  await browser.close();
+
+  const publicationInfo = {};
+  fields.forEach((key, i) => (publicationInfo[key] = values[i]));
+
+  // TODO: this logic depends on the order of the fields,
+  // which will differ based on the info of the publication, can be improved
+  let type = fields[2].toUpperCase();
+  let categoryTitle;
+  if (!(type in categoryType)) {
+    type = 'OTHER';
+    categoryTitle = '';
+  } else {
+    categoryTitle = values[2];
+  }
+
+  let citedBy;
+  if (publicationInfo['Total citations'] === undefined) {
+    citedBy = '';
+  } else {
+    citedBy = publicationInfo['Total citations']
+      .split('\n', 1)[0]
+      .split(' ')[2];
+  }
+
+  const publication = {
+    authors: publicationInfo['Authors'].split(', '),
+    title: title[0],
+    link: link[0] || '',
+    description: publicationInfo['Description'] || '',
+    yearPublished: (publicationInfo['Publication date'] || '').substr(0, 4), // assuming first 4 chars is year
+    citedBy: citedBy,
+    category: {
+      type: type,
+      categoryTitle: categoryTitle,
+      pages: publicationInfo['Pages'] || '',
+      publisher: publicationInfo['Publisher'] || '',
+      volume: publicationInfo['Volume'] || '',
+      issue: publicationInfo['Issue'] || '',
+    },
+  };
+
+  return publication;
 }
 
 /**

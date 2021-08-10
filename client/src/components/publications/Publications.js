@@ -29,7 +29,9 @@ const Publications = () => {
   const [layout, setLayout] = useState(allLayouts.allPublications);
 
   useEffect(() => {
-    dispatch(getPublicationsByTeamId(teamId));
+    if(teamId){
+      dispatch(getPublicationsByTeamId(teamId));
+    }
   }, [dispatch, teamId]);
 
   const { loading, teamPublications } = useSelector(
