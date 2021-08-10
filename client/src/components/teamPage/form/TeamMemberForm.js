@@ -60,7 +60,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
             <Form.Control
               type="text"
               name="fullName"
-              placeholder="Full Name"
+              placeholder="John Smith"
               value={values.fullName}
               onChange={handleChange}
               isInvalid={touched.fullName && errors.fullName}
@@ -75,7 +75,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
             <Form.Control
               type="text"
               name="position"
-              placeholder="Position"
+              placeholder="Associated Professor"
               value={values.position}
               onChange={handleChange}
               isInvalid={touched.position && errors.position}
