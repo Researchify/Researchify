@@ -29,11 +29,11 @@ export default function RegistrationForm() {
     teamName: yup
       .string()
       .required('Team Name is required')
-      .min(3, 'Team Name must be at least 3 characters'),
+      .min(3, 'Must be at least 3 characters'),
     orgName: yup
       .string()
       .required('Organization Name is required')
-      .min(3, 'Organization Name must be at least 3 characters'),
+      .min(3, 'Must be at least 3 characters'),
     email: yup
       .string()
       .email('Invalid Email')
