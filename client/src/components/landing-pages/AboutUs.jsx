@@ -129,7 +129,7 @@ const AboutUs = (props) => {
             <Box fontSize="h3.fontSize">Meet our Team</Box>
             <Box color="black" fontSize="p.fontSize">
               <p>
-              17 undergraduate students collaborating under the supervision of Riordan to provide Researchers with a tool to create their own website.
+              7 undergraduate students collaborating under the supervision of Riordan to provide Researchers with a tool to create their own website.
               </p>
             </Box>
           </TabPanel>
