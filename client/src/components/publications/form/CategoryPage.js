@@ -41,6 +41,27 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
     </Tooltip>
   );
 
+  const renderPlaceholderText = (category) => {
+    switch (category) {
+      case 'JOURNAL':
+        return 'Nature';
+      case 'CONFERENCE':
+        return '26th International Conference on Intelligent User Interfaces';
+      case 'BOOK':
+        return 'The Lord of the Rings';
+      case 'Volume':
+        return '420';
+      case 'Issue':
+        return '6915';
+      case 'Pages':
+        return '476-476';
+      case 'Publisher':
+        return 'Nature Publishing Group';
+      default:
+        return 'Nature';
+    }
+  };
+
   return (
     <>
       <Formik
@@ -88,15 +109,25 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label>
                 {' '}
-                {Object.keys(categoryType).find(
-                  (category) => category.toUpperCase() === values.category.type
-                )}{' '}
+                {Object.keys(categoryType)
+                  .filter(
+                    (category) =>
+                      category.toUpperCase() === values.category.type
+                  )
+                  .map((category, idx) => {
+                    return `${
+                      category.charAt(0) + category.slice(1).toLowerCase()
+                    } title`;
+                  })}{' '}
               </Form.Label>
               <Form.Control
                 type="text"
                 name="category.categoryTitle"
-                placeholder={Object.keys(categoryType).find(
-                  (category) => category.toUpperCase() === values.category.type
+                placeholder={renderPlaceholderText(
+                  Object.keys(categoryType).find(
+                    (category) =>
+                      category.toUpperCase() === values.category.type
+                  )
                 )}
                 value={values.category.categoryTitle}
                 onChange={handleChange}
@@ -117,7 +148,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
               <Form.Control
                 type="text"
                 name="category.volume"
-                placeholder="Volume"
+                placeholder={renderPlaceholderText('Volume')}
                 value={values.category.volume}
                 onChange={handleChange}
               />
@@ -128,7 +159,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
               <Form.Control
                 type="text"
                 name="category.issue"
-                placeholder="Issue"
+                placeholder={renderPlaceholderText('Issue')}
                 value={values.category.issue}
                 onChange={handleChange}
               />
@@ -139,7 +170,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
               <Form.Control
                 type="text"
                 name="category.pages"
-                placeholder="Pages"
+                placeholder={renderPlaceholderText('Pages')}
                 value={values.category.pages}
                 onChange={handleChange}
               />
@@ -150,7 +181,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
               <Form.Control
                 type="text"
                 name="category.publisher"
-                placeholder="Publisher"
+                placeholder={renderPlaceholderText('Publisher')}
                 value={values.category.publisher}
                 onChange={handleChange}
               />
