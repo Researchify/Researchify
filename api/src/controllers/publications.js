@@ -159,6 +159,7 @@ async function getGoogleScholarPublications(req, res) {
   logger.info(`GScholar profile for user id ${author}: ${url}`);
   let publications = [];
   let endOfProfile = false;
+
   let response = {
     retrieved: publications.length,
     newPublications: [],
@@ -225,8 +226,8 @@ async function scrapeGoogleScholar(url) {
     titles.map((title) => title.innerText)
   ); // we assume the publication title is a link
 
-  if (title === undefined) { // if its undefined, then it wasn't a link
-    title = await page.$$eval('div.gsc_oci_title',(titles) =>
+  if (title[0] === undefined) { // if its undefined, then it wasn't a link
+    title = await page.$$eval('div[id=gsc_oci_title]',(titles) =>
         titles.map((title) => title.innerText))
   }
 
