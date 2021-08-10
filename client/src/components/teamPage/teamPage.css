@@ -5,3 +5,7 @@
   margin-bottom: 40px;
   margin-top: 20px;
 }
+
+#placeholder-text::placeholder {
+  color: #A9A9A9
+}

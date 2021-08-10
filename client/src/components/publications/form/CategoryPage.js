@@ -121,6 +121,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                   })}{' '}
               </Form.Label>
               <Form.Control
+                id="placeholder-text"
                 type="text"
                 name="category.categoryTitle"
                 placeholder={renderPlaceholderText(
@@ -146,6 +147,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label> Volume </Form.Label>
               <Form.Control
+                id="placeholder-text"
                 type="text"
                 name="category.volume"
                 placeholder={renderPlaceholderText('Volume')}
@@ -157,6 +159,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label> Issue </Form.Label>
               <Form.Control
+                id="placeholder-text"
                 type="text"
                 name="category.issue"
                 placeholder={renderPlaceholderText('Issue')}
@@ -168,6 +171,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label> Pages </Form.Label>
               <Form.Control
+                id="placeholder-text"
                 type="text"
                 name="category.pages"
                 placeholder={renderPlaceholderText('Pages')}
@@ -179,6 +183,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label> Publisher </Form.Label>
               <Form.Control
+                id="placeholder-text"
                 type="text"
                 name="category.publisher"
                 placeholder={renderPlaceholderText('Publisher')}

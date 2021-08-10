@@ -55,7 +55,9 @@ const ProfileLinkPage = ({ closeModal }) => {
       {({ handleSubmit, handleChange, values, touched, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Enter your Google Scholar profile link below:</Form.Label>
+            <Form.Label>
+              Enter your Google Scholar profile link below:
+            </Form.Label>
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text>
@@ -63,6 +65,7 @@ const ProfileLinkPage = ({ closeModal }) => {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
+                id="placeholder-text"
                 type="text"
                 name="profileLink"
                 placeholder="https://scholar.google.com.sg/citations?user=3tyGlPsAAAAJ"
