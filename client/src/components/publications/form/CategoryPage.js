@@ -48,7 +48,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
       case 'CONFERENCE':
         return '26th International Conference on Intelligent User Interfaces';
       case 'BOOK':
-        return 'The Lord of the Rings';
+        return 'QED: Beauty in mathematical proof';
       case 'Volume':
         return '420';
       case 'Issue':
