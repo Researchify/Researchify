@@ -1,11 +1,13 @@
 /**
  * This file houses our Action Creator type constants.
  */
-export const SIGN_IN_REQUEST = 'SIGN_IN_REQUEST';
-export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
-export const SIGN_IN_FAIL = 'SIGN_IN_FAIL';
-export const SIGN_OUT = 'SIGN_OUT';
+export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
+export const LOG_IN_FAIL = 'LOG_IN_FAIL';
+export const LOG_OUT = 'LOG_OUT';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const DISPLAY_LOG_OUT_ALERT = 'DISPLAY_LOG_OUT_ALERT';
+export const REMOVE_LOG_OUT_ALERT = 'REMOVE_LOG_OUT_ALERT';
 
 export const GET_PUBLICATION_BY_ID = 'GET_PUBLICATION_BY_ID';
 export const GET_PUBLICATIONS_BY_TEAM_ID = 'GET_PUBLICATIONS_BY_TEAM_ID';

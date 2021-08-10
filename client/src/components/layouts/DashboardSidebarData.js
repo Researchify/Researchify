@@ -13,7 +13,7 @@ import {
   BsUpload,
   BsBoxArrowLeft,
 } from 'react-icons/bs';
-import { signOut } from '../../actions/auth';
+import { DISPLAY_LOG_OUT_ALERT } from '../../actions/types';
 import { useDispatch, useSelector } from 'react-redux';
 
 /*
@@ -63,7 +63,7 @@ const DashboardSidebarData = () => {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
       link: '/',
-      action: () => dispatch(signOut()),
+      action: () => dispatch({type: DISPLAY_LOG_OUT_ALERT}),
     },
   ];
 
