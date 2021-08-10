@@ -2,6 +2,7 @@
  * The TeamMember component displays a single team member details
  */
 
+import React from "react";
 import {
   Card,
   Row,

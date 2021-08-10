@@ -2,6 +2,7 @@
  * The LayoutAllPublications component displays a list of publications
  */
 
+import React from "react";
 import Publication from '../publication/Publication';
 
 const LayoutAllPublications = ({ teamPublications }) => {

@@ -2,6 +2,7 @@
  * This file exports Sidebar component for layouts
  */
 import './Sidebar.css';
+import React from "react";
 import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = ({data}) => {
