@@ -268,7 +268,7 @@ async function scrapeGoogleScholar(url) {
 
   const publication = {
     authors: publicationInfo['Authors'].split(', '),
-    title: title[0] || '',
+    title: title[0],
     link: link[0] || '',
     description: publicationInfo['Description'] || '',
     yearPublished: (publicationInfo['Publication date'] || '').substr(0, 4), // assuming first 4 chars is year
