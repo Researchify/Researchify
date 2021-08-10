@@ -2,7 +2,6 @@
  * The LayoutByCategory component displays a list of publications group by category type selcted by user
  */
 
-import React from "react";
 import Publication from '../publication/Publication';
 import { categoryType } from '../../../config/publications';
 

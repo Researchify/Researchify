@@ -1,7 +1,7 @@
 /**
  * This file export all the public route
  */
- import React from "react";
+
  import { Switch, Route, Redirect } from 'react-router-dom';
 
 // Pages
