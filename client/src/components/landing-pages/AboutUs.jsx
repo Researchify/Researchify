@@ -105,37 +105,35 @@ const AboutUs = (props) => {
               aria-label="wrapped label tabs about us"
             >
               {/**TODO: Can be refactored with loop */}
-              <StyledTab value={0} label="History" {...a11yProps("one")} />
-              <StyledTab value={2} label="Vision" {...a11yProps("two")} />
-              <StyledTab value={3} label="Goals &amp; Objectives" {...a11yProps("two")} />
-              <StyledTab
-                value={4}
-                label="Meet Our Team"
-                {...a11yProps("two")}
-              />
+              <StyledTab value={0} label="Vision" {...a11yProps("one")} />
+              <StyledTab value={1} label="Meet Our Team" {...a11yProps("two")} />
+              <StyledTab value={2} label="Goals &amp; Objectives" {...a11yProps("two")} />
             </Tabs>
           </Grid>
         </Grid>
 
         {/**TODO: Can be refactored with loop */}
         <Grid item className={classes.borderedCard} md={9} xs={12}>
+          <center>
           <TabPanel value={value} index={0}>
-            <Box fontSize="h3.fontSize">HISTORY</Box>
+            <Box fontSize="h3.fontSize">Vision</Box>
             <Box color="black" fontSize="p.fontSize">
               <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-              Etiam consectetur ut ex sit amet vulputate. Pellentesque 
-              habitant morbi tristique senectus et netus et malesuada 
-              fames ac turpis egestas. Vivamus imperdiet ullamcorper ex, 
-              sed dignissim augue sodales ac. Curabitur ac dictum sapien. 
-              Aliquam erat volutpat. Aliquam rutrum urna vitae sem sagittis,
-              id malesuada urna ullamcorper. Mauris sed eros dictum, 
-              cursus sem nec, facilisis erat. Sed commodo volutpat ex. 
-              Pellentesque eros lacus, porttitor non porttitor eu, 
-              blandit ac nisl.
+              The Researchify Platform will remain a one-stop shop from inception to deployment of an 
+              academic research website allowing non-tech-savvy researchers to significantly reduce 
+              expenditures related to web development and the time before the website goes live. 
               </p>
             </Box>
           </TabPanel>
+          <TabPanel value={value} index={1}>
+            <Box fontSize="h3.fontSize">Meet our Team</Box>
+            <Box color="black" fontSize="p.fontSize">
+              <p>
+              17 undergraduate students collaborating under the supervision of Riordan to provide Researchers with a tool to create their own website.
+              </p>
+            </Box>
+          </TabPanel>
+          </center>
         </Grid>
       </Grid>
     </div>
