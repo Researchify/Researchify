@@ -133,6 +133,15 @@ const AboutUs = (props) => {
               </p>
             </Box>
           </TabPanel>
+          <TabPanel value={value} index={2}>
+            <Box fontSize="h3.fontSize">Goals &amp; Objecitves</Box>
+            <Box color="black" fontSize="p.fontSize">
+              <p>
+              To provide a free website creation tool for Researchers to showcase their research to the community. Researchify is aimed at researchers with diverse
+              backgrounds. Ranging from experienced website builders to those that are inexperienced.
+              </p>
+            </Box>
+          </TabPanel>
           </center>
         </Grid>
       </Grid>

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment} from "react";
 import { Typography, Link } from "@material-ui/core";
 
 const Copyright = ({ invert }) => {

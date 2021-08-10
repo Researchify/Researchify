@@ -8,7 +8,7 @@ const Divider = ({ width, color = "blue" }) => {
     height: 6,
     margin: "20px auto",
     background:
-      color == "blue"
+      color === "blue"
         ? "linear-gradient(20deg, rgba(65, 70, 86, 1) 0%, rgba(86, 101, 138, 1) 100%)"
         : "linear-gradient(200deg, rgba(171,150,113,1) 0%, rgba(118,99,64,1) 80%)",
   };
