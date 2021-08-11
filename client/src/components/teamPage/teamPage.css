@@ -6,6 +6,6 @@
   margin-top: 20px;
 }
 
-#placeholder-text::placeholder {
+.placeholder-text::placeholder {
   color: #A9A9A9
 }

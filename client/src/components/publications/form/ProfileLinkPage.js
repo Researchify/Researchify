@@ -65,7 +65,7 @@ const ProfileLinkPage = ({ closeModal }) => {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
-                id="placeholder-text"
+                className="placeholder-text"
                 type="text"
                 name="profileLink"
                 placeholder="https://scholar.google.com.sg/citations?user=3tyGlPsAAAAJ"

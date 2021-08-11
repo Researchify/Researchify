@@ -56,7 +56,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
     return values.authors.map((author, index) => (
       <InputGroup key={index}>
         <Form.Control
-          id="placeholder-text"
+          className="placeholder-text"
           type="text"
           placeholder="John Smith"
           name={`authors[${index}]`}
@@ -104,7 +104,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
             <Form.Group>
               <Form.Label>Publication Title</Form.Label>
               <Form.Control
-                id="placeholder-text"
+                className="placeholder-text"
                 as="textarea"
                 row={2}
                 name="title"
@@ -121,7 +121,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
             <Form.Group>
               <Form.Label>Published Year</Form.Label>
               <Form.Control
-                id="placeholder-text"
+                className="placeholder-text"
                 as="select"
                 type="text"
                 name="yearPublished"
@@ -154,7 +154,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
             <Form.Group>
               <Form.Label>Description</Form.Label>
               <Form.Control
-                id="placeholder-text"
+                className="placeholder-text"
                 as="textarea"
                 row={4}
                 name="description"
@@ -171,7 +171,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
             <Form.Group>
               <Form.Label>Link</Form.Label>
               <Form.Control
-                id="placeholder-text"
+                className="placeholder-text"
                 type="text"
                 name="link"
                 placeholder="https://ieeexplore.ieee.org/abstract/document/8667994/"

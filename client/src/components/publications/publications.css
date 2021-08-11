@@ -30,6 +30,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-#placeholder-text::placeholder {
+.placeholder-text::placeholder {
   color: #A9A9A9
 }

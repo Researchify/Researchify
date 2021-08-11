@@ -58,7 +58,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
           <Form.Group>
             <Form.Label>Full Name</Form.Label>
             <Form.Control
-              id="placeholder-text"
+              className="placeholder-text"
               type="text"
               name="fullName"
               placeholder="John Smith"
@@ -74,7 +74,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
           <Form.Group>
             <Form.Label>Position</Form.Label>
             <Form.Control
-              id="placeholder-text"
+              className="placeholder-text"
               type="text"
               name="position"
               placeholder="Associated Professor"
@@ -90,7 +90,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
           <Form.Group>
             <Form.Label>Summary</Form.Label>
             <Form.Control
-              id="placeholder-text"
+              className="placeholder-text"
               as="textarea"
               row={5}
               name="summary"

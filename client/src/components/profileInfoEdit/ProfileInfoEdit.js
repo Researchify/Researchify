@@ -79,7 +79,7 @@ const ProfileInfoEdit = () => {
           <Form.Group>
             <Form.Label>Research Group Name</Form.Label>
             <Form.Control
-              id="placeholder-text"
+              className="placeholder-text"
               type="text"
               placeholder="Allan Lab"
               defaultValue={profileData.teamName}
@@ -92,7 +92,7 @@ const ProfileInfoEdit = () => {
           <Form.Group>
             <Form.Label>Organisation Name</Form.Label>
             <Form.Control
-              id="placeholder-text"
+              className="placeholder-text"
               type="text"
               placeholder="Leiden University"
               defaultValue={profileData.orgName}
@@ -105,7 +105,7 @@ const ProfileInfoEdit = () => {
           <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
-              id="placeholder-text"
+              className="placeholder-text"
               type="email"
               placeholder="allenlab@gmail.com"
               name="email"
