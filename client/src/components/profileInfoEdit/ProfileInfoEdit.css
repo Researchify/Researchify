@@ -31,10 +31,6 @@
   font-weight: bold;
 }
 
-/* #placeholder-text::placeholder {
-  color: #A9A9A9
-} */
-
 .placeholder-text::placeholder {
   color: #A9A9A9
 }
