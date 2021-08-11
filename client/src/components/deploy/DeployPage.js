@@ -3,22 +3,39 @@ import { useDispatch, useSelector } from 'react-redux';
 import { githubLoginUrl } from '../../config/deploy';
 import { GoMarkGithub } from 'react-icons/go';
 import { deployToGHPages, getGHAccessToken } from '../../actions/team';
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 
-const DeployPage = () => {
+const DeployPage = ({ teamId }) => {
+
+  console.log("deploy page ")
   const dispatch = useDispatch();
-  const teamId = useSelector((state) => state.team.teamId);
+  const loading = useSelector((state) => state.deploy.loading);
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken
   );
-  const ConditionalWrapper = ({ condition, wrapper, children }) =>
-    condition ? wrapper(children) : children;
+
+  console.log(githubLoginUrl)
+  
+  const handleDeploy = () => {
+    const accessToken = localStorage.getItem('GH_access_token');
+
+
+    console.log("handle deploy")
+    // call backend endpoint to deploy and give the access token
+    dispatch(deployToGHPages(teamId, accessToken));
+  };
+
 
   useEffect(() => {
     // github returns a code in the url after user logs in
     const url = window.location.href;
+
     const hasCode = url.includes('?code=');
     if (hasCode && !retrievedAccessToken && teamId) {
+
+
+
+      console.log("@@@@@@@@@@@@@@")
       const code = url.split('?code=')[1];
       // we use this code to exchange an access token
       dispatch(getGHAccessToken(teamId, code));
@@ -27,46 +44,48 @@ const DeployPage = () => {
       localStorage.clear();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, teamId]);
+  }, [dispatch, teamId, window.location.href]);
 
-  const GitHubLoginButton = () => (
+
+
+  const GitHubLoginButton = (
     <Button
+      className="action primary-danger float-right"
       variant="outline-primary"
       href={githubLoginUrl}
       disabled={retrievedAccessToken}
     >
-      <GoMarkGithub />
+      <GoMarkGithub className="mr-2"/>
       Login with Github
     </Button>
   );
 
-  const handleDeploy = () => {
-    const accessToken = localStorage.getItem('GH_access_token');
-    // call backend endpoint to deploy and give the access token
-    dispatch(deployToGHPages(teamId, accessToken));
-  };
-
-  const DeployButton = () => (
-    <span>
-      <Button
-        variant="primary"
-        size="lg"
-        disabled={!retrievedAccessToken}
-        onClick={handleDeploy}
-      >
-        Deploy to GitHub Pages
-      </Button>
-    </span>
+  const DeployButton = (
+    <Button
+      className="action primary-danger float-right"
+      variant="primary"
+      disabled={!retrievedAccessToken}
+      onClick={handleDeploy}
+    >
+      Deploy to GitHub Pages
+    </Button>
   );
 
   return (
     <>
-      <ConditionalWrapper
-        condition={retrievedAccessToken}
-        wrapper={(children) => <DeployButton> {children}</DeployButton>}
-      >
-        <GitHubLoginButton />
-      </ConditionalWrapper>
+      Deploy Website with GitHub
+      {
+        loading ? 
+        <div className="mb-3 mt-3 text-center">
+          <Spinner animation="border" />
+        </div> : 
+        (
+          retrievedAccessToken? 
+          DeployButton:
+          GitHubLoginButton 
+
+        )
+      }
     </>
   );
 };

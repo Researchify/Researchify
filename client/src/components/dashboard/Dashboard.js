@@ -1,32 +1,37 @@
 /**
  * This file exports the content in of Researchify Dashboard Page
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
-  Table,
   Button,
   Card,
   Modal,
   DropdownButton,
   Dropdown,
 } from 'react-bootstrap';
-import { BsPencilSquare } from 'react-icons/bs';
+
 import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
 import { addPage, deletePage } from '../../actions/website';
 import { availablePages as pages } from '../../config/clientWebsite';
 import toast from 'react-hot-toast';
+import Webpages from './webpage/Webpages';
+import DeployPage from '../deploy/DeployPage';
+import { getGHAccessToken } from '../../actions/team';
 
 const Dashboard = () => {
+
+  console.log("dashborad")
   const dispatch = useDispatch();
   const history = useHistory();
 
   const themePicked = useSelector((state) => state.team?.themeId ? true : false);
   const teamId = useSelector((state) => state.team.teamId);
   const currentWebPages = useSelector((state) => state.website.pages);
+
 
   // All our web-page offerings
   const availablePages = pages;
@@ -74,11 +79,6 @@ const Dashboard = () => {
     setAddModal(true);
   };
 
-  const promptDeleteConfirmation = (pageName) => {
-    setSelectedPage(pageName);
-    showDeleteModal();
-  };
-
   const directToAnotherPage = (pageName) => {
     if (pageName === 'PUBLICATIONS') {
       history.push(`/publications`);
@@ -104,6 +104,8 @@ const Dashboard = () => {
     setDeleteModal(false);
     setSelectedPage(pagePlaceholder);
   };
+
+
 
   return (
     <main>
@@ -170,48 +172,16 @@ const Dashboard = () => {
             </Button>
           </Card.Header>
           <Card.Body>
-            <Table striped bordered hover>
-              {
-                // Display appropriate message when no webpage is added
-                currentWebPages.length === 0 ? (
-                  <thead>
-                    <tr>
-                      <th className="reduced-column tableHeading">
-                        No web-page added yet...
-                      </th>
-                    </tr>
-                  </thead>
-                ) : (
-                  ''
-                )
-              }
-              <tbody>
-                {currentWebPages.map((webPage, index) => (
-                  <tr key={index}>
-                    <td className="body">
-                      {webPage}
-                      <Button
-                        variant="outline-danger"
-                        className="action primary-danger float-right"
-                        onClick={() => promptDeleteConfirmation(webPage)}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="outline-success"
-                        className="action float-right mx-2"
-                        onClick={() => {
-                          directToAnotherPage(webPage);
-                        }}
-                      >
-                        <BsPencilSquare />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            <Webpages 
+              currentWebPages={currentWebPages} 
+              directToAnotherPage={directToAnotherPage} 
+              showDeleteModal={showDeleteModal}
+              setSelectedPage={setSelectedPage}
+            />
           </Card.Body>
+          <Card.Footer>
+            <DeployPage teamId={teamId}/>
+          </Card.Footer>
         </Card>
         <TemplateSelector
           teamId={teamId}
