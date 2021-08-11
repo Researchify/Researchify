@@ -5,7 +5,7 @@ import TestImg from '../../images/test-image-large.jpg';
 const landingPage = () => {
   return (
     <Fragment>
-      <Carousel className="landing-top-padding">
+      <Carousel className="pages-top-padding">
         <Carousel.Item interval={8000}>
           <Image src={TestImg} fluid className="landing-carousel-img" />
         </Carousel.Item>

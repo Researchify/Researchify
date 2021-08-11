@@ -1,3 +1,5 @@
+/* This file centralize the styling of client website */
+
 .scholly-header {
   top: 0;
 }
@@ -26,6 +28,16 @@
   font-size: medium;
 }
 
-.landing-top-padding {
+/* top padding for each page, to avoid overlapping with header */
+.pages-top-padding {
   padding-top: 50px;
+}
+
+.publication-title {
+  text-align: center;
+  padding-top: 8px;
+  font-weight: bolder;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: xx-large;
 }
