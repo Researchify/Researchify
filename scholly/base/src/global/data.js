@@ -18,6 +18,7 @@ let TEAM_INFO;
 let TEAM_MEMBERS;
 
 if (env.REACT_APP_DEPLOYING === 'true') {
+  /// The list of publications the team has created for rendering in the publications page
   TEAM_PUBLICATIONS = env.REACT_APP_TEAM_PUBLICATIONS
     ? JSON.parse(env.REACT_APP_TEAM_PUBLICATIONS)
     : [];
