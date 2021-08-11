@@ -96,7 +96,7 @@ function getTeam(req, res, next) {
 async function createTeam(req, res, next) {
   const foundTeam = await Team.findOne({ email: req.body.email })
   if (foundTeam) {
-    next(fillErrorObject(400, 'Duplicate email error', ['Email had been registered']))
+    return next(fillErrorObject(400, 'Duplicate email error', ['Email had been registered']))
   }
   const salt = await bcrypt.genSalt()
   const hashedPassword = await bcrypt.hash(req.body.password, salt)
@@ -214,11 +214,11 @@ async function deployToGHPages(req, res, next) {
     );
   }
 
-  const ghUser = response.data.login;
-  console.log(ghUser);
+  const ghUsername = response.data.login;
+  console.log(ghUsername);
 
   const body = {
-    ghUsername: ghUser,
+    ghUsername,
     ghToken,
     teamPublications,
     teamInfo,

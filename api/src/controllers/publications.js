@@ -158,37 +158,53 @@ async function getGoogleScholarPublications(req, res) {
     playwrightConfig.sortBySuffix;
   logger.info(`GScholar profile for user id ${author}: ${url}`);
   let publications = [];
+  let endOfProfile = false;
+  let response = {
+    retrieved: publications.length,
+    newPublications: [],
+    reachedEnd: false,
+  };
 
   const browser = await firefox.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
-  console.time('timeToScrape');
   await page.goto(url);
 
   const resultLinks = await page.$$('.gsc_a_t a');
   let links = [];
 
-  for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
-    links.push(await resultLinks[i].getAttribute('href'));
+  if (resultLinks.length === noOfDummyLinks) {
+    // no publications found
+    response.reachedEnd = true;
+    await browser.close();
+  } else {
+    for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
+      links.push(await resultLinks[i].getAttribute('href'));
+    }
+
+    await browser.close();
+
+    await Promise.all(links.map((x) => scrapeGoogleScholar(x))).then((pub) =>
+      publications.push(...pub)
+    );
+
+    const newPublications = await validateImportedPublications(
+      teamId,
+      publications
+    );
+
+    // if the number of publications retrieved is less than the page size,
+    // then we've reached the end of the profile
+    if (publications.length < pageSize) {
+      endOfProfile = true;
+    }
+
+    response = {
+      retrieved: publications.length,
+      newPublications: newPublications,
+      reachedEnd: endOfProfile,
+    };
   }
-
-  await browser.close();
-
-  await Promise.all(links.map((x) => scrapeGoogleScholar(x))).then((pub) =>
-    publications.push(...pub)
-  );
-
-  console.timeEnd('timeToScrape');
-
-  const newPublications = await validateImportedPublications(
-    teamId,
-    publications
-  );
-
-  const response = {
-    retrieved: publications.length,
-    newPublications: newPublications,
-  };
 
   res.status(200).json(response);
 }
@@ -225,7 +241,7 @@ async function scrapeGoogleScholar(url) {
   const publicationInfo = {};
   fields.forEach((key, i) => (publicationInfo[key] = values[i]));
 
-  // TODO: this logic depends on the order of the fields, 
+  // TODO: this logic depends on the order of the fields,
   // which will differ based on the info of the publication, can be improved
   let type = fields[2].toUpperCase();
   let categoryTitle;

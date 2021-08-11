@@ -2,14 +2,14 @@
  * This file exports a Registration Form component used to display registration input.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
 import { createTeam } from '../../actions/team';
 import './Register.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -17,6 +17,14 @@ export default function RegistrationForm() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [validated, setValidated] = useState(false);
+  const isRegistered = useSelector(state => state.auth.isRegistered)
+
+  useEffect(() => {
+    if(isRegistered && validated){
+      history.push('/login')
+    }
+  }, [history, isRegistered, validated])
+
   const [inputs, setInputs] = useState({
     teamName: '',
     orgName: '',
@@ -35,7 +43,10 @@ export default function RegistrationForm() {
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.stopPropagation();
-    } else {
+    } else{
+      if (inputs.password !== inputs.confirmPassword){
+        return toast.error('Passwords do not match');
+      }
       const teamData = {
         email: inputs.email,
         teamName: inputs.teamName,
@@ -44,11 +55,6 @@ export default function RegistrationForm() {
         repoCreated: false,
       };
       dispatch(createTeam(teamData))
-        .then(() => history.push('/dashboard'))
-        .catch((err) => {
-          console.error(err);
-          toast.error('Could not register');
-        });
     }
     setValidated(true);
   };
@@ -88,7 +94,7 @@ export default function RegistrationForm() {
           </Form.Group>
         </Form.Row>
 
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
@@ -102,7 +108,7 @@ export default function RegistrationForm() {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group controlId="formPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -115,7 +121,7 @@ export default function RegistrationForm() {
             Please input a valid password.
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group controlId="formConfirmedPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
