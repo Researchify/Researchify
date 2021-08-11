@@ -14,7 +14,8 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2007',
   },
   {
-    description: 'Will Gold shine through another test of inflation hedge? The past 100 years of data says so',
+    description:
+      'Will Gold shine through another test of inflation hedge? The past 100 years of data says so',
     category: {
       type: 'Journal',
       categoryTitle: 'International Economics Journal',
@@ -38,9 +39,65 @@ export const FAKE_PUBLICATIONS = [
       publisher: 'Yoshua Benjio',
     },
     link: 'thislinkisfakedonteventrytoclickit.okay',
-    authors: ['KKR'],
+    authors: ['Yoshua Benjio'],
     yearPublished: '2017',
-  }
+  },
+  {
+    description: 'Securing generative Arts through NFTs',
+    category: {
+      type: 'Conference',
+      categoryTitle: 'The digital asset certification',
+      issue: 'N/A',
+      volume: 'N/A',
+      pages: '15',
+      publisher: 'Yoshua Benjio',
+    },
+    link: 'thislinkisfakedonteventrytoclickit.okay',
+    authors: ['Yoshua Benjio'],
+    yearPublished: '2017',
+  },
+  {
+    description: 'Securing generative Arts through NFTs',
+    category: {
+      type: 'Conference',
+      categoryTitle: 'The digital asset certification',
+      issue: 'N/A',
+      volume: 'N/A',
+      pages: '15',
+      publisher: 'Yoshua Benjio',
+    },
+    link: 'thislinkisfakedonteventrytoclickit.okay',
+    authors: ['Yoshua Benjio'],
+    yearPublished: '2017',
+  },
+  {
+    description: 'Securing generative Arts through NFTs',
+    category: {
+      type: 'Conference',
+      categoryTitle: 'The digital asset certification',
+      issue: 'N/A',
+      volume: 'N/A',
+      pages: '15',
+      publisher: 'Yoshua Benjio',
+    },
+    link: 'thislinkisfakedonteventrytoclickit.okay',
+    authors: ['Yoshua Benjio'],
+    yearPublished: '2017',
+  },
+  {
+    description: 'Securing generative Arts through NFTs',
+    category: {
+      type: 'Conference',
+      categoryTitle: 'The digital asset certification',
+      issue: 'N/A',
+      volume: 'N/A',
+      pages: '15',
+      publisher: 'Yoshua Benjio',
+    },
+    link: 'thislinkisfakedonteventrytoclickit.okay',
+    authors: ['Yoshua Benjio'],
+    yearPublished: '2017',
+  },
 ];
 
 export const FAKE_TEAM_INFO = {

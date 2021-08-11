@@ -17,7 +17,7 @@ let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
 
-if (env.REACT_APP_DEPLOYING === 'true') {
+if (!env.REACT_APP_DEBUG) {
   /// The list of publications the team has created for rendering in the publications page
   TEAM_PUBLICATIONS = env.REACT_APP_TEAM_PUBLICATIONS
     ? JSON.parse(env.REACT_APP_TEAM_PUBLICATIONS)
@@ -33,6 +33,7 @@ if (env.REACT_APP_DEPLOYING === 'true') {
     ? JSON.parse(env.REACT_APP_TEAM_MEMBERS)
     : [];
 } else {
+  console.log('Running in DEBUG mode, hence using fake Team data');
   // Running client website locally, so use fake data
   TEAM_PUBLICATIONS = FAKE_PUBLICATIONS;
 
