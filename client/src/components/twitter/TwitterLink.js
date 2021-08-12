@@ -42,7 +42,6 @@ const TwitterLink = () => {
                 value={handle}
                 onChange={(e) => setHandle(e.target.value)}
               />
-              <Form.Text muted>Invalid Twitter Handle</Form.Text>
             </Col>
           </Form.Row>
         </Form>
