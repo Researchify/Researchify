@@ -42,7 +42,7 @@
  * @param res response object
  * @returns 200: achievement deleted successfully
  * @returns 404: achievement not found
- * @returns 401: error deleting achievement
+ * @returns 400: error deleting achievement
  */
 function deleteAchievement(req, res, next) {
     const { id: _id } = req.params;
@@ -65,5 +65,37 @@ function deleteAchievement(req, res, next) {
       .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
   }
 
+/**
+ * Handles a PATCH request, which represents updating a specific achievement/award, by the mongo object id on the /achievements/:id endpoint.
+ *
+ * @param req request object - the achievement id given in the url, achievement in body (see Achievement model)
+ * @param res response object - updated achievement
+ * @returns 200: the newly updated achievement
+ * @returns 404: achievement not found
+ */
+ function updateAchievement(req, res, next) {
+    const { id: _id } = req.params;
+    const achievement = req.body;
 
-  module.exports = { createAchievement, deleteAchievement }
+    // Try to update achievement using id provided
+    Achievement.findByIdAndUpdate(_id, achievement, {
+      new: true,
+      runValidators: true,
+    })
+      .then((updatedAchievement) => {
+        // Return error if achievement does not exist
+        if (updatedAchievement == null) {
+          next(
+            fillErrorObject(404, 'Validation error', [
+              'Achievement could not be found',
+            ])
+          );
+        } else {
+            // Return updated achievement
+            return res.status(200).json(updatedAchievement);
+        }
+      })
+      .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+  }
+
+  module.exports = { createAchievement, deleteAchievement, updateAchievement }

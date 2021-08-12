@@ -9,7 +9,7 @@
  achievementsRouter.post('/', achievementsController.createAchievement);
 //  // achievementsRouter.get('/', achievementsController.getAchievements);
  achievementsRouter.delete('/:id', achievementsController.deleteAchievement);
-//  // achievementsRouter.patch('/', achievementsController.updateAchievement);
+ achievementsRouter.patch('/:id', achievementsController.updateAchievement);
  
  module.exports = achievementsRouter;
  
