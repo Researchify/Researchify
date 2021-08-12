@@ -26,28 +26,19 @@ const initialState = {
 };
 
 const toggleActivePage = (state, retrievedPublications) => {
-  if (state.publications.length < pageSize) {
-    return 1;
+  const totalSize = state.publications.concat(retrievedPublications).length;
+  if (state.activePage !== state.totalPages) {
+    // they weren't on the latest page so put them on the latest page
+    return Math.ceil(totalSize / pageSize) + 1;
   } else {
-    if (state.activePage !== state.totalPages) {
-      // they weren't on the latest page
-      console.log('in true');
-      const totalSize = state.publications.concat(retrievedPublications).length;
-      const activePage = Math.ceil(totalSize / pageSize);
-      return activePage;
-    } else {
-      const totalSize = state.publications.concat(retrievedPublications).length;
-      const activePage = Math.floor(totalSize / pageSize);
-      console.log('in else ' + activePage);
-      return activePage + 1;
-    }
+    // they were on the latest page so increment by 1
+    return Math.floor(totalSize / pageSize) + 1;
   }
 };
 
 const toggleShownPublications = (state, retrievedPublications) => {
   if (state.publications.length < pageSize) {
-    // initial case
-    console.log('in true for shown pubs');
+    // initial case if there are less publications to show than the page size
     return state.publications.concat(retrievedPublications).slice(0, pageSize);
   } else {
     const totalSize = state.publications.concat(retrievedPublications).length;
@@ -58,7 +49,6 @@ const toggleShownPublications = (state, retrievedPublications) => {
         .slice(totalSize - pageSize, totalSize);
     } else {
       const activePage = Math.floor(totalSize / pageSize);
-      console.log('in else for shown publications ' + activePage);
       return state.publications
         .concat(retrievedPublications)
         .slice((activePage - 1) * pageSize, activePage * pageSize);
