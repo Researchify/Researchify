@@ -1,7 +1,7 @@
 /**
  * This file exports the content in of Researchify Dashboard Page
  */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
@@ -20,11 +20,8 @@ import { availablePages as pages } from '../../config/clientWebsite';
 import toast from 'react-hot-toast';
 import Webpages from './webpage/Webpages';
 import DeployPage from '../deploy/DeployPage';
-import { getGHAccessToken } from '../../actions/team';
 
 const Dashboard = () => {
-
-  console.log("dashborad")
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -32,10 +29,8 @@ const Dashboard = () => {
   const teamId = useSelector((state) => state.team.teamId);
   const currentWebPages = useSelector((state) => state.website.pages);
 
-
   // All our web-page offerings
   const availablePages = pages;
-
   // webpageOfferings = availablePages - currentWebPages
   const webpageOfferings = availablePages.filter(
     (page) => !currentWebPages.includes(page)
@@ -104,8 +99,6 @@ const Dashboard = () => {
     setDeleteModal(false);
     setSelectedPage(pagePlaceholder);
   };
-
-
 
   return (
     <main>

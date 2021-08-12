@@ -193,7 +193,6 @@ export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   try {
     console.log(teamId);
     const response = await api.getGHAccessToken(teamId, code);
-    console.log(response)
     
     localStorage.setItem('GH_access_token', response.data.access_token);
     dispatch({
@@ -210,7 +209,6 @@ export const deployToGHPages =
       dispatch({
         type: DEPLOY_REQUEST,
       });
-
       // get publications
       const { data: teamPublications } = await api.fetchPublicationsByTeamId(teamId);
       teamPublications.map(

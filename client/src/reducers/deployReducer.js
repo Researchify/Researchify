@@ -3,12 +3,8 @@
  */
  import {DEPLOY_SUCCESS, DEPLOY_FAIL, DEPLOY_REQUEST} from "../actions/types";
 
-
  const INITIAL_DEPLOY_STATE = {loading: false};
  
- /**
-  * Handle all website-related actions
-  */
  const deployReducer = (state = INITIAL_DEPLOY_STATE, action) => {
      switch (action.type) {
          case DEPLOY_REQUEST:

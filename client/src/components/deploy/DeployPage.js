@@ -14,12 +14,8 @@ const DeployPage = ({ teamId }) => {
     (state) => state.team.retrievedAccessToken
   );
 
-  console.log(githubLoginUrl)
-  
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token');
-
-
     console.log("handle deploy")
     // call backend endpoint to deploy and give the access token
     dispatch(deployToGHPages(teamId, accessToken));
@@ -29,13 +25,8 @@ const DeployPage = ({ teamId }) => {
   useEffect(() => {
     // github returns a code in the url after user logs in
     const url = window.location.href;
-
     const hasCode = url.includes('?code=');
     if (hasCode && !retrievedAccessToken && teamId) {
-
-
-
-      console.log("@@@@@@@@@@@@@@")
       const code = url.split('?code=')[1];
       // we use this code to exchange an access token
       dispatch(getGHAccessToken(teamId, code));
@@ -79,12 +70,7 @@ const DeployPage = ({ teamId }) => {
         <div className="mb-3 mt-3 text-center">
           <Spinner animation="border" />
         </div> : 
-        (
-          retrievedAccessToken? 
-          DeployButton:
-          GitHubLoginButton 
-
-        )
+        ( retrievedAccessToken ? DeployButton : GitHubLoginButton )
       }
     </>
   );
