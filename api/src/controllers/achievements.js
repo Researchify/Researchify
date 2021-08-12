@@ -42,13 +42,12 @@
  * @param req request object - team id (mongo object id) given in the url
  * @param res response object - a list of achievements (see Achievement model)
  * @returns 200: a list of achievements by the given team id
- * @returns 400: given team id is not in a valid hexadecimal format
- * @returns 404: the specified team or achievement was not found
+ * @returns 500: server encountered an unexpected condition
  */
 function getAllAchievementsByTeam(req, res, next) {
     const { team_id: _id } = req.params;
     
-    // Store achievements into list, sorted by title 
+    // Store achievements into list, sorted by title in alphabetical order
     Achievement.aggregate([
       {
         $match: { teamId: mongoose.Types.ObjectId(_id) },
@@ -61,14 +60,14 @@ function getAllAchievementsByTeam(req, res, next) {
       .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
   }
 
-  /**
+/**
  * Handles a DELETE request to delete an achievement/award by the mongo object id on the endpoint /achievements/:id.
  *
  * @param req request object - the achievement id (mongo object id) given in the url
  * @param res response object
  * @returns 200: achievement deleted successfully
- * @returns 404: achievement not found
  * @returns 400: error deleting achievement
+ * @returns 500: server encountered an unexpected condition
  */
 function deleteAchievement(req, res, next) {
     const { id: _id } = req.params;
@@ -98,6 +97,7 @@ function deleteAchievement(req, res, next) {
  * @param res response object - updated achievement
  * @returns 200: the newly updated achievement
  * @returns 404: achievement not found
+ * @returns 500: server encountered an unexpected condition
  */
  function updateAchievement(req, res, next) {
     const { id: _id } = req.params;
