@@ -1,8 +1,10 @@
 export const FAKE_PUBLICATIONS = [
   {
+    _id: 'fakepub1',
+    title: 'Fake Title 1',
     description: 'First Publication',
     category: {
-      type: 'Journal',
+      type: 'JOURNAL',
       categoryTitle: 'Example Journal',
       issue: '1.1',
       volume: '0.2',
@@ -14,10 +16,12 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2007',
   },
   {
+    _id: 'fakepub2',
+    title: 'Fake Title 2',
     description:
       'Will Gold shine through another test of inflation hedge? The past 100 years of data says so',
     category: {
-      type: 'Journal',
+      type: 'JOURNAL',
       categoryTitle: 'International Economics Journal',
       issue: '10.1',
       volume: '11.2',
@@ -29,12 +33,15 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2021',
   },
   {
+    _id: 'fakepub3',
+    title:
+      'Fake Title 3 olijhboatr oijopbmswt pojpojfpbq ouoj oairdrgojqpod  oiv powohlnbn olwjlgjw',
     description: 'Securing generative Arts through NFTs',
     category: {
-      type: 'Conference',
+      type: 'BOOK',
       categoryTitle: 'The digital asset certification',
-      issue: 'N/A',
-      volume: 'N/A',
+      issue: '',
+      volume: '',
       pages: '15',
       publisher: 'Yoshua Benjio',
     },
@@ -43,12 +50,14 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2017',
   },
   {
+    _id: 'fakepub4',
+    title: 'Fake Title 4 poaijrg 9ojb sofvoq n 4hnxkjvh9dvke4tk kgnknfwhf  ',
     description: 'Securing generative Arts through NFTs',
     category: {
-      type: 'Conference',
+      type: 'CONFERENCE',
       categoryTitle: 'The digital asset certification',
-      issue: 'N/A',
-      volume: 'N/A',
+      issue: '',
+      volume: '',
       pages: '15',
       publisher: 'Yoshua Benjio',
     },
@@ -57,12 +66,15 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2017',
   },
   {
+    _id: 'fakepub5',
+    title:
+      'Fake Title 5 liakjig, lajplbjtpob ijolkibmjaolrjglkqjh iuahsdv wiuhivhw oiyqo bojnoqjwpouv qkjxbnv09wef eoh.',
     description: 'Securing generative Arts through NFTs',
     category: {
-      type: 'Conference',
-      categoryTitle: 'The digital asset certification',
-      issue: 'N/A',
-      volume: 'N/A',
+      type: 'OTHER',
+      categoryTitle: '',
+      issue: '',
+      volume: '54',
       pages: '15',
       publisher: 'Yoshua Benjio',
     },
@@ -71,26 +83,41 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2017',
   },
   {
+    _id: 'fakepub6',
+    title: 'Fake Title 6, aoiurfhg poijner! oijsd vmjs, lkjhnbie (ljiilbw)',
     description: 'Securing generative Arts through NFTs',
     category: {
-      type: 'Conference',
+      type: 'CONFERENCE',
       categoryTitle: 'The digital asset certification',
-      issue: 'N/A',
-      volume: 'N/A',
+      issue: '',
+      volume: '',
       pages: '15',
       publisher: 'Yoshua Benjio',
     },
     link: 'thislinkisfakedonteventrytoclickit.okay',
-    authors: ['Yoshua Benjio'],
+    authors: [
+      'Yoshua Benjio',
+      'Yoshua Aenjio',
+      'Yoshua Cenjio',
+      'Yoshua Denjio',
+      'Yoshua Eenjio',
+      'Yoshua Fenjio',
+      'Yoshua Genjio',
+      'Yoshua Henjio',
+      'Yoshua Ienjio',
+    ],
     yearPublished: '2017',
   },
   {
+    _id: 'fakepub7',
+    title:
+      'Fake Title 7, 0981lm cjhvws lkjovjw  d 3dddd opijw v pokv qpojd popkpp mememem pepepe',
     description: 'Securing generative Arts through NFTs',
     category: {
-      type: 'Conference',
+      type: 'CONFERENCE',
       categoryTitle: 'The digital asset certification',
-      issue: 'N/A',
-      volume: 'N/A',
+      issue: '',
+      volume: '',
       pages: '15',
       publisher: 'Yoshua Benjio',
     },
