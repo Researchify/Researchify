@@ -62,7 +62,6 @@ const DashboardSidebarData = () => {
     {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
-      link: '/',
       action: () => dispatch({type: DISPLAY_LOG_OUT_ALERT}),
     },
   ];

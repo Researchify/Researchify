@@ -52,7 +52,6 @@ const PrivateRoute = () => {
           {/*  If login, any other route not stated above will be redirect dashbroad page */}
           <Redirect to="/dashboard"/> 
         </Switch> 
-        <LogoutModal/>
       </>
     );
   };
