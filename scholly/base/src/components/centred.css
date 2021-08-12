@@ -1,4 +1,5 @@
-/* This file centralize the styling of client website */
+
+/** This file centralize the styling of client website */
 
 /* all pages */
 .scholly-header {
@@ -62,6 +63,7 @@
 
 .publication-card {
   border: transparent;
+  padding-bottom: 15px;
 }
 
 .pub-category-above-title {
@@ -91,4 +93,42 @@
 .pub-body-paragraph {
   text-indent: 5%;
   text-align: justify;
+}
+
+/* team page */
+.team-pg-title {
+  text-align: center;
+  padding-top: 8px;
+  font-weight: bolder;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: xx-large;
+}
+
+.member-name{
+  text-align: center;
+  font-weight: 600;
+  font-size: large;
+}
+
+.member-position{
+  text-align: center;
+  font-weight: 450;
+  font-size: small;
+}
+
+.member-summary{
+  padding-top: 15px;
+  text-align: justify;
+  text-indent: 5%;
+}
+
+.team-card-container{
+  padding-top: 12px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.team-card{
+  border: transparent;
 }
