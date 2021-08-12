@@ -6,8 +6,6 @@ import { deployToGHPages, getGHAccessToken } from '../../actions/team';
 import { Button, Spinner } from 'react-bootstrap';
 
 const DeployPage = ({ teamId }) => {
-
-  console.log("deploy page ")
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.deploy.loading);
   const retrievedAccessToken = useSelector(

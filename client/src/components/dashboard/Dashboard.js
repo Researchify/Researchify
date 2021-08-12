@@ -11,7 +11,6 @@ import {
   DropdownButton,
   Dropdown,
 } from 'react-bootstrap';
-
 import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';

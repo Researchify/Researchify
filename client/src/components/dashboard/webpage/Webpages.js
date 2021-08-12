@@ -12,7 +12,6 @@ const Webpages = ({currentWebPages, directToAnotherPage, showDeleteModal, setSel
       };
 
     return(
-        <>
         <Table striped bordered hover>
             {
                 // Display appropriate message when no webpage is added
@@ -20,7 +19,7 @@ const Webpages = ({currentWebPages, directToAnotherPage, showDeleteModal, setSel
                 <thead>
                     <tr>
                         <th className="reduced-column tableHeading">
-                        No web-page added yet...
+                            No web-page added yet...
                         </th>
                     </tr>
                 </thead>
@@ -53,7 +52,6 @@ const Webpages = ({currentWebPages, directToAnotherPage, showDeleteModal, setSel
                 }
             </tbody>
         </Table>
-        </>
     )
 }
 
