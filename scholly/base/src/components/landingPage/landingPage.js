@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 const landingPage = () => {
   return (
     <Fragment>
-      <Container fluid>
+      <Container fluid className="pages-top-padding">
         <div className="landing-center-title">About Us</div>
         <div className="landing-center-content">
           Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere
