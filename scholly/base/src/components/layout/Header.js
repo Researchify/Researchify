@@ -20,7 +20,7 @@ const Header = () => {
         fixed="top"
       >
         <Container fluid>
-          <Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">
             {teamName} @ {orgName}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
