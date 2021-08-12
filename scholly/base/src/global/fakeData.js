@@ -2,7 +2,8 @@ export const FAKE_PUBLICATIONS = [
   {
     _id: 'fakepub1',
     title: 'Fake Title 1',
-    description: 'First Publication',
+    description:
+      'First Publication. Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an. Qui an electram iracundia, nisl sale iisque ad quo. His ut dolore noster. Usu in eleifend platonem mandamus, ea meis aeque mei.',
     category: {
       type: 'JOURNAL',
       categoryTitle: 'Example Journal',
@@ -19,7 +20,7 @@ export const FAKE_PUBLICATIONS = [
     _id: 'fakepub2',
     title: 'Fake Title 2',
     description:
-      'Will Gold shine through another test of inflation hedge? The past 100 years of data says so',
+      'Will Gold shine through another test of inflation hedge? The past 100 years of data says so Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an.',
     category: {
       type: 'JOURNAL',
       categoryTitle: 'International Economics Journal',
@@ -35,8 +36,8 @@ export const FAKE_PUBLICATIONS = [
   {
     _id: 'fakepub3',
     title:
-      'Fake Title 3 olijhboatr oijopbmswt pojpojfpbq ouoj oairdrgojqpod  oiv powohlnbn olwjlgjw',
-    description: 'Securing generative Arts through NFTs',
+      'Fake Title 3 olijhboatr oijopbmswt pojpojfpbq ouoj oairdrgojqpod  oiv powohlnbn olwjlgjw ',
+    description: 'Securing generative Arts through NFTs Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an.',
     category: {
       type: 'BOOK',
       categoryTitle: 'The digital asset certification',
@@ -52,7 +53,7 @@ export const FAKE_PUBLICATIONS = [
   {
     _id: 'fakepub4',
     title: 'Fake Title 4 poaijrg 9ojb sofvoq n 4hnxkjvh9dvke4tk kgnknfwhf  ',
-    description: 'Securing generative Arts through NFTs',
+    description: 'Securing generative Arts through NFTs Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an.',
     category: {
       type: 'CONFERENCE',
       categoryTitle: 'The digital asset certification',
@@ -69,7 +70,7 @@ export const FAKE_PUBLICATIONS = [
     _id: 'fakepub5',
     title:
       'Fake Title 5 liakjig, lajplbjtpob ijolkibmjaolrjglkqjh iuahsdv wiuhivhw oiyqo bojnoqjwpouv qkjxbnv09wef eoh.',
-    description: 'Securing generative Arts through NFTs',
+    description: 'Securing generative Arts through NFTs. Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an.',
     category: {
       type: 'OTHER',
       categoryTitle: '',
@@ -85,7 +86,7 @@ export const FAKE_PUBLICATIONS = [
   {
     _id: 'fakepub6',
     title: 'Fake Title 6, aoiurfhg poijner! oijsd vmjs, lkjhnbie (ljiilbw)',
-    description: 'Securing generative Arts through NFTs',
+    description: 'Securing generative Arts through NFTs. Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an.',
     category: {
       type: 'CONFERENCE',
       categoryTitle: 'The digital asset certification',
