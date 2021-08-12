@@ -16,11 +16,9 @@ const DeployPage = ({ teamId }) => {
 
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token');
-    console.log("handle deploy")
     // call backend endpoint to deploy and give the access token
     dispatch(deployToGHPages(teamId, accessToken));
   };
-
 
   useEffect(() => {
     // github returns a code in the url after user logs in
@@ -35,13 +33,11 @@ const DeployPage = ({ teamId }) => {
       localStorage.clear();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, teamId, window.location.href]);
-
-
+  }, [dispatch, teamId]);
 
   const GitHubLoginButton = (
     <Button
-      className="action primary-danger float-right"
+      className="float-right"
       variant="outline-primary"
       href={githubLoginUrl}
       disabled={retrievedAccessToken}
@@ -53,7 +49,7 @@ const DeployPage = ({ teamId }) => {
 
   const DeployButton = (
     <Button
-      className="action primary-danger float-right"
+      className="float-right"
       variant="primary"
       disabled={!retrievedAccessToken}
       onClick={handleDeploy}
