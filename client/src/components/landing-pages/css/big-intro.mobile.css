@@ -1,0 +1,46 @@
+/** */
+
+@media only screen and (max-width: 1290px) {
+  .context {
+    top: 10%;
+  }
+
+  .frosted-glass {
+    padding: 2rem;
+    height: 60vh;
+  }
+
+  .context h1 {
+    font-size: 5rem;
+  }
+
+  .context p {
+
+    font-size: 1.2rem;
+  }
+}
+
+
+@media only screen and (max-width: 767px) {
+
+  .context {
+    text-align: center;
+    top: 10%;
+  }
+
+  .frosted-glass {
+    padding: 1rem;
+    height: 55vh;
+  }
+
+  .context h1 {
+    font-weight: bold;
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+
+  .context p {
+    font-size: 1.2rem;
+  }
+
+}
