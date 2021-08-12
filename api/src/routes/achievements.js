@@ -7,7 +7,7 @@
  const achievementsController = require('../controllers/achievements');
  
  achievementsRouter.post('/', achievementsController.createAchievement);
-//  // achievementsRouter.get('/', achievementsController.getAchievements);
+ achievementsRouter.get('/team/:team_id', achievementsController.getAllAchievementsByTeam);
  achievementsRouter.delete('/:id', achievementsController.deleteAchievement);
  achievementsRouter.patch('/:id', achievementsController.updateAchievement);
  

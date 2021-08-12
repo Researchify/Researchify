@@ -2,6 +2,7 @@
  * @file This module contains handlers for the "achievements" route.
  * @module achievements
  */
+ const mongoose = require('mongoose');
 
  const Achievement = require('../models/achievement.model');
 
@@ -33,6 +34,31 @@
         .then((createdAchievement) => res.status(201).json(createdAchievement))
         .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
     }
+  }
+
+/**
+ * Handles a GET request, which will retrieve all the achievements/awards by team in the endpoint /achievements/team/:team_id.
+ *
+ * @param req request object - team id (mongo object id) given in the url
+ * @param res response object - a list of achievements (see Achievement model)
+ * @returns 200: a list of achievements by the given team id
+ * @returns 400: given team id is not in a valid hexadecimal format
+ * @returns 404: the specified team or achievement was not found
+ */
+function getAllAchievementsByTeam(req, res, next) {
+    const { team_id: _id } = req.params;
+    
+    // Store achievements into list, sorted by title 
+    Achievement.aggregate([
+      {
+        $match: { teamId: mongoose.Types.ObjectId(_id) },
+      }, 
+      {
+        $sort: { title: 1 },
+      },
+    ])
+      .then((foundAchievement) => res.status(200).json(foundAchievement))
+      .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
   }
 
   /**
@@ -98,4 +124,4 @@ function deleteAchievement(req, res, next) {
       .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
   }
 
-  module.exports = { createAchievement, deleteAchievement, updateAchievement }
+  module.exports = { createAchievement, getAllAchievementsByTeam, deleteAchievement, updateAchievement }
