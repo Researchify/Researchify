@@ -1,0 +1,7 @@
+.slanted-bg {
+  margin: 3rem 0;
+  min-height: 75vh;
+  padding: 3rem;
+  background:
+    linear-gradient(15deg, rgba(42, 43, 50, 1) 0%, rgba(65, 70, 86, 1) 100%);
+}
