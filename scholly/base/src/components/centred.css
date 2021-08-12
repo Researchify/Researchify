@@ -60,7 +60,7 @@
   border: transparent;
 }
 
-.publication-class {
+.publication-card {
   border: transparent;
 }
 
@@ -72,7 +72,6 @@
 }
 
 .pub-year-below-title {
-  font-style: oblique;
   font-size: smaller;
   text-align: center;
 }

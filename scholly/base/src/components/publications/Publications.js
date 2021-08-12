@@ -2,7 +2,7 @@
  * The Publications component displays a list of publications.
  */
 import React, { Fragment } from 'react';
-import { Accordion, Container, Card } from 'react-bootstrap';
+import { Accordion } from 'react-bootstrap';
 import Publication from './publication/Publication';
 import { TEAM_PUBLICATIONS } from '../../global/data';
 

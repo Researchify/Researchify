@@ -6,7 +6,7 @@ import { Accordion, Card } from 'react-bootstrap';
 
 const Publication = ({ pub }) => {
   return (
-    <Card className="publication-class">
+    <Card className="publication-card">
       <Accordion.Toggle
         as={Card.Header}
         eventKey={pub._id}
