@@ -1,9 +1,16 @@
 /* This file centralize the styling of client website */
 
+/* all pages */
 .scholly-header {
   top: 0;
 }
 
+/* top padding for each page, to avoid overlapping with header */
+.pages-top-padding {
+  padding-top: 50px;
+}
+
+/* landing pages */
 .landing-carousel-img {
   height: 300px;
   width: 100%;
@@ -28,16 +35,61 @@
   font-size: medium;
 }
 
-/* top padding for each page, to avoid overlapping with header */
-.pages-top-padding {
-  padding-top: 50px;
-}
-
-.publication-title {
+/* publication page */
+.publication-pg-title {
   text-align: center;
   padding-top: 8px;
   font-weight: bolder;
   padding-left: 40px;
   padding-right: 40px;
   font-size: xx-large;
+}
+
+.publication-title {
+  font-size: large;
+  text-align: center;
+  font-weight: 600;
+}
+
+.publication-title-column {
+  background-color: white;
+  border: transparent;
+}
+
+.publication-body-column {
+  border: transparent;
+}
+
+.publication-class {
+  border: transparent;
+}
+
+.pub-category-above-title {
+  font-style: italic;
+  font-size: medium;
+  text-align: center;
+  font-weight: 450;
+}
+
+.pub-year-below-title {
+  font-style: oblique;
+  font-size: smaller;
+  text-align: center;
+}
+
+.pub-body-subheader {
+  text-align: center;
+  font-style: italic;
+  font-size: small;
+}
+
+.pub-body-content {
+  text-align: center;
+  font-size: medium;
+  padding-bottom: 15px;
+}
+
+.pub-body-paragraph {
+  text-indent: 5%;
+  text-align: justify;
 }

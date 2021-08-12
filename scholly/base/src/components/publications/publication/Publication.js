@@ -6,27 +6,27 @@ import { Button, Col, Row, Collapse, Accordion, Card } from 'react-bootstrap';
 import { BsLink45Deg } from 'react-icons/bs';
 import { GrLinkDown, GrLinkUp } from 'react-icons/gr';
 import { IconContext } from 'react-icons';
-import '../publications.css';
 
 const Publication = ({ pub }) => {
-
   return (
-    <Card>
-      <Accordion.Toggle as={Card.Header} eventKey={pub._id}>
-        {pub.title}
+    <Card className="publication-class">
+      <Accordion.Toggle
+        as={Card.Header}
+        eventKey={pub._id}
+        className="publication-title-column"
+      >
+        <div className="pub-category-above-title">{pub.category.type}</div>
+        <div className="publication-title"> {pub.title}</div>
+        <div className="pub-year-below-title"> {pub.yearPublished} </div>
       </Accordion.Toggle>
       <Accordion.Collapse eventKey={pub._id}>
-        <Card.Body>
-          {pub.authors.map((author) => `${author}`).join(', ')}
-          {
-            <h5>
-              <b>Year Published: </b>
-              {pub.yearPublished}{' '}
-            </h5>
-          }
-          <h5>
-            <b>Description:</b> {pub.description}
-          </h5>
+        <Card.Body className="publication-body-column">
+          <div className="pub-body-subheader">Authors</div>
+          <div className="pub-body-content">{pub.authors.map((author) => `${author}`).join(', ')}</div>
+
+          <div className="pub-body-subheader">Description</div>
+          <div className="pub-body-content pub-body-paragraph"> {pub.description}</div>
+          
           <h5>
             <b>
               {pub.category.type.charAt(0) +
