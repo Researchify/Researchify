@@ -1,4 +1,3 @@
-
 /** This file centralize the styling of client website */
 
 /* all pages */
@@ -82,6 +81,7 @@
   text-align: center;
   font-style: italic;
   font-size: small;
+  font-weight: 450;
 }
 
 .pub-body-content {
@@ -105,30 +105,36 @@
   font-size: xx-large;
 }
 
-.member-name{
+.member-name {
   text-align: center;
   font-weight: 600;
   font-size: large;
 }
 
-.member-position{
+.member-position {
   text-align: center;
   font-weight: 450;
   font-size: small;
 }
 
-.member-summary{
+.member-summary {
   padding-top: 15px;
   text-align: justify;
   text-indent: 5%;
 }
 
-.team-card-container{
+.team-card-container {
   padding-top: 12px;
   padding-left: 50px;
   padding-right: 50px;
 }
 
-.team-card{
+.team-card {
   border: transparent;
+  max-width: 350px;
+  min-width: 200px;
+}
+
+.team-card-deck {
+  align-content: center;
 }
