@@ -1,11 +1,8 @@
 /**
  * The Publication component displays a single publication.
  */
-import React, { Fragment, useState } from 'react';
-import { Button, Col, Row, Collapse, Accordion, Card } from 'react-bootstrap';
-import { BsLink45Deg } from 'react-icons/bs';
-import { GrLinkDown, GrLinkUp } from 'react-icons/gr';
-import { IconContext } from 'react-icons';
+import React from 'react';
+import { Accordion, Card } from 'react-bootstrap';
 
 const Publication = ({ pub }) => {
   return (
@@ -22,42 +19,27 @@ const Publication = ({ pub }) => {
       <Accordion.Collapse eventKey={pub._id}>
         <Card.Body className="publication-body-column">
           <div className="pub-body-subheader">Authors</div>
-          <div className="pub-body-content">{pub.authors.map((author) => `${author}`).join(', ')}</div>
-
+          <div className="pub-body-content">
+            {pub.authors.map((author) => `${author}`).join(', ')}
+          </div>
           <div className="pub-body-subheader">Description</div>
-          <div className="pub-body-content pub-body-paragraph"> {pub.description}</div>
-          
-          <h5>
-            <b>
-              {pub.category.type.charAt(0) +
+          <div className="pub-body-content pub-body-paragraph">
+            {pub.description}
+          </div>
+          <div className="pub-body-subheader">Source</div>
+          <div className="pub-body-content">
+            {pub.category.categoryTitle
+              ? pub.category.categoryTitle
+              : pub.category.type.charAt(0) +
                 pub.category.type.slice(1).toLowerCase()}
-              :
-            </b>{' '}
-            {pub.category.categoryTitle}
-          </h5>
-          {pub.category.issue && (
-            <h5>
-              {' '}
-              <b>Issue:</b> {pub.category.issue}{' '}
-            </h5>
-          )}
-          {pub.category.volume && (
-            <h5>
-              {' '}
-              <b>Volume:</b> {pub.category.volume}{' '}
-            </h5>
-          )}
-          {pub.category.pages && (
-            <h5>
-              <b>Pages:</b> {pub.category.pages}{' '}
-            </h5>
-          )}
-          {pub.category.publisher && (
-            <h5>
-              {' '}
-              <b>Publisher:</b> {pub.category.publisher}{' '}
-            </h5>
-          )}
+            +{pub.category.issue ? ', Issue ' + pub.category.issue : null} +
+            {pub.category.volume ? ', Volume ' + pub.category.volume : null} +
+            {pub.category.pages ? ', Page ' + pub.category.pages : null}
+          </div>
+          <div className="pub-body-subheader">
+            {pub.category.publisher ? 'Published by' : null}
+          </div>
+          <div className="pub-body-content">{pub.category.publisher}</div>
         </Card.Body>
       </Accordion.Collapse>
     </Card>
