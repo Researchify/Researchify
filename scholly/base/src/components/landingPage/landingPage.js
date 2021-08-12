@@ -1,21 +1,9 @@
 import React, { Fragment } from 'react';
-import { Container, Carousel, Image } from 'react-bootstrap';
-import TestImg from '../../images/test-image-large.jpg';
+import { Container } from 'react-bootstrap';
 
 const landingPage = () => {
   return (
     <Fragment>
-      <Carousel className="pages-top-padding">
-        <Carousel.Item interval={8000}>
-          <Image src={TestImg} fluid className="landing-carousel-img" />
-        </Carousel.Item>
-        <Carousel.Item interval={8000}>
-          <Image src={TestImg} fluid className="landing-carousel-img" />
-        </Carousel.Item>
-        <Carousel.Item interval={8000}>
-          <Image src={TestImg} fluid className="landing-carousel-img" />
-        </Carousel.Item>
-      </Carousel>
       <Container fluid>
         <div className="landing-center-title">About Us</div>
         <div className="landing-center-content">
@@ -52,26 +40,6 @@ const landingPage = () => {
           Ad quis civibus lucilius vel. Vix nostrud expetendis dissentiet in, te
           mea oportere incorrupte. Est expetenda principes delicatissimi ne. Ex
           his saepe populo.
-        </div>
-        <div className="landing-center-title">Vision</div>
-        <div className="landing-center-content">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt.
-        </div>
-        <div className="landing-center-title">Mission</div>
-        <div className="landing-center-content">
-          Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-          consectetur, adipisci velit, sed quia non numquam eius modi tempora
-          incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut
-          enim ad minima veniam, quis nostrum exercitationem ullam corporis
-          suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis
-          autem vel eum iure reprehenderit qui in ea voluptate velit esse quam
-          nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
-          voluptas nulla pariatur?
         </div>
       </Container>
     </Fragment>
