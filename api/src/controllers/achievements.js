@@ -7,6 +7,8 @@
 
  const Team = require('../models/team.model');
 
+ const { fillErrorObject } = require('../middleware/error');
+
 /**
  * Handles a POST request, which will create an achievement/award in the database using the endpoint /achievements.
  * @param req request object - achievement in body (see Achievement model)
