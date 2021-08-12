@@ -8,10 +8,12 @@ const teamSchema = new mongoose.Schema(
     teamName: {
       type: String,
       required: true,
+      minLength: 3,
     },
     orgName: {
       type: String,
       required: true,
+      minLength: 3,
     },
     email: {
       type: String,
