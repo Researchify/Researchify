@@ -8,6 +8,7 @@ import {
   GET_GH_ACCESS_TOKEN,
   UPDATE_TEAM,
   TEAM_ERROR,
+  FETCH_TWITTER_INFO,
 } from '../actions/types';
 
 import { errorReducer } from '../notification/notificationReduxFunctions';
@@ -18,6 +19,7 @@ const INITIAL_TEAM_STATE = {
   orgName: '',
   email: '',
   twitterHandle: '',
+  twitterFetchLoading: false,
   themeId: '',
   repoCreated: false,
   error: null,
@@ -33,15 +35,22 @@ const INITIAL_TEAM_STATE = {
 const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
   switch (action.type) {
     case FETCH_TEAM_INFO:
-      return { ...state, 
-        teamId: action.payload._id, 
+      return {
+        ...state,
+        teamId: action.payload._id,
         email: action.payload.email,
-        teamName: action.payload.teamName, 
+        teamName: action.payload.teamName,
         orgName: action.payload.orgName,
         twitterHandle: action.payload.twitterHandle,
       };
+    case FETCH_TWITTER_INFO:
+      return { ...state, twitterFetchLoading: true };
     case LINK_TEAM_TWITTER:
-      return { ...state, twitterHandle: action.payload };
+      return {
+        ...state,
+        twitterHandle: action.payload,
+        twitterFetchLoading: false,
+      };
     case UNLINK_TEAM_TWITTER:
       return { ...state, twitterHandle: action.payload };
     case GET_GH_ACCESS_TOKEN:

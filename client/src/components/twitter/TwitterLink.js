@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
+import { Spinner } from 'react-bootstrap';
 
 import { linkTwitter } from '../../actions/team';
 
@@ -17,6 +18,9 @@ const TwitterLink = () => {
   const [handle, setHandle] = useState('');
   const [revealInput, setRevealInput] = useState(false);
   const teamId = useSelector((state) => state.team.teamId);
+  const twitterFetchLoading = useSelector(
+    (state) => state.team.twitterFetchLoading
+  );
 
   const handleLinkButtonClick = () => {
     setRevealInput(true);
@@ -28,7 +32,11 @@ const TwitterLink = () => {
     setRevealInput(false);
   };
 
-  return (
+  return twitterFetchLoading ? (
+    <div className="mb-3 mt-3 text-center">
+      <Spinner animation="border" />
+    </div>
+  ) : (
     <Jumbotron className="twitter-link">
       <h6 className="twitter-link_link_message">Link your Twitter account?</h6>
       {revealInput && (

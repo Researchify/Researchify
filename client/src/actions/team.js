@@ -15,6 +15,7 @@ import {
   DEPLOY_FAIL,
   UPDATE_TEAM,
   REGISTER_SUCCESS,
+  FETCH_TWITTER_INFO,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
@@ -68,6 +69,9 @@ export const getTeamInfo = (teamId) => async (dispatch) => {
  */
 export const linkTwitter = (teamId, handle) => async (dispatch) => {
   try {
+    dispatch({
+      type: FETCH_TWITTER_INFO,
+    });
     const { data } = await api.registerTwitterHandle(teamId, {
       twitterHandle: handle,
     });
