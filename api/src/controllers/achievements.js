@@ -35,4 +35,35 @@
     }
   }
 
-  module.exports = { createAchievement }
+  /**
+ * Handles a DELETE request to delete an achievement/award by the mongo object id on the endpoint /achievements/:id.
+ *
+ * @param req request object - the achievement id (mongo object id) given in the url
+ * @param res response object
+ * @returns 200: achievement deleted successfully
+ * @returns 404: achievement not found
+ * @returns 401: error deleting achievement
+ */
+function deleteAchievement(req, res, next) {
+    const { id: _id } = req.params;
+    
+    // Try to remove achievement using id provided
+    Achievement.findByIdAndRemove(_id)
+      .then((foundAchievement) => {
+        // Return error if the achievement does not exist
+        if (foundAchievement === null) {
+          next(
+            fillErrorObject(400, 'Validation error', [
+              'Achievement could not be found',
+            ])
+          );
+        } else {
+            // Return success message
+            return res.status(200).json({ message: 'Achievement deleted successfully.' });
+        }
+      })
+      .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+  }
+
+
+  module.exports = { createAchievement, deleteAchievement }
