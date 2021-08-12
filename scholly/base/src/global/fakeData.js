@@ -1,26 +1,35 @@
 export const FAKE_PUBLICATIONS = [
   {
-    _id: 'fakepub1',
-    title: 'Fake Title 1',
+    _id: 'fake_publication_1',
+    title:
+      'Auto-icon: An automated code generation tool for icon designs assisting in ui development',
     description:
-      'First Publication. Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an. Qui an electram iracundia, nisl sale iisque ad quo. His ut dolore noster. Usu in eleifend platonem mandamus, ea meis aeque mei.',
+      '"Approximately 50% of development resources are devoted to UI development tasks [8]. Occupied a large proportion of development resources, developing icons can be a time-consuming task, because developers need to consider not only effective implementation methods but also easy-to-understand descriptions. In this study, we define 100 icon classes through an iterative open coding for the existing icon design sharing website. Based on a deep learning model and computer vision methods, we propose an approach to automatically convert icon images to fonts with descriptive labels, thereby reducing the laborious manual effort for developers and facilitating UI development. We quantitatively evaluate the quality of our method in the real world UI development environment and demonstrate that our method offers developers accurate, efficient, readable, and usable code for icon images, in terms of saving 65.2 …',
     category: {
-      type: 'JOURNAL',
-      categoryTitle: 'Example Journal',
-      issue: '1.1',
-      volume: '0.2',
-      pages: '20',
-      publisher: 'Penguine books',
+      type: 'BOOK',
+      categoryTitle:
+        '26th International Conference on Intelligent User Interfaces',
+      issue: '',
+      volume: '',
+      pages: '56-69',
+      publisher: '',
     },
     link: 'thislinkisfakedonteventrytoclickit.okay',
-    authors: ['KK', 'LOL'],
-    yearPublished: '2007',
+    authors: [
+      'Sidong Feng',
+      'Suyu Ma',
+      'Jinzhong Yu',
+      'Chunyang Chen',
+      'TingTing Zhou',
+      'Yankun Zhen',
+    ],
+    yearPublished: '2021',
   },
   {
-    _id: 'fakepub2',
-    title: 'Fake Title 2',
+    _id: 'fake_publication_2',
+    title: 'Context-aware Personalized Crowdtesting Task Recommendation',
     description:
-      'Will Gold shine through another test of inflation hedge? The past 100 years of data says so Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an.',
+      "Crowdsourced software testing (short for crowdtesting) is a special type of crowdsourcing. It requires that crowdworkers master appropriate skill-sets and commit significant effort for completing a task. Abundant uncertainty may arise during a crowdtesting process due to imperfect information between the task requester and crowdworkers. For example, a worker frequently chooses tasks in an ad hoc manner in crowdtesting context, and an inappropriate task selection may lead to the worker's failing to detect any bugs, and significant testing effort unpaid and wasted. Recent studies have explored methods for supporting task requesters to make informed decisions on task pricing, worker recommendation, and so on. Unfortunately, very few study offers decision making support from the crowdworkers' perspectives. We motivate this study through a pilot study, revealing the large portion (74%) of unpaid crowdworkers' …",
     category: {
       type: 'JOURNAL',
       categoryTitle: 'International Economics Journal',
@@ -34,9 +43,9 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2021',
   },
   {
-    _id: 'fakepub3',
+    _id: 'fake_publication_3',
     title:
-      'Fake Title 3 olijhboatr oijopbmswt pojpojfpbq ouoj oairdrgojqpod  oiv powohlnbn olwjlgjw ',
+      'MULTI-PHACET-MULTIdimensional clinical phenotyping of hospitalised acute COPD ExacerbaTions',
     description:
       'Securing generative Arts through NFTs Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Etiam feugiat laoreet tempor. Vestibulum vel facilisis odio, in ultricies ex. Nullam vitae lectus vitae arcu efficitur auctor id a sem. Mauris congue enim risus, eu gravida mi dignissim ut. Vestibulum tempus urna vel sem eleifend, quis aliquet ligula maximus. Vivamus sagittis dolor eu iaculis interdum. Morbi ex odio, ornare eget erat eu, dapibus accumsan elit. Fusce fermentum orci ante. Etiam dolor urna, dictum a diam nec, ornare tempor nunc. Curabitur imperdiet malesuada augue eget vestibulum. Legere antiopam definitiones nam an.',
     category: {
@@ -52,28 +61,34 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2017',
   },
   {
-    _id: 'fakepub4',
-    title: 'Fake Title 4 poaijrg 9ojb sofvoq n 4hnxkjvh9dvke4tk kgnknfwhf  ',
-    description:
-      'Securing generative Arts through NFTs Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an.',
+    _id: 'fake_publication_4',
+    title:
+      'CONCORDANCE OF LARYNGOSCOPY AND DYNAMIC COMPUTERIZED TOMOGRAPHY LARYNX TO DIAGNOSE VOCAL CORD DYSFUNCTION ',
+    description: '',
     category: {
       type: 'CONFERENCE',
-      categoryTitle: 'The digital asset certification',
+      categoryTitle: 'RESPIROLOGY',
       issue: '',
       volume: '',
-      pages: '15',
+      pages: '102-102',
       publisher: 'Yoshua Benjio',
     },
     link: 'thislinkisfakedonteventrytoclickit.okay',
-    authors: ['Yoshua Benjio'],
+    authors: [
+      'Kaibo Cao',
+      'Chunyang Chen',
+      'Sebastian Baltes',
+      'Christoph Treude',
+      'Xiang Chen',
+    ],
     yearPublished: '2017',
   },
   {
-    _id: 'fakepub5',
+    _id: 'fake_publication_5',
     title:
-      'Fake Title 5 liakjig, lajplbjtpob ijolkibmjaolrjglkqjh iuahsdv wiuhivhw oiyqo bojnoqjwpouv qkjxbnv09wef eoh.',
+      'Rivaroxaban compared to placebo for the treatment of leg superficial vein thrombosis: a randomized trial',
     description:
-      'Securing generative Arts through NFTs. Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an. Etiam feugiat laoreet tempor. Vestibulum vel facilisis odio, in ultricies ex. Nullam vitae lectus vitae arcu efficitur auctor id a sem. Mauris congue enim risus, eu gravida mi dignissim ut. Vestibulum tempus urna vel sem eleifend, quis aliquet ligula maximus. Vivamus sagittis dolor eu iaculis interdum. Morbi ex odio, ornare eget erat eu, dapibus accumsan elit. Fusce fermentum orci ante. Etiam dolor urna, dictum a diam nec, ornare tempor nunc. Curabitur imperdiet malesuada augue eget vestibulum. ',
+      'The role of rivaroxaban in the treatment of leg superficial venous thrombosis (SVT) is uncertain. This article aims to determine if rivaroxaban is an effective and safe treatment for leg SVT. Patients with symptomatic leg SVT of at least 5 cm length were randomized to 45 days of rivaroxaban 10 mg daily or to placebo, and followed for a total of 90 days. Treatment failure (required a nonstudy anticoagulant; had proximal deep vein thrombosis or pulmonary embolism; or had surgery for SVT) at 90 days was the primary efficacy outcome. Secondary efficacy outcomes included leg pain severity, and venous disease-specific and general health-related quality of life over 90 days. Major bleeding at 90 days was the primary safety outcome. Poor enrollment led to the trial being stopped after 85 of the planned 600 patients were randomized to rivaroxaban (n = 43) or placebo (n = 42). One rivaroxaban and five placebo …',
     category: {
       type: 'OTHER',
       categoryTitle: '',
@@ -87,8 +102,8 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2017',
   },
   {
-    _id: 'fakepub6',
-    title: 'Fake Title 6, aoiurfhg poijner! oijsd vmjs, lkjhnbie (ljiilbw)',
+    _id: 'fake_publication_6',
+    title: 'Owl Eyes: Spotting UI Display Issues via Visual Understanding',
     description:
       'Etiam feugiat laoreet tempor. Vestibulum vel facilisis odio, in ultricies ex. Nullam vitae lectus vitae arcu efficitur auctor id a sem. Mauris congue enim risus, eu gravida mi dignissim ut. Vestibulum tempus urna vel sem eleifend, quis aliquet ligula maximus. Vivamus sagittis dolor eu iaculis interdum. Morbi ex odio, ornare eget erat eu, dapibus accumsan elit. Fusce fermentum orci ante. Etiam dolor urna, dictum a diam nec, ornare tempor nunc. Curabitur imperdiet malesuada augue eget vestibulum.  Securing generative Arts through NFTs. Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere antiopam definitiones nam an.',
     category: {
@@ -114,9 +129,8 @@ export const FAKE_PUBLICATIONS = [
     yearPublished: '2017',
   },
   {
-    _id: 'fakepub7',
-    title:
-      'Fake Title 7, 0981lm cjhvws lkjovjw  d 3dddd opijw v pokv qpojd popkpp mememem pepepe',
+    _id: 'fake_publication_7',
+    title: 'Wireframe-based UI design search through image autoencoder',
     description: 'Securing generative Arts through NFTs',
     category: {
       type: 'CONFERENCE',
