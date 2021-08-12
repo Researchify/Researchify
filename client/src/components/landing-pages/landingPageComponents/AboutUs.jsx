@@ -1,5 +1,5 @@
 import React from "react";
-import StyledTab from "./utils/StyledTabButton";
+import StyledTab from "../utils/StyledTabButton";
 
 import {
   Box,
@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   makeStyles,
 } from "@material-ui/core";
-import Divider from "./utils/Divider";
+import Divider from "../utils/Divider";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -129,7 +129,7 @@ const AboutUs = (props) => {
             <Box fontSize="h3.fontSize">Meet our Team</Box>
             <Box color="black" fontSize="p.fontSize">
               <p>
-              7 undergraduate students collaborating under the supervision of Riordan to provide Researchers with a tool to create their own website.
+              Uundergraduate students from Monash University collaborating under the supervision of our mentor to provide Researchers with a tool to create their own website.
               </p>
             </Box>
           </TabPanel>

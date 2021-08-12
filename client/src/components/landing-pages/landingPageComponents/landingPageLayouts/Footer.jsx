@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import { theme } from "./theme";
-import CopyRight from "./utils/Copyright";
+import { theme } from "../../theme";
+import CopyRight from "../../utils/Copyright";
 
 const Footer = () => {
   const styles = {

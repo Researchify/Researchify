@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
 // import logo from "Assets/images/logo.png";
 import AuthButtons from "./AuthButtons";
-import HeaderLink from "./utils/StyledHeaderLink";
-import { headerLinks } from "./data/landing-page-labels";
+import HeaderLink from "../../utils/StyledHeaderLink";
+import { headerLinks } from "../../data/landing-page-labels";
 
 import {
   Collapse,
@@ -12,7 +12,7 @@ import {
   Nav,
   NavItem,
 } from "reactstrap";
-import { theme } from "./theme";
+import { theme } from "../../theme";
 
 const Header = ({ linksAreShown = true }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,10 +1,10 @@
 import React from "react";
 
-import AboutUs from "./AboutUs";
-import BigIntro from "./BigIntro";
-import Description from "./Description";
-import Features from "./Features";
-import LandingLayout from "./LandingLayout";
+import AboutUs from "./landingPageComponents/AboutUs";
+import BigIntro from "./landingPageComponents/BigIntro";
+import Description from "./landingPageComponents/Description";
+import Features from "./landingPageComponents/Features";
+import LandingLayout from "./landingPageComponents/landingPageLayouts/LandingLayout";
 import { createTheme } from "@material-ui/core/styles";
 import { theme as colour } from "./theme";
 import { ThemeProvider } from "@material-ui/styles";

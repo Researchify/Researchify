@@ -1,10 +1,10 @@
-import "./css/features.css";
+import "../css/features.css";
 import { Box, Grid, Paper, Button, useMediaQuery } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Divider from "./utils/Divider";
+import Divider from "../utils/Divider";
 import React, { useState } from "react";
 import ReactCardFlip from "react-card-flip";
-import { featuresData } from "./data/landing-page-labels";
+import { featuresData } from "../data/landing-page-labels";
 
 // icons
 

@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
-import { theme as colour } from "./theme";
+import { theme as colour } from "../theme";
 import { Grid, Button, Box } from "@material-ui/core";
 import ContactForm from "./data/ContactForm";
-import { useDispatch } from "react-redux";
 
 const ContactUs = () => {
   const styles = {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, useMediaQuery, makeStyles } from "@material-ui/core";
-import { aboutDescription } from "./data/landing-page-labels";
+import { aboutDescription } from "../data/landing-page-labels";
 
 const Description = () => {
   const isMobile = useMediaQuery("(max-width:600px)");
