@@ -39,7 +39,7 @@
 .publication-pg-title {
   text-align: center;
   padding-top: 8px;
-  font-weight: bolder;
+  font-weight: 460;
   padding-left: 40px;
   padding-right: 40px;
   font-size: xx-large;
@@ -80,7 +80,7 @@
 .pub-body-subheader {
   text-align: center;
   font-style: italic;
-  font-size: small;
+  font-size: medium;
   font-weight: 450;
 }
 
@@ -91,8 +91,9 @@
 }
 
 .pub-body-paragraph {
-  text-indent: 5%;
+  text-indent: 1%;
   text-align: justify;
+  text-align-last: center;
 }
 
 .pub-twitter-right {
