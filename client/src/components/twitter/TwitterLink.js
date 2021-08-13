@@ -35,41 +35,43 @@ const TwitterLink = () => {
   };
   
   
-  return twitterFetchLoading ? (
-    <div className="mb-3 mt-3 text-center">
-      <Spinner animation="border" />
-    </div>
-  ) : (
+  return (
     <Jumbotron className="twitter-link">
       <h6 className="twitter-link_link_message">Link your Twitter account?</h6>
-      <Formik
-        enableReinitialize
-        validationSchema={validationSchema}
-        onSubmit={submitForm}
-        initialValues={initValues}
-      >
-        {({ handleSubmit, handleChange, values, touched, errors }) => (
-          <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Control
-                type="text"
-                name="twitterHandle"
-                placeholder="Twitter Handle"
-                value={values.twitterHandle}
-                onChange={handleChange}
-                isInvalid={touched.twitterHandle && errors.twitterHandle}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.twitterHandle}
-              </Form.Control.Feedback>
+      {twitterFetchLoading ? (
+        <div className="mb-3 mt-3 text-center">
+          <Spinner animation="border" />
+        </div>
+      ) : (
+        <Formik
+          enableReinitialize
+          validationSchema={validationSchema}
+          onSubmit={submitForm}
+          initialValues={initValues}
+        >
+          {({ handleSubmit, handleChange, values, touched, errors }) => (
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Control
+                  type="text"
+                  name="twitterHandle"
+                  placeholder="Twitter Handle"
+                  value={values.twitterHandle}
+                  onChange={handleChange}
+                  isInvalid={touched.twitterHandle && errors.twitterHandle}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.twitterHandle}
+                </Form.Control.Feedback>
 
-              <Button type="submit" size="sm" className="twitter-link_button">
-                Link Twitter
-              </Button>
-            </Form.Group>
-          </Form>
-        )}
-      </Formik>
+                <Button type="submit" size="sm" className="twitter-link_button">
+                  Link Twitter
+                </Button>
+              </Form.Group>
+            </Form>
+          )}
+        </Formik>
+      )}
     </Jumbotron>
   );
 };
