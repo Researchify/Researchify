@@ -11,7 +11,6 @@ import {
   DropdownButton,
   Dropdown,
 } from 'react-bootstrap';
-
 import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
@@ -19,7 +18,7 @@ import { addPage, deletePage } from '../../actions/website';
 import { availablePages as pages } from '../../config/clientWebsite';
 import toast from 'react-hot-toast';
 import Webpages from './webpage/Webpages';
-import DeployPage from '../deploy/DeployPage';
+import DeployPage from './deploy/DeployPage';
 
 const Dashboard = () => {
   console.log('dashborad');
@@ -34,7 +33,6 @@ const Dashboard = () => {
 
   // All our web-page offerings
   const availablePages = pages;
-
   // webpageOfferings = availablePages - currentWebPages
   const webpageOfferings = availablePages.filter(
     (page) => !currentWebPages.includes(page)
@@ -168,15 +166,15 @@ const Dashboard = () => {
             </Button>
           </Card.Header>
           <Card.Body>
-            <Webpages
-              currentWebPages={currentWebPages}
-              directToAnotherPage={directToAnotherPage}
+            <Webpages 
+              currentWebPages={currentWebPages} 
+              directToAnotherPage={directToAnotherPage} 
               showDeleteModal={showDeleteModal}
               setSelectedPage={setSelectedPage}
             />
           </Card.Body>
           <Card.Footer>
-            <DeployPage teamId={teamId} />
+            <DeployPage teamId={teamId}/>
           </Card.Footer>
         </Card>
         <TemplateSelector

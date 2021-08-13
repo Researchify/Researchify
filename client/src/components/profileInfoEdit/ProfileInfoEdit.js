@@ -12,21 +12,22 @@ import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateTeam } from '../../actions/team';
 
-
 /**
  * Form component for user update profile
  */
 const ProfileInfoEdit = () => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
-  const { teamId, teamName, orgName, email } = useSelector((state) => state.team);
+  const { teamId, teamName, orgName, email } = useSelector(
+    (state) => state.team
+  );
 
-  const [profileData, setInputs] = useState({ teamName, orgName, email});
+  const [profileData, setInputs] = useState({ teamName, orgName, email });
 
   useEffect(() => {
-    setInputs({teamName, orgName, email})
-  }, [email, orgName, teamName])
-  
+    setInputs({ teamName, orgName, email });
+  }, [email, orgName, teamName]);
+
   const updateInputs = (form) => {
     const { name, value } = form.target;
     setInputs({ ...profileData, [name]: value });
@@ -50,7 +51,6 @@ const ProfileInfoEdit = () => {
     );
     toast.error('Profile has not been deleted');
   };
-  
 
   return (
     <div className="mt-5">
@@ -76,11 +76,12 @@ const ProfileInfoEdit = () => {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId="formResearchGroupName">
+          <Form.Group>
             <Form.Label>Research Group Name</Form.Label>
             <Form.Control
+              className="placeholder-text"
               type="text"
-              placeholder="Enter your group name here"
+              placeholder="Allan Lab"
               defaultValue={profileData.teamName}
               onChange={updateInputs}
               required
@@ -88,11 +89,12 @@ const ProfileInfoEdit = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formOrganisationName">
+          <Form.Group>
             <Form.Label>Organisation Name</Form.Label>
             <Form.Control
+              className="placeholder-text"
               type="text"
-              placeholder="Enter your organisation name here"
+              placeholder="Leiden University"
               defaultValue={profileData.orgName}
               onChange={updateInputs}
               required
@@ -100,11 +102,12 @@ const ProfileInfoEdit = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formEmail">
+          <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
+              className="placeholder-text"
               type="email"
-              placeholder="Enter your email here"
+              placeholder="allenlab@gmail.com"
               name="email"
               defaultValue={profileData.email}
               onChange={updateInputs}

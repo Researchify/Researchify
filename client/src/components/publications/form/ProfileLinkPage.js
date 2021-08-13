@@ -5,6 +5,8 @@ import { Row, InputGroup, Button, Form } from 'react-bootstrap';
 import { importPublications } from '../../../actions/publications';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { IMPORT_FAIL, UPDATE_GSCHOLAR_ID } from '../../../actions/types';
+import '../publications.css';
+
 
 const ProfileLinkPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);
@@ -55,6 +57,9 @@ const ProfileLinkPage = ({ closeModal }) => {
       {({ handleSubmit, handleChange, values, touched, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
+            <Form.Label>
+              Enter your Google Scholar profile link below:
+            </Form.Label>
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text>
@@ -62,9 +67,10 @@ const ProfileLinkPage = ({ closeModal }) => {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
+                className="placeholder-text"
                 type="text"
                 name="profileLink"
-                placeholder="Profile Link"
+                placeholder="https://scholar.google.com.sg/citations?user=3tyGlPsAAAAJ"
                 value={values.profileLink}
                 onChange={handleChange}
                 isInvalid={touched.profileLink && errors.profileLink}

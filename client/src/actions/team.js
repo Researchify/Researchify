@@ -210,7 +210,6 @@ export const deployToGHPages =
       dispatch({
         type: DEPLOY_REQUEST,
       });
-
       // get publications
       const { data: teamPublications } = await api.fetchPublicationsByTeamId(teamId);
       teamPublications.map(
