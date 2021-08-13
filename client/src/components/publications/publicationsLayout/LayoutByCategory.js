@@ -2,8 +2,8 @@
  * The LayoutByCategory component displays a list of publications group by category type selcted by user
  */
 
-import Publication from '../publication/Publication';
 import { categoryType } from '../../../config/publications';
+import LayoutAllPublications from './LayoutAllPublications';
 
 const LayoutByCategory = ({ teamPublications }) => {
   const renderPublicationsByCategory = (categoryType) => {
@@ -14,11 +14,7 @@ const LayoutByCategory = ({ teamPublications }) => {
       publicationsByCategory.length > 0 && (
         <>
           <h2 className="publicationListHeader"> {categoryType} </h2>
-          <div className="publicationList">
-            {publicationsByCategory.map((pub) => (
-              <Publication pub={pub} key={pub._id} />
-            ))}
-          </div>
+          <LayoutAllPublications teamPublications={publicationsByCategory} />;
         </>
       )
     );

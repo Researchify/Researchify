@@ -24,19 +24,18 @@ import {
 import { pageSize } from '../../../config/publications';
 
 const ImportSuccessPage = ({ closeModal }) => {
-  const { publications } = useSelector((state) => state.importedPublications);
   const teamId = useSelector((state) => state.team.teamId);
-  const { startFrom } = useSelector((state) => state.importedPublications);
-  const { gScholarId } = useSelector((state) => state.importedPublications);
-  const { reachedEnd } = useSelector((state) => state.importedPublications);
-  const { activePage } = useSelector((state) => state.importedPublications);
-  const { totalPages } = useSelector((state) => state.importedPublications);
-  const { shownPublications } = useSelector(
-    (state) => state.importedPublications
-  );
-  const { publicationsToImport } = useSelector(
-    (state) => state.importedPublications
-  );
+  const { 
+    publications,
+    startFrom, 
+    gScholarId, 
+    reachedEnd, 
+    activePage, 
+    totalPages, 
+    shownPublications, 
+    publicationsToImport 
+  } = useSelector((state) => state.importedPublications);
+
   const ConditionalWrapper = ({ condition, wrapper, children }) =>
     condition ? wrapper(children) : children;
 
@@ -198,6 +197,7 @@ const ImportSuccessPage = ({ closeModal }) => {
             </Button>
           </OverlayTrigger>
         </div>
+        
         <ConditionalWrapper
           condition={reachedEnd}
           wrapper={(children) => (
