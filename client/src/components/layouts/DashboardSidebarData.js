@@ -10,7 +10,6 @@ import {
   BsPeople,
   BsGearFill,
   BsFillQuestionCircleFill,
-  BsUpload,
   BsBoxArrowLeft,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
