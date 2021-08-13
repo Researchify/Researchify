@@ -18,27 +18,28 @@ const TwitterLink = () => {
   );
 
   const validationSchema = yup.object({
-    profileLink: yup
+    twitterHandle: yup
       .string()
-      .required(' Please provide a Twitter handle.'),
+      .required('Please provide a Twitter handle.')
+      .min(1, 'Must be at least 1 character')
+      .max(15, 'Must be no longer than 15 characters')
+      .trim(),
   });
+
   const initValues = {
-    profileLink: '',
+    twitterHandle: '',
   };
 
-  
-  
   const submitForm = (values) => {
-    dispatch(linkTwitter(teamId, values.profileLink));
+    dispatch(linkTwitter(teamId, values.twitterHandle));
   };
   
   
-  return (
-    twitterFetchLoading ? (
-      <div className="mb-3 mt-3 text-center">
-        <Spinner animation="border" />
-      </div>
-    ) :
+  return twitterFetchLoading ? (
+    <div className="mb-3 mt-3 text-center">
+      <Spinner animation="border" />
+    </div>
+  ) : (
     <Jumbotron className="twitter-link">
       <h6 className="twitter-link_link_message">Link your Twitter account?</h6>
       <Formik
@@ -52,22 +53,18 @@ const TwitterLink = () => {
             <Form.Group>
               <Form.Control
                 type="text"
-                name="profileLink"
-                placeholder="Profile Link"
-                value={values.profileLink}
+                name="twitterHandle"
+                placeholder="Twitter Handle"
+                value={values.twitterHandle}
                 onChange={handleChange}
-                isInvalid={touched.profileLink && errors.profileLink}
+                isInvalid={touched.twitterHandle && errors.twitterHandle}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.profileLink}
+                {errors.twitterHandle}
               </Form.Control.Feedback>
 
-              <Button
-                type="submit"
-                size="sm"
-                className="twitter-link_button"
-              >
-              Link Twitter
+              <Button type="submit" size="sm" className="twitter-link_button">
+                Link Twitter
               </Button>
             </Form.Group>
           </Form>
