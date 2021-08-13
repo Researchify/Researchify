@@ -1,80 +1,78 @@
 /**
  * The TwitterLink component displays a "dynamic" button that a user will click to link/unlink their twitter feed.
  */
-import React, { useState } from 'react';
+ import { Formik } from 'formik';
+ import * as yup from 'yup';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from 'react-bootstrap/Button';
-import { Spinner } from 'react-bootstrap';
 
 import { linkTwitter } from '../../actions/team';
-
+import { Form, Button, Spinner, Jumbotron } from 'react-bootstrap';
 import './TwitterLink.css';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
 
 const TwitterLink = () => {
   const dispatch = useDispatch();
-  const [handle, setHandle] = useState('');
   const teamId = useSelector((state) => state.team.teamId);
   const twitterFetchLoading = useSelector(
     (state) => state.team.twitterFetchLoading
   );
-  const [validated, setValidated] = useState(false);
 
-  const handleLinkButtonClick = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-      console.log('in');
-    } else {
-      dispatch(linkTwitter(teamId, handle));
-    }
-    console.log(validated);
-
-    // setValidated(true);
+  const validationSchema = yup.object({
+    profileLink: yup
+      .string()
+      .required(' Please provide a Twitter handle.'),
+  });
+  const initValues = {
+    profileLink: '',
   };
 
-  const handleCancelButtonClick = () => {
-    setHandle('');
+  
+  
+  const submitForm = (values) => {
+    dispatch(linkTwitter(teamId, values.profileLink));
   };
-
-  // twitterFetchLoading ? (
-  //   <div className="mb-3 mt-3 text-center">
-  //     <Spinner animation="border" />
-  //   </div>
-  // ) :
+  
+  
   return (
+    twitterFetchLoading ? (
+      <div className="mb-3 mt-3 text-center">
+        <Spinner animation="border" />
+      </div>
+    ) :
     <Jumbotron className="twitter-link">
       <h6 className="twitter-link_link_message">Link your Twitter account?</h6>
-      <Form noValidate validated={validated}>
-        <Form.Row>
-          <Col>
-            <Form.Control
-              required
-              minlength="1"
-              maxlength="15"
-              className="twitter-link_input"
-              size="sm"
-              placeholder="Enter handle"
-              value={handle}
-              onChange={(e) => setHandle(e.target.value)}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a Twitter handle.
-            </Form.Control.Feedback>
-          </Col>
-        </Form.Row>
-        <Button
-          type="submit"
-          size="sm"
-          className="twitter-link_button"
-          onClick={handleLinkButtonClick}
-        >
-          Link Twitter
-        </Button>
-      </Form>
+      <Formik
+        enableReinitialize
+        validationSchema={validationSchema}
+        onSubmit={submitForm}
+        initialValues={initValues}
+      >
+        {({ handleSubmit, handleChange, values, touched, errors }) => (
+          <Form noValidate onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                name="profileLink"
+                placeholder="Profile Link"
+                value={values.profileLink}
+                onChange={handleChange}
+                isInvalid={touched.profileLink && errors.profileLink}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.profileLink}
+              </Form.Control.Feedback>
+
+              <Button
+                type="submit"
+                size="sm"
+                className="twitter-link_button"
+              >
+              Link Twitter
+              </Button>
+            </Form.Group>
+          </Form>
+        )}
+      </Formik>
     </Jumbotron>
   );
 };
