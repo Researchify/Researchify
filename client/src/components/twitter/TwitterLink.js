@@ -1,8 +1,8 @@
 /**
  * The TwitterLink component displays a "dynamic" button that a user will click to link/unlink their twitter feed.
  */
- import { Formik } from 'formik';
- import * as yup from 'yup';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -33,8 +33,7 @@ const TwitterLink = () => {
   const submitForm = (values) => {
     dispatch(linkTwitter(teamId, values.twitterHandle));
   };
-  
-  
+
   return (
     <Jumbotron className="twitter-link">
       <h6 className="twitter-link_link_message">Link your Twitter account?</h6>
