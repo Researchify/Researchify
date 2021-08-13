@@ -14,8 +14,6 @@ export const getAchievementsByTeamId = (teamId) => async (dispatch) => {
     try {
       const { data } = await api.fetchAchievementsByTeamId(teamId);
   
-      data.map((pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))); // only get the year from the date format
-  
       dispatch({
         type: GET_ACHIEVEMENTS_BY_TEAM_ID,
         payload: data,
@@ -28,8 +26,6 @@ export const getAchievementsByTeamId = (teamId) => async (dispatch) => {
 export const createAchievement = (publication) => async (dispatch) => {
     try {
         const result = await api.createAchievement(publication);
-
-        result.data.yearPublished = result.data.yearPublished.substring(0, 4); // only get the year from the date format
 
         dispatch({
         type: CREATE_ACHIEVEMENT,
@@ -53,10 +49,9 @@ export const deleteAchievement = (id) => async (dispatch) => {
     }
 };
   
-export const updateAchievement = (id, publication) => async (dispatch) => {
+export const updateAchievement = (id, achievement) => async (dispatch) => {
     try {
-        const { data } = await api.updateAchievement(id, publication);
-        data.yearPublished = data.yearPublished.substring(0, 4); // only get the year from the date format
+        const { data } = await api.updateAchievement(id, achievement);
         dispatch({
         type: UPDATE_ACHIEVEMENT,
         payload: data,
