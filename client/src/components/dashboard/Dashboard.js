@@ -1,7 +1,7 @@
 /**
  * This file exports the content in of Researchify Dashboard Page
  */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
@@ -20,18 +20,17 @@ import { availablePages as pages } from '../../config/clientWebsite';
 import toast from 'react-hot-toast';
 import Webpages from './webpage/Webpages';
 import DeployPage from '../deploy/DeployPage';
-import { getGHAccessToken } from '../../actions/team';
 
 const Dashboard = () => {
-
-  console.log("dashborad")
+  console.log('dashborad');
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const themePicked = useSelector((state) => state.team?.themeId ? true : false);
+  const themePicked = useSelector((state) =>
+    state.team?.themeId ? true : false
+  );
   const teamId = useSelector((state) => state.team.teamId);
   const currentWebPages = useSelector((state) => state.website.pages);
-
 
   // All our web-page offerings
   const availablePages = pages;
@@ -55,8 +54,7 @@ const Dashboard = () => {
     if (themePicked) {
       if (webpageOfferings.length === 0) {
         toast.success("You've already added all available web pages");
-      }
-      else {
+      } else {
         setAddModal(true);
       }
     } else {
@@ -105,8 +103,6 @@ const Dashboard = () => {
     setSelectedPage(pagePlaceholder);
   };
 
-
-
   return (
     <main>
       <Modal show={displayAddModal} onHide={closeAddModal} centered size="lg">
@@ -148,8 +144,8 @@ const Dashboard = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Deleting the page will NOT remove the data associated with
-          this page, but the page will not be shown on your website
+          Deleting the page will NOT remove the data associated with this page,
+          but the page will not be shown on your website
           <Modal.Footer className="p-0">
             <Button variant="secondary" onClick={closeDeleteModal}>
               Cancel
@@ -172,15 +168,15 @@ const Dashboard = () => {
             </Button>
           </Card.Header>
           <Card.Body>
-            <Webpages 
-              currentWebPages={currentWebPages} 
-              directToAnotherPage={directToAnotherPage} 
+            <Webpages
+              currentWebPages={currentWebPages}
+              directToAnotherPage={directToAnotherPage}
               showDeleteModal={showDeleteModal}
               setSelectedPage={setSelectedPage}
             />
           </Card.Body>
           <Card.Footer>
-            <DeployPage teamId={teamId}/>
+            <DeployPage teamId={teamId} />
           </Card.Footer>
         </Card>
         <TemplateSelector

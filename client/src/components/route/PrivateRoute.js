@@ -10,7 +10,6 @@ import Dashboard from '../dashboard/Dashboard';
 import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
 import PublicationPage from '../publications/PublicationPage';
 import TeamPage from '../teamPage/TeamPage';
-import DeployPage from '../deploy/DeployPage';
 
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
