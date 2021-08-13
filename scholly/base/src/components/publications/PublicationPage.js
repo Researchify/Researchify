@@ -15,24 +15,30 @@ const PublicationPage = () => {
 
   return (
     <Fragment>
-      <Container className="pages-top-padding text-center mt-3 mb-3">
-        <div className="publication-pg-title">Our Publications</div>
-      </Container>
-      {linkedHandle ? <Container fluid>
-        <Row>
-          <Col xs={12} md={10}>
+      {linkedHandle ? (
+        <Container fluid className="pages-top-padding ">
+          <Row>
+            <Col className="pub-main-left">
+              <Container className="text-center mt-3 mb-3">
+                <div className="publication-pg-title">Our Publications</div>
+              </Container>
+              <Publications />
+            </Col>
+            <Col className="pub-twitter-right">
+              <TwitterFeed linkedHandle={linkedHandle} />
+            </Col>
+          </Row>
+        </Container>
+      ) : (
+        <Fragment>
+          <Container className="pages-top-padding text-center mt-3 mb-3">
+            <div className="publication-pg-title">Our Publications</div>
+          </Container>
+          <Container fluid>
             <Publications />
-          </Col>
-          <Col xs={4} md={2}>
-            {linkedHandle ? <TwitterFeed linkedHandle={linkedHandle} /> : null}
-          </Col>
-        </Row>
-      </Container> : <Container fluid>
-   
-            <Publications />
-
-      </Container>}
-
+          </Container>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
