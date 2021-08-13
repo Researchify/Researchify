@@ -1,14 +1,13 @@
 /**
  * This file exports our auth reducer that will handle all dispatched auth-related actions.
  */
-import { LOG_IN_REQUEST, LOG_IN_SUCCESS,LOG_IN_FAIL,LOG_OUT, REGISTER_SUCCESS } from '../actions/types';
+import { LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAIL, LOG_OUT, REGISTER_SUCCESS } from '../actions/types';
 import Cookies from 'js-cookie';
 
 const INITIAL_AUTH_STATE = { 
   logIn: Cookies.get('isLogin') ? true : false,
   loading: false,
   isRegistered: null,
-  logoutAlert: false,
 }
 
 /**
@@ -31,7 +30,7 @@ const authReducer = (state = INITIAL_AUTH_STATE, action) => {
     case REGISTER_SUCCESS:
       return { ...state, isRegistered: true};
     default:
-      return state; 
+      return state;
   }
 };
 

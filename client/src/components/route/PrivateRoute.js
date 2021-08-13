@@ -31,25 +31,23 @@ const PrivateRoute = () => {
   }, [dispatch, signInCookie])
 
     return (
-      <>
-        <Switch>
-          <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
-          <DashboardLayoutRoute
-            path="/dashboard/profile"
-            exact
-            component={ProfileInfoEdit}
-          />
-          <DashboardLayoutRoute
-            path={`/publications`}
-            exact
-            component={PublicationPage}
-          />
-          <DashboardLayoutRoute path="/team" exact component={TeamPage} />
-          <DashboardLayoutRoute path="/deploy" exact component={DeployPage} />
-          {/*  If login, any other route not stated above will be redirect dashbroad page */}
-          <Redirect to="/dashboard"/> 
-        </Switch> 
-      </>
+      <Switch>
+        <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
+        <DashboardLayoutRoute
+          path="/dashboard/profile"
+          exact
+          component={ProfileInfoEdit}
+        />
+        <DashboardLayoutRoute
+          path={`/publications`}
+          exact
+          component={PublicationPage}
+        />
+        <DashboardLayoutRoute path="/team" exact component={TeamPage} />
+        <DashboardLayoutRoute path="/deploy" exact component={DeployPage} />
+        {/*  If login, any other route not stated above will be redirect dashbroad page */}
+        <Redirect to="/dashboard"/> 
+      </Switch> 
     );
   };
 

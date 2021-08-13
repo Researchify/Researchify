@@ -1,7 +1,7 @@
 /*
  * This file stores the link data of side bar
  */
-import React, { useState } from 'react';
+import React from 'react';
 // icons
 import {
   BsFillGridFill,

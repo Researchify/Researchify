@@ -8,8 +8,7 @@ import { LOG_OUT } from '../../actions/types';
 const LogoutModal = ({logoutAlert, setLogoutAlert}) => {
     const dispatch = useDispatch();
     const handleSignOut = () => {
-        setLogoutAlert(false)
-        dispatch({ type: LOG_OUT})
+        dispatch({ type: LOG_OUT })
     }
     return (
         <Modal show={logoutAlert}>
