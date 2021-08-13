@@ -2,6 +2,8 @@
 
 An open source lightweight CMS enabling streamlined webpage development for academic research groups.
 
+Live site: http://researchify-env.eba-wjxcgupn.ap-southeast-2.elasticbeanstalk.com/
+
 ## Installation
 
 Use the package manager [npm](https://www.npmjs.com/get-npm) to install all required components.

@@ -159,6 +159,7 @@ async function getGoogleScholarPublications(req, res) {
   logger.info(`GScholar profile for user id ${author}: ${url}`);
   let publications = [];
   let endOfProfile = false;
+
   let response = {
     retrieved: publications.length,
     newPublications: [],
@@ -221,10 +222,14 @@ async function scrapeGoogleScholar(url) {
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(playwrightConfig.gScholarHome + url);
-
-  const title = await page.$$eval('a.gsc_oci_title_link', (titles) =>
+  let title = await page.$$eval('a.gsc_oci_title_link', (titles) =>
     titles.map((title) => title.innerText)
-  );
+  ); // we assume the publication title is a link
+
+  if (title[0] === undefined) { // if its undefined, then it wasn't a link
+    title = await page.$$eval('div[id=gsc_oci_title]',(titles) =>
+        titles.map((title) => title.innerText))
+  }
 
   const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) =>
     links.map((link) => link.href)
@@ -311,7 +316,6 @@ async function validateImportedPublications(_id, publications) {
     const currentPublicationTitle = currentPublication.title.toLowerCase();
     if (!foundPublicationTitles.includes(currentPublicationTitle)) {
       newPublications.push(currentPublication);
-      //   console.log("Added " + currentPublicationTitle);
     }
   }
 
