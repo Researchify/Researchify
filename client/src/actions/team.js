@@ -102,7 +102,6 @@ export const unlinkTwitter = (teamId) => async (dispatch) => {
     const { data } = await api.deregisterTwitterHandle(teamId, {
       twitterHandle: '',
     });
-    console.log(data);
     dispatch({
       type: UNLINK_TEAM_TWITTER,
       payload: data.twitterHandle,

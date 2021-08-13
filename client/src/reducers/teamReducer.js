@@ -19,7 +19,6 @@ const INITIAL_TEAM_STATE = {
   orgName: '',
   email: '',
   twitterHandle: '',
-  twitterFetchLoading: false,
   themeId: '',
   repoCreated: false,
   error: null,
@@ -49,7 +48,6 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return {
         ...state,
         twitterHandle: action.payload,
-        twitterFetchLoading: false,
       };
     case UNLINK_TEAM_TWITTER:
       return { ...state, twitterHandle: action.payload };

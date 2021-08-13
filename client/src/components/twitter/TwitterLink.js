@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 
 import { linkTwitter } from '../../actions/team';
 import { Form, Button, Spinner, Jumbotron } from 'react-bootstrap';
@@ -13,9 +14,7 @@ import './TwitterLink.css';
 const TwitterLink = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
-  const twitterFetchLoading = useSelector(
-    (state) => state.team.twitterFetchLoading
-  );
+  const [loadingState, setLoadingState] = useState(false);
 
   const validationSchema = yup.object({
     twitterHandle: yup
@@ -31,13 +30,16 @@ const TwitterLink = () => {
   };
 
   const submitForm = (values) => {
+    if (values.twitterHandle !== '') {
+      setLoadingState(true);
+    }
     dispatch(linkTwitter(teamId, values.twitterHandle));
   };
 
   return (
     <Jumbotron className="twitter-link">
       <h6 className="twitter-link_link_message">Link your Twitter account?</h6>
-      {twitterFetchLoading ? (
+      {loadingState ? (
         <div className="mb-3 mt-3 text-center">
           <Spinner animation="border" />
         </div>
