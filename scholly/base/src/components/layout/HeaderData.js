@@ -1,6 +1,7 @@
-/*
+/**
  * This file stores the link data for Scholly (client) header
- */
+*/
+
 
 const HeaderData = () => {
   return [

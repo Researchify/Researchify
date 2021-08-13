@@ -1,3 +1,6 @@
+/**
+ * Root App.js 
+ */
 import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PublicationPage from './publications/PublicationPage.js';

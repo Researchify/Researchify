@@ -1,3 +1,6 @@
+/**
+ * This file output landing page (homepage) of client-site.
+ */
 import React, { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 
