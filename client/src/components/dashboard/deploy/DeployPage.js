@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { githubLoginUrl } from '../../config/deploy';
+import { githubLoginUrl } from '../../../config/deploy';
 import { GoMarkGithub } from 'react-icons/go';
-import { deployToGHPages, getGHAccessToken } from '../../actions/team';
+import { deployToGHPages, getGHAccessToken } from '../../../actions/team';
 import { Button, Spinner } from 'react-bootstrap';
 
 const DeployPage = ({ teamId }) => {

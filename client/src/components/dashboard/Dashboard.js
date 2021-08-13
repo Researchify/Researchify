@@ -18,7 +18,7 @@ import { addPage, deletePage } from '../../actions/website';
 import { availablePages as pages } from '../../config/clientWebsite';
 import toast from 'react-hot-toast';
 import Webpages from './webpage/Webpages';
-import DeployPage from '../deploy/DeployPage';
+import DeployPage from './deploy/DeployPage';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
