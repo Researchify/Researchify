@@ -131,8 +131,7 @@
 
 .team-card {
   border: transparent;
-  max-width: 350px;
-  min-width: 200px;
+  width: 210px;
 }
 
 .team-card-deck {
