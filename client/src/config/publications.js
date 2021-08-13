@@ -3,7 +3,6 @@
  */
 const pageSize = 10;
 const categoryPageSize = 5;
-
 const categoryType = {
   JOURNAL: 'JOURNAL',
   CONFERENCE: 'CONFERENCE',

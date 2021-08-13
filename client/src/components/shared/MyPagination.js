@@ -5,7 +5,11 @@ const MyPagination = ({ maxPage, nextPage, prevPage, jumpToPage, currentPage }) 
     
     for (let number = 1; number <= maxPage; number++) {
         items.push(
-          <Pagination.Item key={number} onClick={() => jumpToPage(number)}>
+          <Pagination.Item 
+            key={number} 
+            onClick={() => jumpToPage(number)} 
+            active={number===currentPage}
+          >
             {number}
           </Pagination.Item>,
         );
