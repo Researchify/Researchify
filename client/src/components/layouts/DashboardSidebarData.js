@@ -43,11 +43,6 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       name: 'TEAM',
     },
     {
-      title: 'Deploy Website',
-      icon: <BsUpload />,
-      link: '/deploy',
-    },
-    {
       title: 'Settings',
       icon: <BsGearFill />,
       link: '/dashboard/settings',

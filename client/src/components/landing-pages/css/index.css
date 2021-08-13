@@ -1,0 +1,8 @@
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: #414656;
+}
+
+a:hover {
+  color: inherit;
+}
