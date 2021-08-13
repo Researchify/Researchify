@@ -42,7 +42,7 @@ async function storeHandle(req, res, next) {
     // update the handle
     // validate the handle by getting user id
     if (!process.env.TWITTER_BEARER_TOKEN) {
-      return  next(
+      return next(
         fillErrorObject(500, 'Missing environment variable', [
           'No Twitter API Bearer Token found in .env file',
         ])
