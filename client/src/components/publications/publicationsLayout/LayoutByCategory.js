@@ -4,6 +4,7 @@
 
 import { categoryType } from '../../../config/publications';
 import LayoutAllPublications from './LayoutAllPublications';
+import { categoryPageSize } from '../../../config/publications';
 
 const LayoutByCategory = ({ teamPublications }) => {
   const renderPublicationsByCategory = (categoryType) => {
@@ -14,7 +15,10 @@ const LayoutByCategory = ({ teamPublications }) => {
       publicationsByCategory.length > 0 && (
         <>
           <h2 className="publicationListHeader"> {categoryType} </h2>
-          <LayoutAllPublications teamPublications={publicationsByCategory} />;
+          <LayoutAllPublications 
+            teamPublications={publicationsByCategory} 
+            pageSize={categoryPageSize}
+          />;
         </>
       )
     );

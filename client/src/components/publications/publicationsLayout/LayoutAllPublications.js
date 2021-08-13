@@ -5,17 +5,25 @@ import React from 'react';
 import MyPagination from '../../shared/MyPagination';
 import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
+import { pageSize as configPageSize } from '../../../config/publications';
 
-const LayoutAllPublications = ({ teamPublications }) => {
-  const { nextPage, prevPage, jumpToPage, currentData, currentPage, maxPage} = usePagination(teamPublications, 5)
+const LayoutAllPublications = ({ teamPublications, pageSize }) => {
+  const { 
+    nextPage,
+    prevPage, 
+    jumpToPage, 
+    currentData, 
+    currentPage, 
+    maxPage} = usePagination(teamPublications, pageSize ? pageSize : configPageSize)
+
   return (
     <>
       <div className="publicationList">
-        {
-          currentData().map((pub) => (
-            <Publication pub={pub} key={pub._id} />
-          ))
-        }
+      {
+        currentData().map((pub) => (
+          <Publication pub={pub} key={pub._id} />
+        ))
+      }
       </div>
       <MyPagination 
         maxPage={maxPage} 
