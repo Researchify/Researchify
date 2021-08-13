@@ -148,8 +148,8 @@ const ImportSuccessPage = ({ closeModal }) => {
       payload: {
         activePage: parseInt(event.target.text),
         shownPublications: publications.slice(
-          activePage * pageSize,
-          (activePage + 1) * pageSize
+          (parseInt(event.target.text) - 1) * pageSize,
+          parseInt(event.target.text) * pageSize
         ),
       },
     });
@@ -168,20 +168,19 @@ const ImportSuccessPage = ({ closeModal }) => {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {publications.length > 0 ? (
           <Pagination size="sm">
-          <Pagination.Prev
-            onClick={handlePageBack}
-            disabled={activePage === 1}
-          />
-          {renderPagination()}
-          <Pagination.Next
-            onClick={handlePageForward}
-            disabled={activePage === totalPages}
-          />
-        </Pagination>
+            <Pagination.Prev
+              onClick={handlePageBack}
+              disabled={activePage === 1}
+            />
+            {renderPagination()}
+            <Pagination.Next
+              onClick={handlePageForward}
+              disabled={activePage === totalPages}
+            />
+          </Pagination>
         ) : (
           <h4>No publications retrieved so far...</h4>
         )}
-        
       </div>
       <Row>
         <div className="mt-2 ml-3">
