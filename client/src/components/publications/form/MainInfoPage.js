@@ -13,6 +13,8 @@ import {
   OverlayTrigger,
   Form,
 } from 'react-bootstrap';
+import '../publications.css';
+
 
 const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
   const stepOneValidationSchema = yup.object({

@@ -5,6 +5,8 @@ import { Row, InputGroup, Button, Form } from 'react-bootstrap';
 import { importPublications } from '../../../actions/publications';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { IMPORT_FAIL, UPDATE_GSCHOLAR_ID } from '../../../actions/types';
+import '../publications.css';
+
 
 const ProfileLinkPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);

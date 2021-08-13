@@ -15,6 +15,7 @@ import {
   ToggleButton,
 } from 'react-bootstrap';
 import { categoryType } from '../../../config/publications';
+import '../publications.css';
 
 const CategoryPage = ({ next, prev, data, closeModal }) => {
   const stepTwoValidationSchema = yup.object({
