@@ -1,7 +1,7 @@
 /*
  * This file stores the link data of side bar
  */
-import React from 'react';
+import React, { useState } from 'react';
 // icons
 import {
   BsFillGridFill,
@@ -13,14 +13,12 @@ import {
   BsUpload,
   BsBoxArrowLeft,
 } from 'react-icons/bs';
-import { DISPLAY_LOG_OUT_ALERT } from '../../actions/types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const DashboardSidebarData = () => {
-  const dispatch = useDispatch();
+const DashboardSidebarData = ({setLogoutAlert}) => {
   const sidebarLinks = [
     {
       title: 'Dashboard',
@@ -62,7 +60,7 @@ const DashboardSidebarData = () => {
     {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
-      action: () => dispatch({type: DISPLAY_LOG_OUT_ALERT}),
+      action: () => setLogoutAlert(true),
     },
   ];
 

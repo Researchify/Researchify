@@ -16,9 +16,6 @@ import DeployPage from '../deploy/DeployPage';
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
 import { logOut } from '../../actions/auth';
 
-// Modal
-import LogoutModal from '../shared/LogoutModal';
-
 const PrivateRoute = () => {
   const dispatch = useDispatch()
   const signInCookie = Cookies.get('isLogin') ? true : false;
