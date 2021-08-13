@@ -54,3 +54,11 @@ export const addWebPage = (teamId, pageName) =>
 export const getWebsiteInfo = (teamId) => api.get(`/clientWebsite/${teamId}`);
 export const deleteWebPage = (teamId, pageName) =>
   api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
+
+export const fetchAchievementsByTeamId = (teamId) =>
+api.get(`/achievements/team/${teamId}`);
+export const createAchievement = (newAchievement) =>
+  api.post(`/achievements/`, newAchievement);
+export const updateAchievement = (id, updatedAchievement) =>
+  api.patch(`/achievements/${id}`, updatedAchievement);
+export const deleteAchievement = (id) => api.delete(`/achievements/${id}`);
