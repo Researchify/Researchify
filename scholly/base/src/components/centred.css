@@ -131,9 +131,11 @@
 
 .team-card {
   border: transparent;
-  width: 210px;
+  min-width: 210px;
+  max-width: 210px;
 }
 
 .team-card-deck {
   align-content: center;
+  justify-content: center;
 }
