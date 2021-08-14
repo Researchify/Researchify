@@ -5,17 +5,19 @@ import React, { Fragment } from 'react';
 import { Accordion } from 'react-bootstrap';
 import Publication from './publication/Publication';
 import { TEAM_PUBLICATIONS } from '../../global/data';
+import usePagination from '../shared/usePagination';
 
 const Publications = () => {
-  const teamPublications = TEAM_PUBLICATIONS;
+  const { currentData, pagination } = usePagination(TEAM_PUBLICATIONS, 10)
 
   return (
     <Fragment>
       <Accordion>
-        {teamPublications.map((pub) => (
+        {currentData().map((pub) => (
           <Publication pub={pub} key={pub._id} />
         ))}
       </Accordion>
+      {pagination()}
     </Fragment>
   );
 };
