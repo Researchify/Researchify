@@ -50,7 +50,7 @@ async function getAllAchievementsByTeam(req, res) {
     
     try {
         // Store achievements into list, sorted by title in alphabetical order
-        const foundAchievement = await Achievement.aggregate([
+        const foundAchievements = await Achievement.aggregate([
             {
               $match: { teamId: mongoose.Types.ObjectId(_id) },
             }, 
@@ -59,7 +59,7 @@ async function getAllAchievementsByTeam(req, res) {
             },
         ]);
 
-        res.status(200).json(foundAchievement);
+        res.status(200).json(foundAchievements);
 
     } catch (err) {
         res.send(fillErrorObject(500, 'Server error', [err.errors]));
