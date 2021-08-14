@@ -26,15 +26,19 @@ const Publication = ({ pub }) => {
           <div className="pub-body-content pub-body-paragraph">
             {pub.description}
           </div>
-          <div className="pub-body-subheader">Source</div>
+          <div className="pub-body-subheader">
+            {pub.category.categoryTitle
+              ? pub.category.type.charAt(0) +
+                pub.category.type.slice(1).toLowerCase()
+              : ''}
+          </div>
           <div className="pub-body-content">
-            {(pub.category.categoryTitle
-              ? pub.category.categoryTitle
-              : pub.category.type.charAt(0) +
-                pub.category.type.slice(1).toLowerCase()) +
-              (pub.category.issue ? ', Issue ' + pub.category.issue : '') +
-              (pub.category.volume ? ', Volume ' + pub.category.volume : '') +
-              (pub.category.pages ? ', Page ' + pub.category.pages : '')}
+            {pub.category.categoryTitle
+              ? pub.category.categoryTitle +
+                (pub.category.issue ? ', Issue ' + pub.category.issue : '') +
+                (pub.category.volume ? ', Volume ' + pub.category.volume : '') +
+                (pub.category.pages ? ', Page ' + pub.category.pages : '')
+              : ''}
           </div>
           <div className="pub-body-subheader">
             {pub.category.publisher ? 'Published by' : null}
