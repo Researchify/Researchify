@@ -17,19 +17,23 @@ import {
   UPDATE_TEAM,
   REGISTER_SUCCESS,
 } from './types';
-import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
+import {
+  errorActionGlobalCreator,
+  successMessageCreator,
+} from '../notification/notificationReduxFunctions';
 
 /**
  * Create a new team to database.
  * @param teamInfo contains teamName, orgName and email
  */
 export const createTeam = (teamInfo) => async (dispatch) => {
-  try{
-    await api.createTeam(teamInfo)
-    dispatch(successMessageCreator("Team has been created")); // showing a success notification  
-    dispatch({ // when user has been registered successfully to allow us to go back to the login page
-      type: REGISTER_SUCCESS
-    })
+  try {
+    await api.createTeam(teamInfo);
+    dispatch(successMessageCreator('Team has been created')); // showing a success notification
+    dispatch({
+      // when user has been registered successfully to allow us to go back to the login page
+      type: REGISTER_SUCCESS,
+    });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -155,10 +159,7 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
  */
 export const updateTeamMember = (id, teamMember) => async (dispatch) => {
   try {
-    console.log('updateTeamMember');
     const { data } = await api.updateTeamMember(id, teamMember);
-
-    console.log(data);
 
     dispatch({
       type: UPDATE_TEAM_MEMBER,
@@ -178,7 +179,6 @@ export const updateTeamMember = (id, teamMember) => async (dispatch) => {
  */
 export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
   try {
-    console.log(teamId, memberId);
     await api.deleteTeamMember(teamId, memberId);
     dispatch({
       type: DELETE_TEAM_MEMBER,
@@ -191,8 +191,8 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
 
 export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   try {
-    console.log(teamId);
     const response = await api.getGHAccessToken(teamId, code);
+
     localStorage.setItem('GH_access_token', response.data.access_token);
     dispatch({
       type: GET_GH_ACCESS_TOKEN,
@@ -202,42 +202,43 @@ export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   }
 };
 
-export const deployToGHPages =
-  (teamId, accessToken) => async (dispatch) => {
-    try {
-      dispatch({
-        type: DEPLOY_REQUEST,
-      });
-      // get publications
-      const { data: teamPublications } = await api.fetchPublicationsByTeamId(teamId);
-      teamPublications.map(
-        (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
-      );
-      //get teamInfo
-      const { data: teamInfo } = await api.getTeamJWT()
-      //get team members
-      const { data: teamMembers } = await api.fetchTeamMembersByTeamId(teamId);
+export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
+  try {
+    dispatch({
+      type: DEPLOY_REQUEST,
+    });
+    // get publications
+    const { data: teamPublications } = await api.fetchPublicationsByTeamId(
+      teamId
+    );
+    teamPublications.map(
+      (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
+    );
+    //get teamInfo
+    const { data: teamInfo } = await api.getTeamJWT();
+    //get team members
+    const { data: teamMembers } = await api.fetchTeamMembersByTeamId(teamId);
 
-      const body = {
-        ghToken: accessToken,
-        teamPublications,
-        teamInfo,
-        teamMembers
-      };
+    const body = {
+      ghToken: accessToken,
+      teamPublications,
+      teamInfo,
+      teamMembers,
+    };
 
-      const response = await api.deployToGHPages(teamId, body);
-      console.log(response.data);
-      dispatch({
-        type: DEPLOY_SUCCESS,
-      }); 
-      dispatch(successMessageCreator('Deployed successfully'))
-    } catch (err) {
-      dispatch(errorActionGlobalCreator(err));
-      dispatch({
-        type: DEPLOY_FAIL,
-      });
-    }
-  };
+    const response = await api.deployToGHPages(teamId, body);
+    console.log(response.data);
+    dispatch({
+      type: DEPLOY_SUCCESS,
+    });
+    dispatch(successMessageCreator('Deployed successfully'));
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+    dispatch({
+      type: DEPLOY_FAIL,
+    });
+  }
+};
 
 /**
  * A function to allocates team data from back-end.
@@ -268,13 +269,13 @@ function teamDataAllocator(teamData) {
  */
 export const updateTeam = (teamId, teamData) => async (dispatch) => {
   try {
-    const { data } = await api.updateTeam(teamId, teamData)
+    const { data } = await api.updateTeam(teamId, teamData);
     const updatedTeam = teamDataAllocator(data);
     dispatch({
       type: UPDATE_TEAM,
       payload: updatedTeam,
     });
-    dispatch(successMessageCreator("Team has been updated"));
+    dispatch(successMessageCreator('Team has been updated'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
