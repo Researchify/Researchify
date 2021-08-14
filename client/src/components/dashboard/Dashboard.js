@@ -5,32 +5,33 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
-  Table,
   Button,
   Card,
   Modal,
   DropdownButton,
   Dropdown,
 } from 'react-bootstrap';
-import { BsPencilSquare } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
 import { addPage, deletePage } from '../../actions/website';
 import { availablePages as pages } from '../../config/clientWebsite';
 import toast from 'react-hot-toast';
+import Webpages from './webpage/Webpages';
+import DeployPage from './deploy/DeployPage';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const themePicked = useSelector((state) => state.team?.themeId ? true : false);
+  const themePicked = useSelector((state) =>
+    state.team?.themeId ? true : false
+  );
   const teamId = useSelector((state) => state.team.teamId);
   const currentWebPages = useSelector((state) => state.website.pages);
 
   // All our web-page offerings
   const availablePages = pages;
-
   // webpageOfferings = availablePages - currentWebPages
   const webpageOfferings = availablePages.filter(
     (page) => !currentWebPages.includes(page)
@@ -50,8 +51,7 @@ const Dashboard = () => {
     if (themePicked) {
       if (webpageOfferings.length === 0) {
         toast.success("You've already added all available web pages");
-      }
-      else {
+      } else {
         setAddModal(true);
       }
     } else {
@@ -72,11 +72,6 @@ const Dashboard = () => {
     setDisplayThemeModel(false);
     // Show modal to add web-page
     setAddModal(true);
-  };
-
-  const promptDeleteConfirmation = (pageName) => {
-    setSelectedPage(pageName);
-    showDeleteModal();
   };
 
   const directToAnotherPage = (pageName) => {
@@ -146,8 +141,8 @@ const Dashboard = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Deleting the page will NOT remove the data associated with
-          this page, but the page will not be shown on your website
+          Deleting the page will NOT remove the data associated with this page,
+          but the page will not be shown on your website
           <Modal.Footer className="p-0">
             <Button variant="secondary" onClick={closeDeleteModal}>
               Cancel
@@ -170,48 +165,16 @@ const Dashboard = () => {
             </Button>
           </Card.Header>
           <Card.Body>
-            <Table striped bordered hover>
-              {
-                // Display appropriate message when no webpage is added
-                currentWebPages.length === 0 ? (
-                  <thead>
-                    <tr>
-                      <th className="reduced-column tableHeading">
-                        No web-page added yet...
-                      </th>
-                    </tr>
-                  </thead>
-                ) : (
-                  ''
-                )
-              }
-              <tbody>
-                {currentWebPages.map((webPage, index) => (
-                  <tr key={index}>
-                    <td className="body">
-                      {webPage}
-                      <Button
-                        variant="outline-danger"
-                        className="action primary-danger float-right"
-                        onClick={() => promptDeleteConfirmation(webPage)}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="outline-success"
-                        className="action float-right mx-2"
-                        onClick={() => {
-                          directToAnotherPage(webPage);
-                        }}
-                      >
-                        <BsPencilSquare />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            <Webpages 
+              currentWebPages={currentWebPages} 
+              directToAnotherPage={directToAnotherPage} 
+              showDeleteModal={showDeleteModal}
+              setSelectedPage={setSelectedPage}
+            />
           </Card.Body>
+          <Card.Footer>
+            <DeployPage teamId={teamId}/>
+          </Card.Footer>
         </Card>
         <TemplateSelector
           teamId={teamId}

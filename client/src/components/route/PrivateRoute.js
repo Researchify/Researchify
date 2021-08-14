@@ -10,11 +10,10 @@ import Dashboard from '../dashboard/Dashboard';
 import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
 import PublicationPage from '../publications/PublicationPage';
 import TeamPage from '../teamPage/TeamPage';
-import DeployPage from '../deploy/DeployPage';
 
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
-import { signOut } from '../../actions/auth';
+import { logOut } from '../../actions/auth';
 
 const PrivateRoute = () => {
   const dispatch = useDispatch()
@@ -25,7 +24,7 @@ const PrivateRoute = () => {
     // if that the case, a sign out action need to be dispatched 
     if(!signInCookie){
       setTimeout(() => {
-        dispatch(signOut())
+        dispatch(logOut())
       }, 3000)
     }
   }, [dispatch, signInCookie])
@@ -44,7 +43,6 @@ const PrivateRoute = () => {
             component={PublicationPage}
           />
           <DashboardLayoutRoute path="/team" exact component={TeamPage} />
-          <DashboardLayoutRoute path="/deploy" exact component={DeployPage} />
           {/*  If login, any other route not stated above will be redirect dashbroad page */}
           <Redirect to="/dashboard"/> 
         </Switch> 

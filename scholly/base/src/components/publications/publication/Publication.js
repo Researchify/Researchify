@@ -1,101 +1,53 @@
 /**
  * The Publication component displays a single publication.
  */
-import React, {useState} from 'react';
-import {Button, Col, Row, Collapse} from 'react-bootstrap';
-import {BsLink45Deg} from 'react-icons/bs'
-import {GrLinkDown, GrLinkUp} from 'react-icons/gr'
-import {IconContext} from "react-icons"
-import '../publications.css'
+import React from 'react';
+import { Accordion, Card } from 'react-bootstrap';
 
+const Publication = ({ pub }) => {
+  return (
+    <Card className="publication-card">
+      <Accordion.Toggle
+        as={Card.Header}
+        eventKey={pub._id}
+        className="publication-title-column"
+      >
+        <div className="pub-category-above-title">{pub.category.type}</div>
+        <div className="publication-title"> {pub.title}</div>
+        <div className="pub-year-below-title"> {pub.yearPublished} </div>
+      </Accordion.Toggle>
+      <Accordion.Collapse eventKey={pub._id}>
+        <Card.Body className="publication-body-column">
+          <div className="pub-body-subheader">Authors</div>
+          <div className="pub-body-content">
+            {pub.authors.map((author) => `${author}`).join(', ')}
+          </div>
+          <div className="pub-body-subheader">Description</div>
+          <div className="pub-body-content pub-body-paragraph">
+            {pub.description}
+          </div>
+          <div className="pub-body-subheader">
+            {pub.category.categoryTitle
+              ? pub.category.type.charAt(0) +
+                pub.category.type.slice(1).toLowerCase()
+              : ''}
+          </div>
+          <div className="pub-body-content">
+            {pub.category.categoryTitle
+              ? pub.category.categoryTitle +
+                (pub.category.issue ? ', Issue ' + pub.category.issue : '') +
+                (pub.category.volume ? ', Volume ' + pub.category.volume : '') +
+                (pub.category.pages ? ', Page ' + pub.category.pages : '')
+              : ''}
+          </div>
+          <div className="pub-body-subheader">
+            {pub.category.publisher ? 'Published by' : null}
+          </div>
+          <div className="pub-body-content">{pub.category.publisher}</div>
+        </Card.Body>
+      </Accordion.Collapse>
+    </Card>
+  );
+};
 
-const Publication = ({pub}) => {
-    const [clicked, setClicked] = useState(false)
-
-    const displayUpArrow = () => {
-        return (
-            clicked &&
-            <IconContext.Provider value={{color: 'black', size: '25px'}}>
-                <GrLinkUp style={{marginLeft: '10px'}}/>
-            </IconContext.Provider>
-        )
-    }
-
-    const displayDownArrow = () => {
-        return (
-            !clicked &&
-            <IconContext.Provider value={{color: 'black', size: '25px'}}>
-                <GrLinkDown style={{marginLeft: '10px'}}/>
-            </IconContext.Provider>
-        )
-    }
-
-    const dropDown = (
-        <Collapse in={clicked}>
-            <div style={{marginLeft: '15px', marginRight: '10px', marginBottom: '15px'}}>
-                <h5>
-                    <b>Description:</b> {pub.description}
-                </h5>
-                <h5>
-                    <b>
-                        {pub.category.type.charAt(0) +
-                        pub.category.type.slice(1).toLowerCase()}:
-                    </b> {pub.category.categoryTitle}
-                </h5>
-
-                { pub.category.issue && (<h5> <b>Issue:</b> {pub.category.issue} </h5>) }
-                { pub.category.volume && (<h5> <b>Volume:</b> {pub.category.volume} </h5>) }
-                { pub.category.pages && (<h5><b>Pages:</b> {pub.category.pages} </h5>) }
-                { pub.category.publisher && (<h5> <b>Publisher:</b> {pub.category.publisher} </h5>) }
-                
-                <Row>
-                    <Col md={11}>
-                        {pub.link && (
-                            <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
-                                <IconContext.Provider value={{color: 'black', size: '25px'}}>
-                                    <BsLink45Deg/>
-                                </IconContext.Provider>
-                            </Button>
-                        )}
-                    </Col>
-                    <Col md={1}>
-                        <span onClick={() => setClicked(!clicked)}>
-                            {displayUpArrow()}
-                        </span>
-                    </Col>
-                </Row>
-            </div>
-        </Collapse>
-    )
-
-    return (
-        <>
-            <div className="modalHeader">
-                <Row>
-                    <Col md={11}>
-                        <h3 style={{marginLeft: '15px', marginTop: '15px'}}>
-                            {pub.title}
-                        </h3>
-                    </Col>
-                </Row>
-            </div>
-
-            <div style={{marginLeft: '15px'}} className={clicked ? "mt-3" : "mt-3 mb-2"}>
-                <h5><b> Authors: </b>{pub.authors.map((author) => `${author}`).join(', ')}</h5>
-                <Row>
-                    <Col md={11}>
-                        <h5 className={clicked ? "" : "blur"}><b>Year Published: </b>{pub.yearPublished} </h5>
-                    </Col>
-                    <Col md={1}>
-                        <span onClick={() => setClicked(!clicked)}>
-                            {displayDownArrow()}
-                        </span>
-                    </Col>
-                </Row>
-            </div>
-            {dropDown}
-        </>
-    )
-}
-
-export default Publication
+export default Publication;

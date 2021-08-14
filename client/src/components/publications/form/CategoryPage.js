@@ -15,6 +15,7 @@ import {
   ToggleButton,
 } from 'react-bootstrap';
 import { categoryType } from '../../../config/publications';
+import '../publications.css';
 
 const CategoryPage = ({ next, prev, data, closeModal }) => {
   const stepTwoValidationSchema = yup.object({
@@ -40,6 +41,16 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
       You will lose your progress
     </Tooltip>
   );
+
+  const placeholderText = {
+    'JOURNAL': 'Nature',
+    'CONFERENCE': '26th International Conference on Intelligent User Interfaces',
+    'BOOK': 'QED: Beauty in mathematical proof',
+    'Volume': '420',
+    'Issue': '6915',
+    'Pages': '476-476',
+    'Publisher': 'Nature Publishing Group'
+  }
 
   return (
     <>
@@ -88,16 +99,22 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label>
                 {' '}
-                {Object.keys(categoryType).find(
-                  (category) => category.toUpperCase() === values.category.type
-                )}{' '}
+                {Object.keys(categoryType)
+                  .filter(
+                    (category) =>
+                      category.toUpperCase() === values.category.type
+                  )
+                  .map((category, idx) => {
+                    return `${
+                      category.charAt(0) + category.slice(1).toLowerCase()
+                    } title`;
+                  })}{' '}
               </Form.Label>
               <Form.Control
+                className="placeholder-text"
                 type="text"
                 name="category.categoryTitle"
-                placeholder={Object.keys(categoryType).find(
-                  (category) => category.toUpperCase() === values.category.type
-                )}
+                placeholder={placeholderText[values.category.type]}
                 value={values.category.categoryTitle}
                 onChange={handleChange}
                 isInvalid={
@@ -115,9 +132,10 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label> Volume </Form.Label>
               <Form.Control
+                className="placeholder-text"
                 type="text"
                 name="category.volume"
-                placeholder="Volume"
+                placeholder={placeholderText['Volume']}
                 value={values.category.volume}
                 onChange={handleChange}
               />
@@ -126,9 +144,10 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label> Issue </Form.Label>
               <Form.Control
+                className="placeholder-text"
                 type="text"
                 name="category.issue"
-                placeholder="Issue"
+                placeholder={placeholderText['Issue']}
                 value={values.category.issue}
                 onChange={handleChange}
               />
@@ -137,9 +156,10 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label> Pages </Form.Label>
               <Form.Control
+                className="placeholder-text"
                 type="text"
                 name="category.pages"
-                placeholder="Pages"
+                placeholder={placeholderText['Pages']}
                 value={values.category.pages}
                 onChange={handleChange}
               />
@@ -148,9 +168,10 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label> Publisher </Form.Label>
               <Form.Control
+                className="placeholder-text"
                 type="text"
                 name="category.publisher"
-                placeholder="Publisher"
+                placeholder={placeholderText['Publisher']}
                 value={values.category.publisher}
                 onChange={handleChange}
               />
