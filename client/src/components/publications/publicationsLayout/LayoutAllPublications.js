@@ -13,8 +13,7 @@ const LayoutAllPublications = ({ teamPublications, pageSize }) => {
       <div className="publicationList">
       {
         currentData().map((pub) => (
-          <Publication pub={pub} key={pub._id} />
-        ))
+          <Publication pub={pub} key={pub._id} />))
       }
       </div>
       { pagination() }

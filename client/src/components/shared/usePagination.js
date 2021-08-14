@@ -37,13 +37,25 @@ const usePagination = ( data, itemPerPage ) => {
         return(
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Pagination> 
-                    <Pagination.Prev onClick={prevPage}/>
+                    <Pagination.Prev 
+                        onClick={prevPage} 
+                        disabled={currentPage === 1}
+                    />
                     {items} 
-                    <Pagination.Next onClick={nextPage}/>
+                    <Pagination.Next 
+                        onClick={nextPage} 
+                        disabled={currentPage === maxPage}
+                    />
                 </Pagination>
             </div>
         )
     }
+
+
+    console.log('max page', maxPage)
+    console.log('current page', currentPage)
+    console.log('current data length', currentData.length)
+
     return { currentData, pagination}
 }
 
