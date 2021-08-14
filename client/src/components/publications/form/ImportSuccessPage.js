@@ -14,52 +14,31 @@ import {
   Button,
   Tooltip,
   OverlayTrigger,
-  Pagination,
 } from 'react-bootstrap';
 import {
   IMPORT_CLEAR_STATE,
-  CHANGE_ACTIVE_PAGE,
-  UPDATE_PUBLICATIONS_TO_IMPORT,
+  UPDATE_PUBLICATIONS_TO_IMPORT
 } from '../../../actions/types';
 import { pageSize } from '../../../config/publications';
+import usePagination from '../../shared/usePagination';
 
 const ImportSuccessPage = ({ closeModal }) => {
+  const { publications, startFrom, gScholarId, reachedEnd, publicationsToImport } = useSelector((state) => state.importedPublications);
+
+  console.log(publications)
+
   const teamId = useSelector((state) => state.team.teamId);
-  const { 
-    publications,
-    startFrom, 
-    gScholarId, 
-    reachedEnd, 
-    activePage, 
-    totalPages, 
-    shownPublications, 
-    publicationsToImport 
-  } = useSelector((state) => state.importedPublications);
+  const { currentData, pagination } = usePagination(publications, pageSize)
+
+  console.log(currentData())
 
   const ConditionalWrapper = ({ condition, wrapper, children }) =>
     condition ? wrapper(children) : children;
 
-  const renderPagination = () => {
-    let pageItems = [];
-    console.log('render pagination ' + activePage);
-    for (let number = 1; number <= totalPages; number++) {
-      pageItems.push(
-        <Pagination.Item
-          key={number}
-          active={number === activePage}
-          onClick={(event) => handlePageClick(event)}
-        >
-          {number}
-        </Pagination.Item>
-      );
-    }
-    return pageItems;
-  };
-
   const dispatch = useDispatch();
 
   const checkPublication = (index) => {
-    const chosenPublication = shownPublications[index];
+    const chosenPublication = currentData()[index];
     const globalIndex = publications.indexOf(chosenPublication);
     let newCheckArray = publicationsToImport;
     newCheckArray[globalIndex] = !newCheckArray[globalIndex];
@@ -115,48 +94,9 @@ const ImportSuccessPage = ({ closeModal }) => {
     handleClose();
   };
 
-  const handlePageForward = () => {
-    dispatch({
-      type: CHANGE_ACTIVE_PAGE,
-      payload: {
-        activePage: activePage + 1,
-        shownPublications: publications.slice(
-          activePage * pageSize,
-          (activePage + 1) * pageSize
-        ),
-      },
-    });
-  };
-
-  const handlePageBack = () => {
-    dispatch({
-      type: CHANGE_ACTIVE_PAGE,
-      payload: {
-        activePage: activePage - 1,
-        shownPublications: publications.slice(
-          (activePage - 2) * pageSize,
-          (activePage - 1) * pageSize
-        ),
-      },
-    });
-  };
-
-  const handlePageClick = (event) => {
-    dispatch({
-      type: CHANGE_ACTIVE_PAGE,
-      payload: {
-        activePage: parseInt(event.target.text),
-        shownPublications: publications.slice(
-          (parseInt(event.target.text) - 1) * pageSize,
-          parseInt(event.target.text) * pageSize
-        ),
-      },
-    });
-  };
-
   return (
     <>
-      {shownPublications.map((pub, idx) => (
+      {currentData().map((pub, idx) => (
         <ImportedPublication
           key={idx}
           pub={pub}
@@ -166,17 +106,7 @@ const ImportSuccessPage = ({ closeModal }) => {
       ))}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {publications.length > 0 ? (
-          <Pagination size="sm">
-            <Pagination.Prev
-              onClick={handlePageBack}
-              disabled={activePage === 1}
-            />
-            {renderPagination()}
-            <Pagination.Next
-              onClick={handlePageForward}
-              disabled={activePage === totalPages}
-            />
-          </Pagination>
+          pagination()
         ) : (
           <h4>No publications retrieved so far...</h4>
         )}
@@ -219,8 +149,7 @@ const ImportSuccessPage = ({ closeModal }) => {
               onClick={handlePagination}
               style={reachedEnd ? { pointerEvents: 'none' } : {}}
             >
-              {' '}
-              Show more{' '}
+              Show more
             </Button>
           </div>
         </ConditionalWrapper>
@@ -248,8 +177,7 @@ const ImportSuccessPage = ({ closeModal }) => {
                 }
                 onClick={handleConfirmImport}
               >
-                {' '}
-                Import{' '}
+                Import
               </Button>
             </div>
           </ConditionalWrapper>

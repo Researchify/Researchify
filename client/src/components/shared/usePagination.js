@@ -51,12 +51,7 @@ const usePagination = ( data, itemPerPage ) => {
         )
     }
 
-
-    console.log('max page', maxPage)
-    console.log('current page', currentPage)
-    console.log('current data length', currentData.length)
-
-    return { currentData, pagination}
+    return { currentData, pagination }
 }
 
 export default usePagination
