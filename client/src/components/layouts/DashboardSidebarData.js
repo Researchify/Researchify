@@ -10,17 +10,14 @@ import {
   BsPeople,
   BsGearFill,
   BsFillQuestionCircleFill,
-  BsUpload,
   BsBoxArrowLeft,
 } from 'react-icons/bs';
-import { signOut } from '../../actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 /*
     List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const DashboardSidebarData = () => {
-  const dispatch = useDispatch();
+const DashboardSidebarData = ({setLogoutAlert}) => {
   const sidebarLinks = [
     {
       title: 'Dashboard',
@@ -45,11 +42,6 @@ const DashboardSidebarData = () => {
       name: 'TEAM',
     },
     {
-      title: 'Deploy Website',
-      icon: <BsUpload />,
-      link: '/deploy',
-    },
-    {
       title: 'Settings',
       icon: <BsGearFill />,
       link: '/dashboard/settings',
@@ -62,8 +54,7 @@ const DashboardSidebarData = () => {
     {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
-      link: '/',
-      action: () => dispatch(signOut()),
+      action: () => setLogoutAlert(true),
     },
   ];
 
