@@ -8,7 +8,6 @@ import {
   GET_GH_ACCESS_TOKEN,
   UPDATE_TEAM,
   TEAM_ERROR,
-  FETCH_TWITTER_INFO,
 } from '../actions/types';
 
 import { errorReducer } from '../notification/notificationReduxFunctions';
@@ -42,8 +41,6 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
         orgName: action.payload.orgName,
         twitterHandle: action.payload.twitterHandle,
       };
-    case FETCH_TWITTER_INFO:
-      return { ...state, twitterFetchLoading: true };
     case LINK_TEAM_TWITTER:
       return {
         ...state,

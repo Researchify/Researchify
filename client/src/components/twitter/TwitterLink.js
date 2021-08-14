@@ -14,7 +14,7 @@ import './TwitterLink.css';
 const TwitterLink = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
-  const [loadingState, setLoadingState] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   const validationSchema = yup.object({
     twitterHandle: yup
@@ -31,7 +31,7 @@ const TwitterLink = () => {
 
   const submitForm = (values) => {
     if (values.twitterHandle !== '') {
-      setLoadingState(true);
+      setisLoading(true);
     }
     dispatch(linkTwitter(teamId, values.twitterHandle));
   };
@@ -39,7 +39,7 @@ const TwitterLink = () => {
   return (
     <Jumbotron className="twitter-link">
       <h6 className="twitter-link_link_message">Link your Twitter account?</h6>
-      {loadingState ? (
+      {isLoading ? (
         <div className="mb-3 mt-3 text-center">
           <Spinner animation="border" />
         </div>
