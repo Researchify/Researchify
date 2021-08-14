@@ -23,19 +23,18 @@ import { pageSize } from '../../../config/publications';
 import usePagination from '../../shared/usePagination';
 
 const ImportSuccessPage = ({ closeModal }) => {
-  const { publications, startFrom, gScholarId, reachedEnd, publicationsToImport } = useSelector((state) => state.importedPublications);
-
-  console.log(publications)
-
   const teamId = useSelector((state) => state.team.teamId);
+  const dispatch = useDispatch();
+  const { 
+    publications, 
+    startFrom, 
+    gScholarId, 
+    reachedEnd, 
+    publicationsToImport } = useSelector((state) => state.importedPublications);
   const { currentData, pagination } = usePagination(publications, pageSize)
-
-  console.log(currentData())
 
   const ConditionalWrapper = ({ condition, wrapper, children }) =>
     condition ? wrapper(children) : children;
-
-  const dispatch = useDispatch();
 
   const checkPublication = (index) => {
     const chosenPublication = currentData()[index];
@@ -126,8 +125,7 @@ const ImportSuccessPage = ({ closeModal }) => {
               Cancel
             </Button>
           </OverlayTrigger>
-        </div>
-        
+        </div> 
         <ConditionalWrapper
           condition={reachedEnd}
           wrapper={(children) => (
