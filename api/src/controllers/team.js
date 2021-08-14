@@ -18,9 +18,6 @@ const { fillErrorObject } = require('../middleware/error');
 
 const bcrypt = require('bcrypt');
 
-const options = {
-  headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
-};
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
@@ -35,7 +32,7 @@ async function storeHandle(req, res, next) {
   const { twitterHandle: handle } = req.body;
   let foundTeam = req.foundTeam;
 
-  if (handle.length == 0) {
+  if (handle.length === 0) {
     // remove the handle from the doc
     foundTeam.twitterHandle = '';
   } else {
@@ -50,7 +47,11 @@ async function storeHandle(req, res, next) {
     } else {
       let response = await axios.get(
         'https://api.twitter.com/2/users/by/username/' + handle,
-        options
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
+          },
+        },
       );
       if (response.data.errors) {
         next(
