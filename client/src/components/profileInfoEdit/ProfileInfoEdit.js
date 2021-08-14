@@ -30,7 +30,9 @@ const ProfileInfoEdit = () => {
 
   const updateInputs = (form) => {
     const { name, value } = form.target;
-    setInputs({ ...profileData, [name]: value });
+    if (name !== "email"){
+      setInputs({ ...profileData, [name]: value });
+    }
   };
 
   const [validated, setValidated] = useState(false);
@@ -107,10 +109,10 @@ const ProfileInfoEdit = () => {
             <Form.Control
               className="placeholder-text"
               type="email"
+              readonly={"true"}
               placeholder="allenlab@gmail.com"
               name="email"
               defaultValue={profileData.email}
-              onChange={updateInputs}
               required
             />
           </Form.Group>
