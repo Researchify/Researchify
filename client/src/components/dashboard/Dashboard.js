@@ -21,7 +21,6 @@ import Webpages from './webpage/Webpages';
 import DeployPage from './deploy/DeployPage';
 
 const Dashboard = () => {
-  console.log('dashborad');
   const dispatch = useDispatch();
   const history = useHistory();
 
