@@ -45,11 +45,6 @@ const DashboardSidebarData = () => {
       name: 'TEAM',
     },
     {
-      title: 'Settings',
-      icon: <BsGearFill />,
-      link: '/dashboard/settings',
-    },
-    {
       title: 'Help',
       icon: <BsFillQuestionCircleFill />,
       link: '/dashboard/help',

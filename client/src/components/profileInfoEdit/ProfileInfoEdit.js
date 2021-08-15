@@ -18,21 +18,34 @@ import { updateTeam } from '../../actions/team';
 const ProfileInfoEdit = () => {
   const dispatch = useDispatch();
 
-  const { teamId, teamName, orgName, email } = useSelector(
+  const { teamId, teamName, orgName, email,password, confirmedPassword } = useSelector(
     (state) => state.team
   );
 
-  const [profileData, setInputs] = useState({ teamName, orgName, email });
+  const [profileData, setInputs] = useState({ teamName, orgName, email,password ,confirmedPassword});
 
   useEffect(() => {
-    setInputs({ teamName, orgName, email });
+    setInputs({ teamName, orgName, email,password,confirmedPassword  });
   }, [email, orgName, teamName]);
 
   const updateInputs = (form) => {
     const { name, value } = form.target;
-    if (name !== "email"){
+    if (name !== "email" ){
       setInputs({ ...profileData, [name]: value });
     }
+  };
+  const checkPassword = function(){
+    console.log({ ...profileData}.password);
+    if (! ({...profileData}.password == {...profileData}.confirmedPassword)){
+      return false;
+    }
+    var matches = {...profileData}.password.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)
+    if (matches == null){
+      console.log("false");
+      return false;
+    }
+    return true;
   };
 
   const [validated, setValidated] = useState(false);
@@ -42,7 +55,14 @@ const ProfileInfoEdit = () => {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      dispatch(updateTeam(teamId, profileData));
+      ;
+      if (checkPassword()){
+        var newdata = { "teamName":{...profileData}.teamName, "orgName":{...profileData}.orgName,"email" : {...profileData}.email}
+      }else{
+
+         var newdata = { "teamName":{...profileData}.teamName, "orgName":{...profileData}.orgName,"email" : {...profileData}.email,"password": {...profileData}.password,"confirmedPassword": {...profileData}.password}
+      }
+      dispatch(updateTeam(teamId, newdata));
     }
     setValidated(true);
   };
@@ -116,7 +136,30 @@ const ProfileInfoEdit = () => {
               required
             />
           </Form.Group>
+          <Form.Group>
+            <Form.Label> Password </Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={profileData.password}
+                onChange={updateInputs}
 
+              />
+
+          </Form.Group>
+           <Form.Group>
+            <Form.Label> Confirm Password </Form.Label>
+              <Form.Control
+                type="password"
+                name="confirmedPassword"
+                placeholder="Password"
+                value={profileData.confirmedPassword}
+                onChange={updateInputs}
+
+              />
+
+          </Form.Group>
           <div className="my-1">
             <Button
               id="updateButton"
