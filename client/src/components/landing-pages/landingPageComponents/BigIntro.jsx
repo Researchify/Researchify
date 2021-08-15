@@ -48,7 +48,7 @@ const Content = () => {
           </div>
         </Col>
         <Col lg={{size: 2}} >
-          <img src={IntroImage} width={370}/>
+          <img src={IntroImage} alt="man watching presentation" width={370}/>
         </Col>
       </Row>
     </div>

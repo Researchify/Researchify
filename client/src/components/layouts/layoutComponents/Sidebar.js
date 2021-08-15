@@ -12,7 +12,8 @@ const Sidebar = ({data}) => {
       <ul className="SidebarList">
         {data.map((val, key) => {
           return (
-            <Link to={val.link} key={key}>
+            // if the link property of a sidebar item is undenfined, stays in the current page
+            <Link to={val.link ? val.link : '#'} key={key}> 
               <li
                 className="row"
                 id={location.pathname === val.link ? 'active' : ''}

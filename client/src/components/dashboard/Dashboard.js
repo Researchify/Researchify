@@ -24,7 +24,9 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const themePicked = useSelector((state) => state.team?.themeId ? true : false);
+  const themePicked = useSelector((state) =>
+    state.team?.themeId ? true : false
+  );
   const teamId = useSelector((state) => state.team.teamId);
   const currentWebPages = useSelector((state) => state.website.pages);
 
@@ -49,8 +51,7 @@ const Dashboard = () => {
     if (themePicked) {
       if (webpageOfferings.length === 0) {
         toast.success("You've already added all available web pages");
-      }
-      else {
+      } else {
         setAddModal(true);
       }
     } else {
@@ -140,8 +141,8 @@ const Dashboard = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Deleting the page will NOT remove the data associated with
-          this page, but the page will not be shown on your website
+          Deleting the page will NOT remove the data associated with this page,
+          but the page will not be shown on your website
           <Modal.Footer className="p-0">
             <Button variant="secondary" onClick={closeDeleteModal}>
               Cancel
