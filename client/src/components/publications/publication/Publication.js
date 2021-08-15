@@ -43,8 +43,15 @@ const Publication = ({ pub }) => {
     setShowDeleteMessage(false);
   };
 
-  const displayOptions = (
-    <ButtonGroup>
+  const displayOptions = ({
+    placement,
+    scheduleUpdate,
+    arrowProps,
+    outOfBoundaries,
+    show,
+    ...props
+  }) => (
+    <ButtonGroup {...props}>
       <Button
         onClick={() => setShowUpdateForm(true)}
         variant="primary"
