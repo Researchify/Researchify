@@ -8,6 +8,7 @@ import LandingPage from './landingPage/LandingPage.js';
 import Header from './layout/Header.js';
 import TeamPage from './team/TeamPage.js';
 import './centred.css';
+import './darkColours.css';
 
 const App = () => {
   return (
