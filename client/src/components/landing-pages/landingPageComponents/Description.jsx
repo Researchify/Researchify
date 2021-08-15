@@ -19,7 +19,6 @@ const Description = () => {
     },
     golden: {
       color: "white",
-      background: "rgb(171,150,113)",
       background:
         "linear-gradient(200deg, rgba(171,150,113,1) 0%, rgba(118,99,64,1) 80%)"
     },
