@@ -22,9 +22,6 @@ const App = () => {
       <Header />
       <Switch>
         {routeItems}
-        {/* <Route exact path="/" component={LandingPage} />
-        <Route exact path="/publication" component={PublicationPage} />
-        <Route exact path="/team" component={TeamPage} /> */}
       </Switch>
     </Fragment>
   );
