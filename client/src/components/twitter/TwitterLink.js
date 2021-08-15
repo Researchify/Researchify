@@ -15,8 +15,6 @@ const TwitterLink = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
   const [isLoading, setIsLoading] = useState(false);
-  const error = useSelector((state) => state.notification.error);
-  const success = useSelector((state) => state.notification.success);
 
   const validationSchema = yup.object({
     twitterHandle: yup
