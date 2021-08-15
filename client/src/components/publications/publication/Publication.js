@@ -43,6 +43,8 @@ const Publication = ({ pub }) => {
     setShowDeleteMessage(false);
   };
 
+  // Parameters are to remove warning when button is clicked. 
+  // See PR#160 for more information.
   const displayOptions = ({
     placement,
     scheduleUpdate,
