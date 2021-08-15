@@ -13,6 +13,8 @@ import {
   OverlayTrigger,
   Form,
 } from 'react-bootstrap';
+import '../publications.css';
+
 
 const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
   const stepOneValidationSchema = yup.object({
@@ -56,8 +58,9 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
     return values.authors.map((author, index) => (
       <InputGroup key={index}>
         <Form.Control
+          className="placeholder-text"
           type="text"
-          placeholder="Author"
+          placeholder="John Smith"
           name={`authors[${index}]`}
           value={values.authors[index]}
           onChange={handleChange}
@@ -101,12 +104,13 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
         }) => (
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
-              <Form.Label>Title</Form.Label>
+              <Form.Label>Publication Title</Form.Label>
               <Form.Control
+                className="placeholder-text"
                 as="textarea"
                 row={2}
                 name="title"
-                placeholder="Title"
+                placeholder="A neural model for method name generation from functional description"
                 value={values.title}
                 onChange={handleChange}
                 isInvalid={touched.title && errors.title}
@@ -119,6 +123,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
             <Form.Group>
               <Form.Label>Published Year</Form.Label>
               <Form.Control
+                className="placeholder-text"
                 as="select"
                 type="text"
                 name="yearPublished"
@@ -151,10 +156,11 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
             <Form.Group>
               <Form.Label>Description</Form.Label>
               <Form.Control
+                className="placeholder-text"
                 as="textarea"
                 row={4}
                 name="description"
-                placeholder="Description"
+                placeholder="The names of software artifacts, e.g., method names, are important for software understanding and maintenance..."
                 value={values.description}
                 onChange={handleChange}
                 isInvalid={touched.description && errors.description}
@@ -165,11 +171,12 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>link</Form.Label>
+              <Form.Label>Link</Form.Label>
               <Form.Control
+                className="placeholder-text"
                 type="text"
                 name="link"
-                placeholder="link"
+                placeholder="https://ieeexplore.ieee.org/abstract/document/8667994/"
                 value={values.link}
                 onChange={handleChange}
                 isInvalid={touched.link && errors.link}

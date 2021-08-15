@@ -58,9 +58,10 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
           <Form.Group>
             <Form.Label>Full Name</Form.Label>
             <Form.Control
+              className="placeholder-text"
               type="text"
               name="fullName"
-              placeholder="Full Name"
+              placeholder="John Smith"
               value={values.fullName}
               onChange={handleChange}
               isInvalid={touched.fullName && errors.fullName}
@@ -73,9 +74,10 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
           <Form.Group>
             <Form.Label>Position</Form.Label>
             <Form.Control
+              className="placeholder-text"
               type="text"
               name="position"
-              placeholder="Position"
+              placeholder="Associated Professor"
               value={values.position}
               onChange={handleChange}
               isInvalid={touched.position && errors.position}
@@ -88,6 +90,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
           <Form.Group>
             <Form.Label>Summary</Form.Label>
             <Form.Control
+              className="placeholder-text"
               as="textarea"
               row={5}
               name="summary"
