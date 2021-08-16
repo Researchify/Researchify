@@ -3,7 +3,14 @@
  */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Button, Card, Image } from 'react-bootstrap';
+import {
+  Container,
+  Button,
+  Card,
+  Image,
+  Tooltip,
+  OverlayTrigger,
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
@@ -15,6 +22,7 @@ import defaultTheme from '../../images/theme1.png';
 import WebpageSelector from './webpage/WebpageSelector';
 import fShapeLayout from '../../images/f-shape-layout.png';
 import { availablePages } from '../../config/clientWebsite';
+import ConditionalWrapper from '../shared/ConditionalWrapper';
 
 const Dashboard = () => {
   const history = useHistory();
@@ -35,9 +43,7 @@ const Dashboard = () => {
   // Display pop up window for selecting a theme
   const [displayThemeModal, setDisplayThemeModel] = useState(false);
   const showThemeModal = () => setDisplayThemeModel(true);
-  const closeThemeModal = () => {
-    setDisplayThemeModel(false);
-  };
+  const closeThemeModal = () => setDisplayThemeModel(false);
 
   const [disableAddButton, setDisableAddButton] = useState(false);
 
@@ -58,7 +64,13 @@ const Dashboard = () => {
     } else {
       setDisableAddButton(false);
     }
-  });
+  }, [currentWebPages]);
+
+  const renderDisableAddButtonTooltip = () => (
+    <Tooltip id="button-tooltip">
+      All available pages have been added
+    </Tooltip>
+  );
 
   return (
     <main>
@@ -66,13 +78,28 @@ const Dashboard = () => {
         <Card className="text-left" id="table">
           <Card.Header className="heading1">
             Web Pages
-            <Button
-              onClick={showDisplayPageModal}
-              disabled={disableAddButton}
-              className="float-right btn btn-primary cardButton buttonPrimary"
+            {/* TODO: tooltip isn't showing in the right place */}
+            <ConditionalWrapper
+              condition={disableAddButton}
+              wrapper={(children) => (
+                <OverlayTrigger
+                  placement="top"
+                  overlay={renderDisableAddButtonTooltip}
+                >
+                  {children}
+                </OverlayTrigger>
+              )}
             >
-              Add
-            </Button>
+              <div style={{ display: 'inline-block', cursor: 'not-allowed', float: 'right' }}>
+                <Button
+                  onClick={showDisplayPageModal}
+                  disabled={disableAddButton}
+                  style={disableAddButton ? { pointerEvents: 'none' } : {}}
+                >
+                  Add
+                </Button>
+              </div>
+            </ConditionalWrapper>
           </Card.Header>
           <Card.Body>
             <Webpages
