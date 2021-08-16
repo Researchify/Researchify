@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { addPage, deletePage } from '../../../actions/website';
+import { addPage } from '../../../actions/website';
 import { availablePages as pages } from '../../../config/clientWebsite';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
-  Container,
   Button,
-  Card,
   Modal,
   DropdownButton,
   Dropdown,
-  Image,
 } from 'react-bootstrap';
 
 const WebpageSelector = (props) => {
@@ -24,25 +21,8 @@ const WebpageSelector = (props) => {
 
   const [selectedPage, setSelectedPage] = useState(pagePlaceholder);
 
-
   // To control disabling the 'Next' Button in the pop-up
   const [displayButton, setDisplayButton] = useState(true);
-
-  // Display pop up window for Adding a page
-  const [displayAddModal, setAddModal] = useState(false);
-
-  //   const directToAnotherPage = (pageName) => {
-  //     if (pageName === 'PUBLICATIONS') {
-  //       history.push(`/publications`);
-  //     } else if (pageName === 'TEAM') {
-  //       history.push(`/team`);
-  //     }
-  //   };
-
-  const [displayDeleteModal, setDeleteModal] = useState(false);
-
-  const showDeleteModal = () => setDeleteModal(true);
-  const closeDeleteModal = () => setDeleteModal(false);
 
   const handlePageSelection = (e) => {
     setSelectedPage(e);

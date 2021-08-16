@@ -7,9 +7,6 @@ import {
   Container,
   Button,
   Card,
-  Modal,
-  DropdownButton,
-  Dropdown,
   Image,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,10 +19,8 @@ import DeployPage from './deploy/DeployPage';
 import defaultTheme from '../../images/theme1.png';
 import WebpageSelector from './webpage/WebpageSelector';
 import fShapeLayout from '../../images/f-shape-layout.png';
-import WebpageDelete from './webpage/WebpageDelete';
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
 
   const history = useHistory();
 
@@ -41,20 +36,12 @@ const Dashboard = () => {
   const [displayPageModal, setDisplayPageModal] = useState(false);
   const showDisplayPageModal = () => setDisplayPageModal(true);
   const closeDisplayPageModal = () => setDisplayPageModal(false);
-  console.log(displayPageModal);
-
-  // Display pop up window for Deleting a page
-  // const [displayDeleteModal, setDeleteModal] = useState(false);
-  // const showDeleteModal = () => {console.log(displayDeleteModal); setDeleteModal(true); console.log(displayDeleteModal);};
-  // const closeDeleteModal = () => setDeleteModal(false);
 
   // Display pop up window for selecting a theme
   const [displayThemeModal, setDisplayThemeModel] = useState(false);
   const showThemeModal = () => setDisplayThemeModel(true);
   const closeThemeModal = () => {
     setDisplayThemeModel(false);
-    // Show modal to add web-page
-    // setAddModal(true);
   };
 
   const directToAnotherPage = (pageName) => {

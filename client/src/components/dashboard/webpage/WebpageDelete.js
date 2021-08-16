@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { addPage, deletePage } from '../../../actions/website';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { deletePage } from '../../../actions/website';
+import { useDispatch } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap';
 
 const WebpageDelete = (props) => {
@@ -8,7 +8,6 @@ const WebpageDelete = (props) => {
 
   const handleDelete = () => {
     dispatch(deletePage(props.teamId, props.selectedPage));
-    // console.log('delete');
     props.setSelectedPage(props.pagePlaceholder);
     props.closeModal();
   };
