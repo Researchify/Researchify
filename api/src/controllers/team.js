@@ -3,20 +3,17 @@
  * @module team
  */
 const axios = require('axios');
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const logger = require('winston');
 
 const Team = require('../models/team.model');
-
-const mongoose = require('mongoose');
-
 const {
-  githubAccessTokenUrlStart,
-  githubAccessTokenUrlEnd,
+  githubClientId,
+  githubClientSecret,
   schollyHost,
 } = require('../config/deploy');
-
 const { fillErrorObject } = require('../middleware/error');
-
-const bcrypt = require('bcrypt');
 
 
 /**
@@ -182,42 +179,76 @@ function updateTeamMember(req, res, next) {
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
-async function getGHAccessToken(req, res) {
-  const code = req.params.code;
-  console.log(req.params.code);
+/**
+ * Handles a GET request on /:team_id/gh_auth/:code to exchange a GitHub
+ * temporary code acquired during the first step of the GitHub OAuth flow with a
+ * GitHub access token.
+ *
+ * @see:
+ * https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
+ *
+ * @param req request object
+ * @param res  response object
+ * @param next handler to the next middleware
+ * @returns 200 if the code was successfully exchanged for an access token
+ * @returns 400 if the exchange was unsuccessful
+ */
+async function getGHAccessToken(req, res, next) {
+  const { code } = req.params;
 
-  const response = await axios({
-    url: githubAccessTokenUrlStart + code + githubAccessTokenUrlEnd,
-    method: 'post',
-    headers: { Accept: 'application/json' },
-  });
-  console.log(response.data);
-
-  if (response.data.error) {
-    return res.status(400).json(response.data);
+  const { data } = await axios.post(
+    'https://github.com/login/oauth/access_token', null, {
+      headers: {
+        'Accept': 'application/json',
+      },
+      params: {
+        client_id: githubClientId,
+        client_secret: githubClientSecret,
+        code,
+      },
+    });
+  if (data.error) {
+    return next(fillErrorObject(400,
+      'Failed to exchange GitHub temporary code for GitHub Access Token.',
+      [data]));
   }
-
-  return res.status(200).json(response.data);
+  return res.status(200).json(data);
 }
 
+/**
+ * Handles a POST request on /:team_id/deploy to deploy a client's website
+ * by delegating to the Scholly service.
+ *
+ * @see:
+ * https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
+ *
+ * @param req request object, containing in the body the GitHub token from the
+ *     OAuth flow, and the necessary data needed by Scholly
+ * @param res response object
+ * @param next handler to the next middleware
+ * @returns 200 if the deployment was successful
+ * @returns 400 if the GitHub username could not be fetched using the token
+ * @returns 500 if Scholly was unable to deploy the website
+ */
 async function deployToGHPages(req, res, next) {
-  const teamId = req.params.team_id;
+  const { team_id: teamId } = req.params;
   const { ghToken, teamPublications, teamInfo, teamMembers } = req.body;
 
-  // call github API to get username
-  const response = await axios.get('https://api.github.com/user', {
+  // Call github API to get username.
+  const { data } = await axios.get('https://api.github.com/user', {
     headers: { Authorization: 'token ' + ghToken },
   });
-
-  if (response.data.errors) {
+  if (data.errors) {
     return next(
-      fillErrorObject(400, 'Validation error', [response.data.errors[0].detail])
+      fillErrorObject(400, 'Validation error', [data.errors[0].detail])
     );
   }
 
-  const ghUsername = response.data.login;
-  console.log(ghUsername);
+  const ghUsername = data.login;
+  logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
 
+  // TODO: ideally this data should be fetched by us, and we should not expect
+  //  the client to provide it.
   const body = {
     ghUsername,
     ghToken,
@@ -226,14 +257,15 @@ async function deployToGHPages(req, res, next) {
     teamMembers,
   };
 
-  await axios
-    .post(`${schollyHost}/deploy/${teamId}`, body)
-    .then(() => res.status(200).json('Successfully deployed'))
-    .catch(() =>
-      next(
-        fillErrorObject(500, 'Server error', ['Error occurred with scholly'])
-      )
+  try {
+    await axios.post(`${schollyHost}/deploy/${teamId}`, body);
+    logger.info(`GitHub deploy succeeded for user: ${ghUsername}`);
+    return res.status(200).json('Successfully deployed');
+  } catch (err) {
+    return next(
+      fillErrorObject(500, 'Error occurred with scholly', [err.message]),
     );
+  }
 }
 
 /**

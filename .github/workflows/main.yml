@@ -80,6 +80,13 @@ jobs:
           file: ./nginx/Dockerfile
           push: true
           tags: ak1738/researchify-nginx:latest
+      - name: Push Scholly Image to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./scholly
+          file: ./scholly/Dockerfile
+          push: true
+          tags: ak1738/researchify-scholly:latest
   deploy:
     name: Deploy to AWS Elastic Beanstalk
     needs:

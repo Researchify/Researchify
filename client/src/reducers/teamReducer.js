@@ -21,6 +21,7 @@ const INITIAL_TEAM_STATE = {
   themeId: '',
   repoCreated: false,
   error: null,
+  retrievedAccessToken: false,
 };
 
 /**
