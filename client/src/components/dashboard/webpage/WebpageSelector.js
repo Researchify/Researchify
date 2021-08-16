@@ -50,6 +50,7 @@ const WebpageSelector = (props) => {
   };
 
   const handleSubmit = () => {
+      dispatch(addPage(props.teamId, selectedPage));
       props.closeModal();
   }
   return (

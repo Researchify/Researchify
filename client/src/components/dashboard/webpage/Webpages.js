@@ -28,6 +28,7 @@ const Webpages = ({
         selectedPage={selectedPage}
         displayModal={displayDeleteModal}
         closeModal={closeDeleteModal}
+        setSelectedPage={setSelectedPage}
       />
       <Table striped bordered hover>
         {

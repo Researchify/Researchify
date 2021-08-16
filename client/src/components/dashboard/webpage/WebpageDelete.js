@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { addPage, deletePage } from '../../../actions/website';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Button,
-  Modal,
-} from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 const WebpageDelete = (props) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    // dispatch(deletePage(props.teamId, props.selectedPage));
-    console.log('delete');
-    // setDeleteModal(false);
-    // setSelectedPage(pagePlaceholder);
+    dispatch(deletePage(props.teamId, props.selectedPage));
+    // console.log('delete');
+    props.setSelectedPage(props.pagePlaceholder);
+    props.closeModal();
+  };
+
+  const handleClose = () => {
+    props.closeModal();
   };
 
   return (
@@ -33,7 +34,7 @@ const WebpageDelete = (props) => {
           Deleting the page will NOT remove the data associated with this page,
           but the page will not be shown on your website
           <Modal.Footer className="p-0">
-            <Button variant="secondary" onClick={props.closeModal()}>
+            <Button variant="secondary" onClick={handleClose}>
               Cancel
             </Button>
             <Button variant="danger" onClick={handleDelete}>

@@ -41,6 +41,7 @@ const Dashboard = () => {
   const [displayPageModal, setDisplayPageModal] = useState(false);
   const showDisplayPageModal = () => setDisplayPageModal(true);
   const closeDisplayPageModal = () => setDisplayPageModal(false);
+  console.log(displayPageModal);
 
   // Display pop up window for Deleting a page
   // const [displayDeleteModal, setDeleteModal] = useState(false);
