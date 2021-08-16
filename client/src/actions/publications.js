@@ -162,8 +162,7 @@ export const importPublications =
       }
     } catch (error) {
       dispatch({
-        type: IMPORT_FAIL,
-        payload: error.response.data,
+        type: IMPORT_FAIL
       });
       dispatch(errorActionGlobalCreator(error));
     }
