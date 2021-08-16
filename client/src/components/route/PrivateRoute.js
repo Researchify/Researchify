@@ -13,7 +13,7 @@ import TeamPage from '../teamPage/TeamPage';
 
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
-import { signOut } from '../../actions/auth';
+import { logOut } from '../../actions/auth';
 
 const PrivateRoute = () => {
   const dispatch = useDispatch()
@@ -24,7 +24,7 @@ const PrivateRoute = () => {
     // if that the case, a sign out action need to be dispatched 
     if(!signInCookie){
       setTimeout(() => {
-        dispatch(signOut())
+        dispatch(logOut())
       }, 3000)
     }
   }, [dispatch, signInCookie])

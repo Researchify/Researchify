@@ -15,21 +15,21 @@ import PublicRoute from './route/PublicRoute';
 import { authorizeJWT } from '../actions/auth';
 
 const App = () => {
-  const { signIn } = useSelector(state => state.auth);
+  const { logIn } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(signIn){
+    if(logIn){
       dispatch(authorizeJWT())
     }
-  }, [dispatch, signIn]);
+  }, [dispatch, logIn]);
 
   return (
     <Fragment>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
       <NotificationToaster/>
-        { signIn ? <PrivateRoute /> : <PublicRoute /> }
+        { logIn ? <PrivateRoute /> : <PublicRoute /> }
       </BrowserRouter>
     </Fragment>
   );

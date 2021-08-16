@@ -43,8 +43,17 @@ const Publication = ({ pub }) => {
     setShowDeleteMessage(false);
   };
 
-  const displayOptions = (
-    <ButtonGroup>
+  // Parameters are to remove warning when button is clicked. 
+  // See PR#160 for more information.
+  const displayOptions = ({
+    placement,
+    scheduleUpdate,
+    arrowProps,
+    outOfBoundaries,
+    show,
+    ...props
+  }) => (
+    <ButtonGroup {...props}>
       <Button
         onClick={() => setShowUpdateForm(true)}
         variant="primary"
