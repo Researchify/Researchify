@@ -6,7 +6,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Login.css';
-import { signIn } from '../../actions/auth';
+import { login } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 
 /** 
@@ -34,7 +34,7 @@ export default function Login() {
       event.stopPropagation();
     }
     setValidated(true);
-    dispatch(signIn(inputs))
+    dispatch(login(inputs))
   };
 
   return (
