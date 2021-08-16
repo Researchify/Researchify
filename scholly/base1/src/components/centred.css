@@ -167,3 +167,21 @@
   align-content: center;
   justify-content: center;
 }
+
+.award-name {
+  text-align: center;
+  font-weight: 600;
+  font-size: large;
+}
+
+.award-position {
+  text-align: center;
+  font-weight: 450;
+  font-size: small;
+}
+
+.award-summary {
+  padding-top: 15px;
+  text-align: justify;
+  text-indent: 5%;
+}
