@@ -36,7 +36,7 @@ async function storeHandle(req, res, next) {
     // update the handle
     // validate the handle by getting user id
     if (!process.env.TWITTER_BEARER_TOKEN) {
-      next(
+      return next(
         fillErrorObject(500, 'Missing environment variable', [
           'No Twitter API Bearer Token found in .env file',
         ])
@@ -51,7 +51,7 @@ async function storeHandle(req, res, next) {
         },
       );
       if (response.data.errors) {
-        next(
+        return next(
           fillErrorObject(400, 'Validation error', [
             response.data.errors[0].detail,
           ])
@@ -59,30 +59,32 @@ async function storeHandle(req, res, next) {
       } else {
         foundTeam.twitterHandle = handle;
       }
-      foundTeam
-        .save()
-        .then(() => res.status(200).json(foundTeam))
-        .catch((err) =>
-          next(fillErrorObject(500, 'Server error', [err.errors]))
-        );
     }
+  }
+
+  try {
+    foundTeam.save();
+    res.status(200).json(foundTeam);
+  } catch (err) {
+    next(fillErrorObject(500, 'Server error', [err.errors]));
   }
 }
 
 /**
  * Gets the team info
  * @param {*} req request object contains the teamId decoded in auth middleware
- * @param {*} res response object, the team related info 
- * @returns 200: the team related info  
+ * @param {*} res response object, the team related info
+ * @returns 200: the team related info
  */
 function getTeam(req, res, next) {
-  Team.findById(req.team._id).select('_id teamName orgName email twitterHandle')
-  .then((foundTeam) => {
-    if (foundTeam) {
-      return res.status(200).send(foundTeam);
-    }
-  })
-  .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+  Team.findById(req.team._id)
+    .select('_id teamName orgName email twitterHandle')
+    .then((foundTeam) => {
+      if (foundTeam) {
+        return res.status(200).send(foundTeam);
+      }
+    })
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
@@ -92,17 +94,21 @@ function getTeam(req, res, next) {
  * @returns 201: returns updated team details
  */
 async function createTeam(req, res, next) {
-  const foundTeam = await Team.findOne({ email: req.body.email })
+  const foundTeam = await Team.findOne({ email: req.body.email });
   if (foundTeam) {
-    return next(fillErrorObject(400, 'Duplicate email error', ['Email had been registered']))
+    return next(
+      fillErrorObject(400, 'Duplicate email error', [
+        'Email had been registered',
+      ])
+    );
   }
-  const salt = await bcrypt.genSalt()
-  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const hashedTeam = { ...req.body, password: hashedPassword };
-  const createdTeam = await Team.create(hashedTeam)
+  const createdTeam = await Team.create(hashedTeam);
   // remove sensitive data
-  delete createTeam.password
-  return res.status(201).json(createdTeam)
+  delete createTeam.password;
+  return res.status(201).json(createdTeam);
 }
 
 /**
@@ -283,8 +289,8 @@ async function updateTeam(req, res, next) { // eslint-disable-line no-unused-var
   const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
     new: true,
     runValidators: true,
-  })
-  res.status(200).json(updatedTeam)
+  });
+  res.status(200).json(updatedTeam);
 }
 
 module.exports = {

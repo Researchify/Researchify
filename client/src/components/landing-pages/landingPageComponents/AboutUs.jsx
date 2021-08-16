@@ -129,7 +129,7 @@ const AboutUs = (props) => {
             <Box fontSize="h3.fontSize">Meet our Team</Box>
             <Box color="black" fontSize="p.fontSize">
               <p>
-              Uundergraduate students from Monash University collaborating under the supervision of our mentor to provide Researchers with a tool to create their own website.
+              Undergraduate students from Monash University collaborating under the supervision of our mentor to provide researchers with a tool to create their own website.
               </p>
             </Box>
           </TabPanel>

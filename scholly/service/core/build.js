@@ -11,7 +11,7 @@ const which = require('which');
 const {
   REACT_APP_TEAM_INFO,
   REACT_APP_TEAM_PUBLICATIONS,
-  REACT_APP_TEAM_MEMBERS
+  REACT_APP_TEAM_MEMBERS,
 } = require('./data');
 
 const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
