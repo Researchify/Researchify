@@ -42,7 +42,7 @@ async function storeHandle(req, res, next) {
     // update the handle
     // validate the handle by getting user id
     if (!process.env.TWITTER_BEARER_TOKEN) {
-      next(
+      return next(
         fillErrorObject(500, 'Missing environment variable', [
           'No Twitter API Bearer Token found in .env file',
         ])
@@ -53,7 +53,7 @@ async function storeHandle(req, res, next) {
         options
       );
       if (response.data.errors) {
-        next(
+        return next(
           fillErrorObject(400, 'Validation error', [
             response.data.errors[0].detail,
           ])
@@ -61,13 +61,14 @@ async function storeHandle(req, res, next) {
       } else {
         foundTeam.twitterHandle = handle;
       }
-      foundTeam
-        .save()
-        .then(() => res.status(200).json(foundTeam))
-        .catch((err) =>
-          next(fillErrorObject(500, 'Server error', [err.errors]))
-        );
     }
+  }
+
+  try {
+    foundTeam.save();
+    res.status(200).json(foundTeam);
+  } catch (err) {
+    next(fillErrorObject(500, 'Server error', [err.errors]));
   }
 }
 
