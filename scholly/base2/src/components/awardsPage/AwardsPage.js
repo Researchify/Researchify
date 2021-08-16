@@ -15,13 +15,14 @@ const AwardsPage = () => {
       </Container>
       <Container fluid className="team-card-container">
         <CardDeck className="team-card-deck">
-          {teamAwards.map((award, i) => (
-            <Awards style={{display: "flex", flexDirection: i % 2 === 0 ? "row" : "row-reverse"}} award={award} key={award._id} />
+          {teamAwards.map((award) => (
+            <Awards award={award} key={award._id}  />
           ))}
         </CardDeck>
       </Container>
     </Fragment>
   );
 };
+
 
 export default AwardsPage;

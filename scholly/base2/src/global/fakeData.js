@@ -178,24 +178,24 @@ export const FAKE_TEAM_AWARDS = [
     fullName: 'John',
     position: 'Chief Scientist',
     summary:
-      'Best Scientist',
+      'I just wrote this because i needed a big sentence to be displayed. I just wrote this because i needed a big sentence to be displayed. I just wrote this because i needed a big sentence to be displayed.',
   },
   {
     fullName: 'Yoshua Benjio',
     position: 'Chief Data Scientist',
     summary:
-      'Best Researcher',
+      'I just wrote this because i needed a big sentence to be displayed. I just wrote this because i needed a big sentence to be displayed. I just wrote this because i needed a big sentence to be displayed.',
   },
   {
     fullName: 'Jeremy Buffet',
     position: 'Chief Economist',
     summary:
-      'Best Debugging',
+      'I just wrote this because i needed a big sentence to be displayed. I just wrote this because i needed a big sentence to be displayed. I just wrote this because i needed a big sentence to be displayed.',
   },
   {
     fullName: 'Jeremy Buffet',
     position: 'Chief Economist',
     summary:
-      'Best Debugging',
+      'I just wrote this because i needed a big sentence to be displayed. I just wrote this because i needed a big sentence to be displayed. I just wrote this because i needed a big sentence to be displayed.',
   },
 ];

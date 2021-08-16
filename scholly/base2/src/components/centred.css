@@ -152,17 +152,40 @@
 
 .team-card-container {
   padding-top: 12px;
-  padding-left: 50px;
+  padding-left: 100px;
   padding-right: 50px;
 }
 
 .team-card {
   border: transparent;
   min-width: 210px;
-  max-width: 210px;
+  max-height: 210px;
 }
 
 .team-card-deck {
   align-content: center;
   justify-content: center;
+  display: block;
+
+
+}
+
+
+.award-name {
+  text-align: center;
+  font-weight: 600;
+  font-size: large;
+}
+
+.award-position {
+  text-align: center;
+  font-weight: 450;
+  font-size: small;
+}
+
+.award-summary {
+  padding-top: 15px;
+  text-align: justify;
+
+
 }

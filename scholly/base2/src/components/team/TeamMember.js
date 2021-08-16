@@ -5,11 +5,13 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
 import profilePicture from '../../images/profilepic.jpg';
+import { TEAM_MEMBERS } from '../../global/data';
+const teamMembers = TEAM_MEMBERS;
 
 const TeamMember = ({member}) => {
   return (
-    <Card className="team-card">
-      <Card.Img variant="top" src={profilePicture} />
+    <Card style={{display: "flex", flexDirection: teamMembers.indexOf(member) % 2 === 0 ? "row" : "row-reverse"}} className="team-card">
+      <Card.Img style={{width: "210px"}} variant="top" src={profilePicture} />
       <Card.Body>
       <div className="member-name">{member.fullName}</div>
       <div className="member-position">{member.position}</div>

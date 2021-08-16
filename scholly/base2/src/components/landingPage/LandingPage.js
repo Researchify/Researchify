@@ -3,11 +3,13 @@
  */
 import React, { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
+import profilePicture from '../../images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
 
 const landingPage = () => {
   return (
     <Fragment>
       <Container fluid className="pages-top-padding">
+        <img src={profilePicture}  className="left" />
         <div className="landing-center-title">About Us</div>
         <div className="landing-center-content">
           Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere

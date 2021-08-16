@@ -4,12 +4,15 @@
 
 import React from 'react';
 import {Card} from 'react-bootstrap';
+import { TEAM_AWARDS } from '../../global/data';
 import profilePicture from '../../images/awardpic.jpg';
+
+const teamAwards = TEAM_AWARDS;
 
 const Awards = ({award}) => {
   return (
-    <Card className="team-card">
-      <Card.Img variant="top" src={profilePicture} />
+    <Card style={{display: "flex", flexDirection: teamAwards.indexOf(award) % 2 === 0 ? "row" : "row-reverse"}} className="team-card">
+      <Card.Img style={{width: "210px"}} variant="top" src={profilePicture} />
       <Card.Body>
         <div className="award-name">{award.fullName}</div>
         <div className="award-position">{award.position}</div>
