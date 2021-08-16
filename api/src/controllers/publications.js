@@ -10,7 +10,7 @@ const Team = require('../models/team.model');
 
 const logger = require('winston');
 
-const { firefox } = require('playwright');
+const { chromium } = require('playwright');
 
 const { playwrightConfig, categoryType } = require('../config/playwright');
 
@@ -166,7 +166,7 @@ async function getGoogleScholarPublications(req, res) {
     reachedEnd: false,
   };
 
-  const browser = await firefox.launch();
+  const browser = await chromium.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(url);
@@ -218,7 +218,7 @@ async function getGoogleScholarPublications(req, res) {
  */
 async function scrapeGoogleScholar(url) {
   logger.info(`Publication url: ${playwrightConfig.gScholarHome + url}`);
-  const browser = await firefox.launch();
+  const browser = await chromium.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(playwrightConfig.gScholarHome + url);
