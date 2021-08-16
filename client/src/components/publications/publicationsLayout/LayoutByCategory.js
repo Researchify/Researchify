@@ -18,7 +18,7 @@ const LayoutByCategory = ({ teamPublications }) => {
           <LayoutAllPublications 
             teamPublications={publicationsByCategory} 
             pageSize={categoryPageSize}
-          />;
+          />
         </>
       )
     );
