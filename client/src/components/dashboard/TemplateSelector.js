@@ -9,7 +9,7 @@ import { updateTeamTheme } from '../../actions/team';
 import toast from 'react-hot-toast';
 
 // Picture of each layout
-import singleColumnLayout from '../../images/single-column-layout.png';
+import singleColumnLayout from '../../images/theme1.png';
 import fShapeLayout from '../../images/f-shape-layout.png';
 import zigZagLayout from '../../images/zig-zag-layout.png';
 
