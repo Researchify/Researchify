@@ -1,6 +1,6 @@
 /**
  * This file stores the link data for Scholly (client) header
-*/
+ */
 
 
 const HeaderData = () => {
@@ -16,6 +16,10 @@ const HeaderData = () => {
     {
       title: 'Team Members',
       link: '/team',
+    },
+    {
+      title: 'Awards',
+      link: '/awardsPage',
     },
   ];
 };

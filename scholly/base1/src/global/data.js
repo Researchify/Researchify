@@ -10,12 +10,14 @@ import {
   FAKE_PUBLICATIONS,
   FAKE_TEAM_INFO,
   FAKE_TEAM_MEMBERS,
+  FAKE_TEAM_AWARDS,
 } from './fakeData';
 
 const env = process.env;
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
+let TEAM_AWARDS;
 
 if (!env.REACT_APP_DEBUG) {
   /// The list of publications the team has created for rendering in the publications page
@@ -32,6 +34,11 @@ if (!env.REACT_APP_DEBUG) {
   TEAM_MEMBERS = env.REACT_APP_TEAM_MEMBERS
     ? JSON.parse(env.REACT_APP_TEAM_MEMBERS)
     : [];
+
+  /// The list of team awards the team has created for rendering in the team awards page
+  TEAM_AWARDS = env.REACT_APP_TEAM_AWARDS
+    ? JSON.parse(env.REACT_APP_TEAM_AWARDS)
+    : [];
 } else {
   console.log('Running in DEBUG mode, hence using fake Team data');
   // Running client website locally, so use fake data
@@ -40,6 +47,8 @@ if (!env.REACT_APP_DEBUG) {
   TEAM_INFO = FAKE_TEAM_INFO;
 
   TEAM_MEMBERS = FAKE_TEAM_MEMBERS;
+
+  TEAM_AWARDS = FAKE_TEAM_AWARDS;
 }
 
-export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS };
+export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, TEAM_AWARDS };
