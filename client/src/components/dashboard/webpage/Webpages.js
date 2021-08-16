@@ -14,7 +14,6 @@ const Webpages = ({
   const [displayDeleteModal, setDeleteModal] = useState(false);
   const showDeleteModal = () => setDeleteModal(true);
   const closeDeleteModal = () => setDeleteModal(false);
-  console.log(displayDeleteModal); 
 
   const promptDeleteConfirmation = (pageName) => {
     setSelectedPage(pageName);

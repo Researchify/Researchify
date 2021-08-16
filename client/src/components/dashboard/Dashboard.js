@@ -1,14 +1,9 @@
 /**
  * This file exports the content in of Researchify Dashboard Page
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  Container,
-  Button,
-  Card,
-  Image,
-} from 'react-bootstrap';
+import { Container, Button, Card, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
@@ -19,9 +14,9 @@ import DeployPage from './deploy/DeployPage';
 import defaultTheme from '../../images/theme1.png';
 import WebpageSelector from './webpage/WebpageSelector';
 import fShapeLayout from '../../images/f-shape-layout.png';
+import { availablePages } from '../../config/clientWebsite';
 
 const Dashboard = () => {
-
   const history = useHistory();
 
   const themePicked = useSelector((state) =>
@@ -44,6 +39,8 @@ const Dashboard = () => {
     setDisplayThemeModel(false);
   };
 
+  const [disableAddButton, setDisableAddButton] = useState(false);
+
   const directToAnotherPage = (pageName) => {
     if (pageName === 'PUBLICATIONS') {
       history.push(`/publications`);
@@ -51,6 +48,17 @@ const Dashboard = () => {
       history.push(`/team`);
     }
   };
+
+  useEffect(() => {
+    if (
+      availablePages.filter((page) => !currentWebPages.includes(page))
+        .length === 0
+    ) {
+      setDisableAddButton(true);
+    } else {
+      setDisableAddButton(false);
+    }
+  });
 
   return (
     <main>
@@ -60,6 +68,7 @@ const Dashboard = () => {
             Web Pages
             <Button
               onClick={showDisplayPageModal}
+              disabled={disableAddButton}
               className="float-right btn btn-primary cardButton buttonPrimary"
             >
               Add
@@ -69,7 +78,6 @@ const Dashboard = () => {
             <Webpages
               currentWebPages={currentWebPages}
               directToAnotherPage={directToAnotherPage}
-              // showDeleteModal={showDeleteModal}
               teamId={teamId}
               setSelectedPage={setSelectedPage}
               selectedPage={selectedPage}
@@ -90,7 +98,6 @@ const Dashboard = () => {
           displayModal={displayPageModal}
           closeModal={closeDisplayPageModal}
         />
-        
       </Container>
       <Card style={{ width: '18rem' }}>
         <Card.Body>
