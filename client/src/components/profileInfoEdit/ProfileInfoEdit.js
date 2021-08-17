@@ -18,6 +18,8 @@ import { updateTeam } from '../../actions/team';
 const ProfileInfoEdit = () => {
   const dispatch = useDispatch();
 
+  const uploadedImage = React.useRef(profilePic); // To be referred to server default profile image
+
   const { teamId, teamName, orgName, email } = useSelector(
     (state) => state.team
   );
@@ -31,6 +33,21 @@ const ProfileInfoEdit = () => {
   const updateInputs = (form) => {
     const { name, value } = form.target;
     setInputs({ ...profileData, [name]: value });
+  };
+  /** 
+   * Updates profile image field when user uploads file
+  */
+  const handleImageUpload = e => {
+    const [file] = e.target.files;
+    if (file) {
+      const reader = new FileReader();
+      const {current} = uploadedImage;
+      current.file = file;
+      reader.onload = (e) => {
+          current.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
   };
 
   const [validated, setValidated] = useState(false);
@@ -65,12 +82,12 @@ const ProfileInfoEdit = () => {
 
           <Form.Group controlId="formProfilePic">
             <Image
-              src={profilePic}
+              ref={uploadedImage}
               roundedCircle
               height="184px"
               width="184px"
             />
-            <Form.Control type="file" />
+            <Form.Control type="file" accept="image/*" onChange={handleImageUpload} multiple = "false"/>
             <Form.Text className="text-muted">
               Upload a file from your device, at least 184px.
             </Form.Text>
