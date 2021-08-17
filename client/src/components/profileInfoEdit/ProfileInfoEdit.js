@@ -36,35 +36,52 @@ const ProfileInfoEdit = () => {
   };
   const checkPassword = function(){
     console.log({ ...profileData}.password);
+
     if (! ({...profileData}.password == {...profileData}.confirmedPassword)){
       return false;
     }
     var matches = {...profileData}.password.match(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
     if (matches == null){
       console.log("false");
       return false;
     }
     return true;
+
   };
 
   const [validated, setValidated] = useState(false);
-  const handleUpdate = (event) => {
-    const form = event.currentTarget;
-    event.preventDefault();
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-    } else {
-      ;
-      if (checkPassword()){
-        var newdata = { "teamName":{...profileData}.teamName, "orgName":{...profileData}.orgName,"email" : {...profileData}.email}
-      }else{
-
-         var newdata = { "teamName":{...profileData}.teamName, "orgName":{...profileData}.orgName,"email" : {...profileData}.email,"password": {...profileData}.password,"confirmedPassword": {...profileData}.password}
+  const handleUpdate = async (event) => {
+      const form = event.currentTarget;
+      event.preventDefault();
+      if (form.checkValidity() === false) {
+          event.stopPropagation();
+      } else {
+          if (({...profileData}.password || {...profileData}.confirmedPassword ) && ({...profileData}.password != "" || {...profileData}.confirmedPassword != "")) {
+              if (!checkPassword()) {
+                    setValidated(false);
+                    alert("please enter a password with numbers, letters and characters, at least 8 chars long")
+                    return;
+              } else {
+                  var newdata = {
+                      "teamName": {...profileData}.teamName,
+                      "orgName": {...profileData}.orgName,
+                      "email": {...profileData}.email,
+                      "password": {...profileData}.password
+                  }
+                  dispatch(updateTeam(teamId, newdata));
+                  alert("a");
+              }
+          }else {
+              var newdata = {
+                  "teamName": {...profileData}.teamName,
+                  "orgName": {...profileData}.orgName,
+                  "email": {...profileData}.email
+              }
+              dispatch(updateTeam(teamId, newdata));
+          }
       }
-      dispatch(updateTeam(teamId, newdata));
-    }
-    setValidated(true);
+      setValidated(true);
   };
 
   const profileDeleted = () => {
@@ -144,6 +161,7 @@ const ProfileInfoEdit = () => {
                 placeholder="Password"
                 value={profileData.password}
                 onChange={updateInputs}
+                validated={validated}
 
               />
 
@@ -156,7 +174,7 @@ const ProfileInfoEdit = () => {
                 placeholder="Password"
                 value={profileData.confirmedPassword}
                 onChange={updateInputs}
-
+                validated={validated}
               />
 
           </Form.Group>
