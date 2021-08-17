@@ -46,6 +46,10 @@ const teamSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'theme',
     },
+    teamImage: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );
