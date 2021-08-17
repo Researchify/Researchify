@@ -2,13 +2,13 @@
  * @file This module contains handlers for the "achievements" route.
  * @module achievements
  */
- const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
- const Achievement = require('../models/achievement.model');
+const Achievement = require('../models/achievement.model');
 
- const Team = require('../models/team.model');
+const Team = require('../models/team.model');
 
- const { fillErrorObject } = require('../middleware/error');
+const { fillErrorObject } = require('../middleware/error');
 
 /**
  * Handles a POST request, which will create an achievement/award in the database using the endpoint /achievements.
@@ -19,23 +19,25 @@
  * @returns 500: server encountered an unexpected condition
  */
 async function createAchievement(req, res) {
-    const achievement = req.body;
-    
-    try {
-        // Check if teamId provided is part of an existing team
-        const result = await Team.findById({ _id: achievement.teamId });
+  const achievement = req.body;
 
-        if (result == null) {
-            res.send(fillErrorObject(404, 'Validation error', ['Team was not found']));
-        } else {
-            // Create new achievement 
-            const createdAchievement = await Achievement.create(achievement);
-            res.status(201).json(createdAchievement);
-        }
-    } catch (err) {
-        res.send(fillErrorObject(500, 'Server error', [err.errors]));
+  try {
+    // Check if teamId provided is part of an existing team
+    const result = await Team.findById({ _id: achievement.teamId });
+
+    if (result == null) {
+      res.send(
+        fillErrorObject(404, 'Validation error', ['Team was not found']),
+      );
+    } else {
+      // Create new achievement
+      const createdAchievement = await Achievement.create(achievement);
+      res.status(201).json(createdAchievement);
     }
+  } catch (err) {
+    res.send(fillErrorObject(500, 'Server error', [err.errors]));
   }
+}
 
 /**
  * Handles a GET request, which will retrieve all the achievements/awards by team in the endpoint /achievements/team/:team_id.
@@ -46,25 +48,24 @@ async function createAchievement(req, res) {
  * @returns 500: server encountered an unexpected condition
  */
 async function getAllAchievementsByTeam(req, res) {
-    const { team_id: _id } = req.params;
-    
-    try {
-        // Store achievements into list, sorted by title in alphabetical order
-        const foundAchievements = await Achievement.aggregate([
-            {
-              $match: { teamId: mongoose.Types.ObjectId(_id) },
-            }, 
-            {
-              $sort: { title: 1 },
-            },
-        ]);
+  const { team_id: _id } = req.params;
 
-        res.status(200).json(foundAchievements);
+  try {
+    // Store achievements into list, sorted by title in alphabetical order
+    const foundAchievements = await Achievement.aggregate([
+      {
+        $match: { teamId: mongoose.Types.ObjectId(_id) },
+      },
+      {
+        $sort: { title: 1 },
+      },
+    ]);
 
-    } catch (err) {
-        res.send(fillErrorObject(500, 'Server error', [err.errors]));
-    }
+    res.status(200).json(foundAchievements);
+  } catch (err) {
+    res.send(fillErrorObject(500, 'Server error', [err.errors]));
   }
+}
 
 /**
  * Handles a DELETE request to delete an achievement/award by the mongo object id on the endpoint /achievements/:id.
@@ -76,26 +77,25 @@ async function getAllAchievementsByTeam(req, res) {
  * @returns 500: server encountered an unexpected condition
  */
 async function deleteAchievement(req, res) {
-    const { id: _id } = req.params;
-    
-    try {
-        // Try to remove achievement using id provided
-        const foundAchievement = await Achievement.findByIdAndRemove(_id);
+  const { id: _id } = req.params;
 
-        // Return error if the achievement does not exist
-        if (foundAchievement === null) {
-            res.send(fillErrorObject(400, 'Validation error', [ 
-                'Achievement could not be found',
-            ]));
-        }
-        else {
-            // Return success message
-            res.status(200).json({ message: 'Achievement deleted successfully.' });
-        }
-    } catch (err) {
-        res.send(fillErrorObject(500, 'Server error', [err.errors]));
+  try {
+    // Try to remove achievement using id provided
+    const foundAchievement = await Achievement.findByIdAndRemove(_id);
+
+    // Return error if the achievement does not exist
+    if (foundAchievement === null) {
+      res.send(fillErrorObject(400, 'Validation error', [
+        'Achievement could not be found',
+      ]));
+    } else {
+      // Return success message
+      res.status(200).json({ message: 'Achievement deleted successfully.' });
     }
+  } catch (err) {
+    res.send(fillErrorObject(500, 'Server error', [err.errors]));
   }
+}
 
 /**
  * Handles a PATCH request, which represents updating a specific achievement/award, by the mongo object id on the /achievements/:id endpoint.
@@ -107,28 +107,34 @@ async function deleteAchievement(req, res) {
  * @returns 500: server encountered an unexpected condition
  */
 async function updateAchievement(req, res) {
-    const { id: _id } = req.params;
-    const achievement = req.body;
+  const { id: _id } = req.params;
+  const achievement = req.body;
 
-    try {
-        // Try to update achievement using id provided
-        const updatedAchievement = await Achievement.findByIdAndUpdate(_id, achievement, {
-            new: true,
-            runValidators: true,
-        });
+  try {
+    // Try to update achievement using id provided
+    const updatedAchievement = await Achievement.findByIdAndUpdate(_id,
+      achievement, {
+        new: true,
+        runValidators: true,
+      });
 
-        // Return error if achievement does not exist
-        if (updatedAchievement == null) {
-            res.send(fillErrorObject(404, 'Validation error', [
-                'Achievement could not be found',
-              ]));
-        } else {
-            // Return updated achievement
-            res.status(200).json(updatedAchievement);
-          }
-    } catch (err) {
-        res.send(fillErrorObject(500, 'Server error', [err.errors]));
+    // Return error if achievement does not exist
+    if (updatedAchievement == null) {
+      res.send(fillErrorObject(404, 'Validation error', [
+        'Achievement could not be found',
+      ]));
+    } else {
+      // Return updated achievement
+      res.status(200).json(updatedAchievement);
     }
+  } catch (err) {
+    res.send(fillErrorObject(500, 'Server error', [err.errors]));
   }
+}
 
-  module.exports = { createAchievement, getAllAchievementsByTeam, deleteAchievement, updateAchievement }
+module.exports = {
+  createAchievement,
+  getAllAchievementsByTeam,
+  deleteAchievement,
+  updateAchievement,
+};

@@ -17,13 +17,13 @@ teamRouter.patch(
   authMiddleware.cookieJwtAuth,
   teamMiddleware.validateTeamId,
   teamMiddleware.validateTwitterHandle,
-  teamController.storeHandle
+  teamController.storeHandle,
 );
 
 teamRouter.get(
   '/',
   authMiddleware.cookieJwtAuth,
-  teamController.getTeam
+  teamController.getTeam,
 );
 
 teamRouter.post(
@@ -31,7 +31,7 @@ teamRouter.post(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.createTeamMember
+  teamController.createTeamMember,
 );
 
 teamRouter.get(
@@ -39,7 +39,7 @@ teamRouter.get(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.readTeamMembersByTeam
+  teamController.readTeamMembersByTeam,
 );
 
 teamRouter.delete(
@@ -47,7 +47,7 @@ teamRouter.delete(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.deleteTeamMember
+  teamController.deleteTeamMember,
 );
 
 teamRouter.patch(
@@ -55,17 +55,17 @@ teamRouter.patch(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.updateTeamMember
+  teamController.updateTeamMember,
 );
 
 teamRouter.get(
   '/:team_id/gh_auth/:code',
-  teamController.getGHAccessToken
+  teamController.getGHAccessToken,
 );
 
 teamRouter.post(
   '/:team_id/deploy',
-  teamController.deployToGHPages
+  teamController.deployToGHPages,
 );
 
 teamRouter.post('/', teamController.createTeam);
@@ -75,7 +75,7 @@ teamRouter.patch(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.updateTeam
+  teamController.updateTeam,
 );
 
 module.exports = teamRouter;

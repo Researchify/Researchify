@@ -24,14 +24,12 @@ function getWebPageDetails(req, res) {
         return res
           .status(404)
           .send(
-            'No Website info found for this Team (This is likely because they have not added any website information yet)'
+            'No Website info found for this Team (This is likely because they have not added any website information yet)',
           );
       }
       return res.status(200).send(websiteInfo);
     })
-    .catch((error) => {
-      return res.status(500).json(`Server Error: ${error.message}`);
-    });
+    .catch((error) => res.status(500).json(`Server Error: ${error.message}`));
 }
 
 /**
@@ -46,9 +44,7 @@ function createInitialWebsiteInfo(info) {
       if (website == null) {
         // Create Website data
         Website.create(info)
-          .then((webData) => {
-            return webData;
-          })
+          .then((webData) => webData)
           .catch((err) => {
             throw err;
           });
@@ -94,12 +90,8 @@ function addWebPage(req, res, next) {
         // update in db
         website
           .save()
-          .then((website) => {
-            return res.status(200).json(website);
-          })
-          .catch((err) => {
-            return next(fillErrorObject(500, 'Server error', [err.errors]));
-          });
+          .then((website) => res.status(200).json(website))
+          .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
       }
     })
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));

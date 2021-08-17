@@ -34,15 +34,15 @@ function fillErrorObject(code, message, err = []) {
  * @param res the express response
  * @param next the handle of the next middleware function (currently non-existent)
  */
-function errorHandler(err, req, res, next) {  // eslint-disable-line no-unused-vars
+function errorHandler(err, req, res, next) { // eslint-disable-line no-unused-vars
   if (err) {
-    logger.error('Error encountered while processing request: ',  err);
+    logger.error('Error encountered while processing request: ', err);
     res.status(err.code).json(err);
   } else {
     // If error object is not passed, send a generic server error
     logger.error('Some unknown error occurred while processing request.');
-    res.status(500).
-      send('Something went wrong in the backend that couldn\'t be handled!');
+    res.status(500)
+      .send('Something went wrong in the backend that couldn\'t be handled!');
   }
 }
 

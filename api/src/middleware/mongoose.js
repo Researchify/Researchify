@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
-const { fillErrorObject } = require('../middleware/error');
+const { fillErrorObject } = require('./error');
 
 async function validateObjectId(_id, type, res, next) {
   if (!mongoose.Types.ObjectId.isValid(_id)) {
-    console.log('in here');
-    console.log(_id);
     next(
       fillErrorObject(400, 'Validation error', [
-        'Given ' + type + ' id is not in a valid hexadecimal format',
-      ])
+        `Given ${type} id is not in a valid hexadecimal format`,
+      ]),
     );
   } else {
     next();

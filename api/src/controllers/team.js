@@ -15,7 +15,6 @@ const {
 } = require('../config/deploy');
 const { fillErrorObject } = require('../middleware/error');
 
-
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
  * @param {*} req request object, containing the team_id in the url and twitter handle in the body
@@ -27,7 +26,7 @@ const { fillErrorObject } = require('../middleware/error');
  */
 async function storeHandle(req, res, next) {
   const { twitterHandle: handle } = req.body;
-  let foundTeam = req.foundTeam;
+  const { foundTeam } = req;
 
   if (handle.length === 0) {
     // remove the handle from the doc
@@ -39,27 +38,25 @@ async function storeHandle(req, res, next) {
       return next(
         fillErrorObject(500, 'Missing environment variable', [
           'No Twitter API Bearer Token found in .env file',
-        ])
+        ]),
       );
-    } else {
-      let response = await axios.get(
-        'https://api.twitter.com/2/users/by/username/' + handle,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
-          },
-        },
-      );
-      if (response.data.errors) {
-        return next(
-          fillErrorObject(400, 'Validation error', [
-            response.data.errors[0].detail,
-          ])
-        );
-      } else {
-        foundTeam.twitterHandle = handle;
-      }
     }
+    const response = await axios.get(
+      `https://api.twitter.com/2/users/by/username/${handle}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
+        },
+      },
+    );
+    if (response.data.errors) {
+      return next(
+        fillErrorObject(400, 'Validation error', [
+          response.data.errors[0].detail,
+        ]),
+      );
+    }
+    foundTeam.twitterHandle = handle;
   }
 
   try {
@@ -99,7 +96,7 @@ async function createTeam(req, res, next) {
     return next(
       fillErrorObject(400, 'Duplicate email error', [
         'Email had been registered',
-      ])
+      ]),
     );
   }
   const salt = await bcrypt.genSalt();
@@ -120,7 +117,7 @@ async function createTeam(req, res, next) {
  * @returns 400: team id is not in a valid hexadecimal format
  */
 function readTeamMembersByTeam(req, res) {
-  const foundTeam = req.foundTeam;
+  const { foundTeam } = req;
   return res.status(200).send(foundTeam.teamMembers);
 }
 
@@ -135,7 +132,7 @@ function readTeamMembersByTeam(req, res) {
 function createTeamMember(req, res, next) {
   let teamMember = req.body;
   const memberId = new mongoose.Types.ObjectId();
-  let foundTeam = req.foundTeam;
+  const { foundTeam } = req;
   teamMember = { ...teamMember, _id: memberId };
 
   foundTeam.teamMembers.push(teamMember);
@@ -154,7 +151,7 @@ function createTeamMember(req, res, next) {
  * @returns 400: team id is not in a valid hexadecimal format
  */
 function deleteTeamMember(req, res, next) {
-  let foundTeam = req.foundTeam;
+  const { foundTeam } = req;
   const { member_id } = req.params;
   foundTeam.teamMembers.pull({ _id: member_id });
   foundTeam
@@ -179,7 +176,7 @@ function updateTeamMember(req, res, next) {
       $set: {
         'teamMembers.$': updatedTeamMember,
       },
-    }
+    },
   )
     .then(() => res.status(200).json(updatedTeamMember))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
@@ -205,14 +202,15 @@ async function getGHAccessToken(req, res, next) {
   const { data } = await axios.post(
     'https://github.com/login/oauth/access_token', null, {
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
       params: {
         client_id: githubClientId,
         client_secret: githubClientSecret,
         code,
       },
-    });
+    },
+  );
   if (data.error) {
     return next(fillErrorObject(400,
       'Failed to exchange GitHub temporary code for GitHub Access Token.',
@@ -238,15 +236,21 @@ async function getGHAccessToken(req, res, next) {
  */
 async function deployToGHPages(req, res, next) {
   const { team_id: teamId } = req.params;
-  const { ghToken, teamPublications, teamInfo, teamMembers } = req.body;
+  const {
+    ghToken,
+    teamPublications,
+    teamInfo,
+    teamMembers,
+    webPages,
+  } = req.body;
 
   // Call github API to get username.
   const { data } = await axios.get('https://api.github.com/user', {
-    headers: { Authorization: 'token ' + ghToken },
+    headers: { Authorization: `token ${ghToken}` },
   });
   if (data.errors) {
     return next(
-      fillErrorObject(400, 'Validation error', [data.errors[0].detail])
+      fillErrorObject(400, 'Validation error', [data.errors[0].detail]),
     );
   }
 
@@ -261,6 +265,7 @@ async function deployToGHPages(req, res, next) {
     teamPublications,
     teamInfo,
     teamMembers,
+    webPages,
   };
 
   try {
