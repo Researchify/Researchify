@@ -24,8 +24,8 @@ const Webpages = ({
 
   const [disableAddButton, setDisableAddButton] = useState(false);
 
-  const renderDisableAddButtonTooltip = () => (
-    <Tooltip id="button-tooltip">All available pages have been added</Tooltip>
+  const renderDisableAddButtonTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props} >All available pages have been added</Tooltip>
   );
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Webpages = ({
             </OverlayTrigger>
           )}
         >
-          <div style={{ cursor: 'not-allowed' }}>
+          <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
             <Button
               className="mr-2"
               onClick={showDisplayPageModal}

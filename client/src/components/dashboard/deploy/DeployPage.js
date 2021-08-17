@@ -5,7 +5,7 @@ import { GoMarkGithub } from 'react-icons/go';
 import { deployToGHPages, getGHAccessToken } from '../../../actions/team';
 import { Button, Spinner } from 'react-bootstrap';
 
-const DeployPage = ({ teamId, currentWebPages }) => {
+const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.deploy.loading);
   // TODO: refactor this into useState
