@@ -8,7 +8,7 @@ import profilePicture from '../../images/awardpic.jpg';
 
 const Awards = ({award}) => {
   return (
-    <Card className="team-card">
+    <Card className="award-card">
       <Card.Img variant="top" src={profilePicture} />
       <Card.Body>
         <div className="award-name">{award.fullName}</div>

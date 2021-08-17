@@ -196,6 +196,36 @@ export const FAKE_TEAM_AWARDS = [
     fullName: 'Jeremy Buffet',
     position: 'Chief Economist',
     summary:
-      'Best Debugging',
+        'Best Debugging',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'Paul Walton',
+    position: 'Chief Innovation Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
   },
 ];

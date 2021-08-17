@@ -10,6 +10,7 @@ import {Container, Row, Col } from "react-bootstrap";
 import './centred.css';
 import Sidebar from "./layout/Sidebar";
 import "./layout/Sidebar.css"
+import AwardsPage from './awardsPage/AwardsPage.js';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
                         <Route exact path="/" component={LandingPage} />
                         <Route exact path="/publication" component={PublicationPage} />
                         <Route exact path="/team" component={TeamPage} />
+                        <Route exact path="/awardsPage" component={AwardsPage} />
                     </Switch>
                 </Col>
             </Row>

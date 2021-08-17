@@ -33,6 +33,7 @@
   padding-top: 20px;
   padding-left: 40px;
   padding-right: 40px;
+  padding-bottom: 10px;
   font-size: medium;
 }
 
@@ -151,16 +152,10 @@
   text-indent: 5%;
 }
 
-.team-card-container {
-  padding-top: 12px;
-  padding-left: 50px;
-  padding-right: 50px;
-}
 
 .team-card {
-  border: transparent;
-  min-width: 210px;
-  max-width: 210px;
+  background-color: #dddcdc;
+  padding: 3rem;
 }
 
 .team-card-deck {
@@ -168,6 +163,17 @@
   justify-content: center;
 }
 
+.team-member-picture {
+  object-fit: initial;
+  border-radius: 35rem;
+  max-width: 265px;
+}
+
+.award-card {
+  border: transparent;
+  min-width: 210px;
+  max-width: 210px;
+}
 .award-name {
   text-align: center;
   font-weight: 600;
@@ -182,6 +188,6 @@
 
 .award-summary {
   padding-top: 15px;
-  text-align: justify;
-  text-indent: 5%;
+  text-align: center;
+
 }
