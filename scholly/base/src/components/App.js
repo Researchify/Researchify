@@ -3,20 +3,25 @@
  */
 import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import PublicationPage from './publications/PublicationPage.js';
-import LandingPage from './landingPage/LandingPage.js';
 import Header from './layout/Header.js';
-import TeamPage from './team/TeamPage.js';
+import { getRoutes } from './router/routes.js';
 import './centred.css';
 
 const App = () => {
+  const routeItems = getRoutes().map(({ path, exact, component }) => {
+    const View = component;
+    return (
+      <Route exact={exact} path={path} key={path}>
+        <div>{View ? <View /> : null}</div>
+      </Route>
+    );
+  });
+
   return (
     <Fragment>
       <Header />
       <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/publication" component={PublicationPage} />
-        <Route exact path="/team" component={TeamPage} />
+        {routeItems}
       </Switch>
     </Fragment>
   );
