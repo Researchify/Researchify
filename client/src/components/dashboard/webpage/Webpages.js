@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
-import { Table, Button, Tooltip } from 'react-bootstrap';
+import { Table, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import '../Dashboard.css';
 import WebpageDelete from './WebpageDelete';
 import WebpageSelector from './WebpageSelector';
+import ConditionalWrapper from '../../shared/ConditionalWrapper';
 
 const Webpages = ({
   currentWebPages,
@@ -59,13 +60,28 @@ const Webpages = ({
         closeModal={closeDisplayPageModal}
       />
       <div className="mb-3 text-center">
-        <Button
-          className="mr-2"
-          onClick={showDisplayPageModal}
-          disabled={disableAddButton}
+        <ConditionalWrapper
+          condition={disableAddButton}
+          wrapper={(children) => (
+            <OverlayTrigger
+              placement="bottom"
+              overlay={renderDisableAddButtonTooltip}
+            >
+              {children}
+            </OverlayTrigger>
+          )}
         >
-          Add Page
-        </Button>
+          <div style={{ cursor: 'not-allowed' }}>
+            <Button
+              className="mr-2"
+              onClick={showDisplayPageModal}
+              disabled={disableAddButton}
+              style={disableAddButton ? { pointerEvents: 'none' } : {}}
+            >
+              Add Page
+            </Button>
+          </div>
+        </ConditionalWrapper>
       </div>
       <Table striped bordered hover>
         {
