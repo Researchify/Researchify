@@ -219,11 +219,15 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
     //get team members
     const { data: teamMembers } = await api.fetchTeamMembersByTeamId(teamId);
 
+    // get user selected web pages to deploy
+    const { data: webPages } = await api.getWebsiteInfo(teamId);
+
     const body = {
       ghToken: accessToken,
       teamPublications,
       teamInfo,
       teamMembers,
+      webPages,
     };
 
     const response = await api.deployToGHPages(teamId, body);
