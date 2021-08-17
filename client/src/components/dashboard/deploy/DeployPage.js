@@ -5,9 +5,10 @@ import { GoMarkGithub } from 'react-icons/go';
 import { deployToGHPages, getGHAccessToken } from '../../../actions/team';
 import { Button, Spinner } from 'react-bootstrap';
 
-const DeployPage = ({ teamId }) => {
+const DeployPage = ({ teamId, currentWebPages }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.deploy.loading);
+  // TODO: refactor this into useState
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken
   );
@@ -38,9 +39,8 @@ const DeployPage = ({ teamId }) => {
       className="float-right"
       variant="outline-primary"
       href={githubLoginUrl}
-      disabled={retrievedAccessToken}
     >
-      <GoMarkGithub className="mr-2"/>
+      <GoMarkGithub className="mr-2" />
       Login with Github
     </Button>
   );
@@ -49,6 +49,7 @@ const DeployPage = ({ teamId }) => {
     <Button
       className="float-right"
       variant="primary"
+      // TODO: modify this condition to check currentWebPages isn't empty
       disabled={!retrievedAccessToken}
       onClick={handleDeploy}
     >
@@ -59,13 +60,15 @@ const DeployPage = ({ teamId }) => {
   return (
     <>
       Deploy Website with GitHub
-      {
-        loading ? 
+      {loading ? (
         <div className="mb-3 mt-3 text-center">
           <Spinner animation="border" />
-        </div> : 
-        ( retrievedAccessToken ? DeployButton : GitHubLoginButton )
-      }
+        </div>
+      ) : retrievedAccessToken ? (
+        DeployButton
+      ) : (
+        GitHubLoginButton
+      )}
     </>
   );
 };

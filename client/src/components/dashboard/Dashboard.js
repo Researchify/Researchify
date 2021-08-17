@@ -5,11 +5,10 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
-  Button,
   Card,
-  Image,
   Tooltip,
-  OverlayTrigger,
+  Tabs,
+  Tab,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
@@ -18,11 +17,8 @@ import './Dashboard.css';
 import toast from 'react-hot-toast';
 import Webpages from './webpage/Webpages';
 import DeployPage from './deploy/DeployPage';
-import defaultTheme from '../../images/theme1.png';
 import WebpageSelector from './webpage/WebpageSelector';
-import fShapeLayout from '../../images/f-shape-layout.png';
 import { availablePages } from '../../config/clientWebsite';
-import ConditionalWrapper from '../shared/ConditionalWrapper';
 
 const Dashboard = () => {
   const history = useHistory();
@@ -36,17 +32,6 @@ const Dashboard = () => {
   const pagePlaceholder = 'Select page to add';
   const [selectedPage, setSelectedPage] = useState(pagePlaceholder);
 
-  const [displayPageModal, setDisplayPageModal] = useState(false);
-  const showDisplayPageModal = () => setDisplayPageModal(true);
-  const closeDisplayPageModal = () => setDisplayPageModal(false);
-
-  // Display pop up window for selecting a theme
-  const [displayThemeModal, setDisplayThemeModel] = useState(false);
-  const showThemeModal = () => setDisplayThemeModel(true);
-  const closeThemeModal = () => setDisplayThemeModel(false);
-
-  const [disableAddButton, setDisableAddButton] = useState(false);
-
   const directToAnotherPage = (pageName) => {
     if (pageName === 'PUBLICATIONS') {
       history.push(`/publications`);
@@ -55,94 +40,31 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    if (
-      availablePages.filter((page) => !currentWebPages.includes(page))
-        .length === 0
-    ) {
-      setDisableAddButton(true);
-    } else {
-      setDisableAddButton(false);
-    }
-  }, [currentWebPages]);
-
-  const renderDisableAddButtonTooltip = () => (
-    <Tooltip id="button-tooltip">
-      All available pages have been added
-    </Tooltip>
-  );
-
   return (
     <main>
       <Container fluid className="p-5">
-        <Card className="text-left" id="table">
-          <Card.Header className="heading1">
-            Web Pages
-            {/* TODO: tooltip isn't showing in the right place */}
-            <ConditionalWrapper
-              condition={disableAddButton}
-              wrapper={(children) => (
-                <OverlayTrigger
-                  placement="top"
-                  overlay={renderDisableAddButtonTooltip}
-                >
-                  {children}
-                </OverlayTrigger>
-              )}
-            >
-              <div style={{ display: 'inline-block', cursor: 'not-allowed', float: 'right' }}>
-                <Button
-                  onClick={showDisplayPageModal}
-                  disabled={disableAddButton}
-                  style={disableAddButton ? { pointerEvents: 'none' } : {}}
-                >
-                  Add
-                </Button>
-              </div>
-            </ConditionalWrapper>
-          </Card.Header>
-          <Card.Body>
+        <Tabs defaultActiveKey="home" transition={false} className="mb-3">
+          <Tab eventKey="home" title="Webpages">
             <Webpages
               currentWebPages={currentWebPages}
               directToAnotherPage={directToAnotherPage}
               teamId={teamId}
               setSelectedPage={setSelectedPage}
               selectedPage={selectedPage}
+              availablePages={availablePages}
             />
-          </Card.Body>
+          </Tab>
+          <Tab eventKey="theme" title="Theme">
+            <TemplateSelector teamId={teamId} />
+          </Tab>
+        </Tabs>
+        <Card className="text-left" id="table">
           <Card.Footer>
-            <DeployPage teamId={teamId} />
+            <DeployPage teamId={teamId} currentWebPages={currentWebPages} />
           </Card.Footer>
         </Card>
-        <TemplateSelector
-          teamId={teamId}
-          displayModal={displayThemeModal}
-          closeModal={closeThemeModal}
-        />
-        <WebpageSelector
-          teamId={teamId}
-          currentWebPages={currentWebPages}
-          displayModal={displayPageModal}
-          closeModal={closeDisplayPageModal}
-        />
+        
       </Container>
-      <Card style={{ width: '18rem' }}>
-        <Card.Body>
-          <Card.Title>Current Theme</Card.Title>
-          <Card.Text>
-            <div className="mb-3 mt-3 text-center">
-              {themePicked ? (
-                <Image src={defaultTheme} className="img-fluid" />
-              ) : (
-                'No theme chosen yet'
-              )}
-              <Button variant="primary" onClick={showThemeModal}>
-                Choose Theme
-              </Button>
-            </div>
-          </Card.Text>
-        </Card.Body>
-      </Card>
     </main>
   );
 };

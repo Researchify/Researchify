@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Tooltip } from 'react-bootstrap';
 import '../Dashboard.css';
 import WebpageDelete from './WebpageDelete';
+import WebpageSelector from './WebpageSelector';
 
 const Webpages = ({
   currentWebPages,
@@ -10,10 +11,32 @@ const Webpages = ({
   teamId,
   setSelectedPage,
   selectedPage,
+  availablePages,
 }) => {
   const [displayDeleteModal, setDeleteModal] = useState(false);
   const showDeleteModal = () => setDeleteModal(true);
   const closeDeleteModal = () => setDeleteModal(false);
+
+  const [displayPageModal, setDisplayPageModal] = useState(false);
+  const showDisplayPageModal = () => setDisplayPageModal(true);
+  const closeDisplayPageModal = () => setDisplayPageModal(false);
+
+  const [disableAddButton, setDisableAddButton] = useState(false);
+
+  const renderDisableAddButtonTooltip = () => (
+    <Tooltip id="button-tooltip">All available pages have been added</Tooltip>
+  );
+
+  useEffect(() => {
+    if (
+      availablePages.filter((page) => !currentWebPages.includes(page))
+        .length === 0
+    ) {
+      setDisableAddButton(true);
+    } else {
+      setDisableAddButton(false);
+    }
+  }, [currentWebPages]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const promptDeleteConfirmation = (pageName) => {
     setSelectedPage(pageName);
@@ -29,6 +52,21 @@ const Webpages = ({
         closeModal={closeDeleteModal}
         setSelectedPage={setSelectedPage}
       />
+      <WebpageSelector
+        teamId={teamId}
+        currentWebPages={currentWebPages}
+        displayModal={displayPageModal}
+        closeModal={closeDisplayPageModal}
+      />
+      <div className="mb-3 text-center">
+        <Button
+          className="mr-2"
+          onClick={showDisplayPageModal}
+          disabled={disableAddButton}
+        >
+          Add Page
+        </Button>
+      </div>
       <Table striped bordered hover>
         {
           // Display appropriate message when no webpage is added
