@@ -207,7 +207,13 @@ async function getGHAccessToken(req, res) {
 
 async function deployToGHPages(req, res, next) {
   const teamId = req.params.team_id;
-  const { ghToken, teamPublications, teamInfo, teamMembers } = req.body;
+  const {
+    ghToken,
+    teamPublications,
+    teamInfo,
+    teamMembers,
+    webPages,
+  } = req.body;
 
   // call github API to get username
   const response = await axios.get('https://api.github.com/user', {
@@ -229,6 +235,7 @@ async function deployToGHPages(req, res, next) {
     teamPublications,
     teamInfo,
     teamMembers,
+    webPages,
   };
 
   await axios
