@@ -17,6 +17,6 @@ jobs:
       env:
         SLACK_CHANNEL: pr-notifs
         SLACK_COLOR: ${{ job.status }}
-        SLACK_ICON: https://www.shareicon.net/data/128x128/2016/08/23/819191_magnifying-glass_512x512.png
+        SLACK_ICON: http://clipart-library.com/img/2026104.png
         SLACK_USERNAME: Researchify PR Bot
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
