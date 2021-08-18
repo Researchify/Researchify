@@ -17,6 +17,6 @@ jobs:
       env:
         SLACK_CHANNEL: pr-notifs
         SLACK_COLOR: ${{ job.status }}
-        SLACK_ICON: http://clipart-library.com/img/2026104.png
+        SLACK_ICON: https://img1.pnghut.com/0/17/24/kU8sKLLhx9/logo-robotics-technology-autonomous-robot-text.jpg
         SLACK_USERNAME: Researchify PR Bot
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
