@@ -54,3 +54,9 @@ export const addWebPage = (teamId, pageName) =>
 export const getWebsiteInfo = (teamId) => api.get(`/clientWebsite/${teamId}`);
 export const deleteWebPage = (teamId, pageName) =>
   api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
+
+export const getHomepage = (teamId) => api.get(`/homepage/${teamId}`);
+export const createHomepage = (homepageData) =>
+  api.post(`/homepage`, homepageData);
+export const updateHomepage = (teamId, homepageData) =>
+  api.patch(`/homepage/${teamId}`, homepageData);
