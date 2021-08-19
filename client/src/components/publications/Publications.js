@@ -1,14 +1,12 @@
 /**
  * The Publications component displays a list of publications
  */
-
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  getPublicationsByTeamId,
-  sortPublications,
+  getPublicationsByTeamId
 } from '../../actions/publications';
-import { Dropdown, Modal, Spinner, Alert } from 'react-bootstrap';
+import { Modal, Spinner, Alert } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
 import './publications.css';
@@ -20,13 +18,26 @@ import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
 const Publications = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
+
   const allLayouts = {
     allPublications: 'All Publications',
     byCategory: 'By Category',
   };
+
+  const allSorting = {
+    byTitle: 'Title',
+    byAuthor: 'Author',
+    byYear: 'Year'
+  }
+  
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showImportForm, setShowImportForm] = useState(false);
   const [layout, setLayout] = useState(allLayouts.allPublications);
+  const [sortBy, setsortBy] = useState(allSorting.byTitle);
+
+  const { loading, teamPublications } = useSelector((state) => state.publications);
+  
+  const [ publication, setPublications ] = useState(teamPublications)
 
   useEffect(() => {
     if(teamId){
@@ -34,35 +45,17 @@ const Publications = () => {
     }
   }, [dispatch, teamId]);
 
-  const { loading, teamPublications } = useSelector(
-    (state) => state.publications
-  );
+  useEffect(() => {
+    setPublications(teamPublications)
+  }, [teamPublications]);
+
 
   const renderPublications = () => {
     switch (layout) {
       case allLayouts.byCategory:
-        return <LayoutByCategory teamPublications={teamPublications} />;
+        return <LayoutByCategory teamPublications={publication} />;
       default:
-        return <LayoutAllPublications teamPublications={teamPublications} />;
-    }
-  };
-  const toggleSortingOptions = ({ setSortingOption }) => {
-    switch (layout) {
-      case allLayouts.byCategory:
-        return (
-          <Dropdown.Item
-            as="button"
-            value="Category Title"
-            onClick={(e) => {
-              dispatch(sortPublications(teamPublications, e.target.value));
-              setSortingOption(e.target.value);
-            }}
-          >
-            Category Title
-          </Dropdown.Item>
-        );
-      default:
-        return;
+        return <LayoutAllPublications teamPublications={publication} />;
     }
   };
 
@@ -75,9 +68,12 @@ const Publications = () => {
       <PublicationsDropdown
         allLayouts={allLayouts}
         layout={layout}
-        teamPublications={teamPublications}
         setLayout={setLayout}
-        toggleSortingOptions={toggleSortingOptions}
+        allSorting={allSorting}
+        sortBy={sortBy}
+        setsortBy={setsortBy}
+
+        publication={publication}
       />
       <div className="text-center">
         {loading ? (
