@@ -13,21 +13,28 @@ const Publications = () => {
     allPublications: 'All Publications',
     byCategory: 'By Category',
   };
+  const [teamPublications, setTeamPublications] = useState(TEAM_PUBLICATIONS);
 
   const [layout, setLayout] = useState(allLayouts.allPublications);
 
   const renderPublications = () => {
     switch (layout) {
       case allLayouts.byCategory:
-        return <LayoutByCategory teamPublications={TEAM_PUBLICATIONS}/>;
+        return <LayoutByCategory teamPublications={teamPublications}/>;
       default:
-        return <LayoutAllPublications teamPublications={TEAM_PUBLICATIONS}/>;
+        return <LayoutAllPublications teamPublications={teamPublications}/>;
     }
   };
 
   return (
     <Fragment>
-      <PublicationsDropdown allLayouts={allLayouts} layout={layout} setLayout={setLayout}/>
+      <PublicationsDropdown 
+        allLayouts={allLayouts} 
+        layout={layout} 
+        setLayout={setLayout} 
+        setTeamPublications={setTeamPublications}
+        teamPublications={teamPublications}
+      />
       <Accordion>
         {renderPublications()}
       </Accordion>
