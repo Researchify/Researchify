@@ -1,20 +1,14 @@
 .page-content-wrapper {
-  left: 50px;
-  float: right;
+  margin-left: 170px;
 }
 
 .sidebar-wrapper {
-  float: left;
   width: 170px;
   max-width: 170px;
   background-color: #26282a;
   padding-left: 0;
   padding-right: 0;
   position: fixed;
-  height: 100%;
-}
-
-.content-under-header {
   height: 100%;
 }
 
