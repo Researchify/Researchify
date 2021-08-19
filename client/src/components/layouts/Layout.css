@@ -10,17 +10,19 @@
   background-color: #26282a;
   padding-left: 0;
   padding-right: 0;
+  position: fixed;
+  height: 100%;
 }
 
 .content-under-header {
-    height: 100%;
+  height: 100%;
 }
 
 /* Content save space for header */
 .researchify-content-top-padding {
-    padding-top: 68px;
-    height:100%;
-  }  
+  padding-top: 68px;
+  height: 100%;
+}
 
 /* Move this to global css later. Fix to horizontal scrollable in Researchify site. */
 html,
@@ -29,6 +31,6 @@ body {
   overflow-x: hidden !important;
   height: 100% !important;
 }
-#root{
-    height: 100%;
+#root {
+  height: 100%;
 }
