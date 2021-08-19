@@ -49,7 +49,7 @@ const PrivateRoute = () => {
         exact
         component={ClientHomeEditor}
       />
-      {/*  If login, any other route not stated above will be redirect dashbroad page */}
+      {/*  If login, any other route not stated above will be redirect dashboard page */}
       <Redirect to="/dashboard" />
     </Switch>
   );
