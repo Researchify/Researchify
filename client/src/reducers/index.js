@@ -11,6 +11,7 @@ import teamMembersReducer from './teamMembersReducer';
 import websiteReducer from './websiteReducer';
 import notificationReducer from './notificationReducer';
 import deployReducer from './deployReducer';
+import achievementsReducer from './achievementsReducer';
 
 export default combineReducers({
   notification: notificationReducer,
@@ -21,5 +22,5 @@ export default combineReducers({
   teamMember: teamMembersReducer,
   deploy: deployReducer,
   website: websiteReducer,
-  achievement: undefined,  // implement the achievementsReducer (plural)
+  achievements: achievementsReducer, 
 });

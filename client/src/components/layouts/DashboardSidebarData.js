@@ -11,6 +11,7 @@ import {
   BsGearFill,
   BsFillQuestionCircleFill,
   BsBoxArrowLeft,
+  BsFillAwardFill,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 
@@ -40,6 +41,11 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       icon: <BsPeople />,
       link: '/team',
       name: 'TEAM',
+    },
+    {
+      title: 'Achievements',
+      icon: <BsFillAwardFill />,
+      link: '/achievement',
     },
     {
       title: 'Settings',

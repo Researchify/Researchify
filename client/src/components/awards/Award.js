@@ -26,7 +26,7 @@
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [showDeleteMessage, setShowDeleteMessage] = useState(false);
     const teamId = useSelector((state) => state.team.teamId);
-  
+
     const handleDelete = () => {
       dispatch(deleteAchievement(teamId, award._id));
       setShowDeleteMessage(false);

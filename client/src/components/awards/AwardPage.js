@@ -22,16 +22,7 @@
      }
    }, [dispatch, teamId]);
 
-   // const { loading, achievements } = useSelector((state) => state.achievement);
-  const loading = true;
-  const achievements = [
-    {
-      _id: 1,
-      title: "Hello",
-      description: "anfjeanfje",
-      year: "1990"
-    }
-  ];
+   const { loading, achievements } = useSelector((state) => state.achievements);
 
    return (
      <div className="awardPageContainer">
