@@ -2,7 +2,7 @@
  * The PublicationPage component renders TwitterFeed component and Publications component .
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -16,18 +16,22 @@ const PublicationPage = () => {
   const linkedHandle = useSelector((state) => state.team.twitterHandle);
 
   return (
-    <>
+    <Fragment>
       <Container fluid>
         <Row>
-          <Col xs={12} md={10}>
-            <Publications />
+          <Col className="pub-page-pub-col">
+            <Container >
+              <Publications />
+            </Container>
           </Col>
-          <Col xs={4} md={2}>
-            {linkedHandle ? <TwitterFeed /> : <TwitterLink />}
+          <Col className="pub-page-tweet-col">
+            <Container >
+              {linkedHandle ? <TwitterFeed /> : <TwitterLink />}
+            </Container>
           </Col>
         </Row>
       </Container>
-    </>
+    </Fragment>
   );
 };
 

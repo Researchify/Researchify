@@ -31,5 +31,18 @@
 }
 
 .placeholder-text::placeholder {
-  color: #A9A9A9
+  color: #a9a9a9;
+}
+
+.pub-page-pub-col {
+  width: 80%;
+  float: left;
+}
+
+.pub-page-tweet-col {
+  float: right;
+  width: 20%;
+  height: inherit;
+  max-width: 333px;
+  padding: 16px;
 }
