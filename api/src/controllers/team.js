@@ -240,7 +240,13 @@ async function deployToGHPages(req, res, next) {
   const { team_id: teamId } = req.params;
   // TODO (https://trello.com/c/DDVVvVCR) ideally this data should be fetched by
   //  us, and we should not expect the client to provide it.
-  const { ghToken, teamPublications, teamInfo, teamMembers } = req.body;
+  const {
+    ghToken,
+    teamPublications,
+    teamInfo,
+    teamMembers,
+    webPages,
+  } = req.body;
 
   // Call github API to get username.
   const { data } = await axios.get('https://api.github.com/user', {
@@ -261,6 +267,7 @@ async function deployToGHPages(req, res, next) {
     teamPublications,
     teamInfo,
     teamMembers,
+    webPages,
   };
 
   try {
