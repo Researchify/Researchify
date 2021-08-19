@@ -4,10 +4,10 @@
  import React from 'react';
  import usePagination from '../../shared/usePagination';
  import Publication from '../publication/Publication';
- import { TEAM_PUBLICATIONS } from '../../../global/data';
+ import { pageSize as configPageSize } from '../../../config/publications';
  
- const LayoutAllPublications = () => {
-   const { currentData, pagination } = usePagination(TEAM_PUBLICATIONS, 10)
+ const LayoutAllPublications = ({ teamPublications, pageSize }) => {
+   const { currentData, pagination } = usePagination(teamPublications, pageSize ? pageSize : configPageSize)
    return (
      <>
        {

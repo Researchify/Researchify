@@ -2,11 +2,10 @@
  * The Publications component displays a list of publications.
  */
 import React, { Fragment, useState } from 'react';
-import { Accordion, Dropdown } from 'react-bootstrap';
-import usePagination from '../shared/usePagination';
-import { TEAM_PUBLICATIONS } from '../../global/data';
+import { Accordion, Dropdown, DropdownButton } from 'react-bootstrap';
 import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory'
+import { TEAM_PUBLICATIONS } from '../../global/data';
 
 const Publications = () => {
   const allLayouts = {
@@ -14,18 +13,21 @@ const Publications = () => {
     byCategory: 'By Category',
   };
 
+  const [sortingOption, setSortingOption] = useState('Year');
+
   const renderPublications = () => {
     switch (layout) {
       case allLayouts.byCategory:
-        return <LayoutByCategory/>;
+        return <LayoutByCategory teamPublications={TEAM_PUBLICATIONS}/>;
       default:
-        return <LayoutAllPublications/>;
+        return <LayoutAllPublications teamPublications={TEAM_PUBLICATIONS}/>;
     }
   };
 
   const [layout, setLayout] = useState(allLayouts.allPublications);
   return (
     <Fragment>
+
       <Dropdown className="ml-5">
         <Dropdown.Toggle variant="light" className="mb-2">
           Layout: {layout}
@@ -43,13 +45,44 @@ const Publications = () => {
         </Dropdown.Menu>
       </Dropdown>
 
+      <DropdownButton
+        className="ml-4"
+        variant="light"
+        id="dropdown-item-button"
+        title={'Sort by: ' + sortingOption}
+      >
+        <Dropdown.Item
+          as="button"
+          value="Year"
+          onClick={(e) => {
+            setSortingOption(e.target.value);
+          }}
+        >
+          Year
+        </Dropdown.Item>
+        <Dropdown.Item
+          as="button"
+          value="Author"
+          onClick={(e) => {
+            setSortingOption(e.target.value);
+          }}
+        >
+          Author
+        </Dropdown.Item>
+        <Dropdown.Item
+          as="button"
+          value="Title"
+          onClick={(e) => {
+            setSortingOption(e.target.value);
+          }}
+        >
+          Title
+        </Dropdown.Item>
+        {/* {toggleSortingOptions(setSortingOption)} */}
+      </DropdownButton>
+
       <Accordion>
-        {/* {currentData().map((pub) => (
-          <Publication pub={pub} key={pub._id} />
-        ))}
-      {pagination()} */}
-      {renderPublications()}
-      
+        {renderPublications()}
       </Accordion>
     </Fragment>
   );
