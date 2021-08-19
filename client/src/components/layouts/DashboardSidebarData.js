@@ -8,9 +8,7 @@ import {
   BsBookHalf,
   BsPerson,
   BsPeople,
-  BsGearFill,
   BsFillQuestionCircleFill,
-  BsUpload,
   BsBoxArrowLeft,
 } from 'react-icons/bs';
 import { signOut } from '../../actions/auth';

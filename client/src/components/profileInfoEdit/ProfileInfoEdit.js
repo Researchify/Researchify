@@ -26,7 +26,7 @@ const ProfileInfoEdit = () => {
 
   useEffect(() => {
     setInputs({ teamName, orgName, email,password,confirmedPassword  });
-  }, [email, orgName, teamName]);
+  }, [email, orgName, teamName,password,confirmedPassword]);
 
   const updateInputs = (form) => {
     const { name, value } = form.target;
@@ -35,14 +35,13 @@ const ProfileInfoEdit = () => {
     }
   };
   const checkPassword = function(){
-    console.log({ ...profileData}.password);
 
-    if (! ({...profileData}.password == {...profileData}.confirmedPassword)){
+    if (! ({...profileData}.password === {...profileData}.confirmedPassword)){
       return false;
     }
     var matches = {...profileData}.password.match(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
-    if (matches == null){
+    if (matches === null){
       console.log("false");
       return false;
     }
@@ -57,23 +56,24 @@ const ProfileInfoEdit = () => {
       if (form.checkValidity() === false) {
           event.stopPropagation();
       } else {
-          if (({...profileData}.password || {...profileData}.confirmedPassword ) && ({...profileData}.password != "" || {...profileData}.confirmedPassword != "")) {
+          var newdata;
+          if (({...profileData}.password || {...profileData}.confirmedPassword ) && ({...profileData}.password !== "" || {...profileData}.confirmedPassword !== "")) {
               if (!checkPassword()) {
                     setValidated(false);
-                    alert("please enter a password with numbers, letters and characters, at least 8 chars long")
+                    alert("please enter a password at least 8 chars long, using only numbers, letters and characters");
                     return;
               } else {
-                  var newdata = {
+                  newdata = {
                       "teamName": {...profileData}.teamName,
                       "orgName": {...profileData}.orgName,
                       "email": {...profileData}.email,
                       "password": {...profileData}.password
                   }
                   dispatch(updateTeam(teamId, newdata));
-                  alert("a");
+                  alert("password changed");
               }
           }else {
-              var newdata = {
+              newdata = {
                   "teamName": {...profileData}.teamName,
                   "orgName": {...profileData}.orgName,
                   "email": {...profileData}.email
