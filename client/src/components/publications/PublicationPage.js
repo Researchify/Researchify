@@ -25,7 +25,7 @@ const PublicationPage = () => {
             </Container>
           </Col>
           <Col className="pub-page-tweet-col">
-            <Container >
+            <Container>
               {linkedHandle ? <TwitterFeed /> : <TwitterLink />}
             </Container>
           </Col>

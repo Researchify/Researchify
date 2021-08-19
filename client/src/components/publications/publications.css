@@ -46,3 +46,9 @@
   max-width: 333px;
   padding: 16px;
 }
+
+@media screen and (max-width: 1024px) {
+  .pub-page-tweet-col {
+    display: none !important;
+  }
+}
