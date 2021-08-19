@@ -39,7 +39,7 @@ const PrivateRoute = () => {
         component={ProfileInfoEdit}
       />
       <DashboardLayoutRoute
-        path={`/publications`}
+        path="/publications"
         exact
         component={PublicationPage}
       />
