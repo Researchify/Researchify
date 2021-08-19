@@ -14,11 +14,12 @@ import deployReducer from './deployReducer';
 
 export default combineReducers({
   notification: notificationReducer,
-  auth: authReducer, 
+  auth: authReducer,
   publications: publicationsReducer,
   team: teamReducer,
   importedPublications: importedPublicationsReducer,
   teamMember: teamMembersReducer,
   deploy: deployReducer,
   website: websiteReducer,
+  achievement: undefined,  // implement the achievementsReducer (plural)
 });
