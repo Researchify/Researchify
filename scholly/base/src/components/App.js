@@ -8,6 +8,7 @@ import LandingPage from './landingPage/LandingPage.js';
 import Header from './layout/Header.js';
 import TeamPage from './team/TeamPage.js';
 import './centred.css';
+import AwardsPage from "../../../base/src/components/awardsPage/AwardsPage";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/publication" component={PublicationPage} />
         <Route exact path="/team" component={TeamPage} />
+        <Route exact path="/awardsPage" component={AwardsPage} />
       </Switch>
     </Fragment>
   );
