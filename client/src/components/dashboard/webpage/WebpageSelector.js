@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import { addPage } from '../../../actions/website';
 import { availablePages as pages } from '../../../config/clientWebsite';
 import { useDispatch } from 'react-redux';
-import {
-  Button,
-  Modal,
-  DropdownButton,
-  Dropdown,
-} from 'react-bootstrap';
+import { Button, Modal, DropdownButton, Dropdown } from 'react-bootstrap';
 
 const WebpageSelector = (props) => {
   const dispatch = useDispatch();
@@ -30,9 +25,10 @@ const WebpageSelector = (props) => {
   };
 
   const handleSubmit = () => {
-      dispatch(addPage(props.teamId, selectedPage));
-      props.closeModal();
-  }
+    dispatch(addPage(props.teamId, selectedPage));
+    props.closeModal();
+  };
+  
   return (
     <>
       <Modal
@@ -67,8 +63,6 @@ const WebpageSelector = (props) => {
           </Button>
         </Modal.Body>
       </Modal>
-      
-        
     </>
   );
 };
