@@ -7,3 +7,8 @@ html, body {
     max-width: 100% !important;
     overflow-x: hidden !important;
  }
+
+ /* Content save space for header */
+ .researchify-content-top-padding{
+     padding-top: 70px;
+ }

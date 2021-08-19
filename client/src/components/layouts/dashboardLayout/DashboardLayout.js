@@ -22,7 +22,7 @@ const DashboardLayout = ({ children }) => {
     return (
         <Fragment>
             <Header data={headerData} />
-            <Container fluid>
+            <Container fluid className="researchify-content-top-padding">
                 <Row>
                     <Col className="sidebar-wrapper" md={2} lg={2} xl={1}>
                         <Sidebar data={DashboardSidebarData({setLogoutAlert})} />
