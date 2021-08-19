@@ -17,20 +17,14 @@ const PublicationPage = () => {
 
   return (
     <Fragment>
-      <Container fluid>
-        <Row>
-          <Col className="pub-page-pub-col">
-            <Container >
-              <Publications />
-            </Container>
-          </Col>
-          <Col className="pub-page-tweet-col">
-            <Container>
-              {linkedHandle ? <TwitterFeed /> : <TwitterLink />}
-            </Container>
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col className="pub-page-pub-col">
+          <Publications />
+        </Col>
+        <Col className="pub-page-tweet-col">
+          {linkedHandle ? <TwitterFeed /> : <TwitterLink />}
+        </Col>
+      </Row>
     </Fragment>
   );
 };
