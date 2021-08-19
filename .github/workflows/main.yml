@@ -106,7 +106,10 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: "researchify"
           environment_name: "Researchify-env"
-          version_label: 1
+          version_label: researchify-app-${{ github.SHA }}
+          version_description: Commit ${{ github.SHA }} deployed by github actions
           region: "ap-southeast-2"
           deployment_package: deploy.zip
           use_existing_version_if_available: true
+          wait_for_deployment: true
+          wait_for_environment_recovery: 60

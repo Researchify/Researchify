@@ -236,6 +236,8 @@ async function getGHAccessToken(req, res, next) {
  */
 async function deployToGHPages(req, res, next) {
   const { team_id: teamId } = req.params;
+  // TODO (https://trello.com/c/DDVVvVCR) ideally this data should be fetched by
+  //  us, and we should not expect the client to provide it.
   const {
     ghToken,
     teamPublications,
@@ -257,8 +259,6 @@ async function deployToGHPages(req, res, next) {
   const ghUsername = data.login;
   logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
 
-  // TODO: ideally this data should be fetched by us, and we should not expect
-  //  the client to provide it.
   const body = {
     ghUsername,
     ghToken,
