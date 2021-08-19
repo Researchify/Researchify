@@ -3,4 +3,12 @@
  */
 const pageSize = 10;
 
-module.exports = { pageSize };
+const categoryType = {
+    JOURNAL: 'JOURNAL',
+    CONFERENCE: 'CONFERENCE',
+    BOOK: 'BOOK',
+    OTHER: 'OTHER',
+  };
+  
+
+module.exports = { pageSize, categoryType };
