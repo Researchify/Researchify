@@ -3,9 +3,10 @@
  */
 import React, { Fragment, useState } from 'react';
 import { Accordion, Dropdown } from 'react-bootstrap';
-import usePagination from '../shared';
-import Publication from './publication/Publication';
+import usePagination from '../shared/usePagination';
 import { TEAM_PUBLICATIONS } from '../../global/data';
+import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
+import LayoutByCategory from './publicationsLayout/LayoutByCategory'
 
 const Publications = () => {
   const allLayouts = {
@@ -13,11 +14,16 @@ const Publications = () => {
     byCategory: 'By Category',
   };
 
-  const { currentData, pagination } = usePagination(TEAM_PUBLICATIONS, 10)
+  const renderPublications = () => {
+    switch (layout) {
+      case allLayouts.byCategory:
+        return <LayoutByCategory/>;
+      default:
+        return <LayoutAllPublications/>;
+    }
+  };
 
   const [layout, setLayout] = useState(allLayouts.allPublications);
-  
-
   return (
     <Fragment>
       <Dropdown className="ml-5">
@@ -38,11 +44,13 @@ const Publications = () => {
       </Dropdown>
 
       <Accordion>
-        {currentData().map((pub) => (
+        {/* {currentData().map((pub) => (
           <Publication pub={pub} key={pub._id} />
         ))}
+      {pagination()} */}
+      {renderPublications()}
+      
       </Accordion>
-      {pagination()}
     </Fragment>
   );
 };
