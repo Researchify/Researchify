@@ -9,13 +9,13 @@ import './ClientHomeEditor.css';
 const ClientHomeEditor = () => {
   // content/values
   const [homepageValues, setValues] = useState({
-    aboutUs: '',
+    aboutUs: [''],
   });
 
   // Handles whenever the form value is changing
   const handleFormChanges = (form) => {
     const { name, value } = form.target;
-    const splittedValue = value.split("\n");
+    const splittedValue = value.split('\n');
     setValues({ ...homepageValues, [name]: splittedValue });
   };
 
