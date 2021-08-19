@@ -79,8 +79,7 @@ const PublicationsDropdown = ({
               {allSorting[sortBy]}
             </Dropdown.Item>
           ))}
-          {
-            layout === allLayouts.byCategory && 
+          {layout === allLayouts.byCategory && 
             <Dropdown.Item
               as="button"
               value="Category Title"

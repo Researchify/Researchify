@@ -13,7 +13,7 @@ import LayoutAllPublications from './LayoutAllPublications';
     return (
       publicationsByCategory.length > 0 && (
         <>
-          <h2 className="publicationListHeader"> {categoryType} </h2>
+          <h3 className="text-center"> {categoryType} </h3>
           <LayoutAllPublications 
             teamPublications={publicationsByCategory} 
             pageSize={categoryPageSize}
@@ -22,8 +22,10 @@ import LayoutAllPublications from './LayoutAllPublications';
       )
     );
   };
-  return Object.keys(categoryType).map((category) =>
-    renderPublicationsByCategory(category)
+  return Object.keys(categoryType).map((category, i) =>
+    <div key={i}>
+      {renderPublicationsByCategory(category)}
+    </div>
   );
 };
  

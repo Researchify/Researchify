@@ -9,13 +9,13 @@
  const LayoutAllPublications = ({ teamPublications, pageSize }) => {
    const { currentData, pagination } = usePagination(teamPublications, pageSize ? pageSize : configPageSize)
    return (
-     <>
+     <div className='mb-5'>
        {
          currentData().map((pub) => (
            <Publication pub={pub} key={pub._id} />))
        }
        { pagination() }
-     </>
+     </div>
    );
  };
  

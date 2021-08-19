@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
+import React from 'react';
+import { Dropdown } from 'react-bootstrap';
 
 const PublicationsDropdown = ({
     allLayouts,
     layout,
     setLayout,
-    teamPublications,
-    setTeamPublications}) => {
-
-    const [sortingOption, setSortingOption] = useState('Year');
-
+    allSorting,
+    sortBy,
+    setsortBy,
+    publication
+}) => {
     const sortPublications = (teamPublications, sortingOption) => {
         switch (sortingOption) {
             case 'Author':
@@ -39,13 +39,12 @@ const PublicationsDropdown = ({
                 );
                 teamPublications.sort((a, b) => (a.year > b.year ? -1 : 1));
                 break;
-        }
-        setTeamPublications(teamPublications)
-    };
+            }
+        };
 
     return(
-        <div className="mb-3 mt-3 text-center">
-            <Dropdown className="ml-5">
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Dropdown style={{marginRight: '3px'}}>
                 <Dropdown.Toggle variant="light" className="mb-2">
                 Layout: {layout}
                 </Dropdown.Toggle>
@@ -62,44 +61,38 @@ const PublicationsDropdown = ({
                 </Dropdown.Menu>
             </Dropdown>
 
-            <DropdownButton
-                className="ml-4"
-                variant="light"
-                id="dropdown-item-button"
-                title={'Sort by: ' + sortingOption}
-            >
-                <Dropdown.Item
+            <Dropdown style={{marginLeft: '3px'}}>
+                <Dropdown.Toggle variant="light" className="mb-2">
+                Sort by: {sortBy}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                {Object.keys(allSorting).map((sortBy, i) => (
+                    <Dropdown.Item
+                    key={i}
                     as="button"
-                    value="Year"
+                    value={allSorting[sortBy]}
                     onClick={(e) => {
-                        sortPublications(teamPublications, e.target.value);
-                        setSortingOption(e.target.value);
+                        setsortBy(allSorting[sortBy])
+                        sortPublications(publication, e.target.value);
                     }}
-                >
-                    Year
-                </Dropdown.Item>
-                <Dropdown.Item
-                    as="button"
-                    value="Author"
-                    onClick={(e) => {
-                        sortPublications(teamPublications, e.target.value);
-                        setSortingOption(e.target.value);
-                    }}
-                >
-                    Author
-                </Dropdown.Item>
-                <Dropdown.Item
-                    as="button"
-                    value="Title"
-                    onClick={(e) => {
-                        sortPublications(teamPublications, e.target.value);
-                        setSortingOption(e.target.value);
-                    }}
-                >
-                    Title
-                </Dropdown.Item>
-                {/* {toggleSortingOptions(setSortingOption)} */}
-            </DropdownButton>
+                    >
+                    {allSorting[sortBy]}
+                    </Dropdown.Item>
+                ))}
+                {layout === allLayouts.byCategory && 
+                    <Dropdown.Item
+                        as="button"
+                        value="Category Title"
+                        onClick={(e) => {
+                            setsortBy(e.target.value)
+                            sortPublications(publication, e.target.value);
+                        }}
+                    >
+                        Category Title
+                    </Dropdown.Item>
+                }
+                </Dropdown.Menu>
+            </Dropdown>
         </div>
     )
 }
