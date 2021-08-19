@@ -23,8 +23,10 @@ const LayoutByCategory = ({ teamPublications }) => {
       )
     );
   };
-  return Object.keys(categoryType).map((category) =>
-    renderPublicationsByCategory(category)
+  return Object.keys(categoryType).map((category, i) =>
+    <div key={i}>
+      {renderPublicationsByCategory(category)}
+    </div>
   );
 };
 

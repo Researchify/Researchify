@@ -3,9 +3,7 @@
  */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  getPublicationsByTeamId
-} from '../../actions/publications';
+import { getPublicationsByTeamId } from '../../actions/publications';
 import { Modal, Spinner, Alert } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
@@ -36,8 +34,6 @@ const Publications = () => {
   const [sortBy, setsortBy] = useState(allSorting.byTitle);
 
   const { loading, teamPublications } = useSelector((state) => state.publications);
-  
-  const [ publication, setPublications ] = useState(teamPublications)
 
   useEffect(() => {
     if(teamId){
@@ -45,17 +41,12 @@ const Publications = () => {
     }
   }, [dispatch, teamId]);
 
-  useEffect(() => {
-    setPublications(teamPublications)
-  }, [teamPublications]);
-
-
   const renderPublications = () => {
     switch (layout) {
       case allLayouts.byCategory:
-        return <LayoutByCategory teamPublications={publication} />;
+        return <LayoutByCategory teamPublications={teamPublications} />;
       default:
-        return <LayoutAllPublications teamPublications={publication} />;
+        return <LayoutAllPublications teamPublications={teamPublications} />;
     }
   };
 
@@ -72,8 +63,7 @@ const Publications = () => {
         allSorting={allSorting}
         sortBy={sortBy}
         setsortBy={setsortBy}
-
-        publication={publication}
+        publication={teamPublications}
       />
       <div className="text-center">
         {loading ? (

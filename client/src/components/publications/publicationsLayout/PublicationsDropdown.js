@@ -10,9 +10,7 @@ const PublicationsDropdown = ({
   setsortBy,
   publication
 }) => {
-
   const sortPublications = (publication, sortingOption) => {
-    console.log(sortingOption)
     switch (sortingOption) {
       case 'Author':
         publication.sort((a, b) =>
@@ -43,7 +41,6 @@ const PublicationsDropdown = ({
         break;
     }
   };
-
 
   return (
     <div className="mb-3 mt-3 text-center">
@@ -94,7 +91,6 @@ const PublicationsDropdown = ({
             >
               Category Title
             </Dropdown.Item>
-
           }
         </Dropdown.Menu>
       </Dropdown>
