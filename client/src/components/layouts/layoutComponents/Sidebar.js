@@ -3,17 +3,18 @@
  */
 import './Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
+import { Fragment } from 'react';
 
-const Sidebar = ({data}) => {
+const Sidebar = ({ data }) => {
   let location = useLocation();
 
   return (
-    <div className="Sidebar">
+    <Fragment>
       <ul className="SidebarList">
         {data.map((val, key) => {
           return (
             // if the link property of a sidebar item is undenfined, stays in the current page
-            <Link to={val.link ? val.link : '#'} key={key}> 
+            <Link to={val.link ? val.link : '#'} key={key}>
               <li
                 className="row"
                 id={location.pathname === val.link ? 'active' : ''}
@@ -28,7 +29,7 @@ const Sidebar = ({data}) => {
           );
         })}
       </ul>
-    </div>
+    </Fragment>
   );
 };
 
