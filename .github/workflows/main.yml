@@ -13,12 +13,22 @@ jobs:
         working-directory: ./api
       - run: npm install
         working-directory: ./client
+      - run: npm install
+        working-directory: ./scholly/service
+      - run: npm install
+        working-directory: ./scholly/base
       - name: Run ESLint on Node API
         run: npm run lint
         working-directory: ./api
       - name: Run ESLint on React Client
         run: npm run lint
         working-directory: ./client
+      - name: Run ESLint on Scholly Service
+        run: npm run lint
+        working-directory: ./scholly/service
+      - name: Run ESLint on Scholly React Base
+        run: npm run lint
+        working-directory: ./scholly/base
   test:
     name: Unit Tests
     runs-on: ubuntu-latest
@@ -35,16 +45,6 @@ jobs:
       - name: Run Tests on React Client
         run: npm run testcov
         working-directory: ./client
-#   trigger-deploy-doc:
-#     name: Generate and deploy docs for researchify.github.io
-#     runs-on: ubuntu-latest
-#     if: github.ref == 'refs/heads/main'
-#     steps:
-#       - uses: peter-evans/repository-dispatch@v1
-#         with:
-#           token: ${{ secrets.DOCS_WORKFLOW_PAT }}
-#           repository: Researchify/researchify.github.io
-#           event-type: trigger-deploy
   publish:
     name: Publish Images to Docker Hub
     needs:
@@ -80,6 +80,13 @@ jobs:
           file: ./nginx/Dockerfile
           push: true
           tags: ak1738/researchify-nginx:latest
+      - name: Push Scholly Image to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./scholly
+          file: ./scholly/Dockerfile
+          push: true
+          tags: ak1738/researchify-scholly:latest
   deploy:
     name: Deploy to AWS Elastic Beanstalk
     needs:

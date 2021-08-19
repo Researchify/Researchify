@@ -1,19 +1,19 @@
-FROM node:alpine
+FROM node
 
+USER node
+
+RUN mkdir -p '/home/node/app'
 WORKDIR '/home/node/app'
 
-RUN mkdir -p ./service/node_modules
-RUN mkdir -p ./base/node_modules
+COPY --chown=node:node service/package.json ./service/
+COPY --chown=node:node base/package.json ./base/
 
-COPY service/package.json ./service
-COPY base/package.json ./base
+ENV NODE_ENV=production
 
 RUN npm install --prefix ./service
 RUN npm install --prefix ./base
 
-COPY ./service ./service
-COPY ./base ./base
+COPY --chown=node:node ./service ./service
+COPY --chown=node:node ./base ./base
 
-USER node
-
-CMD ["npm", "run", "start", "--prefix", "./service"]
+CMD ["npm", "start", "--prefix", "./service"]
