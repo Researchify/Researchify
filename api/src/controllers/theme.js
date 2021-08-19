@@ -5,7 +5,7 @@
 const Theme = require('../models/editor/theme.model');
 
 /**
- * 
+ * Find and assign theme id to the team, if not found, create a new one
  * @param {*} req 
  * @param {*} res 
  * @returns 
