@@ -4,13 +4,9 @@
 const publicationsRouter = require('express').Router();
 
 const publicationsController = require('../controllers/publications');
-
 const publicationsMiddleware = require('../middleware/publications');
-
 const authMiddleware = require('../middleware/auth');
-
 const teamMiddleware = require('../middleware/team');
-
 const mongooseMiddleware = require('../middleware/mongoose');
 
 publicationsRouter.delete(

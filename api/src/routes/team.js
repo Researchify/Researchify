@@ -1,15 +1,11 @@
 /**
  * This module defines the endpoints for the "/twitter" route and exports the corresponding Router.
  */
-
 const teamRouter = require('express').Router();
 
 const teamController = require('../controllers/team');
-
 const teamMiddleware = require('../middleware/team');
-
 const mongooseMiddleware = require('../middleware/mongoose');
-
 const authMiddleware = require('../middleware/auth');
 
 teamRouter.patch(

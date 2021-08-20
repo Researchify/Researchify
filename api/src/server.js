@@ -14,7 +14,6 @@ const authRouter = require('./routes/auth');
 const themeRouter = require('./routes/theme');
 const websiteRouter = require('./routes/website');
 const achievementsRouter = require('./routes/achievements');
-
 const { errorHandler } = require('./middleware/error');
 
 // Connect to the database

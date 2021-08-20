@@ -1,7 +1,6 @@
 /**
  * This module defines the endpoints for the "/achievements" route and exports the corresponding Router.
  */
-
 const achievementsRouter = require('express').Router();
 
 const achievementsController = require('../controllers/achievements');
