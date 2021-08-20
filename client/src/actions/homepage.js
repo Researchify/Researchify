@@ -3,7 +3,7 @@
  */
 import * as api from '../api';
 import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
-import { FETCH_HOMEPAGE, GET_HOMEPAGE, UPDATE_HOMEPAGE } from './types';
+import { FETCH_HOMEPAGE, UPDATE_HOMEPAGE } from './types';
 
 export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
   try {
