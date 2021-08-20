@@ -16,7 +16,7 @@ import {
   Collapse,
 } from 'react-bootstrap';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import { BsThreeDotsVertical, BsLink45Deg } from 'react-icons/bs';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import { GrLinkDown, GrLinkUp } from 'react-icons/gr';
 import { IconContext } from 'react-icons';
 import '../publications.css';
@@ -43,7 +43,7 @@ const Publication = ({ pub }) => {
     setShowDeleteMessage(false);
   };
 
-  // Parameters are to remove warning when button is clicked. 
+  // Parameters are to remove warning when button is clicked.
   // See PR#160 for more information.
   const displayOptions = ({
     placement,
@@ -133,16 +133,7 @@ const Publication = ({ pub }) => {
           </h5>
         )}
         <Row>
-          <Col md={11}>
-            {pub.link && (
-              <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
-                <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-                  <BsLink45Deg />
-                </IconContext.Provider>
-              </Button>
-            )}
-          </Col>
-          <Col md={1}>
+          <Col md={{ span: 1, offset: 11}}>
             <span onClick={() => setExpand(!expand)}>{displayUpArrow()}</span>
           </Col>
         </Row>
@@ -157,7 +148,15 @@ const Publication = ({ pub }) => {
       >
         <Row>
           <Col md={11}>
-            <h3 className="ml-3 mt-3">{pub.title}</h3>
+            <h3 className="ml-3 mt-3">
+              {pub.link ? (
+                <a href={pub.link} target="_blank" rel="noreferrer">
+                  {pub.title}
+                </a>
+              ) : (
+                pub.title
+              )}
+            </h3>
           </Col>
           <Col md={1}>
             <OverlayTrigger
