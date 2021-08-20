@@ -10,6 +10,7 @@ import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.deploy.loading);
+  // TODO: refactor this into useState
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken
   );
@@ -59,6 +60,7 @@ const DeployPage = ({ teamId }) => {
     <Button
       className="float-right"
       variant="primary"
+      // TODO: modify this condition to check currentWebPages isn't empty
       disabled={!retrievedAccessToken}
       onClick={handleDeploy}
     >
