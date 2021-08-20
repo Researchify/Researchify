@@ -6,7 +6,8 @@ RUN mkdir -p '/home/node/app'
 WORKDIR '/home/node/app'
 
 COPY --chown=node:node package.json .
-RUN npm install
+# Option --legacy-peer-deps needed to resolve legacy react-github-login dep.
+RUN npm install --legacy-peer-deps
 COPY --chown=node:node . .
 
 EXPOSE 3000
