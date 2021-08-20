@@ -116,9 +116,12 @@ const Dashboard = () => {
             title={selectedPage}
             onSelect={handlePageSelection}
           >
-            {webpageOfferings.map((pageName) => (
-              <Dropdown.Item eventKey={pageName}>{pageName}</Dropdown.Item>
-            ))}
+            {
+              webpageOfferings.map((pageName, i) => (
+                <Dropdown.Item key={i}
+                               eventKey={pageName}>{pageName}</Dropdown.Item>
+              ))
+            }
           </DropdownButton>
           <Button
             className="float-right"
