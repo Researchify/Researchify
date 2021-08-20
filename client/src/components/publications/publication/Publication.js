@@ -133,7 +133,7 @@ const Publication = ({ pub }) => {
           </h5>
         )}
         <Row>
-          <Col md={1}>
+          <Col md={{ span: 1, offset: 11}}>
             <span onClick={() => setExpand(!expand)}>{displayUpArrow()}</span>
           </Col>
         </Row>
