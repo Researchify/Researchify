@@ -6,14 +6,24 @@
       "image": "ak1738/researchify-client",
       "hostname": "client",
       "essential": false,
-      "memory": 128
+      "memory": 64
     },
     {
       "name": "api",
       "image": "ak1738/researchify-api",
       "hostname": "api",
       "essential": false,
-      "memory": 128
+      "memory": 256,
+      "links": [
+        "scholly"
+      ]
+    },
+    {
+      "name": "scholly",
+      "image": "ak1738/researchify-scholly",
+      "hostname": "scholly",
+      "essential": false,
+      "memory": 512
     },
     {
       "name": "nginx",
@@ -26,8 +36,11 @@
           "containerPort": 80
         }
       ],
-      "links": ["client", "api"],
-      "memory": 128
+      "links": [
+        "client",
+        "api"
+      ],
+      "memory": 64
     }
   ]
 }

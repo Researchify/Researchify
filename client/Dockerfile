@@ -1,7 +1,8 @@
 FROM node:alpine as builder
 WORKDIR '/app'
 COPY package.json .
-RUN npm install
+# Option --legacy-peer-deps needed to resolve legacy react-github-login dep.
+RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
