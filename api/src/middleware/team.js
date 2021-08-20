@@ -1,11 +1,9 @@
 /**
  * This module contains middleware functions for the team route (/routes/teams.js).
  */
-
 const { body, validationResult } = require('express-validator');
 
 const Team = require('../models/team.model');
-
 const { fillErrorObject } = require('./error');
 
 async function validateTeamId(req, res, next) {

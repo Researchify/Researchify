@@ -2,7 +2,6 @@
  * This module contains handlers for the "clientWebsite" route.
  * @module website
  */
-
 const Website = require('../models/website.model');
 
 const { fillErrorObject } = require('../middleware/error');

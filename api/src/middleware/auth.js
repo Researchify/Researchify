@@ -1,7 +1,9 @@
+/**
+ * This module contains auth middleware.
+ */
 const jwt = require('jsonwebtoken');
 
 const { accessTokenExpiry, accessTokenCookieExpiry } = require('../config/tokenExpiry');
-
 const { fillErrorObject } = require('./error');
 
 const cookieJwtAuth = (req, res, next) => {

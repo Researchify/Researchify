@@ -1,9 +1,9 @@
 /**
  * This module contains middleware functions for the publications route (../routes/publications.js).
  */
-
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
+
 const { categoryTypeEnum } = require('../config/playwright');
 const { fillErrorObject } = require('./error');
 

@@ -2,14 +2,11 @@
  * @file This module contains handlers for the "auth" route.
  * @module auth
  */
-
 const bcrypt = require('bcrypt');
-
 const jwt = require('jsonwebtoken');
+
 const Team = require('../models/team.model');
-
 const { fillErrorObject } = require('../middleware/error');
-
 const {
   accessTokenExpiry,
   refreshTokenExpiry,

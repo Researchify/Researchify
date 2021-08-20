@@ -5,9 +5,7 @@
 const mongoose = require('mongoose');
 
 const Achievement = require('../models/achievement.model');
-
 const Team = require('../models/team.model');
-
 const { fillErrorObject } = require('../middleware/error');
 
 /**

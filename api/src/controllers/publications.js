@@ -3,15 +3,12 @@
  * @module publications
  */
 const mongoose = require('mongoose');
-
 const logger = require('winston');
 const { firefox } = require('playwright');
+
 const Publication = require('../models/publication.model');
-
 const Team = require('../models/team.model');
-
 const { playwrightConfig, categoryType } = require('../config/playwright');
-
 const { fillErrorObject } = require('../middleware/error');
 
 /**
