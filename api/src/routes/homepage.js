@@ -6,8 +6,7 @@ const homepageRouter = require('express').Router();
 
 const homepageController = require('../controllers/homepage');
 
-homepageRouter.get('/:team_id', homepageController.createHomepage);
-homepageRouter.post('/', homepageController.createHomepage);
-homepageRouter.patch('/:team_id', homepageController.createHomepage);
+homepageRouter.get('/:team_id', homepageController.createOrUpdateHomepage);
+homepageRouter.post('/:team_id', homepageController.getHomepage);
 
 module.exports = homepageRouter;
