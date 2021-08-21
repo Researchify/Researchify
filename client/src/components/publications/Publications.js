@@ -1,7 +1,7 @@
 /**
  * The Publications component displays a list of publications
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPublicationsByTeamId } from '../../actions/publications';
 import { Modal, Spinner, Alert } from 'react-bootstrap';
@@ -12,35 +12,75 @@ import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 import PublicationsButtons from './publicationsLayout/PublicationsButtons';
 import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
-import { layoutOption } from '../../config/publications';
+import { layoutOption, sortingOption } from '../../config/publications';
 
 const Publications = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
   const { publicationOptions } = useSelector((state) => state.website);
   const { loading, teamPublications } = useSelector((state) => state.publications);
-
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showImportForm, setShowImportForm] = useState(false);
   const [preference, setPreference] = useState(publicationOptions);
-
+  const [publications, setPublications] = useState(teamPublications);
 
   useEffect(() => {
     if(teamId){
       dispatch(getPublicationsByTeamId(teamId));
-      setPreference(publicationOptions)
     }
-  }, [dispatch, teamId, publicationOptions]);
+  }, [dispatch, teamId]);
 
+  useEffect(() => {
+    setPreference(publicationOptions)
+  }, [publicationOptions])
+  
+  useEffect(() => {
+    sortPublications(teamPublications, preference.sortBy)
+  }, [preference.layout, preference.sortBy, publicationOptions, teamPublications])
 
-  const renderPublications = () => {
+  const renderPublications = useCallback(() => {
     switch (preference.layout) {
       case layoutOption.BY_CATEGORY:
-        return <LayoutByCategory teamPublications={teamPublications} />;
+        return <LayoutByCategory teamPublications={publications} />;
       default:
-        return <LayoutAllPublications teamPublications={teamPublications} />;
+        return <LayoutAllPublications teamPublications={publications} />;
     }
-  };
+  }, [preference, publications])
+
+
+  const sortPublications = (publicationToBeSorted, option) => {
+    switch (option) {
+      case sortingOption.AUTHOR:
+        publicationToBeSorted.sort((a, b) =>
+          a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1
+        );
+        break;
+      case sortingOption.TITLE:
+        // publication title
+        publicationToBeSorted.sort((a, b) =>
+          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
+        );
+        break;
+      case 'Category Title':
+        // journal or conference title
+        publicationToBeSorted.sort((a, b) =>
+          a.category.categoryTitle.toLowerCase() >
+          b.category.categoryTitle.toLowerCase()
+            ? 1
+            : -1
+        );
+        break;
+      default:
+        // sort by title then year for consistency with the db
+        publicationToBeSorted.sort((a, b) =>
+          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
+        );
+        publicationToBeSorted.sort((a, b) => (a.year > b.year ? -1 : 1));
+        break;
+    }
+    setPublications(publicationToBeSorted)
+    };
+
 
   return (
     <>
@@ -51,7 +91,8 @@ const Publications = () => {
       <PublicationsDropdown
         preference={preference}
         setPreference={setPreference}
-        publication={teamPublications}
+        sortPublications={sortPublications}
+        publication={publications}
         teamId={teamId}
       />
       <div className="text-center">

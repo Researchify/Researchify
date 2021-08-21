@@ -9,39 +9,9 @@ const PublicationsDropdown = ({
   setPreference,
   publication,
   teamId,
+  sortPublications,
 }) => {
   const dispatch = useDispatch();
-  const sortPublications = (publication, option) => {
-    switch (option) {
-      case sortingOption.AUTHOR:
-        publication.sort((a, b) =>
-          a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1
-        );
-        break;
-      case sortingOption.TITLE:
-        // publication title
-        publication.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
-        break;
-      case 'Category Title':
-        // journal or conference title
-        publication.sort((a, b) =>
-          a.category.categoryTitle.toLowerCase() >
-          b.category.categoryTitle.toLowerCase()
-            ? 1
-            : -1
-        );
-        break;
-      default:
-        // sort by title then year for consistency with the db
-        publication.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
-        publication.sort((a, b) => (a.year > b.year ? -1 : 1));
-        break;
-    }
-  };
 
   const handleUpdate = () => {
     dispatch(updatePublicationOptions(teamId, preference))
