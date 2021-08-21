@@ -23,9 +23,9 @@ export const getAchievementsByTeamId = (teamId) => async (dispatch) => {
     }
   };
   
-export const createAchievement = (publication) => async (dispatch) => {
+export const createAchievement = (achievement) => async (dispatch) => {
     try {
-        const result = await api.createAchievement(publication);
+        const result = await api.createAchievement(achievement);
 
         dispatch({
         type: CREATE_ACHIEVEMENT,

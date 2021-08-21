@@ -6,10 +6,11 @@
  import * as yup from 'yup';
  import { useSelector, useDispatch } from 'react-redux';
  import { Row, Button, Tooltip, OverlayTrigger, Form } from 'react-bootstrap';
- 
+ import { createAchievement } from '../../../actions/achievements';
+
  const AwardForm = ({ closeModal, award, type }) => {
    const dispatch = useDispatch();
-   const awardId = useSelector((state) => state.team.awardId);
+   const awardId = useSelector((state) => state.team.teamId);
    const validationSchema = yup.object({
      title: yup
        .string()
@@ -36,6 +37,12 @@
      day: '',
      Description: '',
    };
+
+   const submitForm = (values) => {
+    console.log(values);
+    dispatch(createAchievement(values));
+    closeModal();
+    };
  
  
    const renderTooltip = (props) => (
