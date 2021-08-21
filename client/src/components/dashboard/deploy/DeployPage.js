@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
 import { Button, Spinner } from 'react-bootstrap';
@@ -6,6 +6,7 @@ import GitHubLogin from 'react-github-login';
 
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
+import './DeployPage.css';
 
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
@@ -49,10 +50,11 @@ const DeployPage = ({ teamId }) => {
   // }, [dispatch, teamId]);
 
   const GitHubLoginButton = (
-    <GitHubLogin className="float-right" clientId={githubClientId} scope={scope}
+    <GitHubLogin className="float-right github-login-button" clientId={githubClientId} scope={scope}
                  onSuccess={onSuccessfulLogin} onFailure={onLoginFail}
                  redirectUri="">
       <GoMarkGithub className="mr-2"/>
+      Login GitHub to Deploy
     </GitHubLogin>
   );
 
@@ -69,7 +71,7 @@ const DeployPage = ({ teamId }) => {
   );
 
   return (
-    <>
+    <Fragment>
       Deploy Website with GitHub
       {
         loading ?
@@ -78,7 +80,7 @@ const DeployPage = ({ teamId }) => {
         </div> :
         ( retrievedAccessToken ? DeployButton : GitHubLoginButton )
       }
-    </>
+    </Fragment>
   );
 };
 
