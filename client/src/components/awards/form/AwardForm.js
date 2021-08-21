@@ -10,7 +10,7 @@
 
  const AwardForm = ({ closeModal, award, type }) => {
    const dispatch = useDispatch();
-   const awardId = useSelector((state) => state.team.teamId);
+   const teamId = useSelector((state) => state.team.teamId);
    const validationSchema = yup.object({
      title: yup
        .string()
@@ -23,10 +23,10 @@
         .string(),
      day: yup
         .string(),
-     Description: yup
+     description: yup
        .string()
        .required('Description is required')
-       .min(3, 'Discription is at least 3 characters')
+       .min(3, 'Description is at least 3 characters')
        .max(200, 'Max 200 characters'),
    });
  
@@ -35,7 +35,8 @@
      year: '',
      month: '',
      day: '',
-     Description: '',
+     description: '',
+     teamId: teamId
    };
 
    const submitForm = (values) => {
@@ -55,7 +56,7 @@
      <Formik
        enableReinitialize
        validationSchema={validationSchema}
-       //onSubmit={submitForm}
+       onSubmit={submitForm}
        initialValues={type === 'update' ? award : initValues}
      >
        {({ handleSubmit, handleChange, values, touched, errors }) => (
@@ -125,14 +126,14 @@
              <Form.Control
                as="textarea"
                row={5}
-               name="Description"
+               name="description"
                placeholder="description"
-               value={values.Description}
+               value={values.description}
                onChange={handleChange}
-               isInvalid={touched.Description && errors.Description}
+               isInvalid={touched.description && errors.description}
              />
              <Form.Control.Feedback type="invalid">
-               {errors.Description}
+               {errors.description}
              </Form.Control.Feedback>
            </Form.Group>
  
