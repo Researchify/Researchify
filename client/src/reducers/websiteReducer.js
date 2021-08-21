@@ -17,7 +17,7 @@ const INITIAL_WEBSITE_STATE = {
   publicationOptions: {
     layout: layoutOption.ALL_PUBLICATION,
     sortBy: sortingOption.TITLE
-  }
+  },
 };
 
 /**

@@ -3,7 +3,7 @@
  */
  import React from 'react';
  import { categoryType, categoryPageSize } from '../../../config/publications';
-import LayoutAllPublications from './LayoutAllPublications';
+ import LayoutAllPublications from './LayoutAllPublications';
 
  const LayoutByCategory = ({ teamPublications }) => {
   const renderPublicationsByCategory = (categoryType) => {
@@ -30,4 +30,3 @@ import LayoutAllPublications from './LayoutAllPublications';
 };
  
  export default LayoutByCategory;
- 

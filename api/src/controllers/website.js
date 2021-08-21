@@ -138,8 +138,6 @@ function deleteWebPage(req, res, next) {
 async function updatePublicationOptions(req, res, next){ // eslint-disable-line no-unused-vars
   const updatedPubOptions = req.body; 
   const { team_id: _id } = req.params; // TODO: teamId get from the token instead of parameters? 
-
-  console.log(updatedPubOptions)
   try{
     await Website.updateOne(
       {'teamId': _id },

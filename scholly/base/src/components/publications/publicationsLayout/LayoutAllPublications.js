@@ -7,7 +7,7 @@
  import { pageSize as configPageSize } from '../../../config/publications';
  
  const LayoutAllPublications = ({ teamPublications, pageSize }) => {
-   const { currentData, pagination } = usePagination(teamPublications, pageSize ? pageSize : configPageSize)
+   const { currentData, pagination } = usePagination(teamPublications, pageSize ? pageSize : configPageSize);
    return (
      <div className='mb-5'>
        {
@@ -20,4 +20,3 @@
  };
  
  export default LayoutAllPublications;
- 

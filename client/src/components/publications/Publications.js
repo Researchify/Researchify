@@ -2,7 +2,7 @@
  * The Publications component displays a list of publications
  */
 
-import React, { useEffect, useState, Fragment, useCallback } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPublicationsByTeamId } from '../../actions/publications';
 import { Modal, Spinner, Alert } from 'react-bootstrap';
@@ -40,16 +40,14 @@ const Publications = () => {
     setPublications(sortedPublication)
   }, [teamPublications])
 
-
-  const renderPublications = useCallback(() => {
+  const renderPublications = () => {
     switch (options.layout) {
       case layoutOption.BY_CATEGORY:
         return <LayoutByCategory teamPublications={publications} />;
       default:
         return <LayoutAllPublications teamPublications={publications} />;
     }
-  }, [options, publications])
-
+  }
 
   const sortPublications = (publicationToBeSorted, option) => {
     switch (option) {
@@ -80,8 +78,8 @@ const Publications = () => {
         );
         publicationToBeSorted.sort((a, b) => (a.year > b.year ? -1 : 1));
         break;
-    }
-    return publicationToBeSorted
+      }
+      return publicationToBeSorted
     };
 
   return (

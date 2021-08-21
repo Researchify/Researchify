@@ -26,7 +26,6 @@ const PublicationsDropdown = ({
                 ))}
                 </Dropdown.Menu>
             </Dropdown>
-
             <Dropdown style={{marginLeft: '3px'}}>
                 <Dropdown.Toggle variant="light" className="mb-2">
                     Sort by: {options.sortBy}

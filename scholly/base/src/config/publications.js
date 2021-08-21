@@ -12,12 +12,11 @@ const categoryType = {
 const layoutOption = {
   ALL_PUBLICATION: 'All Publication',
   BY_CATEGORY: 'By Category',
-}
+};
 const sortingOption = {
   TITLE: 'Title',
   AUTHOR: 'Author',
   YEAR: 'Year',
-}
+};
   
-
 module.exports = { pageSize, categoryPageSize, categoryType, layoutOption, sortingOption };
