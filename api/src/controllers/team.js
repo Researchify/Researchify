@@ -207,6 +207,7 @@ async function getGHAccessToken(req, res) {
 
 async function deployToGHPages(req, res, next) {
   const teamId = req.params.team_id;
+
   const {
     ghToken,
     teamPublications,

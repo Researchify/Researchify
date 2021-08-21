@@ -24,7 +24,7 @@ const PublicationsDropdown = ({
           a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
         );
         break;
-      case sortingOption.Category_Title:
+      case 'Category Title':
         // journal or conference title
         publication.sort((a, b) =>
           a.category.categoryTitle.toLowerCase() >

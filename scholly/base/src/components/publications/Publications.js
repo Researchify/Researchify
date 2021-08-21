@@ -7,25 +7,21 @@ import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory'
 import { TEAM_PUBLICATIONS } from '../../global/data';
 import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
+import { WEB_PAGES } from '../../global/data';
+import { layoutOption } from '../../config/publications';
 
 const Publications = () => {
-  const allLayouts = {
-    allPublications: 'All Publications',
-    byCategory: 'By Category',
-  };
+  const { publicationOptions } = WEB_PAGES
+  console.log(WEB_PAGES)
+  console.log(publicationOptions)
+  const [preference, setPreference] = useState(publicationOptions);
 
-  const allSorting = {
-    byTitle: 'Title',
-    byAuthor: 'Author',
-    byYear: 'Year'
-  }
 
-  const [layout, setLayout] = useState(allLayouts.allPublications);
-  const [sortBy, setsortBy] = useState(allSorting.byTitle);
-
+  
   const renderPublications = () => {
-    switch (layout) {
-      case allLayouts.byCategory:
+    console.log(preference)
+    switch (preference.layout) {
+      case layoutOption.BY_CATEGORY:
         return <LayoutByCategory teamPublications={TEAM_PUBLICATIONS}/>;
       default:
         return <LayoutAllPublications teamPublications={TEAM_PUBLICATIONS}/>;
@@ -35,12 +31,8 @@ const Publications = () => {
   return (
     <Fragment>
       <PublicationsDropdown 
-        allLayouts={allLayouts}
-        layout={layout}
-        setLayout={setLayout}
-        allSorting={allSorting}
-        sortBy={sortBy}
-        setsortBy={setsortBy}
+        preference={preference}
+        setPreference={setPreference}
         publication={TEAM_PUBLICATIONS}
       />
       <Accordion>

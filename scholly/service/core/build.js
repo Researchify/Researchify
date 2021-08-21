@@ -39,7 +39,7 @@ async function buildBaseApp(data) {
         [REACT_APP_TEAM_PUBLICATIONS]: JSON.stringify(data.teamPublications),
         [REACT_APP_TEAM_INFO]: JSON.stringify(data.teamInfo),
         [REACT_APP_TEAM_MEMBERS]: JSON.stringify(data.teamMembers),
-        [REACT_APP_WEB_PAGES]: JSON.stringify(data.webPages.pages),
+        [REACT_APP_WEB_PAGES]: JSON.stringify(data.webPages),
       },
       timeout: BUILD_TIMEOUT,
     }

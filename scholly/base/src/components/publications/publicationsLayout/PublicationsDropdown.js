@@ -1,23 +1,20 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import { layoutOption, sortingOption } from '../../../config/publications';
 
 const PublicationsDropdown = ({
-    allLayouts,
-    layout,
-    setLayout,
-    allSorting,
-    sortBy,
-    setsortBy,
-    publication
+    preference,
+    setPreference,
+    publication,
 }) => {
-    const sortPublications = (teamPublications, sortingOption) => {
-        switch (sortingOption) {
-            case 'Author':
+    const sortPublications = (teamPublications, option) => {
+        switch (option) {
+            case sortingOption.AUTHOR:
                 teamPublications.sort((a, b) =>
                     a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1
                 );
                 break;
-            case 'Title':
+            case sortingOption.TITLE:
                 // publication title
                 teamPublications.sort((a, b) =>
                     a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
@@ -46,16 +43,16 @@ const PublicationsDropdown = ({
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Dropdown style={{marginRight: '3px'}}>
                 <Dropdown.Toggle variant="light" className="mb-2">
-                Layout: {layout}
+                Layout: {preference.layout}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                {Object.keys(allLayouts).map((layout, i) => (
+                {Object.keys(layoutOption).map((layout, i) => (
                     <Dropdown.Item
                         key={i}
                         as="button"
-                        onClick={() => setLayout(allLayouts[layout])}
+                        onClick={() => setPreference({...preference, layout: layoutOption[layout]})}
                     >
-                    {allLayouts[layout]}
+                    {layoutOption[layout]}
                     </Dropdown.Item>
                 ))}
                 </Dropdown.Menu>
@@ -63,28 +60,28 @@ const PublicationsDropdown = ({
 
             <Dropdown style={{marginLeft: '3px'}}>
                 <Dropdown.Toggle variant="light" className="mb-2">
-                Sort by: {sortBy}
+                    Sort by: {preference.sortBy}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                {Object.keys(allSorting).map((sortBy, i) => (
+                {Object.keys(sortingOption).map((sortBy, i) => (
                     <Dropdown.Item
                     key={i}
                     as="button"
-                    value={allSorting[sortBy]}
+                    value={sortingOption[sortBy]}
                     onClick={(e) => {
-                        setsortBy(allSorting[sortBy])
+                        setPreference({...preference, sortBy: sortingOption[sortBy]})
                         sortPublications(publication, e.target.value);
                     }}
                     >
-                    {allSorting[sortBy]}
+                    {sortingOption[sortBy]}
                     </Dropdown.Item>
                 ))}
-                {layout === allLayouts.byCategory && 
+                {preference.layout === layoutOption.BY_CATEGORY && 
                     <Dropdown.Item
                         as="button"
                         value="Category Title"
                         onClick={(e) => {
-                            setsortBy(e.target.value)
+                            setPreference({...preference, sortBy: e.target.value})
                             sortPublications(publication, e.target.value);
                         }}
                     >
