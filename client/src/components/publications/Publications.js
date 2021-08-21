@@ -19,10 +19,10 @@ const Publications = () => {
   const teamId = useSelector((state) => state.team.teamId);
   const { publicationOptions } = useSelector((state) => state.website);
   const { loading, teamPublications } = useSelector((state) => state.publications);
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [showImportForm, setShowImportForm] = useState(false);
-  const [preference, setPreference] = useState(publicationOptions);
-  const [publications, setPublications] = useState(teamPublications);
+  const [ showCreateForm, setShowCreateForm ] = useState(false);
+  const [ showImportForm, setShowImportForm ] = useState(false);
+  const [ options, setOptions ] = useState(publicationOptions);
+  const [ publications, setPublications ] = useState(teamPublications);
 
   useEffect(() => {
     if(teamId){
@@ -31,21 +31,23 @@ const Publications = () => {
   }, [dispatch, teamId]);
 
   useEffect(() => {
-    setPreference(publicationOptions)
+    setOptions(publicationOptions)
   }, [publicationOptions])
   
   useEffect(() => {
-    sortPublications(teamPublications, preference.sortBy)
-  }, [preference.layout, preference.sortBy, publicationOptions, teamPublications])
+    const sortedPublication = sortPublications(teamPublications, options.sortBy)
+    setPublications(sortedPublication)
+  }, [teamPublications])
+
 
   const renderPublications = useCallback(() => {
-    switch (preference.layout) {
+    switch (options.layout) {
       case layoutOption.BY_CATEGORY:
         return <LayoutByCategory teamPublications={publications} />;
       default:
         return <LayoutAllPublications teamPublications={publications} />;
     }
-  }, [preference, publications])
+  }, [options, publications])
 
 
   const sortPublications = (publicationToBeSorted, option) => {
@@ -78,9 +80,8 @@ const Publications = () => {
         publicationToBeSorted.sort((a, b) => (a.year > b.year ? -1 : 1));
         break;
     }
-    setPublications(publicationToBeSorted)
+    return publicationToBeSorted
     };
-
 
   return (
     <>
@@ -89,8 +90,8 @@ const Publications = () => {
         setShowImportForm={setShowImportForm}
       />
       <PublicationsDropdown
-        preference={preference}
-        setPreference={setPreference}
+        options={options}
+        setOptions={setOptions}
         sortPublications={sortPublications}
         publication={publications}
         teamId={teamId}
