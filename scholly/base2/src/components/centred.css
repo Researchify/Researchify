@@ -146,7 +146,7 @@
 
 .member-summary {
   padding-top: 15px;
-  text-align: justify;
+  text-align: center;
   text-indent: 5%;
 }
 
@@ -189,3 +189,22 @@
 
 
 }
+
+.left {
+  float: left;
+  padding: 0 20px 20px 0;
+  width: 50%;
+  height: 30%;
+}
+
+.button-pub{
+  margin: 0;
+  position: absolute;
+
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+
+}
+

@@ -9,7 +9,7 @@ const landingPage = () => {
   return (
     <Fragment>
       <Container fluid className="pages-top-padding">
-        <img src={profilePicture}  className="left" />
+        <img src={profilePicture} align="left" className="left" />
         <div className="landing-center-title">About Us</div>
         <div className="landing-center-content">
           Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere
@@ -44,7 +44,7 @@ const landingPage = () => {
         <div className="landing-center-content">
           Ad quis civibus lucilius vel. Vix nostrud expetendis dissentiet in, te
           mea oportere incorrupte. Est expetenda principes delicatissimi ne. Ex
-          his saepe populo.
+          his saepe populo. Blahblah
         </div>
       </Container>
     </Fragment>
