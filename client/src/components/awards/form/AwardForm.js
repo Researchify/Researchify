@@ -49,7 +49,7 @@
     };
     console.log(values);
     if (type === 'update') {
-      dispatch(updateAchievement(data));
+      dispatch(updateAchievement(award._id, data));
     } else if (type === 'create') {
       dispatch(createAchievement(data));
     }
