@@ -2,7 +2,7 @@
  * This module contains handlers for the "homepage" route.
  * @module homepage
  */
-const Homepage = require('../models/editor/homepage.model');
+const Homepage = require('../models/homepage.model');
 const { fillErrorObject } = require('../middleware/error');
 
 /**
@@ -17,8 +17,10 @@ async function getHomepage(req, res, next) {
     const foundHomepage = await Homepage.findOne({ teamId: team_id });
     if (foundHomepage) {
       return res.status(200).json(foundHomepage);
+    } else {
+      const emptyHomepage = { teamId: team_id, aboutUs: [''] };
+      return res.status(200).json(emptyHomepage);
     }
-    return res.status(404).json('Homepage not found');
   } catch (err) {
     next(fillErrorObject(500, 'Server error', [err.errors]));
   }
@@ -36,9 +38,10 @@ async function createOrUpdateHomepage(req, res, next) {
   try {
     const foundHomepage = await Homepage.findOne({ teamId: team_id });
     if (foundHomepage) {
-      const updatedHomepage = await Homepage.updateOne(
+      const updatedHomepage = await Homepage.findOneAndUpdate(
         { teamId: team_id },
-        homepageData
+        homepageData,
+        {new: true },
       );
       return res.status(200).json(updatedHomepage);
     } else {

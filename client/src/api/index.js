@@ -56,5 +56,5 @@ export const deleteWebPage = (teamId, pageName) =>
   api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
 
 export const getHomepage = (teamId) => api.get(`/homepage/${teamId}`);
-export const createOrUpdateHomepage = (homepageData) =>
-  api.post(`/homepage`, homepageData);
+export const createOrUpdateHomepage = (teamId, homepageData) =>
+  api.post(`/homepage/${teamId}`, homepageData);

@@ -2,14 +2,13 @@
  * This file houses Action Creators for client homepage
  */
 import * as api from '../api';
-import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 import { FETCH_HOMEPAGE, UPDATE_HOMEPAGE } from './types';
 
 export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.getHomepage(teamId);
     const homepageData = {
-      teamId: data.teamId,
+      teamId: teamId,
       aboutUs: data.aboutUs,
     };
     dispatch({
@@ -17,22 +16,24 @@ export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
       payload: homepageData,
     });
   } catch (error) {
-    dispatch(errorActionGlobalCreator(error));
+    console.error(error);
   }
 };
 
 export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
   try {
     const { data } = await api.createOrUpdateHomepage(teamId, homepageData);
+    console.log(data);
     const updatedHomepage = {
-      teamId: data.teamId,
+      teamId: teamId,
       aboutUs: data.aboutUs,
     };
+    console.log(updatedHomepage);
     dispatch({
       type: UPDATE_HOMEPAGE,
       payload: updatedHomepage,
     });
   } catch (error) {
-    dispatch(errorActionGlobalCreator(error));
+    console.error(error);
   }
 };
