@@ -1,29 +1,32 @@
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Button } from 'react-bootstrap';
+import { sortingOption, layoutOption } from '../../../config/publications';
+import { useDispatch } from 'react-redux';
+import { updatePublicationOptions } from '../../../actions/website'
 
 const PublicationsDropdown = ({
-  allLayouts,
   layout,
   setLayout,
-  allSorting,
   sortBy,
   setsortBy,
-  publication
+  publication,
+  teamId,
 }) => {
-  const sortPublications = (publication, sortingOption) => {
-    switch (sortingOption) {
-      case 'Author':
+  const dispatch = useDispatch();
+  const sortPublications = (publication, option) => {
+    switch (option) {
+      case sortingOption.AUTHOR:
         publication.sort((a, b) =>
           a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1
         );
         break;
-      case 'Title':
+      case sortingOption.TITLE:
         // publication title
         publication.sort((a, b) =>
           a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
         );
         break;
-      case 'Category Title':
+      case sortingOption.Category_Title:
         // journal or conference title
         publication.sort((a, b) =>
           a.category.categoryTitle.toLowerCase() >
@@ -42,57 +45,73 @@ const PublicationsDropdown = ({
     }
   };
 
-  return (
-    <div className="mb-3 mt-3 text-center">
-      <Dropdown className="ml-5">
-        <Dropdown.Toggle variant="light" className="mb-2">
-          Layout: {layout}
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {Object.keys(allLayouts).map((layout, i) => (
-            <Dropdown.Item
-              key={i}
-              as="button"
-              onClick={() => setLayout(allLayouts[layout])}
-            >
-              {allLayouts[layout]}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
+  const handleUpdate = () => {
+    const options = {layout, sortBy}
+    dispatch(updatePublicationOptions(teamId, options))
+  }
 
-      <Dropdown className="ml-5">
-        <Dropdown.Toggle variant="light" className="mb-2">
-          Sort by: {sortBy}
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {Object.keys(allSorting).map((sortBy, i) => (
-            <Dropdown.Item
-              key={i}
-              as="button"
-              value={allSorting[sortBy]}
-              onClick={(e) => {
-                setsortBy(allSorting[sortBy])
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Dropdown>
+          <Dropdown.Toggle variant="light" className="mb-2">
+            Layout: {layout}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {Object.keys(layoutOption).map((layout, i) => (
+              <Dropdown.Item
+                key={i}
+                as="button"
+                onClick={() => setLayout(layoutOption[layout])}
+              >
+                {layoutOption[layout]}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Dropdown >
+          <Dropdown.Toggle variant="light" className="mb-2">
+            Sort by: {sortBy}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {Object.keys(sortingOption).map((sortBy, i) => (
+              <Dropdown.Item
+                key={i}
+                as="button"
+                value={sortingOption[sortBy]}
+                onClick={(e) => {
+                  setsortBy(sortingOption[sortBy])
+                  sortPublications(publication, e.target.value);
+                  console.log(e.target.value)
+                }}
+              >
+                {sortingOption[sortBy]}
+              </Dropdown.Item>
+            ))}
+            {layout === layoutOption.BY_CATEGORY && 
+              <Dropdown.Item
+                as="button"
+                value="Category Title"
+                onClick={(e) => {
+                setsortBy(e.target.value)
                 sortPublications(publication, e.target.value);
+                console.log(e.target.value)
               }}
-            >
-              {allSorting[sortBy]}
-            </Dropdown.Item>
-          ))}
-          {layout === allLayouts.byCategory && 
-            <Dropdown.Item
-              as="button"
-              value="Category Title"
-              onClick={(e) => {
-              setsortBy(e.target.value)
-              sortPublications(publication, e.target.value);
-            }}
-            >
-              Category Title
-            </Dropdown.Item>
-          }
-        </Dropdown.Menu>
-      </Dropdown>
+              >
+                Category Title
+              </Dropdown.Item>
+            }
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+      <div className='mb-3' style={{ display: 'flex', justifyContent: 'center' }}>
+        <Button variant="secondary"
+          onClick={handleUpdate}
+        > 
+          Update Layout & Sorting Preference 
+        </Button>
+      </div>
     </div>
   );
 };

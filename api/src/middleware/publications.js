@@ -4,7 +4,7 @@
 
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
-const { categoryTypeEnum } = require('../config/playwright');
+const { categoryTypeEnum } = require('../config/publication');
 const { fillErrorObject } = require('./error');
 
 

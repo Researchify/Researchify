@@ -53,4 +53,6 @@ export const addWebPage = (teamId, pageName) =>
   api.post(`/clientWebsite/${teamId}/add_page`, pageName);
 export const getWebsiteInfo = (teamId) => api.get(`/clientWebsite/${teamId}`);
 export const deleteWebPage = (teamId, pageName) =>
-  api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
+  api.delete(`/clientWebsite/${teamId}/delete_page`, pageName);
+export const updatePublicationOptions = (teamId, preference) =>
+  api.post(`/clientWebsite/${teamId}/updatePublicationOptions`, preference);

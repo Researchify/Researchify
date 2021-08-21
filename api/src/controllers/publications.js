@@ -12,7 +12,7 @@ const logger = require('winston');
 
 const { firefox } = require('playwright');
 
-const { playwrightConfig, categoryType } = require('../config/playwright');
+const { playwrightConfig, categoryTypeEnum } = require('../config/publication');
 
 const { fillErrorObject } = require('../middleware/error');
 
@@ -250,7 +250,7 @@ async function scrapeGoogleScholar(url) {
   // which will differ based on the info of the publication, can be improved
   let type = fields[2].toUpperCase();
   let categoryTitle;
-  if (!(type in categoryType)) {
+  if (!(type in categoryTypeEnum)) {
     type = 'OTHER';
     categoryTitle = '';
   } else {

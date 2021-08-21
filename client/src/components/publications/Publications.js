@@ -12,26 +12,17 @@ import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 import PublicationsButtons from './publicationsLayout/PublicationsButtons';
 import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
+import { layoutOption, sortingOption } from '../../config/publications';
 
 const Publications = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
+  const { publicationOptions } = useSelector((state) => state.website);
 
-  const allLayouts = {
-    allPublications: 'All Publications',
-    byCategory: 'By Category',
-  };
-
-  const allSorting = {
-    byTitle: 'Title',
-    byAuthor: 'Author',
-    byYear: 'Year'
-  }
-  
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showImportForm, setShowImportForm] = useState(false);
-  const [layout, setLayout] = useState(allLayouts.allPublications);
-  const [sortBy, setsortBy] = useState(allSorting.byTitle);
+  const [layout, setLayout] = useState(layoutOption.ALL_PUBLICATION);
+  const [sortBy, setsortBy] = useState(sortingOption.TITLE);
 
   const { loading, teamPublications } = useSelector((state) => state.publications);
 
@@ -43,7 +34,7 @@ const Publications = () => {
 
   const renderPublications = () => {
     switch (layout) {
-      case allLayouts.byCategory:
+      case layoutOption.BY_CATEGORY:
         return <LayoutByCategory teamPublications={teamPublications} />;
       default:
         return <LayoutAllPublications teamPublications={teamPublications} />;
@@ -57,13 +48,12 @@ const Publications = () => {
         setShowImportForm={setShowImportForm}
       />
       <PublicationsDropdown
-        allLayouts={allLayouts}
         layout={layout}
         setLayout={setLayout}
-        allSorting={allSorting}
         sortBy={sortBy}
         setsortBy={setsortBy}
         publication={teamPublications}
+        teamId={teamId}
       />
       <div className="text-center">
         {loading ? (

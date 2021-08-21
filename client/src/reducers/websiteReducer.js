@@ -6,12 +6,14 @@ import {
   ADD_WEBPAGE,
   DELETE_WEBPAGE,
   FETCH_WEBSITE_INFO,
+  UPDATE_PUBLICATION_OPTIONS,
 } from '../actions/types';
 
 const INITIAL_WEBSITE_STATE = {
   url: '',
   title: '',
   pages: [],
+  publicationOptions: null
 };
 
 /**
@@ -40,7 +42,10 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, action) => {
         url: payload.url ?? state.url,
         title: payload.title ?? state.title,
         pages: payload.pages ?? state.pages,
+        publicationOptions: payload.publicationOptions ?? state.publicationOptions,
       };
+    case UPDATE_PUBLICATION_OPTIONS:
+      return { ...state, publicationOptions: payload}
     default:
       return state;
   }

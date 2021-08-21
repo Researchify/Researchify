@@ -44,6 +44,7 @@ export const DELETE_WEBSITE = 'DELETE_WEBSITE';
 export const ADD_WEBPAGE = 'ADD_WEBPAGE';
 export const DELETE_WEBPAGE = 'DELETE_WEBPAGE';
 export const FETCH_WEBSITE_INFO = 'FETCH_WEBSITE_INFO';
+export const UPDATE_PUBLICATION_OPTIONS = 'UPDATE_PUBLICATION_OPTIONS';
 
 // NOTIFICATIONS
 export const TEAM_ERROR = 'TEAM_ERROR'; // use this if you want to create specific error handling
