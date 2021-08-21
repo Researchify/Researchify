@@ -19,7 +19,7 @@ import { errorActionGlobalCreator } from '../notification/notificationReduxFunct
  * @param authData data associated to the authentication response.
  * @returns an action of type AUTH_SIGN_IN with the payload as the authData.
  */
-export const signIn = (authData) => async (dispatch) => {
+export const login = (authData) => async (dispatch) => {
   try {
     dispatch({
       type: LOG_IN_REQUEST,
@@ -53,7 +53,7 @@ export const signIn = (authData) => async (dispatch) => {
  * This action creator will be called when a user signs out.
  * @returns an action of type AUTH_SIGN_OUT.
  */
-export const logOut = () => async(dispatch) => {
+export const logout = () => async(dispatch) => {
   try{
     await api.logoutTeam()
     dispatch ({
