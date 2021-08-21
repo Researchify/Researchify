@@ -16,7 +16,7 @@ const homepageSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true, },
 );
 
 const Homepage = mongoose.model('homepage', homepageSchema);

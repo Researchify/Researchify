@@ -17,10 +17,9 @@ async function getHomepage(req, res, next) {
     const foundHomepage = await Homepage.findOne({ teamId: team_id });
     if (foundHomepage) {
       return res.status(200).json(foundHomepage);
-    } else {
-      const emptyHomepage = { teamId: team_id, aboutUs: [''] };
-      return res.status(200).json(emptyHomepage);
     }
+    const emptyHomepage = { teamId: team_id, aboutUs: [''] };
+    return res.status(200).json(emptyHomepage);
   } catch (err) {
     next(fillErrorObject(500, 'Server error', [err.errors]));
   }
@@ -41,13 +40,12 @@ async function createOrUpdateHomepage(req, res, next) {
       const updatedHomepage = await Homepage.findOneAndUpdate(
         { teamId: team_id },
         homepageData,
-        {new: true },
+        { new: true }
       );
       return res.status(200).json(updatedHomepage);
-    } else {
-      const createdHomepage = await Homepage.create(homepageData);
-      return res.status(201).json(createdHomepage);
     }
+    const createdHomepage = await Homepage.create(homepageData);
+    return res.status(201).json(createdHomepage);
   } catch (err) {
     next(fillErrorObject(500, 'Server error', [err.errors]));
   }
