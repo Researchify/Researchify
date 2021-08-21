@@ -28,7 +28,7 @@
     const teamId = useSelector((state) => state.team.teamId);
 
     const handleDelete = () => {
-      dispatch(deleteAchievement(teamId, award._id));
+      dispatch(deleteAchievement(award._id));
       setShowDeleteMessage(false);
     };
   
@@ -111,7 +111,16 @@
           <Modal.Body>
             Are you sure you want to delete this award?
           </Modal.Body>
-            
+          <Modal.Footer>
+            <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
+              {' '}
+              Cancel{' '}
+            </Button>
+            <Button variant="danger" onClick={handleDelete}>
+              {' '}
+              Confirm{' '}
+            </Button>
+          </Modal.Footer>  
         </Modal>
       </>
     );

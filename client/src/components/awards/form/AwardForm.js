@@ -6,7 +6,7 @@
  import * as yup from 'yup';
  import { useSelector, useDispatch } from 'react-redux';
  import { Row, Button, Tooltip, OverlayTrigger, Form } from 'react-bootstrap';
- import { createAchievement } from '../../../actions/achievements';
+ import { updateAchievement, createAchievement } from '../../../actions/achievements';
 
  const AwardForm = ({ closeModal, award, type }) => {
    const dispatch = useDispatch();
@@ -35,13 +35,24 @@
      year: '',
      month: '',
      day: '',
-     description: '',
-     teamId: teamId
+     description: ''
    };
 
    const submitForm = (values) => {
+    const data = {
+      title: values.title,
+      year: values.year,
+      month: values.month,
+      day: values.day,
+      description: values.description,
+      teamId: teamId
+    };
     console.log(values);
-    dispatch(createAchievement(values));
+    if (type === 'update') {
+      dispatch(updateAchievement(data));
+    } else if (type === 'create') {
+      dispatch(createAchievement(data));
+    }
     closeModal();
     };
  
@@ -127,7 +138,7 @@
                as="textarea"
                row={5}
                name="description"
-               placeholder="description"
+               placeholder="Description"
                value={values.description}
                onChange={handleChange}
                isInvalid={touched.description && errors.description}
