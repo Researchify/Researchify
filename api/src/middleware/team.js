@@ -13,7 +13,6 @@ async function validateTeamId(req, res, next) {
   const { team_id } = req.params;
   let foundTeam;
   foundTeam = await Team.findById(team_id).select('_id teamName orgName email teamMembers');
-  console.log(foundTeam);
 
   if (foundTeam == null) {
     next(
