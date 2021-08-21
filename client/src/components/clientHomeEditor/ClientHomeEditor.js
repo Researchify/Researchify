@@ -62,7 +62,7 @@ const ClientHomeEditor = () => {
             name="aboutUs"
             as="textarea"
             rows={6}
-            defaultValue={homepageValues.aboutUs}
+            defaultValue={homepageValues.aboutUs.join('\n')}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
