@@ -8,7 +8,6 @@ const winston = require('winston');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const { response } = require('express');
 
 const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
 
