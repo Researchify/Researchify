@@ -10,11 +10,8 @@ import Dashboard from '../dashboard/Dashboard';
 import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
 import PublicationPage from '../publications/PublicationPage';
 import TeamPage from '../teamPage/TeamPage';
-<<<<<<< HEAD
 import AchievementPage from '../awards/AwardPage';
-=======
 import ClientHomeEditor from '../clientHomeEditor/ClientHomeEditor';
->>>>>>> main
 
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
@@ -34,28 +31,6 @@ const PrivateRoute = () => {
     }
   }, [dispatch, signInCookie]);
 
-<<<<<<< HEAD
-    return (
-        <Switch>
-          <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
-          <DashboardLayoutRoute
-            path="/dashboard/profile"
-            exact
-            component={ProfileInfoEdit}
-          />
-          <DashboardLayoutRoute
-            path={`/publications`}
-            exact
-            component={PublicationPage}
-          />
-          <DashboardLayoutRoute path="/team" exact component={TeamPage} />
-          <DashboardLayoutRoute path="/achievement" exact component={AchievementPage} />
-          {/*  If login, any other route not stated above will be redirect dashbroad page */}
-          <Redirect to="/dashboard"/> 
-        </Switch> 
-    );
-  };
-=======
   return (
     <Switch>
       <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
@@ -70,6 +45,7 @@ const PrivateRoute = () => {
         component={PublicationPage}
       />
       <DashboardLayoutRoute path="/team" exact component={TeamPage} />
+      <DashboardLayoutRoute path="/achievement" exact component={AchievementPage} />
       <DashboardLayoutRoute
         path="/about-us"
         exact
@@ -80,6 +56,5 @@ const PrivateRoute = () => {
     </Switch>
   );
 };
->>>>>>> main
 
 export default PrivateRoute;

@@ -11,11 +11,8 @@ import {
   BsGearFill,
   BsFillQuestionCircleFill,
   BsBoxArrowLeft,
-<<<<<<< HEAD
   BsFillAwardFill,
-=======
   BsCardText,
->>>>>>> main
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 
