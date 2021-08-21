@@ -156,6 +156,7 @@
 .team-card {
   background-color: #dddcdc;
   padding: 3rem;
+  text-align: justify;
 }
 
 .team-card-deck {
@@ -170,9 +171,16 @@
 }
 
 .award-card {
-  border: transparent;
-  min-width: 210px;
-  max-width: 210px;
+  background-color: #dddcdc;
+  padding: 3rem;
+  margin: auto;
+  min-height: 3.78in;
+}
+
+.award-picture {
+  object-fit: initial;
+  border-radius: 37rem;
+  max-width: 200px;
 }
 .award-name {
   text-align: center;
@@ -188,6 +196,13 @@
 
 .award-summary {
   padding-top: 15px;
-  text-align: center;
+  padding-bottom: 15px;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
 
+.publication-card-buttons{
+
+  text-align: center;
+  padding: 10px;
 }
