@@ -8,8 +8,8 @@ import {
   BsBookHalf,
   BsPerson,
   BsPeople,
-  BsGearFill,
-  BsFillQuestionCircleFill,
+  // BsGearFill,
+  // BsFillQuestionCircleFill,
   BsBoxArrowLeft,
   BsCardText,
 } from 'react-icons/bs';
@@ -47,16 +47,16 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       link: '/team',
       name: 'TEAM',
     },
-    {
-      title: 'Settings',
-      icon: <BsGearFill />,
-      link: '/dashboard/settings',
-    },
-    {
-      title: 'Help',
-      icon: <BsFillQuestionCircleFill />,
-      link: '/dashboard/help',
-    },
+    // {
+    //   title: 'Settings',
+    //   icon: <BsGearFill />,
+    //   link: '/dashboard/settings',
+    // },
+    // {
+    //   title: 'Help',
+    //   icon: <BsFillQuestionCircleFill />,
+    //   link: '/dashboard/help',
+    // },
     {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
