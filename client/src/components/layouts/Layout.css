@@ -1,9 +1,30 @@
-.page-content-wrapper{
-    left: 50px;
+.page-content-wrapper {
+  margin-left: 170px;
+}
+
+.sidebar-wrapper {
+  width: 170px;
+  max-width: 170px;
+  background-color: #26282a;
+  padding-left: 0;
+  padding-right: 0;
+  position: fixed;
+  height: 100%;
+}
+
+/* Content save space for header */
+.researchify-content-top-padding {
+  padding-top: 68px;
+  height: 100%;
 }
 
 /* Move this to global css later. Fix to horizontal scrollable in Researchify site. */
-html, body {
-    max-width: 100% !important;
-    overflow-x: hidden !important;
- }
+html,
+body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  height: 100% !important;
+}
+#root {
+  height: 100%;
+}
