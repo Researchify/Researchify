@@ -5,10 +5,8 @@ import { useDispatch } from 'react-redux';
 import { updatePublicationOptions } from '../../../actions/website'
 
 const PublicationsDropdown = ({
-  layout,
-  setLayout,
-  sortBy,
-  setsortBy,
+  preference,
+  setPreference,
   publication,
   teamId,
 }) => {
@@ -46,8 +44,7 @@ const PublicationsDropdown = ({
   };
 
   const handleUpdate = () => {
-    const options = {layout, sortBy}
-    dispatch(updatePublicationOptions(teamId, options))
+    dispatch(updatePublicationOptions(teamId, preference))
   }
 
   return (
@@ -55,14 +52,14 @@ const PublicationsDropdown = ({
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Dropdown>
           <Dropdown.Toggle variant="light" className="mb-2">
-            Layout: {layout}
+            Layout: {preference.layout}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             {Object.keys(layoutOption).map((layout, i) => (
               <Dropdown.Item
                 key={i}
                 as="button"
-                onClick={() => setLayout(layoutOption[layout])}
+                onClick={() => setPreference({...preference, layout: layoutOption[layout]})}
               >
                 {layoutOption[layout]}
               </Dropdown.Item>
@@ -72,7 +69,7 @@ const PublicationsDropdown = ({
 
         <Dropdown >
           <Dropdown.Toggle variant="light" className="mb-2">
-            Sort by: {sortBy}
+            Sort by: {preference.sortBy}
           </Dropdown.Toggle>
           <Dropdown.Menu>
             {Object.keys(sortingOption).map((sortBy, i) => (
@@ -81,22 +78,20 @@ const PublicationsDropdown = ({
                 as="button"
                 value={sortingOption[sortBy]}
                 onClick={(e) => {
-                  setsortBy(sortingOption[sortBy])
+                  setPreference({...preference, sortBy: sortingOption[sortBy]})
                   sortPublications(publication, e.target.value);
-                  console.log(e.target.value)
                 }}
               >
                 {sortingOption[sortBy]}
               </Dropdown.Item>
             ))}
-            {layout === layoutOption.BY_CATEGORY && 
+            {preference.layout === layoutOption.BY_CATEGORY && 
               <Dropdown.Item
                 as="button"
                 value="Category Title"
                 onClick={(e) => {
-                setsortBy(e.target.value)
+                setPreference({...preference, sortBy: e.target.value})
                 sortPublications(publication, e.target.value);
-                console.log(e.target.value)
               }}
               >
                 Category Title

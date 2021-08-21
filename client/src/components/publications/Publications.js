@@ -12,28 +12,29 @@ import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 import PublicationsButtons from './publicationsLayout/PublicationsButtons';
 import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
-import { layoutOption, sortingOption } from '../../config/publications';
+import { layoutOption } from '../../config/publications';
 
 const Publications = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
   const { publicationOptions } = useSelector((state) => state.website);
+  const { loading, teamPublications } = useSelector((state) => state.publications);
 
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showImportForm, setShowImportForm] = useState(false);
-  const [layout, setLayout] = useState(layoutOption.ALL_PUBLICATION);
-  const [sortBy, setsortBy] = useState(sortingOption.TITLE);
+  const [preference, setPreference] = useState(publicationOptions);
 
-  const { loading, teamPublications } = useSelector((state) => state.publications);
 
   useEffect(() => {
     if(teamId){
       dispatch(getPublicationsByTeamId(teamId));
+      setPreference(publicationOptions)
     }
-  }, [dispatch, teamId]);
+  }, [dispatch, teamId, publicationOptions]);
+
 
   const renderPublications = () => {
-    switch (layout) {
+    switch (preference.layout) {
       case layoutOption.BY_CATEGORY:
         return <LayoutByCategory teamPublications={teamPublications} />;
       default:
@@ -48,10 +49,8 @@ const Publications = () => {
         setShowImportForm={setShowImportForm}
       />
       <PublicationsDropdown
-        layout={layout}
-        setLayout={setLayout}
-        sortBy={sortBy}
-        setsortBy={setsortBy}
+        preference={preference}
+        setPreference={setPreference}
         publication={teamPublications}
         teamId={teamId}
       />

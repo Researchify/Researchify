@@ -67,10 +67,10 @@ export const deletePage = (teamId, pageName) => async (dispatch) => {
 
 export const updatePublicationOptions = (teamId, preference) => async (dispatch) => {
   try{
-    const updatedPubOptions = await api.updatePublicationOptions(teamId, preference)
+    const { data } = await api.updatePublicationOptions(teamId, preference)
     dispatch({
       type: UPDATE_PUBLICATION_OPTIONS,
-      payload: updatedPubOptions,
+      payload: data,
     })
     dispatch(successMessageCreator('Preference had been updated'))
   } catch(err){

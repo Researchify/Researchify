@@ -8,12 +8,16 @@ import {
   FETCH_WEBSITE_INFO,
   UPDATE_PUBLICATION_OPTIONS,
 } from '../actions/types';
+import { layoutOption, sortingOption } from '../config/publications';
 
 const INITIAL_WEBSITE_STATE = {
   url: '',
   title: '',
   pages: [],
-  publicationOptions: null
+  publicationOptions: {
+    layout: layoutOption.ALL_PUBLICATION,
+    sortBy: sortingOption.TITLE
+  }
 };
 
 /**
