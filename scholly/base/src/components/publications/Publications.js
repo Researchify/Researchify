@@ -45,7 +45,7 @@ const Publications = () => {
         }
         return teamPublications
     };
-  const [ publications, setPublications ] = useState(sortPublications(TEAM_PUBLICATIONS, options.sortBy));
+  const publications = sortPublications(TEAM_PUBLICATIONS, options.sortBy);
 
   const renderPublications = () => {
     switch (options.layout) {

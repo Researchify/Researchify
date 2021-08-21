@@ -38,7 +38,7 @@ const Publications = () => {
   useEffect(() => {
     const sortedPublication = sortPublications(teamPublications, options.sortBy)
     setPublications(sortedPublication)
-  }, [teamPublications])
+  }, [options.sortBy, teamPublications])
 
   const renderPublications = () => {
     switch (options.layout) {
