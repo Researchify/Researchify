@@ -26,7 +26,7 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       link: '/dashboard',
     },
     {
-      title: 'Our Home Page',
+      title: 'Our Homepage',
       icon: <BsCardText />,
       link: '/about-us',
     },
