@@ -1,11 +1,10 @@
 /**
  * Convenience script to insert some default data into the database.
- */
+ */ /* eslint-disable no-console */
 require('dotenv').config();
 
 const connectDb = require('./config/db');
 const Publication = require('./models/publication.model');
-const User = require('./models/user.model');
 const Team = require('./models/team.model');
 const Template = require('./models/editor/template.model');
 const Theme = require('./models/editor/theme.model');
@@ -20,9 +19,9 @@ const defaultPublications = [
       'Case definitions for infectious conditions under public health surveillance',
     link: 'https://wonder.cdc.gov/wonder/Prevguid/m0047449/m0047449.asp',
     description:
-      'State and local public health officials rely on health-care providers, laboratories, and other\n' +
-      'public health personnel to report the occurrence of notifiable diseases to state and local\n' +
-      'health departments.',
+      'State and local public health officials rely on health-care providers, laboratories, and other\n'
+      + 'public health personnel to report the occurrence of notifiable diseases to state and local\n'
+      + 'health departments.',
     category: {
       type: 'CONFERENCE',
       categoryTitle: 'Sample',
@@ -35,8 +34,8 @@ const defaultPublications = [
       'Staphylococcus aureus with reduced susceptibility to vancomycin--United States, 1997',
     link: 'http://wonder.cdc.gov/wonder/PrevGuid/m0049042/m0049042.asp',
     description:
-      'Staphylococcus aureus is one of the most common causes of both hospital-and community-' +
-      'acquired infections worldwide, and the antimicrobial agent vancomycin',
+      'Staphylococcus aureus is one of the most common causes of both hospital-and community-'
+      + 'acquired infections worldwide, and the antimicrobial agent vancomycin',
     category: {
       type: 'CONFERENCE',
       categoryTitle: 'Sample',
@@ -48,40 +47,13 @@ const defaultPublications = [
     title: 'Diagnostic standards and classification of tuberculosis',
     link: 'https://wonder.cdc.gov/wonder/Prevguid/p0000425/p0000425.asp',
     description:
-      'Historically, the American Thoracic Society (ATS) and the Centers for Disease Control' +
-      '(CDC) have provided guidance on the diagnosis, treatment, prevention, and control of' +
-      'tuberculosis in the United States and Canada. ',
+      'Historically, the American Thoracic Society (ATS) and the Centers for Disease Control'
+      + '(CDC) have provided guidance on the diagnosis, treatment, prevention, and control of'
+      + 'tuberculosis in the United States and Canada. ',
     category: {
       type: 'CONFERENCE',
       categoryTitle: 'Sample',
     },
-  },
-];
-
-const defaultUsers = [
-  {
-    _id: '60e064e112c8b47402f730a5', // force to use defined uuid
-    givenName: 'Joel',
-    familyName: 'Selwood',
-    email: 'jselwood_goat_captian@gmail.com',
-    password: 'afl_champx3',
-    teamId: '60e064e012c8b47402f7309f',
-  },
-  {
-    _id: '60e064e112c8b47402f730a6', // force to use defined uuid
-    givenName: 'Patrick',
-    familyName: 'Dangerfield',
-    email: 'paddy_danger123@gmail.com',
-    password: 'Brownlow_2016',
-    teamId: '60e064e012c8b47402f730a0',
-  },
-  {
-    _id: '60e064e112c8b47402f730a7', // force to use defined uuid
-    givenName: 'Tom',
-    familyName: 'Hawkins',
-    email: 'tomahawk_26@gmail.com',
-    password: 'THawk_coleman_2020',
-    teamId: '60e064e012c8b47402f730a1',
   },
 ];
 
@@ -136,20 +108,7 @@ const populatePublications = async () => {
     console.log('Successfully imported data.');
     process.exit(0);
   } catch (err) {
-    console.error('Error importing data.\n' + err);
-    process.exit(1);
-  }
-};
-
-const populateUsers = async () => {
-  try {
-    // await User.deleteMany({});
-
-    await User.insertMany(defaultUsers);
-    console.log('Successfully imported users.');
-    process.exit(0);
-  } catch (err) {
-    console.error('Error importing users.');
+    console.error(`Error importing data.\n${err}`);
     process.exit(1);
   }
 };
@@ -194,7 +153,6 @@ const populateTeams = async () => {
 };
 
 populatePublications();
-populateUsers();
 populateThemes();
 populateTemplates();
 populateTeams();

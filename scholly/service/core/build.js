@@ -44,7 +44,7 @@ async function buildBaseApp(data) {
         [REACT_APP_WEB_PAGES]: JSON.stringify(data.webPages.pages),
       },
       timeout: BUILD_TIMEOUT,
-    }
+    },
   );
 
   build.stdout.on('data', (data) => {
@@ -58,7 +58,7 @@ async function buildBaseApp(data) {
     build.on('close', (code) => {
       winston.info(`child process exited with code ${code}`);
       if (code) {
-        reject(`Failed to build base application. Code: ${code}`);
+        reject(new Error(`Failed to build base application. Code: ${code}`));
       }
       resolve(code);
     });

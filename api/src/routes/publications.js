@@ -4,34 +4,30 @@
 const publicationsRouter = require('express').Router();
 
 const publicationsController = require('../controllers/publications');
-
 const publicationsMiddleware = require('../middleware/publications');
-
-const authMiddleware = require('../middleware/auth')
-
+const authMiddleware = require('../middleware/auth');
 const teamMiddleware = require('../middleware/team');
-
 const mongooseMiddleware = require('../middleware/mongoose');
 
 publicationsRouter.delete(
   '/:id',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validatePublicationObjectId,
-  publicationsController.deletePublication
+  publicationsController.deletePublication,
 );
 
 publicationsRouter.patch(
   '/:id',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validatePublicationObjectId,
-  publicationsController.updatePublication
+  publicationsController.updatePublication,
 );
 
 publicationsRouter.post(
   '/',
   authMiddleware.cookieJwtAuth,
   publicationsMiddleware.createPublicationValidation,
-  publicationsController.createPublication
+  publicationsController.createPublication,
 );
 
 publicationsRouter.get(
@@ -39,7 +35,7 @@ publicationsRouter.get(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   publicationsMiddleware.validateAuthorId,
-  publicationsController.getGoogleScholarPublications
+  publicationsController.getGoogleScholarPublications,
 );
 
 publicationsRouter.get(
@@ -47,7 +43,7 @@ publicationsRouter.get(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  publicationsController.readAllPublicationsByTeam
+  publicationsController.readAllPublicationsByTeam,
 );
 
 publicationsRouter.post(
@@ -55,7 +51,7 @@ publicationsRouter.post(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  publicationsController.importPublications
+  publicationsController.importPublications,
 );
 
 module.exports = publicationsRouter;

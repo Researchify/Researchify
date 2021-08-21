@@ -3,9 +3,10 @@
  * @file This module contains handlers for the "deploy" route.
  * @module deploy
  */
+const logger = require('winston');
+
 const build = require('../core/build');
 const push = require('../core/push');
-const logger = require('winston');
 
 /**
  * Handles a POST request to deploy a team's website on the endpoint /deploy/:teamId.
@@ -20,7 +21,7 @@ async function handleDeployEvent(req, res) {
 
   logger.info(`Attempting to build and deploy application for team ${teamId}`);
   const data = req.body;
-  const repoName = data.ghUsername + '.github.io';
+  const repoName = `${data.ghUsername}.github.io`;
 
   try {
     await build(data);
@@ -34,7 +35,7 @@ async function handleDeployEvent(req, res) {
     return res
       .status(500)
       .send(
-        "Something went wrong. Researchify couldn't build/push your application."
+        "Something went wrong. Researchify couldn't build/push your application.",
       );
   }
 }

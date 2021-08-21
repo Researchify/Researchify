@@ -17,9 +17,8 @@ async function findOrCreateTheme(req, res) {
     if (!foundTheme) {
       const createdTheme = await Theme.create(themeData);
       return res.status(201).json(createdTheme);
-    } else {
-      return res.status(200).json(foundTheme);
     }
+    return res.status(200).json(foundTheme);
   } catch (err) {
     res.status(404).json(`Error: ${err.message}`);
   }
