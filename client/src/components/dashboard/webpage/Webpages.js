@@ -90,13 +90,27 @@ const Webpages = ({
             <thead>
               <tr>
                 <th className="reduced-column tableHeading">
-                  No web-page added yet...
+                  Click 'Add Page' to add more pages
                 </th>
               </tr>
             </thead>
           )
         }
         <tbody>
+          <tr key="default-homepage">
+          <td className="body">
+                {"HOME PAGE"}
+                <Button
+                  variant="outline-success"
+                  className="action float-right mx-2"
+                  onClick={() => {
+                    directToAnotherPage("HOME PAGE");
+                  }}
+                >
+                  <BsPencilSquare />
+                </Button>
+              </td>
+          </tr>
           {currentWebPages.map((webPage, index) => (
             <tr key={index}>
               <td className="body">

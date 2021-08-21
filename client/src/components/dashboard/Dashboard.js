@@ -28,6 +28,8 @@ const Dashboard = () => {
       history.push(`/publications`);
     } else if (pageName === 'TEAM') {
       history.push(`/team`);
+    } else if (pageName === 'HOME PAGE') {
+      history.push(`/about-us`);
     }
   };
 
