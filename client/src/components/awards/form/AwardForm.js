@@ -15,12 +15,12 @@
        .string()
        .required('Award Name is required')
        .min(3, 'Award Name is at least 3 characters'),
-     Year: yup
+     year: yup
         .string()
         .required('Year is required'),
-     Month: yup
+     month: yup
         .string(),
-     Day: yup
+     day: yup
         .string(),
      Description: yup
        .string()
@@ -31,9 +31,9 @@
  
    const initValues = {
      title: '',
-     Year: '',
-     Month: '',
-     Day: '',
+     year: '',
+     month: '',
+     day: '',
      Description: '',
    };
  
@@ -74,12 +74,12 @@
                type="text"
                name="year"
                placeholder="Year"
-               value={values.Year}
+               value={values.year}
                onChange={handleChange}
-               isInvalid={touched.Year && errors.Year}
+               isInvalid={touched.year && errors.year}
              />
              <Form.Control.Feedback type="invalid">
-               {errors.Year}
+               {errors.year}
              </Form.Control.Feedback>
            </Form.Group>
 
@@ -89,12 +89,12 @@
                type="text"
                name="month"
                placeholder="Month"
-               value={values.Month}
+               value={values.month}
                onChange={handleChange}
-               isInvalid={touched.Month && errors.Month}
+               isInvalid={touched.month && errors.month}
              />
              <Form.Control.Feedback type="invalid">
-               {errors.Month}
+               {errors.month}
              </Form.Control.Feedback>
            </Form.Group>
 
@@ -104,12 +104,12 @@
                type="text"
                name="day"
                placeholder="Day"
-               value={values.Day}
+               value={values.day}
                onChange={handleChange}
-               isInvalid={touched.Day && errors.Day}
+               isInvalid={touched.day && errors.day}
              />
              <Form.Control.Feedback type="invalid">
-               {errors.Day}
+               {errors.day}
              </Form.Control.Feedback>
            </Form.Group>
  
