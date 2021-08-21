@@ -11,23 +11,21 @@ const Sidebar = ({ data }) => {
   return (
     <Fragment>
       <ul className="SidebarList">
-        {data.map((val, key) => {
-          return (
-            // if the link property of a sidebar item is undenfined, stays in the current page
-            <Link to={val.link ? val.link : '#'} key={key}>
-              <li
-                className="row"
-                id={location.pathname === val.link ? 'active' : ''}
-                onClick={val.action}
-              >
-                {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
+        {data.map((val, key) => (
+          // if the link property of a sidebar item is undefined, stays in the current page
+          <Link to={val.link ? val.link : '#'} key={key}>
+            <li
+              className="row"
+              id={location.pathname === val.link ? 'active' : ''}
+              onClick={val.action}
+            >
+              {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
 
-                <div id="icon">{val.icon}</div>
-                <div id="title">{val.title}</div>
-              </li>
-            </Link>
-          );
-        })}
+              <div id="icon">{val.icon}</div>
+              <div id="title">{val.title}</div>
+            </li>
+          </Link>
+        ))}
       </ul>
     </Fragment>
   );
