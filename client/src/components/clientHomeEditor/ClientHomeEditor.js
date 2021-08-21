@@ -12,25 +12,25 @@ import {
 } from '../../actions/homepage';
 
 const ClientHomeEditor = () => {
+  // get state from redux
   const dispatch = useDispatch();
-  const teamId = useSelector((state) => state.team.teamId);
-  console.log(teamId);
+  const teamId =  useSelector((state) => state.team.teamId);
   const aboutUs = useSelector((state) => state.homepage.aboutUs);
   console.log(aboutUs);
-
-  useEffect(() => {
-    if (teamId) {
-      dispatch(getHomepageDataByTeamId(teamId));
-    }
-  }, [dispatch, teamId]);
 
   // content/values
   const [homepageValues, setValues] = useState({
     aboutUs: aboutUs,
     teamId: teamId,
   });
-
   console.log(homepageValues);
+
+  useEffect(() => {
+    if (teamId) {
+      dispatch(getHomepageDataByTeamId(teamId));
+    }
+  }, [dispatch, teamId]);
+  
 
   // Handles whenever the form value is changing
   const handleFormChanges = (form) => {
