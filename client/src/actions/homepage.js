@@ -23,12 +23,10 @@ export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
 export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
   try {
     const { data } = await api.createOrUpdateHomepage(teamId, homepageData);
-    console.log(data);
     const updatedHomepage = {
       teamId: teamId,
       aboutUs: data.aboutUs,
     };
-    console.log(updatedHomepage);
     dispatch({
       type: UPDATE_HOMEPAGE,
       payload: updatedHomepage,
