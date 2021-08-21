@@ -178,7 +178,7 @@ export const FAKE_TEAM_AWARDS = [
     fullName: 'John',
     position: 'Chief Scientist',
     summary:
-      'Best Scientist',
+      'Best Scientist. John is a chief scientist at MonTeam, working with the top government agencies to fight the pressing issues arising from climate change',
   },
   {
     fullName: 'Yoshua Benjio',

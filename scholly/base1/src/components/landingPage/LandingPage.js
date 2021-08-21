@@ -2,11 +2,12 @@
  * This file output landing page (homepage) of client-site.
  */
 import React, { Fragment } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container} from 'react-bootstrap';
 
 const landingPage = () => {
   return (
     <Fragment>
+
       <Container fluid className="pages-top-padding">
         <div className="landing-center-title">About Us</div>
         <div className="landing-center-content">
