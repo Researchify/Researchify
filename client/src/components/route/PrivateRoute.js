@@ -10,7 +10,7 @@ import Dashboard from '../dashboard/Dashboard';
 import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
 import PublicationPage from '../publications/PublicationPage';
 import TeamPage from '../teamPage/TeamPage';
-import AwardPage from '../awards/AwardPage';
+import AchievementPage from '../awards/AwardPage';
 
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
@@ -44,7 +44,7 @@ const PrivateRoute = () => {
             component={PublicationPage}
           />
           <DashboardLayoutRoute path="/team" exact component={TeamPage} />
-          <DashboardLayoutRoute path="/award" exact component={AwardPage} />
+          <DashboardLayoutRoute path="/achievement" exact component={AchievementPage} />
           {/*  If login, any other route not stated above will be redirect dashbroad page */}
           <Redirect to="/dashboard"/> 
         </Switch> 
