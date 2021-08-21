@@ -21,6 +21,7 @@ import {
 } from '../../../actions/types';
 import { pageSize } from '../../../config/publications';
 import usePagination from '../../shared/usePagination';
+import ConditionalWrapper from '../../shared/ConditionalWrapper';
 
 const ImportSuccessPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);
@@ -32,9 +33,6 @@ const ImportSuccessPage = ({ closeModal }) => {
     reachedEnd, 
     publicationsToImport } = useSelector((state) => state.importedPublications);
   const { currentData, pagination } = usePagination(publications, pageSize)
-
-  const ConditionalWrapper = ({ condition, wrapper, children }) =>
-    condition ? wrapper(children) : children;
 
   const checkPublication = (index) => {
     const chosenPublication = currentData()[index];
