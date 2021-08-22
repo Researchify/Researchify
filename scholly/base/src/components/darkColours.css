@@ -1,40 +1,9 @@
-body {
-    background-color: #474747;
-    color: #fff;
-}
-
-a:hover, a:focus, .nav-link:hover, .nav-link:focus {
-    color: #c7c7c7;
-}
-
-.navbar {
-    background-color: #212121;
-}
-
-.publication-card .card-header {
-    background-color: #212121;
-}
-
-.publication-card .card-body {
-    background-color: #333333;
-}
-
-.pagination .page-item .page-link {
-    background-color: #212121;
-    border-color: #212121;
-    color: #fff;
-}
-
-.pagination .page-item.active .page-link {
-    background-color: #000;
-    border-color: #000;
-}
-
-.pagination .page-item.disabled .page-link {
-    background-color: #888888;
-    border-color: #888888;
-}
-
-.team-card {
-    background-color: #212121;
+:root {
+    --researchify-text-color: #fff;
+    --researchify-link-color: #c7c7c7;
+    --researchify-color-primary: #474747;
+    --researchify-color-secondary: #212121;
+    --researchify-color-tertiary: #333333;
+    --researchify-color-quaternary: #000;
+    --researchify-color-quinary: #888888;
 }

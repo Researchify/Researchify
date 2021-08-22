@@ -1,0 +1,40 @@
+body {
+    background-color: var(--researchify-color-primary);
+    color: var(--researchify-text-color);
+}
+
+a:hover, a:focus, .nav-link:hover, .nav-link:focus {
+    color: var(--researchify-link-color);
+}
+
+.navbar {
+    background-color: var(--researchify-color-secondary);
+}
+
+.publication-card .card-header {
+    background-color: var(--researchify-color-secondary);
+}
+
+.publication-card .card-body {
+    background-color: var(--researchify-color-tertiary);
+}
+
+.pagination .page-item .page-link {
+    background-color: var(--researchify-color-secondary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--researchify-color-quaternary);
+    border-color: var(--researchify-color-quaternary);
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: var(--researchify-color-quinary);
+    border-color: var(--researchify-color-quinary);
+}
+
+.team-card {
+    background-color: var(--researchify-color-secondary);
+}
