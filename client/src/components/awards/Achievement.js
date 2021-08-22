@@ -54,12 +54,12 @@
 
     return (
       <>
-        <Col className="container-fluid mt-4">
+        <Row className="container-fluid mt-4">
           <Card>
             <Card.Header as="h5">
               <Row>
                 <Col id="achievementTitle">{achievement.title}</Col>
-                <Col md={{ span: 2 }}>
+                <Col md={{ span: 1 }}>
                   <OverlayTrigger
                     rootClose
                     trigger="click"
@@ -82,7 +82,7 @@
               <Card.Text id="yearAwarded"><b>Date:</b> {achievement.yearAwarded}</Card.Text>
             </Card.Body>
           </Card>
-        </Col>
+        </Row>
   
         <Modal show={showUpdateForm}>
           <Modal.Header className="modalHeader">
