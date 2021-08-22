@@ -1,4 +1,8 @@
 body {
-    background-color: rgb(71, 71, 71);
+    background-color: #474747;
     color: #fff;
+}
+
+.publication-title-column {
+    background-color: black;
 }
