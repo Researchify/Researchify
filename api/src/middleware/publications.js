@@ -106,6 +106,7 @@ async function validateAuthorId(req, res, next) {
 
   try {
     await axios(`${playwrightConfig.baseUrl}${_id}`);
+    next();
   } catch (error) {
     // if you mess around with the user id you only get 404
     next(
