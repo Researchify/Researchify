@@ -1,21 +1,17 @@
-/**
- * The TeamPage component displays a list of team members.
- */
 import React, { Fragment } from 'react';
 import { CardDeck, Container } from 'react-bootstrap';
-import { TEAM_MEMBERS } from '../../global/data';
 import TeamMember from './TeamMember';
 
-const TeamPage = () => {
-  const teamMembers = TEAM_MEMBERS;
+export const TeamComponent2 = (props) => {
+    const { memberData, color} = props;
   return (
     <Fragment>
-      <Container className="pages-top-padding text-center mt-3 mb-3">
+      <Container className={color.primary === "black" ? "bg-dark text-white" : ""}>
         <div className="team-pg-title">Meet Our Team</div>
       </Container>
-      <Container fluid className="team-card-container">
+      <Container className={"team-card-container" + color.primary === "black" ? "bg-dark text-white" : ""}>
         <CardDeck className="team-card-deck">
-          {teamMembers.map((member) => (
+          {memberData.map((member) => (
             <TeamMember member={member} key={member._id} />
           ))}
         </CardDeck>
@@ -23,5 +19,3 @@ const TeamPage = () => {
     </Fragment>
   );
 };
-
-export default TeamPage;

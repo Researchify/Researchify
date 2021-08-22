@@ -3,21 +3,29 @@
  */
 import React, { Fragment } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { TEAM_INFO } from '../../global/data';
 import { Link } from 'react-router-dom';
-import { getRoutes } from '../router/routes.js';
 
-const Header = () => {
-  const { orgName, teamName } = TEAM_INFO;
-  const headerData = getRoutes();
-  console.log(headerData);
+const Header = (props) => {
+  console.log(props);
+  const { orgName, teamName } = props.teamMetaData;
+  const colors = props.colors;
+
+  let bg = "light";
+  let variant = "light"
+  if (colors.primary === "black") {
+    bg = "dark";
+    variant = "dark";
+  }
+
+  const headerData = props.routes;
+
   return (
     <Fragment>
       <Navbar
         collapseOnSelect
         expand="md"
-        bg="light"
-        variant="light"
+        bg={bg}
+        variant={variant}
         fixed="top"
       >
         <Container fluid>

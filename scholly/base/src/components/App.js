@@ -3,7 +3,7 @@
  */
 import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Header from './layout/Header.js';
+import HeaderWrapper from './layout/HeaderWrapper';
 import { getRoutes } from './router/routes.js';
 import './centred.css';
 
@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <Fragment>
-      <Header />
+      <HeaderWrapper />
       <Switch>
         {routeItems}
       </Switch>
