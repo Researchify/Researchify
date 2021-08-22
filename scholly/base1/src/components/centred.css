@@ -11,6 +11,14 @@
   padding-top: 50px;
 }
 
+.team-photo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
 /* landing pages */
 .landing-carousel-img {
   height: 300px;
@@ -28,6 +36,13 @@
   font-size: xx-large;
 }
 
+.landing-title-org-name{
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 60px;
+  font-size: medium;
+}
 .landing-center-content {
   text-align: center;
   padding-top: 20px;
@@ -206,3 +221,4 @@
   text-align: center;
   padding: 10px;
 }
+

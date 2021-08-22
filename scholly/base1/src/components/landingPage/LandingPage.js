@@ -2,7 +2,7 @@
  * This file output landing page (homepage) of client-site.
  */
 import React, { Fragment } from 'react';
-import { Container} from 'react-bootstrap';
+import { Container, Image} from 'react-bootstrap';
 
 const landingPage = () => {
   return (
@@ -10,6 +10,7 @@ const landingPage = () => {
 
       <Container fluid className="pages-top-padding">
         <div className="landing-center-title">About Us</div>
+        <Image className="team-photo" src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
         <div className="landing-center-content">
           Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere
           antiopam definitiones nam an, qui an electram iracundia, nisl sale

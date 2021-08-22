@@ -3,9 +3,11 @@ import {Nav} from 'react-bootstrap';
 import './Sidebar.css'
 import HeaderData from './HeaderData.js';
 import { Link } from 'react-router-dom';
+import {TEAM_INFO} from '../../global/data.js';
 
 const Sidebar = () => {
     const headerData = HeaderData();
+    const { orgName, teamName } = TEAM_INFO;
     return (
         <>
 
@@ -13,9 +15,11 @@ const Sidebar = () => {
                  activeKey="/home"
                  onSelect={selectedKey => alert(`selected ${selectedKey}`)}
             >
+                <div className="landing-center-title">{teamName}</div>
+                <div className="landing-title-org-name">{orgName}</div>
                 {headerData.map((val) => {
                     return (
-                        <Nav.Link as={Link} to={val.link}>
+                        <Nav.Link style={{padding:20}} as={Link} to={val.link}>
                             {val.title}
                         </Nav.Link>
                     );
