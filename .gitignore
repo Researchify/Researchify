@@ -1,6 +1,7 @@
 # Personal
 todos.txt
 out/
+scholly/base/build
 
 # IDE
 .idea
@@ -113,6 +114,11 @@ dist
 # mac os
 .DS_Store
 .vscode/launch.json
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
 
 # Final static build files
 scholly/base/build

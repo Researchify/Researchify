@@ -1,13 +1,11 @@
 /**
  * This module contains middleware functions for the publications route (../routes/publications.js).
  */
-
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
+
 const { categoryTypeEnum } = require('../config/playwright');
 const { fillErrorObject } = require('./error');
-
-
 
 /**
  * Handles the validation when creating (POST) a new publication in the database.
@@ -31,13 +29,13 @@ const createPublicationValidation = [
     .escape(),
   body(
     'citedBy',
-    'Error: citedBy needs to be a number and have a value of 0 or greater.'
+    'Error: citedBy needs to be a number and have a value of 0 or greater.',
   )
     .if(body('citedBy').exists())
     .isInt({ min: 0 }),
   body(
     'link',
-    'Error: Link URL provided is not a valid URL, including the protocol (http/https).'
+    'Error: Link URL provided is not a valid URL, including the protocol (http/https).',
   )
     .if(body('link').exists().notEmpty())
     .isURL({
@@ -48,7 +46,7 @@ const createPublicationValidation = [
     }),
   body(
     'thumbnail',
-    'Error: Thumbnail URL provided is not a valid URL, including the protocol (http/https).'
+    'Error: Thumbnail URL provided is not a valid URL, including the protocol (http/https).',
   )
     .if(body('thumbnail').exists().notEmpty())
     .optional(true)
@@ -64,17 +62,17 @@ const createPublicationValidation = [
   body('category.type', 'Error: Category type must not be empty.').notEmpty(),
   body(
     'category.type',
-    `Error: Category type does not match any of ${categoryTypeEnum}.`
+    `Error: Category type does not match any of ${categoryTypeEnum}.`,
   )
     .if(body('category.type').exists().notEmpty())
     .isIn(categoryTypeEnum),
   body(
     'category.categoryTitle',
-    'Error: Category title must not be empty.'
+    'Error: Category title must not be empty.',
   ).notEmpty(),
   body(
     'category.categoryTitle',
-    'Error: Category title must be at least 3 characters.'
+    'Error: Category title must be at least 3 characters.',
   )
     .if(body('category.categoryTitle').exists().notEmpty())
     .trim()
@@ -83,13 +81,12 @@ const createPublicationValidation = [
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log({ errors: errors.array() });
       next(
         fillErrorObject(
           400,
           'Validation error',
-          errors.errors.map((a) => a.msg)
-        )
+          errors.errors.map((a) => a.msg),
+        ),
       );
     } else {
       next();
@@ -99,24 +96,24 @@ const createPublicationValidation = [
 
 async function validateAuthorId(req, res, next) {
   const { gScholarUserId: _id } = req.params;
-  if (_id.length != 12) {
+  if (_id.length !== 12) {
     next(
       fillErrorObject(400, 'Validation error', [
         'Google Scholar User ID needs to be 12 characters long',
-      ])
+      ]),
     );
   }
   await axios
-    .get('https://scholar.google.com.sg/citations?user=' + _id)
-    .then(() => { next() })
+    .get(`https://scholar.google.com.sg/citations?user=${_id}`)
+    .then(() => { next(); })
     .catch((error) => {
       // if you mess around with the user id you only get 404
       next(
         fillErrorObject(
           error.response.status,
           'Validation error',
-          ['No Google Scholar user profile found with the given id']
-        )
+          ['No Google Scholar user profile found with the given id'],
+        ),
       );
     });
 }

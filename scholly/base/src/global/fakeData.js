@@ -1,3 +1,5 @@
+export const FAKE_WEB_PAGES = ['PUBLICATIONS', 'TEAM'];
+
 export const FAKE_PUBLICATIONS = [
   {
     _id: 'fake_publication_1',

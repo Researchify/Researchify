@@ -3,12 +3,12 @@
  */
 import { Button, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { LOG_OUT } from '../../actions/types';
+import { logout } from '../../actions/auth';
 
 const LogoutModal = ({logoutAlert, setLogoutAlert}) => {
     const dispatch = useDispatch();
     const handleSignOut = () => {
-        dispatch({ type: LOG_OUT })
+        dispatch(logout())
     }
     return (
         <Modal show={logoutAlert}>

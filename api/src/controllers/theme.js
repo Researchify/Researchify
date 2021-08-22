@@ -5,10 +5,10 @@
 const Theme = require('../models/editor/theme.model');
 
 /**
- * 
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
 async function findOrCreateTheme(req, res) {
   const themeData = req.body;
@@ -17,9 +17,8 @@ async function findOrCreateTheme(req, res) {
     if (!foundTheme) {
       const createdTheme = await Theme.create(themeData);
       return res.status(201).json(createdTheme);
-    } else {
-      return res.status(200).json(foundTheme);
     }
+    return res.status(200).json(foundTheme);
   } catch (err) {
     res.status(404).json(`Error: ${err.message}`);
   }

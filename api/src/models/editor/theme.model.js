@@ -28,7 +28,7 @@ const themeSchema = new mongoose.Schema(
       match: /^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$/,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Theme = mongoose.model('theme', themeSchema);
