@@ -10,7 +10,7 @@ import Dashboard from '../dashboard/Dashboard';
 import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
 import PublicationPage from '../publications/PublicationPage';
 import TeamPage from '../teamPage/TeamPage';
-import AchievementPage from '../awards/AwardPage';
+import AchievementPage from '../awards/AchievementPage';
 import ClientHomeEditor from '../clientHomeEditor/ClientHomeEditor';
 
 // Layout
