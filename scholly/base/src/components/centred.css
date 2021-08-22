@@ -5,6 +5,10 @@
   top: 0;
 }
 
+a {
+  color: inherit;
+}
+
 /* top padding for each page, to avoid overlapping with header */
 .pages-top-padding {
   padding-top: 50px;
@@ -164,4 +168,17 @@
 .team-card-deck {
   align-content: center;
   justify-content: center;
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+.nav-link {
+  color: inherit;
+  font-weight: 500;
+}
+
+.publication-card {
+  background-color: transparent;
 }
