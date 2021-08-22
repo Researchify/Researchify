@@ -17,8 +17,8 @@ const achievementSchema = new mongoose.Schema(
       description: {
           type: String
       },
-      dateAwarded: {
-          type: Date
+      yearAwarded: {
+          type: Number
       }
     }
 )
