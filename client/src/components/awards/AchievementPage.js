@@ -26,7 +26,7 @@
 
    return (
      <div className="achievementPageContainer">
-       <h1>Achievements achieved by our team</h1>
+       <h1>Achievements</h1>
        <Button className="mt-2" onClick={() => setShowCreateForm(true)}>
          Add Achievement
        </Button>

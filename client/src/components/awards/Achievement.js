@@ -51,42 +51,35 @@
         </Button>
       </ButtonGroup>
     );
-  
+
     return (
       <>
         <Col className="container-fluid mt-4">
-          <Card bg="light" style={{ width: '25rem', height: '100%' }}>
-            <Row>
-              <Col md={{ span: 2, offset: 10 }}>
-                <OverlayTrigger
-                  rootClose
-                  trigger="click"
-                  placement="bottom"
-                  overlay={displayOptions}
-                >
-                  <Button variant="default">
-                    <IconContext.Provider
-                      value={{ color: 'black', size: '20px' }}
-                    >
-                      <BsThreeDotsVertical />
-                    </IconContext.Provider>
-                  </Button>
-                </OverlayTrigger>
-              </Col>
-            </Row>
-            <Image
-              src={awardPic}
-              roundedCircle
-              height="130px"
-              width="130px"
-              style={{ alignSelf: 'center' }}
-            />
+          <Card>
+            <Card.Header as="h5">
+              <Row>
+                <Col id="achievementTitle">{achievement.title}</Col>
+                <Col md={{ span: 2 }}>
+                  <OverlayTrigger
+                    rootClose
+                    trigger="click"
+                    placement="bottom"
+                    overlay={displayOptions}
+                  >
+                    <Button variant="default">
+                      <IconContext.Provider
+                        value={{ color: 'black', size: '20px' }}
+                      >
+                        <BsThreeDotsVertical />
+                      </IconContext.Provider>
+                    </Button>
+                  </OverlayTrigger>
+                </Col>
+              </Row>
+            </Card.Header>
             <Card.Body>
-              <Card.Title className="text-center">{achievement.title}</Card.Title>
-              <Card.Subtitle className="text-center mb-2 text-muted">
-                {achievement.year}
-              </Card.Subtitle>
               <Card.Text>{achievement.description}</Card.Text>
+              <Card.Text id="yearAwarded"><b>Date:</b> {achievement.yearAwarded}</Card.Text>
             </Card.Body>
           </Card>
         </Col>

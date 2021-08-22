@@ -5,3 +5,12 @@
     margin-bottom: 40px;
     margin-top: 20px;
   }
+
+#achievementTitle {
+  margin-top: 1.8%;
+}
+
+#yearAwarded {
+  text-align: right;
+  color: #404040;
+}

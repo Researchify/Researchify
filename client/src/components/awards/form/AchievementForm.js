@@ -17,13 +17,15 @@
        .required('Achievement Name is required')
        .min(3, 'Achievement Name is at least 3 characters'),
        yearAwarded: yup
-        .string()
+        .number()
+        .min(1000, 'Invalid year')
+        .max(9999, 'Invalid year')
         .required('Year is required'),
      description: yup
        .string()
        .required('Description is required')
        .min(3, 'Description is at least 3 characters')
-       .max(200, 'Max 200 characters'),
+       .max(500, 'Max 500 characters'),
    });
  
    const initValues = {
