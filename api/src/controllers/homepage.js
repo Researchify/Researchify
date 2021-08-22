@@ -22,7 +22,7 @@ async function getHomepage(req, res, next) {
     const emptyHomepage = { teamId: team_id, aboutUs: [''] };
     return res.status(200).json(emptyHomepage);
   } catch (err) {
-    next(fillErrorObject(500, 'Server error', [err.errors]));
+    return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
 }
 
@@ -48,7 +48,7 @@ async function createOrUpdateHomepage(req, res, next) {
     const createdHomepage = await Homepage.create(homepageData);
     return res.status(201).json(createdHomepage);
   } catch (err) {
-    next(fillErrorObject(500, 'Server error', [err.errors]));
+    return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
 }
 
