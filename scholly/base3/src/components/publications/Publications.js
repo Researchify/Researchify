@@ -8,7 +8,8 @@ import { TEAM_PUBLICATIONS } from '../../global/data';
 import usePagination from '../shared/usePagination';
 import { pageSize } from '../../config/publications';
 
-const Publications = () => {
+
+const Publications = (pub_num) => {
   const { currentData, pagination } = usePagination(TEAM_PUBLICATIONS, pageSize)
 
   return (

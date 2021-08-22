@@ -1,12 +1,14 @@
 /**
  * The Publication component displays a single publication.
  */
-import React from 'react';
-import { Accordion, Card } from 'react-bootstrap';
+
+
+import React, {Fragment} from 'react';
+import {Accordion, Card, Row, Col, Container} from 'react-bootstrap'; 
 
 const Publication = ({ pub }) => {
   return (
-    <Card className="publication-card">
+    <Card className="publication-card shadow text-center" bg = "secondary">
       <Accordion.Toggle
         as={Card.Header}
         eventKey={pub._id}
