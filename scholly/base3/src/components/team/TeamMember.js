@@ -2,21 +2,37 @@
  * This component display a single team member as a card component.
  */
 
-import React from 'react';
-import {Card} from 'react-bootstrap';
-import profilePicture from '../../images/profilepic.jpg';
+ import React, {Fragment} from 'react';
+ import {Card, Row, Col, Container} from 'react-bootstrap';
+ import profilePicture from '../../images/profilepic.jpg';
+ import { TEAM_MEMBERS } from '../../global/data';
+ const teamMembers = TEAM_MEMBERS;
 
-const TeamMember = ({member}) => {
-  return (
-    <Card className="team-card">
-      <Card.Img variant="top" src={profilePicture} />
-      <Card.Body>
-      <div className="member-name">{member.fullName}</div>
-      <div className="member-position">{member.position}</div>
-      <div className="member-summary">{member.summary}</div>
-      </Card.Body>
-    </Card>
-  )
-}
 
-export default TeamMember;
+ 
+ const TeamMember = ({member}) => {
+   return (
+       <Fragment>
+         <Container className="pages-top-padding ">
+         <Card className = "shadow text-center" bg = {teamMembers.indexOf(member) % 2 === 0 ? "white" : "secondary"}  > 
+                       <Card.Body >
+                       <Row>
+                       
+                       <Card.Img style={{width: "160px", height: "120px"}}  src={profilePicture} className="team-member-picture " />
+                       <Col>
+                       <Card.Title as="h5">{member.fullName}</Card.Title>
+                       <Card.Text as="h6"> {member.position} </Card.Text>
+                       <Card.Text as="h7"> {member.summary} </Card.Text>
+                       </Col>
+                       </Row>
+                       </Card.Body> 
+           </Card>
+           </Container>
+       </Fragment>
+ 
+
+   )
+ }
+ 
+ export default TeamMember;
+ 
