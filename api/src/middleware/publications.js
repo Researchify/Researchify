@@ -4,7 +4,7 @@
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
 
-const { categoryTypeEnum } = require('../config/playwright');
+const { categoryTypeEnum, playwrightConfig } = require('../config/playwright');
 const { fillErrorObject } = require('./error');
 
 /**
@@ -103,19 +103,18 @@ async function validateAuthorId(req, res, next) {
       ]),
     );
   }
-  await axios
-    .get(`https://scholar.google.com.sg/citations?user=${_id}`)
-    .then(() => { next(); })
-    .catch((error) => {
-      // if you mess around with the user id you only get 404
-      next(
-        fillErrorObject(
-          error.response.status,
-          'Validation error',
-          ['No Google Scholar user profile found with the given id'],
-        ),
-      );
-    });
+
+  try {
+    await axios(`${playwrightConfig.baseUrl}${_id}`);
+  } catch (error) {
+    // if you mess around with the user id you only get 404
+    console.log(error);
+    next(
+      fillErrorObject(error.response.status, 'Validation error', [
+        'No Google Scholar user profile found with the given id',
+      ])
+    );
+  }
 }
 
 module.exports = { createPublicationValidation, validateAuthorId };
