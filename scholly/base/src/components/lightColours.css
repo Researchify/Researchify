@@ -1,9 +1,9 @@
-body {
-    background-color: #E2EAFC;
-    color:black;
-}
-
-.navbar {
-    background-color: #ABC4FF !important;
-    color:black;
+:root {
+    --researchify-text-color: #000;
+    --researchify-link-color: #8c94a5;
+    --researchify-color-primary: #fff;
+    --researchify-color-secondary: #DEE4E7;
+    --researchify-color-tertiary: #f6f9fa;
+    --researchify-color-quaternary: #aecad8;
+    --researchify-color-quinary: #DEE4E7;
 }
