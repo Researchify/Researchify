@@ -3,8 +3,6 @@
  */
 
  const { body, validationResult } = require('express-validator');
- const axios = require('axios');
- const { categoryTypeEnum } = require('../config/playwright');
  const { fillErrorObject } = require('./error');
  
  
