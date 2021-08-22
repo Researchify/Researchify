@@ -41,7 +41,7 @@ async function createOrUpdateHomepage(req, res, next) {
       const updatedHomepage = await Homepage.findOneAndUpdate(
         { teamId: team_id },
         homepageData,
-        { new: true }
+        { new: true },
       );
       return res.status(200).json(updatedHomepage);
     }
