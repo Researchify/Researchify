@@ -54,7 +54,7 @@ const DeployPage = ({ teamId }) => {
                  onSuccess={onSuccessfulLogin} onFailure={onLoginFail}
                  redirectUri="">
       <GoMarkGithub className="mr-2"/>
-      Login GitHub to Deploy
+      Login with GitHub
     </GitHubLogin>
   );
 
