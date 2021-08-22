@@ -108,11 +108,10 @@ async function validateAuthorId(req, res, next) {
     await axios(`${playwrightConfig.baseUrl}${_id}`);
   } catch (error) {
     // if you mess around with the user id you only get 404
-    console.log(error);
     next(
       fillErrorObject(error.response.status, 'Validation error', [
         'No Google Scholar user profile found with the given id',
-      ])
+      ]),
     );
   }
 }
