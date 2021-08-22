@@ -7,8 +7,8 @@ const { fillErrorObject } = require('../middleware/error');
 
 /**
  * Get homepage content on /homepage/:team_id
- * @param {*} req
- * @param {*} res
+ * @param {*} req request object, containing team id in url
+ * @param {*} res response object, the homepage data of team
  * @returns
  */
 async function getHomepage(req, res, next) {
@@ -18,6 +18,7 @@ async function getHomepage(req, res, next) {
     if (foundHomepage) {
       return res.status(200).json(foundHomepage);
     }
+    // note: each string in `aboutUs` is a paragraph
     const emptyHomepage = { teamId: team_id, aboutUs: [''] };
     return res.status(200).json(emptyHomepage);
   } catch (err) {
@@ -27,8 +28,8 @@ async function getHomepage(req, res, next) {
 
 /**
  * Create a new homepage instance for team on /homepage/:team_id
- * @param {*} req
- * @param {*} res
+ * @param {*} req request object, containing team id in the url, homepage data to be post in the body
+ * @param {*} res response object, posted homepage data of the team
  * @returns
  */
 async function createOrUpdateHomepage(req, res, next) {
@@ -40,7 +41,7 @@ async function createOrUpdateHomepage(req, res, next) {
       const updatedHomepage = await Homepage.findOneAndUpdate(
         { teamId: team_id },
         homepageData,
-        { new: true },
+        { new: true }
       );
       return res.status(200).json(updatedHomepage);
     }

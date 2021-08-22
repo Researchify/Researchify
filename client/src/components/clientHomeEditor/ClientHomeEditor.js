@@ -67,6 +67,7 @@ const ClientHomeEditor = () => {
             name="aboutUs"
             as="textarea"
             rows={6}
+            // join the string list to display paragraphs
             defaultValue={homepageValues.aboutUs.join('\n\n')}
           />
         </Form.Group>

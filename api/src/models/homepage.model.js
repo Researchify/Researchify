@@ -10,6 +10,8 @@ const homepageSchema = new mongoose.Schema(
       ref: 'team',
       required: true,
     },
+    // `aboutUs` stores a list of strings.
+    // Each string in list is a paragraph.
     aboutUs: [
       {
         type: String,

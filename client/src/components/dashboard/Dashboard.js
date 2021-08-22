@@ -24,12 +24,18 @@ const Dashboard = () => {
   const [currentTab, setCurrentTab] = useState('home');
 
   const directToAnotherPage = (pageName) => {
-    if (pageName === 'PUBLICATIONS') {
-      history.push(`/publications`);
-    } else if (pageName === 'TEAM') {
-      history.push(`/team`);
-    } else if (pageName === 'HOME PAGE') {
-      history.push(`/about-us`);
+    switch (pageName) {
+      case 'PUBLICATIONS':
+        history.push(`/publications`);
+        break;
+      case 'TEAM':
+        history.push(`/team`);
+        break;
+      case 'HOME PAGE':
+        history.push(`/about-us`);
+        break;
+      default:
+        history.push(`/`);
     }
   };
 
