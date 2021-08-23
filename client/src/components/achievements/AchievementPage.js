@@ -30,7 +30,7 @@
         <Col>
           <h1>Achievements</h1>
         </Col>
-        <Col id="achievementButton" md={{ offset: 6 }}>
+        <Col id="achievementButton" md={{ offset: 5 }}>
           <Button className="mt-2" onClick={() => setShowCreateForm(true)}>
             Add Achievement
           </Button>
