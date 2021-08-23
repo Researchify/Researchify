@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
-import { Table, Button, Tooltip, OverlayTrigger, Spinner } from 'react-bootstrap';
+import {
+  Table,
+  Button,
+  Tooltip,
+  OverlayTrigger,
+  Spinner,
+} from 'react-bootstrap';
 import '../Dashboard.css';
 import WebpageDelete from './WebpageDelete';
 import WebpageSelector from './WebpageSelector';
@@ -26,7 +32,9 @@ const Webpages = ({
   const [disableAddButton, setDisableAddButton] = useState(false);
 
   const renderDisableAddButtonTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props} >All available pages have been added</Tooltip>
+    <Tooltip id="button-tooltip" {...props}>
+      All available pages have been added
+    </Tooltip>
   );
 
   useEffect(() => {
@@ -84,50 +92,67 @@ const Webpages = ({
           </div>
         </ConditionalWrapper>
       </div>
-      {
-        loading ? 
+
+      {loading ? (
         <div className="text-center">
           <Spinner animation="border" />
-        </div> :
+        </div>
+      ) : (
         <Table striped bordered hover>
-          {/* Display appropriate message when no webpage is added */}
           {
+            // Display appropriate message when no webpage is added
             currentWebPages.length === 0 && (
               <thead>
                 <tr>
                   <th className="reduced-column tableHeading">
-                    No web-page added yet...
+                    Click 'Add Page' to add more pages
                   </th>
                 </tr>
               </thead>
             )
           }
           <tbody>
-          {currentWebPages.map((webPage, index) => (
-            <tr key={index}>
+            <tr key="default-homepage">
               <td className="body">
-                {webPage}
-                <Button
-                  variant="outline-danger"
-                  className="action primary-danger float-right"
-                  onClick={() => promptDeleteConfirmation(webPage)}
-                >
-                  Delete
-                </Button>
+                {'HOME PAGE'}
                 <Button
                   variant="outline-success"
                   className="action float-right mx-2"
                   onClick={() => {
-                    directToAnotherPage(webPage);
+                    directToAnotherPage('HOME PAGE');
                   }}
                 >
                   <BsPencilSquare />
                 </Button>
               </td>
             </tr>
-          ))}
-        </tbody>
-      </Table>}
+
+            {currentWebPages.map((webPage, index) => (
+              <tr key={index}>
+                <td className="body">
+                  {webPage}
+                  <Button
+                    variant="outline-danger"
+                    className="action primary-danger float-right"
+                    onClick={() => promptDeleteConfirmation(webPage)}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="outline-success"
+                    className="action float-right mx-2"
+                    onClick={() => {
+                      directToAnotherPage(webPage);
+                    }}
+                  >
+                    <BsPencilSquare />
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
     </>
   );
 };
