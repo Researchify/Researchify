@@ -9,6 +9,7 @@ import {
   BsPerson,
   BsPeople,
   // BsFillQuestionCircleFill,
+  BsGearFill,
   BsBoxArrowLeft,
   BsFillAwardFill,
   BsCardText,

@@ -7,7 +7,6 @@ import {
 } from './types';
 import {
   errorActionGlobalCreator,
-  successMessageCreator,
 } from '../notification/notificationReduxFunctions';
 
 export const getAchievementsByTeamId = (teamId) => async (dispatch) => {

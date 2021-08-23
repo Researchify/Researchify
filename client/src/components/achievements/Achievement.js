@@ -7,12 +7,10 @@
     Row,
     Col,
     Button,
-    Image,
     Modal,
     ButtonGroup,
     OverlayTrigger,
   } from 'react-bootstrap';
-  import awardPic from '../../images/profilepic.jpg';
   import { useState } from 'react';
   import { BsThreeDotsVertical } from 'react-icons/bs';
   import { IconContext } from 'react-icons';
@@ -25,7 +23,6 @@
     const dispatch = useDispatch();
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [showDeleteMessage, setShowDeleteMessage] = useState(false);
-    const teamId = useSelector((state) => state.team.teamId);
 
     const handleDelete = () => {
       dispatch(deleteAchievement(achievement._id));

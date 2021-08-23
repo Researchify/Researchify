@@ -5,7 +5,7 @@
  import { Formik } from 'formik';
  import * as yup from 'yup';
  import { useSelector, useDispatch } from 'react-redux';
- import { Row, Col, Button, Tooltip, OverlayTrigger, Form } from 'react-bootstrap';
+ import { Row, Button, Tooltip, OverlayTrigger, Form } from 'react-bootstrap';
  import { updateAchievement, createAchievement } from '../../../actions/achievements';
 
  const AchievementForm = ({ closeModal, achievement, type }) => {

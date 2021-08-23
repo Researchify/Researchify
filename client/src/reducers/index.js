@@ -23,9 +23,6 @@ export default combineReducers({
   teamMember: teamMembersReducer,
   deploy: deployReducer,
   website: websiteReducer,
-<<<<<<< HEAD
   achievements: achievementsReducer, 
-=======
   homepage: homepageReducer,
->>>>>>> main
 });
