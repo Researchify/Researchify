@@ -16,7 +16,7 @@ const Dashboard = () => {
   const history = useHistory();
 
   const teamId = useSelector((state) => state.team.teamId);
-  const currentWebPages = useSelector((state) => state.website.pages);
+  const { pages: currentWebPages, loading } = useSelector((state) => state.website);
 
   const pagePlaceholder = 'Select page to add';
   const [selectedPage, setSelectedPage] = useState(pagePlaceholder);
@@ -48,6 +48,7 @@ const Dashboard = () => {
               setSelectedPage={setSelectedPage}
               selectedPage={selectedPage}
               availablePages={availablePages}
+              loading={loading}
             />
           </Tab>
           <Tab eventKey="theme" title="Theme">
