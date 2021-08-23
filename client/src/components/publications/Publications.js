@@ -38,7 +38,7 @@ const Publications = () => {
   useEffect(() => {
     const sortedPublication = sortPublications(teamPublications, options.sortBy)
     setPublications(sortedPublication)
-  }, [options.sortBy, teamPublications])
+  }, [teamPublications])   // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderPublications = () => {
     switch (options.layout) {
@@ -50,6 +50,9 @@ const Publications = () => {
   }
 
   const sortPublications = (publicationToBeSorted, option) => {
+    if (option === options.sortBy){
+      return publicationToBeSorted
+    }
     switch (option) {
       case sortingOptions.AUTHOR:
         publicationToBeSorted.sort((a, b) =>

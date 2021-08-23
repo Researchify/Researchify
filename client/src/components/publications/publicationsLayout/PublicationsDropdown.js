@@ -55,13 +55,13 @@ const PublicationsDropdown = ({
                 {sortingOptions[sortBy]}
               </Dropdown.Item>
             ))}
-            {options.layout === sortingOptions.BY_CATEGORY && 
+            {options.layout === layoutOptions.BY_CATEGORY && 
               <Dropdown.Item
                 as="button"
                 value="Category Title"
                 onClick={(e) => {
                   setOptions({...options, sortBy: e.target.value})
-                sortPublications(publication, e.target.value);
+                  sortPublications(publication, e.target.value);
               }}
               >
                 Category Title
