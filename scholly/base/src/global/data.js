@@ -10,14 +10,14 @@ import {
   FAKE_PUBLICATIONS,
   FAKE_TEAM_INFO,
   FAKE_TEAM_MEMBERS,
-  FAKE_WEB_PAGES,
+  FAKE_WEB_METADATA,
 } from './fakeData';
 
 const env = process.env;
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
-let WEB_PAGES;
+let WEB_METADATA;
 
 if (!env.REACT_APP_DEBUG) {
   /// The list of publications the team has created for rendering in the publications page
@@ -35,7 +35,7 @@ if (!env.REACT_APP_DEBUG) {
     ? JSON.parse(env.REACT_APP_TEAM_MEMBERS)
     : [];
 
-  WEB_PAGES = env.REACT_APP_WEB_PAGES ? JSON.parse(env.REACT_APP_WEB_PAGES) : [];
+  WEB_METADATA = env.REACT_APP_WEB_METADATA ? JSON.parse(env.REACT_APP_WEB_METADATA) : [];
 
 } else {
   console.log('Running in DEBUG mode, hence using fake Team data');
@@ -46,7 +46,7 @@ if (!env.REACT_APP_DEBUG) {
 
   TEAM_MEMBERS = FAKE_TEAM_MEMBERS;
 
-  WEB_PAGES = FAKE_WEB_PAGES;
+  WEB_METADATA = FAKE_WEB_METADATA;
 }
 
 export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, WEB_PAGES };

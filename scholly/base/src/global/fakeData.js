@@ -1,4 +1,10 @@
-export const FAKE_WEB_PAGES = ['PUBLICATIONS', 'TEAM'];
+export const FAKE_WEB_METADATA = {
+  url: '',
+  title: 'Example Title',
+  pages: ['PUBLICATIONS', 'TEAM'],
+  layout: 1,
+  color: 1,
+};
 
 export const FAKE_PUBLICATIONS = [
   {
