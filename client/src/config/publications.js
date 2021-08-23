@@ -3,20 +3,20 @@
  */
 const pageSize = 10;
 const categoryPageSize = 5;
-const categoryType = {
+const categoryTypes = {
   JOURNAL: 'Journal',
   CONFERENCE: 'Conference',
   BOOK: 'Book',
   OTHER: 'Other',
 };
-const layoutOption = {
+const layoutOptions = {
   ALL_PUBLICATION: 'All Publication',
   BY_CATEGORY: 'By Category',
 }
-const sortingOption = {
+const sortingOptions = {
   TITLE: 'Title',
   AUTHOR: 'Author',
   YEAR: 'Year',
 }
 
-module.exports = { pageSize, categoryPageSize, categoryType, layoutOption, sortingOption };
+module.exports = { pageSize, categoryPageSize, categoryTypes, layoutOptions, sortingOptions };

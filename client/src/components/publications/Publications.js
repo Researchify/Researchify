@@ -13,7 +13,7 @@ import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 import PublicationsButtons from './publicationsLayout/PublicationsButtons';
 import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
-import { layoutOption, sortingOption } from '../../config/publications';
+import { layoutOptions, sortingOptions } from '../../config/publications';
 
 const Publications = () => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const Publications = () => {
 
   const renderPublications = () => {
     switch (options.layout) {
-      case layoutOption.BY_CATEGORY:
+      case layoutOptions.BY_CATEGORY:
         return <LayoutByCategory teamPublications={publications} />;
       default:
         return <LayoutAllPublications teamPublications={publications} />;
@@ -51,12 +51,12 @@ const Publications = () => {
 
   const sortPublications = (publicationToBeSorted, option) => {
     switch (option) {
-      case sortingOption.AUTHOR:
+      case sortingOptions.AUTHOR:
         publicationToBeSorted.sort((a, b) =>
           a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1
         );
         break;
-      case sortingOption.TITLE:
+      case sortingOptions.TITLE:
         // publication title
         publicationToBeSorted.sort((a, b) =>
           a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1

@@ -3,7 +3,7 @@
  */
 const mongoose = require('mongoose');
 
-const { layoutOptionEnum, sortingOptionEnum } = require('../config/publication');
+const { layoutOptions, sortingOptions } = require('../config/publication');
 
 const websiteSchema = new mongoose.Schema(
   {
@@ -29,12 +29,12 @@ const websiteSchema = new mongoose.Schema(
       layout: { 
         type: String, 
         required: false,
-        enum: layoutOptionEnum
+        enum: layoutOptions
       }, 
       sortBy: { 
         type: String, 
         required: false,
-        enum: sortingOptionEnum
+        enum: sortingOptions
       } 
     },
   },

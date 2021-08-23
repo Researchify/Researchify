@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown, Button } from 'react-bootstrap';
-import { sortingOption, layoutOption } from '../../../config/publications';
+import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { useDispatch } from 'react-redux';
 import { updatePublicationOptions } from '../../../actions/website'
 
@@ -25,13 +25,13 @@ const PublicationsDropdown = ({
             Layout: {options.layout}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(layoutOption).map((layout, i) => (
+            {Object.keys(layoutOptions).map((layout, i) => (
               <Dropdown.Item
                 key={i}
                 as="button"
-                onClick={() => setOptions({...options, layout: layoutOption[layout]})}
+                onClick={() => setOptions({...options, layout: layoutOptions[layout]})}
               >
-                {layoutOption[layout]}
+                {layoutOptions[layout]}
               </Dropdown.Item>
             ))}
           </Dropdown.Menu>
@@ -42,20 +42,20 @@ const PublicationsDropdown = ({
             Sort by: {options.sortBy}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(sortingOption).map((sortBy, i) => (
+            {Object.keys(sortingOptions).map((sortBy, i) => (
               <Dropdown.Item
                 key={i}
                 as="button"
-                value={sortingOption[sortBy]}
+                value={sortingOptions[sortBy]}
                 onClick={(e) => {
-                  setOptions({...options, sortBy: sortingOption[sortBy]})
+                  setOptions({...options, sortBy: sortingOptions[sortBy]})
                   sortPublications(publication, e.target.value);
                 }}
               >
-                {sortingOption[sortBy]}
+                {sortingOptions[sortBy]}
               </Dropdown.Item>
             ))}
-            {options.layout === layoutOption.BY_CATEGORY && 
+            {options.layout === sortingOptions.BY_CATEGORY && 
               <Dropdown.Item
                 as="button"
                 value="Category Title"
