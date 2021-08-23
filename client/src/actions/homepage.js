@@ -3,6 +3,10 @@
  */
 import * as api from '../api';
 import { FETCH_HOMEPAGE, UPDATE_HOMEPAGE } from './types';
+import {
+  errorActionGlobalCreator,
+  successMessageCreator,
+} from '../notification/notificationReduxFunctions';
 
 export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
   try {
@@ -16,7 +20,7 @@ export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
       payload: homepageData,
     });
   } catch (error) {
-    console.error(error);
+    dispatch(errorActionGlobalCreator(error));
   }
 };
 
@@ -31,7 +35,8 @@ export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
       type: UPDATE_HOMEPAGE,
       payload: updatedHomepage,
     });
+    dispatch(successMessageCreator('Saved'));
   } catch (error) {
-    console.error(error);
+    dispatch(errorActionGlobalCreator(error));
   }
 };
