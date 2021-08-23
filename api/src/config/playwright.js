@@ -12,7 +12,4 @@ const playwrightConfig = {
     sortBySuffix: '&view_op=list_works&sortby=pubdate', // put most recent pubs first
 };
 
-module.exports = { 
-    playwrightConfig, 
-};
-  
+module.exports = { playwrightConfig };

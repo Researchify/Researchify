@@ -8,15 +8,15 @@ import {
   FETCH_WEBSITE_INFO,
   UPDATE_PUBLICATION_OPTIONS,
 } from '../actions/types';
-import { layoutOption, sortingOption } from '../config/publications';
+import { layoutOptions, sortingOptions } from '../config/publications';
 
 const INITIAL_WEBSITE_STATE = {
   url: '',
   title: '',
   pages: [],
   publicationOptions: {
-    layout: layoutOption.ALL_PUBLICATION,
-    sortBy: sortingOption.TITLE
+    layout: layoutOptions.ALL_PUBLICATION,
+    sortBy: sortingOptions.TITLE
   },
 };
 
