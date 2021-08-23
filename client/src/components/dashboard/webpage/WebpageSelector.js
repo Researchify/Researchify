@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { addPage } from '../../../actions/website';
 import { availablePages as pages } from '../../../config/clientWebsite';
 import { useDispatch } from 'react-redux';
@@ -35,7 +35,7 @@ const WebpageSelector = ({
   };
 
   return (
-    <>
+    <Fragment>
       <Modal show={displayModal} onHide={closeModal} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-center">
@@ -65,7 +65,7 @@ const WebpageSelector = ({
           </Button>
         </Modal.Body>
       </Modal>
-    </>
+    </Fragment>
   );
 };
 
