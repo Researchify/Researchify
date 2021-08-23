@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
+import './DeployPage.css';
 
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
@@ -35,10 +36,11 @@ const DeployPage = ({ teamId }) => {
   }
 
   const GitHubLoginButton = (
-    <GitHubLogin className="float-right" clientId={githubClientId} scope={scope}
+    <GitHubLogin className="float-right github-login-button" clientId={githubClientId} scope={scope}
                  onSuccess={onSuccessfulLogin} onFailure={onLoginFail}
                  redirectUri="">
       <GoMarkGithub className="mr-2"/>
+      Login with GitHub
     </GitHubLogin>
   );
 

@@ -24,23 +24,10 @@ export const login = (authData) => async (dispatch) => {
     dispatch({
       type: LOG_IN_REQUEST,
     });
-    const { data } = await api.loginTeam(authData);
-    const teamId = data._id;
-
-    const clientWebsiteData = await getClientWebsiteData(teamId);
-  
+    await api.loginTeam(authData);
     dispatch({
       type: LOG_IN_SUCCESS,
     });
-    dispatch({
-      type: FETCH_TEAM_INFO,
-      payload: data,
-    });
-    dispatch({
-      type: FETCH_WEBSITE_INFO,
-      payload: clientWebsiteData,
-    });
-
   } catch (error) {
     dispatch({
       type: LOG_IN_FAIL,

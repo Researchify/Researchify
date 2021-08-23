@@ -53,3 +53,8 @@ export const deleteWebPage = (teamId, pageName) =>
 export const loginTeam = (teamCredentials) =>
   api.post(`/auth/login`, teamCredentials);
 export const logoutTeam = () => api.post(`/auth/logout`);
+
+// Client Homepage endpoints.
+export const getHomepage = (teamId) => api.get(`/homepage/${teamId}`);
+export const createOrUpdateHomepage = (teamId, homepageData) =>
+  api.post(`/homepage/${teamId}`, homepageData);

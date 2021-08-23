@@ -174,3 +174,7 @@ export const FAKE_TEAM_MEMBERS = [
       'Jeremy Buffet leads our macro-economic unit in predicting macro factors and their impact on society',
   },
 ];
+
+export const FAKE_TEAM_HOMEPAGE = {
+  aboutUs: ["This is first paragraph.", "This is second paragraph.", "This is third paragraph."]
+}

@@ -5,9 +5,9 @@
 const Theme = require('../models/editor/theme.model');
 
 /**
- *
- * @param {*} req
- * @param {*} res
+ * Find and assign theme id to the team, if not found, create a new one
+ * @param {*} req request object, containing theme data object in the body
+ * @param {*} res response object, found/created theme data
  * @returns
  */
 async function findOrCreateTheme(req, res) {
