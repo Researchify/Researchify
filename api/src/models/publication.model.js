@@ -3,7 +3,7 @@
  */
 const mongoose = require('mongoose');
 
-const { categoryTypeEnum } = require('../config/publication');
+const { categoryTypes } = require('../config/publication');
 
 const publicationSchema = new mongoose.Schema(
   {
@@ -49,7 +49,7 @@ const publicationSchema = new mongoose.Schema(
     category: {
       type: {
         type: String,
-        enum: categoryTypeEnum,
+        enum: categoryTypes,
         required: true,
       },
       categoryTitle: {

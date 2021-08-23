@@ -135,6 +135,13 @@ function deleteWebPage(req, res, next) {
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
+/**
+ * Update publications layout & sorting options
+ * @param {*} req request object, containing the teamId and option object
+ * @param {*} res response object
+ * @returns 200: publication options successfully updated in the DB
+ * @returns 500: Server error while saving new page name to DB
+ */
 async function updatePublicationOptions(req, res, next){ // eslint-disable-line no-unused-vars
   const updatedPubOptions = req.body; 
   const { team_id: _id } = req.params; // TODO: teamId get from the token instead of parameters? 

@@ -1,26 +1,15 @@
 /**
- * This module stores the configuration for using Puppeteer to scrape Google Scholar.
+ * Exports publication-related enums
  */
 
-const playwrightConfig = {
-  noOfDummyLinks: 4, // first 4 links aren't publications can be ignored
-  pageSize: 10, // number of publications to return at once
-  gScholarHome: 'https://scholar.google.com',
-  baseUrl: 'https://scholar.google.com/citations?hl=en&user=',
-  startSuffix: '&cstart=', // concatenate number to start at after
-  pageSizeSuffix: '&pagesize=', // concatenate page size after
-  sortBySuffix: '&view_op=list_works&sortby=pubdate', // put most recent pubs first
-};
+const categoryTypes = ['Conference', 'Journal', 'Book', 'Other'];
 
-const categoryType = ['Conference', 'Journal', 'Book', 'Other'];
+const layoutOptions = ['All Publication', 'By Category'];
 
-const layoutOption = ['All Publication', 'By Category'];
-
-const sortingOption = ['Title', 'Author', 'Year', 'Category Title'];
+const sortingOptions = ['Title', 'Author', 'Year', 'Category Title'];
 
 module.exports = { 
-  playwrightConfig, 
-  categoryType,
-  layoutOption,
-  sortingOption,
+  categoryTypes,
+  layoutOptions,
+  sortingOptions,
 };

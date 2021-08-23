@@ -4,7 +4,7 @@
 
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
-const { categoryTypeEnum } = require('../config/publication');
+const { categoryTypes } = require('../config/publication');
 const { fillErrorObject } = require('./error');
 
 
@@ -64,10 +64,10 @@ const createPublicationValidation = [
   body('category.type', 'Error: Category type must not be empty.').notEmpty(),
   body(
     'category.type',
-    `Error: Category type does not match any of ${categoryTypeEnum}.`
+    `Error: Category type does not match any of ${categoryTypes}.`
   )
     .if(body('category.type').exists().notEmpty())
-    .isIn(categoryTypeEnum),
+    .isIn(categoryTypes),
   body(
     'category.categoryTitle',
     'Error: Category title must not be empty.'
