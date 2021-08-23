@@ -47,7 +47,7 @@ const teamSchema = new mongoose.Schema(
       ref: 'theme',
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Team = mongoose.model('team', teamSchema);
