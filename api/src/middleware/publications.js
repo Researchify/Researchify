@@ -97,7 +97,7 @@ const createPublicationValidation = [
 async function validateAuthorId(req, res, next) {
   const { gScholarUserId: _id } = req.params;
   if (_id.length !== 12) {
-    next(
+    return next(
       fillErrorObject(400, 'Validation error', [
         'Google Scholar User ID needs to be 12 characters long',
       ]),
@@ -105,11 +105,11 @@ async function validateAuthorId(req, res, next) {
   }
 
   try {
-    await axios(`${playwrightConfig.baseUrl}${_id}`);
-    next();
+    await axios.get(`${playwrightConfig.baseUrl}${_id}`);
+    return next();
   } catch (error) {
     // if you mess around with the user id you only get 404
-    next(
+    return next(
       fillErrorObject(error.response.status, 'Validation error', [
         'No Google Scholar user profile found with the given id',
       ]),
