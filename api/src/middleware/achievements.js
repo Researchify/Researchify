@@ -28,8 +28,8 @@ const createAchievementValidation = [
         fillErrorObject(
           400,
           'Validation error',
-          errors.errors.map((a) => a.msg)
-        )
+          errors.errors.map((a) => a.msg),
+        ),
       );
     } else {
       next();

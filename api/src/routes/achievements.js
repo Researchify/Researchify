@@ -7,7 +7,7 @@ const achievementsController = require('../controllers/achievements');
 
 const achievementsMiddleware = require('../middleware/achievements');
 
-const authMiddleware = require('../middleware/auth')
+const authMiddleware = require('../middleware/auth');
 
 const teamMiddleware = require('../middleware/team');
 
@@ -17,21 +17,21 @@ achievementsRouter.delete(
   '/:id',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateAchievementObjectId,
-  achievementsController.deleteAchievement
+  achievementsController.deleteAchievement,
 );
 
 achievementsRouter.patch(
   '/:id',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateAchievementObjectId,
-  achievementsController.updateAchievement
+  achievementsController.updateAchievement,
 );
 
 achievementsRouter.post(
   '/',
   authMiddleware.cookieJwtAuth,
   achievementsMiddleware.createAchievementValidation,
-  achievementsController.createAchievement
+  achievementsController.createAchievement,
 );
 
 achievementsRouter.get(
@@ -39,8 +39,7 @@ achievementsRouter.get(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  achievementsController.getAllAchievementsByTeam
+  achievementsController.getAllAchievementsByTeam,
 );
 
 module.exports = achievementsRouter;
- 
