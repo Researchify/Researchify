@@ -7,8 +7,9 @@ import Header from './layout/Header.js';
 import { getRoutes } from './router/routes.js';
 import './centred.css';
 import './baseColours.css';
-import './darkColours.css';
+//import './darkColours.css';
 //import './lightColours.css';
+import './thirdTheme.css';
 
 const App = () => {
   const routeItems = getRoutes().map(({ path, exact, component }) => {
