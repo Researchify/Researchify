@@ -8,7 +8,6 @@ import {
   BsBookHalf,
   BsPerson,
   BsPeople,
-  // BsGearFill,
   // BsFillQuestionCircleFill,
   BsBoxArrowLeft,
   BsCardText,
@@ -47,11 +46,6 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       link: '/team',
       name: 'TEAM',
     },
-    // {
-    //   title: 'Settings',
-    //   icon: <BsGearFill />,
-    //   link: '/dashboard/settings',
-    // },
     // {
     //   title: 'Help',
     //   icon: <BsFillQuestionCircleFill />,
