@@ -5,8 +5,6 @@
 const { body, validationResult } = require('express-validator');
 const { fillErrorObject } = require('./error');
 
-
-
 /**
 * Handles the validation when creating (POST) a new achievement in the database.
 * There are validators for: title, description.

@@ -11,16 +11,16 @@ const achievementSchema = new mongoose.Schema(
       required: true,
     },
     title: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     description: {
-        type: String
+      type: String
     },
     yearAwarded: {
-        type: Number
-    }
-  }
+      type: Number
+    },
+  },
 )
 
 const Achievement = mongoose.model('achievement', achievementSchema);
