@@ -2,7 +2,7 @@
  * The AchievementPage component displays the team Achievement page
  */
 
- import { Container, CardDeck } from 'react-bootstrap';
+ import { Row, Col, Container, CardDeck } from 'react-bootstrap';
  import Achievement from './Achievement';
  import { useSelector, useDispatch } from 'react-redux';
  import { Button, Modal, Spinner, Alert } from 'react-bootstrap';
@@ -26,11 +26,16 @@
 
    return (
      <div className="achievementPageContainer">
-       <h1>Achievements</h1>
-       <Button className="mt-2" onClick={() => setShowCreateForm(true)}>
-         Add Achievement
-       </Button>
-
+       <Row className="container-fluid mt-4">
+        <Col>
+          <h1>Achievements</h1>
+        </Col>
+        <Col id="achievementButton" md={{ offset: 6 }}>
+          <Button className="mt-2" onClick={() => setShowCreateForm(true)}>
+            Add Achievement
+          </Button>
+        </Col>
+       </Row>
        <div className="text-center">
          {loading && <Spinner className="mt-5" animation="border" />}
        </div>
