@@ -12,6 +12,7 @@ import websiteReducer from './websiteReducer';
 import notificationReducer from './notificationReducer';
 import deployReducer from './deployReducer';
 import achievementsReducer from './achievementsReducer';
+import homepageReducer from './homepageReducer';
 
 export default combineReducers({
   notification: notificationReducer,
@@ -22,5 +23,9 @@ export default combineReducers({
   teamMember: teamMembersReducer,
   deploy: deployReducer,
   website: websiteReducer,
+<<<<<<< HEAD
   achievements: achievementsReducer, 
+=======
+  homepage: homepageReducer,
+>>>>>>> main
 });

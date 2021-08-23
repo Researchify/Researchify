@@ -15,7 +15,8 @@
      title: yup
        .string()
        .required('Achievement Name is required')
-       .min(3, 'Achievement Name is at least 3 characters'),
+       .min(3, 'Achievement Name is at least 3 characters')
+       .max(60, 'Achievement Name is at least 3 characters'),
        yearAwarded: yup
         .number()
         .min(1000, 'Invalid year')

@@ -3,17 +3,12 @@
  * @module publications
  */
 const mongoose = require('mongoose');
-
-const Publication = require('../models/publication.model');
-
-const Team = require('../models/team.model');
-
 const logger = require('winston');
-
 const { firefox } = require('playwright');
 
+const Publication = require('../models/publication.model');
+const Team = require('../models/team.model');
 const { playwrightConfig, categoryType } = require('../config/playwright');
-
 const { fillErrorObject } = require('../middleware/error');
 
 /**
@@ -33,7 +28,7 @@ function deletePublication(req, res, next) {
         next(
           fillErrorObject(400, 'Validation error', [
             'Publication could not be found',
-          ])
+          ]),
         );
       } else {
         return res
@@ -67,7 +62,7 @@ function updatePublication(req, res, next) {
         next(
           fillErrorObject(404, 'Validation error', [
             'Publication could not be found',
-          ])
+          ]),
         );
       } else {
         return res.status(200).json(updatedPublication);
@@ -93,9 +88,7 @@ function updatePublication(req, res, next) {
  */
 function createPublication(req, res, next) {
   const publication = req.body;
-  const result = Team.findById({ _id: publication.teamId }).catch((err) =>
-    next(fillErrorObject(500, 'Server error', [err.errors]))
-  );
+  const result = Team.findById({ _id: publication.teamId }).catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
   if (result == null) {
     next(fillErrorObject(404, 'Validation error', ['Team was not found']));
   } else {
@@ -143,21 +136,20 @@ function readAllPublicationsByTeam(req, res, next) {
  */
 async function getGoogleScholarPublications(req, res) {
   const author = req.params.gScholarUserId;
-  const startFrom = req.params.startFrom;
+  const { startFrom } = req.params;
   const teamId = req.params.team_id;
 
-  const noOfDummyLinks = playwrightConfig.noOfDummyLinks;
-  const pageSize = playwrightConfig.pageSize;
-  const url =
-    playwrightConfig.baseUrl +
-    author +
-    playwrightConfig.startSuffix +
-    startFrom +
-    playwrightConfig.pageSizeSuffix +
-    pageSize +
-    playwrightConfig.sortBySuffix;
+  const { noOfDummyLinks } = playwrightConfig;
+  const { pageSize } = playwrightConfig;
+  const url = playwrightConfig.baseUrl
+    + author
+    + playwrightConfig.startSuffix
+    + startFrom
+    + playwrightConfig.pageSizeSuffix
+    + pageSize
+    + playwrightConfig.sortBySuffix;
   logger.info(`GScholar profile for user id ${author}: ${url}`);
-  let publications = [];
+  const publications = [];
   let endOfProfile = false;
 
   let response = {
@@ -172,7 +164,7 @@ async function getGoogleScholarPublications(req, res) {
   await page.goto(url);
 
   const resultLinks = await page.$$('.gsc_a_t a');
-  let links = [];
+  const links = [];
 
   if (resultLinks.length === noOfDummyLinks) {
     // no publications found
@@ -185,13 +177,11 @@ async function getGoogleScholarPublications(req, res) {
 
     await browser.close();
 
-    await Promise.all(links.map((x) => scrapeGoogleScholar(x))).then((pub) =>
-      publications.push(...pub)
-    );
+    await Promise.all(links.map((x) => scrapeGoogleScholar(x))).then((pub) => publications.push(...pub));
 
     const newPublications = await validateImportedPublications(
       teamId,
-      publications
+      publications,
     );
 
     // if the number of publications retrieved is less than the page size,
@@ -202,7 +192,7 @@ async function getGoogleScholarPublications(req, res) {
 
     response = {
       retrieved: publications.length,
-      newPublications: newPublications,
+      newPublications,
       reachedEnd: endOfProfile,
     };
   }
@@ -210,7 +200,7 @@ async function getGoogleScholarPublications(req, res) {
   res.status(200).json(response);
 }
 
-/***
+/** *
  * The function performs the scraping logic to get the Google Scholar publications
  * and returns it in a format that fits the publication model.
  * @see models/publication.model.js
@@ -222,29 +212,22 @@ async function scrapeGoogleScholar(url) {
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(playwrightConfig.gScholarHome + url);
-  let title = await page.$$eval('a.gsc_oci_title_link', (titles) =>
-    titles.map((title) => title.innerText)
-  ); // we assume the publication title is a link
+  let title = await page.$$eval('a.gsc_oci_title_link', (titles) => titles.map((title) => title.innerText)); // we assume the publication title is a link
 
   if (title[0] === undefined) { // if its undefined, then it wasn't a link
-    title = await page.$$eval('div[id=gsc_oci_title]',(titles) =>
-        titles.map((title) => title.innerText))
+    title = await page.$$eval('div[id=gsc_oci_title]', (titles) => titles.map((title) => title.innerText));
   }
 
-  const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) =>
-    links.map((link) => link.href)
-  );
-  const values = await page.$$eval('div.gsc_oci_value', (titles) =>
-    titles.map((title) => title.innerText)
-  );
-  const fields = await page.$$eval('div.gsc_oci_field', (titles) =>
-    titles.map((title) => title.innerText)
-  );
+  const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) => links.map((link) => link.href));
+  const values = await page.$$eval('div.gsc_oci_value', (titles) => titles.map((title) => title.innerText));
+  const fields = await page.$$eval('div.gsc_oci_field', (titles) => titles.map((title) => title.innerText));
 
   await browser.close();
 
   const publicationInfo = {};
-  fields.forEach((key, i) => (publicationInfo[key] = values[i]));
+  fields.forEach((key, i) => {
+    publicationInfo[key] = values[i];
+  });
 
   // TODO: this logic depends on the order of the fields,
   // which will differ based on the info of the publication, can be improved
@@ -267,19 +250,19 @@ async function scrapeGoogleScholar(url) {
   }
 
   const publication = {
-    authors: publicationInfo['Authors'].split(', '),
+    authors: publicationInfo.Authors.split(', '),
     title: title[0],
     link: link[0] || '',
-    description: publicationInfo['Description'] || '',
+    description: publicationInfo.Description || '',
     yearPublished: (publicationInfo['Publication date'] || '').substr(0, 4), // assuming first 4 chars is year
-    citedBy: citedBy,
+    citedBy,
     category: {
-      type: type,
-      categoryTitle: categoryTitle,
-      pages: publicationInfo['Pages'] || '',
-      publisher: publicationInfo['Publisher'] || '',
-      volume: publicationInfo['Volume'] || '',
-      issue: publicationInfo['Issue'] || '',
+      type,
+      categoryTitle,
+      pages: publicationInfo.Pages || '',
+      publisher: publicationInfo.Publisher || '',
+      volume: publicationInfo.Volume || '',
+      issue: publicationInfo.Issue || '',
     },
   };
 
@@ -306,10 +289,8 @@ async function validateImportedPublications(_id, publications) {
     },
   ]);
 
-  const foundPublicationTitles = foundPublications.map((pub) =>
-    pub.title.toLowerCase()
-  );
-  let newPublications = [];
+  const foundPublicationTitles = foundPublications.map((pub) => pub.title.toLowerCase());
+  const newPublications = [];
 
   for (let i = 0; i < publications.length; i++) {
     const currentPublication = publications[i];

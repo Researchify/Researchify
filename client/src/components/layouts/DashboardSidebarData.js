@@ -8,8 +8,7 @@ import {
   BsBookHalf,
   BsPerson,
   BsPeople,
-  BsGearFill,
-  BsFillQuestionCircleFill,
+  // BsFillQuestionCircleFill,
   BsBoxArrowLeft,
   BsFillAwardFill,
   BsCardText,
@@ -27,7 +26,7 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       link: '/dashboard',
     },
     {
-      title: 'Our Home Page',
+      title: 'Our Homepage',
       icon: <BsCardText />,
       link: '/about-us',
     },
@@ -58,11 +57,11 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       icon: <BsGearFill />,
       link: '/dashboard/settings',
     },
-    {
-      title: 'Help',
-      icon: <BsFillQuestionCircleFill />,
-      link: '/dashboard/help',
-    },
+    // {
+    //   title: 'Help',
+    //   icon: <BsFillQuestionCircleFill />,
+    //   link: '/dashboard/help',
+    // },
     {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,

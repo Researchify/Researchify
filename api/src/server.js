@@ -12,9 +12,9 @@ const publicationsRouter = require('./routes/publications');
 const teamRouter = require('./routes/team');
 const authRouter = require('./routes/auth');
 const themeRouter = require('./routes/theme');
-const websiteRouter = require('./routes/website.js');
-const achievementsRouter = require('./routes/achievements.js');
-
+const websiteRouter = require('./routes/website');
+const achievementsRouter = require('./routes/achievements');
+const homepageRouter = require('./routes/homepage');
 const { errorHandler } = require('./middleware/error');
 
 // Connect to the database
@@ -40,6 +40,7 @@ app.use('/auth', authRouter);
 app.use('/theme', themeRouter);
 app.use('/clientWebsite', websiteRouter);
 app.use('/achievements', achievementsRouter);
+app.use('/homepage', homepageRouter);
 
 // Use the custom error handling middleware
 app.use(errorHandler);
