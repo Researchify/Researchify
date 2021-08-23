@@ -15,13 +15,13 @@ const achievementSchema = new mongoose.Schema(
       required: true,
     },
     description: {
-      type: String
+      type: String,
     },
     yearAwarded: {
-      type: Number
+      type: Number,
     },
   },
-)
+);
 
 const Achievement = mongoose.model('achievement', achievementSchema);
 
