@@ -38,7 +38,7 @@ const websiteSchema = new mongoose.Schema(
       } 
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Website = mongoose.model('website', websiteSchema);
