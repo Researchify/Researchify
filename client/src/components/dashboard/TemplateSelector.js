@@ -170,14 +170,13 @@ const TemplateSelector = (props) => {
                 <Col className="layout-display">
                   <Form.Check
                     checked={formInputs.layout === 3}
+                    inline
                     type="radio"
                     name="layout"
-                    label="layout 3"
+                    label="Layout 3"
                     value={3}
                     className="form-radio-text"
                     onChange={updateForm}
-
-
                   />
                   <Image src={zigZagLayout} className="img-fluid" />
 

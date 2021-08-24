@@ -11,6 +11,9 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateTeam } from '../../actions/team';
+import { successMessageCreator } from '../../notification/notificationReduxFunctions';
+import * as yup from "yup";
+
 
 /**
  * Form component for user update profile
@@ -18,34 +21,52 @@ import { updateTeam } from '../../actions/team';
 const ProfileInfoEdit = () => {
   const dispatch = useDispatch();
 
-  const { teamId, teamName, orgName, email,password, confirmedPassword } = useSelector(
+  const { teamId, teamName, orgName, email} = useSelector(
     (state) => state.team
   );
 
-  const [profileData, setInputs] = useState({ teamName, orgName, email,password ,confirmedPassword});
+  const [profileData, setInputs] = useState({ teamName, orgName, email});
 
   useEffect(() => {
-    setInputs({ teamName, orgName, email,password,confirmedPassword  });
-  }, [email, orgName, teamName,password,confirmedPassword]);
+    setInputs({ teamName, orgName, email });
+  }, [email, orgName, teamName]);
 
   const updateInputs = (form) => {
     const { name, value } = form.target;
-    if (name !== "email" ){
-      setInputs({ ...profileData, [name]: value });
-    }
+    setInputs({ ...profileData, [name]: value });
   };
-  const checkPassword = function(){
-
-    if (! ({...profileData}.password === {...profileData}.confirmedPassword)){
-      return false;
-    }
-    var matches = {...profileData}.password.match(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
-    if (matches === null){
-      console.log("false");
-      return false;
-    }
-    return true;
+    let passwordSchema = yup.object().shape({
+        password: yup
+        .string()
+        .required('Please Enter your password')
+        .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        "Use 8 or more characters with a mix of letters, numbers & symbols"),
+        confirmedPassword: yup
+        .string()
+        .required('Please re-enter your password')
+        .oneOf([yup.ref('password'), null], 'Passwords must match')
+    })
+  const checkPassword = async () => {
+        let valid = await passwordSchema.isValid({
+          password: {...profileData}.password,
+          confirmedPassword: {...profileData}.confirmedPassword
+      });
+        if (valid){
+            return true;
+        }else{
+            return false;
+        }
+      /*if ({...profileData}.password !== {...profileData}.confirmedPassword){
+        return false;
+      }
+      var matches = {...profileData}.password.match(
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
+      if (matches === null){
+        console.log("false");
+        return false;
+      }
+      return true;*/
 
   };
 
@@ -60,7 +81,7 @@ const ProfileInfoEdit = () => {
           if (({...profileData}.password || {...profileData}.confirmedPassword ) && ({...profileData}.password !== "" || {...profileData}.confirmedPassword !== "")) {
               if (!checkPassword()) {
                     setValidated(false);
-                    alert("please enter a password at least 8 chars long, using only numbers, letters and characters");
+                    alert("Please enter a password at least 8 chars long, using only numbers, letters and characters");
                     return;
               } else {
                   newdata = {
@@ -70,7 +91,7 @@ const ProfileInfoEdit = () => {
                       "password": {...profileData}.password
                   }
                   dispatch(updateTeam(teamId, newdata));
-                  alert("password changed");
+                  dispatch(successMessageCreator('Password Changed'));
               }
           }else {
               newdata = {
