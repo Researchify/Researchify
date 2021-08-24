@@ -62,7 +62,7 @@ const createPublicationValidation = [
   body('category.type', 'Error: Category type must not be empty.').notEmpty(),
   body(
     'category.type',
-    `Error: Category type does not match any of ${categoryTypes}.`
+    `Error: Category type does not match any of ${categoryTypes}.`,
   )
     .if(body('category.type').exists().notEmpty())
     .isIn(categoryTypes),

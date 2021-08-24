@@ -25,17 +25,17 @@ const websiteSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    publicationOptions: { 
-      layout: { 
-        type: String, 
+    publicationOptions: {
+      layout: {
+        type: String,
         required: false,
-        enum: layoutOptions
-      }, 
-      sortBy: { 
-        type: String, 
+        enum: layoutOptions,
+      },
+      sortBy: {
+        type: String,
         required: false,
-        enum: sortingOptions
-      } 
+        enum: sortingOptions,
+      },
     },
   },
   { timestamps: true },
