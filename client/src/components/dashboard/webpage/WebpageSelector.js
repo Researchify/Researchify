@@ -31,6 +31,7 @@ const WebpageSelector = ({
 
   const handleSubmit = () => {
     dispatch(addPage(teamId, selectedPage));
+    setSelectedPage(pagePlaceholder);
     closeModal();
   };
 
