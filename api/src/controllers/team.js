@@ -3,24 +3,17 @@
  * @module team
  */
 const axios = require('axios');
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const logger = require('winston');
 
 const Team = require('../models/team.model');
-
-const mongoose = require('mongoose');
-
 const {
-  githubAccessTokenUrlStart,
-  githubAccessTokenUrlEnd,
+  githubClientId,
+  githubClientSecret,
   schollyHost,
 } = require('../config/deploy');
-
 const { fillErrorObject } = require('../middleware/error');
-
-const bcrypt = require('bcrypt');
-
-const options = {
-  headers: { Authorization: 'Bearer ' + process.env.TWITTER_BEARER_TOKEN },
-};
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
@@ -33,58 +26,62 @@ const options = {
  */
 async function storeHandle(req, res, next) {
   const { twitterHandle: handle } = req.body;
-  let foundTeam = req.foundTeam;
+  const { foundTeam } = req;
 
-  if (handle.length == 0) {
+  if (handle.length === 0) {
     // remove the handle from the doc
     foundTeam.twitterHandle = '';
   } else {
     // update the handle
     // validate the handle by getting user id
     if (!process.env.TWITTER_BEARER_TOKEN) {
-      next(
+      return next(
         fillErrorObject(500, 'Missing environment variable', [
           'No Twitter API Bearer Token found in .env file',
-        ])
+        ]),
       );
-    } else {
-      let response = await axios.get(
-        'https://api.twitter.com/2/users/by/username/' + handle,
-        options
-      );
-      if (response.data.errors) {
-        next(
-          fillErrorObject(400, 'Validation error', [
-            response.data.errors[0].detail,
-          ])
-        );
-      } else {
-        foundTeam.twitterHandle = handle;
-      }
-      foundTeam
-        .save()
-        .then(() => res.status(200).json(foundTeam))
-        .catch((err) =>
-          next(fillErrorObject(500, 'Server error', [err.errors]))
-        );
     }
+    const response = await axios.get(
+      `https://api.twitter.com/2/users/by/username/${handle}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
+        },
+      },
+    );
+    if (response.data.errors) {
+      return next(
+        fillErrorObject(400, 'Validation error', [
+          response.data.errors[0].detail,
+        ]),
+      );
+    }
+    foundTeam.twitterHandle = handle;
+  }
+
+  try {
+    foundTeam.save();
+    res.status(200).json(foundTeam);
+  } catch (err) {
+    next(fillErrorObject(500, 'Server error', [err.errors]));
   }
 }
 
 /**
  * Gets the team info
  * @param {*} req request object contains the teamId decoded in auth middleware
- * @param {*} res response object, the team related info 
- * @returns 200: the team related info  
+ * @param {*} res response object, the team related info
+ * @returns 200: the team related info
  */
 function getTeam(req, res, next) {
-  Team.findById(req.team._id).select('_id teamName orgName email twitterHandle')
-  .then((foundTeam) => {
-    if (foundTeam) {
-      return res.status(200).send(foundTeam);
-    }
-  })
-  .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+  Team.findById(req.team._id)
+    .select('_id teamName orgName email twitterHandle')
+    .then((foundTeam) => {
+      if (foundTeam) {
+        return res.status(200).send(foundTeam);
+      }
+    })
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
@@ -94,17 +91,21 @@ function getTeam(req, res, next) {
  * @returns 201: returns updated team details
  */
 async function createTeam(req, res, next) {
-  const foundTeam = await Team.findOne({ email: req.body.email })
+  const foundTeam = await Team.findOne({ email: req.body.email });
   if (foundTeam) {
-    return next(fillErrorObject(400, 'Duplicate email error', ['Email had been registered']))
+    return next(
+      fillErrorObject(400, 'Duplicate email error', [
+        'Email had been registered',
+      ]),
+    );
   }
-  const salt = await bcrypt.genSalt()
-  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const hashedTeam = { ...req.body, password: hashedPassword };
-  const createdTeam = await Team.create(hashedTeam)
+  const createdTeam = await Team.create(hashedTeam);
   // remove sensitive data
-  delete createTeam.password
-  return res.status(201).json(createdTeam)
+  delete createTeam.password;
+  return res.status(201).json(createdTeam);
 }
 
 /**
@@ -116,7 +117,7 @@ async function createTeam(req, res, next) {
  * @returns 400: team id is not in a valid hexadecimal format
  */
 function readTeamMembersByTeam(req, res) {
-  const foundTeam = req.foundTeam;
+  const { foundTeam } = req;
   return res.status(200).send(foundTeam.teamMembers);
 }
 
@@ -131,7 +132,7 @@ function readTeamMembersByTeam(req, res) {
 function createTeamMember(req, res, next) {
   let teamMember = req.body;
   const memberId = new mongoose.Types.ObjectId();
-  let foundTeam = req.foundTeam;
+  const { foundTeam } = req;
   teamMember = { ...teamMember, _id: memberId };
 
   foundTeam.teamMembers.push(teamMember);
@@ -150,7 +151,7 @@ function createTeamMember(req, res, next) {
  * @returns 400: team id is not in a valid hexadecimal format
  */
 function deleteTeamMember(req, res, next) {
-  let foundTeam = req.foundTeam;
+  const { foundTeam } = req;
   const { member_id } = req.params;
   foundTeam.teamMembers.pull({ _id: member_id });
   foundTeam
@@ -175,47 +176,89 @@ function updateTeamMember(req, res, next) {
       $set: {
         'teamMembers.$': updatedTeamMember,
       },
-    }
+    },
   )
     .then(() => res.status(200).json(updatedTeamMember))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
-async function getGHAccessToken(req, res) {
-  const code = req.params.code;
-  console.log(req.params.code);
+/**
+ * Handles a GET request on /:team_id/gh_auth/:code to exchange a GitHub
+ * temporary code acquired during the first step of the GitHub OAuth flow with a
+ * GitHub access token.
+ *
+ * @see:
+ * https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
+ *
+ * @param req request object
+ * @param res  response object
+ * @param next handler to the next middleware
+ * @returns 200 if the code was successfully exchanged for an access token
+ * @returns 400 if the exchange was unsuccessful
+ */
+async function getGHAccessToken(req, res, next) {
+  const { code } = req.params;
 
-  const response = await axios({
-    url: githubAccessTokenUrlStart + code + githubAccessTokenUrlEnd,
-    method: 'post',
-    headers: { Accept: 'application/json' },
-  });
-  console.log(response.data);
-
-  if (response.data.error) {
-    return res.status(400).json(response.data);
+  const { data } = await axios.post(
+    'https://github.com/login/oauth/access_token', null, {
+      headers: {
+        Accept: 'application/json',
+      },
+      params: {
+        client_id: githubClientId,
+        client_secret: githubClientSecret,
+        code,
+      },
+    },
+  );
+  if (data.error) {
+    return next(fillErrorObject(400,
+      'Failed to exchange GitHub temporary code for GitHub Access Token.',
+      [data]));
   }
-
-  return res.status(200).json(response.data);
+  return res.status(200).json(data);
 }
 
+/**
+ * Handles a POST request on /:team_id/deploy to deploy a client's website
+ * by delegating to the Scholly service.
+ *
+ * @see:
+ * https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps
+ *
+ * @param req request object, containing in the body the GitHub token from the
+ *     OAuth flow, and the necessary data needed by Scholly
+ * @param res response object
+ * @param next handler to the next middleware
+ * @returns 200 if the deployment was successful
+ * @returns 400 if the GitHub username could not be fetched using the token
+ * @returns 500 if Scholly was unable to deploy the website
+ */
 async function deployToGHPages(req, res, next) {
-  const teamId = req.params.team_id;
-  const { ghToken, teamPublications, teamInfo, teamMembers } = req.body;
+  const { team_id: teamId } = req.params;
+  // TODO (https://trello.com/c/DDVVvVCR) ideally this data should be fetched by
+  //  us, and we should not expect the client to provide it.
+  const {
+    ghToken,
+    teamPublications,
+    teamInfo,
+    teamMembers,
+    teamHomepage,
+    webPages,
+  } = req.body;
 
-  // call github API to get username
-  const response = await axios.get('https://api.github.com/user', {
-    headers: { Authorization: 'token ' + ghToken },
+  // Call github API to get username.
+  const { data } = await axios.get('https://api.github.com/user', {
+    headers: { Authorization: `token ${ghToken}` },
   });
-
-  if (response.data.errors) {
+  if (data.errors) {
     return next(
-      fillErrorObject(400, 'Validation error', [response.data.errors[0].detail])
+      fillErrorObject(400, 'Validation error', [data.errors[0].detail]),
     );
   }
 
-  const ghUsername = response.data.login;
-  console.log(ghUsername);
+  const ghUsername = data.login;
+  logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
 
   const body = {
     ghUsername,
@@ -223,16 +266,19 @@ async function deployToGHPages(req, res, next) {
     teamPublications,
     teamInfo,
     teamMembers,
+    teamHomepage,
+    webPages,
   };
 
-  await axios
-    .post(`${schollyHost}/deploy/${teamId}`, body)
-    .then(() => res.status(200).json('Successfully deployed'))
-    .catch(() =>
-      next(
-        fillErrorObject(500, 'Server error', ['Error occurred with scholly'])
-      )
+  try {
+    await axios.post(`${schollyHost}/deploy/${teamId}`, body);
+    logger.info(`GitHub deploy succeeded for user: ${ghUsername}`);
+    return res.status(200).json('Successfully deployed');
+  } catch (err) {
+    return next(
+      fillErrorObject(500, 'Error occurred with scholly', [err.message]),
     );
+  }
 }
 
 /**
@@ -250,8 +296,8 @@ async function updateTeam(req, res, next) { // eslint-disable-line no-unused-var
   const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
     new: true,
     runValidators: true,
-  })
-  res.status(200).json(updatedTeam)
+  });
+  res.status(200).json(updatedTeam);
 }
 
 module.exports = {

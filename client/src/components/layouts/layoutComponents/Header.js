@@ -19,7 +19,7 @@ const Header = (props) => {
   //TODO: Remove hard-coded team id and publications id from the links
   return (
     <Fragment>
-      <Navbar className="header" sticky="top">
+      <Navbar className="header" fixed="top">
         <Navbar.Brand>
           <Link className="header-brand" to={props.data.dashboardURL}>
             {props.data.title}

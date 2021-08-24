@@ -11,10 +11,13 @@ winston.configure({
     }),
     winston.format.errors({ stack: true }),
     winston.format.splat(),
-    winston.format.json()
+    winston.format.json(),
   ),
   transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({
+      filename: 'error.log',
+      level: 'error',
+    }),
     new winston.transports.File({ filename: 'combined.log' }),
   ],
 });
@@ -25,9 +28,9 @@ if (process.env.NODE_ENV !== 'production') {
     new winston.transports.Console({
       format: winston.format.combine(
         winston.format.colorize(),
-        winston.format.simple()
+        winston.format.simple(),
       ),
-    })
+    }),
   );
 }
 

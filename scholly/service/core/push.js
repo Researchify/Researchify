@@ -1,14 +1,12 @@
 /**
- * This module exports a utility function used to deploy the built base up to the team's GitHub Pages repo.
- *
- * TODO: Researchify needs an email!
- */
+ * This module exports a utility function used to deploy the built base up
+ * to the team's GitHub Pages repo.
+ */ /* eslint-disable no-console */
 const ghpages = require('gh-pages');
 const winston = require('winston');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const { response } = require('express');
 
 const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
 
@@ -39,14 +37,14 @@ async function pushBuiltAppToPages(ghUsername, ghToken, repoName) {
       if (err) {
         winston.error(
           `Failed to push built app to GitHub Pages for ${ghUsername}`,
-          err
+          err,
         );
         throw err;
       } else {
         winston.info(`Successfully deployed app for ${ghUsername}`);
       }
       cleanupBuild(); // TODO this is not working for some reason
-    }
+    },
   );
   await buildPages(ghUsername, ghToken, repoName);
 }
@@ -65,18 +63,18 @@ function cleanupBuild() {
 
 async function makeGHRepo(ghUsername, ghToken, repoName) {
   // check if the repo exists
-  const searchQuery = 'q=user:' + ghUsername + ' ' + repoName + ' in:name';
+  const searchQuery = `q=user:${ghUsername} ${repoName} in:name`;
   const options = {
-    Authorization: 'token ' + ghToken,
+    Authorization: `token ${ghToken}`,
     Accept: 'application/vnd.github.v3+json',
   };
   let repoResponse;
   try {
     repoResponse = await axios.get(
-      'https://api.github.com/search/repositories?' + searchQuery,
+      `https://api.github.com/search/repositories?${searchQuery}`,
       {
         headers: options,
-      }
+      },
     );
   } catch (err) {
     console.log(err);
@@ -108,13 +106,13 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
   // see https://docs.github.com/en/rest/reference/repos#pages
   try {
     await axios.get(
-      'https://api.github.com/repos/' + ghUsername + '/' + repoName + '/pages',
+      `https://api.github.com/repos/${ghUsername}/${repoName}/pages`,
       {
         headers: {
-          Authorization: 'token ' + ghToken,
+          Authorization: `token ${ghToken}`,
           Accept: 'application/vnd.github.switcheroo-preview+json',
         },
-      }
+      },
     );
     console.log('GH Pages already configured for repo');
   } catch (err) {
@@ -135,14 +133,14 @@ async function createPagesSite(ghUsername, ghToken, repoName) {
   try {
     createPagesResponse = await axios({
       url:
-        'https://api.github.com/repos/' +
-        ghUsername +
-        '/' +
-        repoName +
-        '/pages',
+        `https://api.github.com/repos/${
+          ghUsername
+        }/${
+          repoName
+        }/pages`,
       method: 'post',
       headers: {
-        Authorization: 'token ' + ghToken,
+        Authorization: `token ${ghToken}`,
         Accept: 'application/vnd.github.switcheroo-preview+json',
       },
       data: pagesBody,
@@ -160,17 +158,17 @@ async function createPagesSite(ghUsername, ghToken, repoName) {
 
 async function buildPages(ghUsername, ghToken, repoName) {
   const options = {
-    Authorization: 'token ' + ghToken,
+    Authorization: `token ${ghToken}`,
     Accept: 'application/vnd.github.v3+json',
   };
   try {
     await axios({
       url:
-        'https://api.github.com/repos/' +
-        ghUsername +
-        '/' +
-        repoName +
-        '/pages/builds',
+        `https://api.github.com/repos/${
+          ghUsername
+        }/${
+          repoName
+        }/pages/builds`,
       method: 'post',
       headers: options,
     });

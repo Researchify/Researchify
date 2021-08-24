@@ -19,6 +19,14 @@ services:
       - /home/node/app/node_modules
       - ./api:/home/node/app
 
+  scholly:
+    build:
+      context: ./scholly
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /home/node/app/service/node_modules
+      - ./scholly/service:/home/node/app/service
+
   nginx:
     restart: unless-stopped
     build:

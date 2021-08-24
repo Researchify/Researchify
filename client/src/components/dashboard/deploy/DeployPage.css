@@ -1,0 +1,24 @@
+.github-login-button {
+  height: 38px;
+  padding-left: 7px;
+  padding-right: 9px;
+  border: 1px;
+  border-radius: .25rem;
+  border-color: #007bff;
+  background-color: #007bff;
+  color: white;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.github-login-button:hover{
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.github-login-button:focus{
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  box-shadow: 0 0 0 0.2rem rgb(38 143 255 / 50%);
+}

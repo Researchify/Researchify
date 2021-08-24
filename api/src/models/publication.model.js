@@ -59,7 +59,7 @@ const publicationSchema = new mongoose.Schema(
       publisher: String,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Publication = mongoose.model('publication', publicationSchema);
