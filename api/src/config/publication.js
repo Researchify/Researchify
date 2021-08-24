@@ -8,7 +8,7 @@ const layoutOptions = ['All Publication', 'By Category'];
 
 const sortingOptions = ['Title', 'Author', 'Year', 'Category Title'];
 
-module.exports = { 
+module.exports = {
   categoryTypes,
   layoutOptions,
   sortingOptions,
