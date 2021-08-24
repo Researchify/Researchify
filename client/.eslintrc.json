@@ -1,0 +1,28 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": ["eslint:recommended", "airbnb", "prettier"],
+    "parserOptions": {
+        "ecmaVersion": 12
+    },
+    "rules": {
+        "max-len": "off",
+        "no-underscore-dangle": "off",
+        "camelcase": "off",  // From this rule onward, it is all temporary and pending refactor
+        "consistent-return": "off",
+        "no-plusplus": "off",
+        "prefer-destructuring": "off",
+        "no-shadow": "off",
+        "no-await-in-loop": "off",
+        "no-use-before-define": ["error", {"functions":  false, "classes":  false}],
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/prop-types": "off", // should refactor later
+        "react/no-array-index-key": "off", // should refactor later
+        "no-nested-ternary": "off" // should refactor later
+    }
+}

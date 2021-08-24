@@ -6,15 +6,13 @@ import { BsPeopleCircle } from 'react-icons/bs';
 
 import './Header.css';
 
-
-
 /**
  * This function provides header for Layout.js
  * @returns Header component to be rendered in Layout.js
  */
 const Header = (props) => {
   const userName = useSelector(
-    (state) => `${state.team?.teamName  } ${  state.team?.orgName}`
+    (state) => `${state.team?.teamName} ${state.team?.orgName}`,
   );
   // TODO: Remove hard-coded team id and publications id from the links
   return (
@@ -28,7 +26,9 @@ const Header = (props) => {
         <Nav className="mr-auto" />
         <Nav>
           <Link className="header-link" to="/dashboard/profile">
-            <BsPeopleCircle className="header-profile-icon"/> {userName}
+            <BsPeopleCircle className="header-profile-icon" />
+            {' '}
+            {userName}
           </Link>
         </Nav>
       </Navbar>

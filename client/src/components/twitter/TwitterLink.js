@@ -6,8 +6,9 @@ import * as yup from 'yup';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-
-import { Form, Button, Spinner, Jumbotron } from 'react-bootstrap';
+import {
+  Form, Button, Spinner, Jumbotron,
+} from 'react-bootstrap';
 import { linkTwitter } from '../../actions/team';
 import './TwitterLink.css';
 
@@ -51,7 +52,9 @@ const TwitterLink = () => {
           onSubmit={submitForm}
           initialValues={initValues}
         >
-          {({ handleSubmit, handleChange, values, touched, errors }) => (
+          {({
+            handleSubmit, handleChange, values, touched, errors,
+          }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Control

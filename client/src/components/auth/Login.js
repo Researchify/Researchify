@@ -9,7 +9,7 @@ import './Login.css';
 import { useDispatch } from 'react-redux';
 import { login } from '../../actions/auth';
 
-/** 
+/**
 Handles the UI for the log in page
 @returns JSX element
 */
@@ -34,7 +34,7 @@ export default function Login() {
       event.stopPropagation();
     }
     setValidated(true);
-    dispatch(login(inputs))
+    dispatch(login(inputs));
   };
 
   return (
@@ -72,7 +72,8 @@ export default function Login() {
             </Button>
             <div>
               <a id="loginLink" href="register">
-                Don't have an account yet? Sign Up today!{' '}
+                Don't have an account yet? Sign Up today!
+                {' '}
               </a>
             </div>
           </Form>

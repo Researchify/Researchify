@@ -4,7 +4,9 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Button, Form, Container, Image } from 'react-bootstrap';
+import {
+  Button, Form, Container, Image,
+} from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -18,8 +20,10 @@ import { updateTeam } from '../../actions/team';
 const ProfileInfoEdit = () => {
   const dispatch = useDispatch();
 
-  const { teamId, teamName, orgName, email } = useSelector(
-    (state) => state.team
+  const {
+    teamId, teamName, orgName, email,
+  } = useSelector(
+    (state) => state.team,
   );
 
   const [profileData, setInputs] = useState({ teamName, orgName, email });
@@ -46,9 +50,7 @@ const ProfileInfoEdit = () => {
   };
 
   const profileDeleted = () => {
-    console.error(
-      'Delete profile function is not implemented yet in ProfileInfoEdit.js'
-    );
+    // TODO: Delete profile function is not implemented yet in ProfileInfoEdit.js
     toast.error('Profile has not been deleted');
   };
 

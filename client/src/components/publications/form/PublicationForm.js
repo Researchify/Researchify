@@ -35,7 +35,6 @@ const PublicationForm = (props) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const submitForm = (newData) => {
-    console.log(newData);
     if (props.type === 'update') {
       dispatch(updatePublication(props.pub._id, newData));
     } else if (props.type === 'create') {

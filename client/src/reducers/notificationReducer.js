@@ -17,9 +17,9 @@ const notificationReducer = (state = INITIAL_NOTIFICATION_STATE, action) => {
         ...errorReducer(state, action),
       };
     case CLEAR_NOTIFICATION:
-      return INITIAL_NOTIFICATION_STATE
+      return INITIAL_NOTIFICATION_STATE;
     case SUCCESS_MESSAGE:
-      return {...state, success: action.payload }
+      return { ...state, success: action.payload };
     default:
       return state;
   }

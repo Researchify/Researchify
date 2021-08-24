@@ -14,15 +14,15 @@ import * as api from '../api';
  * Action called when 'create website' button is clicked
  */
 export const createWebsite = () => ({
-    type: CREATE_WEBSITE,
-  });
+  type: CREATE_WEBSITE,
+});
 
 /**
  * Action called when user choose to delete the website
  */
 export const deleteWebsite = () => ({
-    type: DELETE_WEBSITE,
-  });
+  type: DELETE_WEBSITE,
+});
 
 /**
  * Adds a new client web-page to redux store and database.
@@ -56,6 +56,6 @@ export const deletePage = (teamId, pageName) => async (dispatch) => {
     dispatch({
       type: DELETE_WEBPAGE,
       payload: pageName,
-    })
+    }),
   );
 };

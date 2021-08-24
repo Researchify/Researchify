@@ -13,6 +13,19 @@ import {
 } from './types';
 import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 
+const getClientWebsiteData = async (teamId) => {
+  try {
+    const clientWebsiteInfo = await api.getWebsiteInfo(teamId);
+    return clientWebsiteInfo.data;
+  } catch (err) {
+    // 404 (Not found) errors are fine, team may not have added any web page to their website yet
+    if (err.response.status !== 404) {
+      throw err;
+    }
+    return [];
+  }
+};
+
 /**
  * This action creator will be called when a user signs in.
  *
@@ -40,12 +53,12 @@ export const login = (authData) => async (dispatch) => {
  * This action creator will be called when a user signs out.
  * @returns an action of type AUTH_SIGN_OUT.
  */
-export const logout = () => async(dispatch) => {
-  try{
-    await api.logoutTeam()
-    dispatch ({
-      type: LOG_OUT
-    })
+export const logout = () => async (dispatch) => {
+  try {
+    await api.logoutTeam();
+    dispatch({
+      type: LOG_OUT,
+    });
 
     dispatch({
       type: CLEAR_NOTIFICATION,
@@ -62,8 +75,8 @@ export const authorizeJWT = () => async (dispatch) => {
     const clientWebsiteData = await getClientWebsiteData(teamId);
 
     dispatch({
-      type: LOG_IN_SUCCESS
-    })
+      type: LOG_IN_SUCCESS,
+    });
     dispatch({
       type: FETCH_TEAM_INFO,
       payload: data,
@@ -74,19 +87,5 @@ export const authorizeJWT = () => async (dispatch) => {
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
-  }
-};
-
-
-const getClientWebsiteData = async (teamId) => {
-  try {
-    const clientWebsiteInfo = await api.getWebsiteInfo(teamId);
-    return clientWebsiteInfo.data;
-  } catch (err) {
-    // 404 (Not found) errors are fine, team may not have added any web page to their website yet
-    if (err.response.status !== 404) {
-      throw err;
-    }
-    return [];
   }
 };

@@ -60,7 +60,8 @@ const Publication = ({ pub }) => {
         data-toggle="modal"
       >
         {' '}
-        <AiFillEdit />{' '}
+        <AiFillEdit />
+        {' '}
       </Button>
       <Button
         onClick={() => setShowDeleteMessage(true)}
@@ -73,63 +74,80 @@ const Publication = ({ pub }) => {
   );
 
   const displayUpArrow = () => (
-      expand && (
-        <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-          <GrLinkUp className="ml-3" />
-        </IconContext.Provider>
-      )
-    );
+    expand && (
+    <IconContext.Provider value={{ color: 'black', size: '25px' }}>
+      <GrLinkUp className="ml-3" />
+    </IconContext.Provider>
+    )
+  );
 
   const displayDownArrow = () => (
-      !expand && (
-        <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-          <GrLinkDown onClick={() => setExpand(!expand)} className="ml-2" />
-        </IconContext.Provider>
-      )
-    );
+    !expand && (
+    <IconContext.Provider value={{ color: 'black', size: '25px' }}>
+      <GrLinkDown onClick={() => setExpand(!expand)} className="ml-2" />
+    </IconContext.Provider>
+    )
+  );
 
   const dropDown = (
     <Collapse in={expand}>
       <div className="mb-3 ml-3 mr-2">
         <h5>
           {' '}
-          <b>Description:</b> {pub.description}{' '}
+          <b>Description:</b>
+          {' '}
+          {pub.description}
+          {' '}
         </h5>
         <h5>
           {' '}
           <b>
-            {pub.category.type.charAt(0) +
-              pub.category.type.slice(1).toLowerCase()}
+            {pub.category.type.charAt(0)
+              + pub.category.type.slice(1).toLowerCase()}
             :
-          </b>{' '}
-          {pub.category.categoryTitle}{' '}
+          </b>
+          {' '}
+          {pub.category.categoryTitle}
+          {' '}
         </h5>
         {pub.category.issue && (
           <h5>
             {' '}
-            <b>Issue:</b> {pub.category.issue}{' '}
+            <b>Issue:</b>
+            {' '}
+            {pub.category.issue}
+            {' '}
           </h5>
         )}
         {pub.category.volume && (
           <h5>
             {' '}
-            <b>Volume:</b> {pub.category.volume}{' '}
+            <b>Volume:</b>
+            {' '}
+            {pub.category.volume}
+            {' '}
           </h5>
         )}
         {pub.category.pages && (
           <h5>
             {' '}
-            <b>Pages:</b> {pub.category.pages}{' '}
+            <b>Pages:</b>
+            {' '}
+            {pub.category.pages}
+            {' '}
           </h5>
         )}
         {pub.category.publisher && (
           <h5>
             {' '}
-            <b>Publisher:</b> {pub.category.publisher}{' '}
+            <b>Publisher:</b>
+            {' '}
+            {pub.category.publisher}
+            {' '}
           </h5>
         )}
         <Row>
-          <Col md={{ span: 1, offset: 11}}>
+          <Col md={{ span: 1, offset: 11 }}>
             <span onClick={() => setExpand(!expand)}>{displayUpArrow()}</span>
           </Col>
         </Row>
@@ -181,7 +199,8 @@ const Publication = ({ pub }) => {
             <h5 className={expand ? '' : 'blur'}>
               {' '}
               <b>Year Published: </b>
-              {pub.yearPublished}{' '}
+              {pub.yearPublished}
+              {' '}
             </h5>
           </Col>
           <Col md={1}>{displayDownArrow()}</Col>
@@ -215,11 +234,13 @@ const Publication = ({ pub }) => {
         <Modal.Footer>
           <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
             {' '}
-            Cancel{' '}
+            Cancel
+            {' '}
           </Button>
           <Button variant="danger" onClick={handleDelete}>
             {' '}
-            Confirm{' '}
+            Confirm
+            {' '}
           </Button>
         </Modal.Footer>
       </Modal>

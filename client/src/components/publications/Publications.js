@@ -4,7 +4,9 @@
 
 import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Dropdown, Modal, Spinner, Alert } from 'react-bootstrap';
+import {
+  Dropdown, Modal, Spinner, Alert,
+} from 'react-bootstrap';
 import {
   getPublicationsByTeamId,
   sortPublications,
@@ -35,7 +37,7 @@ const Publications = () => {
   }, [dispatch, teamId]);
 
   const { loading, teamPublications } = useSelector(
-    (state) => state.publications
+    (state) => state.publications,
   );
 
   const renderPublications = () => {
@@ -62,7 +64,6 @@ const Publications = () => {
           </Dropdown.Item>
         );
       default:
-        
     }
   };
 
@@ -83,7 +84,12 @@ const Publications = () => {
         {loading ? (
           <Spinner animation="border" />
         ) : (
-          <h4>Total of {teamPublications.length} publications</h4>
+          <h4>
+            Total of
+            {teamPublications.length}
+            {' '}
+            publications
+          </h4>
         )}
       </div>
 

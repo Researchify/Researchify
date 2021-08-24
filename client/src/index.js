@@ -14,5 +14,5 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'), // eslint-disable-line no-undef
 );

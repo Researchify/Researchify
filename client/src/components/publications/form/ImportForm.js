@@ -7,7 +7,7 @@ import ProfileLinkPage from './ProfileLinkPage';
 
 const ImportForm = ({ closeModal }) => {
   const { importStatus, loading } = useSelector(
-    (state) => state.importedPublications
+    (state) => state.importedPublications,
   );
 
   const displayResult = () => {
@@ -20,7 +20,6 @@ const ImportForm = ({ closeModal }) => {
         return <ProfileLinkPage closeModal={closeModal} />;
     }
   };
-
 
   return loading ? (
     <div className="mb-3 mt-3 text-center">

@@ -209,10 +209,10 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
     });
     // get publications
     const { data: teamPublications } = await api.fetchPublicationsByTeamId(
-      teamId
+      teamId,
     );
     teamPublications.map(
-      (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
+      (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4)),
     );
     // get teamInfo
     const { data: teamInfo } = await api.getTeamJWT();

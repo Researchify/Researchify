@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 /*
     List of navigation inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const DashboardSidebarData = ({setLogoutAlert}) => {
+const DashboardSidebarData = ({ setLogoutAlert }) => {
   const sidebarLinks = [
     {
       title: 'Dashboard',
@@ -32,7 +32,7 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
     {
       title: 'Publications',
       icon: <BsBookHalf />,
-      link: `/publications`,
+      link: '/publications',
       name: 'PUBLICATIONS',
     },
     {

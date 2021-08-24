@@ -26,7 +26,11 @@ const WebpageDelete = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-center">
-            Are you sure you want to delete the {props.selectedPage} page?
+            Are you sure you want to delete the
+            {' '}
+            {props.selectedPage}
+            {' '}
+            page?
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

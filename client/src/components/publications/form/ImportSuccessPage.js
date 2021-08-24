@@ -17,7 +17,7 @@ import {
 } from '../../../actions/publications';
 import {
   IMPORT_CLEAR_STATE,
-  UPDATE_PUBLICATIONS_TO_IMPORT
+  UPDATE_PUBLICATIONS_TO_IMPORT,
 } from '../../../actions/types';
 import { pageSize } from '../../../config/publications';
 import usePagination from '../../shared/usePagination';
@@ -26,13 +26,14 @@ import ConditionalWrapper from '../../shared/ConditionalWrapper';
 const ImportSuccessPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);
   const dispatch = useDispatch();
-  const { 
-    publications, 
-    startFrom, 
-    gScholarId, 
-    reachedEnd, 
-    publicationsToImport } = useSelector((state) => state.importedPublications);
-  const { currentData, pagination } = usePagination(publications, pageSize)
+  const {
+    publications,
+    startFrom,
+    gScholarId,
+    reachedEnd,
+    publicationsToImport,
+  } = useSelector((state) => state.importedPublications);
+  const { currentData, pagination } = usePagination(publications, pageSize);
 
   const checkPublication = (index) => {
     const chosenPublication = currentData()[index];
@@ -77,11 +78,10 @@ const ImportSuccessPage = ({ closeModal }) => {
 
   const handleConfirmImport = () => {
     let checkedPublications = publications.filter(
-      (pub, idx) => publicationsToImport[idx]
+      (pub, idx) => publicationsToImport[idx],
     );
     for (let i = 0; i < checkedPublications.length; i++) {
-      checkedPublications[i].yearPublished =
-        `${checkedPublications[i].yearPublished.toString()  }-01-01`;
+      checkedPublications[i].yearPublished = `${checkedPublications[i].yearPublished.toString()}-01-01`;
     }
     checkedPublications = checkedPublications.map((pub) => ({
       ...pub,
@@ -123,7 +123,7 @@ const ImportSuccessPage = ({ closeModal }) => {
               Cancel
             </Button>
           </OverlayTrigger>
-        </div> 
+        </div>
         <ConditionalWrapper
           condition={reachedEnd}
           wrapper={(children) => (

@@ -3,12 +3,12 @@
  * @returns null if no notification, otherwise empty fragment.
  */
 
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { CLEAR_NOTIFICATION } from '../actions/types';
 
-export const NotificationToaster = () => {
+const NotificationToaster = () => {
   const { error, success } = useSelector((state) => state.notification);
   const dispatch = useDispatch();
 
@@ -21,7 +21,9 @@ export const NotificationToaster = () => {
     dispatch({
       type: CLEAR_NOTIFICATION,
     });
-  }, [error, success]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [error, success]);
 
   return <></>;
 };
+
+export default NotificationToaster

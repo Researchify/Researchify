@@ -25,9 +25,9 @@ const DashboardLayout = ({ children }) => {
       <Container fluid className="researchify-content-top-padding">
         <Row className="content-under-header">
           <Col className="sidebar-wrapper">
-        
-              <Sidebar data={DashboardSidebarData({ setLogoutAlert })} />
-        
+
+            <Sidebar data={DashboardSidebarData({ setLogoutAlert })} />
+
           </Col>
           <Col className="page-content-wrapper">
             {children}

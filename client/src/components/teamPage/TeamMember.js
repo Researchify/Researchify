@@ -40,7 +40,8 @@ const TeamMember = ({ member }) => {
         data-toggle="modal"
       >
         {' '}
-        <AiFillEdit />{' '}
+        <AiFillEdit />
+        {' '}
       </Button>
       <Button
         onClick={() => setShowDeleteMessage(true)}
@@ -114,11 +115,13 @@ const TeamMember = ({ member }) => {
         <Modal.Footer>
           <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
             {' '}
-            Cancel{' '}
+            Cancel
+            {' '}
           </Button>
           <Button variant="danger" onClick={handleDelete}>
             {' '}
-            Confirm{' '}
+            Confirm
+            {' '}
           </Button>
         </Modal.Footer>
       </Modal>

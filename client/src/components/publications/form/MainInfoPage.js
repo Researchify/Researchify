@@ -15,8 +15,9 @@ import {
 } from 'react-bootstrap';
 import '../publications.css';
 
-
-const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
+const MainInfoPage = ({
+  next, data, type, pub, closeModal,
+}) => {
   const stepOneValidationSchema = yup.object({
     title: yup
       .string()
@@ -34,7 +35,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
     link: yup
       .string()
       .url(
-        'Link URL provided is not a valid URL, including the protocol (http/https)'
+        'Link URL provided is not a valid URL, including the protocol (http/https)',
       ),
   });
 
@@ -45,7 +46,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
   const year = new Date().getFullYear();
   const years = Array.from(
     new Array(year - 1899),
-    (val, index) => year - index
+    (val, index) => year - index,
   );
 
   const renderTooltip = (props) => (
@@ -55,34 +56,34 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
   );
 
   const renderAuthors = (values, touched, errors, handleChange, setValues) => values.authors.map((author, index) => (
-      <InputGroup key={index}>
-        <Form.Control
-          className="placeholder-text"
-          type="text"
-          placeholder="John Smith"
-          name={`authors[${index}]`}
-          value={values.authors[index]}
-          onChange={handleChange}
-          isInvalid={touched.authors && errors.authors && errors.authors[index]}
-        />
-        <InputGroup.Append>
-          <Button
-            onClick={() => {
-              const newAuthors = values.authors;
-              newAuthors.splice(index, 1);
-              setValues({ ...values, authors: newAuthors });
-            }}
-            variant="outline-secondary"
-            disabled={values.authors.length === 1}
-          >
-            Remove
-          </Button>
-        </InputGroup.Append>
-        <Form.Control.Feedback type="invalid">
-          {errors.authors && errors.authors[index]}
-        </Form.Control.Feedback>
-      </InputGroup>
-    ));
+    <InputGroup key={index}>
+      <Form.Control
+        className="placeholder-text"
+        type="text"
+        placeholder="John Smith"
+        name={`authors[${index}]`}
+        value={values.authors[index]}
+        onChange={handleChange}
+        isInvalid={touched.authors && errors.authors && errors.authors[index]}
+      />
+      <InputGroup.Append>
+        <Button
+          onClick={() => {
+            const newAuthors = values.authors;
+            newAuthors.splice(index, 1);
+            setValues({ ...values, authors: newAuthors });
+          }}
+          variant="outline-secondary"
+          disabled={values.authors.length === 1}
+        >
+          Remove
+        </Button>
+      </InputGroup.Append>
+      <Form.Control.Feedback type="invalid">
+        {errors.authors && errors.authors[index]}
+      </Form.Control.Feedback>
+    </InputGroup>
+  ));
 
   return (
     <>
@@ -129,10 +130,10 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
                 onChange={handleChange}
               >
                 {years.map((year, index) => (
-                    <option key={`year${index}`} value={year}>
-                      {year}
-                    </option>
-                  ))}
+                  <option key={`year${index}`} value={year}>
+                    {year}
+                  </option>
+                ))}
               </Form.Control>
             </Form.Group>
 
@@ -201,7 +202,8 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
               <div className="ml-auto mr-3">
                 <Button variant="outline-primary" type="submit">
                   {' '}
-                  Next{' '}
+                  Next
+                  {' '}
                 </Button>
               </div>
             </Row>

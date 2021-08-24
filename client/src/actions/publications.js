@@ -74,115 +74,104 @@ export const updatePublication = (id, publication) => async (dispatch) => {
   }
 };
 
-export const sortPublications =
-  (teamPublications, sortingOption) => async (dispatch) => {
-    switch (sortingOption) {
-      case 'Author':
-        teamPublications.sort((a, b) =>
-          a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1
-        );
-        break;
-      case 'Title':
-        // publication title
-        teamPublications.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
-        break;
-      case 'Category Title':
-        // journal or conference title
-        teamPublications.sort((a, b) =>
-          a.category.categoryTitle.toLowerCase() >
-          b.category.categoryTitle.toLowerCase()
-            ? 1
-            : -1
-        );
-        break;
-      default:
-        // sort by title then year for consistency with the db
-        teamPublications.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
-        teamPublications.sort((a, b) => (a.year > b.year ? -1 : 1));
-        break;
-    }
+export const sortPublications = (teamPublications, sortingOption) => async (dispatch) => {
+  switch (sortingOption) {
+    case 'Author':
+      teamPublications.sort((a, b) => (a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1));
+      break;
+    case 'Title':
+      // publication title
+      teamPublications.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
+      break;
+    case 'Category Title':
+      // journal or conference title
+      teamPublications.sort((a, b) => (a.category.categoryTitle.toLowerCase()
+          > b.category.categoryTitle.toLowerCase()
+        ? 1
+        : -1));
+      break;
+    default:
+      // sort by title then year for consistency with the db
+      teamPublications.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
+      teamPublications.sort((a, b) => (a.year > b.year ? -1 : 1));
+      break;
+  }
 
+  dispatch({
+    type: SORT_PUBLICATIONS,
+    payload: teamPublications,
+  });
+};
+
+export const importPublications = (author_id, startFrom, teamId) => async (dispatch) => {
+  try {
     dispatch({
-      type: SORT_PUBLICATIONS,
-      payload: teamPublications,
+      type: IMPORT_REQUEST,
     });
-  };
 
-export const importPublications =
-  (author_id, startFrom, teamId) => async (dispatch) => {
-    try {
-      dispatch({
-        type: IMPORT_REQUEST,
-      });
+    const result = await api.importPublications(author_id, startFrom, teamId);
+    const pageNo = startFrom / pageSize + 1;
 
-      const result = await api.importPublications(author_id, startFrom, teamId);
-      const pageNo = startFrom / pageSize + 1;
-
-      if (result.data.reachedEnd === true) {
-        // reached the end of the user's profile
-        if (result.data.newPublications.length > 0) {
-          dispatch({
-            type: IMPORT_SUCCESS,
-            payload: result.data.newPublications,
-          });
-        } else {
-          dispatch({
-            type: IMPORT_EMPTY,
-          });
-          dispatch(successMessageCreator('No publications left to retrieve!'));
-        }
-        dispatch({
-          type: IMPORT_END,
-        });
-      } else if (
-        result.data.newPublications.length === 0 &&
-        result.data.retrieved > 0
-      ) {
-        // no new publications retrieved but not end of profile
-        dispatch({
-          type: IMPORT_EMPTY,
-        });
-        dispatch(
-          successMessageCreator(
-            `No new publications were found on page ${pageNo}`
-          )
-        );
-      } else {
+    if (result.data.reachedEnd === true) {
+      // reached the end of the user's profile
+      if (result.data.newPublications.length > 0) {
         dispatch({
           type: IMPORT_SUCCESS,
           payload: result.data.newPublications,
         });
-        dispatch(
-          successMessageCreator(`New publications were found on page ${pageNo}`)
-        );
+      } else {
+        dispatch({
+          type: IMPORT_EMPTY,
+        });
+        dispatch(successMessageCreator('No publications left to retrieve!'));
       }
-    } catch (error) {
       dispatch({
-        type: IMPORT_FAIL
+        type: IMPORT_END,
       });
-      dispatch(errorActionGlobalCreator(error));
-    }
-  };
-
-export const createBulkPublications =
-  (teamId, publicationList) => async (dispatch) => {
-    try {
-      const result = await api.createBulkPublications(teamId, publicationList);
-      const createdPublications = result.data.map((pub) => ({
-        ...pub,
-        yearPublished: pub.yearPublished.substring(0, 4),
-        newlyAdded: true,
-      }));
-
+    } else if (
+      result.data.newPublications.length === 0
+        && result.data.retrieved > 0
+    ) {
+      // no new publications retrieved but not end of profile
       dispatch({
-        type: CREATE_BULK_PUBLICATIONS,
-        payload: createdPublications,
+        type: IMPORT_EMPTY,
       });
-    } catch (error) {
-      dispatch(errorActionGlobalCreator(error));
+      dispatch(
+        successMessageCreator(
+          `No new publications were found on page ${pageNo}`,
+        ),
+      );
+    } else {
+      dispatch({
+        type: IMPORT_SUCCESS,
+        payload: result.data.newPublications,
+      });
+      dispatch(
+        successMessageCreator(`New publications were found on page ${pageNo}`),
+      );
     }
-  };
+  } catch (error) {
+    dispatch({
+      type: IMPORT_FAIL,
+    });
+    dispatch(errorActionGlobalCreator(error));
+  }
+};
+
+export const createBulkPublications = (teamId, publicationList) => async (dispatch) => {
+  try {
+    const result = await api.createBulkPublications(teamId, publicationList);
+    const createdPublications = result.data.map((pub) => ({
+      ...pub,
+      yearPublished: pub.yearPublished.substring(0, 4),
+      newlyAdded: true,
+    }));
+
+    dispatch({
+      type: CREATE_BULK_PUBLICATIONS,
+      payload: createdPublications,
+    });
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
+  }
+};

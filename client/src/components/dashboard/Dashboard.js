@@ -3,7 +3,9 @@
  */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Card, Tabs, Tab } from 'react-bootstrap';
+import {
+  Container, Card, Tabs, Tab,
+} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
@@ -26,16 +28,16 @@ const Dashboard = () => {
   const directToAnotherPage = (pageName) => {
     switch (pageName) {
       case 'PUBLICATIONS':
-        history.push(`/publications`);
+        history.push('/publications');
         break;
       case 'TEAM':
-        history.push(`/team`);
+        history.push('/team');
         break;
       case 'HOME PAGE':
-        history.push(`/about-us`);
+        history.push('/about-us');
         break;
       default:
-        history.push(`/`);
+        history.push('/');
     }
   };
 

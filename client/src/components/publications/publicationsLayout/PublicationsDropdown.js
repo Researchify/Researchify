@@ -17,7 +17,9 @@ const PublicationsDropdown = ({
     <div className="mb-3 mt-3 text-center">
       <Dropdown className="ml-5">
         <Dropdown.Toggle variant="light" className="mb-2">
-          Layout: {layout}
+          Layout:
+          {' '}
+          {layout}
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {Object.keys(allLayouts).map((layout, i) => (
@@ -35,7 +37,7 @@ const PublicationsDropdown = ({
         className="ml-4"
         variant="light"
         id="dropdown-item-button"
-        title={`Sort by: ${  sortingOption}`}
+        title={`Sort by: ${sortingOption}`}
       >
         <Dropdown.Item
           as="button"

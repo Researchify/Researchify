@@ -3,7 +3,9 @@
  * to select a theme in Researchify dashboard page.
  */
 import React, { useState } from 'react';
-import { Container, Button, Form, Col, Image } from 'react-bootstrap';
+import {
+  Container, Button, Form, Col, Image,
+} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { updateTeamTheme } from '../../actions/team';
@@ -173,9 +175,9 @@ const TemplateSelector = (props) => {
         </Container>
       </Form.Group>
 
-        <Button id="submitButton" type="submit">
-          Create Website
-        </Button>
+      <Button id="submitButton" type="submit">
+        Create Website
+      </Button>
     </Form>
   );
 };
