@@ -3,7 +3,6 @@
  */
 import './Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
-import { Fragment } from 'react';
 
 const Sidebar = ({ data }) => {
   const location = useLocation();

@@ -72,8 +72,7 @@ export default function Login() {
             </Button>
             <div>
               <a id="loginLink" href="register">
-                Don't have an account yet? Sign Up today!
-                {' '}
+                Don&apos;t have an account yet? Sign Up today!
               </a>
             </div>
           </Form>

@@ -11,7 +11,7 @@
     "rules": {
         "max-len": "off",
         "no-underscore-dangle": "off",
-        "camelcase": "off",  // From this rule onward, it is all temporary and pending refactor
+        "camelcase": "off", 
         "consistent-return": "off",
         "no-plusplus": "off",
         "prefer-destructuring": "off",
@@ -23,6 +23,13 @@
         "react/jsx-props-no-spreading": "off",
         "react/prop-types": "off", // should refactor later
         "react/no-array-index-key": "off", // should refactor later
-        "no-nested-ternary": "off" // should refactor later
+        "no-nested-ternary": "off", // should refactor later
+        "jsx-a11y/click-events-have-key-events": "off", // low-prio refactor
+        "jsx-a11y/no-static-element-interactions": "off", // low-prio refactor
+        "jsx-a11y/no-noninteractive-element-interactions": "off", // low-prio refactor
+        "react/destructuring-assignment": "off", // should refactor later
+        "radix": "off", // low-prio refactor
+        "no-param-reassign": "off", // should refactor later
+        "no-return-assign": "off" // should refactor later
     }
 }

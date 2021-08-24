@@ -81,7 +81,6 @@ export const linkTwitter = (teamId, handle) => async (dispatch) => {
       payload: data.twitterHandle,
     });
   } catch (err) {
-    console.log(err);
     dispatch({
       // if linking unsuccessful, set payload to empty string and dispatch
       type: LINK_TEAM_TWITTER,
@@ -193,12 +192,12 @@ export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   try {
     const { data } = await api.getGHAccessToken(teamId, code);
 
-    localStorage.setItem('GH_access_token', data.access_token);
+    localStorage.setItem('GH_access_token', data.access_token); // eslint-disable-line no-undef
     dispatch({
       type: GET_GH_ACCESS_TOKEN,
     });
   } catch (err) {
-    console.log(err);
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 
@@ -212,7 +211,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       teamId,
     );
     teamPublications.map(
-      (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4)),
+      (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4)) // eslint-disable-line no-param-reassign 
     );
     // get teamInfo
     const { data: teamInfo } = await api.getTeamJWT();
@@ -233,8 +232,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       webPages,
     };
 
-    const response = await api.deployToGHPages(teamId, body);
-    console.log(response.data);
+    await api.deployToGHPages(teamId, body);
     dispatch({
       type: DEPLOY_SUCCESS,
     });
@@ -306,7 +304,8 @@ export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
       type: UPDATE_TEAM,
       payload: updatedTeam,
     });
+    dispatch(successMessageCreator('Theme has been updated'));
   } catch (error) {
-    console.error(error);
+    dispatch(errorActionGlobalCreator(error));
   }
 };

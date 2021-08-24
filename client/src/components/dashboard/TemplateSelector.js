@@ -3,11 +3,8 @@
  * to select a theme in Researchify dashboard page.
  */
 import React, { useState } from 'react';
-import {
-  Container, Button, Form, Col, Image,
-} from 'react-bootstrap';
+import { Container, Button, Form, Col, Image } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import toast from 'react-hot-toast';
 import { updateTeamTheme } from '../../actions/team';
 
 // Picture of each layout
@@ -51,7 +48,7 @@ const TemplateSelector = (props) => {
           secondaryColor = '#868789';
           break;
         default:
-          console.log('error in updateForm()');
+          break;
       }
       setInputs({
         ...formInputs,
@@ -63,6 +60,11 @@ const TemplateSelector = (props) => {
     }
   };
 
+  const storeInputs = (teamId, inputObject) => {
+    dispatch(updateTeamTheme(teamId, inputObject));
+    props.closeModal();
+  };
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
@@ -70,16 +72,6 @@ const TemplateSelector = (props) => {
       event.stopPropagation();
     } else {
       storeInputs(props.teamId, formInputs);
-    }
-  };
-
-  const storeInputs = (teamId, inputObject) => {
-    try {
-      dispatch(updateTeamTheme(teamId, inputObject));
-      toast.success('Theme is updated.');
-      props.closeModal();
-    } catch (error) {
-      console.error(error);
     }
   };
 
