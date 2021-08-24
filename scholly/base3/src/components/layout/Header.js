@@ -17,7 +17,7 @@ const Header = () => {
         collapseOnSelect
         expand="md"
         bg="light"
-        variant="light"
+        variant="primary"
         fixed="top"
       >
         <Container fluid>
