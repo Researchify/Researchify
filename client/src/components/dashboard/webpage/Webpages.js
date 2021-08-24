@@ -114,7 +114,7 @@ const Webpages = ({
           <tbody>
             <tr key="default-homepage">
               <td className="body">
-                {'HOMEPAGE'}
+                HOMEPAGE
                 <Button
                   variant="outline-success"
                   className="action float-right mx-2"
