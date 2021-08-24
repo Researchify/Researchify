@@ -3,18 +3,18 @@
  */
 
 import { useSelector, useDispatch } from 'react-redux';
-import ImportedPublication from '../importedPublication/ImportedPublication';
 import React from 'react';
-import {
-  createBulkPublications,
-  importPublications,
-} from '../../../actions/publications';
 import {
   Row,
   Button,
   Tooltip,
   OverlayTrigger,
 } from 'react-bootstrap';
+import ImportedPublication from '../importedPublication/ImportedPublication';
+import {
+  createBulkPublications,
+  importPublications,
+} from '../../../actions/publications';
 import {
   IMPORT_CLEAR_STATE,
   UPDATE_PUBLICATIONS_TO_IMPORT
@@ -37,7 +37,7 @@ const ImportSuccessPage = ({ closeModal }) => {
   const checkPublication = (index) => {
     const chosenPublication = currentData()[index];
     const globalIndex = publications.indexOf(chosenPublication);
-    let newCheckArray = publicationsToImport;
+    const newCheckArray = publicationsToImport;
     newCheckArray[globalIndex] = !newCheckArray[globalIndex];
     dispatch({
       type: UPDATE_PUBLICATIONS_TO_IMPORT,
@@ -81,11 +81,11 @@ const ImportSuccessPage = ({ closeModal }) => {
     );
     for (let i = 0; i < checkedPublications.length; i++) {
       checkedPublications[i].yearPublished =
-        checkedPublications[i].yearPublished.toString() + '-01-01';
+        `${checkedPublications[i].yearPublished.toString()  }-01-01`;
     }
     checkedPublications = checkedPublications.map((pub) => ({
       ...pub,
-      teamId: teamId,
+      teamId,
     }));
     dispatch(createBulkPublications(teamId, checkedPublications));
     handleClose();

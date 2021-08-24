@@ -24,17 +24,13 @@ export const errorReducer = (state, action) => {
   };
 };
 
-export const errorActionGlobalCreator = (error) => {
-  return {
+export const errorActionGlobalCreator = (error) => ({
     type: RESEARCHIFY_API_ERROR,
     error: true,
     payload: error,
-  };
-};
+  });
 
-export const successMessageCreator = (successMessage) => {
-  return {
+export const successMessageCreator = (successMessage) => ({
     type: SUCCESS_MESSAGE,
     payload: successMessage
-  }
-}
+  })

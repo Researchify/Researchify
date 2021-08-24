@@ -3,12 +3,12 @@
  */
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
 
-import { linkTwitter } from '../../actions/team';
+
 import { Form, Button, Spinner, Jumbotron } from 'react-bootstrap';
+import { linkTwitter } from '../../actions/team';
 import './TwitterLink.css';
 
 const TwitterLink = () => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -6,7 +6,7 @@ import { BsPeopleCircle } from 'react-icons/bs';
 
 import './Header.css';
 
-import { Fragment } from 'react';
+
 
 /**
  * This function provides header for Layout.js
@@ -14,11 +14,11 @@ import { Fragment } from 'react';
  */
 const Header = (props) => {
   const userName = useSelector(
-    (state) => state.team?.teamName + ' ' + state.team?.orgName
+    (state) => `${state.team?.teamName  } ${  state.team?.orgName}`
   );
-  //TODO: Remove hard-coded team id and publications id from the links
+  // TODO: Remove hard-coded team id and publications id from the links
   return (
-    <Fragment>
+    <>
       <Navbar className="header" fixed="top">
         <Navbar.Brand>
           <Link className="header-brand" to={props.data.dashboardURL}>
@@ -32,7 +32,7 @@ const Header = (props) => {
           </Link>
         </Nav>
       </Navbar>
-    </Fragment>
+    </>
   );
 };
 

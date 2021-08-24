@@ -6,10 +6,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { Fragment } from 'react';
 
 const Sidebar = ({ data }) => {
-  let location = useLocation();
+  const location = useLocation();
 
   return (
-    <Fragment>
+    <>
       <ul className="SidebarList">
         {data.map((val, key) => (
           // if the link property of a sidebar item is undefined, stays in the current page
@@ -19,7 +19,7 @@ const Sidebar = ({ data }) => {
               id={location.pathname === val.link ? 'active' : ''}
               onClick={val.action}
             >
-              {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar*/}
+              {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar */}
 
               <div id="icon">{val.icon}</div>
               <div id="title">{val.title}</div>
@@ -27,7 +27,7 @@ const Sidebar = ({ data }) => {
           </Link>
         ))}
       </ul>
-    </Fragment>
+    </>
   );
 };
 

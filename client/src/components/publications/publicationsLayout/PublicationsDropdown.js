@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { sortPublications } from '../../../actions/publications';
 import { useDispatch } from 'react-redux';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { sortPublications } from '../../../actions/publications';
 
 const PublicationsDropdown = ({
   allLayouts,
@@ -35,7 +35,7 @@ const PublicationsDropdown = ({
         className="ml-4"
         variant="light"
         id="dropdown-item-button"
-        title={'Sort by: ' + sortingOption}
+        title={`Sort by: ${  sortingOption}`}
       >
         <Dropdown.Item
           as="button"

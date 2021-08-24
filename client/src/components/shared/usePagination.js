@@ -22,7 +22,7 @@ const usePagination = ( data, itemPerPage ) => {
         setCurrentPage(Math.min(pageNumber, maxPage));
     }
     const pagination = () => {
-        let items = []  
+        const items = []  
         for (let number = 1; number <= maxPage; number++) {
             items.push(
             <Pagination.Item 

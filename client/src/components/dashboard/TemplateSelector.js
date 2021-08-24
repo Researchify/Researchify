@@ -5,8 +5,8 @@
 import React, { useState } from 'react';
 import { Container, Button, Form, Col, Image } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { updateTeamTheme } from '../../actions/team';
 import toast from 'react-hot-toast';
+import { updateTeamTheme } from '../../actions/team';
 
 // Picture of each layout
 import singleColumnLayout from '../../images/theme1.png';
@@ -53,8 +53,8 @@ const TemplateSelector = (props) => {
       }
       setInputs({
         ...formInputs,
-        primaryColor: primaryColor,
-        secondaryColor: secondaryColor,
+        primaryColor,
+        secondaryColor,
       });
     } else {
       setInputs({ ...formInputs, [name]: parseInt(value) });
@@ -99,7 +99,7 @@ const TemplateSelector = (props) => {
               onChange={updateForm}
               checked={theme === 1}
             />
-            <div className="theme-icon theme-1-icon"></div>
+            <div className="theme-icon theme-1-icon" />
             <Form.Check
               inline
               type="radio"
@@ -108,7 +108,7 @@ const TemplateSelector = (props) => {
               onChange={updateForm}
               checked={theme === 2}
             />
-            <div className="theme-icon theme-2-icon"></div>
+            <div className="theme-icon theme-2-icon" />
             <Form.Check
               inline
               type="radio"
@@ -117,7 +117,7 @@ const TemplateSelector = (props) => {
               onChange={updateForm}
               checked={theme === 3}
             />
-            <div className="theme-icon theme-3-icon"></div>
+            <div className="theme-icon theme-3-icon" />
           </Form.Row>
         </Container>
 

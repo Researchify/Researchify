@@ -64,7 +64,7 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
   // i.e. do not show PUBLICATIONS page if not added by client yet.
   const links = sidebarLinks.filter((pageInfo) => {
     if ('name' in pageInfo) {
-      if (!pagesAdded.includes(pageInfo['name'])) {
+      if (!pagesAdded.includes(pageInfo.name)) {
         return false;
       }
     }

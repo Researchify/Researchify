@@ -25,13 +25,13 @@ const App = () => {
   }, [dispatch, logIn]);
 
   return (
-    <Fragment>
+    <>
       <Toaster position="bottom-center" reverseOrder={false} />
       <BrowserRouter>
       <NotificationToaster/>
         { logIn ? <PrivateRoute /> : <PublicRoute /> }
       </BrowserRouter>
-    </Fragment>
+    </>
   );
 };
 

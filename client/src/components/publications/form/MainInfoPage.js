@@ -54,8 +54,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
     </Tooltip>
   );
 
-  const renderAuthors = (values, touched, errors, handleChange, setValues) => {
-    return values.authors.map((author, index) => (
+  const renderAuthors = (values, touched, errors, handleChange, setValues) => values.authors.map((author, index) => (
       <InputGroup key={index}>
         <Form.Control
           className="placeholder-text"
@@ -69,7 +68,7 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
         <InputGroup.Append>
           <Button
             onClick={() => {
-              let newAuthors = values.authors;
+              const newAuthors = values.authors;
               newAuthors.splice(index, 1);
               setValues({ ...values, authors: newAuthors });
             }}
@@ -84,7 +83,6 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
         </Form.Control.Feedback>
       </InputGroup>
     ));
-  };
 
   return (
     <>
@@ -130,13 +128,11 @@ const MainInfoPage = ({ next, data, type, pub, closeModal }) => {
                 value={values.yearPublished}
                 onChange={handleChange}
               >
-                {years.map((year, index) => {
-                  return (
+                {years.map((year, index) => (
                     <option key={`year${index}`} value={year}>
                       {year}
                     </option>
-                  );
-                })}
+                  ))}
               </Form.Control>
             </Form.Group>
 

@@ -7,6 +7,7 @@ import React, { Fragment, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { CLEAR_NOTIFICATION } from '../actions/types';
+
 export const NotificationToaster = () => {
   const { error, success } = useSelector((state) => state.notification);
   const dispatch = useDispatch();
@@ -22,5 +23,5 @@ export const NotificationToaster = () => {
     });
   }, [error, success]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <Fragment />;
+  return <></>;
 };

@@ -2,12 +2,12 @@
  * The PublicationForm component displays a mutli-step publication form
  */
 
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   updatePublication,
   createPublication,
 } from '../../../actions/publications';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import MainInfoPage from './MainInfoPage';
 import CategoryPage from './CategoryPage';
 import { categoryType } from '../../../config/publications';
@@ -29,7 +29,7 @@ const PublicationForm = (props) => {
       pages: '',
       publisher: '',
     },
-    teamId: teamId,
+    teamId,
   });
 
   const [currentStep, setCurrentStep] = useState(0);

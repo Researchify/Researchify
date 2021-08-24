@@ -104,11 +104,9 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                     (category) =>
                       category.toUpperCase() === values.category.type
                   )
-                  .map((category, idx) => {
-                    return `${
+                  .map((category, idx) => `${
                       category.charAt(0) + category.slice(1).toLowerCase()
-                    } title`;
-                  })}{' '}
+                    } title`)}{' '}
               </Form.Label>
               <Form.Control
                 className="placeholder-text"
@@ -135,7 +133,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                 className="placeholder-text"
                 type="text"
                 name="category.volume"
-                placeholder={placeholderText['Volume']}
+                placeholder={placeholderText.Volume}
                 value={values.category.volume}
                 onChange={handleChange}
               />
@@ -147,7 +145,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                 className="placeholder-text"
                 type="text"
                 name="category.issue"
-                placeholder={placeholderText['Issue']}
+                placeholder={placeholderText.Issue}
                 value={values.category.issue}
                 onChange={handleChange}
               />
@@ -159,7 +157,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                 className="placeholder-text"
                 type="text"
                 name="category.pages"
-                placeholder={placeholderText['Pages']}
+                placeholder={placeholderText.Pages}
                 value={values.category.pages}
                 onChange={handleChange}
               />
@@ -171,7 +169,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                 className="placeholder-text"
                 type="text"
                 name="category.publisher"
-                placeholder={placeholderText['Publisher']}
+                placeholder={placeholderText.Publisher}
                 value={values.category.publisher}
                 onChange={handleChange}
               />

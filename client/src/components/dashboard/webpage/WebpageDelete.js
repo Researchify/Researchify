@@ -1,7 +1,7 @@
 import React from 'react';
-import { deletePage } from '../../../actions/website';
 import { useDispatch } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap';
+import { deletePage } from '../../../actions/website';
 
 const WebpageDelete = (props) => {
   const dispatch = useDispatch();

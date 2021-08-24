@@ -6,10 +6,10 @@ import React, { useState, useEffect } from 'react';
 
 import { Button, Form, Container, Image } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
-import profilePic from '../../images/profilepic.jpg';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
+import profilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
 
 /**
@@ -125,7 +125,7 @@ const ProfileInfoEdit = () => {
               Update
             </Button>
 
-            {/* Button is linked to react-router-dom Link*/}
+            {/* Button is linked to react-router-dom Link */}
             <Link to="/dashboard">
               <Button color="primary">Back</Button>
             </Link>

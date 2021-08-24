@@ -4,11 +4,11 @@
 
 import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Dropdown, Modal, Spinner, Alert } from 'react-bootstrap';
 import {
   getPublicationsByTeamId,
   sortPublications,
 } from '../../actions/publications';
-import { Dropdown, Modal, Spinner, Alert } from 'react-bootstrap';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
 import './publications.css';
@@ -62,12 +62,12 @@ const Publications = () => {
           </Dropdown.Item>
         );
       default:
-        return;
+        
     }
   };
 
   return (
-    <Fragment>
+    <>
       <PublicationsButtons
         setShowCreateForm={setShowCreateForm}
         setShowImportForm={setShowImportForm}
@@ -118,7 +118,7 @@ const Publications = () => {
           <ImportForm closeModal={() => setShowImportForm(false)} />
         </Modal.Body>
       </Modal>
-    </Fragment>
+    </>
   );
 };
 

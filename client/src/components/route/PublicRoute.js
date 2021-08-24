@@ -9,8 +9,7 @@ import LandingPage from '../landing-pages/LandingPage';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
 
-const PublicRoute = () => {
-return (
+const PublicRoute = () => (
     <Switch>
         <Route path="/" exact component={LandingPage} />
         <Route path="/register" exact component={Register} />
@@ -19,6 +18,5 @@ return (
         <Redirect to="/"/>
     </Switch> 
 )
-}
 
   export default PublicRoute

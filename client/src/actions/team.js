@@ -214,9 +214,9 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
     teamPublications.map(
       (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))
     );
-    //get teamInfo
+    // get teamInfo
     const { data: teamInfo } = await api.getTeamJWT();
-    //get team members
+    // get team members
     const { data: teamMembers } = await api.fetchTeamMembersByTeamId(teamId);
     // get team homepage content
     const { data: teamHomepage } = await api.getHomepage(teamId);

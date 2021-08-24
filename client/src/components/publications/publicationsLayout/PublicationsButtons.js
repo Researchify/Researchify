@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-const PublicationsButtons = ({ setShowCreateForm, setShowImportForm }) => {
-  return (
+const PublicationsButtons = ({ setShowCreateForm, setShowImportForm }) => (
     <div className="mb-3 mt-4 text-center">
       <Button className="mr-2" onClick={() => setShowCreateForm(true)}>
         Add Publication
@@ -12,6 +11,5 @@ const PublicationsButtons = ({ setShowCreateForm, setShowImportForm }) => {
       </Button>
     </div>
   );
-};
 
 export default PublicationsButtons;

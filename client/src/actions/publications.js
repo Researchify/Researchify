@@ -172,7 +172,7 @@ export const createBulkPublications =
   (teamId, publicationList) => async (dispatch) => {
     try {
       const result = await api.createBulkPublications(teamId, publicationList);
-      let createdPublications = result.data.map((pub) => ({
+      const createdPublications = result.data.map((pub) => ({
         ...pub,
         yearPublished: pub.yearPublished.substring(0, 4),
         newlyAdded: true,

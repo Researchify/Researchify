@@ -4,8 +4,6 @@
 
 import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { deletePublication } from '../../../actions/publications';
-import PublicationForm from '../form/PublicationForm';
 import {
   Button,
   Modal,
@@ -19,6 +17,8 @@ import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { GrLinkDown, GrLinkUp } from 'react-icons/gr';
 import { IconContext } from 'react-icons';
+import PublicationForm from '../form/PublicationForm';
+import { deletePublication } from '../../../actions/publications';
 import '../publications.css';
 
 const Publication = ({ pub }) => {
@@ -72,25 +72,21 @@ const Publication = ({ pub }) => {
     </ButtonGroup>
   );
 
-  const displayUpArrow = () => {
-    return (
+  const displayUpArrow = () => (
       expand && (
         <IconContext.Provider value={{ color: 'black', size: '25px' }}>
           <GrLinkUp className="ml-3" />
         </IconContext.Provider>
       )
     );
-  };
 
-  const displayDownArrow = () => {
-    return (
+  const displayDownArrow = () => (
       !expand && (
         <IconContext.Provider value={{ color: 'black', size: '25px' }}>
           <GrLinkDown onClick={() => setExpand(!expand)} className="ml-2" />
         </IconContext.Provider>
       )
     );
-  };
 
   const dropDown = (
     <Collapse in={expand}>
@@ -194,7 +190,7 @@ const Publication = ({ pub }) => {
 
       {dropDown}
 
-      {/* A modal for showing update publication from*/}
+      {/* A modal for showing update publication from */}
       <Modal show={showUpdateForm}>
         <Modal.Header className="modalHeader">
           <Modal.Title> Edit Publication </Modal.Title>

@@ -6,8 +6,8 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Login.css';
-import { login } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
+import { login } from '../../actions/auth';
 
 /** 
 Handles the UI for the log in page

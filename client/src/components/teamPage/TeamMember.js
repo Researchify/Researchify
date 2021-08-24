@@ -12,14 +12,14 @@ import {
   ButtonGroup,
   OverlayTrigger,
 } from 'react-bootstrap';
-import profilePic from '../../images/profilepic.jpg';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
-import TeamMemberForm from './form/TeamMemberForm';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import { deleteTeamMember } from '../../actions/team';
 import { useSelector, useDispatch } from 'react-redux';
+import TeamMemberForm from './form/TeamMemberForm';
+import { deleteTeamMember } from '../../actions/team';
+import profilePic from '../../images/profilepic.jpg';
 
 const TeamMember = ({ member }) => {
   const dispatch = useDispatch();

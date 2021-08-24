@@ -7,12 +7,12 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
-import { createTeam } from '../../actions/team';
 import './Register.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { createTeam } from '../../actions/team';
 
 export default function RegistrationForm() {
   const dispatch = useDispatch();

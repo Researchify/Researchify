@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { addPage } from '../../../actions/website';
-import { availablePages as pages } from '../../../config/clientWebsite';
 import { useDispatch } from 'react-redux';
 import { Button, Modal, DropdownButton, Dropdown } from 'react-bootstrap';
+import { addPage } from '../../../actions/website';
+import { availablePages as pages } from '../../../config/clientWebsite';
 
 const WebpageSelector = ({ currentWebPages, teamId, closeModal, displayModal }) => {
   const dispatch = useDispatch();

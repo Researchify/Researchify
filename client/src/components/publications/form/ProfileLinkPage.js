@@ -2,8 +2,8 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, InputGroup, Button, Form } from 'react-bootstrap';
-import { importPublications } from '../../../actions/publications';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { importPublications } from '../../../actions/publications';
 import { IMPORT_FAIL, UPDATE_GSCHOLAR_ID } from '../../../actions/types';
 import '../publications.css';
 
@@ -31,14 +31,14 @@ const ProfileLinkPage = ({ closeModal }) => {
         payload: 'Please provide a valid profile link',
       });
       return false;
-    } else {
+    } 
       gScholarId = values.profileLink.substring(position + 5, position + 17);
       dispatch({
         type: UPDATE_GSCHOLAR_ID,
         payload: gScholarId,
       });
       return true;
-    }
+    
   };
 
   const submitForm = (values) => {

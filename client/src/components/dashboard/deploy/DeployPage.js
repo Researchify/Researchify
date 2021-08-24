@@ -71,7 +71,7 @@ const DeployPage = ({ teamId }) => {
   );
 
   return (
-    <Fragment>
+    <>
       Deploy Website with GitHub
       {
         loading ?
@@ -80,7 +80,7 @@ const DeployPage = ({ teamId }) => {
         </div> :
         ( retrievedAccessToken ? DeployButton : GitHubLoginButton )
       }
-    </Fragment>
+    </>
   );
 };
 
