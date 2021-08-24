@@ -5,11 +5,12 @@ import React, { Fragment } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { TEAM_INFO } from '../../global/data';
 import { Link } from 'react-router-dom';
-import HeaderData from './HeaderData.js';
+import { getRoutes } from '../router/routes.js';
 
 const Header = () => {
   const { orgName, teamName } = TEAM_INFO;
-  const headerData = HeaderData();
+  const headerData = getRoutes();
+  console.log(headerData);
   return (
     <Fragment>
       <Navbar
@@ -27,10 +28,10 @@ const Header = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto" />
             <Nav>
-              {headerData.map((val) => {
+              {headerData.map(({path, title}, index) => {
                 return (
-                  <Nav.Link as={Link} to={val.link}>
-                    {val.title}
+                  <Nav.Link key={index} as={Link} to={path}>
+                    {title}
                   </Nav.Link>
                 );
               })}

@@ -93,3 +93,12 @@
     background: linear-gradient(to right, #ebe6e6, #ebe6e6 50%, #000000 50%, #000000 100%);
 }
 
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}

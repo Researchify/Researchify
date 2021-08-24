@@ -4,8 +4,9 @@ WORKDIR '/home/node/app'
 
 COPY package.json .
 
-# Option --legacy-peer-deps needed to resolve puppeteer cluster dep.
-RUN npm install --legacy-peer-deps
+ENV NODE_ENV=production
+
+RUN npm install
 
 COPY . .
 

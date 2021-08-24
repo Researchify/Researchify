@@ -8,14 +8,14 @@ import {
   BsBookHalf,
   BsPerson,
   BsPeople,
-  BsGearFill,
-  BsFillQuestionCircleFill,
+  // BsFillQuestionCircleFill,
   BsBoxArrowLeft,
+  BsCardText,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 
 /*
-    List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
+    List of navigation inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
 const DashboardSidebarData = ({setLogoutAlert}) => {
   const sidebarLinks = [
@@ -23,6 +23,11 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       title: 'Dashboard',
       icon: <BsFillGridFill />,
       link: '/dashboard',
+    },
+    {
+      title: 'Our Homepage',
+      icon: <BsCardText />,
+      link: '/about-us',
     },
     {
       title: 'Publications',
@@ -41,16 +46,11 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       link: '/team',
       name: 'TEAM',
     },
-    {
-      title: 'Settings',
-      icon: <BsGearFill />,
-      link: '/dashboard/settings',
-    },
-    {
-      title: 'Help',
-      icon: <BsFillQuestionCircleFill />,
-      link: '/dashboard/help',
-    },
+    // {
+    //   title: 'Help',
+    //   icon: <BsFillQuestionCircleFill />,
+    //   link: '/dashboard/help',
+    // },
     {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
