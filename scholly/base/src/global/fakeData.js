@@ -1,4 +1,7 @@
-export const FAKE_WEB_PAGES = ['PUBLICATIONS', 'TEAM'];
+export const FAKE_WEB_PAGES = {
+  pages: ['PUBLICATIONS', 'TEAM'],
+  publicationOptions: { layout: "All Publication", sortBy: "Author" }
+};
 
 export const FAKE_PUBLICATIONS = [
   {
