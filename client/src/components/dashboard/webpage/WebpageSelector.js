@@ -30,17 +30,13 @@ const WebpageSelector = ({
 
   const handleSubmit = () => {
     dispatch(addPage(teamId, selectedPage));
+    setSelectedPage(pagePlaceholder);
     closeModal();
   };
 
   return (
     <>
-      <Modal
-        show={displayModal}
-        onHide={closeModal}
-        centered
-        size="lg"
-      >
+      <Modal show={displayModal} onHide={closeModal} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-center">
             Choose the Page you want to add to your website
@@ -55,7 +51,9 @@ const WebpageSelector = ({
             onSelect={handlePageSelection}
           >
             {webpageOfferings.map((pageName) => (
-              <Dropdown.Item eventKey={pageName}>{pageName}</Dropdown.Item>
+              <Dropdown.Item key={pageName} eventKey={pageName}>
+                {pageName}
+              </Dropdown.Item>
             ))}
           </DropdownButton>
           <Button
