@@ -12,13 +12,4 @@ const playwrightConfig = {
   sortBySuffix: '&view_op=list_works&sortby=pubdate', // put most recent pubs first
 };
 
-const categoryType = {
-  CONFERENCE: 'CONFERENCE',
-  JOURNAL: 'JOURNAL',
-  OTHER: 'OTHER',
-  BOOK: 'BOOK',
-};
-
-const categoryTypeEnum = ['CONFERENCE', 'JOURNAL', 'OTHER', 'BOOK'];
-
-module.exports = { playwrightConfig, categoryType, categoryTypeEnum };
+module.exports = { playwrightConfig };

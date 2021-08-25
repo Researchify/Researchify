@@ -14,7 +14,7 @@ import {
   ButtonGroup,
   ToggleButton,
 } from 'react-bootstrap';
-import { categoryType } from '../../../config/publications';
+import { categoryTypes } from '../../../config/publications';
 import '../publications.css';
 
 const CategoryPage = ({ next, prev, data, closeModal }) => {
@@ -72,13 +72,13 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <div className="text-center">
                 <ButtonGroup toggle>
-                  {Object.keys(categoryType).map((category, idx) => (
+                  {Object.keys(categoryTypes).map((category, idx) => (
                     <ToggleButton
                       key={idx}
                       type="radio"
                       variant="outline-secondary"
                       value={category.toUpperCase()}
-                      checked={values.category.type === category.toUpperCase()}
+                      checked={values.category.type.toUpperCase() === category.toUpperCase()}
                       onChange={(e) =>
                         setValues({
                           ...values,
@@ -99,10 +99,10 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label>
                 {' '}
-                {Object.keys(categoryType)
+                {Object.keys(categoryTypes)
                   .filter(
                     (category) =>
-                      category.toUpperCase() === values.category.type
+                      category.toUpperCase() === values.category.type.toUpperCase()
                   )
                   .map((category, idx) => {
                     return `${
@@ -114,7 +114,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                 className="placeholder-text"
                 type="text"
                 name="category.categoryTitle"
-                placeholder={placeholderText[values.category.type]}
+                placeholder={placeholderText[values.category.type.toUpperCase()]}
                 value={values.category.categoryTitle}
                 onChange={handleChange}
                 isInvalid={

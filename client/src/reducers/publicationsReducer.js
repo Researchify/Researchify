@@ -3,7 +3,6 @@ import {
   CREATE_PUBLICATION,
   UPDATE_PUBLICATION,
   DELETE_PUBLICATION,
-  SORT_PUBLICATIONS,
   CREATE_BULK_PUBLICATIONS,
 } from '../actions/types';
 
@@ -35,8 +34,6 @@ const publicationsReducer = (state = initialState, action) => {
           (pub) => pub._id !== action.payload
         ),
       };
-    case SORT_PUBLICATIONS:
-      return { ...state, teamPublications: action.payload };
     case CREATE_BULK_PUBLICATIONS:
       let updatedTeamPubs = state.teamPublications.concat(action.payload);
       return { ...state, teamPublications: updatedTeamPubs };

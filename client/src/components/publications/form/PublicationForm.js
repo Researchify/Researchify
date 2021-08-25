@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainInfoPage from './MainInfoPage';
 import CategoryPage from './CategoryPage';
-import { categoryType } from '../../../config/publications';
+import { categoryTypes } from '../../../config/publications';
 
 const PublicationForm = (props) => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const PublicationForm = (props) => {
     description: '',
     link: '',
     category: {
-      type: categoryType.JOURNAL,
+      type: categoryTypes.JOURNAL,
       categoryTitle: '',
       volume: '',
       issue: '',
