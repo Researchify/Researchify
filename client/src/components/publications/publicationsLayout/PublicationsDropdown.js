@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown, Button } from 'react-bootstrap';
-import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { useDispatch } from 'react-redux';
+import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website'
 
 const PublicationsDropdown = ({

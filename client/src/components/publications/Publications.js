@@ -4,8 +4,8 @@
 
 import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPublicationsByTeamId } from '../../actions/publications';
 import { Modal, Spinner, Alert } from 'react-bootstrap';
+import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
 import './publications.css';
@@ -19,39 +19,17 @@ const Publications = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
   const { publicationOptions } = useSelector((state) => state.website);
-  const { loading, teamPublications } = useSelector((state) => state.publications);
-  const [ showCreateForm, setShowCreateForm ] = useState(false);
-  const [ showImportForm, setShowImportForm ] = useState(false);
-  const [ options, setOptions ] = useState(publicationOptions);
-  const [ publications, setPublications ] = useState(teamPublications);
-
-  useEffect(() => {
-    if (teamId) {
-      dispatch(getPublicationsByTeamId(teamId));
-    }
-  }, [dispatch, teamId]);
-
-  useEffect(() => {
-    setOptions(publicationOptions)
-  }, [publicationOptions])
-  
-  useEffect(() => {
-    const sortedPublication = sortPublications(teamPublications, options.sortBy)
-    setPublications(sortedPublication)
-  }, [teamPublications])   // eslint-disable-line react-hooks/exhaustive-deps
-
-  const renderPublications = () => {
-    switch (options.layout) {
-      case layoutOptions.BY_CATEGORY:
-        return <LayoutByCategory teamPublications={publications} />;
-      default:
-        return <LayoutAllPublications teamPublications={publications} />;
-    }
-  }
+  const { loading, teamPublications } = useSelector(
+    (state) => state.publications
+  );
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showImportForm, setShowImportForm] = useState(false);
+  const [options, setOptions] = useState(publicationOptions);
+  const [publications, setPublications] = useState(teamPublications);
 
   const sortPublications = (publicationToBeSorted, option) => {
-    if (option === options.sortBy){
-      return publicationToBeSorted
+    if (option === options.sortBy) {
+      return publicationToBeSorted;
     }
     switch (option) {
       case sortingOptions.AUTHOR:
@@ -81,9 +59,36 @@ const Publications = () => {
         );
         publicationToBeSorted.sort((a, b) => (a.year > b.year ? -1 : 1));
         break;
-      }
-      return publicationToBeSorted
-    };
+    }
+    return publicationToBeSorted;
+  };
+
+  useEffect(() => {
+    if (teamId) {
+      dispatch(getPublicationsByTeamId(teamId));
+    }
+  }, [dispatch, teamId]);
+
+  useEffect(() => {
+    setOptions(publicationOptions);
+  }, [publicationOptions]);
+
+  useEffect(() => {
+    const sortedPublication = sortPublications(
+      teamPublications,
+      options.sortBy
+    );
+    setPublications(sortedPublication);
+  }, [teamPublications]);
+
+  const renderPublications = () => {
+    switch (options.layout) {
+      case layoutOptions.BY_CATEGORY:
+        return <LayoutByCategory teamPublications={publications} />;
+      default:
+        return <LayoutAllPublications teamPublications={publications} />;
+    }
+  };
 
   return (
     <>
@@ -104,7 +109,7 @@ const Publications = () => {
         ) : (
           <h4>
             Total of
-            {` ${teamPublications.length} `} 
+            {` ${teamPublications.length} `}
             publications
           </h4>
         )}
