@@ -53,12 +53,15 @@ export const deletePage = (teamId, pageName) => async (dispatch) => {
   const apiBody = {
     pageName,
   };
-  api.deleteWebPage(teamId, apiBody).then(
+  try{
+    api.deleteWebPage(teamId, apiBody);
     dispatch({
       type: DELETE_WEBPAGE,
       payload: pageName,
-    }),
-  );
+    })
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
 };
 
 export const updatePublicationOptions = (teamId, preference) => async (dispatch) => {

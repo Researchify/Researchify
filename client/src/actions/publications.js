@@ -79,51 +79,52 @@ export const importPublications =
       dispatch({
         type: IMPORT_REQUEST,
       });
-
-    if (result.data.reachedEnd === true) {
-      // reached the end of the user's profile
-      if (result.data.newPublications.length > 0) {
+      const result = await api.importPublications(author_id, startFrom, teamId);
+      const pageNo = startFrom / pageSize + 1;
+      if (result.data.reachedEnd === true) {
+        // reached the end of the user's profile
+        if (result.data.newPublications.length > 0) {
+          dispatch({
+            type: IMPORT_SUCCESS,
+            payload: result.data.newPublications,
+          });
+        } else {
+          dispatch({
+            type: IMPORT_EMPTY,
+          });
+          dispatch(successMessageCreator('No publications left to retrieve!'));
+        }
+        dispatch({
+          type: IMPORT_END,
+        });
+      } else if (
+        result.data.newPublications.length === 0
+          && result.data.retrieved > 0
+      ) {
+        // no new publications retrieved but not end of profile
+        dispatch({
+          type: IMPORT_EMPTY,
+        });
+        dispatch(
+          successMessageCreator(
+            `No new publications were found on page ${pageNo}`,
+          ),
+        );
+      } else {
         dispatch({
           type: IMPORT_SUCCESS,
           payload: result.data.newPublications,
         });
-      } else {
-        dispatch({
-          type: IMPORT_EMPTY,
-        });
-        dispatch(successMessageCreator('No publications left to retrieve!'));
+        dispatch(
+          successMessageCreator(`New publications were found on page ${pageNo}`),
+        );
       }
+    } catch (error) {
       dispatch({
-        type: IMPORT_END,
+        type: IMPORT_FAIL,
       });
-    } else if (
-      result.data.newPublications.length === 0
-        && result.data.retrieved > 0
-    ) {
-      // no new publications retrieved but not end of profile
-      dispatch({
-        type: IMPORT_EMPTY,
-      });
-      dispatch(
-        successMessageCreator(
-          `No new publications were found on page ${pageNo}`,
-        ),
-      );
-    } else {
-      dispatch({
-        type: IMPORT_SUCCESS,
-        payload: result.data.newPublications,
-      });
-      dispatch(
-        successMessageCreator(`New publications were found on page ${pageNo}`),
-      );
+      dispatch(errorActionGlobalCreator(error));
     }
-  } catch (error) {
-    dispatch({
-      type: IMPORT_FAIL,
-    });
-    dispatch(errorActionGlobalCreator(error));
-  }
 };
 
 export const createBulkPublications = (teamId, publicationList) => async (dispatch) => {

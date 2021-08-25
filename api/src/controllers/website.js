@@ -117,6 +117,7 @@ function deleteWebPage(req, res, next) {
 
           // update in db
           website.save();
+          console.log(website)
           return res.status(200).json(website);
         } catch (err) {
           next(fillErrorObject(500, 'Server error', [err]));
