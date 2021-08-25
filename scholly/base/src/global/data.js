@@ -45,7 +45,6 @@ if (!env.REACT_APP_DEBUG) {
   WEB_PAGES = env.REACT_APP_WEB_PAGES
     ? JSON.parse(env.REACT_APP_WEB_PAGES)
     : [];
-    console.log(WEB_PAGES);
 } else {
   console.log('Running in DEBUG mode, hence using fake Team data');
   // Running client website locally, so use fake data
