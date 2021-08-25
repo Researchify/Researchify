@@ -79,10 +79,8 @@ export const importPublications =
       dispatch({
         type: IMPORT_REQUEST,
       });
-
       const result = await api.importPublications(author_id, startFrom, teamId);
       const pageNo = startFrom / pageSize + 1;
-
       if (result.data.reachedEnd === true) {
         // reached the end of the user's profile
         if (result.data.newPublications.length > 0) {

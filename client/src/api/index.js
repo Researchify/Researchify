@@ -32,7 +32,7 @@ export const findOrCreateTheme = (themeData) => api.post('/theme', themeData);
 export const addWebPage = (teamId, pageName) => api.post(`/clientWebsite/${teamId}/add_page`, pageName);
 export const getWebsiteInfo = (teamId) => api.get(`/clientWebsite/${teamId}`);
 export const deleteWebPage = (teamId, pageName) =>
-  api.delete(`/clientWebsite/${teamId}/delete_page`, pageName);
+  api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
 export const updatePublicationOptions = (teamId, options) =>
   api.post(`/clientWebsite/${teamId}/updatePublicationOptions`, options);
 

@@ -19,13 +19,30 @@ const Publications = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
   const { publicationOptions } = useSelector((state) => state.website);
-  const { loading, teamPublications } = useSelector(
-    (state) => state.publications
-  );
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [showImportForm, setShowImportForm] = useState(false);
-  const [options, setOptions] = useState(publicationOptions);
-  const [publications, setPublications] = useState(teamPublications);
+  const { loading, teamPublications } = useSelector((state) => state.publications);
+  const [ showCreateForm, setShowCreateForm ] = useState(false);
+  const [ showImportForm, setShowImportForm ] = useState(false);
+  const [ options, setOptions ] = useState(publicationOptions);
+  const [ publications, setPublications ] = useState(teamPublications);
+
+  useEffect(() => {
+    if (teamId) {
+      dispatch(getPublicationsByTeamId(teamId));
+    }
+  }, [dispatch, teamId]);
+
+  useEffect(() => {
+    setOptions(publicationOptions)
+  }, [publicationOptions])
+
+  const renderPublications = () => {
+    switch (options.layout) {
+      case layoutOptions.BY_CATEGORY:
+        return <LayoutByCategory teamPublications={publications} />;
+      default:
+        return <LayoutAllPublications teamPublications={publications} />;
+    }
+  }
 
   const sortPublications = (publicationToBeSorted, option) => {
     if (option === options.sortBy) {
@@ -59,36 +76,14 @@ const Publications = () => {
         );
         publicationToBeSorted.sort((a, b) => (a.year > b.year ? -1 : 1));
         break;
-    }
-    return publicationToBeSorted;
-  };
-
-  useEffect(() => {
-    if (teamId) {
-      dispatch(getPublicationsByTeamId(teamId));
-    }
-  }, [dispatch, teamId]);
-
-  useEffect(() => {
-    setOptions(publicationOptions);
-  }, [publicationOptions]);
-
-  useEffect(() => {
-    const sortedPublication = sortPublications(
-      teamPublications,
-      options.sortBy
-    );
-    setPublications(sortedPublication);
-  }, [teamPublications]);
-
-  const renderPublications = () => {
-    switch (options.layout) {
-      case layoutOptions.BY_CATEGORY:
-        return <LayoutByCategory teamPublications={publications} />;
-      default:
-        return <LayoutAllPublications teamPublications={publications} />;
-    }
-  };
+      }
+      return publicationToBeSorted
+    };
+  
+    useEffect(() => {
+      const sortedPublication = sortPublications(teamPublications, options.sortBy)
+      setPublications(sortedPublication)
+    }, [teamPublications])
 
   return (
     <>
