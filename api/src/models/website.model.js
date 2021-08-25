@@ -40,13 +40,13 @@ const websiteSchema = new mongoose.Schema(
     colour: {
       type: Number,
       required: true,
-      default: 1
+      default: 1,
     },
     layout: {
       type: Number,
       required: true,
-      default: 1
-    }
+      default: 1,
+    },
   },
   { timestamps: true },
 );
