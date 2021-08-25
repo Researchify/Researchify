@@ -1,21 +1,20 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  Button, Modal, DropdownButton, Dropdown,
+} from 'react-bootstrap';
 import { addPage } from '../../../actions/website';
 import { availablePages as pages } from '../../../config/clientWebsite';
-import { useDispatch } from 'react-redux';
-import { Button, Modal, DropdownButton, Dropdown } from 'react-bootstrap';
 
 const WebpageSelector = ({
-  currentWebPages,
-  teamId,
-  closeModal,
-  displayModal,
+  currentWebPages, teamId, closeModal, displayModal,
 }) => {
   const dispatch = useDispatch();
   // All our web-page offerings
   const availablePages = pages;
   // webpageOfferings = availablePages - currentWebPages
   const webpageOfferings = availablePages.filter(
-    (page) => !currentWebPages.includes(page)
+    (page) => !currentWebPages.includes(page),
   );
   const pagePlaceholder = 'Select page to add';
 
@@ -36,7 +35,7 @@ const WebpageSelector = ({
   };
 
   return (
-    <Fragment>
+    <>
       <Modal show={displayModal} onHide={closeModal} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-center">
@@ -66,7 +65,7 @@ const WebpageSelector = ({
           </Button>
         </Modal.Body>
       </Modal>
-    </Fragment>
+    </>
   );
 };
 

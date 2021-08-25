@@ -6,13 +6,18 @@ import {
   ADD_WEBPAGE,
   DELETE_WEBPAGE,
   FETCH_WEBSITE_INFO,
+  UPDATE_PUBLICATION_OPTIONS,
 } from '../actions/types';
+import { layoutOptions, sortingOptions } from '../config/publications';
 
 const INITIAL_WEBSITE_STATE = {
   url: '',
   title: '',
   pages: [],
-  loading: true,
+  publicationOptions: {
+    layout: layoutOptions.ALL_PUBLICATION,
+    sortBy: sortingOptions.TITLE
+  },
 };
 
 /**
@@ -40,7 +45,10 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
         url: payload.url ?? state.url,
         title: payload.title ?? state.title,
         pages: payload.pages ?? state.pages,
+        publicationOptions: payload.publicationOptions ?? state.publicationOptions,
       };
+    case UPDATE_PUBLICATION_OPTIONS:
+      return { ...state, publicationOptions: payload}
     default:
       return state;
   }
