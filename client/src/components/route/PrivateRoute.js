@@ -19,7 +19,7 @@ import { logout } from '../../actions/auth';
 
 const PrivateRoute = () => {
   const dispatch = useDispatch();
-  const signInCookie = Cookies.get('isLogin') ? true : false;
+  const signInCookie = !!Cookies.get('isLogin');
 
   useEffect(() => {
     // after a user signIn, we need to keep track of the signInCookie as it might be removed after the tokens expire

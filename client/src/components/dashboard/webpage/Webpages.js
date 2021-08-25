@@ -46,7 +46,7 @@ const Webpages = ({
     } else {
       setDisableAddButton(false);
     }
-  }, [currentWebPages]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentWebPages]);
 
   const promptDeleteConfirmation = (pageName) => {
     setSelectedPage(pageName);
@@ -105,7 +105,7 @@ const Webpages = ({
               <thead>
                 <tr>
                   <th className="reduced-column tableHeading">
-                    Click 'Add Page' to add more pages
+                    Click &apos;Add Page&apos; to add more pages
                   </th>
                 </tr>
               </thead>
@@ -114,7 +114,7 @@ const Webpages = ({
           <tbody>
             <tr key="default-homepage">
               <td className="body">
-                {'HOME PAGE'}
+                HOMEPAGE
                 <Button
                   variant="outline-success"
                   className="action float-right mx-2"

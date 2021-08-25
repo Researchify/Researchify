@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 /*
     List of navigation inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const DashboardSidebarData = ({setLogoutAlert}) => {
+const DashboardSidebarData = ({ setLogoutAlert }) => {
   const sidebarLinks = [
     {
       title: 'Dashboard',
@@ -34,7 +34,7 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
     {
       title: 'Publications',
       icon: <BsBookHalf />,
-      link: `/publications`,
+      link: '/publications',
       name: 'PUBLICATIONS',
     },
     {
@@ -76,7 +76,7 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
   // i.e. do not show PUBLICATIONS page if not added by client yet.
   const links = sidebarLinks.filter((pageInfo) => {
     if ('name' in pageInfo) {
-      if (!pagesAdded.includes(pageInfo['name'])) {
+      if (!pagesAdded.includes(pageInfo.name)) {
         return false;
       }
     }

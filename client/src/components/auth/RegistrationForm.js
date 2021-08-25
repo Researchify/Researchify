@@ -7,23 +7,23 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
-import { createTeam } from '../../actions/team';
 import './Register.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { createTeam } from '../../actions/team';
 
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const isRegistered = useSelector(state => state.auth.isRegistered)
+  const isRegistered = useSelector((state) => state.auth.isRegistered);
 
   useEffect(() => {
-    if(isRegistered){
-      history.push('/login')
+    if (isRegistered) {
+      history.push('/login');
     }
-  }, [history, isRegistered])
+  }, [history, isRegistered]);
 
   const teamInfoSchema = yup.object({
     teamName: yup
@@ -43,7 +43,8 @@ export default function RegistrationForm() {
       .required('Please Enter your password')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        "Use 8 or more characters with a mix of letters, numbers & symbols"),
+        'Use 8 or more characters with a mix of letters, numbers & symbols',
+      ),
     confirmedPassword: yup
       .string()
       .required('Please re-enter your password')
@@ -59,8 +60,8 @@ export default function RegistrationForm() {
   };
 
   const submitForm = (values) => {
-    delete values.confirmedPassword
-    dispatch(createTeam(values))
+    delete values.confirmedPassword;
+    dispatch(createTeam(values));
   };
 
   return (
@@ -73,11 +74,13 @@ export default function RegistrationForm() {
         onSubmit={submitForm}
         initialValues={initialTeamInfo}
       >
-      {({ handleSubmit, handleChange, values, touched, errors }) => (
-        <Form noValidate onSubmit={handleSubmit} >
-          <Form.Row>
-            <Form.Group as={Col} md="6">
-              <Form.Label> Team name </Form.Label>
+        {({
+          handleSubmit, handleChange, values, touched, errors,
+        }) => (
+          <Form noValidate onSubmit={handleSubmit}>
+            <Form.Row>
+              <Form.Group as={Col} md="6">
+                <Form.Label> Team name </Form.Label>
                 <Form.Control
                   type="text"
                   name="teamName"
@@ -89,9 +92,9 @@ export default function RegistrationForm() {
                 <Form.Control.Feedback type="invalid">
                   {errors.teamName}
                 </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="6">
-              <Form.Label> Organization name </Form.Label>
+              </Form.Group>
+              <Form.Group as={Col} md="6">
+                <Form.Label> Organization name </Form.Label>
                 <Form.Control
                   type="text"
                   name="orgName"
@@ -103,10 +106,10 @@ export default function RegistrationForm() {
                 <Form.Control.Feedback type="invalid">
                   {errors.orgName}
                 </Form.Control.Feedback>
-            </Form.Group>
-          </Form.Row>
-          <Form.Group>
-            <Form.Label> Email address </Form.Label>
+              </Form.Group>
+            </Form.Row>
+            <Form.Group>
+              <Form.Label> Email address </Form.Label>
               <Form.Control
                 type="text"
                 name="email"
@@ -118,9 +121,9 @@ export default function RegistrationForm() {
               <Form.Control.Feedback type="invalid">
                 {errors.email}
               </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label> Password </Form.Label>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label> Password </Form.Label>
               <Form.Control
                 type="password"
                 name="password"
@@ -132,9 +135,9 @@ export default function RegistrationForm() {
               <Form.Control.Feedback type="invalid">
                 {errors.password}
               </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label> Confirm Password </Form.Label>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label> Confirm Password </Form.Label>
               <Form.Control
                 type="password"
                 name="confirmedPassword"
@@ -146,18 +149,18 @@ export default function RegistrationForm() {
               <Form.Control.Feedback type="invalid">
                 {errors.confirmedPassword}
               </Form.Control.Feedback>
-          </Form.Group>
-          <div>
-            <a id="signInLink" href="login">
-              Already have an account? Sign in
-            </a>
-            <Button id="submitButton" type="submit" variant="primary">
-              Sign Up
-            </Button>
-          </div>
-        </Form>
-      )}
-    </Formik>
+            </Form.Group>
+            <div>
+              <a id="signInLink" href="login">
+                Already have an account? Sign in
+              </a>
+              <Button id="submitButton" type="submit" variant="primary">
+                Sign Up
+              </Button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </Jumbotron>
   );
 }

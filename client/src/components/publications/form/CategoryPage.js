@@ -14,16 +14,18 @@ import {
   ButtonGroup,
   ToggleButton,
 } from 'react-bootstrap';
-import { categoryType } from '../../../config/publications';
+import { categoryTypes } from '../../../config/publications';
 import '../publications.css';
 
-const CategoryPage = ({ next, prev, data, closeModal }) => {
+const CategoryPage = ({
+  next, prev, data, closeModal,
+}) => {
   const stepTwoValidationSchema = yup.object({
     category: yup.object({
       type: yup.string(),
       categoryTitle: yup
         .string()
-        .required(`Category title is required`)
+        .required('Category title is required')
         .min(3, 'Category title must be at least 3 characters'),
       volume: yup.string(),
       issue: yup.string(),
@@ -43,14 +45,14 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
   );
 
   const placeholderText = {
-    'JOURNAL': 'Nature',
-    'CONFERENCE': '26th International Conference on Intelligent User Interfaces',
-    'BOOK': 'QED: Beauty in mathematical proof',
-    'Volume': '420',
-    'Issue': '6915',
-    'Pages': '476-476',
-    'Publisher': 'Nature Publishing Group'
-  }
+    JOURNAL: 'Nature',
+    CONFERENCE: '26th International Conference on Intelligent User Interfaces',
+    BOOK: 'QED: Beauty in mathematical proof',
+    Volume: '420',
+    Issue: '6915',
+    Pages: '476-476',
+    Publisher: 'Nature Publishing Group',
+  };
 
   return (
     <>
@@ -72,13 +74,13 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <div className="text-center">
                 <ButtonGroup toggle>
-                  {Object.keys(categoryType).map((category, idx) => (
+                  {Object.keys(categoryTypes).map((category, idx) => (
                     <ToggleButton
                       key={idx}
                       type="radio"
                       variant="outline-secondary"
                       value={category.toUpperCase()}
-                      checked={values.category.type === category.toUpperCase()}
+                      checked={values.category.type.toUpperCase() === category.toUpperCase()}
                       onChange={(e) =>
                         setValues({
                           ...values,
@@ -99,29 +101,28 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
             <Form.Group>
               <Form.Label>
                 {' '}
-                {Object.keys(categoryType)
+                {Object.keys(categoryTypes)
                   .filter(
                     (category) =>
-                      category.toUpperCase() === values.category.type
+                      category.toUpperCase() === values.category.type.toUpperCase()
                   )
-                  .map((category, idx) => {
-                    return `${
-                      category.charAt(0) + category.slice(1).toLowerCase()
-                    } title`;
-                  })}{' '}
+                  .map((category) => `${
+                    category.charAt(0) + category.slice(1).toLowerCase()
+                  } title`)}
+                {' '}
               </Form.Label>
               <Form.Control
                 className="placeholder-text"
                 type="text"
                 name="category.categoryTitle"
-                placeholder={placeholderText[values.category.type]}
+                placeholder={placeholderText[values.category.type.toUpperCase()]}
                 value={values.category.categoryTitle}
                 onChange={handleChange}
                 isInvalid={
-                  touched.category &&
-                  touched.category.categoryTitle &&
-                  errors.category &&
-                  errors.category.categoryTitle
+                  touched.category
+                  && touched.category.categoryTitle
+                  && errors.category
+                  && errors.category.categoryTitle
                 }
               />
               <Form.Control.Feedback type="invalid">
@@ -135,7 +136,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                 className="placeholder-text"
                 type="text"
                 name="category.volume"
-                placeholder={placeholderText['Volume']}
+                placeholder={placeholderText.Volume}
                 value={values.category.volume}
                 onChange={handleChange}
               />
@@ -147,7 +148,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                 className="placeholder-text"
                 type="text"
                 name="category.issue"
-                placeholder={placeholderText['Issue']}
+                placeholder={placeholderText.Issue}
                 value={values.category.issue}
                 onChange={handleChange}
               />
@@ -159,7 +160,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                 className="placeholder-text"
                 type="text"
                 name="category.pages"
-                placeholder={placeholderText['Pages']}
+                placeholder={placeholderText.Pages}
                 value={values.category.pages}
                 onChange={handleChange}
               />
@@ -171,7 +172,7 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                 className="placeholder-text"
                 type="text"
                 name="category.publisher"
-                placeholder={placeholderText['Publisher']}
+                placeholder={placeholderText.Publisher}
                 value={values.category.publisher}
                 onChange={handleChange}
               />
@@ -201,7 +202,8 @@ const CategoryPage = ({ next, prev, data, closeModal }) => {
                   onClick={() => prev(values)}
                 >
                   {' '}
-                  Back{' '}
+                  Back
+                  {' '}
                 </Button>
                 <Button type="submit"> Confirm </Button>
               </div>

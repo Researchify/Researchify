@@ -15,7 +15,7 @@ const PublicationPage = () => {
   const linkedHandle = useSelector((state) => state.team.twitterHandle);
 
   return (
-    <Fragment>
+    <>
       <Row>
         <Col className="pub-page-pub-col">
           <Publications />
@@ -24,7 +24,7 @@ const PublicationPage = () => {
           {linkedHandle ? <TwitterFeed /> : <TwitterLink />}
         </Col>
       </Row>
-    </Fragment>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Row, Col } from "reactstrap";
 import { Button } from "@material-ui/core";
 import "../css/big-intro.css";
@@ -14,9 +14,9 @@ const StyledButtonLink = styled(AnchorLink)`
 `;
 const DiscoverButtonLink = (props) => {
   return (
-    <Fragment>
+    <>
       <StyledButtonLink {...props} />
-    </Fragment>
+    </>
   );
 };
 
@@ -39,7 +39,7 @@ const Content = () => {
                 variant="contained"
                 size="large"
                 color="secondary"
-                className={"mr-2"}
+                className="mr-2"
               >
                 Discover More
               </Button>
@@ -57,8 +57,8 @@ const Content = () => {
 
 const BigIntro = () => {
   const boxes = () => {
-    let array = [],
-      numberOfBox = 15;
+    const array = [];
+    const numberOfBox = 15;
     for (let i = 0; i < numberOfBox; i++) array.push(i);
     return array;
   };

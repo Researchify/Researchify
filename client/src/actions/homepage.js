@@ -12,7 +12,7 @@ export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.getHomepage(teamId);
     const homepageData = {
-      teamId: teamId,
+      teamId,
       aboutUs: data.aboutUs,
     };
     dispatch({
@@ -28,7 +28,7 @@ export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
   try {
     const { data } = await api.createOrUpdateHomepage(teamId, homepageData);
     const updatedHomepage = {
-      teamId: teamId,
+      teamId,
       aboutUs: data.aboutUs,
     };
     dispatch({

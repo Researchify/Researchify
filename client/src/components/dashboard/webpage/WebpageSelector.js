@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  Button, Modal, DropdownButton, Dropdown,
+} from 'react-bootstrap';
 import { addPage } from '../../../actions/website';
 import { availablePages as pages } from '../../../config/clientWebsite';
-import { useDispatch } from 'react-redux';
-import { Button, Modal, DropdownButton, Dropdown } from 'react-bootstrap';
 
-const WebpageSelector = ({ currentWebPages, teamId, closeModal, displayModal }) => {
+const WebpageSelector = ({
+  currentWebPages, teamId, closeModal, displayModal,
+}) => {
   const dispatch = useDispatch();
   // All our web-page offerings
   const availablePages = pages;
   // webpageOfferings = availablePages - currentWebPages
   const webpageOfferings = availablePages.filter(
-    (page) => !currentWebPages.includes(page)
-  )
+    (page) => !currentWebPages.includes(page),
+  );
   const pagePlaceholder = 'Select page to add';
 
   const [selectedPage, setSelectedPage] = useState(pagePlaceholder);
@@ -26,17 +30,13 @@ const WebpageSelector = ({ currentWebPages, teamId, closeModal, displayModal }) 
 
   const handleSubmit = () => {
     dispatch(addPage(teamId, selectedPage));
+    setSelectedPage(pagePlaceholder);
     closeModal();
   };
-  
+
   return (
     <>
-      <Modal
-        show={displayModal}
-        onHide={closeModal}
-        centered
-        size="lg"
-      >
+      <Modal show={displayModal} onHide={closeModal} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-center">
             Choose the Page you want to add to your website
@@ -51,7 +51,9 @@ const WebpageSelector = ({ currentWebPages, teamId, closeModal, displayModal }) 
             onSelect={handlePageSelection}
           >
             {webpageOfferings.map((pageName) => (
-              <Dropdown.Item eventKey={pageName}>{pageName}</Dropdown.Item>
+              <Dropdown.Item key={pageName} eventKey={pageName}>
+                {pageName}
+              </Dropdown.Item>
             ))}
           </DropdownButton>
           <Button

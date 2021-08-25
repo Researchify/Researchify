@@ -44,6 +44,10 @@ const Publication = ({ pub }) => {
             {pub.category.publisher ? 'Published by' : null}
           </div>
           <div className="pub-body-content">{pub.category.publisher}</div>
+          <div className="pub-body-subheader">
+            {pub.link ? 'View at' : null}
+          </div>
+          <div className="pub-body-content"><a href={pub.link}>{pub.link}</a></div>
         </Card.Body>
       </Accordion.Collapse>
     </Card>

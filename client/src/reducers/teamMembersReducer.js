@@ -19,15 +19,13 @@ const teamMembersReducer = (state = initialState, action) => {
     case UPDATE_TEAM_MEMBER:
       return {
         ...state,
-        teamMembers: state.teamMembers.map((member) =>
-          member._id === action.payload._id ? action.payload : member
-        ),
+        teamMembers: state.teamMembers.map((member) => (member._id === action.payload._id ? action.payload : member)),
       };
     case DELETE_TEAM_MEMBER:
       return {
         ...state,
         teamMembers: state.teamMembers.filter(
-          (member) => member._id !== action.payload
+          (member) => member._id !== action.payload,
         ),
       };
     default:
