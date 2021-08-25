@@ -4,7 +4,6 @@ import {
   CREATE_PUBLICATION,
   UPDATE_PUBLICATION,
   DELETE_PUBLICATION,
-  SORT_PUBLICATIONS,
   CREATE_BULK_PUBLICATIONS,
   IMPORT_REQUEST,
   IMPORT_SUCCESS,
@@ -73,44 +72,6 @@ export const updatePublication = (id, publication) => async (dispatch) => {
     dispatch(errorActionGlobalCreator(error));
   }
 };
-
-export const sortPublications =
-  (teamPublications, sortingOption) => async (dispatch) => {
-    switch (sortingOption) {
-      case 'Author':
-        teamPublications.sort((a, b) =>
-          a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1
-        );
-        break;
-      case 'Title':
-        // publication title
-        teamPublications.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
-        break;
-      case 'Category Title':
-        // journal or conference title
-        teamPublications.sort((a, b) =>
-          a.category.categoryTitle.toLowerCase() >
-          b.category.categoryTitle.toLowerCase()
-            ? 1
-            : -1
-        );
-        break;
-      default:
-        // sort by title then year for consistency with the db
-        teamPublications.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
-        teamPublications.sort((a, b) => (a.year > b.year ? -1 : 1));
-        break;
-    }
-
-    dispatch({
-      type: SORT_PUBLICATIONS,
-      payload: teamPublications,
-    });
-  };
 
 export const importPublications =
   (author_id, startFrom, teamId) => async (dispatch) => {
