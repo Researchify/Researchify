@@ -7,17 +7,17 @@ import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 
 const LayoutAllPublications = ({ teamPublications, pageSize }) => {
-  const { currentData, pagination } = usePagination(teamPublications, pageSize ? pageSize : configPageSize)
+  const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
   return (
-    <Fragment>
+    <>
       <div className="publicationList">
-      {
+        {
         currentData().map((pub) => (
           <Publication pub={pub} key={pub._id} />))
       }
       </div>
       { pagination() }
-    </Fragment>
+    </>
   );
 };
 

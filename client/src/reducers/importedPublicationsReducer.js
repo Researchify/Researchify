@@ -32,7 +32,7 @@ const importedPublicationReducer = (state = initialState, action) => {
         publications: state.publications.concat(action.payload),
         startFrom: state.startFrom + pageSize,
         publicationsToImport: state.publicationsToImport.concat(
-          new Array(action.payload.length).fill(true)
+          new Array(action.payload.length).fill(true),
         ),
       };
     case IMPORT_FAIL:

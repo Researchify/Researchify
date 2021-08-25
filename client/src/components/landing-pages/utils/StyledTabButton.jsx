@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 import Tab from "@material-ui/core/Tab";
 import { theme as colour } from "../theme";
@@ -14,9 +14,9 @@ const StyledTab = styled(({ ...props }) => (
 
 const StyledComponentsTab = (props) => {
   return (
-    <Fragment>
+    <>
       <StyledTab {...props} />
-    </Fragment>
+    </>
   );
 };
 

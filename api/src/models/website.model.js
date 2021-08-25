@@ -3,6 +3,8 @@
  */
 const mongoose = require('mongoose');
 
+const { layoutOptions, sortingOptions } = require('../config/publication');
+
 const websiteSchema = new mongoose.Schema(
   {
     teamId: {
@@ -22,6 +24,18 @@ const websiteSchema = new mongoose.Schema(
     url: {
       type: String,
       required: false,
+    },
+    publicationOptions: {
+      layout: {
+        type: String,
+        required: false,
+        enum: layoutOptions,
+      },
+      sortBy: {
+        type: String,
+        required: false,
+        enum: sortingOptions,
+      },
     },
   },
   { timestamps: true },

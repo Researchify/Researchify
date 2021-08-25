@@ -20,6 +20,14 @@ npm install
 cd client
 npm install
 
+# to install packages required for scholly/base
+cd scholly/base
+npm install
+
+# to install packages required for scholly/service
+cd scholly/service
+npm install
+
 ```
 
 To build Docker images in a single line using [docker-compose](https://docs.docker.com/compose/reference/build/):
@@ -49,11 +57,24 @@ npm start
 
 ```
 
+Run the _scholly/service_ using `npm` (Note: scholly service will need to be running concurrently in order to deploy a wesbite through _Researchify_)
+```bash
+# to run the scholly service
+cd scholly/service
+npm start
+```
+
 Or via [docker-compose](https://docs.docker.com/compose/reference/build/):
 
 ```bash
 # in root project directory
 docker-compose up
+```
+
+To view the client website User Interface using fake data, run scholly/base using `npm`
+```bash
+cd scholly/base
+npm run dev
 ```
 
 ## Documentation
