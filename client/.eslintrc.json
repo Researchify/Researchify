@@ -30,6 +30,8 @@
         "react/destructuring-assignment": "off", // should refactor later
         "radix": "off", // low-prio refactor
         "no-param-reassign": "off", // should refactor later
-        "no-return-assign": "off" // should refactor later
+        "no-return-assign": "off", // should refactor later
+        "spaced-comment": "off",
+        "arrow-body-style": "off" // should refactor later
     }
 }

@@ -50,7 +50,7 @@ const Description = () => {
       </Box>
 
       <Box
-        alignItems={"flex-end"}
+        alignItems="flex-end"
         className={`${classes.layout} ${classes.white}`}
       >
         <Box
