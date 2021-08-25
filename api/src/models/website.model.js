@@ -37,6 +37,16 @@ const websiteSchema = new mongoose.Schema(
         enum: sortingOptions,
       },
     },
+    colour: {
+      type: Number,
+      required: true,
+      default: 1
+    },
+    layout: {
+      type: Number,
+      required: true,
+      default: 1
+    }
   },
   { timestamps: true },
 );
