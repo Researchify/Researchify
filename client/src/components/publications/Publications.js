@@ -86,8 +86,7 @@ const Publications = () => {
         ) : (
           <h4>
             Total of
-            {teamPublications.length}
-            {' '}
+            {` ${teamPublications.length} `} 
             publications
           </h4>
         )}
