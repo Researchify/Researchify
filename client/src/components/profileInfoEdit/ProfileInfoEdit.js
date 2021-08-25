@@ -57,17 +57,6 @@ const ProfileInfoEdit = () => {
         }else{
             return false;
         }
-      /*if ({...profileData}.password !== {...profileData}.confirmedPassword){
-        return false;
-      }
-      var matches = {...profileData}.password.match(
-          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/);
-      if (matches === null){
-        console.log("false");
-        return false;
-      }
-      return true;*/
-
   };
 
   const [validated, setValidated] = useState(false);
