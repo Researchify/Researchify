@@ -14,7 +14,7 @@ import {
   ButtonGroup,
   ToggleButton,
 } from 'react-bootstrap';
-import { categoryType } from '../../../config/publications';
+import { categoryTypes } from '../../../config/publications';
 import '../publications.css';
 
 const CategoryPage = ({
@@ -74,20 +74,22 @@ const CategoryPage = ({
             <Form.Group>
               <div className="text-center">
                 <ButtonGroup toggle>
-                  {Object.keys(categoryType).map((category, idx) => (
+                  {Object.keys(categoryTypes).map((category, idx) => (
                     <ToggleButton
                       key={idx}
                       type="radio"
                       variant="outline-secondary"
                       value={category.toUpperCase()}
-                      checked={values.category.type === category.toUpperCase()}
-                      onChange={(e) => setValues({
-                        ...values,
-                        category: {
-                          ...values.category,
-                          type: e.currentTarget.value,
-                        },
-                      })}
+                      checked={values.category.type.toUpperCase() === category.toUpperCase()}
+                      onChange={(e) =>
+                        setValues({
+                          ...values,
+                          category: {
+                            ...values.category,
+                            type: e.currentTarget.value,
+                          },
+                        })
+                      }
                     >
                       {category}
                     </ToggleButton>
@@ -99,9 +101,10 @@ const CategoryPage = ({
             <Form.Group>
               <Form.Label>
                 {' '}
-                {Object.keys(categoryType)
+                {Object.keys(categoryTypes)
                   .filter(
-                    (category) => category.toUpperCase() === values.category.type,
+                    (category) =>
+                      category.toUpperCase() === values.category.type.toUpperCase()
                   )
                   .map((category) => `${
                     category.charAt(0) + category.slice(1).toLowerCase()
@@ -112,7 +115,7 @@ const CategoryPage = ({
                 className="placeholder-text"
                 type="text"
                 name="category.categoryTitle"
-                placeholder={placeholderText[values.category.type]}
+                placeholder={placeholderText[values.category.type.toUpperCase()]}
                 value={values.category.categoryTitle}
                 onChange={handleChange}
                 isInvalid={

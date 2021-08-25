@@ -2,7 +2,7 @@
  * The LayoutByCategory component displays a list of publications group by category type selcted by user
  */
 
-import { categoryType, categoryPageSize } from '../../../config/publications';
+import { categoryTypes, categoryPageSize } from '../../../config/publications';
 import LayoutAllPublications from './LayoutAllPublications';
 
 const LayoutByCategory = ({ teamPublications }) => {
@@ -26,7 +26,11 @@ const LayoutByCategory = ({ teamPublications }) => {
       )
     );
   };
-  return Object.keys(categoryType).map((category) => renderPublicationsByCategory(category));
+  return Object.keys(categoryTypes).map((category, i) =>
+    <div key={i}>
+      {renderPublicationsByCategory(category)}
+    </div>
+  );
 };
 
 export default LayoutByCategory;
