@@ -4,8 +4,8 @@
 
 import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPublicationsByTeamId } from '../../actions/publications';
 import { Modal, Spinner, Alert } from 'react-bootstrap';
+import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
 import './publications.css';
@@ -34,11 +34,6 @@ const Publications = () => {
   useEffect(() => {
     setOptions(publicationOptions)
   }, [publicationOptions])
-  
-  useEffect(() => {
-    const sortedPublication = sortPublications(teamPublications, options.sortBy)
-    setPublications(sortedPublication)
-  }, [teamPublications])   // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderPublications = () => {
     switch (options.layout) {
@@ -84,6 +79,11 @@ const Publications = () => {
       }
       return publicationToBeSorted
     };
+  
+    useEffect(() => {
+      const sortedPublication = sortPublications(teamPublications, options.sortBy)
+      setPublications(sortedPublication)
+    }, [teamPublications])
 
   return (
     <>
