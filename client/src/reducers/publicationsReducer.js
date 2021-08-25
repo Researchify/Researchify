@@ -23,20 +23,17 @@ const publicationsReducer = (state = initialState, action) => {
     case UPDATE_PUBLICATION:
       return {
         ...state,
-        teamPublications: state.teamPublications.map((pub) =>
-          pub._id === action.payload._id ? action.payload : pub
-        ),
+        teamPublications: state.teamPublications.map((pub) => (pub._id === action.payload._id ? action.payload : pub)),
       };
     case DELETE_PUBLICATION:
       return {
         ...state,
         teamPublications: state.teamPublications.filter(
-          (pub) => pub._id !== action.payload
+          (pub) => pub._id !== action.payload,
         ),
       };
     case CREATE_BULK_PUBLICATIONS:
-      let updatedTeamPubs = state.teamPublications.concat(action.payload);
-      return { ...state, teamPublications: updatedTeamPubs };
+      return { ...state, teamPublications: state.teamPublications.concat(action.payload) };
     default:
       return state;
   }

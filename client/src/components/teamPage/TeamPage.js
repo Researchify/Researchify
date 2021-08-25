@@ -2,11 +2,13 @@
  * The TeamPage component displays the team member page
  */
 
-import { Container, CardDeck } from 'react-bootstrap';
-import TeamMember from './TeamMember';
+import {
+  Container, CardDeck, Button, Modal, Spinner, Alert,
+} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Modal, Spinner, Alert } from 'react-bootstrap';
+
 import React, { useEffect, useState } from 'react';
+import TeamMember from './TeamMember';
 import TeamMemberForm from './form/TeamMemberForm';
 import { getTeamMembersByTeamId } from '../../actions/team';
 import './teamPage.css';
@@ -17,7 +19,7 @@ const TeamPage = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
 
   useEffect(() => {
-    if(teamId){
+    if (teamId) {
       dispatch(getTeamMembersByTeamId(teamId));
     }
   }, [dispatch, teamId]);

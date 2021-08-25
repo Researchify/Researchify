@@ -14,20 +14,16 @@ import * as api from '../api';
 /**
  * Action called when 'create website' button is clicked
  */
-export const createWebsite = () => {
-  return {
-    type: CREATE_WEBSITE,
-  };
-};
+export const createWebsite = () => ({
+  type: CREATE_WEBSITE,
+});
 
 /**
  * Action called when user choose to delete the website
  */
-export const deleteWebsite = () => {
-  return {
-    type: DELETE_WEBSITE,
-  };
-};
+export const deleteWebsite = () => ({
+  type: DELETE_WEBSITE,
+});
 
 /**
  * Adds a new client web-page to redux store and database.
@@ -36,7 +32,7 @@ export const deleteWebsite = () => {
 export const addPage = (teamId, pageName) => async (dispatch) => {
   try {
     const apiBody = {
-      pageName: pageName,
+      pageName,
     };
     await api.addWebPage(teamId, apiBody);
 
@@ -55,14 +51,17 @@ export const addPage = (teamId, pageName) => async (dispatch) => {
  */
 export const deletePage = (teamId, pageName) => async (dispatch) => {
   const apiBody = {
-    pageName: pageName,
+    pageName,
   };
-  api.deleteWebPage(teamId, apiBody).then(
+  try{
+    api.deleteWebPage(teamId, apiBody);
     dispatch({
       type: DELETE_WEBPAGE,
       payload: pageName,
     })
-  );
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
 };
 
 export const updatePublicationOptions = (teamId, preference) => async (dispatch) => {

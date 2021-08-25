@@ -79,10 +79,8 @@ export const importPublications =
       dispatch({
         type: IMPORT_REQUEST,
       });
-
       const result = await api.importPublications(author_id, startFrom, teamId);
       const pageNo = startFrom / pageSize + 1;
-
       if (result.data.reachedEnd === true) {
         // reached the end of the user's profile
         if (result.data.newPublications.length > 0) {
@@ -123,7 +121,7 @@ export const importPublications =
       }
     } catch (error) {
       dispatch({
-        type: IMPORT_FAIL
+        type: IMPORT_FAIL,
       });
       dispatch(errorActionGlobalCreator(error));
     }
@@ -133,7 +131,7 @@ export const createBulkPublications =
   (teamId, publicationList) => async (dispatch) => {
     try {
       const result = await api.createBulkPublications(teamId, publicationList);
-      let createdPublications = result.data.map((pub) => ({
+      const createdPublications = result.data.map((pub) => ({
         ...pub,
         yearPublished: pub.yearPublished.substring(0, 4),
         newlyAdded: true,
