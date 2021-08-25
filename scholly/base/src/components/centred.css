@@ -169,16 +169,3 @@ a {
   align-content: center;
   justify-content: center;
 }
-
-.navbar-brand {
-  font-weight: 700;
-}
-
-.nav-link {
-  color: inherit;
-  font-weight: 500;
-}
-
-.publication-card {
-  background-color: transparent;
-}

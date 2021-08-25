@@ -38,3 +38,16 @@ a:hover, a:focus, .nav-link:hover, .nav-link:focus {
 .team-card {
     background-color: var(--researchify-color-secondary);
 }
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+.nav-link {
+    color: inherit;
+    font-weight: 500;
+}
+
+.publication-card {
+    background-color: transparent;
+}
