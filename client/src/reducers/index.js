@@ -11,6 +11,7 @@ import teamMembersReducer from './teamMembersReducer';
 import websiteReducer from './websiteReducer';
 import notificationReducer from './notificationReducer';
 import deployReducer from './deployReducer';
+import homepageReducer from './homepageReducer';
 
 export default combineReducers({
   notification: notificationReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   teamMember: teamMembersReducer,
   deploy: deployReducer,
   website: websiteReducer,
+  homepage: homepageReducer,
 });

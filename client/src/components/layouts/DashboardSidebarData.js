@@ -8,22 +8,26 @@ import {
   BsBookHalf,
   BsPerson,
   BsPeople,
-  BsFillQuestionCircleFill,
+  // BsFillQuestionCircleFill,
   BsBoxArrowLeft,
+  BsCardText,
 } from 'react-icons/bs';
-import { signOut } from '../../actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 /*
-    List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
+    List of navigation inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const DashboardSidebarData = () => {
-  const dispatch = useDispatch();
+const DashboardSidebarData = ({setLogoutAlert}) => {
   const sidebarLinks = [
     {
       title: 'Dashboard',
       icon: <BsFillGridFill />,
       link: '/dashboard',
+    },
+    {
+      title: 'Our Homepage',
+      icon: <BsCardText />,
+      link: '/about-us',
     },
     {
       title: 'Publications',
@@ -42,16 +46,15 @@ const DashboardSidebarData = () => {
       link: '/team',
       name: 'TEAM',
     },
-    {
-      title: 'Help',
-      icon: <BsFillQuestionCircleFill />,
-      link: '/dashboard/help',
-    },
+    // {
+    //   title: 'Help',
+    //   icon: <BsFillQuestionCircleFill />,
+    //   link: '/dashboard/help',
+    // },
     {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
-      link: '/',
-      action: () => dispatch(signOut()),
+      action: () => setLogoutAlert(true),
     },
   ];
 

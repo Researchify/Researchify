@@ -2,7 +2,7 @@
  * The Publications component displays a list of publications
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getPublicationsByTeamId,
@@ -29,7 +29,7 @@ const Publications = () => {
   const [layout, setLayout] = useState(allLayouts.allPublications);
 
   useEffect(() => {
-    if(teamId){
+    if (teamId) {
       dispatch(getPublicationsByTeamId(teamId));
     }
   }, [dispatch, teamId]);
@@ -67,7 +67,7 @@ const Publications = () => {
   };
 
   return (
-    <>
+    <Fragment>
       <PublicationsButtons
         setShowCreateForm={setShowCreateForm}
         setShowImportForm={setShowImportForm}
@@ -118,7 +118,7 @@ const Publications = () => {
           <ImportForm closeModal={() => setShowImportForm(false)} />
         </Modal.Body>
       </Modal>
-    </>
+    </Fragment>
   );
 };
 
