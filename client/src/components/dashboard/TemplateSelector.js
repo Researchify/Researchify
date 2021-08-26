@@ -31,17 +31,17 @@ const TemplateSelector = (props) => {
       let primaryColor;
       let secondaryColor;
       switch (value) {
-        case 1:
+        case 'theme1':
           setTheme(1);
           primaryColor = '#419aee';
           secondaryColor = '#8da4d1';
           break;
-        case 2:
+        case 'theme2':
           setTheme(2);
           primaryColor = '#000000';
           secondaryColor = '#ebe6e6';
           break;
-        case 3:
+        case 'theme3':
           setTheme(3);
           primaryColor = '#008000';
           secondaryColor = '#868789';
@@ -99,7 +99,7 @@ const TemplateSelector = (props) => {
             />
             <div 
               className="theme-icon theme-1-icon" 
-              onClick={() => updateSelections('theme', 1)} 
+              onClick={() => updateSelections('theme', 'theme1')} 
             />
             <Form.Check
               inline
@@ -111,7 +111,7 @@ const TemplateSelector = (props) => {
             />
             <div 
               className="theme-icon theme-2-icon" 
-              onClick={() => updateSelections('theme', 2)} 
+              onClick={() => updateSelections('theme', 'theme2')} 
               />
             <Form.Check
               inline
@@ -123,7 +123,7 @@ const TemplateSelector = (props) => {
             />
             <div 
               className="theme-icon theme-3-icon" 
-              onClick={() => updateSelections('theme', 3)} 
+              onClick={() => updateSelections('theme', 'theme3')} 
               />
           </Form.Row>
         </Container>
