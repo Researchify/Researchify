@@ -12,7 +12,11 @@ import { layoutOption, sortingOption } from '../../config/publications';
 
 const Publications = () => {
   const { publicationOptions } = WEB_PAGES
-  const [ options, setOptions ] = useState(publicationOptions);
+  const defaultOption = {
+    layout: layoutOption.ALL_PUBLICATION,
+    sortBy: sortingOption.TITLE,
+  };
+  const [ options, setOptions ] = useState(publicationOptions ? publicationOptions : defaultOption);
   const sortPublications = (teamPublications, option) => {
     switch (option) {
         case sortingOption.AUTHOR:
