@@ -7,17 +7,19 @@
  * (such as the publications), we need to parse them using JSON.parse().
  */
 import {
-  FAKE_PUBLICATIONS,
+  FAKE_PUBLICATIONS, FAKE_TEAM_AWARDS,
   FAKE_TEAM_INFO,
   FAKE_TEAM_MEMBERS,
   FAKE_WEB_PAGES,
 } from './fakeData';
+//import { TEAM_AWARDS } from './data.2';
 
 const env = process.env;
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
 let WEB_PAGES;
+let TEAM_AWARDS;
 
 if (!env.REACT_APP_DEBUG) {
   /// The list of publications the team has created for rendering in the publications page
@@ -37,6 +39,10 @@ if (!env.REACT_APP_DEBUG) {
 
   WEB_PAGES = env.REACT_APP_WEB_PAGES ? JSON.parse(env.REACT_APP_WEB_PAGES) : [];
 
+  /// The list of team awards the team has created for rendering in the team awards page
+  TEAM_AWARDS = env.REACT_APP_TEAM_AWARDS
+    ? JSON.parse(env.REACT_APP_TEAM_AWARDS)
+    : [];
 } else {
   console.log('Running in DEBUG mode, hence using fake Team data');
   // Running client website locally, so use fake data
@@ -47,6 +53,8 @@ if (!env.REACT_APP_DEBUG) {
   TEAM_MEMBERS = FAKE_TEAM_MEMBERS;
 
   WEB_PAGES = FAKE_WEB_PAGES;
+
+  TEAM_AWARDS = FAKE_TEAM_AWARDS;
 }
 
-export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, WEB_PAGES };
+export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, WEB_PAGES, TEAM_AWARDS };
