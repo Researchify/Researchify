@@ -11,10 +11,9 @@ import './ProfileInfoEdit.css';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
+import * as yup from "yup";
 import profilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
-import { successMessageCreator } from '../../notification/notificationReduxFunctions';
-import * as yup from "yup";
 
 
 /**
@@ -125,6 +124,19 @@ const ProfileInfoEdit = () => {
             </Form.Text>
           </Form.Group>
 
+            <Form.Group>
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              className="placeholder-text"
+              type="email"
+              readonly="true"
+              placeholder="allenlab@gmail.com"
+              name="email"
+              defaultValue={profileData.email}
+              required
+            />
+          </Form.Group>
+
           <Form.Group>
             <Form.Label>Research Group Name</Form.Label>
             <Form.Control
@@ -151,18 +163,7 @@ const ProfileInfoEdit = () => {
             />
           </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              className="placeholder-text"
-              type="email"
-              readonly={"true"}
-              placeholder="allenlab@gmail.com"
-              name="email"
-              defaultValue={profileData.email}
-              required
-            />
-          </Form.Group>
+
           <Form.Group>
             <Form.Label> Password </Form.Label>
               <Form.Control
