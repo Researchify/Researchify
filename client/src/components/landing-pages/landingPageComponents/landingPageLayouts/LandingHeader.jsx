@@ -1,9 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
-// import logo from "Assets/images/logo.png";
-import AuthButtons from "./AuthButtons";
-import HeaderLink from "../../utils/StyledHeaderLink";
-import { headerLinks } from "../../data/landing-page-labels";
-
+import React, { useState, useEffect } from "react";
 import {
   Collapse,
   Navbar,
@@ -11,7 +6,11 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-} from "reactstrap";
+} from 'reactstrap';
+// import logo from "Assets/images/logo.png";
+import AuthButtons from "./AuthButtons";
+import HeaderLink from "../../utils/StyledHeaderLink";
+import { headerLinks } from "../../data/landing-page-labels";
 import { theme } from "../../theme";
 
 const Header = ({ linksAreShown = true }) => {
@@ -31,9 +30,9 @@ const Header = ({ linksAreShown = true }) => {
     if (typeof window !== "undefined") {
       let prevScrollpos = window.pageYOffset;
       const navbar = document.getElementById("navbar");
-      window.onscroll = function () {
+      window.onscroll = function () { // eslint-disable-line func-names
         const maxScroll = document.body.clientHeight - window.innerHeight;
-        let currentScrollPos = window.pageYOffset;
+        const currentScrollPos = window.pageYOffset;
         if (
           (maxScroll > 0 &&
             prevScrollpos > currentScrollPos &&
@@ -55,7 +54,7 @@ const Header = ({ linksAreShown = true }) => {
   }, []);
 
   return (
-    <Fragment>
+    <>
       <Navbar id="navbar" light expand="md" style={styles.shadow} sticky="top">
         <NavbarBrand href="/">
           <h2 style={{color: theme.dark}}>RE<b style={{color:theme.primary}}>SEARCH</b>IFY</h2>
@@ -79,7 +78,7 @@ const Header = ({ linksAreShown = true }) => {
           </Nav>
         </Collapse>
       </Navbar>
-    </Fragment>
+    </>
   );
 };
 

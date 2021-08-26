@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { theme } from "../../theme";
 import CopyRight from "../../utils/Copyright";
 
@@ -20,13 +20,13 @@ const Footer = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <div style={styles.bg}>
         <div style={styles.middle}>
-          <CopyRight invert={true} />
+          <CopyRight invert />
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 

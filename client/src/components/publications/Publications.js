@@ -4,8 +4,8 @@
 
 import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPublicationsByTeamId } from '../../actions/publications';
 import { Modal, Spinner, Alert } from 'react-bootstrap';
+import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
 import './publications.css';
@@ -34,11 +34,6 @@ const Publications = () => {
   useEffect(() => {
     setOptions(publicationOptions)
   }, [publicationOptions])
-  
-  useEffect(() => {
-    const sortedPublication = sortPublications(teamPublications, options.sortBy)
-    setPublications(sortedPublication)
-  }, [teamPublications])   // eslint-disable-line react-hooks/exhaustive-deps
 
   const renderPublications = () => {
     switch (options.layout) {
@@ -50,8 +45,8 @@ const Publications = () => {
   }
 
   const sortPublications = (publicationToBeSorted, option) => {
-    if (option === options.sortBy){
-      return publicationToBeSorted
+    if (option === options.sortBy) {
+      return publicationToBeSorted;
     }
     switch (option) {
       case sortingOptions.AUTHOR:
@@ -84,9 +79,14 @@ const Publications = () => {
       }
       return publicationToBeSorted
     };
+  
+    useEffect(() => {
+      const sortedPublication = sortPublications(teamPublications, options.sortBy)
+      setPublications(sortedPublication)
+    }, [teamPublications])
 
   return (
-    <Fragment>
+    <>
       <PublicationsButtons
         setShowCreateForm={setShowCreateForm}
         setShowImportForm={setShowImportForm}
@@ -102,7 +102,11 @@ const Publications = () => {
         {loading ? (
           <Spinner animation="border" />
         ) : (
-          <h4>Total of {teamPublications.length} publications</h4>
+          <h4>
+            Total of
+            {` ${teamPublications.length} `}
+            publications
+          </h4>
         )}
       </div>
 
@@ -137,7 +141,7 @@ const Publications = () => {
           <ImportForm closeModal={() => setShowImportForm(false)} />
         </Modal.Body>
       </Modal>
-    </Fragment>
+    </>
   );
 };
 

@@ -15,7 +15,7 @@ import homepageReducer from './homepageReducer';
 
 export default combineReducers({
   notification: notificationReducer,
-  auth: authReducer, 
+  auth: authReducer,
   publications: publicationsReducer,
   team: teamReducer,
   importedPublications: importedPublicationsReducer,

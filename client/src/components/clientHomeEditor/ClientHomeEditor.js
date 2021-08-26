@@ -19,8 +19,8 @@ const ClientHomeEditor = () => {
 
   // values
   const [homepageValues, setValues] = useState({
-    aboutUs: aboutUs,
-    teamId: teamId,
+    aboutUs,
+    teamId,
   });
 
   useEffect(() => {
@@ -32,8 +32,8 @@ const ClientHomeEditor = () => {
   // setValues when teamId and aboutUs change
   useEffect(() => {
     setValues({
-      aboutUs: aboutUs,
-      teamId: teamId,
+      aboutUs,
+      teamId,
     });
   }, [teamId, aboutUs]);
 

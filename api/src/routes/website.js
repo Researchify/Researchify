@@ -9,7 +9,7 @@ websiteRouter.get('/:team_id', websiteController.getWebPageDetails);
 
 websiteRouter.post('/:team_id/add_page', websiteController.addWebPage);
 
-websiteRouter.delete('/:team_id/delete_page', websiteController.deleteWebPage);
+websiteRouter.post('/:team_id/delete_page', websiteController.deleteWebPage);
 
 websiteRouter.post('/:team_id/updatePublicationOptions', websiteController.updatePublicationOptions);
 

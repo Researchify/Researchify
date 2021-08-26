@@ -237,7 +237,7 @@ async function scrapeGoogleScholar(url) {
   let type = fields[2].toUpperCase();
   let categoryTitle;
   if (!(type in categoryTypes)) {
-    type = 'OTHER';
+    type = 'Other';
     categoryTitle = '';
   } else {
     categoryTitle = values[2];

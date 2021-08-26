@@ -12,14 +12,14 @@ import {
   ButtonGroup,
   OverlayTrigger,
 } from 'react-bootstrap';
-import profilePic from '../../images/profilepic.jpg';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
-import TeamMemberForm from './form/TeamMemberForm';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import { deleteTeamMember } from '../../actions/team';
 import { useSelector, useDispatch } from 'react-redux';
+import TeamMemberForm from './form/TeamMemberForm';
+import { deleteTeamMember } from '../../actions/team';
+import profilePic from '../../images/profilepic.jpg';
 
 const TeamMember = ({ member }) => {
   const dispatch = useDispatch();
@@ -40,7 +40,8 @@ const TeamMember = ({ member }) => {
         data-toggle="modal"
       >
         {' '}
-        <AiFillEdit />{' '}
+        <AiFillEdit />
+        {' '}
       </Button>
       <Button
         onClick={() => setShowDeleteMessage(true)}
@@ -114,11 +115,13 @@ const TeamMember = ({ member }) => {
         <Modal.Footer>
           <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
             {' '}
-            Cancel{' '}
+            Cancel
+            {' '}
           </Button>
           <Button variant="danger" onClick={handleDelete}>
             {' '}
-            Confirm{' '}
+            Confirm
+            {' '}
           </Button>
         </Modal.Footer>
       </Modal>

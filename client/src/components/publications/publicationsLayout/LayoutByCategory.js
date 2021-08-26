@@ -8,14 +8,18 @@ import LayoutAllPublications from './LayoutAllPublications';
 const LayoutByCategory = ({ teamPublications }) => {
   const renderPublicationsByCategory = (categoryType) => {
     const publicationsByCategory = teamPublications.filter(
-      (pub) => pub.category.type === categoryType.toUpperCase()
+      (pub) => pub.category.type === categoryType.toUpperCase(),
     );
     return (
       publicationsByCategory.length > 0 && (
         <>
-          <h2 className="publicationListHeader"> {categoryType} </h2>
-          <LayoutAllPublications 
-            teamPublications={publicationsByCategory} 
+          <h2 className="publicationListHeader">
+            {' '}
+            {categoryType}
+            {' '}
+          </h2>
+          <LayoutAllPublications
+            teamPublications={publicationsByCategory}
             pageSize={categoryPageSize}
           />
         </>
