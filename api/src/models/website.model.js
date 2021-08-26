@@ -42,14 +42,14 @@ const websiteSchema = new mongoose.Schema(
       required: false,
       default: 1,
       min: 1,
-      max: 4
+      max: 4,
     },
     layout: {
       type: Number,
       required: false,
       default: 1,
       min: 1,
-      max: 3
+      max: 3,
     },
   },
   { timestamps: true },
