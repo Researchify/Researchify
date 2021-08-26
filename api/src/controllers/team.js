@@ -243,6 +243,7 @@ async function deployToGHPages(req, res, next) {
     teamPublications,
     teamInfo,
     teamMembers,
+    teamHomepage,
     webPages,
   } = req.body;
 
@@ -265,6 +266,7 @@ async function deployToGHPages(req, res, next) {
     teamPublications,
     teamInfo,
     teamMembers,
+    teamHomepage,
     webPages,
   };
 

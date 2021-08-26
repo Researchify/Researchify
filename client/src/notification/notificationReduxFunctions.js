@@ -1,10 +1,10 @@
 /**
- * This file exports notification related function and actions. 
+ * This file exports notification related function and actions.
  */
 
 import { RESEARCHIFY_API_ERROR, SUCCESS_MESSAGE } from '../actions/types';
 
-export const DEFAULT_ERROR_MESSAGE = `Something went wrong!`;
+export const DEFAULT_ERROR_MESSAGE = 'Something went wrong!';
 
 export const errorReducer = (state, action) => {
   if (!action.error) {
@@ -24,17 +24,13 @@ export const errorReducer = (state, action) => {
   };
 };
 
-export const errorActionGlobalCreator = (error) => {
-  return {
-    type: RESEARCHIFY_API_ERROR,
-    error: true,
-    payload: error,
-  };
-};
+export const errorActionGlobalCreator = (error) => ({
+  type: RESEARCHIFY_API_ERROR,
+  error: true,
+  payload: error,
+});
 
-export const successMessageCreator = (successMessage) => {
-  return {
-    type: SUCCESS_MESSAGE,
-    payload: successMessage
-  }
-}
+export const successMessageCreator = (successMessage) => ({
+  type: SUCCESS_MESSAGE,
+  payload: successMessage,
+});

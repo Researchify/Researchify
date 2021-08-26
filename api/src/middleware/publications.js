@@ -3,8 +3,8 @@
  */
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
-
-const { categoryTypeEnum } = require('../config/playwright');
+const { categoryTypes } = require('../config/publication');
+const { playwrightConfig } = require('../config/playwright');
 const { fillErrorObject } = require('./error');
 
 /**
@@ -62,10 +62,10 @@ const createPublicationValidation = [
   body('category.type', 'Error: Category type must not be empty.').notEmpty(),
   body(
     'category.type',
-    `Error: Category type does not match any of ${categoryTypeEnum}.`,
+    `Error: Category type does not match any of ${categoryTypes}.`,
   )
     .if(body('category.type').exists().notEmpty())
-    .isIn(categoryTypeEnum),
+    .isIn(categoryTypes),
   body(
     'category.categoryTitle',
     'Error: Category title must not be empty.',
@@ -97,25 +97,24 @@ const createPublicationValidation = [
 async function validateAuthorId(req, res, next) {
   const { gScholarUserId: _id } = req.params;
   if (_id.length !== 12) {
-    next(
+    return next(
       fillErrorObject(400, 'Validation error', [
         'Google Scholar User ID needs to be 12 characters long',
       ]),
     );
   }
-  await axios
-    .get(`https://scholar.google.com.sg/citations?user=${_id}`)
-    .then(() => { next(); })
-    .catch((error) => {
-      // if you mess around with the user id you only get 404
-      next(
-        fillErrorObject(
-          error.response.status,
-          'Validation error',
-          ['No Google Scholar user profile found with the given id'],
-        ),
-      );
-    });
+
+  try {
+    await axios.get(`${playwrightConfig.baseUrl}${_id}`);
+    return next();
+  } catch (error) {
+    // if you mess around with the user id you only get 404
+    return next(
+      fillErrorObject(error.response.status, 'Validation error', [
+        'No Google Scholar user profile found with the given id',
+      ]),
+    );
+  }
 }
 
 module.exports = { createPublicationValidation, validateAuthorId };

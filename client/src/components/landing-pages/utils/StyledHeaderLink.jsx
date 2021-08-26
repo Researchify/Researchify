@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import styled from 'styled-components';
 import { theme } from "../theme";
-import styled from "styled-components";
 
 const HeaderLink = styled(AnchorLink)`
   color: ${theme.secondary};
@@ -22,9 +22,9 @@ const HeaderLink = styled(AnchorLink)`
 `;
 
 const StyledHeaderLink = (props) => (
-  <Fragment>
+  <>
     <HeaderLink {...props} />
-  </Fragment>
+  </>
 );
 
 export default StyledHeaderLink;

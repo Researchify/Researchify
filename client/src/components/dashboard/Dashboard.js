@@ -3,7 +3,9 @@
  */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Card, Tabs, Tab } from 'react-bootstrap';
+import {
+  Container, Card, Tabs, Tab,
+} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
@@ -16,7 +18,7 @@ const Dashboard = () => {
   const history = useHistory();
 
   const teamId = useSelector((state) => state.team.teamId);
-  const currentWebPages = useSelector((state) => state.website.pages);
+  const { pages: currentWebPages, loading } = useSelector((state) => state.website);
 
   const pagePlaceholder = 'Select page to add';
   const [selectedPage, setSelectedPage] = useState(pagePlaceholder);
@@ -24,10 +26,18 @@ const Dashboard = () => {
   const [currentTab, setCurrentTab] = useState('home');
 
   const directToAnotherPage = (pageName) => {
-    if (pageName === 'PUBLICATIONS') {
-      history.push(`/publications`);
-    } else if (pageName === 'TEAM') {
-      history.push(`/team`);
+    switch (pageName) {
+      case 'PUBLICATIONS':
+        history.push('/publications');
+        break;
+      case 'TEAM':
+        history.push('/team');
+        break;
+      case 'HOME PAGE':
+        history.push('/about-us');
+        break;
+      default:
+        history.push('/');
     }
   };
 
@@ -48,6 +58,7 @@ const Dashboard = () => {
               setSelectedPage={setSelectedPage}
               selectedPage={selectedPage}
               availablePages={availablePages}
+              loading={loading}
             />
           </Tab>
           <Tab eventKey="theme" title="Theme">

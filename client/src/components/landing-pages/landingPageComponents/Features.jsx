@@ -1,9 +1,9 @@
 import "../css/features.css";
 import { Box, Grid, Paper, Button, useMediaQuery } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Divider from "../utils/Divider";
 import React, { useState } from "react";
 import ReactCardFlip from "react-card-flip";
+import Divider from '../utils/Divider';
 import { featuresData } from "../data/landing-page-labels";
 
 // icons
@@ -23,12 +23,12 @@ const FlippingCard = ({ logo, title, description, classes }) => {
             alignItems="center"
           >
             <Box> {logo}</Box>
-            <Box fontSize="h5.fontSize" margin={2} color={"secondary.main"}>
+            <Box fontSize="h5.fontSize" margin={2} color="secondary.main">
               {title}
             </Box>
             <Button
               variant="outlined"
-              color={"primary"}
+              color="primary"
               onClick={() => setIsFlipped(true)}
             >
               Info
@@ -81,7 +81,7 @@ const Features = () => {
   const classes = useStyles();
 
   return (
-    <div className={"slanted-bg"}>
+    <div className="slanted-bg">
       <Grid
         container
         direction="column"
@@ -94,7 +94,7 @@ const Features = () => {
           </Box>
           <Divider color="golden" />
           <Box
-            textAlign={"center"}
+            textAlign="center"
             fontSize="h5.fontSize"
             color="white"
             fontWeight="100"
@@ -104,7 +104,7 @@ const Features = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container justify={"center"} spacing={isMobile ? 5 : 10}>
+          <Grid container justify="center" spacing={isMobile ? 5 : 10}>
             {featuresData.map(({ logo, title, description }, index) => (
               <FlippingCard
                 logo={logo}
