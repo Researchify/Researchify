@@ -61,8 +61,37 @@ const TemplateSelector = (props) => {
   };
 
   const updateImage = (name, value) => {
+    if (name === 'layout') {
       setInputs({ ...formInputs, [name]: parseInt(value) });
-  };
+    }  
+    else {
+      let primaryColor;
+      let secondaryColor;
+      switch (value) {
+        case 1:
+          setTheme(1);
+          primaryColor = '#419aee';
+          secondaryColor = '#8da4d1';
+          break;
+        case 2:
+          setTheme(2);
+          primaryColor = '#000000';
+          secondaryColor = '#ebe6e6';
+          break;
+        case 3:
+          setTheme(3);
+          primaryColor = '#008000';
+          secondaryColor = '#868789';
+          break;
+        default:
+          break;
+      }
+      setInputs({
+        ...formInputs,
+        primaryColor,
+        secondaryColor,
+      });
+  }};
 
   const storeInputs = (teamId, inputObject) => {
     dispatch(updateTeamTheme(teamId, inputObject));
@@ -97,7 +126,10 @@ const TemplateSelector = (props) => {
               onChange={updateForm}
               checked={theme === 1}
             />
-            <div className="theme-icon theme-1-icon" />
+            <div 
+              className="theme-icon theme-1-icon" 
+              onClick={() => updateImage('theme', 1)} 
+            />
             <Form.Check
               inline
               type="radio"
@@ -106,7 +138,10 @@ const TemplateSelector = (props) => {
               onChange={updateForm}
               checked={theme === 2}
             />
-            <div className="theme-icon theme-2-icon" />
+            <div 
+              className="theme-icon theme-2-icon" 
+              onClick={() => updateImage('theme', 2)} 
+              />
             <Form.Check
               inline
               type="radio"
@@ -115,7 +150,10 @@ const TemplateSelector = (props) => {
               onChange={updateForm}
               checked={theme === 3}
             />
-            <div className="theme-icon theme-3-icon" />
+            <div 
+              className="theme-icon theme-3-icon" 
+              onClick={() => updateImage('theme', 3)} 
+              />
           </Form.Row>
         </Container>
 
