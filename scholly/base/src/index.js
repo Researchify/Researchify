@@ -7,12 +7,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-grid.css';
 import 'bootstrap/dist/css/bootstrap-reboot.css';
 
-import App from "./components/App";
+import App from "./components/layouts/layout1/src/components/App";
 
 
+const whichLayoutToDisplay = 2;
 ReactDOM.render(
-    <HashRouter>
-        <App />
-    </HashRouter>,
-    document.getElementById('root')
+  <HashRouter>
+    <App />
+  </HashRouter>,
+  document.getElementById('root')
 );
