@@ -39,13 +39,17 @@ const websiteSchema = new mongoose.Schema(
     },
     colour: {
       type: Number,
-      required: true,
+      required: false,
       default: 1,
+      min: 1,
+      max: 4
     },
     layout: {
       type: Number,
-      required: true,
+      required: false,
       default: 1,
+      min: 1,
+      max: 3
     },
   },
   { timestamps: true },
