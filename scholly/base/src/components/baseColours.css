@@ -3,15 +3,29 @@ body {
     color: var(--researchify-text-color);
 }
 
-a:hover, a:focus, .nav-link:hover, .nav-link:focus {
+a {
     color: var(--researchify-link-color);
 }
 
+a:hover, a:focus, .navbar a:hover, .navbar a:focus {
+    color: var(--researchify-link-hover-color);
+}
+
 .navbar {
+    color: var(--researchify-text-color-secondary);
     background-color: var(--researchify-color-secondary);
 }
 
+.navbar a {
+    color: var(--researchify-text-color-secondary);
+}
+
+.navbar a:hover, .navbar a:focus {
+    color: var(--researchify-link-hover-color-secondary)
+}
+
 .publication-card .card-header {
+    color: var(--researchify-text-color-secondary);
     background-color: var(--researchify-color-secondary);
 }
 
@@ -36,6 +50,7 @@ a:hover, a:focus, .nav-link:hover, .nav-link:focus {
 }
 
 .team-card {
+    color: var(--researchify-text-color-secondary);
     background-color: var(--researchify-color-secondary);
 }
 

@@ -1,6 +1,9 @@
 :root {
     --researchify-text-color: #000;
-    --researchify-link-color: #BDDBD0;
+    --researchify-text-color-secondary: #fff;
+    --researchify-link-color: #000;
+    --researchify-link-hover-color: #8c94a5;
+    --researchify-link-hover-color-secondary: #BDDBD0;
     --researchify-color-primary: #e4e1d6;
     --researchify-color-secondary: #656839;
     --researchify-color-tertiary: #CBD0B9;
