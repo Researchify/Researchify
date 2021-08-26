@@ -12,6 +12,7 @@
   "author": "FIT3170-2021 Team 2",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^6.1.0"
+    "concurrently": "^6.1.0",
+    "lint": "^0.7.0"
   }
 }
