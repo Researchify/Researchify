@@ -126,6 +126,31 @@ function deleteWebPage(req, res, next) {
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
+function updateThemeOptions(req, res, next) {
+  const { team_id } = req.params;
+  
+  const update = {
+    color: req.body.color,
+    layout: req.body.layout,
+  };
+
+  Website.findOneAndUpdate({ teamId: team_id }, update, {
+    new: true,
+    runValidators: true,
+  }).then((updatedWebsite) => {
+    if (updatedWebsite == null) {
+      // nothing returned by the query
+      next(
+        fillErrorObject(404, 'Validation error', [
+          'Website could not be found',
+        ]),
+      );
+    } else {
+      return res.status(200).json(updatedWebsite);
+    }
+  }).catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+}
+
 /**
  * Update publications layout & sorting options
  * @param {*} req request object, containing the teamId and option object
@@ -155,5 +180,6 @@ module.exports = {
   addWebPage,
   deleteWebPage,
   getWebPageDetails,
+  updateThemeOptions,
   updatePublicationOptions,
 };

@@ -13,4 +13,6 @@ websiteRouter.delete('/:team_id/delete_page', websiteController.deleteWebPage);
 
 websiteRouter.post('/:team_id/updatePublicationOptions', websiteController.updatePublicationOptions);
 
+websiteRouter.post('/:team_id/updateThemeOptions', websiteController.updateThemeOptions);
+
 module.exports = websiteRouter;

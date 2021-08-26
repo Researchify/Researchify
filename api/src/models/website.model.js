@@ -37,7 +37,7 @@ const websiteSchema = new mongoose.Schema(
         enum: sortingOptions,
       },
     },
-    colour: {
+    color: {
       type: Number,
       required: false,
       default: 1,
