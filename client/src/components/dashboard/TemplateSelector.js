@@ -31,17 +31,17 @@ const TemplateSelector = (props) => {
       let primaryColor;
       let secondaryColor;
       switch (value) {
-        case 'theme1':
+        case 1:
           setTheme(1);
           primaryColor = '#419aee';
           secondaryColor = '#8da4d1';
           break;
-        case 'theme2':
+        case 2:
           setTheme(2);
           primaryColor = '#000000';
           secondaryColor = '#ebe6e6';
           break;
-        case 'theme3':
+        case 3:
           setTheme(3);
           primaryColor = '#008000';
           secondaryColor = '#868789';
@@ -57,11 +57,6 @@ const TemplateSelector = (props) => {
     } else {
       setInputs({ ...formInputs, [name]: parseInt(value) });
     }
-  };
-
-  const updateForm = (form) => {
-    const { name, value } = form.target;
-    updateSelections(name, value);
   };
 
   const storeInputs = (teamId, inputObject) => {
@@ -92,38 +87,32 @@ const TemplateSelector = (props) => {
             <Form.Check
               inline
               type="radio"
-              name="theme"
-              value="theme1"
-              onChange={updateForm}
+              onChange={() => updateSelections('theme', 1)}
               checked={theme === 1}
             />
             <div 
               className="theme-icon theme-1-icon" 
-              onClick={() => updateSelections('theme', 'theme1')} 
+              onClick={() => updateSelections('theme', 1)} 
             />
             <Form.Check
               inline
               type="radio"
-              name="theme"
-              value="theme2"
-              onChange={updateForm}
+              onChange={() => updateSelections('theme', 2)}
               checked={theme === 2}
             />
             <div 
               className="theme-icon theme-2-icon" 
-              onClick={() => updateSelections('theme', 'theme2')} 
+              onClick={() => updateSelections('theme', 2)} 
               />
             <Form.Check
               inline
               type="radio"
-              name="theme"
-              value="theme3"
-              onChange={updateForm}
+              onChange={() => updateSelections('theme', 3)}
               checked={theme === 3}
             />
             <div 
               className="theme-icon theme-3-icon" 
-              onClick={() => updateSelections('theme', 'theme3')} 
+              onClick={() => updateSelections('theme', 3)} 
               />
           </Form.Row>
         </Container>
@@ -142,11 +131,9 @@ const TemplateSelector = (props) => {
                 checked={formInputs.layout === 1}
                 inline
                 type="radio"
-                name="layout"
                 label="Layout 1"
-                value={1}
                 className="form-radio-text"
-                onChange={updateForm}
+                onChange={() => updateSelections('layout', 1)}
               />
               <Image 
                 src={singleColumnLayout} 
@@ -159,11 +146,9 @@ const TemplateSelector = (props) => {
                 checked={formInputs.layout === 2}
                 inline
                 type="radio"
-                name="layout"
                 label="Layout 2"
-                value={2}
                 className="form-radio-text"
-                onChange={updateForm}
+                onChange={() => updateSelections('layout', 2)}
               />
               <Image 
                 src={fShapeLayout} 
@@ -176,11 +161,9 @@ const TemplateSelector = (props) => {
                 checked={formInputs.layout === 3}
                 inline
                 type="radio"
-                name="layout"
                 label="Layout 3"
-                value={3}
                 className="form-radio-text"
-                onChange={updateForm}
+                onChange={() => updateSelections('layout', 3)}
               />
               <Image 
                 src={zigZagLayout} 
