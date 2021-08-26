@@ -1,4 +1,4 @@
-export const FAKE_WEB_PAGES = ['PUBLICATIONS', 'TEAM'];
+export const FAKE_WEB_PAGES = ['PUBLICATIONS', 'TEAM', 'AWARDS'];
 
 export const FAKE_PUBLICATIONS = [
   {
@@ -172,5 +172,62 @@ export const FAKE_TEAM_MEMBERS = [
     position: 'Chief Economist',
     summary:
       'Jeremy Buffet leads our macro-economic unit in predicting macro factors and their impact on society',
+  },
+];
+
+export const FAKE_TEAM_AWARDS = [
+  {
+    fullName: 'John',
+    position: 'Chief Scientist',
+    summary:
+      'Best Scientist',
+  },
+  {
+    fullName: 'Yoshua Benjio',
+    position: 'Chief Data Scientist',
+    summary:
+      'Best Researcher',
+  },
+  {
+    fullName: 'Jeremy Buffet',
+    position: 'Chief Economist',
+    summary:
+      'Best Debugging',
+  },
+  {
+    fullName: 'Jeremy Buffet',
+    position: 'Chief Economist',
+    summary:
+      'Best Debugging',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+      'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+      'Icon of the Year',
+  },
+  {
+    fullName: 'Paul Walton',
+    position: 'Chief Innovation Officer',
+    summary:
+      'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+      'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+      'Icon of the Year',
   },
 ];

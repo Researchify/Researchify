@@ -10,7 +10,7 @@ import { getRoutes } from '../router/routes.js';
 const Header = () => {
   const { orgName, teamName } = TEAM_INFO;
   const headerData = getRoutes();
-  console.log(headerData);
+  //console.log(headerData);
   return (
     <Fragment>
       <Navbar
@@ -21,13 +21,10 @@ const Header = () => {
         fixed="top"
       >
         <Container fluid>
-          <Navbar.Brand as={Link} to="/">
-            {teamName} @ {orgName}
-          </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto" />
-            <Nav>
+            <Nav className="me-auto" >
               {headerData.map(({path, title}, index) => {
                 return (
                   <Nav.Link key={index} as={Link} to={path}>
@@ -37,6 +34,9 @@ const Header = () => {
               })}
             </Nav>
           </Navbar.Collapse>
+          <Navbar.Brand as={Link} to="/">
+            {teamName} @ {orgName}
+          </Navbar.Brand>
         </Container>
       </Navbar>
     </Fragment>

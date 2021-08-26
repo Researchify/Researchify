@@ -7,7 +7,7 @@ import { Container } from 'react-bootstrap';
 const landingPage = () => {
   return (
     <Fragment>
-      <Container fluid className="pages-top-padding">
+      <Container fluid className="pages-top-padding w-75">
         <div className="landing-center-title">About Us</div>
         <div className="landing-center-content">
           Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere
@@ -15,6 +15,9 @@ const landingPage = () => {
           iisque ad quo. His ut dolore noster. Usu in eleifend platonem
           mandamus, ea meis aeque mei.
         </div>
+
+
+
         <div className="landing-center-content">
           Eos oporteat verterem ut, mea in nulla singulis recteque, ius illum
           nonumes eu. Sale officiis sapientem his at, cu debitis percipit sit.
@@ -44,6 +47,11 @@ const landingPage = () => {
           mea oportere incorrupte. Est expetenda principes delicatissimi ne. Ex
           his saepe populo.
         </div>
+
+        <div className="mt-5 w-100 text-center">
+          <img src="abt_us_1.jpg" className="w-50" />
+        </div>
+
       </Container>
     </Fragment>
   );
