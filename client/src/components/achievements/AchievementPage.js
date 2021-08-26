@@ -2,13 +2,12 @@
  * The AchievementPage component displays the team Achievement page
  */
 
- import { Row, Col, Container, CardDeck } from 'react-bootstrap';
- import Achievement from './Achievement';
+ import { Row, Col, Container, CardDeck, Button, Modal, Spinner, Alert } from 'react-bootstrap';
  import { useSelector, useDispatch } from 'react-redux';
- import { Button, Modal, Spinner, Alert } from 'react-bootstrap';
  import React, { useEffect, useState } from 'react';
  import AchievementForm from './form/AchievementForm';
  import { getAchievementsByTeamId } from '../../actions/achievements';
+ import Achievement from './Achievement';
  import './achievementPage.css';
 
  const AchievementPage = () => {

@@ -1,3 +1,6 @@
+/**
+ * This file houses our achievment-related Action Creators.
+ */
 import * as api from '../api';
 import {
     GET_ACHIEVEMENTS_BY_TEAM_ID,

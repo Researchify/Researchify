@@ -6,11 +6,8 @@ const achievementsRouter = require('express').Router();
 const achievementsController = require('../controllers/achievements');
 
 const achievementsMiddleware = require('../middleware/achievements');
-
 const authMiddleware = require('../middleware/auth');
-
 const teamMiddleware = require('../middleware/team');
-
 const mongooseMiddleware = require('../middleware/mongoose');
 
 achievementsRouter.delete(

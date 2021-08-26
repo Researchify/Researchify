@@ -16,7 +16,7 @@
        .string()
        .required('Achievement Name is required')
        .min(3, 'Achievement Name is at least 3 characters')
-       .max(60, 'Achievement Name is at least 3 characters'),
+       .max(60, 'Achievement Name is at less than 60 characters'),
        yearAwarded: yup
         .number()
         .min(1000, 'Invalid year')
@@ -40,9 +40,9 @@
       title: values.title,
       yearAwarded: values.yearAwarded,
       description: values.description,
-      teamId: teamId
+      teamId
     };
-    console.log(values);
+
     if (type === 'update') {
       dispatch(updateAchievement(achievement._id, data));
     } else if (type === 'create') {

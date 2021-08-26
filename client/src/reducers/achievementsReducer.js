@@ -1,3 +1,6 @@
+/**
+ * This file exports achievements reducer that will handle all dispatched achievement-related actions.
+ */
 import {
     GET_ACHIEVEMENTS_BY_TEAM_ID,
     CREATE_ACHIEVEMENT,

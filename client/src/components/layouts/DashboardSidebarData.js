@@ -9,7 +9,6 @@ import {
   BsPerson,
   BsPeople,
   // BsFillQuestionCircleFill,
-  BsGearFill,
   BsBoxArrowLeft,
   BsFillAwardFill,
   BsCardText,
@@ -52,11 +51,6 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       title: 'Achievements',
       icon: <BsFillAwardFill />,
       link: '/achievement',
-    },
-    {
-      title: 'Settings',
-      icon: <BsGearFill />,
-      link: '/dashboard/settings',
     },
     // {
     //   title: 'Help',
