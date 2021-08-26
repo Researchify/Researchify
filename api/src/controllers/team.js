@@ -302,6 +302,7 @@ async function updateTeam(req, res, next) { // eslint-disable-line no-unused-var
     new: true,
     runValidators: true,
   });
+  updatedTeam.password = '';
 
   res.status(200).json(updatedTeam);
 }

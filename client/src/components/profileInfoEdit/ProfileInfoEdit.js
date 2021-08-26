@@ -39,7 +39,7 @@ const ProfileInfoEdit = () => {
     const { name, value } = form.target;
     setInputs({ ...profileData, [name]: value });
   };
-    let passwordSchema = yup.object().shape({
+    const passwordSchema = yup.object().shape({
         password: yup
         .string()
         .required('Please Enter your password')
@@ -49,18 +49,18 @@ const ProfileInfoEdit = () => {
         confirmedPassword: yup
         .string()
         .required('Please re-enter your password')
-        .oneOf([yup.ref('password'), null], 'Passwords must match')
+        .oneOf([yup.ref('password')], 'Passwords must match')
     })
   const checkPassword = async () => {
-        let valid = await passwordSchema.isValid({
+        const valid = await passwordSchema.isValid({
           password: {...profileData}.password,
           confirmedPassword: {...profileData}.confirmedPassword
       });
         if (valid){
             return true;
-        }else{
-            return false;
         }
+        return false;
+
   };
 
   const [validated, setValidated] = useState(false);
@@ -76,16 +76,14 @@ const ProfileInfoEdit = () => {
                     setValidated(false);
                     alert("Please enter a password at least 8 chars long, using only numbers, letters and characters");
                     return;
-              } else {
-                  newdata = {
-                      "teamName": {...profileData}.teamName,
-                      "orgName": {...profileData}.orgName,
-                      "email": {...profileData}.email,
-                      "password": {...profileData}.password
-                  }
-                  dispatch(updateTeam(teamId, newdata));
-                  dispatch(successMessageCreator('Password Changed'));
               }
+              newdata = {
+                  "teamName": {...profileData}.teamName,
+                  "orgName": {...profileData}.orgName,
+                  "email": {...profileData}.email,
+                  "password": {...profileData}.password
+              }
+              dispatch(updateTeam(teamId, newdata));
           }else {
               newdata = {
                   "teamName": {...profileData}.teamName,
