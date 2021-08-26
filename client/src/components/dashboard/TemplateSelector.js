@@ -26,45 +26,8 @@ const TemplateSelector = (props) => {
   });
   const [theme, setTheme] = useState(1);
 
-  const updateForm = (form) => {
-    const { name, value } = form.target;
+  const updateSelections = (name, value) => {
     if (name === 'theme') {
-      let primaryColor;
-      let secondaryColor;
-      switch (value) {
-        case 'theme1':
-          setTheme(1);
-          primaryColor = '#419aee';
-          secondaryColor = '#8da4d1';
-          break;
-        case 'theme2':
-          setTheme(2);
-          primaryColor = '#000000';
-          secondaryColor = '#ebe6e6';
-          break;
-        case 'theme3':
-          setTheme(3);
-          primaryColor = '#008000';
-          secondaryColor = '#868789';
-          break;
-        default:
-          break;
-      }
-      setInputs({
-        ...formInputs,
-        primaryColor,
-        secondaryColor,
-      });
-    } else {
-      setInputs({ ...formInputs, [name]: parseInt(value) });
-    }
-  };
-
-  const updateImage = (name, value) => {
-    if (name === 'layout') {
-      setInputs({ ...formInputs, [name]: parseInt(value) });
-    }  
-    else {
       let primaryColor;
       let secondaryColor;
       switch (value) {
@@ -91,7 +54,15 @@ const TemplateSelector = (props) => {
         primaryColor,
         secondaryColor,
       });
-  }};
+    } else {
+      setInputs({ ...formInputs, [name]: parseInt(value) });
+    }
+  };
+
+  const updateForm = (form) => {
+    const { name, value } = form.target;
+    updateSelections(name, value);
+  };
 
   const storeInputs = (teamId, inputObject) => {
     dispatch(updateTeamTheme(teamId, inputObject));
@@ -128,7 +99,7 @@ const TemplateSelector = (props) => {
             />
             <div 
               className="theme-icon theme-1-icon" 
-              onClick={() => updateImage('theme', 1)} 
+              onClick={() => updateSelections('theme', 1)} 
             />
             <Form.Check
               inline
@@ -140,7 +111,7 @@ const TemplateSelector = (props) => {
             />
             <div 
               className="theme-icon theme-2-icon" 
-              onClick={() => updateImage('theme', 2)} 
+              onClick={() => updateSelections('theme', 2)} 
               />
             <Form.Check
               inline
@@ -152,7 +123,7 @@ const TemplateSelector = (props) => {
             />
             <div 
               className="theme-icon theme-3-icon" 
-              onClick={() => updateImage('theme', 3)} 
+              onClick={() => updateSelections('theme', 3)} 
               />
           </Form.Row>
         </Container>
@@ -180,7 +151,7 @@ const TemplateSelector = (props) => {
               <Image 
                 src={singleColumnLayout} 
                 className="img-fluid" 
-                onClick={() => updateImage('layout', 1)}
+                onClick={() => updateSelections('layout', 1)}
               />
             </Col>
             <Col className="layout-display">
@@ -197,7 +168,7 @@ const TemplateSelector = (props) => {
               <Image 
                 src={fShapeLayout} 
                 className="img-fluid" 
-                onClick={() => updateImage('layout', 2)} 
+                onClick={() => updateSelections('layout', 2)} 
               />
             </Col>
             <Col className="layout-display">
@@ -214,7 +185,7 @@ const TemplateSelector = (props) => {
               <Image 
                 src={zigZagLayout} 
                 className="img-fluid" 
-                onClick={() => updateImage('layout', 3)}
+                onClick={() => updateSelections('layout', 3)}
               />
             </Col>
           </Form.Row>
