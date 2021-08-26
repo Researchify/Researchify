@@ -178,7 +178,7 @@ export const FAKE_TEAM_AWARDS = [
     fullName: 'John',
     position: 'Chief Scientist',
     summary:
-      'Best Scientist',
+      'Best Scientist. John is a chief scientist at MonTeam, working with the top government agencies to fight the pressing issues arising from climate change',
   },
   {
     fullName: 'Yoshua Benjio',
@@ -196,6 +196,36 @@ export const FAKE_TEAM_AWARDS = [
     fullName: 'Jeremy Buffet',
     position: 'Chief Economist',
     summary:
-      'Best Debugging',
+        'Best Debugging',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'Paul Walton',
+    position: 'Chief Innovation Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
   },
 ];

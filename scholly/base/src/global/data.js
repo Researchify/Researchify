@@ -12,6 +12,7 @@ import {
   FAKE_TEAM_MEMBERS,
   FAKE_TEAM_HOMEPAGE,
   FAKE_WEB_PAGES,
+  FAKE_TEAM_AWARDS
 } from './fakeData';
 
 const env = process.env;
@@ -19,6 +20,7 @@ let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
 let TEAM_HOMEPAGE;
+let TEAM_AWARDS;
 let WEB_PAGES;
 
 if (!env.REACT_APP_DEBUG) {
@@ -42,9 +44,13 @@ if (!env.REACT_APP_DEBUG) {
     ? JSON.parse(env.REACT_APP_TEAM_HOMEPAGE)
     : null;
 
+  TEAM_AWARDS = env.REACT_APP_TEAM_AWARDS
+      ? JSON.parse(env.REACT_APP_TEAM_AWARDS)
+      : [];
   WEB_PAGES = env.REACT_APP_WEB_PAGES
     ? JSON.parse(env.REACT_APP_WEB_PAGES)
     : [];
+
 } else {
   console.log('Running in DEBUG mode, hence using fake Team data');
   // Running client website locally, so use fake data
@@ -57,6 +63,8 @@ if (!env.REACT_APP_DEBUG) {
   TEAM_HOMEPAGE = FAKE_TEAM_HOMEPAGE;
 
   WEB_PAGES = FAKE_WEB_PAGES;
+
+  TEAM_AWARDS = FAKE_TEAM_AWARDS;
 }
 
-export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, TEAM_HOMEPAGE, WEB_PAGES };
+export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, TEAM_HOMEPAGE, TEAM_AWARDS, WEB_PAGES};
