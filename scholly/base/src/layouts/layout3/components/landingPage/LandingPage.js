@@ -3,7 +3,7 @@
  */
 import React, { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
-import profilePicture from '../../images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
+import profilePicture from '../../../../shared/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
 
 const landingPage = () => {
   return (

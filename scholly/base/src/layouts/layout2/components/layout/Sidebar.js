@@ -3,7 +3,7 @@ import {Nav} from 'react-bootstrap';
 import './Sidebar.css'
 import HeaderData from './HeaderData.js';
 import { Link } from 'react-router-dom';
-import {TEAM_INFO} from '../../global/data.js';
+import {TEAM_INFO} from '../../../../global/data.js';
 
 const Sidebar = () => {
     const headerData = HeaderData();

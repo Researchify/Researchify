@@ -4,7 +4,7 @@
 
 import React,{useState, useEffect, useRef}  from 'react';
 import {Card, Row, Col, Button} from 'react-bootstrap';
-import awardPicture from '../../images/awardpic.jpg';
+import awardPicture from '../../../../shared/images/awardpic.jpg';
 
 const Awards = ({award}) => {
     const ref = useRef();

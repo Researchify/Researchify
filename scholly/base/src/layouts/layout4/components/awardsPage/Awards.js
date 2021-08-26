@@ -4,7 +4,7 @@
 
 import React from 'react';
 import {Card} from 'react-bootstrap';
-import profilePicture from '../../images/awardpic.jpg';
+import profilePicture from '../../../../shared/images/awardpic.jpg';
 
 let bg_theme = 'bg-secondary';
 const Awards = ({award}) => {

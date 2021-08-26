@@ -4,7 +4,7 @@
 
 import React, {Fragment} from 'react';
 import {Card, Row, Col} from 'react-bootstrap';
-import profilePicture from '../../images/profilepic.png';
+import profilePicture from '../../../../shared/images/profilepic.jpg';
 
 const TeamMember = ({member}) => {
   return (

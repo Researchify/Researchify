@@ -3,7 +3,7 @@
  */
 import React, { Fragment } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { TEAM_AWARDS } from '../../global/data';
+import { TEAM_AWARDS } from '../../../../global/data';
 import Awards from './Awards';
 
 const AwardsPage = () => {

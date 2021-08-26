@@ -3,9 +3,9 @@
  */
 import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Header from './src/components/layout/Header.js';
-import { getRoutes } from './src/components/router/routes.js';
-import './src/components/centred.css';
+import Header from './components/layout/Header.js';
+import { getRoutes } from './components/router/routes.js';
+import './components/centred.css';
 
 const App = () => {
   const routeItems = getRoutes().map(({ path, exact, component }) => {

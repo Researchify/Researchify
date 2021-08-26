@@ -3,7 +3,7 @@
  */
 import React, { Fragment } from 'react';
 import { CardDeck, Container } from 'react-bootstrap';
-import { TEAM_MEMBERS } from '../../global/data';
+import { TEAM_MEMBERS } from '../../../../global/data';
 import TeamMember from './TeamMember';
 
 const TeamPage = () => {

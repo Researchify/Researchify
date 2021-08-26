@@ -4,7 +4,7 @@
 
 import React from 'react';
 import {Card} from 'react-bootstrap';
-import profilePicture from '../../images/profilepic.jpg';
+import profilePicture from '../../../../shared/images/profilepic.jpg';
 
 const TeamMember = ({member}) => {
   return (

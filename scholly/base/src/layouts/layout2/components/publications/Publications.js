@@ -4,7 +4,7 @@
 import React, { Fragment } from 'react';
 import { Accordion } from 'react-bootstrap';
 import Publication from './publication/Publication';
-import { TEAM_PUBLICATIONS } from '../../global/data';
+import { TEAM_PUBLICATIONS } from '../../../../global/data';
 
 const Publications = () => {
   const teamPublications = TEAM_PUBLICATIONS;

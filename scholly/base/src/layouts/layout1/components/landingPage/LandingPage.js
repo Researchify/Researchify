@@ -3,7 +3,7 @@
  */
 import React, { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
-import { TEAM_HOMEPAGE } from '../../../../../global/data';
+import { TEAM_HOMEPAGE } from '../../../../global/data';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;

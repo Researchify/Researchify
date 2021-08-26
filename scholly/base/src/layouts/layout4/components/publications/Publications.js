@@ -4,9 +4,9 @@
 import React, { Fragment } from 'react';
 import { Accordion } from 'react-bootstrap';
 import Publication from './publication/Publication';
-import { TEAM_PUBLICATIONS } from '../../global/data';
+import { TEAM_PUBLICATIONS } from '../../../../global/data';
 import usePagination from '../shared/usePagination';
-import { pageSize } from '../../config/publications';
+import { pageSize } from '../../../../shared/config/publications';
 
 
 const Publications = (pub_num) => {

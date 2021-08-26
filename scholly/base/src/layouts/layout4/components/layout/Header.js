@@ -3,7 +3,7 @@
  */
 import React, { Fragment } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { TEAM_INFO } from '../../global/data';
+import { TEAM_INFO } from '../../../../global/data';
 import { Link } from 'react-router-dom';
 import { getRoutes } from '../router/routes.js';
 

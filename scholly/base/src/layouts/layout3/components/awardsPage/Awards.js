@@ -4,8 +4,8 @@
 
 import React from 'react';
 import {Card} from 'react-bootstrap';
-import { TEAM_AWARDS } from '../../global/data';
-import profilePicture from '../../images/awardpic.jpg';
+import { TEAM_AWARDS } from '../../../../global/data';
+import profilePicture from '../../../../shared/images/awardpic.jpg';
 
 const teamAwards = TEAM_AWARDS;
 

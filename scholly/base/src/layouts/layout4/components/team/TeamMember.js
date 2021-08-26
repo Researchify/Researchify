@@ -4,17 +4,17 @@
 
  import React, {Fragment} from 'react';
  import {Card, Row, Col, Container} from 'react-bootstrap';
- import profilePicture from '../../images/profilepic.jpg';
- import { TEAM_MEMBERS } from '../../global/data';
+ import profilePicture from '../../../../shared/images/profilepic.jpg';
+ import { TEAM_MEMBERS } from '../../../../global/data';
  const teamMembers = TEAM_MEMBERS;
 
 
- 
+
  const TeamMember = ({member}) => {
    return (
        <Fragment>
          <Container className="pages-top-padding ">
-         <Card className = "shadow text-center" bg = {teamMembers.indexOf(member) % 2 === 0 ? "white" : "secondary"}  > 
+         <Card className = "shadow text-center" bg = {teamMembers.indexOf(member) % 2 === 0 ? "white" : "secondary"}  >
                        <Card.Body >
                        <Row>
                        <Card.Img style={{width: "160px", height: "120px"}}  src={profilePicture} className="team-member-picture " />
@@ -24,12 +24,11 @@
                        <Card.Text as="h7"> {member.summary} </Card.Text>
                        </Col>
                        </Row>
-                       </Card.Body> 
+                       </Card.Body>
            </Card>
            </Container>
        </Fragment>
    )
  }
- 
+
  export default TeamMember;
- 
