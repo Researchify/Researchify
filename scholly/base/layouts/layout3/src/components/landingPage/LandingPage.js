@@ -3,11 +3,13 @@
  */
 import React, { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
+import profilePicture from '../../images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
 
 const landingPage = () => {
   return (
     <Fragment>
-      <Container fluid className="pages-top-padding w-75">
+      <Container fluid className="pages-top-padding">
+        <img src={profilePicture} align="left" className="left" />
         <div className="landing-center-title">About Us</div>
         <div className="landing-center-content">
           Lorem ipsum amet dolor sit amet, minim altera mucius an eum. Legere
@@ -15,9 +17,6 @@ const landingPage = () => {
           iisque ad quo. His ut dolore noster. Usu in eleifend platonem
           mandamus, ea meis aeque mei.
         </div>
-
-
-
         <div className="landing-center-content">
           Eos oporteat verterem ut, mea in nulla singulis recteque, ius illum
           nonumes eu. Sale officiis sapientem his at, cu debitis percipit sit.
@@ -45,13 +44,8 @@ const landingPage = () => {
         <div className="landing-center-content">
           Ad quis civibus lucilius vel. Vix nostrud expetendis dissentiet in, te
           mea oportere incorrupte. Est expetenda principes delicatissimi ne. Ex
-          his saepe populo.
+          his saepe populo. Blahblah
         </div>
-
-        <div className="mt-5 w-100 text-center">
-          <img src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" className="w-50" />
-        </div>
-
       </Container>
     </Fragment>
   );
