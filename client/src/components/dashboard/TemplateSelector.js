@@ -60,6 +60,10 @@ const TemplateSelector = (props) => {
     }
   };
 
+  const updateImage = (name, value) => {
+      setInputs({ ...formInputs, [name]: parseInt(value) });
+  };
+
   const storeInputs = (teamId, inputObject) => {
     dispatch(updateTeamTheme(teamId, inputObject));
     props.closeModal();
@@ -135,7 +139,11 @@ const TemplateSelector = (props) => {
                 className="form-radio-text"
                 onChange={updateForm}
               />
-              <Image src={singleColumnLayout} className="img-fluid" />
+              <Image 
+                src={singleColumnLayout} 
+                className="img-fluid" 
+                onClick={() => updateImage('layout', 1)}
+              />
             </Col>
             <Col className="layout-display">
               <Form.Check
@@ -148,7 +156,11 @@ const TemplateSelector = (props) => {
                 className="form-radio-text"
                 onChange={updateForm}
               />
-              <Image src={fShapeLayout} className="img-fluid" />
+              <Image 
+                src={fShapeLayout} 
+                className="img-fluid" 
+                onClick={() => updateImage('layout', 2)} 
+              />
             </Col>
             <Col className="layout-display">
               <Form.Check
@@ -161,7 +173,11 @@ const TemplateSelector = (props) => {
                 className="form-radio-text"
                 onChange={updateForm}
               />
-              <Image src={zigZagLayout} className="img-fluid" />
+              <Image 
+                src={zigZagLayout} 
+                className="img-fluid" 
+                onClick={() => updateImage('layout', 3)}
+              />
             </Col>
           </Form.Row>
         </Container>
