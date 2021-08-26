@@ -11,7 +11,7 @@
 /// We require access to the "repo" scope to allow pushing to the pages repo.
 export const scope = 'repo';
 /// Configured client ID of the GitHub OAuth application.
-export let githubClientId;
+export let githubClientId; // eslint-disable-line import/no-mutable-exports
 
 // Values depend on whether we're running in dev mode or prod.
 if (process.env.NODE_ENV === 'production') {
@@ -19,5 +19,3 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   githubClientId = '0a58958e33b392f837b6';
 }
-
-

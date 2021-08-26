@@ -32,7 +32,9 @@ const defaultRoutes = [
  * Get the routes to the web pages the client wants deployed
  */
 const getRoutes = () => {
-  const routes = availableRoutes.filter(({ title }) => WEB_PAGES.includes(title.toUpperCase()))
+  const routes = availableRoutes.filter(({ title }) =>
+    WEB_PAGES.pages.includes(title.toUpperCase())
+  );
 
   return [...defaultRoutes, ...routes];
 };

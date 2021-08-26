@@ -2,15 +2,15 @@
  * The PublicationForm component displays a mutli-step publication form
  */
 
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   updatePublication,
   createPublication,
 } from '../../../actions/publications';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import MainInfoPage from './MainInfoPage';
 import CategoryPage from './CategoryPage';
-import { categoryType } from '../../../config/publications';
+import { categoryTypes } from '../../../config/publications';
 
 const PublicationForm = (props) => {
   const dispatch = useDispatch();
@@ -22,20 +22,19 @@ const PublicationForm = (props) => {
     description: '',
     link: '',
     category: {
-      type: categoryType.JOURNAL,
+      type: categoryTypes.JOURNAL,
       categoryTitle: '',
       volume: '',
       issue: '',
       pages: '',
       publisher: '',
     },
-    teamId: teamId,
+    teamId,
   });
 
   const [currentStep, setCurrentStep] = useState(0);
 
   const submitForm = (newData) => {
-    console.log(newData);
     if (props.type === 'update') {
       dispatch(updatePublication(props.pub._id, newData));
     } else if (props.type === 'create') {

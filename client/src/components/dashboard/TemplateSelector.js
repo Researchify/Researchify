@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { Container, Button, Form, Col, Image } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { updateTeamTheme } from '../../actions/team';
-import toast from 'react-hot-toast';
 
 // Picture of each layout
 import singleColumnLayout from '../../images/theme1.png';
@@ -49,16 +48,21 @@ const TemplateSelector = (props) => {
           secondaryColor = '#868789';
           break;
         default:
-          console.log('error in updateForm()');
+          break;
       }
       setInputs({
         ...formInputs,
-        primaryColor: primaryColor,
-        secondaryColor: secondaryColor,
+        primaryColor,
+        secondaryColor,
       });
     } else {
       setInputs({ ...formInputs, [name]: parseInt(value) });
     }
+  };
+
+  const storeInputs = (teamId, inputObject) => {
+    dispatch(updateTeamTheme(teamId, inputObject));
+    props.closeModal();
   };
 
   const handleSubmit = (event) => {
@@ -68,16 +72,6 @@ const TemplateSelector = (props) => {
       event.stopPropagation();
     } else {
       storeInputs(props.teamId, formInputs);
-    }
-  };
-
-  const storeInputs = (teamId, inputObject) => {
-    try {
-      dispatch(updateTeamTheme(teamId, inputObject));
-      toast.success('Theme is updated.');
-      props.closeModal();
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -99,7 +93,7 @@ const TemplateSelector = (props) => {
               onChange={updateForm}
               checked={theme === 1}
             />
-            <div className="theme-icon theme-1-icon"></div>
+            <div className="theme-icon theme-1-icon" />
             <Form.Check
               inline
               type="radio"
@@ -108,7 +102,7 @@ const TemplateSelector = (props) => {
               onChange={updateForm}
               checked={theme === 2}
             />
-            <div className="theme-icon theme-2-icon"></div>
+            <div className="theme-icon theme-2-icon" />
             <Form.Check
               inline
               type="radio"
@@ -117,7 +111,7 @@ const TemplateSelector = (props) => {
               onChange={updateForm}
               checked={theme === 3}
             />
-            <div className="theme-icon theme-3-icon"></div>
+            <div className="theme-icon theme-3-icon" />
           </Form.Row>
         </Container>
 
@@ -173,9 +167,9 @@ const TemplateSelector = (props) => {
         </Container>
       </Form.Group>
 
-        <Button id="submitButton" type="submit">
-          Create Website
-        </Button>
+      <Button id="submitButton" type="submit">
+        Create Website
+      </Button>
     </Form>
   );
 };
