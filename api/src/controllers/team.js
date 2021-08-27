@@ -300,6 +300,13 @@ async function updateTeam(req, res, next) { // eslint-disable-line no-unused-var
   res.status(200).json(updatedTeam);
 }
 
+function deleteTeam(req, res, next){
+  const { team_id: _id } = req.params;
+  Team.findByIdAndDelete(_id)
+    .then((deletedTeam) => res.status(200).json(deletedTeam))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
+}
+
 module.exports = {
   storeHandle,
   getTeam,
@@ -309,6 +316,7 @@ module.exports = {
   deleteTeamMember,
   updateTeamMember,
   updateTeam,
+  deleteTeam,
   getGHAccessToken,
   deployToGHPages,
 };

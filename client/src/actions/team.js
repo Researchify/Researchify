@@ -16,6 +16,7 @@ import {
   DEPLOY_FAIL,
   UPDATE_TEAM,
   REGISTER_SUCCESS,
+  DELETE_TEAM
 } from './types';
 import {
   errorActionGlobalCreator,
@@ -286,6 +287,24 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
   }
 };
 
+/**
+ * This action creator will be called when a user want to update the team profile
+ *
+ * @param {*} teamId id of the team
+ * @param {*} teamData data object of the data to be patched
+ * @returns
+ */
+ export const deleteTeam = (teamId, teamData) => async (dispatch) => {
+  try {
+    await api.deleteTeam(teamId);
+    dispatch({
+      type: DELETE_TEAM,
+      payload: teamData,
+    });
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
+  }
+};
 /**
  * This action creater find/create a new theme and update it in team data.
  * @param {*} teamId
