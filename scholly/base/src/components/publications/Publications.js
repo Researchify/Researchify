@@ -8,14 +8,10 @@ import LayoutByCategory from './publicationsLayout/LayoutByCategory'
 import { TEAM_PUBLICATIONS } from '../../global/data';
 import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
 import { WEB_PAGES } from '../../global/data';
-import { layoutOption, sortingOption } from '../../config/publications';
+import { layoutOption, sortingOption, defaultOption } from '../../config/publications';
 
 const Publications = () => {
   const { publicationOptions } = WEB_PAGES
-  const defaultOption = {
-    layout: layoutOption.ALL_PUBLICATION,
-    sortBy: sortingOption.TITLE,
-  };
   const [ options, setOptions ] = useState(publicationOptions ? publicationOptions : defaultOption);
   const sortPublications = (teamPublications, option) => {
     switch (option) {
