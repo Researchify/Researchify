@@ -20,7 +20,7 @@
        yearAwarded: yup
         .number()
         .min(1000, 'Invalid year')
-        .max(9999, 'Invalid year')
+        .max(new Date().getFullYear(), 'Invalid year')
         .required('Year is required'),
      description: yup
        .string()

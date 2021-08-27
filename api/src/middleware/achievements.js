@@ -19,8 +19,8 @@ const createAchievementValidation = [
     .trim()
     .isLength({ min: 5, max: 500 })
     .escape(),
-  body('yearAwarded', 'Error: Year awarded must be within 1000 to 9999.')
-    .isInt({ min: 1000, max: 9999 }),
+  body('yearAwarded', 'Error: Year awarded must be within 1000 to current year.')
+    .isInt({ min: 1000, max: new Date().getFullYear() }),
   (req, res, next) => {
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
