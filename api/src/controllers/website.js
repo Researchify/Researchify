@@ -129,8 +129,8 @@ function deleteWebPage(req, res, next) {
 function updateThemeOptions(req, res, next) {
   const { team_id } = req.params;
   const update = {
-    color: req.body.color,
-    layout: req.body.layout,
+    color: parseInt(req.body.color),
+    layout: parseInt(req.body.layout),
   };
   Website.findOneAndUpdate({ teamId: team_id }, update, {
     new: true,
