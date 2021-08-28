@@ -1,0 +1,25 @@
+.achievementPageContainer {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    margin-bottom: 40px;
+    margin-top: 20px;
+  }
+
+#achievementTitle {
+  margin-top: 0.8%;
+}
+
+#yearAwarded {
+  text-align: right;
+  color: #404040;
+}
+
+#achievementButton {
+  padding-left: 10.6%;
+}
+
+#achievement {
+  padding-left: 8%;
+  padding-right: 8%;
+}
