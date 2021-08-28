@@ -9,13 +9,10 @@ import {
 } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import { Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import profilePic from '../../images/profilepic.jpg';
-import { updateTeam } from '../../actions/team';
-import { deleteTeam } from '../../actions/team';
-import {signOut} from '../../actions/auth'
-
+import { updateTeam} from '../../actions/team';
+import ProfileDeleteModal from './ProfileDeleteModal'
 /**
  * Form component for user update profile
  */
@@ -51,6 +48,8 @@ const ProfileInfoEdit = () => {
     setValidated(true);
   };
 
+  const [deleteAlert, setdeleteAlert] = useState(false);
+
   // const updateProfile = (teamId, profileData) => {
   //   try {
   //     dispatch(updateTeam(teamId, profileData))
@@ -61,19 +60,21 @@ const ProfileInfoEdit = () => {
   //   }
   // };
 
-  const deleteProfile = () => {
-    try{
-      dispatch(deleteTeam(teamId))
-      dispatch(signOut())
-      toast.success('profile has been successfully deleted');
-    }
-    catch (error) {
-      console.error(error);
-      toast.error('Profile has not been deleted');
-    }
-  };
+  // const deleteProfile = () => {
+  //   try{
+  //     dispatch(deleteTeam(teamId))
+  //     dispatch(logout())
+  //     toast.success('profile has been successfully deleted');
+  //   }
+  //   catch (error) {
+  //     console.error(error);
+  //     toast.error('Profile has not been deleted');
+  //   }
+  // };
+  
 
   return (
+    <>
     <div className="mt-5">
       <Container className="profile-container">
         <Form
@@ -152,13 +153,17 @@ const ProfileInfoEdit = () => {
             </Link>
           </div>
           <div className="my-1">
-            <Button variant="danger" onClick={deleteProfile}>
+            <Button variant="danger" onClick = {()=>{
+               setdeleteAlert(true)
+            }}>
               Delete account
             </Button>
           </div>
         </Form>
       </Container>
     </div>
+    <ProfileDeleteModal deleteAlert={deleteAlert} setdeleteAlert={setdeleteAlert} />
+    </>
   );
 };
 
