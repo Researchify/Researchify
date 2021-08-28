@@ -26,22 +26,25 @@ const TemplateSelector = (props) => {
   });
   const [theme, setTheme] = useState(1);
 
-  const updateSelections = (name, value) => {
+  const updateSelections = (form) => {
+    
+    const { name, value, id } = form.target;
+    
     if (name === 'theme') {
       let primaryColor;
       let secondaryColor;
-      switch (value) {
-        case 1:
+      switch (id) {
+        case 'theme1':
           setTheme(1);
           primaryColor = '#419aee';
           secondaryColor = '#8da4d1';
           break;
-        case 2:
+        case 'theme2':
           setTheme(2);
           primaryColor = '#000000';
           secondaryColor = '#ebe6e6';
           break;
-        case 3:
+        case 'theme3':
           setTheme(3);
           primaryColor = '#008000';
           secondaryColor = '#868789';
@@ -84,36 +87,48 @@ const TemplateSelector = (props) => {
         <Form.Label>Select a Theme Colour</Form.Label>
         <Container fluid>
           <Form.Row>
-            <Form.Check
-              inline
-              type="radio"
-              onChange={() => updateSelections('theme', 1)}
-              checked={theme === 1}
-            />
-            <div 
-              className="theme-icon theme-1-icon" 
-              onClick={() => updateSelections('theme', 1)} 
-            />
-            <Form.Check
-              inline
-              type="radio"
-              onChange={() => updateSelections('theme', 2)}
-              checked={theme === 2}
-            />
-            <div 
-              className="theme-icon theme-2-icon" 
-              onClick={() => updateSelections('theme', 2)} 
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="theme1">
+              <Form.Check
+                inline
+                id="theme1"
+                type="radio"
+                name="theme"
+                onChange={updateSelections}
+                checked={theme === 1}
               />
-            <Form.Check
-              inline
-              type="radio"
-              onChange={() => updateSelections('theme', 3)}
-              checked={theme === 3}
-            />
-            <div 
-              className="theme-icon theme-3-icon" 
-              onClick={() => updateSelections('theme', 3)} 
+              <div 
+                className="theme-icon theme-1-icon" 
               />
+            </label>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="theme2">
+              <Form.Check
+                inline
+                id="theme2"
+                type="radio"
+                name="theme"
+                onChange={updateSelections}
+                checked={theme === 2}
+              />
+              <div 
+                className="theme-icon theme-2-icon" 
+                />
+            </label>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="theme3">
+              <Form.Check
+                inline
+                id="theme3"
+                type="radio"
+                name="theme"
+                onChange={updateSelections}
+                checked={theme === 3}
+              />
+              <div 
+                className="theme-icon theme-3-icon" 
+                />
+            </label>
           </Form.Row>
         </Container>
 
@@ -127,49 +142,64 @@ const TemplateSelector = (props) => {
         <Container fluid>
           <Form.Row>
             <Col className="layout-display">
-              <Form.Check
-                checked={formInputs.layout === 1}
-                inline
-                type="radio"
-                label="Layout 1"
-                className="form-radio-text"
-                onChange={() => updateSelections('layout', 1)}
-              />
-              <Image 
-                src={singleColumnLayout} 
-                className="img-fluid" 
-                onClick={() => updateSelections('layout', 1)}
-              />
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label htmlFor="layout1">
+                <Form.Check
+                  checked={formInputs.layout === 1}
+                  inline
+                  id="layout1"
+                  type="radio"
+                  label="Layout 1"
+                  name="layout"
+                  value={1}
+                  className="form-radio-text"
+                  onChange={updateSelections}
+                />
+                <Image 
+                  src={singleColumnLayout} 
+                  className="img-fluid" 
+                />
+              </label>    
             </Col>
             <Col className="layout-display">
-              <Form.Check
-                checked={formInputs.layout === 2}
-                inline
-                type="radio"
-                label="Layout 2"
-                className="form-radio-text"
-                onChange={() => updateSelections('layout', 2)}
-              />
-              <Image 
-                src={fShapeLayout} 
-                className="img-fluid" 
-                onClick={() => updateSelections('layout', 2)} 
-              />
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label htmlFor="layout2">
+                <Form.Check
+                  checked={formInputs.layout === 2}
+                  inline
+                  id="layout2"
+                  type="radio"
+                  label="Layout 2"
+                  name="layout"
+                  value={2}
+                  className="form-radio-text"
+                  onChange={updateSelections}
+                />
+                <Image 
+                  src={fShapeLayout} 
+                  className="img-fluid" 
+                />
+              </label>   
             </Col>
             <Col className="layout-display">
-              <Form.Check
-                checked={formInputs.layout === 3}
-                inline
-                type="radio"
-                label="Layout 3"
-                className="form-radio-text"
-                onChange={() => updateSelections('layout', 3)}
-              />
-              <Image 
-                src={zigZagLayout} 
-                className="img-fluid" 
-                onClick={() => updateSelections('layout', 3)}
-              />
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label htmlFor="layout3">
+                <Form.Check
+                  checked={formInputs.layout === 3}
+                  inline
+                  id="layout3"
+                  type="radio"
+                  label="Layout 3"
+                  name="layout"
+                  value={3}
+                  className="form-radio-text"
+                  onChange={updateSelections}
+                />
+                <Image 
+                  src={zigZagLayout} 
+                  className="img-fluid" 
+                />
+              </label>
             </Col>
           </Form.Row>
         </Container>
