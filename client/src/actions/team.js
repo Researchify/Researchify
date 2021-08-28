@@ -270,9 +270,10 @@ function teamDataAllocator(teamData) {
  *
  * @param {*} teamId id of the team
  * @param {*} teamData data object of the data to be patched
+ * @param {*} successMsg the success message to display if different from default one
  * @returns
  */
-export const updateTeam = (teamId, teamData) => async (dispatch) => {
+export const updateTeam = (teamId, teamData,successMsg = 'Team has been updated') => async (dispatch) => {
   try {
     const { data } = await api.updateTeam(teamId, teamData);
     const updatedTeam = teamDataAllocator(data);
@@ -280,7 +281,7 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
       type: UPDATE_TEAM,
       payload: updatedTeam,
     });
-    dispatch(successMessageCreator('Team has been updated'));
+    dispatch(successMessageCreator(successMsg));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

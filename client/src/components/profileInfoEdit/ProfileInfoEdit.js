@@ -28,7 +28,11 @@ const ProfileInfoEdit = () => {
     (state) => state.team,
   );
 
-  const [profileData, setInputs] = useState({ teamName, orgName, email});
+   const [profileData, setInputs] = useState({ teamName, orgName, email});
+
+  const [ profileDataPassword, setprofileDataPassword ] = useState({})
+    const [ errors, setErrors ] = useState({})
+
 
   useEffect(() => {
     setInputs({ teamName, orgName, email });
@@ -38,6 +42,17 @@ const ProfileInfoEdit = () => {
     const { name, value } = form.target;
     setInputs({ ...profileData, [name]: value });
   };
+
+    const setPassword = (field, value) => {
+    setprofileDataPassword({
+      ...profileDataPassword,
+      [field]: value
+    })
+        if ( errors[field] ) setErrors({
+      ...errors,
+      [field]: null
+    })
+  }
     const passwordSchema = yup.object().shape({
         password: yup
         .string()
@@ -50,10 +65,13 @@ const ProfileInfoEdit = () => {
         .required('Please re-enter your password')
         .oneOf([yup.ref('password')], 'Passwords must match')
     })
+
   const checkPassword = async () => {
+        const { password,confirmedPassword } = profileDataPassword
+
         const valid = await passwordSchema.isValid({
-          password: {...profileData}.password,
-          confirmedPassword: {...profileData}.confirmedPassword
+          password,
+          confirmedPassword
       });
         if (valid){
             return true;
@@ -62,6 +80,35 @@ const ProfileInfoEdit = () => {
 
   };
 
+    const findFormErrors = () => {
+
+        const newErrors = {}
+        // name errors
+        if (!checkPassword()){
+            newErrors.password = "Please enter a password at least 8 chars long, using only numbers, letters and characters"
+        }
+        return newErrors
+    }
+
+    const handleUpdatePassword = e => {
+    e.preventDefault()
+    // get our new errors
+    const newErrors = findFormErrors()
+    // Conditional logic:
+    if ( Object.keys(newErrors).length > 0 ) {
+      // We got errors!
+      setErrors(newErrors)
+    } else {
+      // No errors! Put any logic here for the form submission!
+      const newdata = {
+                  "password": {...profileDataPassword}.password
+              }
+              dispatch(updateTeam(teamId, newdata,' Password has been updated'));
+    }
+  }
+
+
+
   const [validated, setValidated] = useState(false);
   const handleUpdate = async (event) => {
       const form = event.currentTarget;
@@ -69,28 +116,12 @@ const ProfileInfoEdit = () => {
       if (form.checkValidity() === false) {
           event.stopPropagation();
       } else {
-          var newdata;
-          if (({...profileData}.password || {...profileData}.confirmedPassword ) && ({...profileData}.password !== "" || {...profileData}.confirmedPassword !== "")) {
-              if (!checkPassword()) {
-                    setValidated(false);
-                    alert("Please enter a password at least 8 chars long, using only numbers, letters and characters");
-                    return;
-              }
-              newdata = {
-                  "teamName": {...profileData}.teamName,
-                  "orgName": {...profileData}.orgName,
-                  "email": {...profileData}.email,
-                  "password": {...profileData}.password
-              }
-              dispatch(updateTeam(teamId, newdata));
-          }else {
-              newdata = {
-                  "teamName": {...profileData}.teamName,
-                  "orgName": {...profileData}.orgName,
-                  "email": {...profileData}.email
-              }
-              dispatch(updateTeam(teamId, newdata));
+          const newdata = {
+              "teamName": {...profileData}.teamName,
+              "orgName": {...profileData}.orgName,
+              "email": {...profileData}.email
           }
+          dispatch(updateTeam(teamId, newdata));
       }
       setValidated(true);
   };
@@ -164,31 +195,6 @@ const ProfileInfoEdit = () => {
           </Form.Group>
 
 
-          <Form.Group>
-            <Form.Label> Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={profileData.password}
-                onChange={updateInputs}
-                validated={validated}
-
-              />
-
-          </Form.Group>
-           <Form.Group>
-            <Form.Label> Confirm Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="confirmedPassword"
-                placeholder="Password"
-                value={profileData.confirmedPassword}
-                onChange={updateInputs}
-                validated={validated}
-              />
-
-          </Form.Group>
           <div className="my-1">
             <Button
               id="updateButton"
@@ -210,6 +216,55 @@ const ProfileInfoEdit = () => {
             </Button>
           </div>
         </Form>
+
+          <Form
+          className="profile-form"
+          noValidate
+          onSubmit={handleUpdatePassword}
+        >
+              <p className="profile-title-name">Team Profile Management</p>
+              <Form.Group>
+            <Form.Label> Password </Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={profileDataPassword.password}
+                onChange={ e => setPassword('password', e.target.value) }
+                isInvalid={ !!errors.name }
+
+              />
+                  <Form.Control.Feedback type='invalid'>
+        { errors.name }
+    </Form.Control.Feedback>
+
+          </Form.Group>
+           <Form.Group>
+            <Form.Label> Confirm Password </Form.Label>
+              <Form.Control
+                type="password"
+                name="confirmedPassword"
+                placeholder="Password"
+                value={profileDataPassword.confirmedPassword}
+                onChange={ e => setPassword('confirmedPassword', e.target.value) }
+                isInvalid={ !!errors.name }
+              />
+    <Form.Control.Feedback type='invalid'>
+        { errors.name }
+    </Form.Control.Feedback>
+          </Form.Group>
+              <div className="my-1">
+            <Button
+              id="updateButton"
+              type="submit"
+              color="primary"
+              className="mr-2"
+            >
+              Update Password
+            </Button>
+              </div>
+          </Form>
+
       </Container>
     </div>
   );
