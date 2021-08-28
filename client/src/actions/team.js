@@ -288,7 +288,7 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
 };
 
 /**
- * This action creator will be called when a user want to update the team profile
+ * This action creator will be called when a user want to delete the team profile
  *
  * @param {*} teamId id of the team
  * @param {*} teamData data object of the data to be patched

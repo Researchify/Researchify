@@ -152,11 +152,9 @@ const ProfileInfoEdit = () => {
             </Link>
           </div>
           <div className="my-1">
-            <Link to="/">
             <Button variant="danger" onClick={deleteProfile}>
               Delete account
             </Button>
-            </Link>
           </div>
         </Form>
       </Container>
