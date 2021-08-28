@@ -13,6 +13,8 @@ import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import profilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
+import { deleteTeam } from '../../actions/team';
+import {signOut} from '../../actions/auth'
 
 /**
  * Form component for user update profile
@@ -49,9 +51,26 @@ const ProfileInfoEdit = () => {
     setValidated(true);
   };
 
-  const profileDeleted = () => {
-    // TODO: Delete profile function is not implemented yet in ProfileInfoEdit.js
-    toast.error('Profile has not been deleted');
+  // const updateProfile = (teamId, profileData) => {
+  //   try {
+  //     dispatch(updateTeam(teamId, profileData))
+  //     toast.success('Profile has been successfully updated');
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error('Profile has not been updated');
+  //   }
+  // };
+
+  const deleteProfile = () => {
+    try{
+      dispatch(deleteTeam(teamId))
+      dispatch(signOut())
+      toast.success('profile has been successfully deleted');
+    }
+    catch (error) {
+      console.error(error);
+      toast.error('Profile has not been deleted');
+    }
   };
 
   return (
@@ -133,9 +152,11 @@ const ProfileInfoEdit = () => {
             </Link>
           </div>
           <div className="my-1">
-            <Button variant="danger" onClick={profileDeleted}>
+            <Link to="/">
+            <Button variant="danger" onClick={deleteProfile}>
               Delete account
             </Button>
+            </Link>
           </div>
         </Form>
       </Container>
