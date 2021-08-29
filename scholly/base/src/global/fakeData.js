@@ -235,3 +235,5 @@ export const FAKE_TEAM_AWARDS = [
         'Icon of the Year',
   },
 ];
+
+export const FAKE_LAYOUT_OPTION = 4;
