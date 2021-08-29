@@ -346,10 +346,7 @@
  
    try {
      
-     await axios.request(`DELETE /repos/{owner}/{repo}`, {
-       owner: `${ghUsername}`,
-       repo: `${ghUsername}.github.io`  // repo name
-     })
+     await axios.delete(`DELETE /repos/${ghUsername}/${ghUsername}.github.io`, { deleteReason: "Deleted" });
      logger.info(`GitHub pages successfully deleted: ${ghUsername}`);
      return res.status(200).json('Successfully deleted');
  
