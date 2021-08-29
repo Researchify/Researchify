@@ -236,4 +236,4 @@ export const FAKE_TEAM_AWARDS = [
   },
 ];
 
-export const FAKE_LAYOUT_OPTION = 1;
+export const FAKE_LAYOUT_OPTION = 4;
