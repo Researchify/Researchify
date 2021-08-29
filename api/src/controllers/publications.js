@@ -234,9 +234,9 @@ async function scrapeGoogleScholar(url) {
 
   // TODO: this logic depends on the order of the fields,
   // which will differ based on the info of the publication, can be improved
-  let type = fields[2].toUpperCase();
+  let type = fields[2];
   let categoryTitle;
-  if (!(type in categoryTypes)) {
+  if (!categoryTypes.includes(type)) {
     type = 'Other';
     categoryTitle = '';
   } else {
