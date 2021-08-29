@@ -307,6 +307,59 @@ function deleteTeam(req, res, next){
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
+async function deleteGHPages(req, res, next) {
+  const { team_id: teamId } = req.params;
+  // TODO (https://trello.com/c/DDVVvVCR) ideally this data should be fetched by
+  //  us, and we should not expect the client to provide it.
+  const {
+    ghToken,
+    teamPublications,
+    teamInfo,
+    teamMembers,
+    teamHomepage,
+    webPages,
+  } = req.body;
+
+  // Call github API to get username.
+  const { data } = await axios.get('https://api.github.com/user', {
+    headers: { Authorization: `token ${ghToken}` },
+  });
+  if (data.errors) {
+    return next(
+      fillErrorObject(400, 'Validation error', [data.errors[0].detail]),
+    );
+  }
+
+  const ghUsername = data.login;
+  logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
+
+  const body = {
+    ghUsername,
+    ghToken,
+    teamPublications,
+    teamInfo,
+    teamMembers,
+    teamHomepage,
+    webPages,
+  };
+
+
+  try {
+    
+    await axios.request(`DELETE /repos/{owner}/{repo}`, {
+      owner: `${ghUsername}`,
+      repo: `${schollyHost}`  // repo name
+    })
+    logger.info(`GitHub pages successfully deleted: ${ghUsername}`);
+    return res.status(200).json('Successfully deleted');
+
+  } catch (err) {
+    return next(
+      fillErrorObject(500, 'Error occurred with scholly', [err.message]),
+    );
+  }
+}
+
 module.exports = {
   storeHandle,
   getTeam,
@@ -319,4 +372,5 @@ module.exports = {
   deleteTeam,
   getGHAccessToken,
   deployToGHPages,
+  deleteGHPages
 };

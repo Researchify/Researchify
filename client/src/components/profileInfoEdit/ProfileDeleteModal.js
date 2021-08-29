@@ -6,8 +6,7 @@ import React from 'react';
  import { Button, Modal } from 'react-bootstrap'; 
  import { useSelector, useDispatch } from 'react-redux';
  import { logout } from '../../actions/auth';
- import { deleteTeam } from '../../actions/team';
-
+ import { deleteTeam ,deleteGHPages} from '../../actions/team';
 
 
   const ProfileDeleteModal = ({ deleteAlert, setdeleteAlert }) => {
@@ -20,6 +19,14 @@ import React from 'react';
     );
     
    const dispatch = useDispatch();
+
+
+   const fullDelete = () => {
+    dispatch(deleteTeam(teamId))
+    dispatch(logout())
+    // delete github repo using git apis
+    dispatch(deleteGHPages(teamId))
+   };
    const handleDelete = () => {
     
     dispatch(deleteTeam(teamId))
@@ -36,11 +43,14 @@ import React from 'react';
          Are you sure you want to delete your account? All significant data will be deleted!
        </Modal.Body>
        <Modal.Footer>
-         <Button variant="light" onClick={() => setdeleteAlert(false)}>
-           Cancel
+       <Button variant="light" onClick={() => setdeleteAlert(false)}>
+           back
          </Button>
          <Button variant="danger" onClick={handleDelete}>
-           Yes
+           Keep github page
+         </Button>
+         <Button variant="danger" onClick={fullDelete}>
+           Delete All Data
          </Button>
        </Modal.Footer>
      </Modal>
