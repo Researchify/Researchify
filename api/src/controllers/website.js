@@ -16,7 +16,7 @@ const { fillErrorObject } = require('../middleware/error');
  async function getWebPageDetails(req, res) {
   const { team_id } = req.params;
   try {
-    const foundWebsiteInfo = await Website.findOne({ teamId: req.params.team_id });
+    const foundWebsiteInfo = await Website.findOne({ teamId: team_id });
     if (foundWebsiteInfo) {
       return res.status(200).json(foundWebsiteInfo);
     }
