@@ -13,8 +13,9 @@ import notificationReducer from './notificationReducer';
 import deployReducer from './deployReducer';
 import achievementsReducer from './achievementsReducer';
 import homepageReducer from './homepageReducer';
+import { LOG_OUT } from '../actions/types';
 
-export default combineReducers({
+const appReducer =  combineReducers({
   notification: notificationReducer,
   auth: authReducer,
   publications: publicationsReducer,
@@ -26,3 +27,12 @@ export default combineReducers({
   achievements: achievementsReducer, 
   homepage: homepageReducer,
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === LOG_OUT) {
+    return appReducer(undefined, action)
+  }
+  return appReducer(state, action)
+}
+
+export default rootReducer
