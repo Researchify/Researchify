@@ -10,25 +10,21 @@ const { fillErrorObject } = require('../middleware/error');
  * Handle GET request from /clientWebsite/:team_id
  * @param {*} req request object, containing teamId
  * @param {*} res response object
- * @returns 200: the team's website info was found
- * @returns 404: team's website info is not found
+ * @returns 200: return the team's website info if found or return emptyWebsiteInfo if no found
  * @returns 500: server error
  */
-function getWebPageDetails(req, res) {
-  Website.findOne({
-    teamId: req.params.team_id,
-  })
-    .then((websiteInfo) => {
-      if (!websiteInfo) {
-        return res
-          .status(404)
-          .send(
-            'No Website info found for this Team (This is likely because they have not added any website information yet)',
-          );
-      }
-      return res.status(200).send(websiteInfo);
-    })
-    .catch((error) => res.status(500).json(`Server Error: ${error.message}`));
+ async function getWebPageDetails(req, res) {
+  const { team_id } = req.params;
+  try {
+    const foundWebsiteInfo = await Website.findOne({ teamId: req.params.team_id });
+    if (foundWebsiteInfo) {
+      return res.status(200).json(foundWebsiteInfo);
+    }
+    const emptyWebsiteInfo = { teamId: team_id, pages: [] }
+    return res.status(200).json(emptyWebsiteInfo);
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err.errors]));
+  }
 }
 
 /**
