@@ -13,14 +13,14 @@ const { fillErrorObject } = require('../middleware/error');
  * @returns 200: return the team's website info if found or return emptyWebsiteInfo if no found
  * @returns 500: server error
  */
- async function getWebPageDetails(req, res) {
+async function getWebPageDetails(req, res, next) {
   const { team_id } = req.params;
   try {
     const foundWebsiteInfo = await Website.findOne({ teamId: team_id });
     if (foundWebsiteInfo) {
       return res.status(200).json(foundWebsiteInfo);
     }
-    const emptyWebsiteInfo = { teamId: team_id, pages: [] }
+    const emptyWebsiteInfo = { teamId: team_id, pages: [] };
     return res.status(200).json(emptyWebsiteInfo);
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
