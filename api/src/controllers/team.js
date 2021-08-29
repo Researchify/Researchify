@@ -330,8 +330,9 @@
    const {
      ghToken
    } = req.body;
+   const { team_id: _id } = req.params;
  
-   // Call github API to get username.
+   // Call github API to get username.     gets username from github api
    const { data } = await axios.get('https://api.github.com/user', {
      headers: { Authorization: `token ${ghToken}` },
    });
@@ -345,12 +346,15 @@
    logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
  
    try {
-     
-     await axios.delete(`DELETE /repos/${ghUsername}/${ghUsername}.github.io`, { deleteReason: "Deleted" });
+     console.log(teamId)
+     const res = await axios.delete(`https://api.github.com/${teamId}/deleteGHpages`, {  headers: { Authorization: `token ${ghToken}` }, deleteReason: "Deleted" });
+      console.log(res)
      logger.info(`GitHub pages successfully deleted: ${ghUsername}`);
      return res.status(200).json('Successfully deleted');
  
    } catch (err) {
+
+      
      return next(
        fillErrorObject(500, 'Error occurred with scholly', [err.message]),
      );
