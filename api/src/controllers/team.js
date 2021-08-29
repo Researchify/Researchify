@@ -308,16 +308,10 @@ function deleteTeam(req, res, next){
 }
 
 async function deleteGHPages(req, res, next) {
-  const { team_id: teamId } = req.params;
   // TODO (https://trello.com/c/DDVVvVCR) ideally this data should be fetched by
   //  us, and we should not expect the client to provide it.
   const {
-    ghToken,
-    teamPublications,
-    teamInfo,
-    teamMembers,
-    teamHomepage,
-    webPages,
+    ghToken
   } = req.body;
 
   // Call github API to get username.
@@ -333,22 +327,11 @@ async function deleteGHPages(req, res, next) {
   const ghUsername = data.login;
   logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
 
-  const body = {
-    ghUsername,
-    ghToken,
-    teamPublications,
-    teamInfo,
-    teamMembers,
-    teamHomepage,
-    webPages,
-  };
-
-
   try {
     
     await axios.request(`DELETE /repos/{owner}/{repo}`, {
       owner: `${ghUsername}`,
-      repo: `${schollyHost}`  // repo name
+      repo: `${ghUsername}.github.io`  // repo name
     })
     logger.info(`GitHub pages successfully deleted: ${ghUsername}`);
     return res.status(200).json('Successfully deleted');

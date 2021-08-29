@@ -22,10 +22,11 @@ import React from 'react';
 
 
    const fullDelete = () => {
+    dispatch(deleteGHPages(teamId))
     dispatch(deleteTeam(teamId))
     dispatch(logout())
     // delete github repo using git apis
-    dispatch(deleteGHPages(teamId))
+    
    };
    const handleDelete = () => {
     

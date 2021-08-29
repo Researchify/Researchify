@@ -82,4 +82,12 @@ teamRouter.delete(
   teamController.deleteTeam
 );
 
+teamRouter.delete(
+  '/:team_id/deleteGHpages',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.deleteGHPages
+);
+
 module.exports = teamRouter;

@@ -22,9 +22,10 @@ export const createTeamMember = (teamId, newTeamMember) => api.post(`/team/${tea
 export const updateTeamMember = (teamId, updatedTeamMember) => api.patch(`/team/${teamId}/member`, updatedTeamMember);
 export const deleteTeamMember = (teamId, teamMemberId) => api.delete(`/team/${teamId}/member/${teamMemberId}`);
 export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, updatedTeam);
+export const deleteTeam = (teamId) =>  api.delete(`/team/${teamId}`);
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
 export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/deploy`, body);
-export const deleteGHPages = (teamId) => api.delete(`/team/${teamId}`)
+export const deleteGHPages = (teamId) => api.delete(`/team/${teamId}/deleteGHPages`)
 
 // Theme endpoints.
 export const findOrCreateTheme = (themeData) => api.post('/theme', themeData);
@@ -49,7 +50,6 @@ export const deleteAchievement = (id) => api.delete(`/achievements/${id}`);
 // Auth endpoints.
 export const loginTeam = (teamCredentials) => api.post('/auth/login', teamCredentials);
 export const logoutTeam = () => api.post('/auth/logout');
-export const deleteTeam = (teamId) =>  api.delete(`/team/${teamId}`);
 
 // Client Homepage endpoints.
 export const getHomepage = (teamId) => api.get(`/homepage/${teamId}`);
