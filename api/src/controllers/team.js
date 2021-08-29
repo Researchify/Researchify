@@ -306,28 +306,22 @@
    res.status(200).json(updatedTeam);
  }
  
- function deleteTeam(req, res, next){
-   const { team_id: _id } = req.params;
-   
-   HomePage.deleteOne({team_id: _id})
-   .then((deletedTeam) => res.status(200).json(deletedTeam))
-   .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
- 
-   Website.deleteOne({team_id: _id})
-   .then((deletedTeam) => res.status(200).json(deletedTeam))
-   .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
- 
-   Achievement.deleteOne({team_id: _id})
-   .then((deletedTeam) => res.status(200).json(deletedTeam))
-   .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
- 
-   Publication.deleteOne({team_id: _id})
-   .then((deletedTeam) => res.status(200).json(deletedTeam))
-   .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
- 
-   Team.findByIdAndDelete(_id)
-     .then((deletedTeam) => res.status(200).json(deletedTeam))
-     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
+ async function deleteTeam(req, res, next){
+   try{
+     const { team_id: _id } = req.params;
+     await HomePage.deleteOne({teamId: _id})
+     await Website.deleteOne({teamId: _id})
+     await Achievement.deleteOne({teamId: _id})
+     await Publication.deleteOne({teamId: _id})
+    //await Team.findByIdAndDelete(_id)
+    console.log('delete successfully')
+     res.status(200).json('delete successfully');
+
+   } catch (error){
+    return next(
+      fillErrorObject(500, 'Error occurred with server', [err.message]),
+    );
+   }
  }
  
  async function deleteGHPages(req, res, next) {
