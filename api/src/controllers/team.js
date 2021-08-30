@@ -325,25 +325,36 @@
  }
  
  async function deleteGHPages(req, res, next) {
-   const {
-     ghToken
-   } = req.body;
+   const { code } = req.params
    const { team_id: _id } = req.params;
-   console.log(req.body)
+
+   
    // Call github API to get username.     gets username from github api
    
    const { data } = await axios.get('https://api.github.com/user', {
-     headers: { Authorization: `token ${ghToken}` },
+     headers: { Authorization: `token ${code}` },
    });
    if (data.errors) {
      return next(
        fillErrorObject(400, 'Validation error', [data.errors[0].detail]),
      );
    }
+
+   
  
    const ghUsername = data.login;
    logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
-   console.log(ghUsername,ghToken)
+   const repoName = `${ghUsername}.github.io`
+
+   console.log(ghUsername,code,repoName);
+   var sleep = function (ms) {
+    let now = Date.now(), end = now + ms;
+    while (now < end) { now = Date.now(); }
+  };
+    
+   console.log('yessssssssss');
+   console.log(code);
+   //sleep(5000);
  
    try {
      
@@ -356,19 +367,21 @@
         }`,
       method: 'delete',
       headers: {
-        Authorization: `token ${ghToken}`,
+        Authorization: `token ${code}`,
         Accept: 'application/vnd.github.v3+json',
       },
-      data: pagesBody,
     });
-    if (deletePages.status === 201) {
+    res.status(200).json('delete successfully');
+    if (deletePages.status === 204) {
+
       console.log('Pages site successfully deleted');
     } else {
       // see https://docs.github.com/en/rest/reference/repos#create-a-github-pages-site
-      console.log(deletePages.data);
+      console.log('FAIL');
     }
   } catch (err) {
     console.log(err);
+    console.log(ghUsername,code,repoName);
   }
 
 }

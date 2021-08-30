@@ -25,6 +25,7 @@ import React from 'react';
 
     const access_token = localStorage.getItem('GH_access_token');
     dispatch(deleteGHPages(teamId,access_token))
+    console.log(teamId,access_token)
     // dispatch(deleteTeam(teamId))
     // dispatch(logout())
     

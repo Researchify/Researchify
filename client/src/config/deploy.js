@@ -9,7 +9,7 @@
  */
 
 /// We require access to the "repo" scope to allow pushing to the pages repo.
-export const scope = 'repo';
+export const scope = 'repo delete_repo';
 /// Configured client ID of the GitHub OAuth application.
 export let githubClientId; // eslint-disable-line import/no-mutable-exports
 

@@ -83,7 +83,7 @@ teamRouter.delete(
 );
 
 teamRouter.delete(
-  '/:team_id/deleteGHpages',
+  '/:team_id/deleteGHPages/:code',
   //authMiddleware.cookieJwtAuth,
   //mongooseMiddleware.validateTeamObjectId,
   //teamMiddleware.validateTeamId,

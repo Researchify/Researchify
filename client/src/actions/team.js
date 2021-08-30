@@ -339,6 +339,7 @@ export const deleteGHPages = (teamId, accessToken) => async (dispatch) => {
       type: DELETE_REQUEST,
     });
     console.log(accessToken)
+
     await api.deleteGHPages(teamId, accessToken)
     dispatch({
       type: DELETE_SUCCESS,
