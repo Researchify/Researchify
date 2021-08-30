@@ -8,7 +8,7 @@
  const LayoutByCategory = ({ teamPublications }) => {
   const renderPublicationsByCategory = (categoryType) => {
     const publicationsByCategory = teamPublications.filter(
-      (pub) => pub.category.type === categoryType.toUpperCase()
+      (pub) => pub.category.type.toUpperCase() === categoryType.toUpperCase()
     );
     return (
       publicationsByCategory.length > 0 && (
