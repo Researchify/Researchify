@@ -10,7 +10,7 @@ import { WEB_PAGES } from '../../global/data';
 import { layoutOptions, sortingOptions, defaultOption } from '../../config/publications';
 
 const Publications = () => {
-  const options = WEB_PAGES.publicationOptions && defaultOption
+  const options = WEB_PAGES.publicationOptions ?? defaultOption
   const sortPublications = (teamPublications, option) => {
     switch (option) {
       case sortingOptions.AUTHOR:
