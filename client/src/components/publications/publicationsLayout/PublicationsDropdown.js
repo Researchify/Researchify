@@ -3,6 +3,7 @@ import { Dropdown, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website'
+import 'intro.js/introjs.css';
 
 const PublicationsDropdown = ({
   options,
@@ -18,7 +19,7 @@ const PublicationsDropdown = ({
   };
 
   return (
-    <div>
+    <div id='publication-options'>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Dropdown>
           <Dropdown.Toggle variant="light" className="mb-2">
