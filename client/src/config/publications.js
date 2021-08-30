@@ -4,10 +4,10 @@
 const pageSize = 10;
 const categoryPageSize = 5;
 const categoryTypes = {
-  JOURNAL: 'Journal',
-  CONFERENCE: 'Conference',
-  BOOK: 'Book',
-  OTHER: 'Other',
+  Journal: 'Journal',
+  Conference: 'Conference',
+  Book: 'Book',
+  Other: 'Other',
 };
 const layoutOptions = {
   ALL_PUBLICATION: 'All Publication',
@@ -18,5 +18,8 @@ const sortingOptions = {
   AUTHOR: 'Author',
   YEAR: 'Year',
 }
-
-module.exports = { pageSize, categoryPageSize, categoryTypes, layoutOptions, sortingOptions };
+const defaultOption = {
+  LAYOUT: layoutOptions.ALL_PUBLICATION,
+  SORTBY: sortingOptions.TITLE,
+};
+module.exports = { pageSize, categoryPageSize, categoryTypes, layoutOptions, sortingOptions, defaultOption };
