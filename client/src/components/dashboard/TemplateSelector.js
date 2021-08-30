@@ -27,9 +27,7 @@ const TemplateSelector = (props) => {
   const [theme, setTheme] = useState(1);
 
   const updateSelections = (form) => {
-    
     const { name, value, id } = form.target;
-    
     if (name === 'theme') {
       let primaryColor;
       let secondaryColor;
@@ -96,6 +94,7 @@ const TemplateSelector = (props) => {
                 name="theme"
                 onChange={updateSelections}
                 checked={theme === 1}
+                className="theme-1-radio"
               />
               <div 
                 className="theme-icon theme-1-icon" 
@@ -110,6 +109,7 @@ const TemplateSelector = (props) => {
                 name="theme"
                 onChange={updateSelections}
                 checked={theme === 2}
+                className="theme-2-radio"
               />
               <div 
                 className="theme-icon theme-2-icon" 
@@ -124,6 +124,7 @@ const TemplateSelector = (props) => {
                 name="theme"
                 onChange={updateSelections}
                 checked={theme === 3}
+                className="theme-3-radio"
               />
               <div 
                 className="theme-icon theme-3-icon" 
