@@ -14,7 +14,7 @@ import {
   FAKE_WEB_PAGES,
 } from './fakeData';
 
-const env = process.env;
+const { env } = process;
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
@@ -46,7 +46,6 @@ if (!env.REACT_APP_DEBUG) {
     ? JSON.parse(env.REACT_APP_WEB_PAGES)
     : [];
 } else {
-  console.log('Running in DEBUG mode, hence using fake Team data');
   // Running client website locally, so use fake data
   TEAM_PUBLICATIONS = FAKE_PUBLICATIONS;
 
@@ -59,4 +58,6 @@ if (!env.REACT_APP_DEBUG) {
   WEB_PAGES = FAKE_WEB_PAGES;
 }
 
-export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, TEAM_HOMEPAGE, WEB_PAGES };
+export {
+  TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, TEAM_HOMEPAGE, WEB_PAGES,
+};
