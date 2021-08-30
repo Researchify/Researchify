@@ -236,7 +236,7 @@ async function scrapeGoogleScholar(url) {
   // which will differ based on the info of the publication, can be improved
   let type = fields[2];
   let categoryTitle;
-  if (!categoryTypes.includes(type)) {
+  if (!(categoryTypes.includes(type))) {
     type = 'Other';
     categoryTitle = '';
   } else {

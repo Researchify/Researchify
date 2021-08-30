@@ -1,7 +1,7 @@
 /**
  * The LayoutAllPublications component displays a list of publications
  */
-import React, { Fragment } from 'react';
+import React from 'react';
 import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
