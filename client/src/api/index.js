@@ -25,7 +25,7 @@ export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, 
 export const deleteTeam = (teamId) =>  api.delete(`/team/${teamId}`);
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
 export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/deploy`, body);
-export const deleteGHPages = (teamId) => api.delete(`/team/${teamId}/deleteGHPages`)
+export const deleteGHPages = (teamId,body) => api.delete(`/team/${teamId}/deleteGHPages`,body)
 
 // Theme endpoints.
 export const findOrCreateTheme = (themeData) => api.post('/theme', themeData);

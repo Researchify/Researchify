@@ -325,14 +325,13 @@
  }
  
  async function deleteGHPages(req, res, next) {
-   // TODO (https://trello.com/c/DDVVvVCR) ideally this data should be fetched by
-   //  us, and we should not expect the client to provide it.
    const {
      ghToken
    } = req.body;
    const { team_id: _id } = req.params;
- 
+   console.log(req.body)
    // Call github API to get username.     gets username from github api
+   
    const { data } = await axios.get('https://api.github.com/user', {
      headers: { Authorization: `token ${ghToken}` },
    });
@@ -344,22 +343,35 @@
  
    const ghUsername = data.login;
    logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
+   console.log(ghUsername,ghToken)
  
    try {
-     console.log(teamId)
-     const res = await axios.delete(`https://api.github.com/${teamId}/deleteGHpages`, {  headers: { Authorization: `token ${ghToken}` }, deleteReason: "Deleted" });
-      console.log(res)
-     logger.info(`GitHub pages successfully deleted: ${ghUsername}`);
-     return res.status(200).json('Successfully deleted');
- 
-   } catch (err) {
+     
+    deletePages= await axios({
+      url:
+        `https://api.github.com/repos/${
+          ghUsername
+        }/${
+          repoName
+        }`,
+      method: 'delete',
+      headers: {
+        Authorization: `token ${ghToken}`,
+        Accept: 'application/vnd.github.v3+json',
+      },
+      data: pagesBody,
+    });
+    if (deletePages.status === 201) {
+      console.log('Pages site successfully deleted');
+    } else {
+      // see https://docs.github.com/en/rest/reference/repos#create-a-github-pages-site
+      console.log(deletePages.data);
+    }
+  } catch (err) {
+    console.log(err);
+  }
 
-      
-     return next(
-       fillErrorObject(500, 'Error occurred with scholly', [err.message]),
-     );
-   }
- }
+}
  
  module.exports = {
    storeHandle,

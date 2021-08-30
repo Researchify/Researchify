@@ -22,9 +22,13 @@ import React from 'react';
 
 
    const fullDelete = () => {
-    dispatch(deleteGHPages(teamId))
-    dispatch(deleteTeam(teamId))
-    dispatch(logout())
+
+    const access_token = localStorage.getItem('GH_access_token');
+    dispatch(deleteGHPages(teamId,access_token))
+    // dispatch(deleteTeam(teamId))
+    // dispatch(logout())
+    
+    toast.success(`profile has been successfully deleted${access_token}`);
     // delete github repo using git apis
     
    };
@@ -32,7 +36,7 @@ import React from 'react';
     
     dispatch(deleteTeam(teamId))
     dispatch(logout())
-    toast.success('profile has been successfully deleted');
+    toast.success(`profile has been successfully deleted${teamId}`);
 
    };
    return (

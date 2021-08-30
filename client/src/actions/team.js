@@ -226,7 +226,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
 
     // get user selected web pages to deploy
     const { data: webPages } = await api.getWebsiteInfo(teamId);
-
+      console.log(accessToken)
     const body = {
       ghToken: accessToken,
       teamPublications,
@@ -338,6 +338,7 @@ export const deleteGHPages = (teamId, accessToken) => async (dispatch) => {
     dispatch({
       type: DELETE_REQUEST,
     });
+    console.log(accessToken)
     await api.deleteGHPages(teamId, accessToken)
     dispatch({
       type: DELETE_SUCCESS,
