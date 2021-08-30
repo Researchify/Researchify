@@ -9,14 +9,14 @@ const categoryType = {
   BOOK: 'Book',
   OTHER: 'Other',
 };
-const layoutOption = {
+const layoutOptions = {
   ALL_PUBLICATION: 'All Publication',
   BY_CATEGORY: 'By Category',
 };
-const sortingOption = {
+const sortingOptions = {
   TITLE: 'Title',
   AUTHOR: 'Author',
   YEAR: 'Year',
 };
   
-module.exports = { pageSize, categoryPageSize, categoryType, layoutOption, sortingOption };
+module.exports = { pageSize, categoryPageSize, categoryType, layoutOptions, sortingOptions };
