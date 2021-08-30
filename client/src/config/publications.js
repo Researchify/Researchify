@@ -18,5 +18,8 @@ const sortingOptions = {
   AUTHOR: 'Author',
   YEAR: 'Year',
 }
-
-module.exports = { pageSize, categoryPageSize, categoryTypes, layoutOptions, sortingOptions };
+const defaultOption = {
+  LAYOUT: layoutOptions.ALL_PUBLICATION,
+  SORTBY: sortingOptions.TITLE,
+};
+module.exports = { pageSize, categoryPageSize, categoryTypes, layoutOptions, sortingOptions, defaultOption };
