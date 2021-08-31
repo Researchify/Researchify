@@ -20,6 +20,7 @@ let TEAM_INFO;
 let TEAM_MEMBERS;
 let TEAM_HOMEPAGE;
 let WEB_PAGES;
+let WEBSITE_TITLE;
 
 if (!env.REACT_APP_DEBUG) {
   /// The list of publications the team has created for rendering in the publications page
@@ -45,6 +46,9 @@ if (!env.REACT_APP_DEBUG) {
   WEB_PAGES = env.REACT_APP_WEB_PAGES
     ? JSON.parse(env.REACT_APP_WEB_PAGES)
     : [];
+
+  WEBSITE_TITLE = env.REACT_APP_WEBSITE_TITLE
+
 } else {
   console.log('Running in DEBUG mode, hence using fake Team data');
   // Running client website locally, so use fake data
@@ -59,4 +63,4 @@ if (!env.REACT_APP_DEBUG) {
   WEB_PAGES = FAKE_WEB_PAGES;
 }
 
-export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, TEAM_HOMEPAGE, WEB_PAGES };
+export { TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, TEAM_HOMEPAGE, WEB_PAGES, WEBSITE_TITLE };

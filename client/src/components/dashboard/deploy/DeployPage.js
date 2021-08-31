@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
-import { Button, Spinner } from 'react-bootstrap';
+import { Button, Spinner, Form, Row, Col } from 'react-bootstrap';
 import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
 
@@ -15,11 +15,14 @@ const DeployPage = ({ teamId }) => {
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken,
   );
+  const [websiteTitle, setWebsiteTitle] = useState("");
+
+  console.log(websiteTitle)
 
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token'); // eslint-disable-line no-undef
     // call backend endpoint to deploy and give the access token
-    dispatch(deployToGHPages(teamId, accessToken));
+    dispatch(deployToGHPages(teamId, accessToken, websiteTitle));
   };
 
   const onSuccessfulLogin = (response) => {
@@ -50,14 +53,31 @@ const DeployPage = ({ teamId }) => {
   );
 
   const DeployButton = (
-    <Button
-      className="float-right"
-      variant="primary"
-      disabled={!retrievedAccessToken}
-      onClick={handleDeploy}
-    >
-      Deploy to GitHub Pages
-    </Button>
+    <>
+       <Form.Group as={Row} className='mt-3'>
+        <Form.Label column >
+          Website Title 
+        </Form.Label>
+        <Col sm="8">
+          <Form.Control 
+            type="text"
+            value={websiteTitle}
+            onChange={(event) => {
+              setWebsiteTitle(event.target.value)}}
+          />
+        </Col>
+        <Col sm='2'>
+          <Button
+            className="float-right"
+            variant="primary"
+            disabled={!retrievedAccessToken}
+            onClick={handleDeploy}
+          >
+            Deploy to GitHub Pages
+          </Button>
+        </Col>
+       </Form.Group>
+    </>
   );
 
   return (
@@ -68,7 +88,7 @@ const DeployPage = ({ teamId }) => {
           <Spinner animation="border" />
         </div>
       ) : retrievedAccessToken ? (
-        DeployButton
+          DeployButton
       ) : (
         GitHubLoginButton
       )}

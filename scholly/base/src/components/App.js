@@ -1,10 +1,11 @@
 /**
  * Root App.js 
  */
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './layout/Header.js';
 import { getRoutes } from './router/routes.js';
+import { WEBSITE_TITLE } from '../global/data';
 import './centred.css';
 
 const App = () => {
@@ -16,6 +17,10 @@ const App = () => {
       </Route>
     );
   });
+
+  useEffect(() => {
+    document.title = WEBSITE_TITLE
+  }, [])
 
   return (
     <Fragment>

@@ -245,6 +245,7 @@ async function deployToGHPages(req, res, next) {
     teamMembers,
     teamHomepage,
     webPages,
+    websiteTitle,
   } = req.body;
 
   // Call github API to get username.
@@ -268,6 +269,7 @@ async function deployToGHPages(req, res, next) {
     teamMembers,
     teamHomepage,
     webPages,
+    websiteTitle,
   };
 
   try {

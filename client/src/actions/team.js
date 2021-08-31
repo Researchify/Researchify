@@ -201,7 +201,7 @@ export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   }
 };
 
-export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
+export const deployToGHPages = (teamId, accessToken, websiteTitle) => async (dispatch) => {
   try {
     dispatch({
       type: DEPLOY_REQUEST,
@@ -230,6 +230,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       teamMembers,
       teamHomepage,
       webPages,
+      websiteTitle,
     };
 
     await api.deployToGHPages(teamId, body);
