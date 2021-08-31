@@ -10,7 +10,8 @@ const { fillErrorObject } = require('../middleware/error');
  * Handle GET request from /clientWebsite/:team_id
  * @param {*} req request object, containing teamId
  * @param {*} res response object
- * @returns 200: return the team's website info if found or return emptyWebsiteInfo if no found
+ * @returns 200: return the team's website info 
+ * @returns 404: team's website info not found 
  * @returns 500: server error
  */
 async function getWebPageDetails(req, res, next) {
@@ -20,33 +21,10 @@ async function getWebPageDetails(req, res, next) {
     if (foundWebsiteInfo) {
       return res.status(200).json(foundWebsiteInfo);
     }
-    return next(fillErrorObject(404, 'Validation error', [ 'No webpage detail found with the given team_id']));
+    return next(fillErrorObject(404, 'Validation error', ['No webpage detail found with the given team_id']));
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
-}
-
-/**
- * Initializes info about the website.
- * @param info: info to initialize schema with, must include teamId
- * @returns 200: Initial website Info successfully added to DB
- * @returns 400: Team Id given already has a website created
- */
-function createInitialWebsiteInfo(info) {
-  Website.findOne({ teamId: info.teamId })
-    .then((website) => {
-      if (website == null) {
-        // Create Website data
-        Website.create(info)
-          .then((webData) => webData)
-          .catch((err) => {
-            throw err;
-          });
-      }
-    })
-    .catch((err) => {
-      throw err;
-    });
 }
 
 /**

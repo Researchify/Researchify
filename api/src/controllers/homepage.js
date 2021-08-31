@@ -7,8 +7,9 @@ const { fillErrorObject } = require('../middleware/error');
 
 /**
  * Get homepage content on /homepage/:team_id
- * @param {*} req request object, containing team id in url
- * @param {*} res response object, the homepage data of team
+ * @returns 200: return the team's homepage info 
+ * @returns 404: team's homepage info not found 
+ * @returns 500: server error
  * @returns
  */
 async function getHomepage(req, res, next) {
@@ -18,7 +19,7 @@ async function getHomepage(req, res, next) {
     if (foundHomepage) {
       return res.status(200).json(foundHomepage);
     }
-    return next(fillErrorObject(404, 'Validation error', [ 'No homepage found with the given team_id']));
+    return next(fillErrorObject(404, 'Validation error', ['No homepage found with the given team_id']));
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
