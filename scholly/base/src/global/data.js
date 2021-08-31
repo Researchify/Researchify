@@ -47,6 +47,7 @@ if (!env.REACT_APP_DEBUG) {
     : [];
 } else {
   // Running client website locally, so use fake data
+  console.log('Running in DEBUG mode, hence using fake data'); // eslint-disable-line no-console
   TEAM_PUBLICATIONS = FAKE_PUBLICATIONS;
 
   TEAM_INFO = FAKE_TEAM_INFO;
