@@ -1,5 +1,6 @@
 /**
- * This index file will export combined reducers.
+ * This index file will export combined reducers
+ * When the logout action is dispatched, all reducers will be initialzed to thir initial state
  */
 import { combineReducers } from 'redux';
 
