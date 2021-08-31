@@ -328,7 +328,7 @@
    } 
    catch (error){
     return next(
-      fillErrorObject(500, 'Error occurred with server', [err.message]),
+      fillErrorObject(500, 'Error occurred with server', [error.message]),
     );
    }
  }
@@ -343,8 +343,6 @@
   */
  async function deleteGHPages(req, res, next) {
    const { code } = req.params
-   const { team_id: _id } = req.params;
-
    // Call github API to get username
    const { data } = await axios.get('https://api.github.com/user', 
    {
@@ -362,8 +360,9 @@
    const repoName = `${ghUsername}.github.io`
  
    // delete repo
+   
+   let deletePages;
    try {
-
     deletePages= await axios({
       url:
         `https://api.github.com/repos/${

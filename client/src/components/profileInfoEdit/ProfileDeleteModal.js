@@ -25,7 +25,6 @@ import React from 'react';
       dispatch(deleteGHPages(teamId,access_token))
       dispatch(deleteTeam(teamId))
       dispatch(logout())
-      toast.success(`profile & GitHub page has been successfully deleted`);
       } catch(error){
         toast.error('GitHub Pages doesnt exist')
       }
