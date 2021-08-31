@@ -10,8 +10,8 @@ const { fillErrorObject } = require('../middleware/error');
  * Handle GET request from /clientWebsite/:team_id
  * @param {*} req request object, containing teamId
  * @param {*} res response object
- * @returns 200: return the team's website info 
- * @returns 404: team's website info not found 
+ * @returns 200: return the team's website info
+ * @returns 404: team's website info not found
  * @returns 500: server error
  */
 async function getWebPageDetails(req, res, next) {
@@ -32,41 +32,22 @@ async function getWebPageDetails(req, res, next) {
  * @param {*} req request object, containing the pageName and teamId
  * @param {*} res response object
  * @returns 200: Web page successfully added to DB
- * @returns 400: Team Id given does not have a website created yet
+ * @returns 404: team's website info not found
  * @returns 500: Server error while saving new page name to DB
  */
-function addWebPage(req, res, next) {
+async function addWebPage(req, res, next) {
   const { team_id } = req.params;
-
-  Website.findOne({ teamId: team_id })
-    .then((website) => {
-      if (website == null) {
-        // Create Website schema
-        const webInfo = {
-          teamId: team_id,
-          pages: [req.body.pageName],
-        };
-        try {
-          const webData = createInitialWebsiteInfo(webInfo);
-          return res.status(200).json(webData);
-        } catch (err) {
-          next(fillErrorObject(500, 'Server error', [err.errors]));
-        }
-      } else {
-        if (website.pages.includes(req.body.pageName)) {
-          // Already includes this page, no work for us to do...
-          return res.status(200).json(website);
-        }
-        website.pages.push(req.body.pageName);
-
-        // update in db
-        website
-          .save()
-          .then((website) => res.status(200).json(website))
-          .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
-      }
-    })
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+  try {
+    const foundWebsiteInfo = await Website.findOne({ teamId: team_id });
+    if (foundWebsiteInfo) {
+      foundWebsiteInfo.pages.push(req.body.pageName);
+      await foundWebsiteInfo.save();
+      return res.status(200).json(foundWebsiteInfo);
+    }
+    return next(fillErrorObject(404, 'Validation error', ['No webpage detail found with the given team_id']));
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err.errors]));
+  }
 }
 
 /**
@@ -77,26 +58,20 @@ function addWebPage(req, res, next) {
  * @returns 400: Team Id given does not have a website created yet
  * @returns 500: Server error while saving new page name to DB
  */
-function deleteWebPage(req, res, next) {
+ async function deleteWebPage(req, res, next) {
   const { team_id } = req.params;
-  Website.findOne({ teamId: team_id })
-    .then((website) => {
-      if (website == null) {
-        res.status(400).send('This team does not have a website created');
-      } else {
-        const index = website.pages.indexOf(req.body.pageName);
-        try {
-          website.pages.splice(index, 1);
-
-          // update in db
-          website.save();
-          return res.status(200).json(website);
-        } catch (err) {
-          next(fillErrorObject(500, 'Server error', [err]));
-        }
-      }
-    })
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
+  try {
+    const foundWebsiteInfo = await Website.findOne({ teamId: team_id });
+    if (foundWebsiteInfo) {
+      const index = foundWebsiteInfo.pages.indexOf(req.body.pageName);
+      foundWebsiteInfo.pages.splice(index, 1);
+      await foundWebsiteInfo.save();
+      return res.status(200).json(foundWebsiteInfo);
+    }
+    return next(fillErrorObject(404, 'Validation error', ['No webpage detail found with the given team_id']));
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err.errors]));
+  }
 }
 
 /**

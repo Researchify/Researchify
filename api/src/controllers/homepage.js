@@ -7,8 +7,8 @@ const { fillErrorObject } = require('../middleware/error');
 
 /**
  * Get homepage content on /homepage/:team_id
- * @returns 200: return the team's homepage info 
- * @returns 404: team's homepage info not found 
+ * @returns 200: return the team's homepage info
+ * @returns 404: team's homepage info not found
  * @returns 500: server error
  * @returns
  */
