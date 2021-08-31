@@ -62,7 +62,6 @@ const TemplateSelector = (props) => {
 
   const storeInputs = (teamId, inputObject) => {
     dispatch(updateTeamTheme(teamId, inputObject));
-    props.closeModal();
   };
 
   const handleSubmit = (event) => {
