@@ -58,7 +58,7 @@ async function addWebPage(req, res, next) {
  * @returns 400: Team Id given does not have a website created yet
  * @returns 500: Server error while saving new page name to DB
  */
- async function deleteWebPage(req, res, next) {
+async function deleteWebPage(req, res, next) {
   const { team_id } = req.params;
   try {
     const foundWebsiteInfo = await Website.findOne({ teamId: team_id });

@@ -79,7 +79,7 @@ const CategoryPage = ({
                       key={idx}
                       type="radio"
                       variant="outline-secondary"
-                      value={category.toUpperCase()}
+                      value={category}
                       checked={values.category.type.toUpperCase() === category.toUpperCase()}
                       onChange={(e) =>
                         setValues({
