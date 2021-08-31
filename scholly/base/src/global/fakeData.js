@@ -1,6 +1,6 @@
 export const FAKE_WEB_PAGES = {
   pages: ['PUBLICATIONS', 'TEAM'],
-  publicationOptions: { layout: "All Publication", sortBy: "Author" }
+  publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
 };
 
 export const FAKE_PUBLICATIONS = [
@@ -179,5 +179,5 @@ export const FAKE_TEAM_MEMBERS = [
 ];
 
 export const FAKE_TEAM_HOMEPAGE = {
-  aboutUs: ["This is first paragraph.", "This is second paragraph.", "This is third paragraph."]
-}
+  aboutUs: ['This is first paragraph.', 'This is second paragraph.', 'This is third paragraph.'],
+};
