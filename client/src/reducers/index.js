@@ -11,6 +11,7 @@ import teamMembersReducer from './teamMembersReducer';
 import websiteReducer from './websiteReducer';
 import notificationReducer from './notificationReducer';
 import deployReducer from './deployReducer';
+import achievementsReducer from './achievementsReducer';
 import homepageReducer from './homepageReducer';
 
 export default combineReducers({
@@ -22,5 +23,6 @@ export default combineReducers({
   teamMember: teamMembersReducer,
   deploy: deployReducer,
   website: websiteReducer,
+  achievements: achievementsReducer, 
   homepage: homepageReducer,
 });

@@ -80,32 +80,32 @@ const ProfileInfoEdit = () => {
 
   };
 
-    const findFormErrors = () => {
+    const findFormErrors = async () => {
 
         const newErrors = {}
         // name errors
-        if (!checkPassword()){
+        if ( !await checkPassword()){
             newErrors.password = "Please enter a password at least 8 chars long, using only numbers, letters and characters"
         }
         return newErrors
     }
 
-    const handleUpdatePassword = e => {
-    e.preventDefault()
-    // get our new errors
-    const newErrors = findFormErrors()
-    // Conditional logic:
-    if ( Object.keys(newErrors).length > 0 ) {
-      // We got errors!
-      setErrors(newErrors)
-    } else {
-      // No errors! Put any logic here for the form submission!
-      const newdata = {
-                  "password": {...profileDataPassword}.password
-              }
-              dispatch(updateTeam(teamId, newdata,' Password has been updated'));
+    const handleUpdatePassword = async e => {
+        e.preventDefault()
+        // get our new errors
+        const newErrors = await findFormErrors()
+        // Conditional logic:
+        if (Object.keys(newErrors).length > 0) {
+            // We got errors!
+            setErrors(newErrors)
+        } else {
+            // No errors! Put any logic here for the form submission!
+            const newdata = {
+                "password": {...profileDataPassword}.password
+            }
+            dispatch(updateTeam(teamId, newdata, ' Password has been updated'));
+        }
     }
-  }
 
 
 
@@ -231,11 +231,11 @@ const ProfileInfoEdit = () => {
                 placeholder="Password"
                 value={profileDataPassword.password}
                 onChange={ e => setPassword('password', e.target.value) }
-                isInvalid={ !!errors.name }
+                isInvalid={ !!errors.password }
 
               />
                   <Form.Control.Feedback type='invalid'>
-        { errors.name }
+        { errors.password }
     </Form.Control.Feedback>
 
           </Form.Group>
@@ -247,10 +247,10 @@ const ProfileInfoEdit = () => {
                 placeholder="Password"
                 value={profileDataPassword.confirmedPassword}
                 onChange={ e => setPassword('confirmedPassword', e.target.value) }
-                isInvalid={ !!errors.name }
+                isInvalid={ !!errors.password }
               />
     <Form.Control.Feedback type='invalid'>
-        { errors.name }
+        { errors.password }
     </Form.Control.Feedback>
           </Form.Group>
               <div className="my-1">
