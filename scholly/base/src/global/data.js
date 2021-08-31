@@ -14,7 +14,7 @@ import {
   FAKE_WEB_PAGES,
 } from './fakeData';
 
-const { env } = process;
+const env = process.env; // eslint-disable-line prefer-destructuring
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;

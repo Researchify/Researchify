@@ -22,7 +22,7 @@ const PublicationForm = (props) => {
     description: '',
     link: '',
     category: {
-      type: categoryTypes.JOURNAL,
+      type: categoryTypes.Journal,
       categoryTitle: '',
       volume: '',
       issue: '',

@@ -21,57 +21,47 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
           {pub.category.type.charAt(0)
             + pub.category.type.slice(1).toLowerCase()}
           :
-          {' '}
-          {pub.category.categoryTitle}
+          {` ${pub.category.categoryTitle}`}
         </h6>
         {pub.category.issue && (
         <h6>
-          {' '}
           Issue:
-          {pub.category.issue}
+          {` ${pub.category.issue}`}
         </h6>
         )}
         {pub.category.volume && (
         <h6>
-          {' '}
           Volume:
-          {pub.category.volume}
+          {` ${pub.category.volume}`}
         </h6>
         )}
         {pub.category.pages && (
         <h6>
-          {' '}
           Pages:
-          {pub.category.pages}
+          {` ${pub.category.pages}`}
         </h6>
         )}
         {pub.category.publisher && (
           <h6>
-            {' '}
             Publisher:
-            {pub.category.publisher}
+            {` ${pub.category.publisher}`}
           </h6>
         )}
         <h6>
-          {' '}
           Description:
-          {pub.description}
+          {` ${pub.description}`}
         </h6>
         {/* { pub.link && <h6> Link: <a style={{cursor: 'pointer'}} onClick={() => window.open(`${pub.link}`, '_blank')}>{pub.link} </a> </h6> } */}
         {pub.link && (
           <h6>
-            {' '}
             Link:
-            {' '}
             <a
               href={pub.link}
               style={{ cursor: 'pointer' }}
               onClick={() => window.open(`${pub.link}`, '_blank')} // eslint-disable-line no-undef
             >
-              {pub.link}
-              {' '}
+              {` ${pub.link}`}
             </a>
-            {' '}
           </h6>
         )}
       </div>

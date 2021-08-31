@@ -8,7 +8,7 @@ import LayoutAllPublications from './LayoutAllPublications';
 const LayoutByCategory = ({ teamPublications }) => {
   const renderPublicationsByCategory = () => {
     const publicationsByCategory = teamPublications.filter(
-      (pub) => pub.category.type === categoryType.toUpperCase(),
+      (pub) => pub.category.type === categoryType,
     );
     return (
       publicationsByCategory.length > 0 && (

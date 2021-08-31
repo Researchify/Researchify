@@ -1,18 +1,17 @@
 /**
  * The Publications component displays a list of publications.
  */
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Accordion } from 'react-bootstrap';
 import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 import { TEAM_PUBLICATIONS, WEB_PAGES } from '../../global/data';
 import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
-
-import { layoutOption, sortingOption } from '../../config/publications';
+import { layoutOption, sortingOption, defaultOption } from '../../config/publications';
 
 const Publications = () => {
   const { publicationOptions } = WEB_PAGES;
-  const [options, setOptions] = useState(publicationOptions);
+  const [options, setOptions] = useState(publicationOptions || defaultOption);
   const sortPublications = (teamPublications, option) => {
     switch (option) {
       case sortingOption.AUTHOR:
