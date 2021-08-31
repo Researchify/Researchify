@@ -12,7 +12,7 @@ import './Header.css';
  */
 const Header = (props) => {
   const userName = useSelector(
-    (state) => `${state.team?.teamName} ${state.team?.orgName}`,
+    (state) => `${state.team?.teamName} @ ${state.team?.orgName}`,
   );
   // TODO: Remove hard-coded team id and publications id from the links
   return (
