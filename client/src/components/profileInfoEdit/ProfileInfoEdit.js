@@ -60,19 +60,6 @@ const ProfileInfoEdit = () => {
   //   }
   // };
 
-  // const deleteProfile = () => {
-  //   try{
-  //     dispatch(deleteTeam(teamId))
-  //     dispatch(logout())
-  //     toast.success('profile has been successfully deleted');
-  //   }
-  //   catch (error) {
-  //     console.error(error);
-  //     toast.error('Profile has not been deleted');
-  //   }
-  // };
-  
-
   return (
     <>
     <div className="mt-5">

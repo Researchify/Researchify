@@ -76,17 +76,17 @@ teamRouter.patch(
 
 teamRouter.delete(
   '/:team_id',
-  //authMiddleware.cookieJwtAuth,
-  //mongooseMiddleware.validateTeamObjectId,
-  //teamMiddleware.validateTeamId,
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
   teamController.deleteTeam
 );
 
 teamRouter.delete(
   '/:team_id/deleteGHPages/:code',
-  //authMiddleware.cookieJwtAuth,
-  //mongooseMiddleware.validateTeamObjectId,
-  //teamMiddleware.validateTeamId,
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
   teamController.deleteGHPages
 );
 

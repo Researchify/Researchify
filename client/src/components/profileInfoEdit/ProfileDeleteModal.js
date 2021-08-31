@@ -10,35 +10,31 @@ import React from 'react';
 
 
   const ProfileDeleteModal = ({ deleteAlert, setdeleteAlert }) => {
-
-
-    const {
-      teamId
-    } = useSelector(
-      (state) => state.team,
-    );
-    
+   
+   const {teamId} = useSelector((state) => state.team,);
    const dispatch = useDispatch();
 
-
    const fullDelete = () => {
-
+    
     const access_token = localStorage.getItem('GH_access_token');
-    dispatch(deleteGHPages(teamId,access_token))
-    console.log(teamId,access_token)
-    // dispatch(deleteTeam(teamId))
-    // dispatch(logout())
-    
-    toast.success(`profile has been successfully deleted${access_token}`);
-    // delete github repo using git apis
-    
+    if(access_token===null) {
+      toast.error('Log in with github account')
+    } 
+    else{
+      try{
+      dispatch(deleteGHPages(teamId,access_token))
+      dispatch(deleteTeam(teamId))
+      dispatch(logout())
+      toast.success(`profile & GitHub page has been successfully deleted`);
+      } catch(error){
+        toast.error('GitHub Pages doesnt exist')
+      }
+      }   
    };
-   const handleDelete = () => {
-    
+   const partialDelete = () => {
     dispatch(deleteTeam(teamId))
     dispatch(logout())
-    toast.success(`profile has been successfully deleted${teamId}`);
-
+    toast.success(`profile has been successfully deleted`);
    };
    return (
      <Modal show={deleteAlert}>
@@ -52,7 +48,7 @@ import React from 'react';
        <Button variant="light" onClick={() => setdeleteAlert(false)}>
            back
          </Button>
-         <Button variant="danger" onClick={handleDelete}>
+         <Button variant="danger" onClick={partialDelete}>
            Keep github page
          </Button>
          <Button variant="danger" onClick={fullDelete}>

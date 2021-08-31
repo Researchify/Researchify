@@ -306,33 +306,49 @@
    res.status(200).json(updatedTeam);
  }
  
+ /**
+  * Delete the team from the database on /team/:team_id
+  * @param {} req request object, containing team id in the url
+  * @param {*} res response object, the deleted team document
+  * @returns 200: teamn is deleted
+  * @returns 404: team is not found
+  * @returns 400: team id is not in a valid hexadecimal format
+  */
  async function deleteTeam(req, res, next){
    try{
      const { team_id: _id } = req.params;
+
      await HomePage.deleteOne({teamId: _id})
      await Website.deleteOne({teamId: _id})
      await Achievement.deleteOne({teamId: _id})
      await Publication.deleteOne({teamId: _id})
-    //await Team.findByIdAndDelete(_id)
-    console.log('delete successfully')
-     res.status(200).json('delete successfully');
+     await Team.findByIdAndDelete(_id)
 
-   } catch (error){
+     res.status(200).json('delete successfully');
+   } 
+   catch (error){
     return next(
       fillErrorObject(500, 'Error occurred with server', [err.message]),
     );
    }
  }
  
+/**
+  * Delete the team from the database on /team/:team_id
+  * @param {} req request object, containing team id in the url
+  * @param {*} res response object, the deleted team document
+  * @returns 200: teamn is deleted
+  * @returns 404: team is not found
+  * @returns 400: team id is not in a valid hexadecimal format
+  */
  async function deleteGHPages(req, res, next) {
    const { code } = req.params
    const { team_id: _id } = req.params;
 
-   
-   // Call github API to get username.     gets username from github api
-   
-   const { data } = await axios.get('https://api.github.com/user', {
-     headers: { Authorization: `token ${code}` },
+   // Call github API to get username
+   const { data } = await axios.get('https://api.github.com/user', 
+   {
+     headers: { Authorization: `token ${code}`},
    });
    if (data.errors) {
      return next(
@@ -340,24 +356,14 @@
      );
    }
 
-   
- 
+   // Creating repoName 
    const ghUsername = data.login;
    logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
    const repoName = `${ghUsername}.github.io`
-
-   console.log(ghUsername,code,repoName);
-   var sleep = function (ms) {
-    let now = Date.now(), end = now + ms;
-    while (now < end) { now = Date.now(); }
-  };
-    
-   console.log('yessssssssss');
-   console.log(code);
-   //sleep(5000);
  
+   // delete repo
    try {
-     
+
     deletePages= await axios({
       url:
         `https://api.github.com/repos/${
@@ -371,18 +377,19 @@
         Accept: 'application/vnd.github.v3+json',
       },
     });
-    res.status(200).json('delete successfully');
+    // result logged
+    res.status(200).json('deleted successfully');
     if (deletePages.status === 204) {
-
-      console.log('Pages site successfully deleted');
+      logger.info(`GitHub pages deleted for user: ${ghUsername}`);
     } else {
-      // see https://docs.github.com/en/rest/reference/repos#create-a-github-pages-site
-      console.log('FAIL');
+      logger.info(`GitHub pages deleted for user: ${ghUsername} failed!`);
     }
-  } catch (err) {
-    console.log(err);
-    console.log(ghUsername,code,repoName);
-  }
+
+  } catch (error){
+    return next(
+      fillErrorObject(500, 'Error occurred with server', [error.message]),
+    );
+   }
 
 }
  

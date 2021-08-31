@@ -226,7 +226,6 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
 
     // get user selected web pages to deploy
     const { data: webPages } = await api.getWebsiteInfo(teamId);
-      console.log(accessToken)
     const body = {
       ghToken: accessToken,
       teamPublications,
@@ -291,10 +290,10 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
 };
 
 /**
- * This action creator will be called when a user want to delete the team profile
+ * This action creator will be called when a user want to delete their account
  *
  * @param {*} teamId id of the team
- * @param {*} teamData data object of the data to be patched
+ * @param {*} teamData data object of the data to be deleted
  * @returns
  */
  export const deleteTeam = (teamId, teamData) => async (dispatch) => {
@@ -304,6 +303,7 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
       type: DELETE_TEAM,
       payload: teamData,
     });
+    
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
@@ -333,22 +333,30 @@ export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
 };
 
 
+/**
+ * This action creator will be called when a user want to delete their deployed GitHub Pages
+ *
+ * @param {*} teamId id of the team
+ * @param {*} teamData data object of the data to be deleted
+ * @returns
+ */
 export const deleteGHPages = (teamId, accessToken) => async (dispatch) => {
   try {
     dispatch({
       type: DELETE_REQUEST,
     });
-    console.log(accessToken)
 
     await api.deleteGHPages(teamId, accessToken)
     dispatch({
       type: DELETE_SUCCESS,
     });
-    dispatch(successMessageCreator('Deleted successfully'));
-  } catch (err) {
+
+    dispatch(successMessageCreator('The team and the deployed GH Pages have been deleted'));
+  } 
+  catch (err) {
     dispatch(errorActionGlobalCreator(err));
     dispatch({
       type: DELETE_FAIL,
-      });
-    }
+    });
+  }
 };
