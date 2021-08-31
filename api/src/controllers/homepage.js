@@ -18,9 +18,7 @@ async function getHomepage(req, res, next) {
     if (foundHomepage) {
       return res.status(200).json(foundHomepage);
     }
-    // note: each string in `aboutUs` is a paragraph
-    const emptyHomepage = { teamId: team_id, aboutUs: [''] };
-    return res.status(200).json(emptyHomepage);
+    return next(fillErrorObject(404, 'Validation error', [ 'No homepage found with the given team_id']));
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }

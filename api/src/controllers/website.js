@@ -20,8 +20,7 @@ async function getWebPageDetails(req, res, next) {
     if (foundWebsiteInfo) {
       return res.status(200).json(foundWebsiteInfo);
     }
-    const emptyWebsiteInfo = { teamId: team_id, pages: [] };
-    return res.status(200).json(emptyWebsiteInfo);
+    return next(fillErrorObject(404, 'Validation error', [ 'No webpage detail found with the given team_id']));
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
