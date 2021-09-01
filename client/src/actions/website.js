@@ -79,14 +79,14 @@ export const updatePublicationOptions = (teamId, preference) => async (dispatch)
 };
 
 export const updateWebsiteTitle = (teamId, title) => async (dispatch) => {
-  try{
-    await api.updateWebsiteTitle(teamId, title)
+  try {
+    await api.updateWebsiteTitle(teamId, title);
     dispatch({
       type: UPDATE_WEBSITE_TITLE,
       payload: title.websiteTitle,
-    })
-    dispatch(successMessageCreator('Title had been updated'))
-  } catch(err){
+    });
+    dispatch(successMessageCreator('Title had been updated'));
+  } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
 };

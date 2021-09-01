@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
-import { Button, Spinner, Form, Row, Col } from 'react-bootstrap';
+import {
+  Button, Spinner, Form, Row, Col,
+} from 'react-bootstrap';
 import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
 
@@ -18,12 +20,11 @@ const DeployPage = ({ teamId }) => {
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken,
   );
-  const [input, setInput] = useState({websiteTitle: title});
+  const [input, setInput] = useState({ websiteTitle: title });
 
   useEffect(() => {
-    setInput({...input, websiteTitle: title})
-  }, [title])
-
+    setInput({ ...input, websiteTitle: title });
+  }, [title]);
 
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token'); // eslint-disable-line no-undef
@@ -32,9 +33,9 @@ const DeployPage = ({ teamId }) => {
   };
 
   const handleUpdateTitle = () => {
-    console.log(input)
+    console.log(input);
     dispatch(updateWebsiteTitle(teamId, input));
-  }
+  };
 
   const onSuccessfulLogin = (response) => {
     const { code } = response;
@@ -66,25 +67,31 @@ const DeployPage = ({ teamId }) => {
   const DeployButton = (
     <>
       <Form>
-          <Form.Group as={Row} className='mt-3'>
-          <Form.Label column >
-            Website Title 
+        <Form.Group as={Row} className="mt-3">
+          <Form.Label column>
+            Website Title
           </Form.Label>
           <Col sm="8">
-            <Form.Control 
+            <Form.Control
               type="text"
               value={input.websiteTitle}
               onChange={(event) => {
-                setInput({...input, websiteTitle: event.target.value})}}
+                setInput({ ...input, websiteTitle: event.target.value });
+              }}
             />
           </Col>
-          <Col sm='2'>
+          <Col sm="2">
             <Button
               onClick={handleUpdateTitle}
               disabled={title === input.websiteTitle}
-            > Save Title </Button>
+            >
+              {' '}
+              Save Title
+              {' '}
+
+            </Button>
           </Col>
-          </Form.Group>
+        </Form.Group>
       </Form>
       <Button
         className="float-right"
@@ -105,7 +112,7 @@ const DeployPage = ({ teamId }) => {
           <Spinner animation="border" />
         </div>
       ) : retrievedAccessToken ? (
-          DeployButton
+        DeployButton
       ) : (
         GitHubLoginButton
       )}

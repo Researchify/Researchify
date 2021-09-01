@@ -3,15 +3,14 @@
  */
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-// import Header from './layout/Header.js';
-// import { getRoutes } from './router/routes.js';
-// import { WEB_PAGES } from '../global/data';
+import { Helmet } from 'react-helmet';
+import { WEB_PAGES } from '../global/data';
 import Header from './layout/Header';
 import getRoutes from './router/routes';
 import './centred.css';
 
 const App = () => {
-  console.log(WEB_PAGES)
+  console.log(WEB_PAGES);
   const routeItems = getRoutes().map(({ path, exact, component }) => {
     const View = component;
     return (
@@ -21,12 +20,12 @@ const App = () => {
     );
   });
 
-  // useEffect(() => {
-  //   document.title = WEBSITE_TITLE
-  // }, [])
-
   return (
     <>
+      <Helmet>
+        <title>{WEB_PAGES.title}</title>
+        <meta name="description" content="Helmet application" />
+      </Helmet>
       <Header />
       <Switch>
         {routeItems}
