@@ -79,7 +79,7 @@ teamRouter.delete(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.deleteTeam
+  teamController.deleteTeam,
 );
 
 teamRouter.delete(
@@ -87,7 +87,7 @@ teamRouter.delete(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.deleteGHPages
+  teamController.deleteGHPages,
 );
 
 module.exports = teamRouter;

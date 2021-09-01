@@ -7,7 +7,7 @@
     "globals": {
         "localStorage": true
     },
-    "extends": ["eslint:recommended", "airbnb", "prettier"],
+    "extends": ["eslint:recommended", "airbnb"],
     "parserOptions": {
         "ecmaVersion": 12
     },

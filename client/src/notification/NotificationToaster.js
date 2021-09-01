@@ -26,4 +26,4 @@ const NotificationToaster = () => {
   return <></>;
 };
 
-export default NotificationToaster
+export default NotificationToaster;

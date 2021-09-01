@@ -22,10 +22,10 @@ export const createTeamMember = (teamId, newTeamMember) => api.post(`/team/${tea
 export const updateTeamMember = (teamId, updatedTeamMember) => api.patch(`/team/${teamId}/member`, updatedTeamMember);
 export const deleteTeamMember = (teamId, teamMemberId) => api.delete(`/team/${teamId}/member/${teamMemberId}`);
 export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, updatedTeam);
-export const deleteTeam = (teamId) =>  api.delete(`/team/${teamId}`);
+export const deleteTeam = (teamId) => api.delete(`/team/${teamId}`);
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
 export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/deploy`, body);
-export const deleteGHPages = (teamId,code) => api.delete(`/team/${teamId}/deleteGHPages/${code}`);
+export const deleteGHPages = (teamId, code) => api.delete(`/team/${teamId}/deleteGHPages/${code}`);
 
 // Theme endpoints.
 export const findOrCreateTheme = (themeData) => api.post('/theme', themeData);
@@ -33,18 +33,13 @@ export const findOrCreateTheme = (themeData) => api.post('/theme', themeData);
 // Website endpoints.
 export const addWebPage = (teamId, pageName) => api.post(`/clientWebsite/${teamId}/add_page`, pageName);
 export const getWebsiteInfo = (teamId) => api.get(`/clientWebsite/${teamId}`);
-export const deleteWebPage = (teamId, pageName) =>
-  api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
-export const updatePublicationOptions = (teamId, options) =>
-  api.post(`/clientWebsite/${teamId}/updatePublicationOptions`, options);
+export const deleteWebPage = (teamId, pageName) => api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
+export const updatePublicationOptions = (teamId, options) => api.post(`/clientWebsite/${teamId}/updatePublicationOptions`, options);
 
 // Achievement endpoints.
-export const fetchAchievementsByTeamId = (teamId) =>
-api.get(`/achievements/team/${teamId}`);
-export const createAchievement = (newAchievement) =>
-  api.post(`/achievements/`, newAchievement);
-export const updateAchievement = (id, updatedAchievement) =>
-  api.patch(`/achievements/${id}`, updatedAchievement);
+export const fetchAchievementsByTeamId = (teamId) => api.get(`/achievements/team/${teamId}`);
+export const createAchievement = (newAchievement) => api.post('/achievements/', newAchievement);
+export const updateAchievement = (id, updatedAchievement) => api.patch(`/achievements/${id}`, updatedAchievement);
 export const deleteAchievement = (id) => api.delete(`/achievements/${id}`);
 
 // Auth endpoints.

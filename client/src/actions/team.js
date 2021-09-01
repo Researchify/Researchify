@@ -19,7 +19,7 @@ import {
   DELETE_TEAM,
   DELETE_REQUEST,
   DELETE_SUCCESS,
-  DELETE_FAIL
+  DELETE_FAIL,
 } from './types';
 import {
   errorActionGlobalCreator,
@@ -215,7 +215,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       teamId,
     );
     teamPublications.map(
-      (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4)) // eslint-disable-line no-param-reassign 
+      (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4)), // eslint-disable-line no-param-reassign
     );
     // get teamInfo
     const { data: teamInfo } = await api.getTeamJWT();
@@ -296,14 +296,13 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
  * @param {*} teamData data object of the data to be deleted
  * @returns
  */
- export const deleteTeam = (teamId, teamData) => async (dispatch) => {
+export const deleteTeam = (teamId, teamData) => async (dispatch) => {
   try {
     await api.deleteTeam(teamId);
     dispatch({
       type: DELETE_TEAM,
       payload: teamData,
     });
-    
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
@@ -332,7 +331,6 @@ export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
   }
 };
 
-
 /**
  * This action creator will be called when a user want to delete their deployed GitHub Pages
  *
@@ -346,14 +344,13 @@ export const deleteGHPages = (teamId, accessToken) => async (dispatch) => {
       type: DELETE_REQUEST,
     });
 
-    await api.deleteGHPages(teamId, accessToken)
+    await api.deleteGHPages(teamId, accessToken);
     dispatch({
       type: DELETE_SUCCESS,
     });
 
     dispatch(successMessageCreator('The team and the deployed GH Pages have been deleted'));
-  } 
-  catch (err) {
+  } catch (err) {
     dispatch(errorActionGlobalCreator(err));
     dispatch({
       type: DELETE_FAIL,
