@@ -349,7 +349,7 @@ async function deleteTeam(req, res, next) {
   * @returns 404: team is not found
   * @returns 400: team id is not in a valid hexadecimal format
   */
- async function clearTeam(req, res, next) {
+async function clearTeam(req, res, next) {
   try {
     const { team_id: _id } = req.params;
 
