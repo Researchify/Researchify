@@ -8,7 +8,6 @@ import {
   LOG_OUT,
   LOG_IN_FAIL,
   FETCH_TEAM_INFO,
-  CLEAR_NOTIFICATION,
   FETCH_WEBSITE_INFO,
 } from './types';
 import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
@@ -45,10 +44,6 @@ export const logout = () => async (dispatch) => {
     await api.logoutTeam();
     dispatch({
       type: LOG_OUT,
-    });
-
-    dispatch({
-      type: CLEAR_NOTIFICATION,
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
