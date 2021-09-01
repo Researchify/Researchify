@@ -17,7 +17,7 @@ const INITIAL_WEBSITE_STATE = {
   pages: [],
   publicationOptions: {
     layout: layoutOptions.ALL_PUBLICATION,
-    sortBy: sortingOptions.TITLE
+    sortBy: sortingOptions.TITLE,
   },
 };
 

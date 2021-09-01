@@ -20,10 +20,10 @@ const Publications = () => {
   const teamId = useSelector((state) => state.team.teamId);
   const { publicationOptions } = useSelector((state) => state.website);
   const { loading, teamPublications } = useSelector((state) => state.publications);
-  const [ showCreateForm, setShowCreateForm ] = useState(false);
-  const [ showImportForm, setShowImportForm ] = useState(false);
-  const [ options, setOptions ] = useState(publicationOptions);
-  const [ publications, setPublications ] = useState(teamPublications);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showImportForm, setShowImportForm] = useState(false);
+  const [options, setOptions] = useState(publicationOptions);
+  const [publications, setPublications] = useState(teamPublications);
 
   useEffect(() => {
     if (teamId) {
@@ -32,8 +32,8 @@ const Publications = () => {
   }, [dispatch, teamId]);
 
   useEffect(() => {
-    setOptions(publicationOptions)
-  }, [publicationOptions])
+    setOptions(publicationOptions);
+  }, [publicationOptions]);
 
   const renderPublications = () => {
     switch (options.layout) {
@@ -42,7 +42,7 @@ const Publications = () => {
       default:
         return <LayoutAllPublications teamPublications={publications} />;
     }
-  }
+  };
 
   const sortPublications = (publicationToBeSorted, option) => {
     if (option === options.sortBy) {
@@ -50,40 +50,32 @@ const Publications = () => {
     }
     switch (option) {
       case sortingOptions.AUTHOR:
-        publicationToBeSorted.sort((a, b) =>
-          a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1
-        );
+        publicationToBeSorted.sort((a, b) => (a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1));
         break;
       case sortingOptions.TITLE:
         // publication title
-        publicationToBeSorted.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
+        publicationToBeSorted.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
         break;
       case 'Category Title':
         // journal or conference title
-        publicationToBeSorted.sort((a, b) =>
-          a.category.categoryTitle.toLowerCase() >
-          b.category.categoryTitle.toLowerCase()
-            ? 1
-            : -1
-        );
+        publicationToBeSorted.sort((a, b) => (a.category.categoryTitle.toLowerCase()
+          > b.category.categoryTitle.toLowerCase()
+          ? 1
+          : -1));
         break;
       default:
         // sort by title then year for consistency with the db
-        publicationToBeSorted.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
+        publicationToBeSorted.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
         publicationToBeSorted.sort((a, b) => (a.year > b.year ? -1 : 1));
         break;
-      }
-      return publicationToBeSorted
-    };
-  
-    useEffect(() => {
-      const sortedPublication = sortPublications(teamPublications, options.sortBy)
-      setPublications(sortedPublication)
-    }, [teamPublications])
+    }
+    return publicationToBeSorted;
+  };
+
+  useEffect(() => {
+    const sortedPublication = sortPublications(teamPublications, options.sortBy);
+    setPublications(sortedPublication);
+  }, [teamPublications]);
 
   return (
     <>

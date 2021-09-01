@@ -39,12 +39,9 @@ export const updateWebsiteTitle = (teamId, title) =>
   api.post(`/clientWebsite/${teamId}/updateTitle`, title);
 
 // Achievement endpoints.
-export const fetchAchievementsByTeamId = (teamId) =>
-api.get(`/achievements/team/${teamId}`);
-export const createAchievement = (newAchievement) =>
-  api.post(`/achievements/`, newAchievement);
-export const updateAchievement = (id, updatedAchievement) =>
-  api.patch(`/achievements/${id}`, updatedAchievement);
+export const fetchAchievementsByTeamId = (teamId) => api.get(`/achievements/team/${teamId}`);
+export const createAchievement = (newAchievement) => api.post('/achievements/', newAchievement);
+export const updateAchievement = (id, updatedAchievement) => api.patch(`/achievements/${id}`, updatedAchievement);
 export const deleteAchievement = (id) => api.delete(`/achievements/${id}`);
 
 // Auth endpoints.

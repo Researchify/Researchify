@@ -14,7 +14,7 @@ import {
   FAKE_WEB_PAGES,
 } from './fakeData';
 
-const env = process.env;
+const env = process.env; // eslint-disable-line prefer-destructuring
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
@@ -50,8 +50,8 @@ if (!env.REACT_APP_DEBUG) {
   WEBSITE_TITLE = env.REACT_APP_WEBSITE_TITLE
 
 } else {
-  console.log('Running in DEBUG mode, hence using fake Team data');
   // Running client website locally, so use fake data
+  console.log('Running in DEBUG mode, hence using fake data'); // eslint-disable-line no-console
   TEAM_PUBLICATIONS = FAKE_PUBLICATIONS;
 
   TEAM_INFO = FAKE_TEAM_INFO;

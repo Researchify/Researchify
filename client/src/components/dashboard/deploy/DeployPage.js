@@ -46,8 +46,8 @@ const DeployPage = ({ teamId }) => {
   // handle error toast when fail to log in
   // usually is when user close the login window
   const onLoginFail = () => {
-    toast.error("You must login with GitHub to deploy");
-  }
+    toast.error('You must login with GitHub to deploy');
+  };
 
   const GitHubLoginButton = (
     <GitHubLogin

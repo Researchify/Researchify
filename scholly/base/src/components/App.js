@@ -1,11 +1,13 @@
 /**
- * Root App.js 
+ * Root App.js
  */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Header from './layout/Header.js';
-import { getRoutes } from './router/routes.js';
-import { WEB_PAGES } from '../global/data';
+// import Header from './layout/Header.js';
+// import { getRoutes } from './router/routes.js';
+// import { WEB_PAGES } from '../global/data';
+import Header from './layout/Header';
+import getRoutes from './router/routes';
 import './centred.css';
 
 const App = () => {
@@ -24,12 +26,12 @@ const App = () => {
   // }, [])
 
   return (
-    <Fragment>
+    <>
       <Header />
       <Switch>
         {routeItems}
       </Switch>
-    </Fragment>
+    </>
   );
 };
 
