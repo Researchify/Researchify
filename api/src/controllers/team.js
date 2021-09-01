@@ -254,7 +254,7 @@ async function deployToGHPages(req, res, next) {
   } = req.body;
 
   // Call github API to get username.
-  const {data } = await axios.get('https://api.github.com/user', {
+  const { data } = await axios.get('https://api.github.com/user', {
     headers: { Authorization: `token ${ghToken}` },
   });
   if (data.errors) {

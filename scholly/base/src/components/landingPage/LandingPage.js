@@ -1,7 +1,7 @@
 /**
  * This file output landing page (homepage) of client-site.
  */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 import { TEAM_HOMEPAGE } from '../../global/data';
 
