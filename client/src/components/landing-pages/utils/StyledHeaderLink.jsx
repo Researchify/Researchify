@@ -1,7 +1,7 @@
-import React from "react";
-import AnchorLink from "react-anchor-link-smooth-scroll";
+import React from 'react';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import styled from 'styled-components';
-import { theme } from "../theme";
+import { theme } from '../theme';
 
 const HeaderLink = styled(AnchorLink)`
   color: ${theme.secondary};

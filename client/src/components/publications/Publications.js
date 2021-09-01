@@ -20,10 +20,10 @@ const Publications = () => {
   const teamId = useSelector((state) => state.team.teamId);
   const { publicationOptions } = useSelector((state) => state.website);
   const { loading, teamPublications } = useSelector((state) => state.publications);
-  const [ showCreateForm, setShowCreateForm ] = useState(false);
-  const [ showImportForm, setShowImportForm ] = useState(false);
-  const [ options, setOptions ] = useState(publicationOptions);
-  const [ publications, setPublications ] = useState(teamPublications);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showImportForm, setShowImportForm] = useState(false);
+  const [options, setOptions] = useState(publicationOptions);
+  const [publications, setPublications] = useState(teamPublications);
 
   useEffect(() => {
     if (teamId) {
@@ -32,8 +32,8 @@ const Publications = () => {
   }, [dispatch, teamId]);
 
   useEffect(() => {
-    setOptions(publicationOptions)
-  }, [publicationOptions])
+    setOptions(publicationOptions);
+  }, [publicationOptions]);
 
   const renderPublications = () => {
     switch (options.layout) {
@@ -42,7 +42,7 @@ const Publications = () => {
       default:
         return <LayoutAllPublications teamPublications={publications} />;
     }
-  }
+  };
 
   const sortPublications = (publicationToBeSorted, option) => {
     switch (option) {
@@ -78,18 +78,18 @@ const Publications = () => {
         });
         publicationToBeSorted.sort((a, b) => {
           if (a.year > b.year) return -1;
-          if( a.year < b.year) return 1;
+          if (a.year < b.year) return 1;
           return 0;
         });
         break;
-      }
-      return publicationToBeSorted
-    };
+    }
+    return publicationToBeSorted;
+  };
 
-    useEffect(() => {
-      const sortedPublication = sortPublications(teamPublications, options.sortBy)
-      setPublications(sortedPublication)
-    }, [teamPublications])
+  useEffect(() => {
+    const sortedPublication = sortPublications(teamPublications, options.sortBy);
+    setPublications(sortedPublication);
+  }, [teamPublications]);
 
   return (
     <>

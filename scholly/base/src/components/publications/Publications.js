@@ -4,13 +4,13 @@
 import React, { Fragment } from 'react';
 import { Accordion } from 'react-bootstrap';
 import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
-import LayoutByCategory from './publicationsLayout/LayoutByCategory'
-import { TEAM_PUBLICATIONS } from '../../global/data';
-import { WEB_PAGES } from '../../global/data';
+import LayoutByCategory from './publicationsLayout/LayoutByCategory';
+import { TEAM_PUBLICATIONS, WEB_PAGES } from '../../global/data';
+
 import { layoutOptions, sortingOptions, defaultOption } from '../../config/publications';
 
 const Publications = () => {
-  const options = WEB_PAGES.publicationOptions ?? defaultOption
+  const options = WEB_PAGES.publicationOptions ?? defaultOption;
   const sortPublications = (teamPublications, option) => {
     switch (option) {
       case sortingOptions.AUTHOR:
@@ -45,30 +45,30 @@ const Publications = () => {
         });
         teamPublications.sort((a, b) => {
           if (a.year > b.year) return -1;
-          if( a.year < b.year) return 1;
+          if (a.year < b.year) return 1;
           return 0;
         });
         break;
-      }
-      return teamPublications
-    };
+    }
+    return teamPublications;
+  };
   const publications = sortPublications(TEAM_PUBLICATIONS, options.sortBy);
 
   const renderPublications = () => {
     switch (options.layout) {
       case layoutOptions.BY_CATEGORY:
-        return <LayoutByCategory teamPublications={publications}/>;
+        return <LayoutByCategory teamPublications={publications} />;
       default:
-        return <LayoutAllPublications teamPublications={publications}/>;
+        return <LayoutAllPublications teamPublications={publications} />;
     }
   };
 
   return (
-    <Fragment>
+    <>
       <Accordion>
         {renderPublications()}
       </Accordion>
-    </Fragment>
+    </>
   );
 };
 

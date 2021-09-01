@@ -47,6 +47,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "eslint-config-airbnb": "^18.2.1"
   }
 }
