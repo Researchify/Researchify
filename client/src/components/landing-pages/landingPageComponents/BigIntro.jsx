@@ -1,10 +1,10 @@
-import React from "react";
-import { Row, Col } from "reactstrap";
-import { Button } from "@material-ui/core";
-import "../css/big-intro.css";
-import "../css/big-intro.mobile.css";
-import styled from "styled-components";
-import AnchorLink from "react-anchor-link-smooth-scroll";
+import React from 'react';
+import { Row, Col } from 'reactstrap';
+import { Button } from '@material-ui/core';
+import '../css/big-intro.css';
+import '../css/big-intro.mobile.css';
+import styled from 'styled-components';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import IntroImage from '../../../images/intro.svg';
 
 const StyledButtonLink = styled(AnchorLink)`
@@ -23,14 +23,14 @@ const DiscoverButtonLink = (props) => {
 const Content = () => {
   return (
     <div className="context ">
-      <Row style={{ margin: 0 }} >
-        <Col lg={{size: 7, offset: 1}} className="frosted-glass">
-          <div style={{padding: '2rem'}}>
+      <Row style={{ margin: 0 }}>
+        <Col lg={{ size: 7, offset: 1 }} className="frosted-glass">
+          <div style={{ padding: '2rem' }}>
             <h1>
               A Research Profile Builder
             </h1>
             <p>
-              Researchify is a web application that helps researchers without programming nor 
+              Researchify is a web application that helps researchers without programming nor
               graphic design knowledge to build and publish their own research profile website.
             </p>
 
@@ -47,8 +47,8 @@ const Content = () => {
             </DiscoverButtonLink>
           </div>
         </Col>
-        <Col lg={{size: 2}} >
-          <img src={IntroImage} alt="man watching presentation" width={370}/>
+        <Col lg={{ size: 2 }}>
+          <img src={IntroImage} alt="man watching presentation" width={370} />
         </Col>
       </Row>
     </div>
@@ -65,9 +65,9 @@ const BigIntro = () => {
 
   const styles = {
     container: {
-      position: "relative",
+      position: 'relative',
       top: 0,
-      minHeight: "50vh",
+      minHeight: '50vh',
     },
   };
 
