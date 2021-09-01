@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import Tab from "@material-ui/core/Tab";
-import { theme as colour } from "../theme";
+import React from 'react';
+import styled from 'styled-components';
+import Tab from '@material-ui/core/Tab';
+import { theme as colour } from '../theme';
 
 const StyledTab = styled(({ ...props }) => (
-  <Tab {...props} classes={{ selected: "selected" }} />
+  <Tab {...props} classes={{ selected: 'selected' }} />
 ))`
   &.selected {
     color: white;

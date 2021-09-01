@@ -80,7 +80,7 @@ const PublicationsDropdown = ({
           variant="secondary"
           onClick={handleUpdate}
         >
-          Update Layout & Sorting Options
+          Update Layout &amp; Sorting Options
         </Button>
       </div>
     </div>

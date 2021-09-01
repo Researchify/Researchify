@@ -205,7 +205,9 @@ async function getGHAccessToken(req, res, next) {
   const { code } = req.params;
 
   const { data } = await axios.post(
-    'https://github.com/login/oauth/access_token', null, {
+    'https://github.com/login/oauth/access_token',
+    null,
+    {
       headers: {
         Accept: 'application/json',
       },
@@ -217,9 +219,13 @@ async function getGHAccessToken(req, res, next) {
     },
   );
   if (data.error) {
-    return next(fillErrorObject(400,
-      'Failed to exchange GitHub temporary code for GitHub Access Token.',
-      [data]));
+    return next(
+      fillErrorObject(
+        400,
+        'Failed to exchange GitHub temporary code for GitHub Access Token.',
+        [data],
+      ),
+    );
   }
   return res.status(200).json(data);
 }
@@ -287,22 +293,26 @@ async function deployToGHPages(req, res, next) {
 }
 
 /**
-  * Update the team from the database on /team/:team_id
-  * @param {} req request object, containing team id in the url
-  * @param {*} res response object, the updated team document
-  * @returns 200: team updated
-  * @returns 404: team is not found
-  * @returns 400: team id is not in a valid hexadecimal format
-  */
-async function updateTeam(req, res, next) { // eslint-disable-line no-unused-vars
+ * Update the team from the database on /team/:team_id
+ * @param {} req request object, containing team id in the url
+ * @param {*} res response object, the updated team document
+ * @returns 200: team updated
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+async function updateTeam(req, res, next) {
   const { team_id: _id } = req.params;
   const team = req.body;
 
-  const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
-    new: true,
-    runValidators: true,
-  });
-  res.status(200).json(updatedTeam);
+  try {
+    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json(updatedTeam);
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err]));
+  }
 }
 
 /**
