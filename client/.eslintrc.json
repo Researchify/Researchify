@@ -13,6 +13,7 @@
     },
     
     "rules": {
+        "linebreak-style": 0,
         "max-len": "off",
         "no-underscore-dangle": "off",
         "camelcase": "off", 
