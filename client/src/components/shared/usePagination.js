@@ -35,7 +35,8 @@ const usePagination = (data, itemPerPage) => {
       );
     }
     return (
-      data.length > itemPerPage && 
+      data.length > itemPerPage
+      && (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Pagination>
           <Pagination.Prev
@@ -49,6 +50,7 @@ const usePagination = (data, itemPerPage) => {
           />
         </Pagination>
       </div>
+      )
     );
   };
 
