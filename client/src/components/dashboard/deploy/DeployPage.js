@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
 import { Button, Spinner, Form, Row, Col } from 'react-bootstrap';
@@ -7,23 +7,34 @@ import toast from 'react-hot-toast';
 
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
+import { updateWebsiteTitle } from '../../../actions/website';
 import './DeployPage.css';
 
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.deploy.loading);
+  const { title } = useSelector((state) => state.website);
+
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken,
   );
-  const [websiteTitle, setWebsiteTitle] = useState("");
+  const [input, setInput] = useState({websiteTitle: title});
 
-  console.log(websiteTitle)
+  useEffect(() => {
+    setInput({...input, websiteTitle: title})
+  }, [title])
+
 
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token'); // eslint-disable-line no-undef
     // call backend endpoint to deploy and give the access token
-    dispatch(deployToGHPages(teamId, accessToken, websiteTitle));
+    dispatch(deployToGHPages(teamId, accessToken));
   };
+
+  const handleUpdateTitle = () => {
+    console.log(input)
+    dispatch(updateWebsiteTitle(teamId, input));
+  }
 
   const onSuccessfulLogin = (response) => {
     const { code } = response;
@@ -54,29 +65,35 @@ const DeployPage = ({ teamId }) => {
 
   const DeployButton = (
     <>
-       <Form.Group as={Row} className='mt-3'>
-        <Form.Label column >
-          Website Title 
-        </Form.Label>
-        <Col sm="8">
-          <Form.Control 
-            type="text"
-            value={websiteTitle}
-            onChange={(event) => {
-              setWebsiteTitle(event.target.value)}}
-          />
-        </Col>
-        <Col sm='2'>
-          <Button
-            className="float-right"
-            variant="primary"
-            disabled={!retrievedAccessToken}
-            onClick={handleDeploy}
-          >
-            Deploy to GitHub Pages
-          </Button>
-        </Col>
-       </Form.Group>
+      <Form>
+          <Form.Group as={Row} className='mt-3'>
+          <Form.Label column >
+            Website Title 
+          </Form.Label>
+          <Col sm="8">
+            <Form.Control 
+              type="text"
+              value={input.websiteTitle}
+              onChange={(event) => {
+                setInput({...input, websiteTitle: event.target.value})}}
+            />
+          </Col>
+          <Col sm='2'>
+            <Button
+              onClick={handleUpdateTitle}
+              disabled={title === input.websiteTitle}
+            > Save Title </Button>
+          </Col>
+          </Form.Group>
+      </Form>
+      <Button
+        className="float-right"
+        variant="primary"
+        disabled={title !== input.websiteTitle}
+        onClick={handleDeploy}
+      >
+        Deploy to GitHub Pages
+      </Button>
     </>
   );
 

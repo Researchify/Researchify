@@ -13,5 +13,4 @@ module.exports = {
   REACT_APP_TEAM_HOMEPAGE: 'REACT_APP_TEAM_HOMEPAGE',
   // Array containing names of pages that the client wants deployed
   REACT_APP_WEB_PAGES: 'REACT_APP_WEB_PAGES',
-  REACT_APP_WEBSITE_TITLE: 'REACT_APP_WEBSITE_TITLE',
 };

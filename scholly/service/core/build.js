@@ -14,7 +14,6 @@ const {
   REACT_APP_TEAM_MEMBERS,
   REACT_APP_TEAM_HOMEPAGE,
   REACT_APP_WEB_PAGES,
-  REACT_APP_WEBSITE_TITLE,
 } = require('./data');
 
 const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
@@ -44,7 +43,6 @@ async function buildBaseApp(data) {
         [REACT_APP_TEAM_MEMBERS]: JSON.stringify(data.teamMembers),
         [REACT_APP_TEAM_HOMEPAGE]: JSON.stringify(data.teamHomepage),
         [REACT_APP_WEB_PAGES]: JSON.stringify(data.webPages),
-        [REACT_APP_WEBSITE_TITLE]: data.websiteTitle,
       },
       timeout: BUILD_TIMEOUT,
     },

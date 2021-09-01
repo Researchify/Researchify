@@ -35,6 +35,8 @@ export const deleteWebPage = (teamId, pageName) =>
   api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
 export const updatePublicationOptions = (teamId, options) =>
   api.post(`/clientWebsite/${teamId}/updatePublicationOptions`, options);
+export const updateWebsiteTitle = (teamId, title) => 
+  api.post(`/clientWebsite/${teamId}/updateTitle`, title);
 
 // Achievement endpoints.
 export const fetchAchievementsByTeamId = (teamId) =>

@@ -7,6 +7,7 @@ import {
   ADD_WEBPAGE,
   DELETE_WEBPAGE,
   UPDATE_PUBLICATION_OPTIONS,
+  UPDATE_WEBSITE_TITLE,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 import * as api from '../api';
@@ -76,3 +77,16 @@ export const updatePublicationOptions = (teamId, preference) => async (dispatch)
     dispatch(errorActionGlobalCreator(err));
   }
 };
+
+export const updateWebsiteTitle = (teamId, title) => async (dispatch) => {
+  try{
+    await api.updateWebsiteTitle(teamId, title)
+    dispatch({
+      type: UPDATE_WEBSITE_TITLE,
+      payload: title.websiteTitle,
+    })
+    dispatch(successMessageCreator('Title had been updated'))
+  } catch(err){
+    dispatch(errorActionGlobalCreator(err));
+  }
+}

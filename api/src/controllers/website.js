@@ -151,9 +151,32 @@ async function updatePublicationOptions(req, res, next) { // eslint-disable-line
   }
 }
 
+async function updateTitle(req, res, next) {
+  const updatedTitle = req.body;
+  console.log(updatedTitle)
+  const { team_id: _id } = req.params;
+
+  console.log(_id)
+
+  try {
+    await Website.updateOne(
+      { teamId: _id },
+      {
+        $set: {
+          title: updatedTitle.websiteTitle,
+        },
+      },
+    );
+    return res.status(200).json(updatedTitle);
+  } catch (err) {
+    return res.send(fillErrorObject(500, 'Server error', [err.errors]));
+  }
+}
+
 module.exports = {
   addWebPage,
   deleteWebPage,
   getWebPageDetails,
   updatePublicationOptions,
+  updateTitle,
 };

@@ -1,14 +1,15 @@
 /**
  * Root App.js 
  */
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './layout/Header.js';
 import { getRoutes } from './router/routes.js';
-import { WEBSITE_TITLE } from '../global/data';
+import { WEB_PAGES } from '../global/data';
 import './centred.css';
 
 const App = () => {
+  console.log(WEB_PAGES)
   const routeItems = getRoutes().map(({ path, exact, component }) => {
     const View = component;
     return (
@@ -18,9 +19,9 @@ const App = () => {
     );
   });
 
-  useEffect(() => {
-    document.title = WEBSITE_TITLE
-  }, [])
+  // useEffect(() => {
+  //   document.title = WEBSITE_TITLE
+  // }, [])
 
   return (
     <Fragment>
