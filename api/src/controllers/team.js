@@ -200,7 +200,9 @@ async function getGHAccessToken(req, res, next) {
   const { code } = req.params;
 
   const { data } = await axios.post(
-    'https://github.com/login/oauth/access_token', null, {
+    'https://github.com/login/oauth/access_token',
+    null,
+    {
       headers: {
         Accept: 'application/json',
       },
@@ -212,9 +214,13 @@ async function getGHAccessToken(req, res, next) {
     },
   );
   if (data.error) {
-    return next(fillErrorObject(400,
-      'Failed to exchange GitHub temporary code for GitHub Access Token.',
-      [data]));
+    return next(
+      fillErrorObject(
+        400,
+        'Failed to exchange GitHub temporary code for GitHub Access Token.',
+        [data],
+      ),
+    );
   }
   return res.status(200).json(data);
 }
@@ -289,15 +295,19 @@ async function deployToGHPages(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
-async function updateTeam(req, res, next) { // eslint-disable-line no-unused-vars
+async function updateTeam(req, res, next) {
   const { team_id: _id } = req.params;
   const team = req.body;
 
-  const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
-    new: true,
-    runValidators: true,
-  });
-  res.status(200).json(updatedTeam);
+  try {
+    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json(updatedTeam);
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err]));
+  }
 }
 
 module.exports = {
