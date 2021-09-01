@@ -3,6 +3,8 @@
  */
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import { Helmet } from 'react-helmet';
+import { WEB_PAGES } from '../../global/data';
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
 
@@ -43,6 +45,15 @@ const PublicationPage = () => (
   // </Fragment>
 
   <>
+    <Helmet>
+      <title>
+        {' '}
+        {WEB_PAGES.title}
+        {' '}
+        - Publications
+        {' '}
+      </title>
+    </Helmet>
     <Container className="pages-top-padding text-center mt-3 mb-3">
       <div className="publication-pg-title">Our Publications</div>
     </Container>

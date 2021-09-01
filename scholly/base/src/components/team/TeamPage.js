@@ -3,13 +3,23 @@
  */
 import React, { Fragment } from 'react';
 import { CardDeck, Container } from 'react-bootstrap';
-import { TEAM_MEMBERS } from '../../global/data';
+import { Helmet } from 'react-helmet';
+import { TEAM_MEMBERS, WEB_PAGES } from '../../global/data';
 import TeamMember from './TeamMember';
 
 const TeamPage = () => {
   const teamMembers = TEAM_MEMBERS;
   return (
     <>
+      <Helmet>
+        <title>
+          {' '}
+          {WEB_PAGES.title}
+          {' '}
+          - Team
+          {' '}
+        </title>
+      </Helmet>
       <Container className="pages-top-padding text-center mt-3 mb-3">
         <div className="team-pg-title">Meet Our Team</div>
       </Container>
