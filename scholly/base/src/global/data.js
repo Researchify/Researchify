@@ -12,14 +12,19 @@ import {
   FAKE_TEAM_MEMBERS,
   FAKE_TEAM_HOMEPAGE,
   FAKE_WEB_PAGES,
+  FAKE_TEAM_AWARDS,
+  FAKE_LAYOUT_OPTION,
 } from './fakeData';
 
-const env = process.env; // eslint-disable-line prefer-destructuring
+const env = process.env;
+
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
 let TEAM_HOMEPAGE;
+let TEAM_AWARDS;
 let WEB_PAGES;
+let LAYOUT_OPTION;
 
 if (!env.REACT_APP_DEBUG) {
   /// The list of publications the team has created for rendering in the publications page
@@ -42,12 +47,23 @@ if (!env.REACT_APP_DEBUG) {
     ? JSON.parse(env.REACT_APP_TEAM_HOMEPAGE)
     : null;
 
+  /// The list of awards awarded to the team
+  TEAM_AWARDS = env.REACT_APP_TEAM_AWARDS
+    ? JSON.parse(env.REACT_APP_TEAM_AWARDS)
+    : [];
+
+  /// The list of webpages the team wishes to display on their website
   WEB_PAGES = env.REACT_APP_WEB_PAGES
     ? JSON.parse(env.REACT_APP_WEB_PAGES)
     : [];
+
+  /// The layout option the team has chosen to use for their website
+  LAYOUT_OPTION = env.REACT_APP_LAYOUT_OPTION ? JSON.parse(
+    env.REACT_APP_LAYOUT_OPTION) : 1;  // The default layout is 1 (TODO: this should be an enum).
+
 } else {
+  console.log('Running in DEBUG mode, hence using fake Team data');
   // Running client website locally, so use fake data
-  console.log('Running in DEBUG mode, hence using fake data'); // eslint-disable-line no-console
   TEAM_PUBLICATIONS = FAKE_PUBLICATIONS;
 
   TEAM_INFO = FAKE_TEAM_INFO;
@@ -57,8 +73,18 @@ if (!env.REACT_APP_DEBUG) {
   TEAM_HOMEPAGE = FAKE_TEAM_HOMEPAGE;
 
   WEB_PAGES = FAKE_WEB_PAGES;
+
+  TEAM_AWARDS = FAKE_TEAM_AWARDS;
+
+  LAYOUT_OPTION = FAKE_LAYOUT_OPTION;
 }
 
 export {
-  TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, TEAM_HOMEPAGE, WEB_PAGES,
+  TEAM_PUBLICATIONS,
+  TEAM_INFO,
+  TEAM_MEMBERS,
+  TEAM_HOMEPAGE,
+  TEAM_AWARDS,
+  WEB_PAGES,
+  LAYOUT_OPTION,
 };

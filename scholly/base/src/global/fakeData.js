@@ -1,7 +1,4 @@
-export const FAKE_WEB_PAGES = {
-  pages: ['PUBLICATIONS', 'TEAM'],
-  publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
-};
+export const FAKE_WEB_PAGES = ['PUBLICATIONS', 'TEAM','AWARDS'];
 
 export const FAKE_PUBLICATIONS = [
   {
@@ -179,5 +176,64 @@ export const FAKE_TEAM_MEMBERS = [
 ];
 
 export const FAKE_TEAM_HOMEPAGE = {
-  aboutUs: ['This is first paragraph.', 'This is second paragraph.', 'This is third paragraph.'],
-};
+  aboutUs: ["This is first paragraph.", "This is second paragraph.", "This is third paragraph."]
+}
+
+export const FAKE_TEAM_AWARDS = [
+  {
+    fullName: 'John',
+    position: 'Chief Scientist',
+    summary:
+        'Best Scientist. John is a chief scientist at MonTeam, working with the top government agencies to fight the pressing issues arising from climate change',
+  },
+  {
+    fullName: 'Yoshua Benjio',
+    position: 'Chief Data Scientist',
+    summary:
+        'Best Researcher',
+  },
+  {
+    fullName: 'Jeremy Buffet',
+    position: 'Chief Economist',
+    summary:
+        'Best Debugging',
+  },
+  {
+    fullName: 'Jeremy Buffet',
+    position: 'Chief Economist',
+    summary:
+        'Best Debugging',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'Paul Walton',
+    position: 'Chief Innovation Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+  {
+    fullName: 'McKenzie McHale',
+    position: 'Chief Operations Officer',
+    summary:
+        'Icon of the Year',
+  },
+];
+
+export const FAKE_LAYOUT_OPTION = 4;
