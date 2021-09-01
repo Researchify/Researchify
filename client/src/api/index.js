@@ -23,6 +23,7 @@ export const updateTeamMember = (teamId, updatedTeamMember) => api.patch(`/team/
 export const deleteTeamMember = (teamId, teamMemberId) => api.delete(`/team/${teamId}/member/${teamMemberId}`);
 export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, updatedTeam);
 export const deleteTeam = (teamId) => api.delete(`/team/${teamId}`);
+export const clearTeam = (teamId) => api.delete(`/team/${teamId}/clear`);
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
 export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/deploy`, body);
 export const deleteGHPages = (teamId, code) => api.delete(`/team/${teamId}/deleteGHPages/${code}`);

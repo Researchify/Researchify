@@ -333,7 +333,32 @@ async function deleteTeam(req, res, next) {
     await Publication.deleteOne({ teamId: _id });
     await Team.findByIdAndDelete(_id);
 
-    res.status(200).json('delete successfully');
+    res.status(200).json('deleted successfully');
+  } catch (error) {
+    return next(
+      fillErrorObject(500, 'Error occurred with server', [error.message]),
+    );
+  }
+}
+
+/**
+  * Clear the team Data from the database on /team/:team_id
+  * @param {} req request object, containing team id in the url
+  * @param {*} res response object, the deleted team document
+  * @returns 200: teamn is deleted
+  * @returns 404: team is not found
+  * @returns 400: team id is not in a valid hexadecimal format
+  */
+ async function clearTeam(req, res, next) {
+  try {
+    const { team_id: _id } = req.params;
+
+    await HomePage.deleteOne({ teamId: _id });
+    await Website.deleteOne({ teamId: _id });
+    await Achievement.deleteOne({ teamId: _id });
+    await Publication.deleteOne({ teamId: _id });
+
+    res.status(200).json('cleared successfully');
   } catch (error) {
     return next(
       fillErrorObject(500, 'Error occurred with server', [error.message]),
@@ -408,6 +433,7 @@ module.exports = {
   updateTeamMember,
   updateTeam,
   deleteTeam,
+  clearTeam,
   getGHAccessToken,
   deployToGHPages,
   deleteGHPages,

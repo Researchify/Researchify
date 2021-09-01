@@ -8,11 +8,11 @@ import {
   Button, Form, Container, Image,
 } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import profilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
 import ProfileDeleteModal from './ProfileDeleteModal';
+import ProfileClearModal from './ProfileClearModal';
 /**
  * Form component for user update profile
  */
@@ -49,6 +49,7 @@ const ProfileInfoEdit = () => {
   };
 
   const [deleteAlert, setdeleteAlert] = useState(false);
+  const [clearAlert, setclearAlert] = useState(false);
   return (
     <>
       <div className="mt-5">
@@ -123,10 +124,17 @@ const ProfileInfoEdit = () => {
                 Update
               </Button>
 
-              {/* Button is linked to react-router-dom Link */}
-              <Link to="/dashboard">
-                <Button color="primary">Back</Button>
-              </Link>
+              <Button
+                id="clearButton"
+                color="primary"
+                className="mr-2"
+                onClick={() => {
+                  setclearAlert(true);
+                }}
+              >
+                Clear Data
+              </Button>
+
             </div>
             <div className="my-1">
               <Button
@@ -142,6 +150,7 @@ const ProfileInfoEdit = () => {
         </Container>
       </div>
       <ProfileDeleteModal deleteAlert={deleteAlert} setdeleteAlert={setdeleteAlert} />
+      <ProfileClearModal clearAlert={clearAlert} setclearAlert={setclearAlert} />
     </>
   );
 };

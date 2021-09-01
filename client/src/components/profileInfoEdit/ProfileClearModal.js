@@ -1,18 +1,18 @@
 /**
  * Delete Alert Modal component display a modal and ask for confirmation when the delete button is clicked
  */
+
 import React from 'react';
 import toast from 'react-hot-toast';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../actions/auth';
-import { deleteTeam, deleteGHPages } from '../../actions/team';
+import { clearTeam, deleteGHPages } from '../../actions/team';
 
-const ProfileDeleteModal = ({ deleteAlert, setdeleteAlert }) => {
+const ProfileClearModal = ({ clearAlert, setclearAlert }) => {
   const { teamId } = useSelector((state) => state.team);
   const dispatch = useDispatch();
 
-  const HandleDelete = () => {
+  const HandleClear = () => {
     const access_token = localStorage.getItem('GH_access_token');
     if (access_token === null) {
       toast.error('Log in with github account');
@@ -22,28 +22,27 @@ const ProfileDeleteModal = ({ deleteAlert, setdeleteAlert }) => {
       } catch (error) {
         toast.error('GitHub Pages doesnt exist');
       }
-      dispatch(deleteTeam(teamId));
-      dispatch(logout());
+      dispatch(clearTeam(teamId));
+      toast.success('profile data has been successfully cleared');
     }
   };
   return (
-    <Modal show={deleteAlert}>
+    <Modal show={clearAlert}>
       <Modal.Header className="modalHeader">
-        <Modal.Title> Delete Account! </Modal.Title>
+        <Modal.Title> Clear Account Data! </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Are you sure you want to delete your account? All significant data will be deleted!
+        Are you sure you want to reset your account? All significant data will be deleted!
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="light" onClick={() => setdeleteAlert(false)}>
+        <Button variant="light" onClick={() => setclearAlert(false)}>
           Back
         </Button>
-        <Button variant="danger" onClick={HandleDelete}>
-          Delete
+        <Button variant="danger" onClick={HandleClear}>
+          Clear
         </Button>
       </Modal.Footer>
     </Modal>
   );
 };
-
-export default ProfileDeleteModal;
+export default ProfileClearModal;

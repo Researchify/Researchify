@@ -16,6 +16,7 @@ import {
   DEPLOY_FAIL,
   UPDATE_TEAM,
   REGISTER_SUCCESS,
+  CLEAR_TEAM,
   DELETE_TEAM,
   DELETE_REQUEST,
   DELETE_SUCCESS,
@@ -307,6 +308,26 @@ export const deleteTeam = (teamId, teamData) => async (dispatch) => {
     dispatch(errorActionGlobalCreator(error));
   }
 };
+
+/**
+ * This action creator will be called when a user want to delete their account
+ *
+ * @param {*} teamId id of the team
+ * @param {*} teamData data object of the data to be deleted
+ * @returns
+ */
+export const clearTeam = (teamId, teamData) => async (dispatch) => {
+  try {
+    await api.clearTeam(teamId);
+    dispatch({
+      type: CLEAR_TEAM,
+      payload: teamData,
+    });
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
+  }
+};
+
 /**
  * This action creater find/create a new theme and update it in team data.
  * @param {*} teamId
