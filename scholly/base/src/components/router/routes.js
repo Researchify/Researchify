@@ -1,8 +1,7 @@
-
 import { WEB_PAGES } from '../../global/data';
-import PublicationPage from '../publications/PublicationPage.js';
-import LandingPage from '../landingPage/LandingPage.js';
-import TeamPage from '../team/TeamPage.js';
+import PublicationPage from '../publications/PublicationPage';
+import LandingPage from '../landingPage/LandingPage';
+import TeamPage from '../team/TeamPage';
 
 const availableRoutes = [
   {
@@ -32,11 +31,9 @@ const defaultRoutes = [
  * Get the routes to the web pages the client wants deployed
  */
 const getRoutes = () => {
-  const routes = availableRoutes.filter(({ title }) =>
-    WEB_PAGES.pages.includes(title.toUpperCase())
-  );
+  const routes = availableRoutes.filter(({ title }) => WEB_PAGES.pages.includes(title.toUpperCase()));
 
   return [...defaultRoutes, ...routes];
 };
 
-export { getRoutes };
+export default getRoutes;
