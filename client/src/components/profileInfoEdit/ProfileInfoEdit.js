@@ -103,8 +103,7 @@ const ProfileInfoEdit = () => {
             setErrors(newErrors)
         } else {
             setErrors(newErrors)
-            // No errors! Put any logic here for the form submission!
-            console.log({...profileDataPassword}.password)
+
             const newdata = {
                 "password": {...profileDataPassword}.password
             }
