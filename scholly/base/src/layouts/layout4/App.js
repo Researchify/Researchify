@@ -1,10 +1,10 @@
 /**
  * Root App.js
  */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Header from './components/layout/Header.js';
-import { getRoutes } from './components/router/routes.js';
+import Header from './components/layout/Header';
+import { getRoutes } from './components/router/routes';
 import './components/centred.css';
 
 const App = () => {
@@ -18,12 +18,12 @@ const App = () => {
   });
 
   return (
-    <Fragment>
+    <>
       <Header />
       <Switch>
         {routeItems}
       </Switch>
-    </Fragment>
+    </>
   );
 };
 

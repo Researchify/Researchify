@@ -1,27 +1,25 @@
 /**
  * Root App.js
  */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import PublicationPage from './components/publications/PublicationPage.js';
-import LandingPage from './components/landingPage/LandingPage.js';
-import Header from './components/layout/Header.js';
-import TeamPage from './components/team/TeamPage.js';
-import AwardsPage from './components/awardsPage/AwardsPage.js';
+import PublicationPage from './components/publications/PublicationPage';
+import LandingPage from './components/landingPage/LandingPage';
+import Header from './components/layout/Header';
+import TeamPage from './components/team/TeamPage';
+import AwardsPage from './components/awardsPage/AwardsPage';
 import './components/centred.css';
 
-const App = () => {
-  return (
-    <Fragment>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/publication" component={PublicationPage} />
-        <Route exact path="/team" component={TeamPage} />
-        <Route exact path="/awardsPage" component={AwardsPage} />
-      </Switch>
-    </Fragment>
-  );
-};
+const App = () => (
+  <>
+    <Header />
+    <Switch>
+      <Route exact path="/" component={LandingPage} />
+      <Route exact path="/publication" component={PublicationPage} />
+      <Route exact path="/team" component={TeamPage} />
+      <Route exact path="/awardsPage" component={AwardsPage} />
+    </Switch>
+  </>
+);
 
 export default App;

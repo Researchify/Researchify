@@ -1,8 +1,10 @@
 /**
  * The Publication component displays a single publication.
  */
-import React, {  useState } from 'react';
-import { Accordion, Card, Modal, Button } from 'react-bootstrap';
+import React from 'react';
+import {
+  Accordion, Card, Modal, Button,
+} from 'react-bootstrap';
 
 const Publication = ({ pub }) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -15,13 +17,20 @@ const Publication = ({ pub }) => {
         className="publication-title-column"
       >
         <div className="pub-category-above-title">{pub.category.type}</div>
-        <div className="publication-title"> {pub.title}</div>
-        <div className="pub-year-below-title"> {pub.yearPublished} </div>
+        <div className="publication-title">
+          {' '}
+          {pub.title}
+        </div>
+        <div className="pub-year-below-title">
+          {' '}
+          {pub.yearPublished}
+          {' '}
+        </div>
         <Button variant="primary" className="button-pub" onClick={() => setModalShow(true)}>
           View this Publication
         </Button>
         <PublicationModal
-          pub ={pub}
+          pub={pub}
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
@@ -32,7 +41,7 @@ const Publication = ({ pub }) => {
   function PublicationModal(props) {
     return (
       <Modal
-        {...props}
+        // {...props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -54,16 +63,16 @@ const Publication = ({ pub }) => {
             </div>
             <div className="pub-body-subheader">
               {pub.category.categoryTitle
-                ? pub.category.type.charAt(0) +
-                pub.category.type.slice(1).toLowerCase()
+                ? pub.category.type.charAt(0)
+                + pub.category.type.slice(1).toLowerCase()
                 : ''}
             </div>
             <div className="pub-body-content">
               {pub.category.categoryTitle
-                ? pub.category.categoryTitle +
-                (pub.category.issue ? ', Issue ' + pub.category.issue : '') +
-                (pub.category.volume ? ', Volume ' + pub.category.volume : '') +
-                (pub.category.pages ? ', Page ' + pub.category.pages : '')
+                ? pub.category.categoryTitle
+                + (pub.category.issue ? `, Issue ${pub.category.issue}` : '')
+                + (pub.category.volume ? `, Volume ${pub.category.volume}` : '')
+                + (pub.category.pages ? `, Page ${pub.category.pages}` : '')
                 : ''}
             </div>
             <div className="pub-body-subheader">
@@ -73,14 +82,12 @@ const Publication = ({ pub }) => {
           </Card.Body>
         </Modal.Body>
         <Modal.Footer>
+          {/* eslint-disable-next-line react/destructuring-assignment */}
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
   }
-
-
 };
-
 
 export default Publication;

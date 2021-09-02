@@ -7,16 +7,23 @@ import { TEAM_HOMEPAGE } from '../../../../global/data';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
-  return (
+  const element = (
     <>
-      <Container fluid className="pages-top-padding">
-        <div className="landing-center-title">About Us</div>
-        {homepageData.aboutUs.map((paragraph) => (
-          <div className="landing-center-content">{paragraph}</div>
-        ))}
-      </Container>
+      <>
+        <Container fluid className="pages-top-padding">
+          <div className="landing-center-title">About Us</div>
+          {
+                (homepageData == null)
+                  ? homepageData.aboutUs.map((paragraph) => (
+                    <div className="landing-center-content">{paragraph}</div>
+                  )) : null
+
+            }
+        </Container>
+      </>
     </>
   );
+  return element;
 };
 
 export default landingPage;

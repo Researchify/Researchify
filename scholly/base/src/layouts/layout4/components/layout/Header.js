@@ -1,18 +1,17 @@
 /**
  * This file exports header for Scholly (client) page.
  */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { TEAM_INFO } from '../../../../global/data';
 import { Link } from 'react-router-dom';
-import { getRoutes } from '../router/routes.js';
+import { TEAM_INFO } from '../../../../global/data';
+import { getRoutes } from '../router/routes';
 
 const Header = () => {
   const { orgName, teamName } = TEAM_INFO;
   const headerData = getRoutes();
-  //console.log(headerData);
   return (
-    <Fragment>
+    <>
       <Navbar
         collapseOnSelect
         expand="md"
@@ -24,22 +23,23 @@ const Header = () => {
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto" >
-              {headerData.map(({path, title}, index) => {
-                return (
-                  <Nav.Link key={index} as={Link} to={path}>
-                    {title}
-                  </Nav.Link>
-                );
-              })}
+            <Nav className="me-auto">
+              {headerData.map(({ path, title }, index) => (
+                <Nav.Link key={index} as={Link} to={path}>
+                  {title}
+                </Nav.Link>
+              ))}
             </Nav>
           </Navbar.Collapse>
           <Navbar.Brand as={Link} to="/">
-            {teamName} @ {orgName}
+            {teamName}
+            {' '}
+            @
+            {orgName}
           </Navbar.Brand>
         </Container>
       </Navbar>
-    </Fragment>
+    </>
   );
 };
 
