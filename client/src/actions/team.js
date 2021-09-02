@@ -275,7 +275,9 @@ function teamDataAllocator(teamData) {
  */
 export const updateTeam = (teamId, teamData,successMsg = 'Team has been updated') => async (dispatch) => {
   try {
+    console.log(teamData);
     const { data } = await api.updateTeam(teamId, teamData);
+    console.log("received update");
     const updatedTeam = teamDataAllocator(data);
     dispatch({
       type: UPDATE_TEAM,

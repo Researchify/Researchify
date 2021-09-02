@@ -63,7 +63,7 @@ const ProfileInfoEdit = () => {
         confirmedPassword: yup
         .string()
         .required('Please re-enter your password')
-        .oneOf([yup.ref('password')], 'Passwords must match')
+        .oneOf([yup.ref('password'),null], 'Passwords must match')
     })
 
   const checkPassword = async () => {
@@ -87,6 +87,9 @@ const ProfileInfoEdit = () => {
         if ( !await checkPassword()){
             newErrors.password = "Please enter a password at least 8 chars long, using only numbers, letters and characters"
         }
+        if ({...profileDataPassword}.password !== {...profileDataPassword}.confirmedPassword){
+            newErrors.confirmedPassword = " Passwords do not match"
+        }
         return newErrors
     }
 
@@ -99,7 +102,9 @@ const ProfileInfoEdit = () => {
             // We got errors!
             setErrors(newErrors)
         } else {
+            setErrors(newErrors)
             // No errors! Put any logic here for the form submission!
+            console.log({...profileDataPassword}.password)
             const newdata = {
                 "password": {...profileDataPassword}.password
             }
@@ -216,13 +221,16 @@ const ProfileInfoEdit = () => {
             </Button>
           </div>
         </Form>
-
+      </Container>
+        <div />
+        <p> </p>
+        <Container className="profile-container">
           <Form
           className="profile-form"
           noValidate
           onSubmit={handleUpdatePassword}
         >
-              <p className="profile-title-name">Team Profile Management</p>
+              <p className="profile-title-name">Team Password update</p>
               <Form.Group>
             <Form.Label> Password </Form.Label>
               <Form.Control
@@ -247,15 +255,15 @@ const ProfileInfoEdit = () => {
                 placeholder="Password"
                 value={profileDataPassword.confirmedPassword}
                 onChange={ e => setPassword('confirmedPassword', e.target.value) }
-                isInvalid={ !!errors.password }
+                isInvalid={ !!errors.confirmedPassword }
               />
     <Form.Control.Feedback type='invalid'>
-        { errors.password }
+        { errors.confirmedPassword }
     </Form.Control.Feedback>
           </Form.Group>
               <div className="my-1">
             <Button
-              id="updateButton"
+              id="updateButtonPassword"
               type="submit"
               color="primary"
               className="mr-2"

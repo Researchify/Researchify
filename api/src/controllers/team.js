@@ -292,12 +292,14 @@ async function deployToGHPages(req, res, next) {
 async function updateTeam(req, res, next) { // eslint-disable-line no-unused-vars
   const { team_id: _id } = req.params;
   const team = req.body;
+
   if (team.password) {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(team.password, salt);
     team.password = hashedPassword;
   }
-
+  // eslint-disable-next-line no-console
+  console.log(team.password);
   const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
     new: true,
     runValidators: true,
