@@ -6,6 +6,7 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { successMessageCreator } from '../../notification/notificationReduxFunctions';
 import { clearTeam, deleteGHPages } from '../../actions/team';
 
 const ProfileClearModal = ({ clearAlert, setClearAlert }) => {
@@ -23,7 +24,8 @@ const ProfileClearModal = ({ clearAlert, setClearAlert }) => {
         toast.error('GitHub Pages doesnt exist');
       }
       dispatch(clearTeam(teamId));
-      toast.success('profile data has been successfully cleared');
+      setClearAlert(false);
+      dispatch(successMessageCreator('Profile data cleared successfully!'));
     }
   };
   return (

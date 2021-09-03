@@ -5,6 +5,7 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { successMessageCreator } from '../../notification/notificationReduxFunctions';
 import { logout } from '../../actions/auth';
 import { deleteTeam, deleteGHPages } from '../../actions/team';
 
@@ -24,6 +25,7 @@ const ProfileDeleteModal = ({ deleteAlert, setdeleteAlert }) => {
       }
       dispatch(deleteTeam(teamId));
       dispatch(logout());
+      dispatch(successMessageCreator('Profile data cleared successfully!'));
     }
   };
   return (

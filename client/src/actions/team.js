@@ -18,9 +18,6 @@ import {
   REGISTER_SUCCESS,
   CLEAR_TEAM,
   DELETE_TEAM,
-  DELETE_REQUEST,
-  DELETE_SUCCESS,
-  DELETE_FAIL,
 } from './types';
 import {
   errorActionGlobalCreator,
@@ -361,20 +358,9 @@ export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
  */
 export const deleteGHPages = (teamId, accessToken) => async (dispatch) => {
   try {
-    dispatch({
-      type: DELETE_REQUEST,
-    });
-
     await api.deleteGHPages(teamId, accessToken);
-    dispatch({
-      type: DELETE_SUCCESS,
-    });
-
-    dispatch(successMessageCreator('The team and the deployed GH Pages have been deleted'));
+    dispatch(successMessageCreator('The deployed GH Pages have been deleted'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
-    dispatch({
-      type: DELETE_FAIL,
-    });
   }
 };

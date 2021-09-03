@@ -393,9 +393,8 @@ async function deleteGHPages(req, res, next) {
   const repoName = `${ghUsername}.github.io`;
 
   // delete repo
-  let deletePages;
   try {
-    deletePages = await axios.delete(
+    const deleteRepo = await axios.delete(
       `https://api.github.com/repos/${ghUsername}/${repoName}`,
       {
         headers: {
@@ -406,7 +405,7 @@ async function deleteGHPages(req, res, next) {
     );
     // result logged
     res.status(200).json('Deleted successfully!');
-    if (deletePages.status === 204) {
+    if (deleteRepo.status === 204) {
       logger.info(`GitHub pages deleted for user: ${ghUsername}`);
     }
   } catch (error) {
