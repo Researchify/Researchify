@@ -5,11 +5,12 @@ import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { TEAM_INFO } from '../../../../global/data';
-import HeaderData from './HeaderData';
+import { getRoutes } from '../router/routes';
 
 const Header = () => {
-  const { orgName, teamName } = TEAM_INFO;
-  const headerData = HeaderData();
+  // eslint-disable-next-line no-unused-vars
+  const { twitterHandle, orgName, teamName } = TEAM_INFO;
+  const headerData = getRoutes();
   return (
     <>
       <Navbar
@@ -30,9 +31,9 @@ const Header = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto" />
             <Nav>
-              {headerData.map((val) => (
-                <Nav.Link as={Link} to={val.link}>
-                  {val.title}
+              {headerData.map(({ path, title }, index) => (
+                <Nav.Link key={index} as={Link} to={path}>
+                  {title}
                 </Nav.Link>
               ))}
             </Nav>

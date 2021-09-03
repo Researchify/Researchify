@@ -2,11 +2,11 @@ import React from 'react';
 import { Nav } from 'react-bootstrap';
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
-import HeaderData from './HeaderData';
 import { TEAM_INFO } from '../../../../global/data';
+import { getRoutes } from '../router/routes';
 
 const Sidebar = () => {
-  const headerData = HeaderData();
+  const headerData = getRoutes();
   const { orgName, teamName } = TEAM_INFO;
   return (
     <>
@@ -17,9 +17,9 @@ const Sidebar = () => {
       >
         <div className="landing-center-title">{teamName}</div>
         <div className="landing-title-org-name">{orgName}</div>
-        {headerData.map((val) => (
-          <Nav.Link style={{ padding: 20 }} as={Link} to={val.link}>
-            {val.title}
+        {headerData.map(({ path, title }, index) => (
+          <Nav.Link style={{ padding: 20 }} key={index} as={Link} to={path}>
+            {title}
           </Nav.Link>
         ))}
       </Nav>
