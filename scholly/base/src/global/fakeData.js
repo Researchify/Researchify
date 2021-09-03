@@ -184,13 +184,13 @@ export const FAKE_TEAM_HOMEPAGE = {
 
 export const FAKE_TEAM_ACHIEVEMENTS = [
   {
-    title: "Organisation of The Year",
-    description: "We have been awarded as the Organisation of The Year for 2019",
+    title: 'Organisation of The Year',
+    description: 'We have been awarded as the Organisation of The Year for 2019',
     yearAwarded: 2019
   },
   {
-    title: "Best Team Vibes",
-    description: "We have been awarded for the Best Team Vibes for 2021",
+    title: 'Best Team Vibes',
+    description: 'We have been awarded for the Best Team Vibes for 2021',
     yearAwarded: 2021
   },
 ];
