@@ -29,7 +29,7 @@ const Publication = ({ pub }) => {
         >
           <Button variant="dark" onClick={() => setExpanded(!expanded)}>
             Read
-            {expanded ? 'Less' : 'More'}
+            {expanded ? ' Less' : ' More'}
           </Button>
           {' '}
         </Accordion.Toggle>

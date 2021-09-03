@@ -42,7 +42,7 @@ const Awards = ({ award }) => {
                                 shouldShowExpand && (
                                 <Button className="read-more-button" variant="dark" onClick={() => setExpanded(!expanded)}>
                                   Read
-                                  {expanded ? 'Less' : 'More'}
+                                  {expanded ? ' Less' : ' More'}
                                 </Button>
                                 )
 
