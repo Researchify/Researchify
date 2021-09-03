@@ -40,12 +40,8 @@ const Publication = ({ pub }) => {
 
   function PublicationModal(props) {
     return (
-      <Modal
-        // {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
+    // eslint-disable-next-line react/jsx-props-no-spreading
+      <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             {pub.title}
