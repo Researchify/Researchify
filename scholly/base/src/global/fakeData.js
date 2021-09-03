@@ -181,3 +181,16 @@ export const FAKE_TEAM_MEMBERS = [
 export const FAKE_TEAM_HOMEPAGE = {
   aboutUs: ['This is first paragraph.', 'This is second paragraph.', 'This is third paragraph.'],
 };
+
+export const FAKE_TEAM_ACHIEVEMENTS = [
+  {
+    title: "Organisation of The Year",
+    description: "We have been awarded as the Organisation of The Year for 2019",
+    yearAwarded: 2019
+  },
+  {
+    title: "Best Team Vibes",
+    description: "We have been awarded for the Best Team Vibes for 2021",
+    yearAwarded: 2021
+  },
+];

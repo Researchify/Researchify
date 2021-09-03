@@ -12,6 +12,7 @@ import {
   FAKE_TEAM_MEMBERS,
   FAKE_TEAM_HOMEPAGE,
   FAKE_WEB_PAGES,
+  FAKE_TEAM_ACHIEVEMENTS,
 } from './fakeData';
 
 const env = process.env; // eslint-disable-line prefer-destructuring
@@ -19,7 +20,8 @@ let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
 let TEAM_HOMEPAGE;
-let WEB_PAGES;
+let WEB_PAGES
+let TEAM_ACHIEVEMENTS;
 
 if (!env.REACT_APP_DEBUG) {
   /// The list of publications the team has created for rendering in the publications page
@@ -57,6 +59,8 @@ if (!env.REACT_APP_DEBUG) {
   TEAM_HOMEPAGE = FAKE_TEAM_HOMEPAGE;
 
   WEB_PAGES = FAKE_WEB_PAGES;
+
+  TEAM_ACHIEVEMENTS = FAKE_TEAM_ACHIEVEMENTS;
 }
 
 export {
