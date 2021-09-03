@@ -48,8 +48,8 @@ const ProfileInfoEdit = () => {
     setValidated(true);
   };
 
-  const [deleteAlert, setdeleteAlert] = useState(false);
-  const [clearAlert, setclearAlert] = useState(false);
+  const [deleteAlert, setDeleteAlert] = useState(false);
+  const [clearAlert, setClearAlert] = useState(false);
   return (
     <>
       <div className="mt-5">
@@ -129,7 +129,7 @@ const ProfileInfoEdit = () => {
                 color="primary"
                 className="mr-2"
                 onClick={() => {
-                  setclearAlert(true);
+                  setClearAlert(true);
                 }}
               >
                 Clear Data
@@ -140,7 +140,7 @@ const ProfileInfoEdit = () => {
               <Button
                 variant="danger"
                 onClick={() => {
-                  setdeleteAlert(true);
+                  setDeleteAlert(true);
                 }}
               >
                 Delete account
@@ -149,8 +149,8 @@ const ProfileInfoEdit = () => {
           </Form>
         </Container>
       </div>
-      <ProfileDeleteModal deleteAlert={deleteAlert} setdeleteAlert={setdeleteAlert} />
-      <ProfileClearModal clearAlert={clearAlert} setclearAlert={setclearAlert} />
+      <ProfileDeleteModal deleteAlert={deleteAlert} setDeleteAlert={setDeleteAlert} />
+      <ProfileClearModal clearAlert={clearAlert} setClearAlert={setClearAlert} />
     </>
   );
 };

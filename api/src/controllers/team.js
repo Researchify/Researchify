@@ -327,13 +327,13 @@ async function deleteTeam(req, res, next) {
   try {
     const { team_id: _id } = req.params;
 
-    await HomePage.deleteOne({ teamId: _id });
-    await Website.deleteOne({ teamId: _id });
-    await Achievement.deleteOne({ teamId: _id });
-    await Publication.deleteOne({ teamId: _id });
+    await HomePage.deleteMany({ teamId: _id });
+    await Website.deleteMany({ teamId: _id });
+    await Achievement.deleteMany({ teamId: _id });
+    await Publication.deleteMany({ teamId: _id });
     await Team.findByIdAndDelete(_id);
 
-    res.status(200).json('deleted successfully');
+    res.status(200).json('Deleted successfully!');
   } catch (error) {
     return next(
       fillErrorObject(500, 'Error occurred with server', [error.message]),
@@ -353,12 +353,12 @@ async function clearTeam(req, res, next) {
   try {
     const { team_id: _id } = req.params;
 
-    await HomePage.deleteOne({ teamId: _id });
-    await Website.deleteOne({ teamId: _id });
-    await Achievement.deleteOne({ teamId: _id });
-    await Publication.deleteOne({ teamId: _id });
+    await HomePage.deleteMany({ teamId: _id });
+    await Website.deleteMany({ teamId: _id });
+    await Achievement.deleteMany({ teamId: _id });
+    await Publication.deleteMany({ teamId: _id });
 
-    res.status(200).json('cleared successfully');
+    res.status(200).json('Cleared successfully!');
   } catch (error) {
     return next(
       fillErrorObject(500, 'Error occurred with server', [error.message]),
@@ -383,40 +383,34 @@ async function deleteGHPages(req, res, next) {
     });
   if (data.errors) {
     return next(
-      fillErrorObject(400, 'Validation error', [data.errors[0].detail]),
+      fillErrorObject(400, 'Validation error: Cant fetch username!', [data.errors[0].detail]),
     );
   }
 
   // Creating repoName
   const ghUsername = data.login;
-  logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
+  logger.info(`GitHub Pages delete initiated for user: ${ghUsername}`);
   const repoName = `${ghUsername}.github.io`;
 
   // delete repo
-
   let deletePages;
   try {
-    deletePages = await axios({
-      url:
-        `https://api.github.com/repos/${
-          ghUsername
-        }/${
-          repoName
-        }`,
-      method: 'delete',
-      headers: {
-        Authorization: `token ${code}`,
-        Accept: 'application/vnd.github.v3+json',
+    deletePages = await axios.delete(
+      `https://api.github.com/repos/${ghUsername}/${repoName}`,
+      {
+        headers: {
+          Authorization: `token ${code}`,
+          Accept: 'application/vnd.github.v3+json',
+        },
       },
-    });
+    );
     // result logged
-    res.status(200).json('deleted successfully');
+    res.status(200).json('Deleted successfully!');
     if (deletePages.status === 204) {
       logger.info(`GitHub pages deleted for user: ${ghUsername}`);
-    } else {
-      logger.info(`GitHub pages deleted for user: ${ghUsername} failed!`);
     }
   } catch (error) {
+    logger.info(` Failed: GitHub pages not deleted for user: ${ghUsername}`);
     return next(
       fillErrorObject(500, 'Error occurred with server', [error.message]),
     );

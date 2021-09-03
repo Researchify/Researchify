@@ -8,17 +8,17 @@ import { Button, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearTeam, deleteGHPages } from '../../actions/team';
 
-const ProfileClearModal = ({ clearAlert, setclearAlert }) => {
+const ProfileClearModal = ({ clearAlert, setClearAlert }) => {
   const { teamId } = useSelector((state) => state.team);
   const dispatch = useDispatch();
 
   const HandleClear = () => {
-    const access_token = localStorage.getItem('GH_access_token');
-    if (access_token === null) {
+    const accessToken = localStorage.getItem('GH_access_token');
+    if (accessToken === null) {
       toast.error('Log in with github account');
     } else {
       try {
-        dispatch(deleteGHPages(teamId, access_token));
+        dispatch(deleteGHPages(teamId, accessToken));
       } catch (error) {
         toast.error('GitHub Pages doesnt exist');
       }
@@ -35,7 +35,7 @@ const ProfileClearModal = ({ clearAlert, setclearAlert }) => {
         Are you sure you want to reset your account? All significant data will be deleted!
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="light" onClick={() => setclearAlert(false)}>
+        <Button variant="light" onClick={() => setClearAlert(false)}>
           Back
         </Button>
         <Button variant="danger" onClick={HandleClear}>
