@@ -90,8 +90,8 @@ teamRouter.delete(
   teamController.clearTeam,
 );
 
-teamRouter.delete(
-  '/:team_id/deleteGHPages/:code',
+teamRouter.post(
+  '/:team_id/deleteGHPages',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,

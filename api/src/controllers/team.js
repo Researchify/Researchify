@@ -370,16 +370,17 @@ async function clearTeam(req, res, next) {
   * Delete the team from the database on /team/:team_id
   * @param {} req request object, containing team id in the url
   * @param {*} res response object, the deleted team document
-  * @returns 200: teamn is deleted
+  * @returns 200: team is deleted
   * @returns 404: team is not found
   * @returns 400: team id is not in a valid hexadecimal format
   */
 async function deleteGHPages(req, res, next) {
-  const { code } = req.params;
+  const { ghToken,
+   } = req.body;
   // Call github API to get username
   const { data } = await axios.get('https://api.github.com/user',
     {
-      headers: { Authorization: `token ${code}` },
+      headers: { Authorization: `token ${ghToken}` },
     });
   if (data.errors) {
     return next(
@@ -398,7 +399,7 @@ async function deleteGHPages(req, res, next) {
       `https://api.github.com/repos/${ghUsername}/${repoName}`,
       {
         headers: {
-          Authorization: `token ${code}`,
+          Authorization: `token ${ghToken}`,
           Accept: 'application/vnd.github.v3+json',
         },
       },

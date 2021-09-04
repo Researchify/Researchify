@@ -358,7 +358,10 @@ export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
  */
 export const deleteGHPages = (teamId, accessToken) => async (dispatch) => {
   try {
-    await api.deleteGHPages(teamId, accessToken);
+    const body = {
+      ghToken: accessToken,
+    };
+    await api.deleteGHPages(teamId, body);
     dispatch(successMessageCreator('The deployed GH Pages have been deleted'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
