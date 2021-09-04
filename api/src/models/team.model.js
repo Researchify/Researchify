@@ -72,7 +72,7 @@ const teamSchema = new mongoose.Schema(
 // https://mongoosejs.com/docs/middleware.html#post
 teamSchema.post('save', async (doc) => {
   try {
-    await Website.create({ teamId: doc._id });
+    await Website.create({ teamId: doc._id, publicationOptions: { layout: 'All Publication', sortBy: 'Title' } });
     await Homepage.create({ teamId: doc._id });
   } catch (err) {
     logger.error('Failed to create associated documents on team creation.');
