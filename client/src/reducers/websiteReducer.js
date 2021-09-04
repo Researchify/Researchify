@@ -13,7 +13,7 @@ const INITIAL_WEBSITE_STATE = {
   url: '',
   title: '',
   pages: [],
-  publicationOptions: {}
+  publicationOptions: {},
 };
 
 /**
@@ -44,7 +44,7 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
         publicationOptions: payload.publicationOptions ?? state.publicationOptions,
       };
     case UPDATE_PUBLICATION_OPTIONS:
-      return { ...state, publicationOptions: payload}
+      return { ...state, publicationOptions: payload };
     default:
       return state;
   }

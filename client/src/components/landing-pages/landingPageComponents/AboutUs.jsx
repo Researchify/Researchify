@@ -12,7 +12,9 @@ import Divider from '../utils/Divider';
 import StyledTab from '../utils/StyledTabButton';
 
 const TabPanel = (props) => {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <Typography

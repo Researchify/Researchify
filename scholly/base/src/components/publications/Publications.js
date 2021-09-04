@@ -1,37 +1,53 @@
 /**
  * The Publications component displays a list of publications.
  */
-import React, { useState } from 'react';
+import React, { Fragment } from 'react';
 import { Accordion } from 'react-bootstrap';
 import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 import { TEAM_PUBLICATIONS, WEB_PAGES } from '../../global/data';
-import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
-import { layoutOption, sortingOption, defaultOption } from '../../config/publications';
+
+import { layoutOptions, sortingOptions, defaultOption } from '../../config/publications';
 
 const Publications = () => {
-  const { publicationOptions } = WEB_PAGES;
-  const [options, setOptions] = useState(publicationOptions || defaultOption);
+  const options = WEB_PAGES.publicationOptions ?? defaultOption;
   const sortPublications = (teamPublications, option) => {
     switch (option) {
-      case sortingOption.AUTHOR:
-        teamPublications.sort((a, b) => (a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1));
+      case sortingOptions.AUTHOR:
+        teamPublications.sort((a, b) => {
+          if (a.authors[0].toLowerCase() > b.authors[0].toLowerCase()) return 1;
+          if (a.authors[0].toLowerCase() < b.authors[0].toLowerCase()) return -1;
+          return 0;
+        });
         break;
-      case sortingOption.TITLE:
+      case sortingOptions.TITLE:
         // publication title
-        teamPublications.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
+        teamPublications.sort((a, b) => {
+          if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+          if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+          return 0;
+        });
         break;
       case 'Category Title':
         // journal or conference title
-        teamPublications.sort((a, b) => (a.category.categoryTitle.toLowerCase()
-                > b.category.categoryTitle.toLowerCase()
-          ? 1
-          : -1));
+        teamPublications.sort((a, b) => {
+          if (a.category.categoryTitle.toLowerCase() > b.category.categoryTitle.toLowerCase()) return 1;
+          if (a.category.categoryTitle.toLowerCase() < b.category.categoryTitle.toLowerCase()) return -1;
+          return 0;
+        });
         break;
       default:
         // sort by title then year for consistency with the db
-        teamPublications.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
-        teamPublications.sort((a, b) => (a.year > b.year ? -1 : 1));
+        teamPublications.sort((a, b) => {
+          if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+          if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+          return 0;
+        });
+        teamPublications.sort((a, b) => {
+          if (a.year > b.year) return -1;
+          if (a.year < b.year) return 1;
+          return 0;
+        });
         break;
     }
     return teamPublications;
@@ -40,21 +56,15 @@ const Publications = () => {
 
   const renderPublications = () => {
     switch (options.layout) {
-      case layoutOption.BY_CATEGORY:
-        return <LayoutByCategory teamPublications={TEAM_PUBLICATIONS} />;
+      case layoutOptions.BY_CATEGORY:
+        return <LayoutByCategory teamPublications={publications} />;
       default:
-        return <LayoutAllPublications teamPublications={TEAM_PUBLICATIONS} />;
+        return <LayoutAllPublications teamPublications={publications} />;
     }
   };
 
   return (
     <>
-      <PublicationsDropdown
-        options={options}
-        setOptions={setOptions}
-        publications={publications}
-        sortPublications={sortPublications}
-      />
       <Accordion>
         {renderPublications()}
       </Accordion>

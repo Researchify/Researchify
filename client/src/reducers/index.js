@@ -16,7 +16,7 @@ import achievementsReducer from './achievementsReducer';
 import homepageReducer from './homepageReducer';
 import { LOG_OUT } from '../actions/types';
 
-const appReducer =  combineReducers({
+const appReducer = combineReducers({
   notification: notificationReducer,
   auth: authReducer,
   publications: publicationsReducer,
@@ -25,15 +25,15 @@ const appReducer =  combineReducers({
   teamMember: teamMembersReducer,
   deploy: deployReducer,
   website: websiteReducer,
-  achievements: achievementsReducer, 
+  achievements: achievementsReducer,
   homepage: homepageReducer,
 });
 
 const rootReducer = (state, action) => {
   if (action.type === LOG_OUT) {
-    return appReducer(undefined, action)
+    return appReducer(undefined, action);
   }
-  return appReducer(state, action)
-}
+  return appReducer(state, action);
+};
 
-export default rootReducer
+export default rootReducer;

@@ -12,10 +12,12 @@ const categoryTypes = {
 const layoutOptions = {
   ALL_PUBLICATION: 'All Publication',
   BY_CATEGORY: 'By Category',
-}
+};
 const sortingOptions = {
   TITLE: 'Title',
   AUTHOR: 'Author',
   YEAR: 'Year',
-}
-module.exports = { pageSize, categoryPageSize, categoryTypes, layoutOptions, sortingOptions };
+};
+module.exports = {
+  pageSize, categoryPageSize, categoryTypes, layoutOptions, sortingOptions,
+};
