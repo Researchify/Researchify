@@ -23,7 +23,8 @@ const ProfileClearModal = ({ clearAlert, setClearAlert }) => {
       } catch (error) {
         toast.error('GitHub Pages doesnt exist');
       }
-      dispatch(clearTeam(teamId));
+      const isDeleteFlag = false;
+      dispatch(clearTeam(teamId, isDeleteFlag));
       setClearAlert(false);
       dispatch(successMessageCreator('Profile data cleared successfully!'));
     }

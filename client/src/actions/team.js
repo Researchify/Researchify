@@ -16,7 +16,6 @@ import {
   DEPLOY_FAIL,
   UPDATE_TEAM,
   REGISTER_SUCCESS,
-  CLEAR_TEAM,
   DELETE_TEAM,
 } from './types';
 import {
@@ -294,32 +293,12 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
  * @param {*} teamData data object of the data to be deleted
  * @returns
  */
-export const deleteTeam = (teamId, teamData) => async (dispatch) => {
+export const clearTeam = (teamId, isDelete) => async (dispatch) => {
   try {
-    await api.deleteTeam(teamId);
-    dispatch({
-      type: DELETE_TEAM,
-      payload: teamData,
-    });
-  } catch (error) {
-    dispatch(errorActionGlobalCreator(error));
-  }
-};
-
-/**
- * This action creator will be called when a user want to delete their account
- *
- * @param {*} teamId id of the team
- * @param {*} teamData data object of the data to be deleted
- * @returns
- */
-export const clearTeam = (teamId, teamData) => async (dispatch) => {
-  try {
-    await api.clearTeam(teamId);
-    dispatch({
-      type: CLEAR_TEAM,
-      payload: teamData,
-    });
+    const body = {
+      isDeleteFlag: isDelete,
+    };
+    await api.clearTeam(teamId, body);
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

@@ -316,32 +316,6 @@ async function updateTeam(req, res, next) {
 }
 
 /**
-  * Delete the team from the database on /team/:team_id
-  * @param {} req request object, containing team id in the url
-  * @param {*} res response object, the deleted team document
-  * @returns 200: teamn is deleted
-  * @returns 404: team is not found
-  * @returns 400: team id is not in a valid hexadecimal format
-  */
-async function deleteTeam(req, res, next) {
-  try {
-    const { team_id: _id } = req.params;
-
-    await HomePage.deleteMany({ teamId: _id });
-    await Website.deleteMany({ teamId: _id });
-    await Achievement.deleteMany({ teamId: _id });
-    await Publication.deleteMany({ teamId: _id });
-    await Team.findByIdAndDelete(_id);
-
-    res.status(200).json('Deleted successfully!');
-  } catch (error) {
-    return next(
-      fillErrorObject(500, 'Error occurred with server', [error.message]),
-    );
-  }
-}
-
-/**
   * Clear the team Data from the database on /team/:team_id
   * @param {} req request object, containing team id in the url
   * @param {*} res response object, the deleted team document
@@ -352,13 +326,17 @@ async function deleteTeam(req, res, next) {
 async function clearTeam(req, res, next) {
   try {
     const { team_id: _id } = req.params;
-
+    const {isDeleteFlag}=req.body;
     await HomePage.deleteMany({ teamId: _id });
     await Website.deleteMany({ teamId: _id });
     await Achievement.deleteMany({ teamId: _id });
     await Publication.deleteMany({ teamId: _id });
-
-    res.status(200).json('Cleared successfully!');
+    if(isDeleteFlag===true){
+      await Team.findByIdAndDelete(_id);
+      res.status(200).json('Deleted successfully!');
+    }
+    else
+      res.status(200).json('Cleared successfully!');
   } catch (error) {
     return next(
       fillErrorObject(500, 'Error occurred with server', [error.message]),
@@ -426,7 +404,6 @@ module.exports = {
   deleteTeamMember,
   updateTeamMember,
   updateTeam,
-  deleteTeam,
   clearTeam,
   getGHAccessToken,
   deployToGHPages,

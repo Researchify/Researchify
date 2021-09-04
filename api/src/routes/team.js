@@ -74,15 +74,7 @@ teamRouter.patch(
   teamController.updateTeam,
 );
 
-teamRouter.delete(
-  '/:team_id',
-  authMiddleware.cookieJwtAuth,
-  mongooseMiddleware.validateTeamObjectId,
-  teamMiddleware.validateTeamId,
-  teamController.deleteTeam,
-);
-
-teamRouter.delete(
+teamRouter.post(
   '/:team_id/clear',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
