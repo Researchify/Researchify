@@ -79,17 +79,15 @@ const CategoryPage = ({
                       key={idx}
                       type="radio"
                       variant="outline-secondary"
-                      value={category.toUpperCase()}
+                      value={category}
                       checked={values.category.type.toUpperCase() === category.toUpperCase()}
-                      onChange={(e) =>
-                        setValues({
-                          ...values,
-                          category: {
-                            ...values.category,
-                            type: e.currentTarget.value,
-                          },
-                        })
-                      }
+                      onChange={(e) => setValues({
+                        ...values,
+                        category: {
+                          ...values.category,
+                          type: e.currentTarget.value,
+                        },
+                      })}
                     >
                       {category}
                     </ToggleButton>
@@ -103,8 +101,7 @@ const CategoryPage = ({
                 {' '}
                 {Object.keys(categoryTypes)
                   .filter(
-                    (category) =>
-                      category.toUpperCase() === values.category.type.toUpperCase()
+                    (category) => category.toUpperCase() === values.category.type.toUpperCase(),
                   )
                   .map((category) => `${
                     category.charAt(0) + category.slice(1).toLowerCase()

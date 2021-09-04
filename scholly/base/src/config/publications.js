@@ -4,19 +4,24 @@
 const pageSize = 10;
 const categoryPageSize = 5;
 const categoryType = {
-  JOURNAL: 'Journal',
-  CONFERENCE: 'Conference',
-  BOOK: 'Book',
-  OTHER: 'Other',
+  Journal: 'Journal',
+  Conference: 'Conference',
+  Book: 'Book',
+  Other: 'Other',
 };
-const layoutOption = {
+const layoutOptions = {
   ALL_PUBLICATION: 'All Publication',
   BY_CATEGORY: 'By Category',
 };
-const sortingOption = {
+const sortingOptions = {
   TITLE: 'Title',
   AUTHOR: 'Author',
   YEAR: 'Year',
 };
-  
-module.exports = { pageSize, categoryPageSize, categoryType, layoutOption, sortingOption };
+const defaultOption = {
+  layout: layoutOptions.ALL_PUBLICATION,
+  sortBy: sortingOptions.TITLE,
+};
+module.exports = {
+  pageSize, categoryPageSize, categoryType, layoutOptions, sortingOptions, defaultOption,
+};

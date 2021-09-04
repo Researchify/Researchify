@@ -9,7 +9,7 @@ import TeamMember from './TeamMember';
 const TeamPage = () => {
   const teamMembers = TEAM_MEMBERS;
   return (
-    <Fragment>
+    <>
       <Container className="pages-top-padding text-center mt-3 mb-3">
         <div className="team-pg-title">Meet Our Team</div>
       </Container>
@@ -20,7 +20,7 @@ const TeamPage = () => {
           ))}
         </CardDeck>
       </Container>
-    </Fragment>
+    </>
   );
 };
 

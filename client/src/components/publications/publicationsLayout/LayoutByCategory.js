@@ -8,7 +8,7 @@ import LayoutAllPublications from './LayoutAllPublications';
 const LayoutByCategory = ({ teamPublications }) => {
   const renderPublicationsByCategory = (categoryType) => {
     const publicationsByCategory = teamPublications.filter(
-      (pub) => pub.category.type === categoryType.toUpperCase(),
+      (pub) => pub.category.type === categoryType,
     );
     return (
       publicationsByCategory.length > 0 && (
@@ -26,11 +26,11 @@ const LayoutByCategory = ({ teamPublications }) => {
       )
     );
   };
-  return Object.keys(categoryTypes).map((category, i) =>
+  return Object.keys(categoryTypes).map((category, i) => (
     <div key={i}>
       {renderPublicationsByCategory(category)}
     </div>
-  );
+  ));
 };
 
 export default LayoutByCategory;
