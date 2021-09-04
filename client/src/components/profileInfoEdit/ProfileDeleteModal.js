@@ -9,25 +9,20 @@ import { successMessageCreator } from '../../notification/notificationReduxFunct
 import { logout } from '../../actions/auth';
 import { clearTeam, deleteGHPages } from '../../actions/team';
 
-const ProfileDeleteModal = ({ deleteAlert, setdeleteAlert }) => {
+const ProfileDeleteModal = ({ deleteAlert, setDeleteAlert }) => {
   const { teamId } = useSelector((state) => state.team);
   const dispatch = useDispatch();
-
   const HandleDelete = () => {
     const access_token = localStorage.getItem('GH_access_token');
-    if (access_token === null) {
-      toast.error('Log in with github account');
-    } else {
-      try {
-        dispatch(deleteGHPages(teamId, access_token));
-      } catch (error) {
-        toast.error('GitHub Pages doesnt exist');
-      }
-      const isDeleteFlag = true;
-      dispatch(clearTeam(teamId, isDeleteFlag));
-      dispatch(logout());
-      dispatch(successMessageCreator('Profile data cleared successfully!'));
+    try {
+      dispatch(deleteGHPages(teamId, access_token));
+    } catch (error) {
+      toast.error('GitHub Pages doesnt exist');
     }
+    const isDeleteFlag = true;
+    dispatch(clearTeam(teamId, isDeleteFlag));
+    dispatch(logout());
+    dispatch(successMessageCreator('Profile data cleared successfully!'));
   };
   return (
     <Modal show={deleteAlert}>
@@ -38,7 +33,7 @@ const ProfileDeleteModal = ({ deleteAlert, setdeleteAlert }) => {
         Are you sure you want to delete your account? All significant data will be deleted!
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="light" onClick={() => setdeleteAlert(false)}>
+        <Button variant="light" onClick={() => setDeleteAlert(false)}>
           Back
         </Button>
         <Button variant="danger" onClick={HandleDelete}>

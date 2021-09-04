@@ -15,19 +15,15 @@ const ProfileClearModal = ({ clearAlert, setClearAlert }) => {
 
   const HandleClear = () => {
     const accessToken = localStorage.getItem('GH_access_token');
-    if (accessToken === null) {
-      toast.error('Log in with github account');
-    } else {
-      try {
-        dispatch(deleteGHPages(teamId, accessToken));
-      } catch (error) {
-        toast.error('GitHub Pages doesnt exist');
-      }
-      const isDeleteFlag = false;
-      dispatch(clearTeam(teamId, isDeleteFlag));
-      setClearAlert(false);
-      dispatch(successMessageCreator('Profile data cleared successfully!'));
+    try {
+      dispatch(deleteGHPages(teamId, accessToken));
+    } catch (error) {
+      toast.error('GitHub Pages doesnt exist');
     }
+    const isDeleteFlag = false;
+    dispatch(clearTeam(teamId, isDeleteFlag));
+    setClearAlert(false);
+    dispatch(successMessageCreator('Profile data cleared successfully!'));
   };
   return (
     <Modal show={clearAlert}>

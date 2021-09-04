@@ -13,11 +13,15 @@ import profilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
 import ProfileDeleteModal from './ProfileDeleteModal';
 import ProfileClearModal from './ProfileClearModal';
+import GhLogInModal from './GhLogInModal';
 /**
  * Form component for user update profile
  */
 const ProfileInfoEdit = () => {
   const dispatch = useDispatch();
+  const [deleteAlert, setDeleteAlert] = useState(false);
+  const [clearAlert, setClearAlert] = useState(false);
+  const [logInAlert, setLogInAlert] = useState(false);
 
   const {
     teamId, teamName, orgName, email,
@@ -47,9 +51,12 @@ const ProfileInfoEdit = () => {
     }
     setValidated(true);
   };
-
-  const [deleteAlert, setDeleteAlert] = useState(false);
-  const [clearAlert, setClearAlert] = useState(false);
+  const checkLogin = () => {
+    const accessToken = localStorage.getItem('GH_access_token');
+    if (accessToken === null) {
+      setLogInAlert(true);
+    }
+  };
   return (
     <>
       <div className="mt-5">
@@ -129,6 +136,7 @@ const ProfileInfoEdit = () => {
                 color="primary"
                 className="mr-2"
                 onClick={() => {
+                  checkLogin();
                   setClearAlert(true);
                 }}
               >
@@ -140,6 +148,7 @@ const ProfileInfoEdit = () => {
               <Button
                 variant="danger"
                 onClick={() => {
+                  checkLogin();
                   setDeleteAlert(true);
                 }}
               >
@@ -151,8 +160,8 @@ const ProfileInfoEdit = () => {
       </div>
       <ProfileDeleteModal deleteAlert={deleteAlert} setDeleteAlert={setDeleteAlert} />
       <ProfileClearModal clearAlert={clearAlert} setClearAlert={setClearAlert} />
+      <GhLogInModal logInAlert={logInAlert} setLogInAlert={setLogInAlert} />
     </>
   );
 };
-
 export default ProfileInfoEdit;
