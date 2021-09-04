@@ -151,19 +151,15 @@ async function updatePublicationOptions(req, res, next) { // eslint-disable-line
   }
 }
 
-async function updateTitle(req, res, next) {
+async function updateTitle(req, res, next) { // eslint-disable-line no-unused-vars
   const updatedTitle = req.body;
-  console.log(updatedTitle)
   const { team_id: _id } = req.params;
-
-  console.log(_id)
-
   try {
     await Website.updateOne(
       { teamId: _id },
       {
         $set: {
-          title: updatedTitle.websiteTitle,
+          title: updatedTitle,
         },
       },
     );

@@ -83,7 +83,7 @@ export const updateWebsiteTitle = (teamId, title) => async (dispatch) => {
     await api.updateWebsiteTitle(teamId, title);
     dispatch({
       type: UPDATE_WEBSITE_TITLE,
-      payload: title.websiteTitle,
+      payload: title,
     });
     dispatch(successMessageCreator('Title had been updated'));
   } catch (err) {
