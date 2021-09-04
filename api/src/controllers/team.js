@@ -362,7 +362,7 @@ async function deleteGHPages(req, res, next) {
     });
   if (data.errors) {
     return next(
-      fillErrorObject(400, 'Validation error: Cant fetch username!', [data.errors[0].detail]),
+      fillErrorObject(400, 'Validation error: Repo doesnt exist!', [data.errors[0].detail]),
     );
   }
 
@@ -370,7 +370,22 @@ async function deleteGHPages(req, res, next) {
   const ghUsername = data.login;
   logger.info(`GitHub Pages delete initiated for user: ${ghUsername}`);
   const repoName = `${ghUsername}.github.io`;
-
+  let validFlag =false;
+  try{
+  const repoValidator = await axios.get(`https://api.github.com/repos/${ghUsername}/${repoName}`, {
+    headers: { Authorization: `token ${ghToken}`,
+               Accept: 'application/vnd.github.v3+json',
+    },
+  });
+  if(repoValidator.status===200)
+  validFlag=true;
+  else
+    validFlag=false;
+  }catch(error)
+  {
+    validFlag=false;
+  }
+  if(validFlag===true){
   // delete repo
   try {
     const deleteRepo = await axios.delete(
@@ -393,6 +408,13 @@ async function deleteGHPages(req, res, next) {
       fillErrorObject(500, 'Error occurred with server', [error.message]),
     );
   }
+  }else
+  {
+    logger.info(` Failed: GitHub pages does not exist for user: ${ghUsername}`);
+  }
+  return next(
+    fillErrorObject(500, 'Github Pages doesnt exist for the user',['Github Pages doesnt exist for the user']),
+  );
 }
 
 module.exports = {

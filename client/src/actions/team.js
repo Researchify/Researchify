@@ -16,7 +16,6 @@ import {
   DEPLOY_FAIL,
   UPDATE_TEAM,
   REGISTER_SUCCESS,
-  DELETE_TEAM,
 } from './types';
 import {
   errorActionGlobalCreator,
