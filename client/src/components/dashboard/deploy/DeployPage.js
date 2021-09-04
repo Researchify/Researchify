@@ -14,7 +14,6 @@ import DeployForm from './form/DeployForm';
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.deploy.loading);
-
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken,
   );

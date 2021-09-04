@@ -13,7 +13,7 @@ import { layoutOptions, sortingOptions } from '../config/publications';
 
 const INITIAL_WEBSITE_STATE = {
   url: '',
-  title: 'React App',
+  title: '',
   pages: [],
   publicationOptions: {
     layout: layoutOptions.ALL_PUBLICATION,

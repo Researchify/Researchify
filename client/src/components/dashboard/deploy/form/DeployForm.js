@@ -22,17 +22,14 @@ const DeployForm = ({ teamId }) => {
   const initValues = {
     websiteTitle: title,
   };
-
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token'); // eslint-disable-line no-undef
     // call backend endpoint to deploy and give the access token
     dispatch(deployToGHPages(teamId, accessToken));
   };
-
   const submitForm = (values) => {
     dispatch(updateWebsiteTitle(teamId, values));
   };
-
   return (
     <>
       <Formik

@@ -29,7 +29,6 @@ const BUILD_TIMEOUT = 10000;
 async function buildBaseApp(data) {
   // windows users: see https://stackoverflow.com/questions/22575662/filename-too-long-in-git-for-windows
   // if it fails here
-  console.log(data)
   const npm = which.sync('npm');
   const build = spawn(
     npm,
