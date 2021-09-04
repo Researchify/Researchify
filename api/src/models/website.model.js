@@ -20,6 +20,8 @@ const websiteSchema = new mongoose.Schema(
     title: {
       type: String,
       required: false,
+      minlength: 3,
+      maxlength: 30,
     },
     url: {
       type: String,

@@ -16,21 +16,21 @@ const DeployForm = ({ teamId }) => {
     websiteTitle: yup
       .string()
       .required('Please provide title for your website')
-      .min(3, 'Category title must be at least 3 characters')
-      .max(30, 'Category title must be less than 30 characters'),
+      .min(3, 'Website title must be at least 3 characters')
+      .max(30, 'Website title must be less than 30 characters'),
   });
   const initValues = {
     websiteTitle: title,
   };
 
-  const handleUpdateTitle = (websiteTitle) => {
-    dispatch(updateWebsiteTitle(teamId, websiteTitle));
-  };
-
-  const submitForm = () => {
+  const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token'); // eslint-disable-line no-undef
     // call backend endpoint to deploy and give the access token
     dispatch(deployToGHPages(teamId, accessToken));
+  };
+
+  const submitForm = (values) => {
+    dispatch(updateWebsiteTitle(teamId, values));
   };
 
   return (
@@ -66,8 +66,8 @@ const DeployForm = ({ teamId }) => {
               </Col>
               <Col sm="3">
                 <Button
+                  type="submit"
                   disabled={title === values.websiteTitle}
-                  onClick={() => handleUpdateTitle(values.websiteTitle)}
                 >
                   Save Title
                 </Button>
@@ -76,7 +76,7 @@ const DeployForm = ({ teamId }) => {
             <Button
               className="float-right"
               disabled={title !== values.websiteTitle}
-              type="submit"
+              onClick={() => handleDeploy(values.websiteTitle)}
             >
               Deploy to GitHub Pages
             </Button>

@@ -78,12 +78,12 @@ export const updatePublicationOptions = (teamId, preference) => async (dispatch)
   }
 };
 
-export const updateWebsiteTitle = (teamId, title) => async (dispatch) => {
+export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
   try {
-    await api.updateWebsiteTitle(teamId, title);
+    await api.updateWebsiteTitle(teamId, website);
     dispatch({
       type: UPDATE_WEBSITE_TITLE,
-      payload: title,
+      payload: website.websiteTitle,
     });
     dispatch(successMessageCreator('Title had been updated'));
   } catch (err) {
