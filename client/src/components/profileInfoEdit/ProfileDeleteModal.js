@@ -22,6 +22,7 @@ const ProfileDeleteModal = ({ deleteAlert, setDeleteAlert }) => {
     const isDeleteFlag = true;
     dispatch(clearTeam(teamId, isDeleteFlag));
     dispatch(logout());
+
     dispatch(successMessageCreator('Profile data cleared successfully!'));
   };
   return (
