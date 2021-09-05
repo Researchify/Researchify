@@ -3,55 +3,55 @@ name: Researchify CI
 on: [ push, pull_request, workflow_dispatch ]
 
 jobs:
-  static_analysis:
-    name: Static Analyzer
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - run: npm install
-        working-directory: ./api
-      - run: npm install
-        working-directory: ./client
-      - run: npm install
-        working-directory: ./scholly/service
-      - run: npm install
-        working-directory: ./scholly/base
-      - name: Run ESLint on Node API
-        run: npm run lint
-        working-directory: ./api
-      - name: Run ESLint on React Client
-        run: npm run lint
-        working-directory: ./client
-      - name: Run ESLint on Scholly Service
-        run: npm run lint
-        working-directory: ./scholly/service
-      - name: Run ESLint on Scholly React Base
-        run: npm run lint
-        working-directory: ./scholly/base
-  test:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - run: npm install
-        working-directory: ./api
-      - run: npm install
-        working-directory: ./client
-      - name: Run Tests on Node API
-        run: npm run test
-        working-directory: ./api
-      - name: Run Tests on React Client
-        run: npm run testcov
-        working-directory: ./client
+  # static_analysis:
+  #   name: Static Analyzer
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #     - run: npm install
+  #       working-directory: ./api
+  #     - run: npm install
+  #       working-directory: ./client
+  #     - run: npm install
+  #       working-directory: ./scholly/service
+  #     - run: npm install
+  #       working-directory: ./scholly/base
+  #     - name: Run ESLint on Node API
+  #       run: npm run lint
+  #       working-directory: ./api
+  #     - name: Run ESLint on React Client
+  #       run: npm run lint
+  #       working-directory: ./client
+  #     - name: Run ESLint on Scholly Service
+  #       run: npm run lint
+  #       working-directory: ./scholly/service
+  #     - name: Run ESLint on Scholly React Base
+  #       run: npm run lint
+  #       working-directory: ./scholly/base
+  # test:
+  #   name: Unit Tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #     - run: npm install
+  #       working-directory: ./api
+  #     - run: npm install
+  #       working-directory: ./client
+  #     - name: Run Tests on Node API
+  #       run: npm run test
+  #       working-directory: ./api
+  #     - name: Run Tests on React Client
+  #       run: npm run testcov
+  #       working-directory: ./client
   publish:
     name: Publish Images to Docker Hub
-    needs:
-      - static_analysis
-      - test
+    # needs:
+    #   - static_analysis
+    #   - test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/vgoh1/optimize-playwright'
     steps:
       - uses: actions/checkout@v2
       - name: Login to Docker Hub
@@ -65,14 +65,14 @@ jobs:
           context: ./api
           file: ./api/Dockerfile
           push: true
-          tags: ak1738/researchify-api:latest
+          tags: ak1738/researchify-api-staging:latest
       - name: Push Client Image to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: ./client
           file: ./client/Dockerfile
           push: true
-          tags: ak1738/researchify-client:latest
+          tags: ak1738/researchify-client-staging:latest
       - name: Push NGINX Image to Docker Hub
         uses: docker/build-push-action@v2
         with:
@@ -86,15 +86,15 @@ jobs:
           context: ./scholly
           file: ./scholly/Dockerfile
           push: true
-          tags: ak1738/researchify-scholly:latest
+          tags: ak1738/researchify-scholly-staging:latest
   deploy:
     name: Deploy to AWS Elastic Beanstalk
     needs:
-      - static_analysis
-      - test
+      # - static_analysis
+      # - test
       - publish
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/vgoh1/optimize-playwright'
     steps:
       - uses: actions/checkout@v2
       - name: Generate Deployment Package
@@ -105,7 +105,7 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: "researchify"
-          environment_name: "Researchify-env"
+          environment_name: "Researchify-env-green"
           version_label: researchify-app-${{ github.SHA }}
           version_description: Commit ${{ github.SHA }} deployed by github actions
           region: "ap-southeast-2"

@@ -4,7 +4,7 @@
  */
 const mongoose = require('mongoose');
 const logger = require('winston');
-const { firefox } = require('playwright');
+const { firefox } = require('playwright-firefox');
 
 const { categoryTypes } = require('../config/publication');
 const { playwrightConfig } = require('../config/playwright');
