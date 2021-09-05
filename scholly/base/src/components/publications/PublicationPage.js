@@ -12,7 +12,7 @@ import { WEB_PAGES } from '../../global/data';
 import Publications from './Publications';
 // import { TEAM_INFO } from '../../global/data';
 
-const PublicationPage = () => (
+const PublicationPage = () => {
 // const linkedHandle = TEAM_INFO.twitterHandle;
   //
   // Logic of showing twitter gadget. Removed for now. Wait for a better design.
@@ -43,23 +43,25 @@ const PublicationPage = () => (
   //     </Fragment>
   //   )}
   // </Fragment>
-
-  <>
-    <Helmet>
-      <title>
-        {' '}
-        {WEB_PAGES.title}
-        {' '}
-        - Publications
-        {' '}
-      </title>
-    </Helmet>
-    <Container className="pages-top-padding text-center mt-3 mb-3">
-      <div className="publication-pg-title">Our Publications</div>
-    </Container>
-    <Container fluid>
-      <Publications />
-    </Container>
-  </>
-);
+  const { title } = WEB_PAGES;
+  return (
+    <>
+      <Helmet>
+        <title>
+          {' '}
+          {title}
+          {' '}
+          - Publications
+          {' '}
+        </title>
+      </Helmet>
+      <Container className="pages-top-padding text-center mt-3 mb-3">
+        <div className="publication-pg-title">Our Publications</div>
+      </Container>
+      <Container fluid>
+        <Publications />
+      </Container>
+    </>
+  );
+};
 export default PublicationPage;

@@ -72,7 +72,7 @@ export const updatePublicationOptions = (teamId, preference) => async (dispatch)
       type: UPDATE_PUBLICATION_OPTIONS,
       payload: data,
     });
-    dispatch(successMessageCreator('Preference had been updated'));
+    dispatch(successMessageCreator('Preference has been updated.'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -85,7 +85,7 @@ export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
       type: UPDATE_WEBSITE_TITLE,
       payload: website.websiteTitle,
     });
-    dispatch(successMessageCreator('Title had been updated'));
+    dispatch(successMessageCreator('Title has been updated.'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }

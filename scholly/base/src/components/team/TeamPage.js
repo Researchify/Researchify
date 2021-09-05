@@ -9,12 +9,13 @@ import TeamMember from './TeamMember';
 
 const TeamPage = () => {
   const teamMembers = TEAM_MEMBERS;
+  const { title } = WEB_PAGES;
   return (
     <>
       <Helmet>
         <title>
           {' '}
-          {WEB_PAGES.title}
+          {title}
           {' '}
           - Team
           {' '}

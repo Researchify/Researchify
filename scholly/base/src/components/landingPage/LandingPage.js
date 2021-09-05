@@ -8,12 +8,13 @@ import { TEAM_HOMEPAGE, WEB_PAGES } from '../../global/data';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
+  const { title } = WEB_PAGES;
   return (
     <>
       <Helmet>
         <title>
           {' '}
-          {WEB_PAGES.title}
+          {title}
           {' '}
           - Home
           {' '}

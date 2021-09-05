@@ -99,6 +99,13 @@ async function updatePublicationOptions(req, res, next) { // eslint-disable-line
   }
 }
 
+/**
+ * Update website title on the deployed website
+ * @param {*} req request object, containing the teamId and website title
+ * @param {*} res response object
+ * @returns 200: website title successfully updated in the DB
+ * @returns 500: Server error while saving website title to DB
+ */
 async function updateTitle(req, res, next) { // eslint-disable-line no-unused-vars
   const updatedTitle = req.body.websiteTitle;
   const { team_id: _id } = req.params;
