@@ -14,7 +14,7 @@ import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 import PublicationsButtons from './publicationsLayout/PublicationsButtons';
 import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
 import { layoutOptions, sortingOptions } from '../../config/publications';
-import Test from './PublicationPageWalkthrough'
+import Test from './PublicationPageWalkthrough';
 
 const Publications = () => {
   const dispatch = useDispatch();
