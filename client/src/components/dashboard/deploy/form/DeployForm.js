@@ -10,6 +10,7 @@ import { deployToGHPages } from '../../../../actions/team';
 
 const DeployForm = ({ teamId }) => {
   const { title } = useSelector((state) => state.website);
+  const { orgName } = useSelector((state) => state.team);
   const dispatch = useDispatch();
 
   const validationSchema = yup.object({
@@ -20,7 +21,7 @@ const DeployForm = ({ teamId }) => {
       .max(30, 'Website title must be less than 30 characters'),
   });
   const initValues = {
-    websiteTitle: title,
+    websiteTitle: title || orgName,
   };
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token'); // eslint-disable-line no-undef
