@@ -1,7 +1,13 @@
 /**
  * This module exports a "Team" mongoose Schema, which represents a researcher team.
+ * Post middleware has been implemented to trigger the creation of associated
+ * documents upon team registration.
  */
 const mongoose = require('mongoose');
+const logger = require('winston');
+
+const Website = require('./website.model');
+const Homepage = require('./homepage.model');
 
 const teamSchema = new mongoose.Schema(
   {
@@ -33,9 +39,20 @@ const teamSchema = new mongoose.Schema(
     },
     teamMembers: [
       {
-        fullName: { type: String, required: false, minLength: 3 },
-        position: { type: String, required: false },
-        summary: { type: String, required: false, minLength: 3 },
+        fullName: {
+          type: String,
+          required: false,
+          minLength: 3,
+        },
+        position: {
+          type: String,
+          required: false,
+        },
+        summary: {
+          type: String,
+          required: false,
+          minLength: 3,
+        },
       },
     ],
     githubUsername: {
@@ -49,6 +66,18 @@ const teamSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+
+// Post middleware/trigger to create associated documents when a team has
+// registered. See: https://stackoverflow.com/a/57971800/15507541.
+// https://mongoosejs.com/docs/middleware.html#post
+teamSchema.post('save', async (doc) => {
+  try {
+    await Website.create({ teamId: doc._id, publicationOptions: { layout: 'All Publication', sortBy: 'Title' } });
+    await Homepage.create({ teamId: doc._id });
+  } catch (err) {
+    logger.error('Failed to create associated documents on team creation.');
+  }
+});
 
 const Team = mongoose.model('team', teamSchema);
 

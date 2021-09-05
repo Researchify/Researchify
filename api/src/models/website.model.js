@@ -1,5 +1,6 @@
 /**
  * This module exports a "Website" mongoose Schema, which represents a team's web page.
+ * Associated to a trigger, a website document of a team will be created automaically in db when a new team is created in db.
  */
 const mongoose = require('mongoose');
 
