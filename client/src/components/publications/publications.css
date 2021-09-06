@@ -79,3 +79,11 @@
   border: solid rgb(205, 205, 206);
   border-width: thin;
 }
+
+.pressed-button {
+  background: #b8b5b5;
+  outline: none;
+  -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+  -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+  box-shadow: inset 0px 0px 5px #c1c1c1;
+}

@@ -1,15 +1,18 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
+import { AiFillFileAdd } from 'react-icons/ai';
 
 const PublicationsButtons = ({ setShowCreateForm, setShowImportForm }) => (
-  <div className="mb-3 mt-4 text-center">
-    <Button className="mr-2" onClick={() => setShowCreateForm(true)}>
-      Add Publication
-    </Button>
-    <Button className="ml-2" onClick={() => setShowImportForm(true)}>
-      Import Publication
-    </Button>
-  </div>
+  <Dropdown size="sm">
+    <Dropdown.Toggle>
+      <AiFillFileAdd />
+    </Dropdown.Toggle>
+
+    <Dropdown.Menu>
+      <Dropdown.Item onClick={() => setShowCreateForm(true)}>Add Publication</Dropdown.Item>
+      <Dropdown.Item onClick={() => setShowImportForm(true)}>Import Publication</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
 );
 
 export default PublicationsButtons;

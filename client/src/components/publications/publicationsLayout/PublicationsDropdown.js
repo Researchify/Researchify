@@ -1,8 +1,23 @@
 import React from 'react';
-import { Dropdown, Button } from 'react-bootstrap';
+import { Button, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
+
+const StyledButtonGroup = styled.div`
+  background-color: transparent;
+  border-radius: 0;
+`;
+
+const ButtonGroupItem = styled.button`
+  background: #ededed;
+  border: 1px solid #ccc;
+  padding: 1px 3px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande";
+`;
 
 const PublicationsDropdown = ({
   options,
@@ -16,53 +31,39 @@ const PublicationsDropdown = ({
   const handleUpdate = () => {
     dispatch(updatePublicationOptions(teamId, options));
   };
-
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Dropdown>
-          <Dropdown.Toggle variant="light" className="mb-2">
-            Layout:
-            {' '}
-            {options.layout}
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {Object.keys(layoutOptions).map((layout, i) => (
-              <Dropdown.Item
-                key={i}
-                as="button"
-                onClick={() => setOptions({ ...options, layout: layoutOptions[layout] })}
-              >
-                {layoutOptions[layout]}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-
-        <Dropdown>
-          <Dropdown.Toggle variant="light" className="mb-2">
-            Sort by:
-            {' '}
-            {options.sortBy}
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {Object.keys(sortingOptions).map((sortBy, i) => (
-              <Dropdown.Item
-                key={i}
-                as="button"
-                value={sortingOptions[sortBy]}
-                onClick={(e) => {
-                  setOptions({ ...options, sortBy: sortingOptions[sortBy] });
-                  sortPublications(publication, e.target.value);
-                }}
-              >
-                {sortingOptions[sortBy]}
-              </Dropdown.Item>
-            ))}
-            {options.layout === layoutOptions.BY_CATEGORY
+    <Row>
+      <StyledButtonGroup>
+        Group by:
+        {Object.keys(layoutOptions).map((layout, i) => (
+          <ButtonGroupItem
+            className={options.layout === layoutOptions[layout] && 'pressed-button'}
+            key={i}
+            onClick={() => setOptions({ ...options, layout: layoutOptions[layout] })}
+          >
+            {layoutOptions[layout]}
+          </ButtonGroupItem>
+        ))}
+      </StyledButtonGroup>
+      <StyledButtonGroup>
+        Sort by:
+        {Object.keys(sortingOptions).map((sortBy, i) => (
+          <ButtonGroupItem
+            className={options.sortBy === sortingOptions[sortBy] && 'pressed-button'}
+            key={i}
+            value={sortingOptions[sortBy]}
+            onClick={(e) => {
+              setOptions({ ...options, sortBy: sortingOptions[sortBy] });
+              sortPublications(publication, e.target.value);
+            }}
+          >
+            {sortingOptions[sortBy]}
+          </ButtonGroupItem>
+        ))}
+        {options.layout === layoutOptions.BY_CATEGORY
               && (
-              <Dropdown.Item
-                as="button"
+              <ButtonGroupItem
+                className={options.sortBy === 'Category Title' && 'pressed-button'}
                 value="Category Title"
                 onClick={(e) => {
                   setOptions({ ...options, sortBy: e.target.value });
@@ -70,20 +71,18 @@ const PublicationsDropdown = ({
                 }}
               >
                 Category Title
-              </Dropdown.Item>
+              </ButtonGroupItem>
               )}
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-      <div className="mb-3" style={{ display: 'flex', justifyContent: 'center' }}>
-        <Button
-          variant="secondary"
-          onClick={handleUpdate}
-        >
-          Update Layout &amp; Sorting Options
-        </Button>
-      </div>
-    </div>
+      </StyledButtonGroup>
+
+      <Button
+        variant="secondary"
+        onClick={handleUpdate}
+      >
+        Update Layout
+      </Button>
+
+    </Row>
   );
 };
 

@@ -29,7 +29,7 @@
     "reactstrap": "^8.9.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.3.0",
+    "styled-components": "^5.3.1",
     "yup": "^0.32.9"
   },
   "scripts": {
@@ -61,5 +61,8 @@
   },
   "devDependencies": {
     "eslint-config-airbnb": "^18.2.1"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }
