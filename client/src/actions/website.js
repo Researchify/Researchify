@@ -6,27 +6,24 @@ import {
   DELETE_WEBSITE,
   ADD_WEBPAGE,
   DELETE_WEBPAGE,
+  UPDATE_PUBLICATION_OPTIONS,
 } from './types';
-import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
+import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 import * as api from '../api';
 
 /**
  * Action called when 'create website' button is clicked
  */
-export const createWebsite = () => {
-  return {
-    type: CREATE_WEBSITE,
-  };
-};
+export const createWebsite = () => ({
+  type: CREATE_WEBSITE,
+});
 
 /**
  * Action called when user choose to delete the website
  */
-export const deleteWebsite = () => {
-  return {
-    type: DELETE_WEBSITE,
-  };
-};
+export const deleteWebsite = () => ({
+  type: DELETE_WEBSITE,
+});
 
 /**
  * Adds a new client web-page to redux store and database.
@@ -35,7 +32,7 @@ export const deleteWebsite = () => {
 export const addPage = (teamId, pageName) => async (dispatch) => {
   try {
     const apiBody = {
-      pageName: pageName,
+      pageName,
     };
     await api.addWebPage(teamId, apiBody);
 
@@ -54,12 +51,28 @@ export const addPage = (teamId, pageName) => async (dispatch) => {
  */
 export const deletePage = (teamId, pageName) => async (dispatch) => {
   const apiBody = {
-    pageName: pageName,
+    pageName,
   };
-  api.deleteWebPage(teamId, apiBody).then(
+  try {
+    api.deleteWebPage(teamId, apiBody);
     dispatch({
       type: DELETE_WEBPAGE,
       payload: pageName,
-    })
-  );
+    });
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
+};
+
+export const updatePublicationOptions = (teamId, preference) => async (dispatch) => {
+  try {
+    const { data } = await api.updatePublicationOptions(teamId, preference);
+    dispatch({
+      type: UPDATE_PUBLICATION_OPTIONS,
+      payload: data,
+    });
+    dispatch(successMessageCreator('Preference had been updated'));
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
 };

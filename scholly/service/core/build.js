@@ -12,6 +12,9 @@ const {
   REACT_APP_TEAM_INFO,
   REACT_APP_TEAM_PUBLICATIONS,
   REACT_APP_TEAM_MEMBERS,
+  REACT_APP_TEAM_HOMEPAGE,
+  REACT_APP_WEB_PAGES,
+  REACT_APP_TEAM_ACHIEVEMENTS,
 } = require('./data');
 
 const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
@@ -38,9 +41,12 @@ async function buildBaseApp(data) {
         [REACT_APP_TEAM_PUBLICATIONS]: JSON.stringify(data.teamPublications),
         [REACT_APP_TEAM_INFO]: JSON.stringify(data.teamInfo),
         [REACT_APP_TEAM_MEMBERS]: JSON.stringify(data.teamMembers),
+        [REACT_APP_TEAM_HOMEPAGE]: JSON.stringify(data.teamHomepage),
+        [REACT_APP_WEB_PAGES]: JSON.stringify(data.webPages),
+        [REACT_APP_TEAM_ACHIEVEMENTS]: JSON.stringify(data.teamAchievements),
       },
       timeout: BUILD_TIMEOUT,
-    }
+    },
   );
 
   build.stdout.on('data', (data) => {
@@ -54,7 +60,7 @@ async function buildBaseApp(data) {
     build.on('close', (code) => {
       winston.info(`child process exited with code ${code}`);
       if (code) {
-        reject(`Failed to build base application. Code: ${code}`);
+        reject(new Error(`Failed to build base application. Code: ${code}`));
       }
       resolve(code);
     });

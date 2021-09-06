@@ -83,13 +83,49 @@
 
 .theme-1-icon{
   background: linear-gradient(to right, #8da4d1 0%, #8da4d1 50%, #419aee 50%, #419aee 100%);
-}
-
-.theme-3-icon{
-  background: linear-gradient(to right, #868789 0%, #868789 50%, #008000 50%, #008000 100%);
+  position: relative;
+  top: 5px;
+  left: 33px;
 }
 
 .theme-2-icon{
     background: linear-gradient(to right, #ebe6e6, #ebe6e6 50%, #000000 50%, #000000 100%);
+    position: relative;
+    top: 5px;
+    left: 60px;
 }
 
+.theme-3-icon{
+  background: linear-gradient(to right, #868789 0%, #868789 50%, #008000 50%, #008000 100%);
+  position: relative;
+  top: 5px;
+  left: 87px;
+}
+
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+.theme-1-radio{
+  position: absolute;
+  top: 177px;
+  left: 89px;
+}
+
+.theme-2-radio{
+  position: absolute;
+  top: 177px;
+  left: 200px;
+}
+
+.theme-3-radio{
+  position: absolute;
+  top: 177px;
+  left: 311px;
+}

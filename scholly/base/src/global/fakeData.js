@@ -1,3 +1,8 @@
+export const FAKE_WEB_PAGES = {
+  pages: ['PUBLICATIONS', 'TEAM'],
+  publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
+};
+
 export const FAKE_PUBLICATIONS = [
   {
     _id: 'fake_publication_1',
@@ -170,5 +175,42 @@ export const FAKE_TEAM_MEMBERS = [
     position: 'Chief Economist',
     summary:
       'Jeremy Buffet leads our macro-economic unit in predicting macro factors and their impact on society',
+  },
+];
+
+export const FAKE_TEAM_HOMEPAGE = {
+  aboutUs: ['This is first paragraph.', 'This is second paragraph.', 'This is third paragraph.'],
+};
+
+export const FAKE_TEAM_ACHIEVEMENTS = [
+  {
+    title: 'Organisation of The Year',
+    description: 'We have been awarded as the Organisation of The Year for 2019',
+    yearAwarded: 2019,
+  },
+  {
+    title: 'Best Team Vibes',
+    description: 'We have been awarded for the Best Team Vibes for 2021',
+    yearAwarded: 2021,
+  },
+  {
+    title: 'Most Hardworking Team',
+    description: 'We have been awarded as the Most Hardedworking team for 2020',
+    yearAwarded: 2020,
+  },
+  {
+    title: 'Most Dedicated Team',
+    description: 'We have been awarded as the Most Dedicated Team for 2020',
+    yearAwarded: 2020,
+  },
+  {
+    title: 'Participation Award',
+    description: 'Our efforts have been recognised as we have been awarded the Participation Award for the year 2018. Adding more information to make thi description longer. Adding more information to make thi description longer. Adding more information to make thi description longer. Adding more information to make thi description longer. Adding more information to make thi description longer. Adding more information to make thi description longer.',
+    yearAwarded: 2018,
+  },
+  {
+    title: 'Most Employable Team',
+    description: 'We have been awarded as the Most Employable Team for 2019',
+    yearAwarded: 2019,
   },
 ];

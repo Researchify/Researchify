@@ -3,13 +3,14 @@
  * to select a theme in Researchify dashboard page.
  */
 import React, { useState } from 'react';
-import { Container, Button, Modal, Form, Col, Image } from 'react-bootstrap';
+import {
+  Container, Button, Form, Col, Image,
+} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { updateTeamTheme } from '../../actions/team';
-import toast from 'react-hot-toast';
 
 // Picture of each layout
-import singleColumnLayout from '../../images/single-column-layout.png';
+import singleColumnLayout from '../../images/theme1.png';
 import fShapeLayout from '../../images/f-shape-layout.png';
 import zigZagLayout from '../../images/zig-zag-layout.png';
 
@@ -27,12 +28,12 @@ const TemplateSelector = (props) => {
   });
   const [theme, setTheme] = useState(1);
 
-  const updateForm = (form) => {
-    const { name, value } = form.target;
+  const updateSelections = (form) => {
+    const { name, value, id } = form.target;
     if (name === 'theme') {
       let primaryColor;
       let secondaryColor;
-      switch (value) {
+      switch (id) {
         case 'theme1':
           setTheme(1);
           primaryColor = '#419aee';
@@ -49,16 +50,20 @@ const TemplateSelector = (props) => {
           secondaryColor = '#868789';
           break;
         default:
-          console.log('error in updateForm()');
+          break;
       }
       setInputs({
         ...formInputs,
-        primaryColor: primaryColor,
-        secondaryColor: secondaryColor,
+        primaryColor,
+        secondaryColor,
       });
     } else {
       setInputs({ ...formInputs, [name]: parseInt(value) });
     }
+  };
+
+  const storeInputs = (teamId, inputObject) => {
+    dispatch(updateTeamTheme(teamId, inputObject));
   };
 
   const handleSubmit = (event) => {
@@ -71,125 +76,141 @@ const TemplateSelector = (props) => {
     }
   };
 
-  const storeInputs = (teamId, inputObject) => {
-    try {
-      dispatch(updateTeamTheme(teamId, inputObject));
-      toast.success('Theme is updated.');
-      props.closeModal();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
-    <Modal
-      show={props.displayModal}
-      onHide={props.closeModal}
-      centered
-      size="lg"
+    <Form
+      className="researchify-github-form"
+      noValidate
+      onSubmit={handleSubmit}
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Select a colour combination and layout.
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form
-          className="researchify-github-form"
-          noValidate
-          onSubmit={handleSubmit}
-        >
-          <Form.Group controlId="theme">
-            <Form.Label>Select a Theme Colour</Form.Label>
-            <Container fluid>
-              <Form.Row>
-                <Form.Check
-                  inline
-                  type="radio"
-                  name="theme"
-                  value="theme1"
-                  onChange={updateForm}
-                  checked={theme === 1}
-                />
-                <div className="theme-icon theme-1-icon"></div>
-                <Form.Check
-                  inline
-                  type="radio"
-                  name="theme"
-                  value="theme2"
-                  onChange={updateForm}
-                  checked={theme === 2}
-                />
-                <div className="theme-icon theme-2-icon"></div>
-                <Form.Check
-                  inline
-                  type="radio"
-                  name="theme"
-                  value="theme3"
-                  onChange={updateForm}
-                  checked={theme === 3}
-                />
-                <div className="theme-icon theme-3-icon"></div>
-              </Form.Row>
-            </Container>
-            <Form.Control.Feedback type="invalid">
-              Please select a theme.
-            </Form.Control.Feedback>
-          </Form.Group>
+      <Form.Group controlId="theme">
+        <Form.Label>Select a Theme Colour</Form.Label>
+        <Container fluid>
+          <Form.Row>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="theme1">
+              <Form.Check
+                inline
+                id="theme1"
+                type="radio"
+                name="theme"
+                onChange={updateSelections}
+                checked={theme === 1}
+                className="theme-1-radio"
+              />
+              <div
+                className="theme-icon theme-1-icon"
+              />
+            </label>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="theme2">
+              <Form.Check
+                inline
+                id="theme2"
+                type="radio"
+                name="theme"
+                onChange={updateSelections}
+                checked={theme === 2}
+                className="theme-2-radio"
+              />
+              <div
+                className="theme-icon theme-2-icon"
+              />
+            </label>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="theme3">
+              <Form.Check
+                inline
+                id="theme3"
+                type="radio"
+                name="theme"
+                onChange={updateSelections}
+                checked={theme === 3}
+                className="theme-3-radio"
+              />
+              <div
+                className="theme-icon theme-3-icon"
+              />
+            </label>
+          </Form.Row>
+        </Container>
 
-          <Form.Group controlId="layout">
-            <Form.Label>Select a Layout</Form.Label>
-            <Container fluid>
-              <Form.Row>
-                <Col className="layout-display">
-                  <Form.Check
-                    checked={formInputs.layout === 1}
-                    inline
-                    type="radio"
-                    name="layout"
-                    label="Layout 1"
-                    value={1}
-                    className="form-radio-text"
-                    onChange={updateForm}
-                  />
-                  <Image src={singleColumnLayout} className="img-fluid" />
-                </Col>
-                <Col className="layout-display">
-                  <Form.Check
-                    checked={formInputs.layout === 2}
-                    inline
-                    type="radio"
-                    name="layout"
-                    label="Layout 2"
-                    value={2}
-                    className="form-radio-text"
-                    onChange={updateForm}
-                  />
-                  <Image src={fShapeLayout} className="img-fluid" />
-                </Col>
-                <Col className="layout-display">
-                  <Form.Check
-                    checked={formInputs.layout === 3}
-                    inline
-                    type="radio"
-                    name="layout"
-                    label="Layout 3"
-                    value={3}
-                    className="form-radio-text"
-                    onChange={updateForm}
-                  />
-                  <Image src={zigZagLayout} className="img-fluid" />
-                </Col>
-              </Form.Row>
-            </Container>
-          </Form.Group>
+        <Form.Control.Feedback type="invalid">
+          Please select a theme.
+        </Form.Control.Feedback>
+      </Form.Group>
 
-          <Button id="submitButton" type="submit">
-            Create Website
-          </Button>
-        </Form>
-      </Modal.Body>
-    </Modal>
+      <Form.Group controlId="layout">
+        <Form.Label>Select a Layout</Form.Label>
+        <Container fluid>
+          <Form.Row>
+            <Col className="layout-display">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label htmlFor="layout1">
+                <Form.Check
+                  checked={formInputs.layout === 1}
+                  inline
+                  id="layout1"
+                  type="radio"
+                  label="Layout 1"
+                  name="layout"
+                  value={1}
+                  className="form-radio-text"
+                  onChange={updateSelections}
+                />
+                <Image
+                  src={singleColumnLayout}
+                  className="img-fluid"
+                />
+              </label>
+            </Col>
+            <Col className="layout-display">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label htmlFor="layout2">
+                <Form.Check
+                  checked={formInputs.layout === 2}
+                  inline
+                  id="layout2"
+                  type="radio"
+                  label="Layout 2"
+                  name="layout"
+                  value={2}
+                  className="form-radio-text"
+                  onChange={updateSelections}
+                />
+                <Image
+                  src={fShapeLayout}
+                  className="img-fluid"
+                />
+              </label>
+            </Col>
+            <Col className="layout-display">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label htmlFor="layout3">
+                <Form.Check
+                  checked={formInputs.layout === 3}
+                  inline
+                  id="layout3"
+                  type="radio"
+                  label="Layout 3"
+                  name="layout"
+                  value={3}
+                  className="form-radio-text"
+                  onChange={updateSelections}
+                />
+                <Image
+                  src={zigZagLayout}
+                  className="img-fluid"
+                />
+              </label>
+            </Col>
+          </Form.Row>
+        </Container>
+      </Form.Group>
+
+      <Button id="submitButton" type="submit">
+        Create Website
+      </Button>
+    </Form>
   );
 };
 

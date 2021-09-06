@@ -21,7 +21,8 @@
     "dev": "cross-env REACT_APP_DEBUG=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint \"src/**/*.js\""
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +47,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "eslint-config-airbnb": "^18.2.1"
   }
 }

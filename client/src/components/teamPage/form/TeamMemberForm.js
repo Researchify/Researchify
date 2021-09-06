@@ -5,7 +5,9 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { Row, Button, Tooltip, OverlayTrigger, Form } from 'react-bootstrap';
+import {
+  Row, Button, Tooltip, OverlayTrigger, Form,
+} from 'react-bootstrap';
 import { createTeamMember, updateTeamMember } from '../../../actions/team';
 
 const TeamMemberForm = ({ closeModal, member, type }) => {
@@ -31,7 +33,6 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
   };
 
   const submitForm = (values) => {
-    console.log(values);
     if (type === 'update') {
       dispatch(updateTeamMember(teamId, values));
     } else if (type === 'create') {
@@ -53,7 +54,9 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
       onSubmit={submitForm}
       initialValues={type === 'update' ? member : initValues}
     >
-      {({ handleSubmit, handleChange, values, touched, errors }) => (
+      {({
+        handleSubmit, handleChange, values, touched, errors,
+      }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label>Full Name</Form.Label>
@@ -123,7 +126,8 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
             <div className="ml-auto mr-3">
               <Button variant="primary" type="submit">
                 {' '}
-                Confirm{' '}
+                Confirm
+                {' '}
               </Button>
             </div>
           </Row>

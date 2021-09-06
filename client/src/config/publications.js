@@ -3,11 +3,21 @@
  */
 const pageSize = 10;
 const categoryPageSize = 5;
-const categoryType = {
-  JOURNAL: 'JOURNAL',
-  CONFERENCE: 'CONFERENCE',
-  BOOK: 'BOOK',
-  OTHER: 'OTHER',
+const categoryTypes = {
+  Journal: 'Journal',
+  Conference: 'Conference',
+  Book: 'Book',
+  Other: 'Other',
 };
-
-module.exports = { pageSize, categoryPageSize, categoryType };
+const layoutOptions = {
+  ALL_PUBLICATION: 'All Publication',
+  BY_CATEGORY: 'By Category',
+};
+const sortingOptions = {
+  TITLE: 'Title',
+  AUTHOR: 'Author',
+  YEAR: 'Year',
+};
+module.exports = {
+  pageSize, categoryPageSize, categoryTypes, layoutOptions, sortingOptions,
+};

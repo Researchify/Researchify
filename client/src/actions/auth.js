@@ -8,7 +8,6 @@ import {
   LOG_OUT,
   LOG_IN_FAIL,
   FETCH_TEAM_INFO,
-  CLEAR_NOTIFICATION,
   FETCH_WEBSITE_INFO,
 } from './types';
 import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
@@ -19,28 +18,15 @@ import { errorActionGlobalCreator } from '../notification/notificationReduxFunct
  * @param authData data associated to the authentication response.
  * @returns an action of type AUTH_SIGN_IN with the payload as the authData.
  */
-export const signIn = (authData) => async (dispatch) => {
+export const login = (authData) => async (dispatch) => {
   try {
     dispatch({
       type: LOG_IN_REQUEST,
     });
-    const { data } = await api.loginTeam(authData);
-    const teamId = data._id;
-
-    const clientWebsiteData = await getClientWebsiteData(teamId);
-  
+    await api.loginTeam(authData);
     dispatch({
       type: LOG_IN_SUCCESS,
     });
-    dispatch({
-      type: FETCH_TEAM_INFO,
-      payload: data,
-    });
-    dispatch({
-      type: FETCH_WEBSITE_INFO,
-      payload: clientWebsiteData,
-    });
-
   } catch (error) {
     dispatch({
       type: LOG_IN_FAIL,
@@ -53,15 +39,11 @@ export const signIn = (authData) => async (dispatch) => {
  * This action creator will be called when a user signs out.
  * @returns an action of type AUTH_SIGN_OUT.
  */
-export const logOut = () => async(dispatch) => {
-  try{
-    await api.logoutTeam()
-    dispatch ({
-      type: LOG_OUT
-    })
-
+export const logout = () => async (dispatch) => {
+  try {
+    await api.logoutTeam();
     dispatch({
-      type: CLEAR_NOTIFICATION,
+      type: LOG_OUT,
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
@@ -72,11 +54,11 @@ export const authorizeJWT = () => async (dispatch) => {
   try {
     const { data } = await api.getTeamJWT();
     const teamId = data._id;
-    const clientWebsiteData = await getClientWebsiteData(teamId);
+    const { data: clientWebsiteData } = await api.getWebsiteInfo(teamId);
 
     dispatch({
-      type: LOG_IN_SUCCESS
-    })
+      type: LOG_IN_SUCCESS,
+    });
     dispatch({
       type: FETCH_TEAM_INFO,
       payload: data,
@@ -87,19 +69,5 @@ export const authorizeJWT = () => async (dispatch) => {
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
-  }
-};
-
-
-const getClientWebsiteData = async (teamId) => {
-  try {
-    const clientWebsiteInfo = await api.getWebsiteInfo(teamId);
-    return clientWebsiteInfo.data;
-  } catch (err) {
-    // 404 (Not found) errors are fine, team may not have added any web page to their website yet
-    if (err.response.status !== 404) {
-      throw err;
-    }
-    return [];
   }
 };

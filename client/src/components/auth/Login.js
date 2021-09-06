@@ -6,10 +6,10 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Login.css';
-import { signIn } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
+import { login } from '../../actions/auth';
 
-/** 
+/**
 Handles the UI for the log in page
 @returns JSX element
 */
@@ -34,7 +34,7 @@ export default function Login() {
       event.stopPropagation();
     }
     setValidated(true);
-    dispatch(signIn(inputs))
+    dispatch(login(inputs));
   };
 
   return (
@@ -72,7 +72,7 @@ export default function Login() {
             </Button>
             <div>
               <a id="loginLink" href="register">
-                Don't have an account yet? Sign Up today!{' '}
+                Don&apos;t have an account yet? Sign Up today!
               </a>
             </div>
           </Form>

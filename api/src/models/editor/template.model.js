@@ -15,7 +15,7 @@ const templateSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Template = mongoose.model('template', templateSchema);

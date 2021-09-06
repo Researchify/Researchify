@@ -3,6 +3,8 @@
  */
 const mongoose = require('mongoose');
 
+const { categoryTypes } = require('../config/publication');
+
 const publicationSchema = new mongoose.Schema(
   {
     teamId: {
@@ -47,7 +49,7 @@ const publicationSchema = new mongoose.Schema(
     category: {
       type: {
         type: String,
-        enum: ['CONFERENCE', 'JOURNAL', 'OTHER', 'BOOK'],
+        enum: categoryTypes,
         required: true,
       },
       categoryTitle: {
@@ -59,7 +61,7 @@ const publicationSchema = new mongoose.Schema(
       publisher: String,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Publication = mongoose.model('publication', publicationSchema);

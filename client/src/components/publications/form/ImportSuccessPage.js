@@ -3,43 +3,42 @@
  */
 
 import { useSelector, useDispatch } from 'react-redux';
-import ImportedPublication from '../importedPublication/ImportedPublication';
 import React from 'react';
-import {
-  createBulkPublications,
-  importPublications,
-} from '../../../actions/publications';
 import {
   Row,
   Button,
   Tooltip,
   OverlayTrigger,
 } from 'react-bootstrap';
+import ImportedPublication from '../importedPublication/ImportedPublication';
+import {
+  createBulkPublications,
+  importPublications,
+} from '../../../actions/publications';
 import {
   IMPORT_CLEAR_STATE,
-  UPDATE_PUBLICATIONS_TO_IMPORT
+  UPDATE_PUBLICATIONS_TO_IMPORT,
 } from '../../../actions/types';
 import { pageSize } from '../../../config/publications';
 import usePagination from '../../shared/usePagination';
+import ConditionalWrapper from '../../shared/ConditionalWrapper';
 
 const ImportSuccessPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);
   const dispatch = useDispatch();
-  const { 
-    publications, 
-    startFrom, 
-    gScholarId, 
-    reachedEnd, 
-    publicationsToImport } = useSelector((state) => state.importedPublications);
-  const { currentData, pagination } = usePagination(publications, pageSize)
-
-  const ConditionalWrapper = ({ condition, wrapper, children }) =>
-    condition ? wrapper(children) : children;
+  const {
+    publications,
+    startFrom,
+    gScholarId,
+    reachedEnd,
+    publicationsToImport,
+  } = useSelector((state) => state.importedPublications);
+  const { currentData, pagination } = usePagination(publications, pageSize);
 
   const checkPublication = (index) => {
     const chosenPublication = currentData()[index];
     const globalIndex = publications.indexOf(chosenPublication);
-    let newCheckArray = publicationsToImport;
+    const newCheckArray = publicationsToImport;
     newCheckArray[globalIndex] = !newCheckArray[globalIndex];
     dispatch({
       type: UPDATE_PUBLICATIONS_TO_IMPORT,
@@ -79,15 +78,14 @@ const ImportSuccessPage = ({ closeModal }) => {
 
   const handleConfirmImport = () => {
     let checkedPublications = publications.filter(
-      (pub, idx) => publicationsToImport[idx]
+      (pub, idx) => publicationsToImport[idx],
     );
     for (let i = 0; i < checkedPublications.length; i++) {
-      checkedPublications[i].yearPublished =
-        checkedPublications[i].yearPublished.toString() + '-01-01';
+      checkedPublications[i].yearPublished = `${checkedPublications[i].yearPublished.toString()}-01-01`;
     }
     checkedPublications = checkedPublications.map((pub) => ({
       ...pub,
-      teamId: teamId,
+      teamId,
     }));
     dispatch(createBulkPublications(teamId, checkedPublications));
     handleClose();
@@ -125,7 +123,7 @@ const ImportSuccessPage = ({ closeModal }) => {
               Cancel
             </Button>
           </OverlayTrigger>
-        </div> 
+        </div>
         <ConditionalWrapper
           condition={reachedEnd}
           wrapper={(children) => (

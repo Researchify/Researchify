@@ -1,32 +1,32 @@
-import React, { Fragment } from "react";
-import { theme } from "../../theme";
-import CopyRight from "../../utils/Copyright";
+import React from 'react';
+import { theme } from '../../theme';
+import CopyRight from '../../utils/Copyright';
 
 const Footer = () => {
   const styles = {
     bg: {
-      display: "table",
+      display: 'table',
       background: theme.dark,
-      color: "white",
-      minHeight: "50px",
-      height: "5vh",
-      width: "100%",
-      marginTop: "-5vh",
+      color: 'white',
+      minHeight: '50px',
+      height: '5vh',
+      width: '100%',
+      marginTop: '-5vh',
     },
     middle: {
-      display: "table-cell",
-      verticalAlign: "middle",
+      display: 'table-cell',
+      verticalAlign: 'middle',
     },
   };
 
   return (
-    <Fragment>
+    <>
       <div style={styles.bg}>
         <div style={styles.middle}>
-          <CopyRight invert={true} />
+          <CopyRight invert />
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 

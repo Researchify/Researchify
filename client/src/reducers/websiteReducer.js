@@ -6,12 +6,14 @@ import {
   ADD_WEBPAGE,
   DELETE_WEBPAGE,
   FETCH_WEBSITE_INFO,
+  UPDATE_PUBLICATION_OPTIONS,
 } from '../actions/types';
 
 const INITIAL_WEBSITE_STATE = {
   url: '',
   title: '',
   pages: [],
+  publicationOptions: {},
 };
 
 /**
@@ -21,10 +23,8 @@ const INITIAL_WEBSITE_STATE = {
  * @param action the action that was dispatched, and now input into this reducer.
  * @returns updated state.
  */
-const websiteReducer = (state = INITIAL_WEBSITE_STATE, action) => {
-  const payload = action.payload;
-
-  switch (action.type) {
+const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
+  switch (type) {
     case CREATE_WEBSITE:
       return { ...state, url: payload.url, title: payload.title };
     case ADD_WEBPAGE:
@@ -37,10 +37,14 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, action) => {
     case FETCH_WEBSITE_INFO:
       return {
         ...state,
+        loading: false,
         url: payload.url ?? state.url,
         title: payload.title ?? state.title,
         pages: payload.pages ?? state.pages,
+        publicationOptions: payload.publicationOptions ?? state.publicationOptions,
       };
+    case UPDATE_PUBLICATION_OPTIONS:
+      return { ...state, publicationOptions: payload };
     default:
       return state;
   }

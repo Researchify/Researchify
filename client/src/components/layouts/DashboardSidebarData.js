@@ -8,16 +8,17 @@ import {
   BsBookHalf,
   BsPerson,
   BsPeople,
-  BsGearFill,
-  BsFillQuestionCircleFill,
+  // BsFillQuestionCircleFill,
   BsBoxArrowLeft,
+  BsFillAwardFill,
+  BsCardText,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 
 /*
-    List of navigations inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
+    List of navigation inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const DashboardSidebarData = ({setLogoutAlert}) => {
+const DashboardSidebarData = ({ setLogoutAlert }) => {
   const sidebarLinks = [
     {
       title: 'Dashboard',
@@ -25,9 +26,14 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       link: '/dashboard',
     },
     {
+      title: 'Our Homepage',
+      icon: <BsCardText />,
+      link: '/about-us',
+    },
+    {
       title: 'Publications',
       icon: <BsBookHalf />,
-      link: `/publications`,
+      link: '/publications',
       name: 'PUBLICATIONS',
     },
     {
@@ -42,15 +48,15 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
       name: 'TEAM',
     },
     {
-      title: 'Settings',
-      icon: <BsGearFill />,
-      link: '/dashboard/settings',
+      title: 'Achievements',
+      icon: <BsFillAwardFill />,
+      link: '/achievement',
     },
-    {
-      title: 'Help',
-      icon: <BsFillQuestionCircleFill />,
-      link: '/dashboard/help',
-    },
+    // {
+    //   title: 'Help',
+    //   icon: <BsFillQuestionCircleFill />,
+    //   link: '/dashboard/help',
+    // },
     {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
@@ -64,7 +70,7 @@ const DashboardSidebarData = ({setLogoutAlert}) => {
   // i.e. do not show PUBLICATIONS page if not added by client yet.
   const links = sidebarLinks.filter((pageInfo) => {
     if ('name' in pageInfo) {
-      if (!pagesAdded.includes(pageInfo['name'])) {
+      if (!pagesAdded.includes(pageInfo.name)) {
         return false;
       }
     }

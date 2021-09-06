@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 const ImportedPublication = ({ pub, index, setChecked }) => {
   const [expand, setExpand] = useState(false);
   const { publicationsToImport } = useSelector(
-    (state) => state.importedPublications
+    (state) => state.importedPublications,
   );
   const { publications } = useSelector((state) => state.importedPublications);
 
@@ -18,29 +18,50 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
     <Collapse in={expand}>
       <div className="ml-3">
         <h6>
-          {pub.category.type.charAt(0) +
-            pub.category.type.slice(1).toLowerCase()}
-          : {pub.category.categoryTitle}
+          {pub.category.type.charAt(0)
+            + pub.category.type.slice(1).toLowerCase()}
+          :
+          {` ${pub.category.categoryTitle}`}
         </h6>
-        {pub.category.issue && <h6> Issue: {pub.category.issue} </h6>}
-        {pub.category.volume && <h6> Volume: {pub.category.volume} </h6>}
-        {pub.category.pages && <h6> Pages: {pub.category.pages} </h6>}
-        {pub.category.publisher && (
-          <h6> Publisher: {pub.category.publisher} </h6>
+        {pub.category.issue && (
+        <h6>
+          Issue:
+          {` ${pub.category.issue}`}
+        </h6>
         )}
-        <h6> Description: {pub.description} </h6>
+        {pub.category.volume && (
+        <h6>
+          Volume:
+          {` ${pub.category.volume}`}
+        </h6>
+        )}
+        {pub.category.pages && (
+        <h6>
+          Pages:
+          {` ${pub.category.pages}`}
+        </h6>
+        )}
+        {pub.category.publisher && (
+          <h6>
+            Publisher:
+            {` ${pub.category.publisher}`}
+          </h6>
+        )}
+        <h6>
+          Description:
+          {` ${pub.description}`}
+        </h6>
         {/* { pub.link && <h6> Link: <a style={{cursor: 'pointer'}} onClick={() => window.open(`${pub.link}`, '_blank')}>{pub.link} </a> </h6> } */}
         {pub.link && (
           <h6>
-            {' '}
-            Link:{' '}
+            Link:
             <a
               href={pub.link}
               style={{ cursor: 'pointer' }}
-              onClick={() => window.open(`${pub.link}`, '_blank')}
+              onClick={() => window.open(`${pub.link}`, '_blank')} // eslint-disable-line no-undef
             >
-              {pub.link}{' '}
-            </a>{' '}
+              {` ${pub.link}`}
+            </a>
           </h6>
         )}
       </div>
@@ -64,16 +85,25 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
                   checked={publicationsToImport[publications.indexOf(pub)]}
                   onChange={handleChange}
                 />
-                <Card.Title> {pub.title} </Card.Title>
+                <Card.Title>
+                  {' '}
+                  {pub.title}
+                  {' '}
+                </Card.Title>
               </div>
             </Form.Group>
           </Form>
 
           <Card.Subtitle className="m-3 text-muted">
             {' '}
-            {pub.authors.map((author) => `${author}`).join(', ')}{' '}
+            {pub.authors.map((author) => `${author}`).join(', ')}
+            {' '}
           </Card.Subtitle>
-          <h6 className="ml-3"> Year Published: {pub.yearPublished} </h6>
+          <h6 className="ml-3">
+            {' '}
+            Year Published:
+            {pub.yearPublished}
+          </h6>
           {dropDown}
         </Card.Body>
       </Card>

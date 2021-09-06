@@ -4,8 +4,6 @@
 
 import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { deletePublication } from '../../../actions/publications';
-import PublicationForm from '../form/PublicationForm';
 import {
   Button,
   Modal,
@@ -16,9 +14,11 @@ import {
   Collapse,
 } from 'react-bootstrap';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import { BsThreeDotsVertical, BsLink45Deg } from 'react-icons/bs';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import { GrLinkDown, GrLinkUp } from 'react-icons/gr';
 import { IconContext } from 'react-icons';
+import PublicationForm from '../form/PublicationForm';
+import { deletePublication } from '../../../actions/publications';
 import '../publications.css';
 
 const Publication = ({ pub }) => {
@@ -43,7 +43,7 @@ const Publication = ({ pub }) => {
     setShowDeleteMessage(false);
   };
 
-  // Parameters are to remove warning when button is clicked. 
+  // Parameters are to remove warning when button is clicked.
   // See PR#160 for more information.
   const displayOptions = ({
     placement,
@@ -60,7 +60,8 @@ const Publication = ({ pub }) => {
         data-toggle="modal"
       >
         {' '}
-        <AiFillEdit />{' '}
+        <AiFillEdit />
+        {' '}
       </Button>
       <Button
         onClick={() => setShowDeleteMessage(true)}
@@ -72,77 +73,81 @@ const Publication = ({ pub }) => {
     </ButtonGroup>
   );
 
-  const displayUpArrow = () => {
-    return (
-      expand && (
-        <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-          <GrLinkUp className="ml-3" />
-        </IconContext.Provider>
-      )
-    );
-  };
+  const displayUpArrow = () => (
+    expand && (
+    <IconContext.Provider value={{ color: 'black', size: '25px' }}>
+      <GrLinkUp className="ml-3" />
+    </IconContext.Provider>
+    )
+  );
 
-  const displayDownArrow = () => {
-    return (
-      !expand && (
-        <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-          <GrLinkDown onClick={() => setExpand(!expand)} className="ml-2" />
-        </IconContext.Provider>
-      )
-    );
-  };
+  const displayDownArrow = () => (
+    !expand && (
+    <IconContext.Provider value={{ color: 'black', size: '25px' }}>
+      <GrLinkDown onClick={() => setExpand(!expand)} className="ml-2" />
+    </IconContext.Provider>
+    )
+  );
 
   const dropDown = (
     <Collapse in={expand}>
       <div className="mb-3 ml-3 mr-2">
         <h5>
           {' '}
-          <b>Description:</b> {pub.description}{' '}
+          <b>Description:</b>
+          {' '}
+          {pub.description}
+          {' '}
         </h5>
         <h5>
           {' '}
           <b>
-            {pub.category.type.charAt(0) +
-              pub.category.type.slice(1).toLowerCase()}
+            {pub.category.type.charAt(0)
+              + pub.category.type.slice(1).toLowerCase()}
             :
-          </b>{' '}
-          {pub.category.categoryTitle}{' '}
+          </b>
+          {' '}
+          {pub.category.categoryTitle}
+          {' '}
         </h5>
         {pub.category.issue && (
           <h5>
             {' '}
-            <b>Issue:</b> {pub.category.issue}{' '}
+            <b>Issue:</b>
+            {' '}
+            {pub.category.issue}
+            {' '}
           </h5>
         )}
         {pub.category.volume && (
           <h5>
             {' '}
-            <b>Volume:</b> {pub.category.volume}{' '}
+            <b>Volume:</b>
+            {' '}
+            {pub.category.volume}
+            {' '}
           </h5>
         )}
         {pub.category.pages && (
           <h5>
             {' '}
-            <b>Pages:</b> {pub.category.pages}{' '}
+            <b>Pages:</b>
+            {' '}
+            {pub.category.pages}
+            {' '}
           </h5>
         )}
         {pub.category.publisher && (
           <h5>
             {' '}
-            <b>Publisher:</b> {pub.category.publisher}{' '}
+            <b>Publisher:</b>
+            {' '}
+            {pub.category.publisher}
+            {' '}
           </h5>
         )}
         <Row>
-          <Col md={11}>
-            {pub.link && (
-              <Button onClick={() => window.open(`${pub.link}`, '_blank')}>
-                <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-                  <BsLink45Deg />
-                </IconContext.Provider>
-              </Button>
-            )}
-          </Col>
-          <Col md={1}>
+          <Col md={{ span: 1, offset: 11 }}>
             <span onClick={() => setExpand(!expand)}>{displayUpArrow()}</span>
           </Col>
         </Row>
@@ -157,7 +162,15 @@ const Publication = ({ pub }) => {
       >
         <Row>
           <Col md={11}>
-            <h3 className="ml-3 mt-3">{pub.title}</h3>
+            <h3 className="ml-3 mt-3">
+              {pub.link ? (
+                <a href={pub.link} target="_blank" rel="noreferrer">
+                  {pub.title}
+                </a>
+              ) : (
+                pub.title
+              )}
+            </h3>
           </Col>
           <Col md={1}>
             <OverlayTrigger
@@ -186,7 +199,8 @@ const Publication = ({ pub }) => {
             <h5 className={expand ? '' : 'blur'}>
               {' '}
               <b>Year Published: </b>
-              {pub.yearPublished}{' '}
+              {pub.yearPublished}
+              {' '}
             </h5>
           </Col>
           <Col md={1}>{displayDownArrow()}</Col>
@@ -195,7 +209,7 @@ const Publication = ({ pub }) => {
 
       {dropDown}
 
-      {/* A modal for showing update publication from*/}
+      {/* A modal for showing update publication from */}
       <Modal show={showUpdateForm}>
         <Modal.Header className="modalHeader">
           <Modal.Title> Edit Publication </Modal.Title>
@@ -220,11 +234,13 @@ const Publication = ({ pub }) => {
         <Modal.Footer>
           <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
             {' '}
-            Cancel{' '}
+            Cancel
+            {' '}
           </Button>
           <Button variant="danger" onClick={handleDelete}>
             {' '}
-            Confirm{' '}
+            Confirm
+            {' '}
           </Button>
         </Modal.Footer>
       </Modal>
