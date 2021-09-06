@@ -32,6 +32,7 @@
         "no-param-reassign": "off", // should refactor later
         "no-return-assign": "off", // should refactor later
         "spaced-comment": "off",
-        "arrow-body-style": "off" // should refactor later
+        "arrow-body-style": "off", // should refactor later
+        "linebreak-style": "off"
     }
 }
