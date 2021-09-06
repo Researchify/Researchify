@@ -8,7 +8,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 const { categoryTypes } = require('../config/publication');
-const { playwrightConfig } = require('../config/playwright');
+const { scrapingConfig } = require('../config/scraping');
 
 const Publication = require('../models/publication.model');
 const Team = require('../models/team.model');
@@ -134,7 +134,7 @@ function readAllPublicationsByTeam(req, res, next) {
  * Given a google scholar user id, this function performs a get request to the GScholar profile
  *  to get the raw HTML, and passes it to cheerio to scrape.
  * the publications info from a user's profile.
- * @see config/playwright.js
+ * @see config/scraping.js
  * @param req request object - google scholar user id given in the url
  * @param res response object - array of publication objects
  * @returns a list of publications of the given google scholar user id
@@ -144,14 +144,14 @@ async function getGoogleScholarPublications(req, res) {
   const { startFrom } = req.params;
   const teamId = req.params.team_id;
 
-  const { pageSize } = playwrightConfig;
-  const url = playwrightConfig.baseUrl
+  const { pageSize } = scrapingConfig;
+  const url = scrapingConfig.baseUrl
     + author
-    + playwrightConfig.startSuffix
+    + scrapingConfig.startSuffix
     + startFrom
-    + playwrightConfig.pageSizeSuffix
+    + scrapingConfig.pageSizeSuffix
     + pageSize
-    + playwrightConfig.sortBySuffix;
+    + scrapingConfig.sortBySuffix;
   logger.info(`GScholar profile for user id ${author}: ${url}`);
   const publications = [];
   let endOfProfile = false;
@@ -162,26 +162,19 @@ async function getGoogleScholarPublications(req, res) {
     reachedEnd: false,
   };
 
-  console.time('totalTime');
-  console.time('savePage');
-  const raw = await axios.get(url);
-  console.timeEnd('savePage');
+  const page = await axios.get(url);
 
-  console.time('getLinks');
-  const $ = cheerio.load(raw.data);
+  const $ = cheerio.load(page.data);
   const links = [];
   $('.gsc_a_at').each((index, value) => {
     links.push($(value).attr('href'));
   });
-  console.timeEnd('getLinks');
 
   if (links.length === 0) {
     response.reachedEnd = true;
   } else {
-    console.time('scrapingTime');
     await Promise.all(links.map((x) => scrapeGoogleScholar(x)))
       .then((pub) => publications.push(...pub));
-    console.timeEnd('scrapingTime');
 
     const newPublications = await validateImportedPublications(
       teamId,
@@ -200,7 +193,6 @@ async function getGoogleScholarPublications(req, res) {
       reachedEnd: endOfProfile,
     };
   }
-  console.timeEnd('totalTime');
 
   res.status(200).json(response);
 }
@@ -212,8 +204,8 @@ async function getGoogleScholarPublications(req, res) {
  * @returns a publication
  */
 async function scrapeGoogleScholar(url) {
-  logger.info(`Publication url: ${playwrightConfig.gScholarHome + url}`);
-  const raw = await axios.get(`${playwrightConfig.gScholarHome + url}`);
+  logger.info(`Publication url: ${scrapingConfig.gScholarHome + url}`);
+  const raw = await axios.get(`${scrapingConfig.gScholarHome + url}`);
   const $ = cheerio.load(raw.data);
   const title = $('#gsc_oci_title').text();
   const link = $('.gsc_oci_title_ggi a').text();

@@ -2,7 +2,7 @@
  * This module stores the configuration for using Puppeteer to scrape Google Scholar.
  */
 
-const playwrightConfig = {
+const scrapingConfig = {
   pageSize: 10, // number of publications to return at once
   gScholarHome: 'https://scholar.google.com',
   baseUrl: 'https://scholar.google.com/citations?hl=en&user=',
@@ -11,4 +11,4 @@ const playwrightConfig = {
   sortBySuffix: '&view_op=list_works&sortby=pubdate', // put most recent pubs first
 };
 
-module.exports = { playwrightConfig };
+module.exports = { scrapingConfig };
