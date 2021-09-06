@@ -162,28 +162,29 @@ async function getGoogleScholarPublications(req, res) {
   };
 
   console.time('totalScrape');
-  console.time('gettingUrls');
+  console.time('loadingPage');
   const browser = await firefox.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(url);
+  console.timeEnd('loadingPage');
 
   const resultLinks = await page.$$('.gsc_a_t a');
   const links = [];
-  let urls;
 
   if (resultLinks.length === noOfDummyLinks) {
     // no publications found
     response.reachedEnd = true;
     await browser.close();
   } else {
+    console.time('scraping');
     for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
-      links.push(resultLinks[i].getAttribute('href'));
+      links.push(resultLinks[i].getAttribute('href')
+        .then((url) => scrapeGoogleScholar(url, context))
+        .then((pub) => publications.push(pub)));
     }
-    await Promise.all(links).then((values) => { urls = values; });
-    console.timeEnd('gettingUrls');
-
-    await Promise.all(urls.map((x) => scrapeGoogleScholar(x, context))).then((pub) => publications.push(...pub));
+    await Promise.all(links).then(() => { logger.info('Done scraping'); });
+    console.timeEnd('scraping');
 
     await browser.close();
 
@@ -217,16 +218,10 @@ async function getGoogleScholarPublications(req, res) {
  */
 async function scrapeGoogleScholar(url, context) {
   logger.info(`Publication url: ${playwrightConfig.gScholarHome + url}`);
-  // const browser = await firefox.launch();
-  // const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(playwrightConfig.gScholarHome + url);
   // console.time(`gettingTitle${url}`);
-  let title = await page.$$eval('a.gsc_oci_title_link', (titles) => titles.map((title) => title.innerText)); // we assume the publication title is a link
-
-  if (title[0] === undefined) { // if its undefined, then it wasn't a link
-    title = await page.$$eval('div[id=gsc_oci_title]', (titles) => titles.map((title) => title.innerText));
-  }
+  const title = await page.$$eval('div.gsc_oci_merged_snippet a', (titles) => titles.map((title) => title.innerText)); // we assume the publication title is a link
   // console.timeEnd(`gettingTitle${url}`);
 
   // console.time(`gettingLink${url}`);
@@ -240,7 +235,6 @@ async function scrapeGoogleScholar(url, context) {
   // console.timeEnd(`gettingFields${url}`);
 
   page.close();
-  // await browser.close();
 
   const publicationInfo = {};
   fields.forEach((key, i) => {
