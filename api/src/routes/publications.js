@@ -32,7 +32,7 @@ publicationsRouter.post(
 
 publicationsRouter.get(
   '/import/:gScholarUserId/:startFrom/validate/:team_id',
-  // authMiddleware.cookieJwtAuth,
+  authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   publicationsMiddleware.validateAuthorId,
