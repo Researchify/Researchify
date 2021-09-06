@@ -15,7 +15,6 @@ import {
 } from 'react-bootstrap';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { GrLinkDown, GrLinkUp } from 'react-icons/gr';
 import { IconContext } from 'react-icons';
 import PublicationForm from '../form/PublicationForm';
 import { deletePublication } from '../../../actions/publications';
@@ -73,34 +72,17 @@ const Publication = ({ pub }) => {
     </ButtonGroup>
   );
 
-  const displayUpArrow = () => (
-    expand && (
-    <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-      <GrLinkUp className="ml-3" />
-    </IconContext.Provider>
-    )
-  );
-
-  const displayDownArrow = () => (
-    !expand && (
-    <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-      <GrLinkDown onClick={() => setExpand(!expand)} className="ml-2" />
-    </IconContext.Provider>
-    )
-  );
-
   const dropDown = (
     <Collapse in={expand}>
-      <div className="mb-3 ml-3 mr-2">
-        <h5>
+      <div className="pub" onClick={() => setExpand(!expand)}>
+        <div className="pubs-props">
           {' '}
           <b>Description:</b>
           {' '}
           {pub.description}
           {' '}
-        </h5>
-        <h5>
-          {' '}
+        </div>
+        <div className="pubs-props">
           <b>
             {pub.category.type.charAt(0)
               + pub.category.type.slice(1).toLowerCase()}
@@ -109,60 +91,55 @@ const Publication = ({ pub }) => {
           {' '}
           {pub.category.categoryTitle}
           {' '}
-        </h5>
+        </div>
         {pub.category.issue && (
-          <h5>
+          <div className="pubs-props">
             {' '}
             <b>Issue:</b>
             {' '}
             {pub.category.issue}
             {' '}
-          </h5>
+          </div>
         )}
         {pub.category.volume && (
-          <h5>
+          <div className="pubs-props">
             {' '}
             <b>Volume:</b>
             {' '}
             {pub.category.volume}
             {' '}
-          </h5>
+          </div>
         )}
         {pub.category.pages && (
-          <h5>
+          <div className="pubs-props">
             {' '}
             <b>Pages:</b>
             {' '}
             {pub.category.pages}
             {' '}
-          </h5>
+          </div>
         )}
         {pub.category.publisher && (
-          <h5>
+          <div className="pubs-props">
             {' '}
             <b>Publisher:</b>
             {' '}
             {pub.category.publisher}
             {' '}
-          </h5>
+          </div>
         )}
-        <Row>
-          <Col md={{ span: 1, offset: 11 }}>
-            <span onClick={() => setExpand(!expand)}>{displayUpArrow()}</span>
-          </Col>
-        </Row>
       </div>
     </Collapse>
   );
 
   return (
-    <>
+    <div className="publication-container">
       <div
         className={newlyAdded ? 'newlyAddedPublicationHeader' : 'modalHeader'}
       >
         <Row>
           <Col md={11}>
-            <h3 className="ml-3 mt-3">
+            <div className="pubs-title">
               {pub.link ? (
                 <a href={pub.link} target="_blank" rel="noreferrer">
                   {pub.title}
@@ -170,7 +147,7 @@ const Publication = ({ pub }) => {
               ) : (
                 pub.title
               )}
-            </h3>
+            </div>
           </Col>
           <Col md={1}>
             <OverlayTrigger
@@ -179,8 +156,8 @@ const Publication = ({ pub }) => {
               placement="bottom"
               overlay={displayOptions}
             >
-              <Button className="mt-3 mb-3" variant="default">
-                <IconContext.Provider value={{ color: 'black', size: '20px' }}>
+              <Button className="mt-1 mb-1" variant="default">
+                <IconContext.Provider value={{ color: 'black' }}>
                   <BsThreeDotsVertical />
                 </IconContext.Provider>
               </Button>
@@ -189,21 +166,20 @@ const Publication = ({ pub }) => {
         </Row>
       </div>
 
-      <div className={expand ? 'ml-3 mt-3' : 'ml-3 mt-3 mb-2'}>
-        <h5>
+      <div className="pub" onClick={() => setExpand(!expand)}>
+        <div className="pubs-props">
           <b> Authors: </b>
           {pub.authors.map((author) => `${author}`).join(', ')}
-        </h5>
+        </div>
         <Row>
           <Col md={11}>
-            <h5 className={expand ? '' : 'blur'}>
+            <div className={expand ? 'pubs-props' : 'blur pubs-props'}>
               {' '}
               <b>Year Published: </b>
               {pub.yearPublished}
               {' '}
-            </h5>
+            </div>
           </Col>
-          <Col md={1}>{displayDownArrow()}</Col>
         </Row>
       </div>
 
@@ -244,7 +220,7 @@ const Publication = ({ pub }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 

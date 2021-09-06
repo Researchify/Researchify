@@ -13,11 +13,11 @@
   width: 100%;
   max-width: 1200px;
   margin: auto;
-  margin-bottom: 10px;
 }
 
 .newlyAddedPublicationHeader {
   background-color: rgb(60, 179, 113);
+  height: auto;
 }
 
 .modalHeader {
@@ -28,6 +28,7 @@
   background: -webkit-linear-gradient(#333, #eee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-bottom: 3px;
 }
 
 .placeholder-text::placeholder {
@@ -51,4 +52,30 @@
   .pub-page-tweet-col {
     display: none !important;
   }
+}
+
+.pubs-props {
+  font-size: 15px;
+  padding-left: 10px;
+  padding-top: 5px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.pubs-title {
+  font-size: 20px;
+  padding: 10px;
+  font-weight: 500;
+  color: #535151;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.pub:hover {
+  cursor: pointer;
+}
+
+.publication-container {
+  border: solid rgb(205, 205, 206);
+  border-width: thin;
 }

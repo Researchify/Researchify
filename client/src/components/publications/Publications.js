@@ -4,7 +4,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Spinner, Alert } from 'react-bootstrap';
+import {
+  Modal, Spinner, Alert,
+} from 'react-bootstrap';
 import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
@@ -58,6 +60,14 @@ const Publications = () => {
         publicationToBeSorted.sort((a, b) => {
           if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
           if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+          return 0;
+        });
+        break;
+      case sortingOptions.YEAR:
+        // year
+        publicationToBeSorted.sort((a, b) => {
+          if (a.year > b.year) return -1;
+          if (a.year < b.year) return 1;
           return 0;
         });
         break;
