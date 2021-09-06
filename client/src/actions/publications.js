@@ -42,6 +42,7 @@ export const createPublication = (publication) => async (dispatch) => {
       type: CREATE_PUBLICATION,
       payload: { ...result.data, newlyAdded: true },
     });
+    dispatch(successMessageCreator('Publication has been created'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
@@ -68,6 +69,7 @@ export const updatePublication = (id, publication) => async (dispatch) => {
       type: UPDATE_PUBLICATION,
       payload: data,
     });
+    dispatch(successMessageCreator('Publication has been updated'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
