@@ -170,6 +170,7 @@ async function getGoogleScholarPublications(req, res) {
 
   const resultLinks = await page.$$('.gsc_a_t a');
   const links = [];
+  let urls;
 
   if (resultLinks.length === noOfDummyLinks) {
     // no publications found
@@ -179,29 +180,28 @@ async function getGoogleScholarPublications(req, res) {
     for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
       links.push(resultLinks[i].getAttribute('href'));
     }
-    await Promise.all([links]);
-    console.log(links);
+    await Promise.all(links).then((values) => { urls = values; });
     console.timeEnd('gettingUrls');
 
-    // await Promise.all(links.map((x) => scrapeGoogleScholar(x, context))).then((pub) => publications.push(...pub));
+    await Promise.all(urls.map((x) => scrapeGoogleScholar(x, context))).then((pub) => publications.push(...pub));
 
-    // await browser.close();
+    await browser.close();
 
-    // const newPublications = await validateImportedPublications(
-    //   teamId,
-    //   publications,
-    // );
+    const newPublications = await validateImportedPublications(
+      teamId,
+      publications,
+    );
 
-    // // if the number of publications retrieved is less than the page size,
-    // // then we've reached the end of the profile
-    // if (publications.length < pageSize) {
-    //   endOfProfile = true;
-    // }
+    // if the number of publications retrieved is less than the page size,
+    // then we've reached the end of the profile
+    if (publications.length < pageSize) {
+      endOfProfile = true;
+    }
     console.timeEnd('totalScrape');
 
     response = {
       retrieved: publications.length,
-      // newPublications,
+      newPublications,
       reachedEnd: endOfProfile,
     };
   }
@@ -221,23 +221,23 @@ async function scrapeGoogleScholar(url, context) {
   // const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(playwrightConfig.gScholarHome + url);
-  console.time('gettingTitle' + url);
+  // console.time(`gettingTitle${url}`);
   let title = await page.$$eval('a.gsc_oci_title_link', (titles) => titles.map((title) => title.innerText)); // we assume the publication title is a link
 
   if (title[0] === undefined) { // if its undefined, then it wasn't a link
     title = await page.$$eval('div[id=gsc_oci_title]', (titles) => titles.map((title) => title.innerText));
   }
-  console.timeEnd('gettingTitle' + url);
+  // console.timeEnd(`gettingTitle${url}`);
 
-  console.time('gettingLink' + url);
+  // console.time(`gettingLink${url}`);
   const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) => links.map((link) => link.href));
-  console.timeEnd('gettingLink' + url);
-  console.time('gettingValues' + url);
+  // console.timeEnd(`gettingLink${url}`);
+  // console.time(`gettingValues${url}`);
   const values = await page.$$eval('div.gsc_oci_value', (titles) => titles.map((title) => title.innerText));
-  console.timeEnd('gettingValues' + url);
-  console.time('gettingFields' + url);
+  // console.timeEnd(`gettingValues${url}`);
+  // console.time(`gettingFields${url}`);
   const fields = await page.$$eval('div.gsc_oci_field', (titles) => titles.map((title) => title.innerText));
-  console.timeEnd('gettingFields' + url);
+  // console.timeEnd(`gettingFields${url}`);
 
   page.close();
   // await browser.close();
