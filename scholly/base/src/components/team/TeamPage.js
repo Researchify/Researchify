@@ -15,9 +15,9 @@ const TeamPage = () => {
       <Helmet>
         <title>
           {' '}
-          {title}
+          Team -
           {' '}
-          - Team
+          {title}
           {' '}
         </title>
       </Helmet>

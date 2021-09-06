@@ -14,9 +14,9 @@ const landingPage = () => {
       <Helmet>
         <title>
           {' '}
-          {title}
+          Home -
           {' '}
-          - Home
+          {title}
           {' '}
         </title>
       </Helmet>

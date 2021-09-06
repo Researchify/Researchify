@@ -100,7 +100,7 @@ async function updatePublicationOptions(req, res, next) { // eslint-disable-line
 }
 
 /**
- * Update website title on the deployed website
+ * Update the HTML <title> tag used for client websites.
  * @param {*} req request object, containing the teamId and website title
  * @param {*} res response object
  * @returns 200: website title successfully updated in the DB

@@ -49,9 +49,9 @@ const PublicationPage = () => {
       <Helmet>
         <title>
           {' '}
-          {title}
+          Publications -
           {' '}
-          - Publications
+          {title}
           {' '}
         </title>
       </Helmet>
