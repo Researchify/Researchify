@@ -4,7 +4,8 @@
  */
 const mongoose = require('mongoose');
 const logger = require('winston');
-const { firefox } = require('playwright-firefox');
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 const { categoryTypes } = require('../config/publication');
 const { playwrightConfig } = require('../config/playwright');
@@ -130,7 +131,8 @@ function readAllPublicationsByTeam(req, res, next) {
 }
 
 /**
- * Given a google scholar user id, this function uses a headless browser via Playwright to scrape
+ * Given a google scholar user id, this function performs a get request to the GScholar profile
+ *  to get the raw HTML, and passes it to cheerio to scrape.
  * the publications info from a user's profile.
  * @see config/playwright.js
  * @param req request object - google scholar user id given in the url
@@ -142,7 +144,6 @@ async function getGoogleScholarPublications(req, res) {
   const { startFrom } = req.params;
   const teamId = req.params.team_id;
 
-  const { noOfDummyLinks } = playwrightConfig;
   const { pageSize } = playwrightConfig;
   const url = playwrightConfig.baseUrl
     + author
@@ -161,32 +162,26 @@ async function getGoogleScholarPublications(req, res) {
     reachedEnd: false,
   };
 
-  console.time('totalScrape');
-  console.time('loadingPage');
-  const browser = await firefox.launch();
-  const context = await browser.newContext();
-  const page = await context.newPage();
-  await page.goto(url);
-  console.timeEnd('loadingPage');
+  console.time('totalTime');
+  console.time('savePage');
+  const raw = await axios.get(url);
+  console.timeEnd('savePage');
 
-  const resultLinks = await page.$$('.gsc_a_t a');
+  console.time('getLinks');
+  const $ = cheerio.load(raw.data);
   const links = [];
+  $('.gsc_a_at').each((index, value) => {
+    links.push($(value).attr('href'));
+  });
+  console.timeEnd('getLinks');
 
-  if (resultLinks.length === noOfDummyLinks) {
-    // no publications found
+  if (links.length === 0) {
     response.reachedEnd = true;
-    await browser.close();
   } else {
-    console.time('scraping');
-    for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
-      links.push(resultLinks[i].getAttribute('href')
-        .then((url) => scrapeGoogleScholar(url, context))
-        .then((pub) => publications.push(pub)));
-    }
-    await Promise.all(links).then(() => { logger.info('Done scraping'); });
-    console.timeEnd('scraping');
-
-    await browser.close();
+    console.time('scrapingTime');
+    await Promise.all(links.map((x) => scrapeGoogleScholar(x)))
+      .then((pub) => publications.push(...pub));
+    console.timeEnd('scrapingTime');
 
     const newPublications = await validateImportedPublications(
       teamId,
@@ -198,7 +193,6 @@ async function getGoogleScholarPublications(req, res) {
     if (publications.length < pageSize) {
       endOfProfile = true;
     }
-    console.timeEnd('totalScrape');
 
     response = {
       retrieved: publications.length,
@@ -206,6 +200,7 @@ async function getGoogleScholarPublications(req, res) {
       reachedEnd: endOfProfile,
     };
   }
+  console.timeEnd('totalTime');
 
   res.status(200).json(response);
 }
@@ -216,25 +211,20 @@ async function getGoogleScholarPublications(req, res) {
  * @see models/publication.model.js
  * @returns a publication
  */
-async function scrapeGoogleScholar(url, context) {
+async function scrapeGoogleScholar(url) {
   logger.info(`Publication url: ${playwrightConfig.gScholarHome + url}`);
-  const page = await context.newPage();
-  await page.goto(playwrightConfig.gScholarHome + url);
-  // console.time(`gettingTitle${url}`);
-  const title = await page.$$eval('div.gsc_oci_merged_snippet a', (titles) => titles.map((title) => title.innerText)); // we assume the publication title is a link
-  // console.timeEnd(`gettingTitle${url}`);
-
-  // console.time(`gettingLink${url}`);
-  const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) => links.map((link) => link.href));
-  // console.timeEnd(`gettingLink${url}`);
-  // console.time(`gettingValues${url}`);
-  const values = await page.$$eval('div.gsc_oci_value', (titles) => titles.map((title) => title.innerText));
-  // console.timeEnd(`gettingValues${url}`);
-  // console.time(`gettingFields${url}`);
-  const fields = await page.$$eval('div.gsc_oci_field', (titles) => titles.map((title) => title.innerText));
-  // console.timeEnd(`gettingFields${url}`);
-
-  page.close();
+  const raw = await axios.get(`${playwrightConfig.gScholarHome + url}`);
+  const $ = cheerio.load(raw.data);
+  const title = $('#gsc_oci_title').text();
+  const link = $('.gsc_oci_title_ggi a').text();
+  const values = [];
+  const fields = [];
+  $('.gsc_oci_value').each((index, value) => {
+    values.push($(value).text());
+  });
+  $('.gsc_oci_field').each((index, value) => {
+    fields.push($(value).text());
+  });
 
   const publicationInfo = {};
   fields.forEach((key, i) => {
@@ -263,8 +253,8 @@ async function scrapeGoogleScholar(url, context) {
 
   const publication = {
     authors: publicationInfo.Authors.split(', '),
-    title: title[0],
-    link: link[0] || '',
+    title,
+    link: link || '',
     description: publicationInfo.Description || '',
     yearPublished: (publicationInfo['Publication date'] || '').substr(0, 4), // assuming first 4 chars is year
     citedBy,

@@ -3,7 +3,6 @@
  */
 
 const playwrightConfig = {
-  noOfDummyLinks: 4, // first 4 links aren't publications can be ignored
   pageSize: 10, // number of publications to return at once
   gScholarHome: 'https://scholar.google.com',
   baseUrl: 'https://scholar.google.com/citations?hl=en&user=',
