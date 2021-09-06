@@ -141,6 +141,7 @@ export const createBulkPublications = (teamId, publicationList) => async (dispat
       type: CREATE_BULK_PUBLICATIONS,
       payload: createdPublications,
     });
+    dispatch(successMessageCreator(`${createdPublications.length} publication(s) has been imported`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
