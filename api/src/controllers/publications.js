@@ -207,7 +207,7 @@ async function scrapeGoogleScholar(url) {
   logger.info(`Publication url: ${scrapingConfig.gScholarHome + url}`);
   const raw = await axios.get(`${scrapingConfig.gScholarHome + url}`,
     {
-      responseType: 'arraybuffer',
+      responseType: 'arraybuffer', // to deal with special characters
     });
   const decodedData = iconv.decode(raw.data, 'ISO-8859-1');
 
