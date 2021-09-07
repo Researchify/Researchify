@@ -12,19 +12,6 @@ import {
 } from './types';
 import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 
-const getClientWebsiteData = async (teamId) => {
-  try {
-    const clientWebsiteInfo = await api.getWebsiteInfo(teamId);
-    return clientWebsiteInfo.data;
-  } catch (err) {
-    // 404 (Not found) errors are fine, team may not have added any web page to their website yet
-    if (err.response.status !== 404) {
-      throw err;
-    }
-    return [];
-  }
-};
-
 /**
  * This action creator will be called when a user signs in.
  *
@@ -67,7 +54,7 @@ export const authorizeJWT = () => async (dispatch) => {
   try {
     const { data } = await api.getTeamJWT();
     const teamId = data._id;
-    const clientWebsiteData = await getClientWebsiteData(teamId);
+    const { data: clientWebsiteData } = await api.getWebsiteInfo(teamId);
 
     dispatch({
       type: LOG_IN_SUCCESS,

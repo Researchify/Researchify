@@ -12,7 +12,7 @@ import {
   FAKE_TEAM_MEMBERS,
   FAKE_TEAM_HOMEPAGE,
   FAKE_WEB_PAGES,
-  FAKE_TEAM_AWARDS,
+  FAKE_TEAM_ACHIEVEMENTS,
   FAKE_LAYOUT_OPTION,
 } from './fakeData';
 
@@ -22,7 +22,7 @@ let TEAM_INFO;
 let TEAM_MEMBERS;
 let TEAM_HOMEPAGE;
 let WEB_PAGES;
-let TEAM_AWARDS;
+let TEAM_ACHIEVEMENTS;
 let LAYOUT_OPTION;
 
 if (!env.REACT_APP_DEBUG) {
@@ -46,13 +46,13 @@ if (!env.REACT_APP_DEBUG) {
     ? JSON.parse(env.REACT_APP_TEAM_HOMEPAGE)
     : null;
 
-  /// The list of awards awarded to the team
-  TEAM_AWARDS = env.REACT_APP_TEAM_AWARDS
-    ? JSON.parse(env.REACT_APP_TEAM_AWARDS)
-    : [];
-
   WEB_PAGES = env.REACT_APP_WEB_PAGES
     ? JSON.parse(env.REACT_APP_WEB_PAGES)
+    : [];
+
+  /// The list of achievements the team has created for rendering in the achievements page
+  TEAM_ACHIEVEMENTS = env.REACT_APP_TEAM_ACHIEVEMENTS
+    ? JSON.parse(env.REACT_APP_TEAM_ACHIEVEMENTS)
     : [];
 } else {
   // Running client website locally, so use fake data
@@ -67,7 +67,7 @@ if (!env.REACT_APP_DEBUG) {
 
   WEB_PAGES = FAKE_WEB_PAGES;
 
-  TEAM_AWARDS = FAKE_TEAM_AWARDS;
+  TEAM_ACHIEVEMENTS = FAKE_TEAM_ACHIEVEMENTS;
 
   LAYOUT_OPTION = FAKE_LAYOUT_OPTION;
 }
@@ -77,7 +77,7 @@ export {
   TEAM_INFO,
   TEAM_MEMBERS,
   TEAM_HOMEPAGE,
-  TEAM_AWARDS,
+  TEAM_ACHIEVEMENTS,
   WEB_PAGES,
   LAYOUT_OPTION,
 };
