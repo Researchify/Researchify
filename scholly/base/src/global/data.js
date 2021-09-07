@@ -17,6 +17,7 @@ import {
 } from './fakeData';
 
 const env = process.env; // eslint-disable-line prefer-destructuring
+const defaultLayout = 1;
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
@@ -54,6 +55,10 @@ if (!env.REACT_APP_DEBUG) {
   TEAM_ACHIEVEMENTS = env.REACT_APP_TEAM_ACHIEVEMENTS
     ? JSON.parse(env.REACT_APP_TEAM_ACHIEVEMENTS)
     : [];
+
+  LAYOUT_OPTION = env.REACT_APP_LAYOUT_OPTION
+    ? JSON.parse(env.REACT_APP_LAYOUT_OPTION)
+    : defaultLayout;
 } else {
   // Running client website locally, so use fake data
   console.log('Running in DEBUG mode, hence using fake data'); // eslint-disable-line no-console
