@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 
-const StyledButtonGroup = styled.div`
+export const StyledButtonGroup = styled.div`
   background-color: transparent;
   border-radius: 0;
 `;
 
-const ButtonGroupItem = styled.button`
+export const ButtonGroupItem = styled.button`
   background: #ededed;
   border: 1px solid #ccc;
   padding: 1px 3px;

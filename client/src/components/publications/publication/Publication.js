@@ -7,18 +7,17 @@ import React, { useState, useEffect } from 'react';
 import {
   Button,
   Modal,
-  OverlayTrigger,
-  ButtonGroup,
+  // OverlayTrigger,
+  //  ButtonGroup,
   Row,
   Col,
   Collapse,
 } from 'react-bootstrap';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { IconContext } from 'react-icons';
+import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import PublicationForm from '../form/PublicationForm';
 import { deletePublication } from '../../../actions/publications';
 import '../publications.css';
+import { StyledButtonGroup, ButtonGroupItem } from '../publicationsLayout/PublicationsDropdown';
 
 const Publication = ({ pub }) => {
   const dispatch = useDispatch();
@@ -26,6 +25,7 @@ const Publication = ({ pub }) => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [expand, setExpand] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     if (pub.newlyAdded) {
@@ -42,35 +42,7 @@ const Publication = ({ pub }) => {
     setShowDeleteMessage(false);
   };
 
-  // Parameters are to remove warning when button is clicked.
-  // See PR#160 for more information.
-  const displayOptions = ({
-    placement,
-    scheduleUpdate,
-    arrowProps,
-    outOfBoundaries,
-    show,
-    ...props
-  }) => (
-    <ButtonGroup {...props}>
-      <Button
-        onClick={() => setShowUpdateForm(true)}
-        variant="primary"
-        data-toggle="modal"
-      >
-        {' '}
-        <AiFillEdit />
-        {' '}
-      </Button>
-      <Button
-        onClick={() => setShowDeleteMessage(true)}
-        variant="danger"
-        data-toggle="modal"
-      >
-        <AiFillDelete />
-      </Button>
-    </ButtonGroup>
-  );
+  console.log(isHovering);
 
   const dropDown = (
     <Collapse in={expand}>
@@ -132,36 +104,42 @@ const Publication = ({ pub }) => {
     </Collapse>
   );
 
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+
   return (
-    <div className="publication-container">
+    <div className="publication-container" onMouseOver={handleMouseOver} onFocus={handleMouseOver} onMouseOut={handleMouseOut} onBlur={handleMouseOut}>
       <div
         className={newlyAdded ? 'newlyAddedPublicationHeader' : 'modalHeader'}
       >
         <Row>
           <Col md={11}>
-            <div className="pubs-title">
-              {pub.link ? (
-                <a href={pub.link} target="_blank" rel="noreferrer">
-                  {pub.title}
-                </a>
-              ) : (
-                pub.title
-              )}
+            <div style={{ display: 'flex' }}>
+              <div style={{ paddingTop: '13px', paddingLeft: '13px' }}>
+                <input type="checkbox" />
+              </div>
+              <div className="pubs-title">
+                {pub.link ? (
+                  <a href={pub.link} target="_blank" rel="noreferrer">
+                    {pub.title}
+                  </a>
+                ) : (
+                  pub.title
+                )}
+              </div>
             </div>
           </Col>
           <Col md={1}>
-            <OverlayTrigger
-              rootClose
-              trigger="click"
-              placement="bottom"
-              overlay={displayOptions}
-            >
-              <Button className="mt-1 mb-1" variant="default">
-                <IconContext.Provider value={{ color: 'black' }}>
-                  <BsThreeDotsVertical />
-                </IconContext.Provider>
-              </Button>
-            </OverlayTrigger>
+            <StyledButtonGroup>
+              <ButtonGroupItem onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
+              <ButtonGroupItem onClick={() => setShowDeleteMessage(true)}><RiDeleteBin6Line /></ButtonGroupItem>
+            </StyledButtonGroup>
+
           </Col>
         </Row>
       </div>
@@ -171,16 +149,12 @@ const Publication = ({ pub }) => {
           <b> Authors: </b>
           {pub.authors.map((author) => `${author}`).join(', ')}
         </div>
-        <Row>
-          <Col md={11}>
-            <div className={expand ? 'pubs-props' : 'blur pubs-props'}>
-              {' '}
-              <b>Year Published: </b>
-              {pub.yearPublished}
-              {' '}
-            </div>
-          </Col>
-        </Row>
+        <div className="pubs-props">
+          {' '}
+          <b>Year Published: </b>
+          {pub.yearPublished}
+          {' '}
+        </div>
       </div>
 
       {dropDown}

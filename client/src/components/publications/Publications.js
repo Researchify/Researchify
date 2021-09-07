@@ -5,9 +5,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Modal, Spinner, Alert,
+  Modal, Spinner, Alert, Jumbotron,
 } from 'react-bootstrap';
-import styled from 'styled-components';
 import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
@@ -17,11 +16,6 @@ import LayoutByCategory from './publicationsLayout/LayoutByCategory';
 import PublicationsButtons from './publicationsLayout/PublicationsButtons';
 import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
 import { layoutOptions, sortingOptions } from '../../config/publications';
-
-const Wrapper = styled.section`
-  padding: 2em;
-  background: rgb(230, 230, 230);
-`;
 
 const Publications = () => {
   const dispatch = useDispatch();
@@ -108,8 +102,8 @@ const Publications = () => {
   }, [teamPublications]);
 
   return (
-    <>
-      <Wrapper>
+    <Jumbotron>
+      <>
         <PublicationsButtons
           setShowCreateForm={setShowCreateForm}
           setShowImportForm={setShowImportForm}
@@ -121,7 +115,7 @@ const Publications = () => {
           publication={publications}
           teamId={teamId}
         />
-      </Wrapper>
+      </>
       <div className="text-center">
         {loading ? (
           <Spinner animation="border" />
@@ -165,7 +159,7 @@ const Publications = () => {
           <ImportForm closeModal={() => setShowImportForm(false)} />
         </Modal.Body>
       </Modal>
-    </>
+    </Jumbotron>
   );
 };
 
