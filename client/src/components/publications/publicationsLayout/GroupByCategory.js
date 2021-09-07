@@ -1,11 +1,11 @@
 /**
- * The LayoutByCategory component displays a list of publications group by category type selcted by user
+ * The GroupByCategory component displays a list of publications group by category type selcted by user
  */
 
 import { categoryTypes, categoryPageSize } from '../../../config/publications';
-import LayoutAllPublications from './LayoutAllPublications';
+import LayoutAllPublications from './GroupByNone';
 
-const LayoutByCategory = ({ teamPublications }) => {
+const GroupByCategory = ({ teamPublications }) => {
   const renderPublicationsByCategory = (categoryType) => {
     const publicationsByCategory = teamPublications.filter(
       (pub) => pub.category.type === categoryType,
@@ -33,4 +33,4 @@ const LayoutByCategory = ({ teamPublications }) => {
   ));
 };
 
-export default LayoutByCategory;
+export default GroupByCategory;

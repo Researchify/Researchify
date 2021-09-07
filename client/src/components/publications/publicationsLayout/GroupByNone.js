@@ -1,12 +1,12 @@
 /**
- * The LayoutAllPublications component displays a list of publications
+ * The GroupByNone component displays a list of publications
  */
 import React from 'react';
 import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 
-const LayoutAllPublications = ({ teamPublications, pageSize }) => {
+const GroupByNone = ({ teamPublications, pageSize }) => {
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
   return (
     <>
@@ -21,4 +21,4 @@ const LayoutAllPublications = ({ teamPublications, pageSize }) => {
   );
 };
 
-export default LayoutAllPublications;
+export default GroupByNone;

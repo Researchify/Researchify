@@ -9,9 +9,9 @@ const categoryTypes = {
   Book: 'Book',
   Other: 'Other',
 };
-const layoutOptions = {
-  ALL_PUBLICATION: 'All Publication',
-  BY_CATEGORY: 'By Category',
+const groupByOptions = {
+  NONE: 'None',
+  CATEGORY: 'Category',
 };
 const sortingOptions = {
   TITLE: 'Title',
@@ -19,5 +19,5 @@ const sortingOptions = {
   YEAR: 'Year',
 };
 module.exports = {
-  pageSize, categoryPageSize, categoryTypes, layoutOptions, sortingOptions,
+  pageSize, categoryPageSize, categoryTypes, groupByOptions, sortingOptions,
 };

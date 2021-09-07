@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { sortingOptions, layoutOptions } from '../../../config/publications';
+import { sortingOptions, groupByOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 
 const PublicationsDropdown = ({
@@ -27,13 +27,13 @@ const PublicationsDropdown = ({
             {options.layout}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(layoutOptions).map((layout, i) => (
+            {Object.keys(groupByOptions).map((layout, i) => (
               <Dropdown.Item
                 key={i}
                 as="button"
-                onClick={() => setOptions({ ...options, layout: layoutOptions[layout] })}
+                onClick={() => setOptions({ ...options, layout: groupByOptions[layout] })}
               >
-                {layoutOptions[layout]}
+                {groupByOptions[layout]}
               </Dropdown.Item>
             ))}
           </Dropdown.Menu>
@@ -59,7 +59,7 @@ const PublicationsDropdown = ({
                 {sortingOptions[sortBy]}
               </Dropdown.Item>
             ))}
-            {options.layout === layoutOptions.BY_CATEGORY
+            {options.layout === groupByOptions.CATEGORY
               && (
               <Dropdown.Item
                 as="button"
@@ -80,7 +80,7 @@ const PublicationsDropdown = ({
           variant="secondary"
           onClick={handleUpdate}
         >
-          Update Layout &amp; Sorting Options
+          Update Group by &amp; Sorting Options
         </Button>
       </div>
     </div>
