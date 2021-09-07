@@ -208,7 +208,7 @@ async function scrapeGoogleScholar(url) {
   const raw = await axios.get(`${scrapingConfig.gScholarHome + url}`);
   const $ = cheerio.load(raw.data);
   const title = $('#gsc_oci_title').text();
-  const link = $('.gsc_oci_title_ggi a').text();
+  const link = $('.gsc_oci_title_ggi a').attr('href');
   const values = [];
   const fields = [];
   $('.gsc_oci_value').each((index, value) => {
