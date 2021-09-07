@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const logger = require('winston');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const iconv = require('iconv-lite');
 
 const { categoryTypes } = require('../config/publication');
 const { scrapingConfig } = require('../config/scraping');
@@ -163,7 +164,6 @@ async function getGoogleScholarPublications(req, res) {
   };
 
   const page = await axios.get(url);
-
   const $ = cheerio.load(page.data);
   const links = [];
   $('.gsc_a_at').each((index, value) => {
@@ -205,8 +205,13 @@ async function getGoogleScholarPublications(req, res) {
  */
 async function scrapeGoogleScholar(url) {
   logger.info(`Publication url: ${scrapingConfig.gScholarHome + url}`);
-  const raw = await axios.get(`${scrapingConfig.gScholarHome + url}`);
-  const $ = cheerio.load(raw.data);
+  const raw = await axios.get(`${scrapingConfig.gScholarHome + url}`,
+    {
+      responseType: 'arraybuffer',
+    });
+  const decodedData = iconv.decode(raw.data, 'ISO-8859-1');
+
+  const $ = cheerio.load(decodedData);
   const title = $('#gsc_oci_title').text();
   const link = $('.gsc_oci_title_ggi a').attr('href');
   const values = [];
