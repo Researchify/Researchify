@@ -9,7 +9,6 @@
         "ecmaVersion": 12
     },
     "rules": {
-
         "import/no-mutable-exports": "off",
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": "off",
