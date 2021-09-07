@@ -6,15 +6,15 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import profilePicture from '../../../../shared/images/awardpic.jpg';
 
-const Awards = ({ award }) => (
+const Achievement = ({ achievement }) => (
   <Card className="award-card">
     <Card.Img variant="top" src={profilePicture} />
     <Card.Body>
-      <div className="award-name">{award.fullName}</div>
-      <div className="award-position">{award.position}</div>
-      <div className="award-summary">{award.summary}</div>
+      <div className="award-name">{achievement.title}</div>
+      <div className="award-position">{achievement.yearAwarded}</div>
+      <div className="award-summary">{achievement.description}</div>
     </Card.Body>
   </Card>
 );
 
-export default Awards;
+export default Achievement;

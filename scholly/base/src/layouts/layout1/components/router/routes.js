@@ -2,7 +2,7 @@ import { WEB_PAGES } from '../../../../global/data';
 import PublicationPage from '../publications/PublicationPage';
 import LandingPage from '../landingPage/LandingPage';
 import TeamPage from '../team/TeamPage';
-import AwardsPage from '../awardsPage/AwardsPage';
+import Achievements from '../achievementsPage/Achievements';
 
 const availableRoutes = [
   {
@@ -18,10 +18,10 @@ const availableRoutes = [
     component: TeamPage,
   },
   {
-    title: 'Awards',
-    path: '/awardsPage',
+    title: 'Achievements',
+    path: '/achievements',
     exact: true,
-    component: AwardsPage,
+    component: Achievements,
   },
 ];
 

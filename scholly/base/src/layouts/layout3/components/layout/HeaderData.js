@@ -17,7 +17,7 @@ const HeaderData = () => [
   },
   {
     title: 'Awards',
-    link: '/awardsPage',
+    link: '/achievementsPage',
   },
 ];
 

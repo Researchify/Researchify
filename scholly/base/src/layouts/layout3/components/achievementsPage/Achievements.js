@@ -3,20 +3,20 @@
  */
 import React from 'react';
 import { CardDeck, Container } from 'react-bootstrap';
-import { TEAM_AWARDS } from '../../../../global/data';
-import Awards from './Awards';
+import { TEAM_ACHIEVEMENTS } from '../../../../global/data';
+import Achievement from './Achievement';
 
-const AwardsPage = () => {
-  const teamAwards = TEAM_AWARDS;
+const Achievements = () => {
+  const teamAchievements = TEAM_ACHIEVEMENTS;
   return (
     <>
       <Container className="pages-top-padding text-center mt-3 mb-3">
-        <div className="team-pg-title">Awards</div>
+        <div className="team-pg-title">Achievements</div>
       </Container>
       <Container fluid className="team-card-container">
         <CardDeck className="team-card-deck">
-          {teamAwards.map((award, i) => (
-            <Awards style={{ display: 'flex', flexDirection: i % 2 === 0 ? 'row' : 'row-reverse' }} award={award} key={award._id} />
+          {teamAchievements.map((achievement) => (
+            <Achievement achievement={achievement} key={achievement._id} />
           ))}
         </CardDeck>
       </Container>
@@ -24,4 +24,4 @@ const AwardsPage = () => {
   );
 };
 
-export default AwardsPage;
+export default Achievements;

@@ -9,7 +9,7 @@ import {
 } from 'react-bootstrap';
 import awardPicture from '../../../../shared/images/awardpic.jpg';
 
-const Awards = ({ award }) => {
+const Achievement = ({ achievement }) => {
   const ref = useRef();
   const [expanded, setExpanded] = useState(true);
   const [shouldShowExpand, setShouldShowExpand] = useState(false);
@@ -27,14 +27,14 @@ const Awards = ({ award }) => {
         <Row>
           <Col>
             <Card.Body>
-              <Card.Title as="h5">{award.fullName}</Card.Title>
+              <Card.Title as="h5">{achievement.title}</Card.Title>
               <Card.Text as="h6">
-                {award.position}
+                {achievement.yearAwarded}
               </Card.Text>
               <hr />
               <Card.Text as="h7">
                 <div style={{ maxHeight: expanded ? MAX_EXPANDED_HEIGHT : maxHeight }} className="award-summary" ref={ref}>
-                  {award.summary}
+                  {achievement.description}
                 </div>
               </Card.Text>
               <br />
@@ -60,4 +60,4 @@ const Awards = ({ award }) => {
   );
 };
 
-export default Awards;
+export default Achievement;
