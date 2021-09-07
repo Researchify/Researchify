@@ -120,11 +120,11 @@ const Publications = () => {
         {loading ? (
           <Spinner animation="border" />
         ) : (
-          <h4>
+          <h5>
             Total of
             {` ${teamPublications.length} `}
             publications
-          </h4>
+          </h5>
         )}
       </div>
 

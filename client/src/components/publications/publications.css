@@ -24,6 +24,10 @@
   background-color: rgb(240, 240, 240);
 }
 
+.modalHeader:hover {
+  background-color: lightgrey;
+}
+
 .blur {
   background: -webkit-linear-gradient(#333, #eee);
   -webkit-background-clip: text;
@@ -55,7 +59,7 @@
 }
 
 .pubs-props {
-  font-size: 15px;
+  font-size: 13px;
   padding-left: 15px;
   padding-top: 5px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -64,7 +68,7 @@
 }
 
 .pubs-title {
-  font-size: 20px;
+  font-size: 16px;
   padding: 10px;
   font-weight: 500;
   color: #535151;

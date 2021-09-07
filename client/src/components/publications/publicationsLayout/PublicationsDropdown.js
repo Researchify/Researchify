@@ -17,6 +17,9 @@ export const ButtonGroupItem = styled.button`
   border-radius: 3px;
   cursor: pointer;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande";
+  &:hover{
+    background: #b8b5b5;
+  }
 `;
 
 const PublicationsDropdown = ({

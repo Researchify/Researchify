@@ -13,11 +13,11 @@ const LayoutByCategory = ({ teamPublications }) => {
     return (
       publicationsByCategory.length > 0 && (
         <>
-          <h2 className="publicationListHeader">
+          <h5 className="publicationListHeader">
             {' '}
             {categoryType}
             {' '}
-          </h2>
+          </h5>
           <LayoutAllPublications
             teamPublications={publicationsByCategory}
             pageSize={categoryPageSize}

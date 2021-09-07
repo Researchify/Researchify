@@ -42,8 +42,6 @@ const Publication = ({ pub }) => {
     setShowDeleteMessage(false);
   };
 
-  console.log(isHovering);
-
   const dropDown = (
     <Collapse in={expand}>
       <div className="pub" onClick={() => setExpand(!expand)}>
@@ -108,19 +106,19 @@ const Publication = ({ pub }) => {
     setIsHovering(true);
   };
 
-  const handleMouseOut = () => {
+  const handleMouseLeave = () => {
     setIsHovering(false);
   };
 
   return (
-    <div className="publication-container" onMouseOver={handleMouseOver} onFocus={handleMouseOver} onMouseOut={handleMouseOut} onBlur={handleMouseOut}>
+    <div className="publication-container" onMouseOver={handleMouseOver} onFocus={handleMouseOver} onMouseLeave={handleMouseLeave} onBlur={handleMouseLeave}>
       <div
         className={newlyAdded ? 'newlyAddedPublicationHeader' : 'modalHeader'}
       >
         <Row>
-          <Col md={11}>
+          <Col md={11} onClick={() => setExpand(!expand)}>
             <div style={{ display: 'flex' }}>
-              <div style={{ paddingTop: '13px', paddingLeft: '13px' }}>
+              <div style={{ paddingTop: '10px', paddingLeft: '10px' }}>
                 <input type="checkbox" />
               </div>
               <div className="pubs-title">
@@ -135,11 +133,15 @@ const Publication = ({ pub }) => {
             </div>
           </Col>
           <Col md={1}>
+            {
+              isHovering
+            && (
             <StyledButtonGroup>
               <ButtonGroupItem onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
               <ButtonGroupItem onClick={() => setShowDeleteMessage(true)}><RiDeleteBin6Line /></ButtonGroupItem>
             </StyledButtonGroup>
-
+            )
+            }
           </Col>
         </Row>
       </div>
