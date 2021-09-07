@@ -1,7 +1,7 @@
 /**
  * The TeamPage component displays a list of team members.
  */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { CardDeck, Container } from 'react-bootstrap';
 import { TEAM_MEMBERS } from '../../../../global/data';
 import TeamMember from './TeamMember';

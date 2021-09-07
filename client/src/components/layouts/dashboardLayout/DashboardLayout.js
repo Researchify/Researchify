@@ -2,7 +2,7 @@
  * This file exports the layout of Researchify Dashboard
  */
 
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import Sidebar from '../layoutComponents/Sidebar';
 import Header from '../layoutComponents/Header';
