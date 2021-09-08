@@ -1,10 +1,11 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { AiFillFileAdd } from 'react-icons/ai';
+import '../publications.css';
 
 const PublicationsButtons = ({ setShowCreateForm, setShowImportForm }) => (
-  <Dropdown size="sm">
-    <Dropdown.Toggle>
+  <Dropdown>
+    <Dropdown.Toggle size="sm">
       <AiFillFileAdd />
     </Dropdown.Toggle>
 

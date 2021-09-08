@@ -92,3 +92,18 @@
   -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
   box-shadow: inset 0px 0px 5px #c1c1c1;
 }
+
+.publication-editor {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #26282a;
+  z-index: 2;
+}
+
+.publication-table {
+  padding-top: 110px;
+}

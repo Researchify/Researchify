@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Modal, Spinner, Alert, Jumbotron,
+  Modal, Spinner, Alert, Jumbotron, Container,
 } from 'react-bootstrap';
 import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
@@ -102,8 +102,8 @@ const Publications = () => {
   }, [teamPublications]);
 
   return (
-    <Jumbotron>
-      <>
+    <>
+      <Container fluid className="publication-editor">
         <PublicationsButtons
           setShowCreateForm={setShowCreateForm}
           setShowImportForm={setShowImportForm}
@@ -115,18 +115,18 @@ const Publications = () => {
           publication={publications}
           teamId={teamId}
         />
-      </>
-      <div className="text-center">
-        {loading ? (
-          <Spinner animation="border" />
-        ) : (
-          <h5>
-            Total of
-            {` ${teamPublications.length} `}
-            publications
-          </h5>
-        )}
-      </div>
+        <div>
+          {loading ? (
+            <Spinner animation="border" />
+          ) : (
+            <h5>
+              Total of
+              {` ${teamPublications.length} `}
+              publications
+            </h5>
+          )}
+        </div>
+      </Container>
 
       {teamPublications.length === 0 && !loading ? (
         <Alert variant="primary">
@@ -134,7 +134,11 @@ const Publications = () => {
           publications.
         </Alert>
       ) : (
-        renderPublications()
+        <Jumbotron className="publication-table">
+          {
+            renderPublications()
+          }
+        </Jumbotron>
       )}
 
       {/* A modal for showing create publication form */}
@@ -159,7 +163,7 @@ const Publications = () => {
           <ImportForm closeModal={() => setShowImportForm(false)} />
         </Modal.Body>
       </Modal>
-    </Jumbotron>
+    </>
   );
 };
 
