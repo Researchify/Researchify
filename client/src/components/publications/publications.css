@@ -95,7 +95,7 @@
 .publication-editor {
   position: fixed;
   width: inherit;
-  background-color: #333;
+  background-color: grey;
 }
 
 .publication-table {

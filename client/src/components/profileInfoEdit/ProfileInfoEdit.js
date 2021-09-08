@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateTeam } from '../../actions/team';
-import { Svg as abc } from '../../images/File_Yin_yang.svg';
 
 /**
  * Form component for user update profile
@@ -64,8 +63,6 @@ const ProfileInfoEdit = () => {
           onSubmit={handleUpdate}
         >
           <p className="profile-title-name">Team Profile Management</p>
-          <img src={Svg} alt="logo" />
-
           <Form.Group controlId="formProfilePic">
             <Form.Control type="file" />
             <Form.Text className="text-muted">
