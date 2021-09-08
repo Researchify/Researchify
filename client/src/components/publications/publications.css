@@ -101,7 +101,7 @@
   align-items: stretch;
   background-color: #f8f8f8;
   border-bottom: 1px solid #26282a;
-  z-index: 2;
+  z-index: 5;
 }
 
 .publication-table {
