@@ -11,7 +11,7 @@ import './ProfileInfoEdit.css';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
-import profilePic from '../../images/profilepic.jpg';
+import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
 
 /**
@@ -20,38 +20,46 @@ import { updateTeam } from '../../actions/team';
 const ProfileInfoEdit = () => {
   const dispatch = useDispatch();
 
-  const uploadedImage = React.useRef(profilePic); // To be referred to server default profile image
-
   const {
-    teamId, teamName, orgName, email,
+    teamId, teamName, orgName, email, profilePic,
   } = useSelector(
     (state) => state.team,
   );
 
-  const [profileData, setInputs] = useState({ teamName, orgName, email });
+  const [profileData, setInputs] = useState({
+    teamName, orgName, email, profilePic,
+  });
 
   useEffect(() => {
-    setInputs({ teamName, orgName, email });
-  }, [email, orgName, teamName]);
+    setInputs({
+      teamName, orgName, email, profilePic,
+    });
+  }, [email, orgName, teamName, profilePic]);
 
   const updateInputs = (form) => {
     const { name, value } = form.target;
     setInputs({ ...profileData, [name]: value });
   };
+
   /**
    * Updates profile image field when user uploads file
   */
+
+  // If profilePic is undefined, set a default profile pic (to be moved into backend)
+  if (!profileData.profilePic) {
+    profileData.profilePic = defaultProfilePic;
+  }
+
   const handleImageUpload = (e) => {
-    const [file] = e.target.files;
-    if (file) {
-      const reader = new window.FileReader();
-      const { current } = uploadedImage;
-      current.file = file;
-      reader.onload = (e) => {
-        current.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
+    e.preventDefault();
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    // Update live profile pic field
+
+    reader.onload = (e) => {
+      setInputs({ ...profileData, profilePic: e.target.result });
+    };
+    reader.readAsDataURL(file);
   };
 
   const [validated, setValidated] = useState(false);
@@ -84,12 +92,12 @@ const ProfileInfoEdit = () => {
 
           <Form.Group controlId="formProfilePic">
             <Image
-              ref={uploadedImage}
+              src={profileData.profilePic}
               roundedCircle
               height="184px"
               width="184px"
             />
-            <Form.Control type="file" accept="image/*" onChange={handleImageUpload} multiple="false" />
+            <Form.Control name="profilePic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} />
             <Form.Text className="text-muted">
               Upload a file from your device, at least 184px.
             </Form.Text>
