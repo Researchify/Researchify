@@ -45,7 +45,7 @@ const ProfileInfoEdit = () => {
    * Updates profile image field when user uploads file
   */
 
-  // If profilePic is undefined, set a default profile pic (to be moved into backend)
+  // If profilePic is undefined, set a default profile pic
   if (!profileData.profilePic) {
     profileData.profilePic = defaultProfilePic;
   }
@@ -54,7 +54,6 @@ const ProfileInfoEdit = () => {
     e.preventDefault();
     const reader = new FileReader();
     const file = e.target.files[0];
-    // Update live profile pic field
 
     reader.onload = (e) => {
       setInputs({ ...profileData, profilePic: e.target.result });
