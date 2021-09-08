@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Row } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { sortingOptions, layoutOptions } from '../../../config/publications';
@@ -35,7 +35,7 @@ const PublicationsDropdown = ({
     dispatch(updatePublicationOptions(teamId, options));
   };
   return (
-    <Row>
+    <>
       <StyledButtonGroup>
         Group by:
         {Object.keys(layoutOptions).map((layout, i) => (
@@ -79,13 +79,14 @@ const PublicationsDropdown = ({
       </StyledButtonGroup>
 
       <Button
+        size="sm"
         variant="secondary"
         onClick={handleUpdate}
       >
         Update Layout
       </Button>
 
-    </Row>
+    </>
   );
 };
 

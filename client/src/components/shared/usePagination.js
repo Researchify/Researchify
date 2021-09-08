@@ -3,7 +3,13 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import styled from 'styled-components';
 
 const ArrowButton = styled.button`
-
+  color: #b8b5b5 !important;
+  border: 1px none ;
+  border-radius: 3px;
+  transition: all 0.3s ease 0s;
+  ${({ hover }) => (hover
+    && 'color: #494949 !important; &:hover { background: lightgray }')
+}
 `;
 
 const usePagination = (data, itemPerPage) => {
@@ -31,20 +37,20 @@ const usePagination = (data, itemPerPage) => {
             : (
               <>
                 {(currentPage - 1) * itemPerPage + 1}
-                {' '}
                 -
                 {(currentPage - 1) * itemPerPage + currentData().length}
-                {' '}
               </>
             )
-        }
+          }
+        {' '}
         of
         {' '}
-        { data.length}
-        <ArrowButton onClick={prevPage}>
+        { data.length }
+        {' '}
+        <ArrowButton onClick={prevPage} hover={currentPage !== 1}>
           <FaAngleLeft />
         </ArrowButton>
-        <ArrowButton onClick={nextPage}>
+        <ArrowButton onClick={nextPage} hover={currentPage !== maxPage}>
           <FaAngleRight />
         </ArrowButton>
       </div>

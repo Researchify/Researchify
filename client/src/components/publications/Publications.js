@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Modal, Alert, Jumbotron, Container, Spinner,
+  Modal, Alert, Jumbotron, Container, //Spinner,
 } from 'react-bootstrap';
 import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
@@ -104,18 +104,20 @@ const Publications = () => {
   return (
     <>
       <Container fluid className="publication-editor">
-        <PublicationsButtons
-          setShowCreateForm={setShowCreateForm}
-          setShowImportForm={setShowImportForm}
-        />
-        <PublicationsDropdown
-          options={options}
-          setOptions={setOptions}
-          sortPublications={sortPublications}
-          publication={publications}
-          teamId={teamId}
-        />
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <PublicationsButtons
+            setShowCreateForm={setShowCreateForm}
+            setShowImportForm={setShowImportForm}
+          />
+          <PublicationsDropdown
+            options={options}
+            setOptions={setOptions}
+            sortPublications={sortPublications}
+            publication={publications}
+            teamId={teamId}
+          />
+        </div>
+        {/* <div>
           {loading ? (
             <Spinner animation="border" />
           ) : (
@@ -125,7 +127,7 @@ const Publications = () => {
               publications
             </h5>
           )}
-        </div>
+        </div> */}
       </Container>
 
       {teamPublications.length === 0 && !loading ? (

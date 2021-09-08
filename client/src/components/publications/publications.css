@@ -94,10 +94,12 @@
 
 .publication-editor {
   position: fixed;
-  width: inherit;
-  background-color: grey;
+  background-color: #c7c3c3;
+  box-shadow: 0 4px 2px -2px gray;
+  z-index: 3;
+  padding: 15px;
 }
 
 .publication-table {
-  padding-top: 110px;
+  padding-top: 60px;
 }

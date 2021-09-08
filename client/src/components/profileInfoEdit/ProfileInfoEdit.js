@@ -5,12 +5,13 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  Button, Form, Container,
+  Button, Form, Container, Image,
 } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
+import profilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
 
 /**
@@ -63,7 +64,14 @@ const ProfileInfoEdit = () => {
           onSubmit={handleUpdate}
         >
           <p className="profile-title-name">Team Profile Management</p>
+
           <Form.Group controlId="formProfilePic">
+            <Image
+              src={profilePic}
+              roundedCircle
+              height="184px"
+              width="184px"
+            />
             <Form.Control type="file" />
             <Form.Text className="text-muted">
               Upload a file from your device, at least 184px.
