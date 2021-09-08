@@ -4,7 +4,6 @@
   margin: auto;
   margin-bottom: 40px;
   margin-top: 20px;
-  border: solid rgb(96, 96, 97);
   border-width: thin;
   border-color: rgb(212, 207, 205);
 }
@@ -95,13 +94,8 @@
 
 .publication-editor {
   position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #26282a;
-  z-index: 5;
+  width: inherit;
+  background-color: #333;
 }
 
 .publication-table {

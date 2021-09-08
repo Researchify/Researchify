@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Modal, Spinner, Alert, Jumbotron, Container,
+  Modal, Alert, Jumbotron, Container,
 } from 'react-bootstrap';
 import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
@@ -13,8 +13,8 @@ import ImportForm from './form/ImportForm';
 import './publications.css';
 import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
 import LayoutByCategory from './publicationsLayout/LayoutByCategory';
-import PublicationsButtons from './publicationsLayout/PublicationsButtons';
-import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
+// import PublicationsButtons from './publicationsLayout/PublicationsButtons';
+// import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
 import { layoutOptions, sortingOptions } from '../../config/publications';
 
 const Publications = () => {
@@ -103,7 +103,7 @@ const Publications = () => {
 
   return (
     <>
-      <Container fluid className="publication-editor">
+      {/* <Container fluid className="publication-editor">
         <PublicationsButtons
           setShowCreateForm={setShowCreateForm}
           setShowImportForm={setShowImportForm}
@@ -126,7 +126,7 @@ const Publications = () => {
             </h5>
           )}
         </div>
-      </Container>
+      </Container> */}
 
       {teamPublications.length === 0 && !loading ? (
         <Alert variant="primary">
@@ -135,6 +135,9 @@ const Publications = () => {
         </Alert>
       ) : (
         <Jumbotron className="publication-table">
+          <Container fuild className="publication-editor">
+            ferferwf
+          </Container>
           {
             renderPublications()
           }

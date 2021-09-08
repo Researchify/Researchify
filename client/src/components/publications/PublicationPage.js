@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import { Container } from 'react-bootstrap';
 import TwitterFeed from '../twitter/TwitterFeed';
 import TwitterLink from '../twitter/TwitterLink';
 import Publications from './Publications';
@@ -18,6 +19,9 @@ const PublicationPage = () => {
     <>
       <Row>
         <Col className="pub-page-pub-col">
+          <Container className="publication-editor" fuild style={{ backgroundColor: 'red' }}>
+            dewde
+          </Container>
           <Publications />
         </Col>
         <Col className="pub-page-tweet-col">

@@ -12,17 +12,11 @@ const LayoutByCategory = ({ teamPublications }) => {
     );
     return (
       publicationsByCategory.length > 0 && (
-        <>
-          <h5 className="publicationListHeader">
-            {' '}
-            {categoryType}
-            {' '}
-          </h5>
-          <LayoutAllPublications
-            teamPublications={publicationsByCategory}
-            pageSize={categoryPageSize}
-          />
-        </>
+      <LayoutAllPublications
+        teamPublications={publicationsByCategory}
+        pageSize={categoryPageSize}
+        groupBy={categoryType}
+      />
       )
     );
   };

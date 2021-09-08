@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import { Pagination } from 'react-bootstrap';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import styled from 'styled-components';
+
+const ArrowButton = styled.button`
+
+`;
 
 const usePagination = (data, itemPerPage) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,41 +22,9 @@ const usePagination = (data, itemPerPage) => {
   const prevPage = () => {
     setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
   };
-  const jumpToPage = (page) => {
-    const pageNumber = Math.max(1, page);
-    setCurrentPage(Math.min(pageNumber, maxPage));
-  };
   const pagination = () => {
-    const items = [];
-    for (let number = 1; number <= maxPage; number++) {
-      items.push(
-        <Pagination.Item
-          key={number}
-          onClick={() => jumpToPage(number)}
-          active={number === currentPage}
-        >
-          {number}
-        </Pagination.Item>,
-      );
-    }
     return (
-      // data.length > itemPerPage
-      // && (
-      // <div style={{ display: 'flex', justifyContent: 'center' }}>
-      //   <Pagination>
-      //     <Pagination.Prev
-      //       onClick={prevPage}
-      //       disabled={currentPage === 1}
-      //     />
-      //     {items}
-      //     <Pagination.Next
-      //       onClick={nextPage}
-      //       disabled={currentPage === maxPage}
-      //     />
-      //   </Pagination>
-      // </div>
-      // )
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div>
         {
           currentData().length === 1
             ? ((currentPage - 1) * itemPerPage + 1)
@@ -61,7 +33,6 @@ const usePagination = (data, itemPerPage) => {
                 {(currentPage - 1) * itemPerPage + 1}
                 {' '}
                 -
-
                 {(currentPage - 1) * itemPerPage + currentData().length}
                 {' '}
               </>
@@ -70,16 +41,12 @@ const usePagination = (data, itemPerPage) => {
         of
         {' '}
         { data.length}
-        <button type="button" onClick={prevPage}>
-          {' '}
+        <ArrowButton onClick={prevPage}>
           <FaAngleLeft />
-          {' '}
-        </button>
-        <button type="button" onClick={nextPage}>
-          {' '}
+        </ArrowButton>
+        <ArrowButton onClick={nextPage}>
           <FaAngleRight />
-          {' '}
-        </button>
+        </ArrowButton>
       </div>
     );
   };
