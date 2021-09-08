@@ -54,8 +54,9 @@ const ProfileInfoEdit = () => {
     e.preventDefault();
     const reader = new FileReader();
     const file = e.target.files[0];
+    // Update live profile pic field
 
-    reader.onloadend = () => {
+    reader.onload = (e) => {
       setInputs({ ...profileData, profilePic: e.target.result });
     };
     reader.readAsDataURL(file);
