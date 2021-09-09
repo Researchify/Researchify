@@ -12,7 +12,6 @@
         "max-len": "off",
         "no-underscore-dangle": "off",
         "consistent-return": "off",
-        "no-plusplus": "off",
         "prefer-destructuring": "off",
         "no-shadow": "off",
         "no-await-in-loop": "off",
