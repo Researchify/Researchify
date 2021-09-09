@@ -55,7 +55,8 @@ const LandingPage = ({ match }) => {
 
 //props validation
 LandingPage.propTypes = {
-  match: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  match: PropTypes.object.isRequired,
 };
 
 export default LandingPage;

@@ -131,10 +131,11 @@ const Features = () => {
 
 //props validation
 FlippingCard.propTypes = {
-  logo: PropTypes.isRequired,
-  title: PropTypes.isRequired,
-  description: PropTypes.isRequired,
-  classes: PropTypes.isRequired,
+  logo: PropTypes.element.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  classes: PropTypes.object.isRequired,
 };
 
 export default Features;

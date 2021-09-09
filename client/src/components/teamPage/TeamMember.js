@@ -17,6 +17,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
 import profilePic from '../../images/profilepic.jpg';
@@ -127,6 +128,10 @@ const TeamMember = ({ member }) => {
       </Modal>
     </>
   );
+};
+
+TeamMember.propTypes = {
+  member: PropTypes.isRequired,
 };
 
 export default TeamMember;

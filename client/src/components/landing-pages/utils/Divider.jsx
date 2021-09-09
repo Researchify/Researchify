@@ -18,11 +18,12 @@ const Divider = ({ width, color }) => {
 
 //props validation
 Divider.propTypes = {
-  width: PropTypes.isRequired,
+  width: PropTypes.string,
   color: PropTypes.string,
 };
 Divider.defaultProps = {
   color: 'blue',
+  width: '5vw',
 };
 
 export default Divider;
