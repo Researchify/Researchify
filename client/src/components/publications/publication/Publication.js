@@ -17,7 +17,7 @@ import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import PublicationForm from '../form/PublicationForm';
 import { deletePublication } from '../../../actions/publications';
 import '../publications.css';
-import { StyledButtonGroup, ButtonGroupItem } from '../publicationsLayout/PublicationsDropdown';
+import { StyledButtonGroup, ButtonGroupItem } from '../publicationsLayout/PublicationsEditor';
 
 const Publication = ({ pub }) => {
   const dispatch = useDispatch();
@@ -116,7 +116,7 @@ const Publication = ({ pub }) => {
         className={newlyAdded ? 'newlyAddedPublicationHeader' : 'modalHeader'}
       >
         <Row>
-          <Col md={11} onClick={() => setExpand(!expand)}>
+          <Col md={10} onClick={() => setExpand(!expand)}>
             <div style={{ display: 'flex' }}>
               <div style={{ paddingTop: '10px', paddingLeft: '10px' }}>
                 <input type="checkbox" />
@@ -132,11 +132,11 @@ const Publication = ({ pub }) => {
               </div>
             </div>
           </Col>
-          <Col md={1}>
+          <Col md={2}>
             {
               isHovering
             && (
-            <StyledButtonGroup>
+            <StyledButtonGroup className="float-right">
               <ButtonGroupItem onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
               <ButtonGroupItem onClick={() => setShowDeleteMessage(true)}><RiDeleteBin6Line /></ButtonGroupItem>
             </StyledButtonGroup>

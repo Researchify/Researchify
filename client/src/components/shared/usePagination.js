@@ -21,6 +21,10 @@ const usePagination = (data, itemPerPage) => {
       const end = start + itemPerPage;
       return data.slice(start, end);
     }
+    // const start = (currentPage - 2) * itemPerPage;
+    // const end = start + itemPerPage;
+    // setCurrentPage(currentPage - 1);
+    // return data.slice(start, end);
   };
   const nextPage = () => {
     setCurrentPage((currentPage) => Math.min(currentPage + 1, maxPage));
@@ -30,7 +34,7 @@ const usePagination = (data, itemPerPage) => {
   };
   const pagination = () => {
     return (
-      <div>
+      <div style={{ paddingBottom: '5px' }}>
         {
           currentData().length === 1
             ? ((currentPage - 1) * itemPerPage + 1)

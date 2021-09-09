@@ -84,22 +84,9 @@
   border-width: thin;
 }
 
-.pressed-button {
-  background: #b8b5b5;
-  outline: none;
-  -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
-  -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
-  box-shadow: inset 0px 0px 5px #c1c1c1;
-}
-
 .publication-editor {
-  position: fixed;
-  background-color: #c7c3c3;
   box-shadow: 0 4px 2px -2px gray;
   z-index: 3;
-  padding: 15px;
-}
-
-.publication-table {
-  padding-top: 60px;
+  width: 100%;
+  max-width: 1200px;
 }
