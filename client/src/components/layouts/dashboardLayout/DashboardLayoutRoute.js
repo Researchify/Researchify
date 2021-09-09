@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import DashboardLayout from './DashboardLayout';
 
 const DashboardLayoutRoute = ({ component: Component, ...rest }) => (
@@ -17,4 +18,10 @@ const DashboardLayoutRoute = ({ component: Component, ...rest }) => (
     )}
   />
 );
+
+// props validation
+DashboardLayoutRoute.propTypes = {
+  component: PropTypes.isRequired,
+};
+
 export default DashboardLayoutRoute;

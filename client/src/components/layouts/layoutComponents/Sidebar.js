@@ -3,6 +3,7 @@
  */
 import './Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 const Sidebar = ({ data }) => {
   const location = useLocation();
@@ -28,6 +29,10 @@ const Sidebar = ({ data }) => {
       </ul>
     </>
   );
+};
+
+Sidebar.propTypes = {
+  data: PropTypes.isRequired,
 };
 
 export default Sidebar;
