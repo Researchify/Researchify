@@ -8,6 +8,7 @@ import {
   Spinner,
 } from 'react-bootstrap';
 import '../Dashboard.css';
+import { PropTypes } from 'prop-types';
 import WebpageDelete from './WebpageDelete';
 import WebpageSelector from './WebpageSelector';
 import ConditionalWrapper from '../../shared/ConditionalWrapper';
@@ -155,6 +156,17 @@ const Webpages = ({
       )}
     </>
   );
+};
+
+// props validation
+Webpages.propTypes = {
+  currentWebPages: PropTypes.isRequired,
+  directToAnotherPage: PropTypes.isRequired,
+  teamId: PropTypes.isRequired,
+  setSelectedPage: PropTypes.isRequired,
+  selectedPage: PropTypes.isRequired,
+  availablePages: PropTypes.isRequired,
+  loading: PropTypes.isRequired,
 };
 
 export default Webpages;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import { deletePage } from '../../../actions/website';
 
 const WebpageDelete = (props) => {
@@ -48,6 +49,16 @@ const WebpageDelete = (props) => {
       </Modal>
     </>
   );
+};
+
+// props validation
+WebpageDelete.propTypes = {
+  teamId: PropTypes.string.isRequired,
+  selectedPage: PropTypes.isRequired,
+  setSelectedPage: PropTypes.isRequired,
+  pagePlaceholder: PropTypes.isRequired,
+  closeModal: PropTypes.isRequired,
+  displayModal: PropTypes.isRequired,
 };
 
 export default WebpageDelete;
