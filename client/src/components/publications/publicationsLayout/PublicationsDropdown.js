@@ -89,11 +89,13 @@ const PublicationsDropdown = ({
 };
 
 PublicationsDropdown.propTypes = {
-  options: PropTypes.isRequired,
-  setOptions: PropTypes.isRequired,
-  publication: PropTypes.isRequired,
-  teamId: PropTypes.isRequired,
-  sortPublications: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  options: PropTypes.object.isRequired,
+  setOptions: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  publication: PropTypes.array.isRequired,
+  teamId: PropTypes.string.isRequired,
+  sortPublications: PropTypes.func.isRequired,
 };
 
 export default PublicationsDropdown;

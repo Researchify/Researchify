@@ -8,6 +8,7 @@ import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 
 const LayoutAllPublications = ({ teamPublications, pageSize }) => {
+  // Since we need to validate pageSize and set default, configPageSize might not necessary
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
   return (
     <>
@@ -23,8 +24,12 @@ const LayoutAllPublications = ({ teamPublications, pageSize }) => {
 };
 
 LayoutAllPublications.propTypes = {
-  teamPublications: PropTypes.isRequired,
-  pageSize: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  teamPublications: PropTypes.array.isRequired,
+  pageSize: PropTypes.number,
+};
+LayoutAllPublications.defaultProps = {
+  pageSize: 10,
 };
 
 export default LayoutAllPublications;

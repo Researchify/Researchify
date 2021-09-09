@@ -213,9 +213,10 @@ const CategoryPage = ({
 };
 
 CategoryPage.propTypes = {
-  next: PropTypes.isRequired,
-  prev: PropTypes.isRequired,
-  data: PropTypes.isRequired,
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.object.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
 

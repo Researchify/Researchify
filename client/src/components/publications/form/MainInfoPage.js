@@ -215,12 +215,16 @@ const MainInfoPage = ({
 };
 
 MainInfoPage.propTypes = {
-  next: PropTypes.isRequired,
-  prev: PropTypes.isRequired,
-  data: PropTypes.isRequired,
-  type: PropTypes.isRequired,
-  pub: PropTypes.isRequired,
+  next: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  pub: PropTypes.object,
   closeModal: PropTypes.func.isRequired,
+};
+MainInfoPage.defaultProps = {
+  pub: undefined,
 };
 
 export default MainInfoPage;

@@ -250,7 +250,8 @@ const Publication = ({ pub }) => {
 };
 
 Publication.propTypes = {
-  pub: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  pub: PropTypes.object.isRequired,
 };
 
 export default Publication;
