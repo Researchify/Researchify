@@ -63,7 +63,6 @@ const CategoryPage = ({
         initialValues={data}
       >
         {({
-          handleSubmit,
           handleChange,
           values,
           touched,
