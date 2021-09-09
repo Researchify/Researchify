@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { updateTeamTheme } from '../../actions/team';
+import { updateTheme } from '../../actions/team';
 
 // Picture of each layout
 import singleColumnLayout from '../../images/theme1.png';
@@ -64,7 +64,10 @@ const TemplateSelector = (props) => {
   };
 
   const storeInputs = (teamId, inputObject) => {
-    dispatch(updateTeamTheme(teamId, inputObject));
+    const changes = {
+      layout: inputObject.layout,
+    };
+    dispatch(updateTheme(teamId, changes));
   };
 
   const handleSubmit = (event) => {

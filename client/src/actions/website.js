@@ -67,7 +67,8 @@ export const deletePage = (teamId, pageName) => async (dispatch) => {
 
 export const updatePublicationOptions = (teamId, preference) => async (dispatch) => {
   try {
-    const { data } = await api.updatePublicationOptions(teamId, preference);
+    const changes = { publicationOptions: preference };
+    const { data } = await api.updateClientWebMetadata(teamId, changes);
     dispatch({
       type: UPDATE_PUBLICATION_OPTIONS,
       payload: data,

@@ -28,6 +28,10 @@ const websiteSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    layout: {
+      type: String,
+      required: false,
+    },
     publicationOptions: {
       groupBy: {
         type: String,

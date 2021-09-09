@@ -224,7 +224,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
     // get team homepage content
     const { data: teamHomepage } = await api.getHomepage(teamId);
     // get user selected web pages to deploy
-    const { data: webPages } = await api.getWebsiteInfo(teamId);
+    const { data: webMetaData } = await api.getWebsiteInfo(teamId);
     // get achievements
     const { data: teamAchievements } = await api.fetchAchievementsByTeamId(teamId);
 
@@ -234,7 +234,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       teamInfo,
       teamMembers,
       teamHomepage,
-      webPages,
+      webMetaData,
       teamAchievements,
     };
 
@@ -299,18 +299,23 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
  * @param {*} themeData
  * @returns
  */
-export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
+export const updateTheme = (teamId, themeData) => async (dispatch) => {
   try {
-    const updatedTheme = await api.findOrCreateTheme(themeData);
-    const updatedThemeId = updatedTheme.data._id;
-    const { data } = await api.updateTeam(teamId, {
-      themeId: updatedThemeId,
+    //const updatedTheme = await api.findOrCreateTheme(themeData);
+    // const updatedThemeId = updatedTheme.data._id;
+    // const { data } = await api.updateTeam(teamId, {
+    //   themeId: updatedThemeId,
+    // });
+    console.log(themeData);
+    const { result } = await api.updateClientWebMetadata(teamId, {
+      layout: themeData.layout,
     });
-    const updatedTeam = teamDataAllocator(data);
-    dispatch({
-      type: UPDATE_TEAM,
-      payload: updatedTeam,
-    });
+    console.log(result);
+    // const updatedTeam = teamDataAllocator(data);
+    // dispatch({
+    //   type: UPDATE_TEAM,
+    //   payload: updatedTeam,
+    // });
     dispatch(successMessageCreator('Theme has been updated'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));

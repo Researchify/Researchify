@@ -81,19 +81,21 @@ async function deleteWebPage(req, res, next) {
  * @returns 200: publication options successfully updated in the DB
  * @returns 500: Server error while saving new page name to DB
  */
-async function updatePublicationOptions(req, res, next) { // eslint-disable-line no-unused-vars
-  const updatedPubOptions = req.body;
-  const { teamId: _id } = req.params;// TODO: teamId get from the token instead of parameters?
+async function pathClientWebMetadata(req, res, next) { // eslint-disable-line no-unused-vars
+  console.log(req.body);
+  const changes = req.body;
+  const { team_id: _id } = req.params;// TODO: teamId get from the token instead of parameters?
+  console.log('Printing changes');
+  console.log(changes);
+
   try {
     await Website.updateOne(
       { teamId: _id },
       {
-        $set: {
-          publicationOptions: updatedPubOptions,
-        },
+        $set: changes,
       },
     );
-    return res.status(200).json(updatedPubOptions);
+    return res.status(200).json(changes);
   } catch (err) {
     return res.send(fillErrorObject(500, 'Server error', [err.errors]));
   }
@@ -129,6 +131,5 @@ module.exports = {
   addWebPage,
   deleteWebPage,
   getWebPageDetails,
-  updatePublicationOptions,
-  updateTitle,
+  pathClientWebMetadata,
 };
