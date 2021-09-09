@@ -168,9 +168,10 @@ const AboutUs = () => {
 
 //props validation
 TabPanel.propTypes = {
-  children: PropTypes.isRequired,
-  value: PropTypes.isRequired,
-  index: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  children: PropTypes.array.isRequired,
+  value: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default AboutUs;
