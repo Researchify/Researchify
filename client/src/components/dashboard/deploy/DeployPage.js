@@ -1,15 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
-import { Spinner } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
 
 import { githubClientId, scope } from '../../../config/deploy';
-import { getGHAccessToken } from '../../../actions/team';
+import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
 
 import './DeployPage.css';
-import DeployForm from './form/DeployForm';
 
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
@@ -17,7 +16,11 @@ const DeployPage = ({ teamId }) => {
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken,
   );
-
+  const handleDeploy = () => {
+    const accessToken = localStorage.getItem('GH_access_token'); // eslint-disable-line no-undef
+    // call backend endpoint to deploy and give the access token
+    dispatch(deployToGHPages(teamId, accessToken));
+  };
   const onSuccessfulLogin = (response) => {
     const { code } = response;
     // Now that we have the temporary code, we wish to exchange it for a GitHub
@@ -45,6 +48,17 @@ const DeployPage = ({ teamId }) => {
     </GitHubLogin>
   );
 
+  const DeployButton = (
+    <Button
+      className="float-right"
+      variant="primary"
+      disabled={!retrievedAccessToken}
+      onClick={handleDeploy}
+    >
+      Deploy to GitHub Pages
+    </Button>
+  );
+
   return (
     <>
       Deploy Website with GitHub
@@ -53,7 +67,7 @@ const DeployPage = ({ teamId }) => {
           <Spinner animation="border" />
         </div>
       ) : retrievedAccessToken ? (
-        <DeployForm teamId={teamId} />
+        DeployButton
       ) : (
         GitHubLoginButton
       )}
