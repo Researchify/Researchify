@@ -74,4 +74,12 @@ teamRouter.patch(
   teamController.updateTeam,
 );
 
+teamRouter.patch(
+  '/:team_id/password',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.updatePassword,
+);
+
 module.exports = teamRouter;

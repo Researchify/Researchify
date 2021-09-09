@@ -308,6 +308,44 @@ async function updateTeam(req, res, next) { // eslint-disable-line no-unused-var
   res.status(200).json(updatedTeam);
 }
 
+/**
+ * Update the team's password from the database on /team/:team_id
+ * @param {} req request object, containing team id in the url
+ * @param {*} res response object, the updated team document
+ * @returns 200: team updated
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format or current password is incorrect
+ */
+async function updatePassword(req, res, next) { // eslint-disable-line no-unused-vars
+  const { team_id: _id } = req.params;
+  const team = req.body;
+
+  const foundTeam = await Team.findOne({ _id:_id });
+
+  if (await bcrypt.compare(team.currentPassword, foundTeam.password)) {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(team.password, salt);
+    team.password = hashedPassword;
+
+
+
+    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+      new: true,
+      runValidators: true,
+    });
+    updatedTeam.password = '';
+
+    res.status(200).json(updatedTeam);
+  }else{
+    return next(
+      fillErrorObject(400, 'Authentication error', [
+        'Incorrect password',
+      ]),
+    );
+  }
+
+}
+
 module.exports = {
   storeHandle,
   getTeam,
@@ -319,4 +357,5 @@ module.exports = {
   updateTeam,
   getGHAccessToken,
   deployToGHPages,
+  updatePassword,
 };

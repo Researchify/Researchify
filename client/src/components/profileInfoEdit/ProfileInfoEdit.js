@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from "yup";
 import profilePic from '../../images/profilepic.jpg';
-import { updateTeam } from '../../actions/team';
+import { updateTeam, updatePassword } from '../../actions/team';
 
 
 /**
@@ -105,9 +105,10 @@ const ProfileInfoEdit = () => {
             setErrors(newErrors)
 
             const newdata = {
+                "currentPassword": {...profileDataPassword}.currentPassword,
                 "password": {...profileDataPassword}.password
             }
-            dispatch(updateTeam(teamId, newdata, ' Password has been updated'));
+            dispatch(updatePassword(teamId, newdata, ' Password has been updated'));
         }
     }
 
@@ -230,8 +231,26 @@ const ProfileInfoEdit = () => {
           onSubmit={handleUpdatePassword}
         >
               <p className="profile-title-name">Team Password update</p>
+
+               <Form.Group>
+            <Form.Label>Current Password </Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={profileDataPassword.currentPassword}
+                onChange={ e => setPassword('currentPassword', e.target.value) }
+                isInvalid={ !!errors.currentPassword }
+
+              />
+                  <Form.Control.Feedback type='invalid'>
+        { errors.password }
+    </Form.Control.Feedback>
+
+          </Form.Group>
+
               <Form.Group>
-            <Form.Label> Password </Form.Label>
+            <Form.Label> New Password </Form.Label>
               <Form.Control
                 type="password"
                 name="password"
