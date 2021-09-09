@@ -24,7 +24,7 @@ const usePagination = (data, itemPerPage) => {
   };
   const pagination = () => {
     const items = [];
-    for (let number = 1; number <= maxPage; number += 1) {
+    for (let number = 1; number <= maxPage; number++) {
       items.push(
         <Pagination.Item
           key={number}

@@ -80,7 +80,7 @@ const ImportSuccessPage = ({ closeModal }) => {
     let checkedPublications = publications.filter(
       (pub, idx) => publicationsToImport[idx],
     );
-    for (let i = 0; i < checkedPublications.length; i += 1) {
+    for (let i = 0; i < checkedPublications.length; i++) {
       checkedPublications[i].yearPublished = `${checkedPublications[i].yearPublished.toString()}-01-01`;
     }
     checkedPublications = checkedPublications.map((pub) => ({

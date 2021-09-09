@@ -11,6 +11,7 @@
     "rules": {
         "max-len": "off",
         "no-underscore-dangle": "off",
+        "no-plusplus": "off",
         "no-use-before-define": ["error", {"functions":  false, "classes":  false}],
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": "off",

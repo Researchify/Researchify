@@ -59,7 +59,7 @@ const BigIntro = () => {
   const boxes = () => {
     const array = [];
     const numberOfBox = 15;
-    for (let i = 0; i < numberOfBox; i += 1) array.push(i);
+    for (let i = 0; i < numberOfBox; i++) array.push(i);
     return array;
   };
 
