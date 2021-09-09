@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 
 const PublicationsButtons = ({ setShowCreateForm, setShowImportForm }) => (
   <div className="mb-3 mt-4 text-center">
@@ -11,5 +12,10 @@ const PublicationsButtons = ({ setShowCreateForm, setShowImportForm }) => (
     </Button>
   </div>
 );
+
+PublicationsButtons.propTypes = {
+  setShowCreateForm: PropTypes.func.isRequired,
+  setShowImportForm: PropTypes.func.isRequired,
+};
 
 export default PublicationsButtons;

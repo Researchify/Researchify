@@ -17,6 +17,7 @@ import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { GrLinkDown, GrLinkUp } from 'react-icons/gr';
 import { IconContext } from 'react-icons';
+import { PropTypes } from 'prop-types';
 import PublicationForm from '../form/PublicationForm';
 import { deletePublication } from '../../../actions/publications';
 import '../publications.css';
@@ -246,6 +247,10 @@ const Publication = ({ pub }) => {
       </Modal>
     </>
   );
+};
+
+Publication.propTypes = {
+  pub: PropTypes.isRequired,
 };
 
 export default Publication;

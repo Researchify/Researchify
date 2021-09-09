@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dropdown, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 
@@ -85,6 +86,14 @@ const PublicationsDropdown = ({
       </div>
     </div>
   );
+};
+
+PublicationsDropdown.propTypes = {
+  options: PropTypes.isRequired,
+  setOptions: PropTypes.isRequired,
+  publication: PropTypes.isRequired,
+  teamId: PropTypes.isRequired,
+  sortPublications: PropTypes.isRequired,
 };
 
 export default PublicationsDropdown;
