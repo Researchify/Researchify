@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Row, Button, Tooltip, OverlayTrigger, Form,
 } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import { updateAchievement, createAchievement } from '../../../actions/achievements';
 
 const AchievementForm = ({ closeModal, achievement, type }) => {
@@ -142,6 +143,12 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
       )}
     </Formik>
   );
+};
+
+AchievementForm.propTypes = {
+  achievement: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  closeModal: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default AchievementForm;
