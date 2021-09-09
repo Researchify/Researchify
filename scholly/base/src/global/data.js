@@ -49,7 +49,6 @@ if (!env.REACT_APP_DEBUG) {
   WEB_METADATA = env.REACT_APP_WEB_METADATA
     ? JSON.parse(env.REACT_APP_WEB_METADATA)
     : { pages: [], layout: defaultLayout, publicationOptions: { layout: 'By Category', sortBy: 'Category Title' } };
-  console.log(WEB_METADATA);
 
   /// The list of achievements the team has created for rendering in the achievements page
   TEAM_ACHIEVEMENTS = env.REACT_APP_TEAM_ACHIEVEMENTS

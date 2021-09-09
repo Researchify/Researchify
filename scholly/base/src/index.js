@@ -22,7 +22,7 @@ import { WEB_METADATA } from './global/data';
 const layoutOption = WEB_METADATA.layout;
 const layoutToDisplay = () => {
   switch (layoutOption) {
-    case 1: // TODO: there might be a better way to do this.
+    case '1': // TODO: there might be a better way to do this.
       // eslint-disable-next-line no-case-declarations
       const AppLayout1 = React.lazy(() => import('./layouts/layout1/App'));
       return (
@@ -32,7 +32,7 @@ const layoutToDisplay = () => {
           </React.Suspense>
         </>
       );
-    case 2:
+    case '2':
       // eslint-disable-next-line no-case-declarations
       const AppLayout2 = React.lazy(() => import('./layouts/layout2/App'));
       return (
@@ -42,7 +42,7 @@ const layoutToDisplay = () => {
           </React.Suspense>
         </>
       );
-    case 3:
+    case '3':
       // eslint-disable-next-line no-case-declarations
       const AppLayout3 = React.lazy(() => import('./layouts/layout3/App'));
       return (

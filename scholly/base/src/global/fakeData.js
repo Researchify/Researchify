@@ -1,7 +1,7 @@
 export const FAKE_WEB_METADATA = {
   pages: ['PUBLICATIONS', 'TEAM', 'ACHIEVEMENTS'],
   publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
-  layout: 4,
+  layout: '2',
 };
 
 export const FAKE_PUBLICATIONS = [
