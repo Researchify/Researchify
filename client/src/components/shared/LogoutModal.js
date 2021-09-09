@@ -32,8 +32,8 @@ const LogoutModal = ({ logoutAlert, setLogoutAlert }) => {
 };
 
 LogoutModal.propTypes = {
-  logoutAlert: PropTypes.isRequired,
-  setLogoutAlert: PropTypes.isRequired,
+  logoutAlert: PropTypes.bool.isRequired,
+  setLogoutAlert: PropTypes.func.isRequired,
 };
 
 export default LogoutModal;

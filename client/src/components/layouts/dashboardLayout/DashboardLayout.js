@@ -42,7 +42,7 @@ const DashboardLayout = ({ children }) => {
 
 // props validation
 DashboardLayout.propTypes = {
-  children: PropTypes.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default DashboardLayout;

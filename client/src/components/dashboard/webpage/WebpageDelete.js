@@ -54,11 +54,14 @@ const WebpageDelete = (props) => {
 // props validation
 WebpageDelete.propTypes = {
   teamId: PropTypes.string.isRequired,
-  selectedPage: PropTypes.isRequired,
-  setSelectedPage: PropTypes.isRequired,
-  pagePlaceholder: PropTypes.isRequired,
-  closeModal: PropTypes.isRequired,
-  displayModal: PropTypes.isRequired,
+  selectedPage: PropTypes.string.isRequired,
+  setSelectedPage: PropTypes.func.isRequired,
+  pagePlaceholder: PropTypes.string,
+  closeModal: PropTypes.func.isRequired,
+  displayModal: PropTypes.bool.isRequired,
+};
+WebpageDelete.defaultProps = {
+  pagePlaceholder: '',
 };
 
 export default WebpageDelete;

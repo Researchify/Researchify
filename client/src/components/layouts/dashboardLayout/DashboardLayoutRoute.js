@@ -21,7 +21,7 @@ const DashboardLayoutRoute = ({ component: Component, ...rest }) => (
 
 // props validation
 DashboardLayoutRoute.propTypes = {
-  component: PropTypes.isRequired,
+  component: PropTypes.func.isRequired,
 };
 
 export default DashboardLayoutRoute;

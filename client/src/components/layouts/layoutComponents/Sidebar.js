@@ -32,7 +32,8 @@ const Sidebar = ({ data }) => {
 };
 
 Sidebar.propTypes = {
-  data: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.array.isRequired,
 };
 
 export default Sidebar;

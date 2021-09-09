@@ -39,7 +39,8 @@ const Header = (props) => {
 
 // props validation
 Header.propTypes = {
-  data: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.object.isRequired,
 };
 
 export default Header;

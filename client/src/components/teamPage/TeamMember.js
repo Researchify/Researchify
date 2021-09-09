@@ -131,7 +131,8 @@ const TeamMember = ({ member }) => {
 };
 
 TeamMember.propTypes = {
-  member: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  member: PropTypes.object.isRequired,
 };
 
 export default TeamMember;

@@ -71,10 +71,11 @@ const WebpageSelector = ({
 };
 
 WebpageSelector.propTypes = {
-  currentWebPages: PropTypes.isRequired,
-  teamId: PropTypes.isRequired,
-  closeModal: PropTypes.isRequired,
-  displayModal: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  currentWebPages: PropTypes.array.isRequired,
+  teamId: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  displayModal: PropTypes.bool.isRequired,
 };
 
 export default WebpageSelector;

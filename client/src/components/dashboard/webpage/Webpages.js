@@ -160,13 +160,18 @@ const Webpages = ({
 
 // props validation
 Webpages.propTypes = {
-  currentWebPages: PropTypes.isRequired,
-  directToAnotherPage: PropTypes.isRequired,
-  teamId: PropTypes.isRequired,
-  setSelectedPage: PropTypes.isRequired,
-  selectedPage: PropTypes.isRequired,
-  availablePages: PropTypes.isRequired,
-  loading: PropTypes.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  currentWebPages: PropTypes.array.isRequired,
+  directToAnotherPage: PropTypes.func.isRequired,
+  teamId: PropTypes.string.isRequired,
+  setSelectedPage: PropTypes.func.isRequired,
+  selectedPage: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  availablePages: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+};
+Webpages.defaultProps = {
+  loading: false,
 };
 
 export default Webpages;
