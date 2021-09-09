@@ -59,7 +59,7 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
             <a
               href={pub.link}
               style={{ cursor: 'pointer' }}
-              onClick={() => window.open(`${pub.link}`, '_blank')} // eslint-disable-line no-undef
+              onClick={() => window.open(`${pub.link}`, '_blank')}
             >
               {` ${pub.link}`}
             </a>
