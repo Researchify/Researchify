@@ -5,19 +5,17 @@ const usePagination = (data, itemPerPage) => {
   const [currentPage, setCurrentPage] = useState(1);
   const maxPage = Math.ceil(data.length / itemPerPage);
   const currentData = () => {
-    if (data) {
+    if (data.length > 0) {
       const start = (currentPage - 1) * itemPerPage;
       const end = start + itemPerPage;
       const currentData = data.slice(start, end);
-      // check if the current page contains data
       if (currentData.length === 0) {
-        const start = (currentPage - 2) * itemPerPage;
-        const end = start + itemPerPage;
-        setCurrentPage(currentPage - 1);
-        return data.slice(start, end);
+        setCurrentPage(maxPage);
+        return data.slice(maxPage - 1 * itemPerPage);
       }
       return currentData;
     }
+    return [];
   };
   const nextPage = () => {
     setCurrentPage((currentPage) => Math.min(currentPage + 1, maxPage));
