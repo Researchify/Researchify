@@ -8,7 +8,15 @@ const usePagination = (data, itemPerPage) => {
     if (data) {
       const start = (currentPage - 1) * itemPerPage;
       const end = start + itemPerPage;
-      return data.slice(start, end);
+      const currentData = data.slice(start, end);
+      // check if the current page contains data
+      if (currentData.length === 0) {
+        const start = (currentPage - 2) * itemPerPage;
+        const end = start + itemPerPage;
+        setCurrentPage(currentPage - 1);
+        return data.slice(start, end);
+      }
+      return currentData;
     }
   };
   const nextPage = () => {
