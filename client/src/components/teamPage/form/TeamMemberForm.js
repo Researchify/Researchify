@@ -141,8 +141,11 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
 TeamMemberForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  member: PropTypes.object.isRequired,
+  member: PropTypes.object,
   type: PropTypes.string.isRequired,
+};
+TeamMemberForm.defaultProps = {
+  member: undefined,
 };
 
 export default TeamMemberForm;
