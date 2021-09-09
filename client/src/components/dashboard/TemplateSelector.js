@@ -214,4 +214,8 @@ const TemplateSelector = (props) => {
   );
 };
 
+TemplateSelector.propTypes = {
+  teamId: React.PropTypes.string.isRequired,
+};
+
 export default TemplateSelector;

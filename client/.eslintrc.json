@@ -17,7 +17,6 @@
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": "off",
         "react/jsx-props-no-spreading": "off",
-        "react/prop-types": "off", // should refactor later
         "react/no-array-index-key": "off", // should refactor later
         "no-nested-ternary": "off", // should refactor later
         "jsx-a11y/click-events-have-key-events": "off", // low-prio refactor
@@ -28,6 +27,7 @@
         "no-param-reassign": "off", // should refactor later
         "no-return-assign": "off", // should refactor later
         "spaced-comment": "off",
-        "arrow-body-style": "off" // should refactor later
+        "arrow-body-style": "off", // should refactor later
+        "linebreak-style": "off"
     }
 }
