@@ -9,7 +9,7 @@ const usePagination = (data, itemPerPage) => {
       const start = (currentPage - 1) * itemPerPage;
       const end = start + itemPerPage;
       const currentData = data.slice(start, end);
-      if (currentData.length === 0) {
+      if (currentData.length === 0) { // check if the current page has data (user might delete all data on the current page)
         setCurrentPage(maxPage);
         return data.slice(maxPage - 1 * itemPerPage);
       }
