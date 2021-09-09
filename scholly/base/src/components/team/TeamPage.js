@@ -4,12 +4,12 @@
 import React, { Fragment } from 'react';
 import { CardDeck, Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
-import { TEAM_MEMBERS, WEB_PAGES } from '../../global/data';
+import { TEAM_MEMBERS, TEAM_INFO } from '../../global/data';
 import TeamMember from './TeamMember';
 
 const TeamPage = () => {
   const teamMembers = TEAM_MEMBERS;
-  const { title } = WEB_PAGES;
+  const { orgName } = TEAM_INFO;
   return (
     <>
       <Helmet>
@@ -17,7 +17,7 @@ const TeamPage = () => {
           {' '}
           Team -
           {' '}
-          {title}
+          {orgName}
           {' '}
         </title>
       </Helmet>

@@ -4,7 +4,7 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import { Helmet } from 'react-helmet';
-import { WEB_PAGES } from '../../global/data';
+import { TEAM_INFO } from '../../global/data';
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
 
@@ -43,7 +43,7 @@ const PublicationPage = () => {
   //     </Fragment>
   //   )}
   // </Fragment>
-  const { title } = WEB_PAGES;
+  const { orgName } = TEAM_INFO;
   return (
     <>
       <Helmet>
@@ -51,7 +51,7 @@ const PublicationPage = () => {
           {' '}
           Publications -
           {' '}
-          {title}
+          {orgName}
           {' '}
         </title>
       </Helmet>

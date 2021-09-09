@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
-
 import './DeployPage.css';
 
 const DeployPage = ({ teamId }) => {
@@ -16,11 +15,13 @@ const DeployPage = ({ teamId }) => {
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken,
   );
+
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token'); // eslint-disable-line no-undef
     // call backend endpoint to deploy and give the access token
     dispatch(deployToGHPages(teamId, accessToken));
   };
+
   const onSuccessfulLogin = (response) => {
     const { code } = response;
     // Now that we have the temporary code, we wish to exchange it for a GitHub

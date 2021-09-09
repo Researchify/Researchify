@@ -4,11 +4,11 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
-import { TEAM_HOMEPAGE, WEB_PAGES } from '../../global/data';
+import { TEAM_HOMEPAGE, TEAM_INFO } from '../../global/data';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
-  const { title } = WEB_PAGES;
+  const { orgName } = TEAM_INFO;
   return (
     <>
       <Helmet>
@@ -16,7 +16,7 @@ const landingPage = () => {
           {' '}
           Home -
           {' '}
-          {title}
+          {orgName}
           {' '}
         </title>
       </Helmet>

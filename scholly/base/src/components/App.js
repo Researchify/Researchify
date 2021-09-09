@@ -4,13 +4,13 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { WEB_PAGES } from '../global/data';
+import { TEAM_INFO } from '../global/data';
 import Header from './layout/Header';
 import getRoutes from './router/routes';
 import './centred.css';
 
 const App = () => {
-  const { title } = WEB_PAGES;
+  const { orgName } = TEAM_INFO;
   const routeItems = getRoutes().map(({ path, exact, component }) => {
     const View = component;
     return (
@@ -23,7 +23,7 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <title>{title}</title>
+        <title>{orgName}</title>
       </Helmet>
       <Header />
       <Switch>
