@@ -11,7 +11,6 @@
     "rules": {
         "max-len": "off",
         "no-underscore-dangle": "off",
-        "camelcase": "off", 
         "consistent-return": "off",
         "no-plusplus": "off",
         "prefer-destructuring": "off",
@@ -32,6 +31,7 @@
         "no-param-reassign": "off", // should refactor later
         "no-return-assign": "off", // should refactor later
         "spaced-comment": "off",
-        "arrow-body-style": "off" // should refactor later
+        "arrow-body-style": "off", // should refactor later
+        "linebreak-style": "off"
     }
 }
