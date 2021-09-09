@@ -11,7 +11,7 @@ module.exports = {
   REACT_APP_TEAM_INFO: 'REACT_APP_TEAM_INFO',
   REACT_APP_TEAM_MEMBERS: 'REACT_APP_TEAM_MEMBERS',
   REACT_APP_TEAM_HOMEPAGE: 'REACT_APP_TEAM_HOMEPAGE',
-  // Array containing names of pages that the client wants deployed
-  REACT_APP_WEB_PAGES: 'REACT_APP_WEB_PAGES',
+  // Contains array of pages to deploy, and client layout selection for the entire website and for publications list
+  REACT_APP_WEB_METADATA: 'REACT_APP_WEB_METADATA',
   REACT_APP_TEAM_ACHIEVEMENTS: 'REACT_APP_TEAM_ACHIEVEMENTS',
 };

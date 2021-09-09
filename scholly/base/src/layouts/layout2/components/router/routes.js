@@ -1,4 +1,4 @@
-import { WEB_PAGES } from '../../../../global/data';
+import { WEB_METADATA } from '../../../../global/data';
 import PublicationPage from '../publications/PublicationPage';
 import LandingPage from '../landingPage/LandingPage';
 import TeamPage from '../team/TeamPage';
@@ -38,7 +38,7 @@ const defaultRoutes = [
  * Get the routes to the web pages the client wants deployed
  */
 const getRoutes = () => {
-  const routes = availableRoutes.filter(({ title }) => WEB_PAGES.pages.includes(title.toUpperCase()));
+  const routes = availableRoutes.filter(({ title }) => WEB_METADATA.pages.includes(title.toUpperCase()));
 
   return [...defaultRoutes, ...routes];
 };

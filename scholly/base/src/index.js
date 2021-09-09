@@ -15,12 +15,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-grid.css';
 import 'bootstrap/dist/css/bootstrap-reboot.css';
 
-import { LAYOUT_OPTION } from './global/data';
+import { WEB_METADATA } from './global/data';
 
 /// Decides which of the root App components of the various layouts to display.
 /// This determination is based off the provided LAYOUT_OPTION environment variable.
+const layoutOption = WEB_METADATA.layout;
 const layoutToDisplay = () => {
-  switch (LAYOUT_OPTION) {
+  switch (layoutOption) {
     case 1: // TODO: there might be a better way to do this.
       // eslint-disable-next-line no-case-declarations
       const AppLayout1 = React.lazy(() => import('./layouts/layout1/App'));
