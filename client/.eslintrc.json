@@ -2,7 +2,8 @@
     "env": {
         "commonjs": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "browser": true
     },
     "extends": ["eslint:recommended", "airbnb"],
     "parserOptions": {
@@ -11,12 +12,7 @@
     "rules": {
         "max-len": "off",
         "no-underscore-dangle": "off",
-        "camelcase": "off", 
-        "consistent-return": "off",
-        "no-plusplus": "off",
-        "prefer-destructuring": "off",
-        "no-shadow": "off",
-        "no-await-in-loop": "off",
+        "no-plusplus": "off", // keep `var ++` for consistency
         "no-use-before-define": ["error", {"functions":  false, "classes":  false}],
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": "off",
@@ -32,6 +28,7 @@
         "no-param-reassign": "off", // should refactor later
         "no-return-assign": "off", // should refactor later
         "spaced-comment": "off",
-        "arrow-body-style": "off" // should refactor later
+        "arrow-body-style": "off", // should refactor later
+        "linebreak-style": "off"
     }
 }
