@@ -21,7 +21,6 @@
         "jsx-a11y/click-events-have-key-events": "off", // low-prio refactor
         "jsx-a11y/no-static-element-interactions": "off", // low-prio refactor
         "jsx-a11y/no-noninteractive-element-interactions": "off", // low-prio refactor
-        "react/destructuring-assignment": "off", // should refactor later
         "radix": "off", // low-prio refactor
         "no-param-reassign": "off", // should refactor later
         "no-return-assign": "off", // should refactor later

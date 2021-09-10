@@ -11,7 +11,7 @@ import './Header.css';
  * This function provides header for Layout.js
  * @returns Header component to be rendered in Layout.js
  */
-const Header = (props) => {
+const Header = ({ data }) => {
   const userName = useSelector(
     (state) => `${state.team?.teamName} @ ${state.team?.orgName}`,
   );
@@ -20,8 +20,8 @@ const Header = (props) => {
     <>
       <Navbar className="header" fixed="top">
         <Navbar.Brand>
-          <Link className="header-brand" to={props.data.dashboardURL}>
-            {props.data.title}
+          <Link className="header-brand" to={data.dashboardURL}>
+            {data.title}
           </Link>
         </Navbar.Brand>
         <Nav className="mr-auto" />
