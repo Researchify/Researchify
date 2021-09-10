@@ -55,10 +55,13 @@ const ProfileInfoEdit = () => {
     const reader = new FileReader();
     const file = e.target.files[0];
 
-    reader.onload = (e) => {
-      setInputs({ ...profileData, profilePic: e.target.result });
-    };
-    reader.readAsDataURL(file);
+    if (e.target.files[0]) {
+      reader.onload = (e) => {
+        setInputs({ ...profileData, profilePic: e.target.result });
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
   const [validated, setValidated] = useState(false);
