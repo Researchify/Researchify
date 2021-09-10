@@ -102,7 +102,7 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
           <h6 className="ml-3">
             {' '}
             Year Published:
-            {` ${pub.yearPublished}`}
+            {pub.yearPublished}
           </h6>
           {dropDown}
         </Card.Body>

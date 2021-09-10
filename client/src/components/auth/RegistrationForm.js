@@ -60,9 +60,8 @@ export default function RegistrationForm() {
   };
 
   const submitForm = (values) => {
-    const teamInfo = { ...values };
-    delete teamInfo.confirmedPassword;
-    dispatch(createTeam(teamInfo));
+    delete values.confirmedPassword;
+    dispatch(createTeam(values));
   };
 
   return (
