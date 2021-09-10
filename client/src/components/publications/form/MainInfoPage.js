@@ -94,7 +94,6 @@ const MainInfoPage = ({
         initialValues={type === 'update' ? pub : data}
       >
         {({
-          handleSubmit,
           handleChange,
           values,
           touched,
@@ -129,9 +128,9 @@ const MainInfoPage = ({
                 value={values.yearPublished}
                 onChange={handleChange}
               >
-                {years.map((year, index) => (
-                  <option key={`year${index}`} value={year}>
-                    {year}
+                {years.map((eachYear, index) => (
+                  <option key={`year${index}`} value={eachYear}>
+                    {eachYear}
                   </option>
                 ))}
               </Form.Control>

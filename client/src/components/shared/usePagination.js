@@ -10,12 +10,13 @@ const usePagination = (data, itemPerPage) => {
       const end = start + itemPerPage;
       return data.slice(start, end);
     }
+    return undefined;
   };
   const nextPage = () => {
-    setCurrentPage((currentPage) => Math.min(currentPage + 1, maxPage));
+    setCurrentPage(() => Math.min(currentPage + 1, maxPage));
   };
   const prevPage = () => {
-    setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
+    setCurrentPage(() => Math.max(currentPage - 1, 1));
   };
   const jumpToPage = (page) => {
     const pageNumber = Math.max(1, page);
