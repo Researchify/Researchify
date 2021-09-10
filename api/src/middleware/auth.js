@@ -37,16 +37,16 @@ const cookieJwtAuth = (req, res, next) => {
       const { team } = jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH_TOKEN || 'JWT_SECRET_REFRESH_TOKEN');
 
       // re-gernerate the accessToken
-      const accessToken = jwt.sign({ team }, process.env.JWT_SECRET_ACCESS_TOKEN || 'JWT_SECRET_ACCESS_TOKEN', {
+      const newAccessToken = jwt.sign({ team }, process.env.JWT_SECRET_ACCESS_TOKEN || 'JWT_SECRET_ACCESS_TOKEN', {
         expiresIn: accessTokenExpiry,
       });
-      res.cookie('accessToken', accessToken, {
+      res.cookie('accessToken', newAccessToken, {
         httpOnly: true,
         maxAge: accessTokenCookieExpiry,
       });
       req.team = team;
       return next();
-    } catch (error) { // both access and refresh token expire
+    } catch (err) { // both access and refresh token expire
       res.clearCookie('refreshToken');
       res.clearCookie('isLogin');
       return next(
