@@ -216,10 +216,8 @@ const MainInfoPage = ({
 
 MainInfoPage.propTypes = {
   next: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   data: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   pub: PropTypes.object,
   closeModal: PropTypes.func.isRequired,
 };

@@ -71,7 +71,6 @@ const WebpageSelector = ({
 };
 
 WebpageSelector.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   currentWebPages: PropTypes.array.isRequired,
   teamId: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,

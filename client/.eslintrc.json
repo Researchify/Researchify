@@ -14,6 +14,7 @@
         "no-underscore-dangle": "off",
         "no-plusplus": "off", // keep `var ++` for consistency
         "no-use-before-define": ["error", {"functions":  false, "classes":  false}],
+        "react/forbid-prop-types": "off", // we're passing obj/array
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": "off",
         "react/jsx-props-no-spreading": "off",

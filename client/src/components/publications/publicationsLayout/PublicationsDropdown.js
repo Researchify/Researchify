@@ -89,10 +89,8 @@ const PublicationsDropdown = ({
 };
 
 PublicationsDropdown.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   options: PropTypes.object.isRequired,
   setOptions: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   publication: PropTypes.array.isRequired,
   teamId: PropTypes.string.isRequired,
   sortPublications: PropTypes.func.isRequired,

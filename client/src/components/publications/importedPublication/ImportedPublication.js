@@ -113,7 +113,6 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
 };
 
 ImportedPublication.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   pub: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   setChecked: PropTypes.func.isRequired,

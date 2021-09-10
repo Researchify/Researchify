@@ -160,13 +160,11 @@ const Webpages = ({
 
 // props validation
 Webpages.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   currentWebPages: PropTypes.array.isRequired,
   directToAnotherPage: PropTypes.func.isRequired,
   teamId: PropTypes.string.isRequired,
   setSelectedPage: PropTypes.func.isRequired,
   selectedPage: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   availablePages: PropTypes.array.isRequired,
   loading: PropTypes.bool,
 };

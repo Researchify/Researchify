@@ -126,7 +126,7 @@ const Achievement = ({ achievement }) => {
 
 // props validation
 Achievement.propTypes = {
-  achievement: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  achievement: PropTypes.object.isRequired,
 };
 
 export default Achievement;

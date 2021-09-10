@@ -146,7 +146,7 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
 };
 
 AchievementForm.propTypes = {
-  achievement: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  achievement: PropTypes.object,
   closeModal: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };

@@ -24,7 +24,6 @@ const LayoutAllPublications = ({ teamPublications, pageSize }) => {
 };
 
 LayoutAllPublications.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   teamPublications: PropTypes.array.isRequired,
   pageSize: PropTypes.number,
 };
