@@ -56,9 +56,7 @@ if (!env.REACT_APP_DEBUG) {
     ? JSON.parse(env.REACT_APP_TEAM_ACHIEVEMENTS)
     : [];
 
-  LAYOUT_OPTION = env.REACT_APP_LAYOUT_OPTION
-    ? JSON.parse(env.REACT_APP_LAYOUT_OPTION)
-    : defaultLayout;
+  LAYOUT_OPTION = defaultLayout;
 } else {
   // Running client website locally, so use fake data
   console.log('Running in DEBUG mode, hence using fake data'); // eslint-disable-line no-console
