@@ -36,3 +36,11 @@
         }], done);
      });
  });
+
+ describe('GET /achievements/:teamId', function() {
+     it('Returns status code of 404, when teamId does not exist', function(done) {
+         request(app)
+         .get('/achievements/124')
+         .expect(404, done)
+     })
+ })
