@@ -71,5 +71,5 @@ ReactDOM.render(
   <HashRouter>
     {layoutToDisplay()}
   </HashRouter>,
-  document.getElementById('root'), // eslint-disable-line no-undef
+  document.getElementById('root'),
 );
