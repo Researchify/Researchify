@@ -102,7 +102,7 @@ function createPublication(req, res, next) {
 }
 
 /**
- * Handles a GET request, which will retrieve all publications by team in the endpoint /publications/team/:team_id.
+ * Handles a GET request, which will retrieve all publications by team in the endpoint /publications/team/:teamId.
  *
  * @param req request object - team id given in the url
  * @param res response object - a list of publications (see Publications model)
@@ -112,7 +112,7 @@ function createPublication(req, res, next) {
  * @todo filter by other fields like year passed in through req.query
  */
 function readAllPublicationsByTeam(req, res, next) {
-  const { team_id: _id } = req.params;
+  const { teamId: _id } = req.params;
 
   Publication.aggregate([
     {
@@ -141,7 +141,7 @@ function readAllPublicationsByTeam(req, res, next) {
 async function getGoogleScholarPublications(req, res) {
   const author = req.params.gScholarUserId;
   const { startFrom } = req.params;
-  const teamId = req.params.team_id;
+  const teamId = req.params.teamId;
 
   const { pageSize } = scrapingConfig;
   const url = scrapingConfig.baseUrl
@@ -301,7 +301,7 @@ async function validateImportedPublications(_id, publications) {
 }
 
 /**
- * Handles a POST request, which will create a bulk publications in the database using the endpoint /publications/import/:team_id.
+ * Handles a POST request, which will create a bulk publications in the database using the endpoint /publications/import/:teamId.
  * @param req request object - team id given in the url, an array of publication in body (see Publication model)
  * @param res response object
  * @returns 201: the bulk publications has been created

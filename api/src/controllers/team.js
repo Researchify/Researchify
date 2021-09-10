@@ -16,8 +16,8 @@ const {
 const { fillErrorObject } = require('../middleware/error');
 
 /**
- * Associates a twitter handle with a team on the /team/twitter-handle/:team-id endpoint.
- * @param {*} req request object, containing the team_id in the url and twitter handle in the body
+ * Associates a twitter handle with a team on the /team/twitter-handle/:teamId endpoint.
+ * @param {*} req request object, containing the teamId in the url and twitter handle in the body
  * @param {*} res response object
  * @returns 200: successful added twitter handle to team
  * @returns 400: team id is not in a valid hexadecimal format
@@ -110,7 +110,7 @@ async function createTeam(req, res, next) {
 }
 
 /**
- * Gets the team member array from the database on /team/:team_id/member.
+ * Gets the team member array from the database on /team/:teamId/member.
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the returned team member array
  * @returns 200: the team member array was returned
@@ -123,7 +123,7 @@ function readTeamMembersByTeam(req, res) {
 }
 
 /**
- * POST request to create a new team member to the database on /team/:team_id/member.
+ * POST request to create a new team member to the database on /team/:teamId/member.
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the created team member document
  * @returns 200: the team member was created
@@ -144,7 +144,7 @@ function createTeamMember(req, res, next) {
 }
 
 /**
- * Delete the team member from the database on /team/:team_id/member/:member_id.
+ * Delete the team member from the database on /team/:teamId/member/:member_id.
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the relevant message returned
  * @returns 200: the team member was deleted
@@ -153,8 +153,8 @@ function createTeamMember(req, res, next) {
  */
 function deleteTeamMember(req, res, next) {
   const { foundTeam } = req;
-  const { member_id } = req.params;
-  foundTeam.teamMembers.pull({ _id: member_id });
+  const { memberId } = req.params;
+  foundTeam.teamMembers.pull({ _id: memberId });
   foundTeam
     .save()
     .then(() => res.status(200).json(foundTeam.teamMembers))
@@ -162,7 +162,7 @@ function deleteTeamMember(req, res, next) {
 }
 
 /**
- * Update the team member from the database on /team/:team_id/member.
+ * Update the team member from the database on /team/:teamId/member.
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the updated team member document
  * @returns 200: the team member was updated
@@ -184,7 +184,7 @@ function updateTeamMember(req, res, next) {
 }
 
 /**
- * Handles a GET request on /:team_id/gh_auth/:code to exchange a GitHub
+ * Handles a GET request on /:teamId/gh_auth/:code to exchange a GitHub
  * temporary code acquired during the first step of the GitHub OAuth flow with a
  * GitHub access token.
  *
@@ -227,7 +227,7 @@ async function getGHAccessToken(req, res, next) {
 }
 
 /**
- * Handles a POST request on /:team_id/deploy to deploy a client's website
+ * Handles a POST request on /:teamId/deploy to deploy a client's website
  * by delegating to the Scholly service.
  *
  * @see:
@@ -242,7 +242,7 @@ async function getGHAccessToken(req, res, next) {
  * @returns 500 if Scholly was unable to deploy the website
  */
 async function deployToGHPages(req, res, next) {
-  const { team_id: teamId } = req.params;
+  const { teamId } = req.params;
   // TODO (https://trello.com/c/DDVVvVCR) ideally this data should be fetched by
   //  us, and we should not expect the client to provide it.
   const {
@@ -291,7 +291,7 @@ async function deployToGHPages(req, res, next) {
 }
 
 /**
- * Update the team from the database on /team/:team_id
+ * Update the team from the database on /team/:teamId
  * @param {} req request object, containing team id in the url
  * @param {*} res response object, the updated team document
  * @returns 200: team updated
@@ -299,7 +299,7 @@ async function deployToGHPages(req, res, next) {
  * @returns 400: team id is not in a valid hexadecimal format
  */
 async function updateTeam(req, res, next) {
-  const { team_id: _id } = req.params;
+  const { teamId: _id } = req.params;
   const team = req.body;
 
   try {

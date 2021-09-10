@@ -11,7 +11,6 @@
     "rules": {
         "max-len": "off",
         "no-underscore-dangle": "off",
-        "camelcase": "off",  // From this rule onward, it is all temporary and pending refactor
         "no-plusplus": "off",
         "prefer-destructuring": "off",
         "no-use-before-define": ["error", {"functions":  false, "classes":  false}]
