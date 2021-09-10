@@ -30,16 +30,15 @@ function deletePublication(req, res, next) {
   Publication.findByIdAndRemove(_id)
     .then((foundPublication) => {
       if (foundPublication === null) {
-        next(
+        return next(
           fillErrorObject(400, 'Validation error', [
             'Publication could not be found',
           ]),
         );
-      } else {
-        return res
-          .status(200)
-          .json({ message: 'Publication deleted successfully.' });
       }
+      return res
+        .status(200)
+        .json({ message: 'Publication deleted successfully.' });
     })
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
@@ -64,14 +63,13 @@ function updatePublication(req, res, next) {
     .then((updatedPublication) => {
       if (updatedPublication == null) {
         // nothing returned by the query
-        next(
+        return next(
           fillErrorObject(404, 'Validation error', [
             'Publication could not be found',
           ]),
         );
-      } else {
-        return res.status(200).json(updatedPublication);
       }
+      return res.status(200).json(updatedPublication);
     })
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }

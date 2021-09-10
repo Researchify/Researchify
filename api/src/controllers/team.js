@@ -61,9 +61,9 @@ async function storeHandle(req, res, next) {
 
   try {
     foundTeam.save();
-    res.status(200).json(foundTeam);
+    return res.status(200).json(foundTeam);
   } catch (err) {
-    next(fillErrorObject(500, 'Server error', [err.errors]));
+    return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
 }
 
@@ -80,6 +80,7 @@ function getTeam(req, res, next) {
       if (foundTeam) {
         return res.status(200).send(foundTeam);
       }
+      return next(fillErrorObject(404, 'Team not found', ['Team with the given id could not be found']));
     })
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
@@ -306,7 +307,7 @@ async function updateTeam(req, res, next) {
       new: true,
       runValidators: true,
     });
-    res.status(200).json(updatedTeam);
+    return res.status(200).json(updatedTeam);
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err]));
   }
