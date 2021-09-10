@@ -74,9 +74,9 @@ const CategoryPage = ({
             <Form.Group>
               <div className="text-center">
                 <ButtonGroup toggle>
-                  {Object.keys(categoryTypes).map((category, idx) => (
+                  {Object.keys(categoryTypes).map((category) => (
                     <ToggleButton
-                      key={idx}
+                      key={category}
                       type="radio"
                       variant="outline-secondary"
                       value={category}

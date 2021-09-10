@@ -57,7 +57,7 @@ const MainInfoPage = ({
   );
 
   const renderAuthors = (values, touched, errors, handleChange, setValues) => values.authors.map((author, index) => (
-    <InputGroup key={index}>
+    <InputGroup key={author}>
       <Form.Control
         className="placeholder-text"
         type="text"
@@ -129,8 +129,8 @@ const MainInfoPage = ({
                 value={values.yearPublished}
                 onChange={handleChange}
               >
-                {years.map((eachYear, index) => (
-                  <option key={`year${index}`} value={eachYear}>
+                {years.map((eachYear) => (
+                  <option key={eachYear} value={eachYear}>
                     {eachYear}
                   </option>
                 ))}

@@ -11,9 +11,9 @@ const Sidebar = ({ data }) => {
   return (
     <>
       <ul className="SidebarList">
-        {data.map((val, key) => (
+        {data.map((val) => (
           // if the link property of a sidebar item is undefined, stays in the current page
-          <Link to={val.link ? val.link : '#'} key={key}>
+          <Link to={val.link ? val.link : '#'} key={val.link}>
             <li
               className="row"
               id={location.pathname === val.link ? 'active' : ''}
