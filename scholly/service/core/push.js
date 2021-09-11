@@ -69,6 +69,7 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
     Accept: 'application/vnd.github.v3+json',
   };
   let repoResponse;
+  let error = null;
   try {
     repoResponse = await axios.get(
       `https://api.github.com/search/repositories?${searchQuery}`,
@@ -77,13 +78,18 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
       },
     );
   } catch (err) {
-    console.log(err);
+    error = err;
   }
 
-  if (repoResponse.data.total_count === 1) {
-    console.log('repo exists already');
-  } else {
-    // if it doesn't, make one
+  if (err?.response.status !== 422) {
+    // Error 422 is fine (it can be caused by user having no repo or only private ones in their account), any other should be thrown back up.
+    winston.error(
+      `Error checking existing repositories for user: ${ghUsername}`,
+      err,
+    );
+    throw err;
+  } else if (repoResponse.data.total_count !== 1) {
+    // User does not have a repo for github pages, let's create it
     const createRepoBody = {
       name: repoName,
       private: false, // free accounts can only use a public repo for GH pages
