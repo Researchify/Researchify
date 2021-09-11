@@ -28,9 +28,6 @@ app.use(express.json({ limit: '30mb', extended: true })); // express.json() pars
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cookieParser());
 
-// "Welcome" route
-app.get('/', (req, res) => res.send('You have reached the Researchify API'));
-
 // Use the routes
 app.use('/publications', publicationsRouter);
 app.use('/team', teamRouter);
