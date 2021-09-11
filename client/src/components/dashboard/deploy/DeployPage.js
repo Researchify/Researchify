@@ -17,7 +17,7 @@ const DeployPage = ({ teamId }) => {
   );
 
   const handleDeploy = () => {
-    const accessToken = localStorage.getItem('GH_access_token'); // eslint-disable-line no-undef
+    const accessToken = localStorage.getItem('GH_access_token');
     // call backend endpoint to deploy and give the access token
     dispatch(deployToGHPages(teamId, accessToken));
   };
@@ -32,8 +32,8 @@ const DeployPage = ({ teamId }) => {
   // handle error toast when fail to log in
   // usually is when user close the login window
   const onLoginFail = () => {
-    toast.error("You must login with GitHub to deploy");
-  }
+    toast.error('You must login with GitHub to deploy');
+  };
 
   const GitHubLoginButton = (
     <GitHubLogin

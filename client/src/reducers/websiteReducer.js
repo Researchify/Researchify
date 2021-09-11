@@ -8,16 +8,12 @@ import {
   FETCH_WEBSITE_INFO,
   UPDATE_PUBLICATION_OPTIONS,
 } from '../actions/types';
-import { layoutOptions, sortingOptions } from '../config/publications';
 
 const INITIAL_WEBSITE_STATE = {
   url: '',
   title: '',
   pages: [],
-  publicationOptions: {
-    layout: layoutOptions.ALL_PUBLICATION,
-    sortBy: sortingOptions.TITLE
-  },
+  publicationOptions: {},
 };
 
 /**
@@ -48,7 +44,7 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
         publicationOptions: payload.publicationOptions ?? state.publicationOptions,
       };
     case UPDATE_PUBLICATION_OPTIONS:
-      return { ...state, publicationOptions: payload}
+      return { ...state, publicationOptions: payload };
     default:
       return state;
   }

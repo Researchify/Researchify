@@ -4,19 +4,15 @@
         "es2021": true,
         "node": true
     },
-    "extends": ["eslint:recommended", "airbnb-base", "prettier"],
+    "extends": ["eslint:recommended", "airbnb-base"],
     "parserOptions": {
         "ecmaVersion": 12
     },
     "rules": {
         "max-len": "off",
         "no-underscore-dangle": "off",
-        "camelcase": "off",  // From this rule onward, it is all temporary and pending refactor
-        "consistent-return": "off",
         "no-plusplus": "off",
         "prefer-destructuring": "off",
-        "no-shadow": "off",
-        "no-await-in-loop": "off",
         "no-use-before-define": ["error", {"functions":  false, "classes":  false}]
     }
 }

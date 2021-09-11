@@ -1,7 +1,7 @@
 /**
  * This file exports header for Scholly (client) page.
  */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { TEAM_INFO } from '../../global/data';

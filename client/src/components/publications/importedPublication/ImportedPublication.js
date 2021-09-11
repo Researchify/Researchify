@@ -58,7 +58,7 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
             <a
               href={pub.link}
               style={{ cursor: 'pointer' }}
-              onClick={() => window.open(`${pub.link}`, '_blank')} // eslint-disable-line no-undef
+              onClick={() => window.open(`${pub.link}`, '_blank')}
             >
               {` ${pub.link}`}
             </a>
@@ -102,7 +102,7 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
           <h6 className="ml-3">
             {' '}
             Year Published:
-            {pub.yearPublished}
+            {` ${pub.yearPublished}`}
           </h6>
           {dropDown}
         </Card.Body>

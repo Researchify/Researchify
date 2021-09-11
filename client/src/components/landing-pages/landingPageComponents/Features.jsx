@@ -1,14 +1,18 @@
-import "../css/features.css";
-import { Box, Grid, Paper, Button, useMediaQuery } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
-import ReactCardFlip from "react-card-flip";
+import '../css/features.css';
+import {
+  Box, Grid, Paper, Button, useMediaQuery,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import ReactCardFlip from 'react-card-flip';
 import Divider from '../utils/Divider';
-import { featuresData } from "../data/landing-page-labels";
+import { featuresData } from '../data/landing-page-labels';
 
 // icons
 
-const FlippingCard = ({ logo, title, description, classes }) => {
+const FlippingCard = ({
+  logo, title, description, classes,
+}) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -22,7 +26,10 @@ const FlippingCard = ({ logo, title, description, classes }) => {
             justifyContent="center"
             alignItems="center"
           >
-            <Box> {logo}</Box>
+            <Box>
+              {' '}
+              {logo}
+            </Box>
             <Box fontSize="h5.fontSize" margin={2} color="secondary.main">
               {title}
             </Box>
@@ -45,7 +52,7 @@ const FlippingCard = ({ logo, title, description, classes }) => {
               justifyContent="flex-end"
               fontWeight="bold"
               color="secondary.main"
-              style={{ margin: "-15px -10px 0 0", cursor: "pointer" }}
+              style={{ margin: '-15px -10px 0 0', cursor: 'pointer' }}
               onClick={() => setIsFlipped(false)}
             >
               X
@@ -59,7 +66,7 @@ const FlippingCard = ({ logo, title, description, classes }) => {
 };
 
 const Features = () => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery('(max-width:600px)');
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -67,11 +74,11 @@ const Features = () => {
     paper: {
       height: isMobile ? 100 : 250,
       width: isMobile ? 100 : 250,
-      padding: "2rem",
+      padding: '2rem',
     },
     container: {
-      width: isMobile ? "inherit" : "80vw",
-      margin: "0 auto",
+      width: isMobile ? 'inherit' : '80vw',
+      margin: '0 auto',
     },
     control: {
       padding: theme.spacing(2),

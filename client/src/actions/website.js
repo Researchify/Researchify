@@ -53,26 +53,26 @@ export const deletePage = (teamId, pageName) => async (dispatch) => {
   const apiBody = {
     pageName,
   };
-  try{
+  try {
     api.deleteWebPage(teamId, apiBody);
     dispatch({
       type: DELETE_WEBPAGE,
       payload: pageName,
-    })
+    });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
 };
 
 export const updatePublicationOptions = (teamId, preference) => async (dispatch) => {
-  try{
-    const { data } = await api.updatePublicationOptions(teamId, preference)
+  try {
+    const { data } = await api.updatePublicationOptions(teamId, preference);
     dispatch({
       type: UPDATE_PUBLICATION_OPTIONS,
       payload: data,
-    })
-    dispatch(successMessageCreator('Preference had been updated'))
-  } catch(err){
+    });
+    dispatch(successMessageCreator('Preference had been updated'));
+  } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
 };

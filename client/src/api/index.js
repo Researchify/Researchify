@@ -35,18 +35,13 @@ export const findOrCreateTheme = (themeData) => api.post('/theme', themeData);
 // Website endpoints.
 export const addWebPage = (teamId, pageName) => api.post(`/clientWebsite/${teamId}/add_page`, pageName);
 export const getWebsiteInfo = (teamId) => api.get(`/clientWebsite/${teamId}`);
-export const deleteWebPage = (teamId, pageName) =>
-  api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
-export const updatePublicationOptions = (teamId, options) =>
-  api.post(`/clientWebsite/${teamId}/updatePublicationOptions`, options);
+export const deleteWebPage = (teamId, pageName) => api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
+export const updatePublicationOptions = (teamId, options) => api.post(`/clientWebsite/${teamId}/updatePublicationOptions`, options);
 
 // Achievement endpoints.
-export const fetchAchievementsByTeamId = (teamId) =>
-api.get(`/achievements/team/${teamId}`);
-export const createAchievement = (newAchievement) =>
-  api.post(`/achievements/`, newAchievement);
-export const updateAchievement = (id, updatedAchievement) =>
-  api.patch(`/achievements/${id}`, updatedAchievement);
+export const fetchAchievementsByTeamId = (teamId) => api.get(`/achievements/team/${teamId}`);
+export const createAchievement = (newAchievement) => api.post('/achievements/', newAchievement);
+export const updateAchievement = (id, updatedAchievement) => api.patch(`/achievements/${id}`, updatedAchievement);
 export const deleteAchievement = (id) => api.delete(`/achievements/${id}`);
 
 // Auth endpoints.

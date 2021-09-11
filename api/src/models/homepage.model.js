@@ -1,5 +1,6 @@
 /**
  * This module exports a "Homepage" mongoose Schema, which represents their homepage.
+ * Associated to a trigger, a homepage document of a team will be created automaically in db when a new team is created in db.
  */
 const mongoose = require('mongoose');
 

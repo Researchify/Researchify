@@ -2,9 +2,10 @@
     "env": {
         "commonjs": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "browser": true
     },
-    "extends": ["eslint:recommended", "airbnb", "prettier"],
+    "extends": ["eslint:recommended", "airbnb"],
     "parserOptions": {
         "ecmaVersion": 12
     },

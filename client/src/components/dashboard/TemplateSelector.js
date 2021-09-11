@@ -3,7 +3,9 @@
  * to select a theme in Researchify dashboard page.
  */
 import React, { useState } from 'react';
-import { Container, Button, Form, Col, Image } from 'react-bootstrap';
+import {
+  Container, Button, Form, Col, Image,
+} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { updateTeamTheme } from '../../actions/team';
 
@@ -95,8 +97,8 @@ const TemplateSelector = (props) => {
                 checked={theme === 1}
                 className="theme-1-radio"
               />
-              <div 
-                className="theme-icon theme-1-icon" 
+              <div
+                className="theme-icon theme-1-icon"
               />
             </label>
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -110,9 +112,9 @@ const TemplateSelector = (props) => {
                 checked={theme === 2}
                 className="theme-2-radio"
               />
-              <div 
-                className="theme-icon theme-2-icon" 
-                />
+              <div
+                className="theme-icon theme-2-icon"
+              />
             </label>
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="theme3">
@@ -125,9 +127,9 @@ const TemplateSelector = (props) => {
                 checked={theme === 3}
                 className="theme-3-radio"
               />
-              <div 
-                className="theme-icon theme-3-icon" 
-                />
+              <div
+                className="theme-icon theme-3-icon"
+              />
             </label>
           </Form.Row>
         </Container>
@@ -155,11 +157,11 @@ const TemplateSelector = (props) => {
                   className="form-radio-text"
                   onChange={updateSelections}
                 />
-                <Image 
-                  src={singleColumnLayout} 
-                  className="img-fluid" 
+                <Image
+                  src={singleColumnLayout}
+                  className="img-fluid"
                 />
-              </label>    
+              </label>
             </Col>
             <Col className="layout-display">
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -175,11 +177,11 @@ const TemplateSelector = (props) => {
                   className="form-radio-text"
                   onChange={updateSelections}
                 />
-                <Image 
-                  src={fShapeLayout} 
-                  className="img-fluid" 
+                <Image
+                  src={fShapeLayout}
+                  className="img-fluid"
                 />
-              </label>   
+              </label>
             </Col>
             <Col className="layout-display">
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -195,9 +197,9 @@ const TemplateSelector = (props) => {
                   className="form-radio-text"
                   onChange={updateSelections}
                 />
-                <Image 
-                  src={zigZagLayout} 
-                  className="img-fluid" 
+                <Image
+                  src={zigZagLayout}
+                  className="img-fluid"
                 />
               </label>
             </Col>
