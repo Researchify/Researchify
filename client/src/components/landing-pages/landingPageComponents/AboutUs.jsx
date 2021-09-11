@@ -40,12 +40,10 @@ const TabPanel = (props) => {
   );
 };
 
-const a11yProps = (index) => {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
-};
+const a11yProps = (index) => ({
+  id: `full-width-tab-${index}`,
+  'aria-controls': `full-width-tabpanel-${index}`,
+});
 
 const AboutUs = () => {
   const isMobile = useMediaQuery('(max-width:600px)'); // should be refactored

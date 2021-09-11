@@ -68,15 +68,13 @@ const Header = ({ linksAreShown }) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             {linksAreShown
-              && headerLinks.map((h, index) => {
-                return (
-                  <NavItem key={h.link}>
-                    <HeaderLink id={index} href={h.link}>
-                      {h.label}
-                    </HeaderLink>
-                  </NavItem>
-                );
-              })}
+              && headerLinks.map((h, index) => (
+                <NavItem key={h.link}>
+                  <HeaderLink id={index} href={h.link}>
+                    {h.label}
+                  </HeaderLink>
+                </NavItem>
+              ))}
           </Nav>
           <Nav>
             <AuthButtons />
