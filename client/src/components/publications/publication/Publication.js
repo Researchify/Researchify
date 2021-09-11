@@ -152,6 +152,8 @@ const Publication = ({ pub }) => {
             <span
               onClick={() => setExpand(!expand)}
               onKeyPress={() => setExpand(!expand)} // usability, see WCAG 2.1.1
+              role="button"
+              tabIndex={0}
             >
               {displayUpArrow()}
 
