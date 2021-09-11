@@ -3,7 +3,7 @@ import { Nav } from 'react-bootstrap';
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
 import { TEAM_INFO } from '../../../../global/data';
-import { getRoutes } from '../router/routes';
+import getRoutes from '../router/routes';
 
 const Sidebar = () => {
   const headerData = getRoutes();

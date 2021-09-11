@@ -1,3 +1,11 @@
+/*
+
+Note: The lazy loading is used to optimise production builds.
+Multiple layout imports cause multiple Layout CSS file imports from each layout's respective App.js.
+This will also help in reducing the size of builds, which can be useful when many more layouts are added in the future.
+
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';

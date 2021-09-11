@@ -4,10 +4,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import './components/centred.css';
+import './components/centered.css';
 import Sidebar from './components/layout/Sidebar';
 import './components/layout/Sidebar.css';
-import { getRoutes } from './components/router/routes';
+import getRoutes from './components/router/routes';
 
 const App = () => {
   const routeItems = getRoutes().map(({ path, exact, component }) => {

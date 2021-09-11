@@ -43,5 +43,4 @@ const getRoutes = () => {
   return [...defaultRoutes, ...routes];
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { getRoutes };
+export default getRoutes;

@@ -5,7 +5,7 @@ import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { TEAM_INFO } from '../../../../global/data';
-import { getRoutes } from '../router/routes';
+import getRoutes from '../router/routes';
 
 const Header = () => {
   const { orgName, teamName } = TEAM_INFO;

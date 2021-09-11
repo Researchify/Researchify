@@ -4,8 +4,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
-import { getRoutes } from './components/router/routes';
-import './components/centred.css';
+import getRoutes from './components/router/routes';
+import './components/centered.css';
 
 const App = () => {
   const routeItems = getRoutes().map(({ path, exact, component }) => {

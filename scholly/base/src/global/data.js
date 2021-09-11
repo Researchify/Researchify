@@ -17,7 +17,8 @@ import {
 } from './fakeData';
 
 const env = process.env; // eslint-disable-line prefer-destructuring
-const defaultLayout = 1;
+const defaultLayout = 3;
+
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
