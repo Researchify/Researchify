@@ -5,8 +5,8 @@ const homepageRouter = require('express').Router();
 
 const homepageController = require('../controllers/homepage');
 
-homepageRouter.post('/:team_id', homepageController.updateHomepage);
+homepageRouter.post('/:teamId', homepageController.updateHomepage);
 
-homepageRouter.get('/:team_id', homepageController.getHomepage);
+homepageRouter.get('/:teamId', homepageController.getHomepage);
 
 module.exports = homepageRouter;
