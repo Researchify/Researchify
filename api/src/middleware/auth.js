@@ -36,7 +36,7 @@ const cookieJwtAuth = (req, res, next) => {
       // verfiy the refresh token
       const { team } = jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH_TOKEN || 'JWT_SECRET_REFRESH_TOKEN');
 
-      // re-gernerate the accessToken
+      // re-generate the accessToken
       const newAccessToken = jwt.sign({ team }, process.env.JWT_SECRET_ACCESS_TOKEN || 'JWT_SECRET_ACCESS_TOKEN', {
         expiresIn: accessTokenExpiry,
       });
