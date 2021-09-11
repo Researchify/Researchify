@@ -18,6 +18,7 @@ const Sidebar = ({ data }) => {
               className="row"
               id={location.pathname === val.link ? 'active' : ''}
               onClick={val.action}
+              onKeyPress={val.action} // usability, see WCAG 2.1.1
             >
               {/* Sets sidebar navigation to active (blue) if the current page is the same in sidebar */}
 
