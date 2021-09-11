@@ -85,7 +85,7 @@ const Header = ({ linksAreShown }) => {
   );
 };
 
-//props validation
+// props validation
 Header.propTypes = {
   linksAreShown: PropTypes.bool,
 };

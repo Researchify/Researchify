@@ -105,7 +105,7 @@ const AboutUs = () => {
               onChange={handleChange}
               aria-label="wrapped label tabs about us"
             >
-              {/**TODO: Can be refactored with loop */}
+              {/** TODO: Can be refactored with loop */}
               <StyledTab value={0} label="Vision" {...a11yProps('one')} />
               <StyledTab
                 value={1}
@@ -121,7 +121,7 @@ const AboutUs = () => {
           </Grid>
         </Grid>
 
-        {/**TODO: Can be refactored with loop */}
+        {/** TODO: Can be refactored with loop */}
         <Grid item className={classes.borderedCard} md={9} xs={12}>
           <center>
             <TabPanel value={value} index={0}>
@@ -164,7 +164,7 @@ const AboutUs = () => {
   );
 };
 
-//props validation
+// props validation
 TabPanel.propTypes = {
   children: PropTypes.array.isRequired,
   value: PropTypes.number.isRequired,
