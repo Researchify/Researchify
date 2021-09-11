@@ -9,7 +9,7 @@ import TeamMember from './TeamMember';
 
 const TeamPage = () => {
   const teamMembers = TEAM_MEMBERS;
-  const { orgName } = TEAM_INFO;
+  const { teamName } = TEAM_INFO;
   return (
     <>
       <Helmet>
@@ -17,7 +17,7 @@ const TeamPage = () => {
           {' '}
           Team -
           {' '}
-          {orgName}
+          {teamName}
           {' '}
         </title>
       </Helmet>

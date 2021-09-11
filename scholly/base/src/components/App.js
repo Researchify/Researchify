@@ -10,7 +10,7 @@ import getRoutes from './router/routes';
 import './centred.css';
 
 const App = () => {
-  const { orgName } = TEAM_INFO;
+  const { teamName } = TEAM_INFO;
   const routeItems = getRoutes().map(({ path, exact, component }) => {
     const View = component;
     return (
@@ -23,7 +23,7 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <title>{orgName}</title>
+        <title>{teamName}</title>
       </Helmet>
       <Header />
       <Switch>

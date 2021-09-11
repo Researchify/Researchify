@@ -43,7 +43,7 @@ const PublicationPage = () => {
   //     </Fragment>
   //   )}
   // </Fragment>
-  const { orgName } = TEAM_INFO;
+  const { teamName } = TEAM_INFO;
   return (
     <>
       <Helmet>
@@ -51,7 +51,7 @@ const PublicationPage = () => {
           {' '}
           Publications -
           {' '}
-          {orgName}
+          {teamName}
           {' '}
         </title>
       </Helmet>

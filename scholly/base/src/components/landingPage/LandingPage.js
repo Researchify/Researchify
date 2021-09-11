@@ -8,7 +8,7 @@ import { TEAM_HOMEPAGE, TEAM_INFO } from '../../global/data';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
-  const { orgName } = TEAM_INFO;
+  const { teamName } = TEAM_INFO;
   return (
     <>
       <Helmet>
@@ -16,7 +16,7 @@ const landingPage = () => {
           {' '}
           Home -
           {' '}
-          {orgName}
+          {teamName}
           {' '}
         </title>
       </Helmet>
