@@ -21,7 +21,10 @@ export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.fetchPublicationsByTeamId(teamId);
 
-    data.map((pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))); // only get the year from the date format
+    data.map((pub) => ({
+      ...pub,
+      yearPublished: pub.yearPublished.substring(0, 4), // only get the year from the date format
+    }));
 
     dispatch({
       type: GET_PUBLICATIONS_BY_TEAM_ID,

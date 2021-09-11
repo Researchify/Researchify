@@ -211,7 +211,10 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       teamId,
     );
     teamPublications.map(
-      (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4)), // eslint-disable-line no-param-reassign
+      (pub) => ({
+        ...pub,
+        yearPublished: pub.yearPublished.substring(0, 4),
+      }),
     );
     // get teamInfo
     const { data: teamInfo } = await api.getTeamJWT();

@@ -24,7 +24,6 @@
         "radix": "off", // low-prio refactor
         // ↓↓ in src/actions we reassign pub date to keep only year YYYY ↓↓
         "no-param-reassign": ["error", {"props": true, "ignorePropertyModificationsFor": ["pub"]}], 
-        "no-return-assign": "off", // should refactor later
         "spaced-comment": "off",
         "arrow-body-style": "off", // should refactor later
         "linebreak-style": "off"
