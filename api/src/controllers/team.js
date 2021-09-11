@@ -325,13 +325,12 @@ async function updatePassword(req, res, next) { // eslint-disable-line no-unused
   const { team_id: _id } = req.params;
   const team = req.body;
 
-  const foundTeam = await Team.findOne({ _id:_id });
+  const foundTeam = await Team.findOne({ _id });
 
   if (await bcrypt.compare(team.currentPassword, foundTeam.password)) {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(team.password, salt);
     team.password = hashedPassword;
-
 
     try {
       const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
@@ -339,21 +338,20 @@ async function updatePassword(req, res, next) { // eslint-disable-line no-unused
         runValidators: true,
       });
       updatedTeam.password = '';
+       return res.status(200).json(updatedTeam);
     } catch (e) {
       return next(
-      fillErrorObject(500, 'Server error', [e])
-    );
+        fillErrorObject(500, 'Server error', [e,])
+      );
     }
 
-    res.status(200).json(updatedTeam);
-  }else{
+  } else {
     return next(
       fillErrorObject(400, 'Authentication error', [
         'Incorrect password',
       ]),
     );
   }
-
 }
 
 module.exports = {
