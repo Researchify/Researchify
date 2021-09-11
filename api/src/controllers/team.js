@@ -338,13 +338,12 @@ async function updatePassword(req, res, next) { // eslint-disable-line no-unused
         runValidators: true,
       });
       updatedTeam.password = '';
-       return res.status(200).json(updatedTeam);
+      return res.status(200).json(updatedTeam);
     } catch (e) {
       return next(
-        fillErrorObject(500, 'Server error', [e,])
+        fillErrorObject(500, 'Server error', [e]),
       );
     }
-
   } else {
     return next(
       fillErrorObject(400, 'Authentication error', [
