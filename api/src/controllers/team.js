@@ -293,17 +293,10 @@ async function updateTeam(req, res, next) { // eslint-disable-line no-unused-var
   const { team_id: _id } = req.params;
   const team = req.body;
 
-  if (team.password) {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(team.password, salt);
-    team.password = hashedPassword;
-  }
-
   const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
     new: true,
     runValidators: true,
   });
-  updatedTeam.password = '';
 
   res.status(200).json(updatedTeam);
 }
@@ -328,12 +321,19 @@ async function updatePassword(req, res, next) { // eslint-disable-line no-unused
     team.password = hashedPassword;
 
 
-
-    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
-      new: true,
-      runValidators: true,
-    });
-    updatedTeam.password = '';
+    try {
+      const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+        new: true,
+        runValidators: true,
+      });
+      updatedTeam.password = '';
+    } catch (e) {
+      return next(
+      fillErrorObject(404, 'Server error', [
+        'Server error',
+      ]),
+    );
+    }
 
     res.status(200).json(updatedTeam);
   }else{
