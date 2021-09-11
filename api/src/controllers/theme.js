@@ -20,7 +20,7 @@ async function findOrCreateTheme(req, res) {
     }
     return res.status(200).json(foundTheme);
   } catch (err) {
-    res.status(404).json(`Error: ${err.message}`);
+    return res.status(404).json(`Error: ${err.message}`);
   }
 }
 
