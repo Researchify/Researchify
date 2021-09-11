@@ -18,7 +18,6 @@
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": "off",
         "react/jsx-props-no-spreading": "off",
-        "radix": "off", // low-prio refactor
         // ↓↓ in src/actions we reassign pub date to keep only year YYYY ↓↓
         "no-param-reassign": ["error", {"props": true, "ignorePropertyModificationsFor": ["pub"]}], 
         "linebreak-style": "off"
