@@ -70,6 +70,7 @@ const WebpageSelector = ({
   );
 };
 
+// props validation
 WebpageSelector.propTypes = {
   currentWebPages: PropTypes.array.isRequired,
   teamId: PropTypes.string.isRequired,

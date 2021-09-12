@@ -34,6 +34,7 @@ const ImportForm = ({ closeModal }) => {
   return (<ProfileLinkPage closeModal={closeModal} />);
 };
 
+// props validation
 ImportForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
 };

@@ -31,6 +31,7 @@ const LogoutModal = ({ logoutAlert, setLogoutAlert }) => {
   );
 };
 
+// props validation
 LogoutModal.propTypes = {
   logoutAlert: PropTypes.bool.isRequired,
   setLogoutAlert: PropTypes.func.isRequired,

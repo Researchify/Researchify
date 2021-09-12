@@ -23,6 +23,7 @@ const LayoutAllPublications = ({ teamPublications, pageSize }) => {
   );
 };
 
+// props validation
 LayoutAllPublications.propTypes = {
   teamPublications: PropTypes.array.isRequired,
   pageSize: PropTypes.number,

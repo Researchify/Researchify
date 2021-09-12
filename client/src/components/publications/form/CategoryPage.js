@@ -212,6 +212,7 @@ const CategoryPage = ({
   );
 };
 
+// props validation
 CategoryPage.propTypes = {
   next: PropTypes.func.isRequired,
   prev: PropTypes.func.isRequired,

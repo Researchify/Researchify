@@ -130,6 +130,7 @@ const TeamMember = ({ member }) => {
   );
 };
 
+// props validation
 TeamMember.propTypes = {
   member: PropTypes.object.isRequired,
 };

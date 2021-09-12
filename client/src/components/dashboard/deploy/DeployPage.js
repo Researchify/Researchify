@@ -80,6 +80,7 @@ const DeployPage = ({ teamId }) => {
   );
 };
 
+// props validation
 DeployPage.propTypes = {
   teamId: PropTypes.string.isRequired,
 };

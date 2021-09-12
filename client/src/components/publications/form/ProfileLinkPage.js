@@ -106,6 +106,7 @@ const ProfileLinkPage = ({ closeModal }) => {
   );
 };
 
+// props validation
 ProfileLinkPage.propTypes = {
   closeModal: PropTypes.func.isRequired,
 };
