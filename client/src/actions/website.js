@@ -7,6 +7,7 @@ import {
   ADD_WEBPAGE,
   DELETE_WEBPAGE,
   UPDATE_PUBLICATION_OPTIONS,
+  UPDATE_WEBSITE_TITLE,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 import * as api from '../api';
@@ -71,7 +72,20 @@ export const updatePublicationOptions = (teamId, preference) => async (dispatch)
       type: UPDATE_PUBLICATION_OPTIONS,
       payload: data,
     });
-    dispatch(successMessageCreator('Preference had been updated'));
+    dispatch(successMessageCreator('Preference has been updated.'));
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
+};
+
+export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
+  try {
+    await api.updateWebsiteTitle(teamId, website);
+    dispatch({
+      type: UPDATE_WEBSITE_TITLE,
+      payload: website.websiteTitle,
+    });
+    dispatch(successMessageCreator('Title has been updated.'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
