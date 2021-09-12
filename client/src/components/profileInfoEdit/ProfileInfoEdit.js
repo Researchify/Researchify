@@ -26,7 +26,7 @@ const ProfileInfoEdit = () => {
     (state) => state.team,
   );
 
-  const [profileData, setInputs] = useState({
+  const [setProfileData, setInputs] = useState({
     teamName, orgName, email, profilePic,
   });
 
@@ -38,7 +38,7 @@ const ProfileInfoEdit = () => {
 
   const updateInputs = (form) => {
     const { name, value } = form.target;
-    setInputs({ ...profileData, [name]: value });
+    setInputs({ ...setProfileData, [name]: value });
   };
 
   /**
@@ -46,10 +46,9 @@ const ProfileInfoEdit = () => {
   */
 
   // If profilePic is undefined, set a default profile pic
-  if (!profileData.profilePic) {
-    profileData.profilePic = defaultProfilePic;
-  }
+  setProfileData.profilePic = setProfileData.profilePic ?? defaultProfilePic;
 
+  /* eslint-disable no-shadow */
   const handleImageUpload = (e) => {
     e.preventDefault();
     const reader = new FileReader();
@@ -57,7 +56,7 @@ const ProfileInfoEdit = () => {
 
     if (e.target.files[0]) {
       reader.onload = (e) => {
-        setInputs({ ...profileData, profilePic: e.target.result });
+        setInputs({ ...setProfileData, profilePic: e.target.result });
       };
 
       reader.readAsDataURL(file);
@@ -71,7 +70,7 @@ const ProfileInfoEdit = () => {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      dispatch(updateTeam(teamId, profileData));
+      dispatch(updateTeam(teamId, setProfileData));
     }
     setValidated(true);
   };
@@ -94,7 +93,7 @@ const ProfileInfoEdit = () => {
 
           <Form.Group controlId="formProfilePic">
             <Image
-              src={profileData.profilePic}
+              src={setProfileData.profilePic}
               roundedCircle
               height="184px"
               width="184px"
@@ -111,7 +110,7 @@ const ProfileInfoEdit = () => {
               className="placeholder-text"
               type="text"
               placeholder="Allan Lab"
-              defaultValue={profileData.teamName}
+              defaultValue={setProfileData.teamName}
               onChange={updateInputs}
               required
               name="teamName"
@@ -124,7 +123,7 @@ const ProfileInfoEdit = () => {
               className="placeholder-text"
               type="text"
               placeholder="Leiden University"
-              defaultValue={profileData.orgName}
+              defaultValue={setProfileData.orgName}
               onChange={updateInputs}
               required
               name="orgName"
@@ -138,7 +137,7 @@ const ProfileInfoEdit = () => {
               type="email"
               placeholder="allenlab@gmail.com"
               name="email"
-              defaultValue={profileData.email}
+              defaultValue={setProfileData.email}
               onChange={updateInputs}
               required
             />

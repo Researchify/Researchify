@@ -75,7 +75,7 @@ async function storeHandle(req, res, next) {
  */
 function getTeam(req, res, next) {
   Team.findById(req.team._id)
-    .select('_id teamName orgName email twitterHandle')
+    .select('_id teamName orgName email twitterHandle profilePic')
     .then((foundTeam) => {
       if (foundTeam) {
         return res.status(200).send(foundTeam);
