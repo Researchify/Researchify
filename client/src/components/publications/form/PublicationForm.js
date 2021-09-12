@@ -38,7 +38,6 @@ const PublicationForm = (props) => {
     if (props.type === 'update') {
       dispatch(updatePublication(props.pub._id, newData));
     } else if (props.type === 'create') {
-      console.log(newData);
       dispatch(createPublication(newData));
     }
     props.closeModal();
