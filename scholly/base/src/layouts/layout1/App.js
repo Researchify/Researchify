@@ -4,7 +4,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { TEAM_INFO } from '../global/data';
+import { TEAM_INFO } from '../../global/data';
 import Header from './components/layout/Header';
 import getRoutes from './components/router/routes';
 import './components/centered.css';

@@ -4,7 +4,7 @@
 import React from 'react';
 import { CardDeck, Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
-import { TEAM_MEMBERS, TEAM_INFO } from '../../global/data';
+import { TEAM_MEMBERS, TEAM_INFO } from '../../../../global/data';
 import TeamMember from './TeamMember';
 
 const TeamPage = () => {
