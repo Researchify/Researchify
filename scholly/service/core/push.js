@@ -43,8 +43,8 @@ async function pushBuiltAppToPages(ghUsername, ghToken, repoName) {
       } else {
         winston.info(`Successfully deployed app for ${ghUsername}`);
       }
-      cleanupBuild(); // TODO this is not working for some reason
-    },
+      cleanupBuild();
+    }
   );
   await buildPages(ghUsername, ghToken, repoName);
 }
@@ -68,27 +68,32 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
     Authorization: `token ${ghToken}`,
     Accept: 'application/vnd.github.v3+json',
   };
-  let repoResponse;
-  let error = null;
+
+  let repoExists;
   try {
-    repoResponse = await axios.get(
+    const repoResponse = await axios.get(
       `https://api.github.com/search/repositories?${searchQuery}`,
       {
         headers: options,
-      },
+      }
     );
+    repoExists = repoResponse.data.total_count === 1 ? true : false;
   } catch (err) {
-    error = err;
+    if (err.response.status !== 422) {
+      // Error 422 is fine (it can be caused by user having no repo or only private ones in their account), any other should be thrown back up.
+      winston.error(
+        `Error checking existing repositories for user: ${ghUsername}`,
+        error
+      );
+      throw error;
+    }
+    winston.info(
+      `${ghUsername} does not have any repositories, creating one for GH pages...`
+    );
+    repoExists = false;
   }
 
-  if (err?.response.status !== 422) {
-    // Error 422 is fine (it can be caused by user having no repo or only private ones in their account), any other should be thrown back up.
-    winston.error(
-      `Error checking existing repositories for user: ${ghUsername}`,
-      err,
-    );
-    throw err;
-  } else if (repoResponse.data.total_count !== 1) {
+  if (!repoExists) {
     // User does not have a repo for github pages, let's create it
     const createRepoBody = {
       name: repoName,
@@ -102,7 +107,7 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
         headers: options,
         data: createRepoBody,
       });
-      console.log('Repo was created successfully');
+      winston.info(`Repo was created successfully`);
     } catch (err) {
       console.log(err);
     }
@@ -116,14 +121,13 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
       {
         headers: {
           Authorization: `token ${ghToken}`,
-          Accept: 'application/vnd.github.switcheroo-preview+json',
+          Accept: "application/vnd.github.switcheroo-preview+json",
         },
-      },
+      }
     );
-    console.log('GH Pages already configured for repo');
+    winston.info(`GH Pages already configured for repo`);
   } catch (err) {
-    console.log(err);
-    console.log('GH pages not created yet');
+    winston.info(`GH pages not created yet`);
     createPagesSite(ghUsername, ghToken, repoName);
   }
 }
@@ -152,7 +156,7 @@ async function createPagesSite(ghUsername, ghToken, repoName) {
       data: pagesBody,
     });
     if (createPagesResponse.status === 201) {
-      console.log('Pages site successfully created');
+      console.log("Pages site successfully created");
     } else {
       // see https://docs.github.com/en/rest/reference/repos#create-a-github-pages-site
       console.log(createPagesResponse.data);
