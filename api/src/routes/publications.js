@@ -31,7 +31,7 @@ publicationsRouter.post(
 );
 
 publicationsRouter.get(
-  '/import/:gScholarUserId/:startFrom/validate/:team_id',
+  '/import/:gScholarUserId/:startFrom/validate/:teamId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -40,7 +40,7 @@ publicationsRouter.get(
 );
 
 publicationsRouter.get(
-  '/team/:team_id',
+  '/team/:teamId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -48,7 +48,7 @@ publicationsRouter.get(
 );
 
 publicationsRouter.post(
-  '/import/:team_id',
+  '/import/:teamId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,

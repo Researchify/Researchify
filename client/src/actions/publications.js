@@ -42,6 +42,7 @@ export const createPublication = (publication) => async (dispatch) => {
       type: CREATE_PUBLICATION,
       payload: { ...result.data, newlyAdded: true },
     });
+    dispatch(successMessageCreator('Publication has been created'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
@@ -68,17 +69,18 @@ export const updatePublication = (id, publication) => async (dispatch) => {
       type: UPDATE_PUBLICATION,
       payload: data,
     });
+    dispatch(successMessageCreator('Publication has been updated'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
 };
 
-export const importPublications = (author_id, startFrom, teamId) => async (dispatch) => {
+export const importPublications = (authorId, startFrom, teamId) => async (dispatch) => {
   try {
     dispatch({
       type: IMPORT_REQUEST,
     });
-    const result = await api.importPublications(author_id, startFrom, teamId);
+    const result = await api.importPublications(authorId, startFrom, teamId);
     const pageNo = startFrom / pageSize + 1;
     if (result.data.reachedEnd) {
       // reached the end of the user's profile
@@ -139,6 +141,7 @@ export const createBulkPublications = (teamId, publicationList) => async (dispat
       type: CREATE_BULK_PUBLICATIONS,
       payload: createdPublications,
     });
+    dispatch(successMessageCreator(`${createdPublications.length} publication(s) has been imported`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
