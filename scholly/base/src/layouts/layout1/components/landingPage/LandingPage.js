@@ -3,12 +3,23 @@
  */
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { TEAM_HOMEPAGE } from '../../../../global/data';
+import { Helmet } from 'react-helmet';
+import { TEAM_HOMEPAGE, TEAM_INFO } from '../../../../global/data';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
+  const { teamName } = TEAM_INFO;
   return (
     <>
+      <Helmet>
+        <title>
+          {' '}
+          Home -
+          {' '}
+          {teamName}
+          {' '}
+        </title>
+      </Helmet>
       <Container fluid className="pages-top-padding">
         <div className="landing-center-title">About Us</div>
         {homepageData.aboutUs.map((paragraph) => (

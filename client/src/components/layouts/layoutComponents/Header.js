@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BsPeopleCircle } from 'react-icons/bs';
+import { PropTypes } from 'prop-types';
 
 import './Header.css';
 
@@ -34,6 +35,11 @@ const Header = (props) => {
       </Navbar>
     </>
   );
+};
+
+// props validation
+Header.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default Header;

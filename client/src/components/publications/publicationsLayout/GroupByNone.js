@@ -2,6 +2,7 @@
  * The GroupByNone component displays a list of publications
  */
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
@@ -19,6 +20,15 @@ const GroupByNone = ({ teamPublications, pageSize }) => {
       { pagination() }
     </>
   );
+};
+
+// props validation
+GroupByNone.propTypes = {
+  teamPublications: PropTypes.array.isRequired,
+  pageSize: PropTypes.number,
+};
+GroupByNone.defaultProps = {
+  pageSize: 10,
 };
 
 export default GroupByNone;
