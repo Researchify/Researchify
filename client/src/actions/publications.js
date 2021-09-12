@@ -75,12 +75,12 @@ export const updatePublication = (id, publication) => async (dispatch) => {
   }
 };
 
-export const importPublications = (author_id, startFrom, teamId) => async (dispatch) => {
+export const importPublications = (authorId, startFrom, teamId) => async (dispatch) => {
   try {
     dispatch({
       type: IMPORT_REQUEST,
     });
-    const result = await api.importPublications(author_id, startFrom, teamId);
+    const result = await api.importPublications(authorId, startFrom, teamId);
     const pageNo = startFrom / pageSize + 1;
     if (result.data.reachedEnd) {
       // reached the end of the user's profile

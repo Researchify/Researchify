@@ -32,7 +32,7 @@ achievementsRouter.post(
 );
 
 achievementsRouter.get(
-  '/team/:team_id',
+  '/team/:teamId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
