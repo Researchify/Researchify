@@ -39,4 +39,9 @@ ImportForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
 };
 
+// props validation
+ImportForm.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+};
+
 export default ImportForm;
