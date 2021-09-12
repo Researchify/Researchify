@@ -8,20 +8,20 @@ const usePagination = (data, itemPerPage) => {
     if (data.length > 0) {
       const start = (currentPage - 1) * itemPerPage;
       const end = start + itemPerPage;
-      const currentData = data.slice(start, end);
-      if (currentData.length === 0) { // check if the current page has data (user might delete all data on the current page)
+      const dataOnCurrentPage = data.slice(start, end);
+      if (dataOnCurrentPage.length === 0) { // check if the current page has data (user might delete all data on the current page)
         setCurrentPage(maxPage);
         return data.slice(maxPage - 1 * itemPerPage);
       }
-      return currentData;
+      return dataOnCurrentPage;
     }
     return [];
   };
   const nextPage = () => {
-    setCurrentPage((currentPage) => Math.min(currentPage + 1, maxPage));
+    setCurrentPage(() => Math.min(currentPage + 1, maxPage));
   };
   const prevPage = () => {
-    setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
+    setCurrentPage(() => Math.max(currentPage - 1, 1));
   };
   const jumpToPage = (page) => {
     const pageNumber = Math.max(1, page);

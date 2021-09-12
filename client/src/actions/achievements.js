@@ -1,5 +1,5 @@
 /**
- * This file houses our achievment-related Action Creators.
+ * This file houses our achievement-related Action Creators.
  */
 import * as api from '../api';
 import {

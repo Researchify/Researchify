@@ -7,7 +7,7 @@ const Website = require('../models/website.model');
 const { fillErrorObject } = require('../middleware/error');
 
 /**
- * Handle GET request from /clientWebsite/:team_id
+ * Handle GET request from /clientWebsite/:teamId
  * @param {*} req request object, containing teamId
  * @param {*} res response object
  * @returns 200: return the team's website info
@@ -15,13 +15,13 @@ const { fillErrorObject } = require('../middleware/error');
  * @returns 500: server error
  */
 async function getWebPageDetails(req, res, next) {
-  const { team_id } = req.params;
+  const { teamId } = req.params;
   try {
-    const foundWebsiteInfo = await Website.findOne({ teamId: team_id });
+    const foundWebsiteInfo = await Website.findOne({ teamId });
     if (foundWebsiteInfo) {
       return res.status(200).json(foundWebsiteInfo);
     }
-    return next(fillErrorObject(404, 'Validation error', ['No webpage detail found with the given team_id']));
+    return next(fillErrorObject(404, 'Validation error', ['No webpage detail found with the given teamId']));
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
@@ -36,15 +36,15 @@ async function getWebPageDetails(req, res, next) {
  * @returns 500: Server error while saving new page name to DB
  */
 async function addWebPage(req, res, next) {
-  const { team_id } = req.params;
+  const { teamId } = req.params;
   try {
-    const foundWebsiteInfo = await Website.findOne({ teamId: team_id });
+    const foundWebsiteInfo = await Website.findOne({ teamId });
     if (foundWebsiteInfo) {
       foundWebsiteInfo.pages.push(req.body.pageName);
       await foundWebsiteInfo.save();
       return res.status(200).json(foundWebsiteInfo);
     }
-    return next(fillErrorObject(404, 'Validation error', ['No webpage detail found with the given team_id']));
+    return next(fillErrorObject(404, 'Validation error', ['No webpage detail found with the given teamId']));
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
@@ -59,16 +59,16 @@ async function addWebPage(req, res, next) {
  * @returns 500: Server error while saving new page name to DB
  */
 async function deleteWebPage(req, res, next) {
-  const { team_id } = req.params;
+  const { teamId } = req.params;
   try {
-    const foundWebsiteInfo = await Website.findOne({ teamId: team_id });
+    const foundWebsiteInfo = await Website.findOne({ teamId });
     if (foundWebsiteInfo) {
       const index = foundWebsiteInfo.pages.indexOf(req.body.pageName);
       foundWebsiteInfo.pages.splice(index, 1);
       await foundWebsiteInfo.save();
       return res.status(200).json(foundWebsiteInfo);
     }
-    return next(fillErrorObject(404, 'Validation error', ['No webpage detail found with the given team_id']));
+    return next(fillErrorObject(404, 'Validation error', ['No webpage detail found with the given teamId']));
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
@@ -83,7 +83,7 @@ async function deleteWebPage(req, res, next) {
  */
 async function updatePublicationOptions(req, res, next) { // eslint-disable-line no-unused-vars
   const updatedPubOptions = req.body;
-  const { team_id: _id } = req.params;// TODO: teamId get from the token instead of parameters?
+  const { teamId: _id } = req.params;// TODO: teamId get from the token instead of parameters?
   try {
     await Website.updateOne(
       { teamId: _id },
