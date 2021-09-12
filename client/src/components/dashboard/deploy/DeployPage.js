@@ -4,6 +4,7 @@ import { GoMarkGithub } from 'react-icons/go';
 import { Button, Spinner } from 'react-bootstrap';
 import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
+import { PropTypes } from 'prop-types';
 
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
@@ -74,6 +75,11 @@ const DeployPage = ({ teamId }) => {
       )}
     </>
   );
+};
+
+// props validation
+DeployPage.propTypes = {
+  teamId: PropTypes.string.isRequired,
 };
 
 export default DeployPage;

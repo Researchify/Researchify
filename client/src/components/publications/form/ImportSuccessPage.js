@@ -10,6 +10,7 @@ import {
   Tooltip,
   OverlayTrigger,
 } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import ImportedPublication from '../importedPublication/ImportedPublication';
 import {
   createBulkPublications,
@@ -181,6 +182,11 @@ const ImportSuccessPage = ({ closeModal }) => {
       </Row>
     </>
   );
+};
+
+// props validation
+ImportSuccessPage.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default ImportSuccessPage;

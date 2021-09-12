@@ -16,6 +16,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
 
@@ -121,6 +122,11 @@ const Achievement = ({ achievement }) => {
       </Modal>
     </>
   );
+};
+
+// props validation
+Achievement.propTypes = {
+  achievement: PropTypes.object.isRequired,
 };
 
 export default Achievement;

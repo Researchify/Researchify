@@ -14,6 +14,7 @@ import {
   ButtonGroup,
   ToggleButton,
 } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import { categoryTypes } from '../../../config/publications';
 import '../publications.css';
 
@@ -211,6 +212,14 @@ const CategoryPage = ({
       </Formik>
     </>
   );
+};
+
+// props validation
+CategoryPage.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default CategoryPage;
