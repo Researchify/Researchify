@@ -22,7 +22,7 @@
         "jsx-a11y/no-static-element-interactions": "off", // low-prio refactor
         "jsx-a11y/no-noninteractive-element-interactions": "off", // low-prio refactor
         "radix": "off", // low-prio refactor
-        // ↓↓ in src/actions we reassign pub date to keep only year YYYY ↓↓
+        // ↓↓ in src/actions we reassign pub date to keep only year YYYY ↓↓, can refactor later
         "no-param-reassign": ["error", {"props": true, "ignorePropertyModificationsFor": ["pub"]}], 
         "no-return-assign": "off", // should refactor later
         "spaced-comment": "off",
