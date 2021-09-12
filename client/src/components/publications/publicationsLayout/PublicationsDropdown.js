@@ -31,7 +31,14 @@ const PublicationsDropdown = ({
               <Dropdown.Item
                 key={i}
                 as="button"
-                onClick={() => setOptions({ ...options, groupBy: groupByOptions[gropuBy] })}
+                onClick={() => {
+                  if (gropuBy !== groupByOptions.CATEGORY.toUpperCase() && options.sortBy === 'Category Title') {
+                    setOptions({ ...options, groupBy: groupByOptions[gropuBy], sortBy: sortingOptions.TITLE });
+                    sortPublications(publication, sortingOptions.TITLE);
+                    return;
+                  }
+                  setOptions({ ...options, groupBy: groupByOptions[gropuBy] });
+                }}
               >
                 {groupByOptions[gropuBy]}
               </Dropdown.Item>
