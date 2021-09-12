@@ -14,6 +14,7 @@ import {
   Form,
 } from 'react-bootstrap';
 import '../publications.css';
+import { PropTypes } from 'prop-types';
 
 const MainInfoPage = ({
   next, data, type, pub, closeModal,
@@ -213,6 +214,18 @@ const MainInfoPage = ({
       </Formik>
     </>
   );
+};
+
+// props validation
+MainInfoPage.propTypes = {
+  next: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  pub: PropTypes.object,
+  closeModal: PropTypes.func.isRequired,
+};
+MainInfoPage.defaultProps = {
+  pub: undefined,
 };
 
 export default MainInfoPage;
