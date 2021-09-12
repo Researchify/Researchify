@@ -1,0 +1,192 @@
+/** This file centralize the styling of client website */
+
+/* all pages */
+.scholly-header {
+  top: 0;
+}
+
+/* top padding for each page, to avoid overlapping with header */
+.pages-top-padding {
+  padding-top: 50px;
+}
+
+/* landing pages */
+.landing-carousel-img {
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.landing-center-title {
+  text-align: center;
+  padding-top: 25px;
+  font-weight: bolder;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: xx-large;
+}
+
+.landing-center-content {
+  text-align: center;
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: medium;
+}
+
+/* publication page */
+.publication-pg-title {
+  text-align: center;
+  padding-top: 8px;
+  font-weight: 460;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: xx-large;
+}
+
+.publication-title {
+  font-size: large;
+  text-align: center;
+  font-weight: 600;
+}
+
+.publication-title-column {
+  background-color: white;
+  border: transparent;
+}
+
+.publication-body-column {
+  border: transparent;
+}
+
+.publication-card {
+  border: transparent;
+  padding-bottom: 15px;
+}
+
+.pub-category-above-title {
+  font-style: italic;
+  font-size: medium;
+  text-align: center;
+  font-weight: 450;
+}
+
+.pub-year-below-title {
+  font-size: smaller;
+  text-align: center;
+}
+
+.pub-body-subheader {
+  text-align: center;
+  font-style: italic;
+  font-size: medium;
+  font-weight: 450;
+}
+
+.pub-body-content {
+  text-align: center;
+  font-size: medium;
+  padding-bottom: 15px;
+}
+
+.pub-body-paragraph {
+  text-indent: 1%;
+  text-align: justify;
+  text-align-last: center;
+}
+
+.pub-twitter-right {
+  float: right;
+  width: 20%;
+  height: inherit;
+  max-width: 333px;
+  padding: 16px;
+}
+
+@media screen and (max-width: 1024px) {
+  .pub-twitter-right {
+    display: none !important;
+  }
+}
+
+.twitter-feed {
+  border: 1px solid #ccc !important;
+  border-radius: 16px;
+  margin-top: 60px;
+  position: fixed;
+}
+
+.pub-left-main {
+  width: 80%;
+  float: left;
+}
+
+/* team page */
+.team-pg-title {
+  text-align: center;
+  padding-top: 8px;
+  font-weight: bolder;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: xx-large;
+}
+
+.member-name {
+  text-align: center;
+  font-weight: 600;
+  font-size: large;
+}
+
+.member-position {
+  text-align: center;
+  font-weight: 450;
+  font-size: small;
+}
+
+.member-summary {
+  padding-top: 15px;
+  text-align: justify;
+  text-indent: 5%;
+}
+
+.team-card-container {
+  padding-top: 12px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.team-card {
+  border: transparent;
+  min-width: 210px;
+  max-width: 210px;
+}
+
+.team-card-deck {
+  align-content: center;
+  justify-content: center;
+}
+
+
+.award-card {
+  border: transparent;
+  min-width: 210px;
+  max-width: 210px;
+}
+.award-name {
+  text-align: center;
+  font-weight: 600;
+  font-size: large;
+}
+
+.award-position {
+  text-align: center;
+  font-weight: 450;
+  font-size: small;
+}
+
+.award-summary {
+  padding-top: 15px;
+  text-align: center;
+
+}

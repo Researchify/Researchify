@@ -63,6 +63,8 @@ const CategoryPage = ({
         initialValues={data}
       >
         {({
+          // ↓↓ formik validation need it
+          handleSubmit, // eslint-disable-line no-shadow
           handleChange,
           values,
           touched,
