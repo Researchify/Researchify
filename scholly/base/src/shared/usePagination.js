@@ -4,12 +4,13 @@ import { Pagination } from 'react-bootstrap';
 const usePagination = (data, itemPerPage) => {
   const [currentPage, setCurrentPage] = useState(1);
   const maxPage = Math.ceil(data.length / itemPerPage);
-  const currentData = () => { // eslint-disable-line consistent-return
+  const currentData = () => {
     if (data) {
       const start = (currentPage - 1) * itemPerPage;
       const end = start + itemPerPage;
       return data.slice(start, end);
     }
+    return [];
   };
   const nextPage = () => {
     setCurrentPage(() => Math.min(currentPage + 1, maxPage));
