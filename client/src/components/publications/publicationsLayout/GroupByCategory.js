@@ -3,7 +3,7 @@
  */
 
 import { categoryTypes, categoryPageSize } from '../../../config/publications';
-import LayoutAllPublications from './GroupByNone';
+import GroupByNone from './GroupByNone';
 
 const GroupByCategory = ({ teamPublications }) => {
   const renderPublicationsByCategory = (categoryType) => {
@@ -18,7 +18,7 @@ const GroupByCategory = ({ teamPublications }) => {
             {categoryType}
             {' '}
           </h2>
-          <LayoutAllPublications
+          <GroupByNone
             teamPublications={publicationsByCategory}
             pageSize={categoryPageSize}
           />

@@ -9,19 +9,16 @@ const categoryType = {
   Book: 'Book',
   Other: 'Other',
 };
-const layoutOptions = {
-  ALL_PUBLICATION: 'All Publication',
-  BY_CATEGORY: 'By Category',
+const groupByOptions = {
+  NONE: 'NONE',
+  CATEGORY: 'CATEGORY',
 };
 const sortingOptions = {
   TITLE: 'Title',
   AUTHOR: 'Author',
   YEAR: 'Year',
 };
-const defaultOption = {
-  layout: layoutOptions.ALL_PUBLICATION,
-  sortBy: sortingOptions.TITLE,
-};
+
 module.exports = {
-  pageSize, categoryPageSize, categoryType, layoutOptions, sortingOptions, defaultOption,
+  pageSize, categoryPageSize, categoryType, groupByOptions, sortingOptions,
 };

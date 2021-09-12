@@ -4,7 +4,7 @@
  */
 const mongoose = require('mongoose');
 
-const { layoutOptions, sortingOptions } = require('../config/publication');
+const { groupByOptions, sortingOptions } = require('../config/publication');
 
 const websiteSchema = new mongoose.Schema(
   {
@@ -30,7 +30,7 @@ const websiteSchema = new mongoose.Schema(
       layout: {
         type: String,
         required: false,
-        enum: layoutOptions,
+        enum: groupByOptions,
       },
       sortBy: {
         type: String,
