@@ -3,14 +3,24 @@
  */
 import React from 'react';
 import { CardDeck, Container } from 'react-bootstrap';
-import { TEAM_ACHIEVEMENTS } from '../../../../global/data';
+import { Helmet } from 'react-helmet';
+import { TEAM_ACHIEVEMENTS, TEAM_INFO } from '../../../../global/data';
 import Achievement from './Achievement';
 
 const Achievements = () => {
   const teamAchievements = TEAM_ACHIEVEMENTS;
-
+  const { teamName } = TEAM_INFO;
   return (
     <>
+      <Helmet>
+        <title>
+          {' '}
+          Achievements -
+          {' '}
+          {teamName}
+          {' '}
+        </title>
+      </Helmet>
       <Container className="pages-top-padding text-center mt-3 mb-3">
         <div className="team-pg-title w-100 text-center">Achievements</div>
       </Container>

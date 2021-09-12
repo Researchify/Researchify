@@ -3,6 +3,8 @@
  */
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import { Helmet } from 'react-helmet';
+import { TEAM_INFO } from '../../../../global/data';
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
 
@@ -10,14 +12,26 @@ import Container from 'react-bootstrap/Container';
 import Publications from './Publications';
 // import { TEAM_INFO } from '../../global/data';
 
-const PublicationPage = () => (
-  <>
-    <Container className="pages-top-padding text-center mt-3 mb-3">
-      <div className="publication-pg-title">Our Publications</div>
-    </Container>
-    <Container fluid>
-      <Publications />
-    </Container>
-  </>
-);
+const PublicationPage = () => {
+  const { teamName } = TEAM_INFO;
+  return (
+    <>
+      <Helmet>
+        <title>
+          {' '}
+          Publications -
+          {' '}
+          {teamName}
+          {' '}
+        </title>
+      </Helmet>
+      <Container className="pages-top-padding text-center mt-3 mb-3">
+        <div className="publication-pg-title">Our Publications</div>
+      </Container>
+      <Container fluid>
+        <Publications />
+      </Container>
+    </>
+  );
+};
 export default PublicationPage;

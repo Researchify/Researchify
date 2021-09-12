@@ -4,7 +4,7 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import { Helmet } from 'react-helmet';
-import { TEAM_INFO } from '../../global/data';
+import { TEAM_INFO } from '../../../../global/data';
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
 
