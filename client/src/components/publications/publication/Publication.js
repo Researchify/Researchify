@@ -257,6 +257,7 @@ const Publication = ({ pub }) => {
   );
 };
 
+// props validation
 Publication.propTypes = {
   pub: PropTypes.object.isRequired,
 };

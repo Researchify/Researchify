@@ -13,6 +13,7 @@ const PublicationsButtons = ({ setShowCreateForm, setShowImportForm }) => (
   </div>
 );
 
+// props validation
 PublicationsButtons.propTypes = {
   setShowCreateForm: PropTypes.func.isRequired,
   setShowImportForm: PropTypes.func.isRequired,

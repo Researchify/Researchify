@@ -145,6 +145,7 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
   );
 };
 
+// props validation
 AchievementForm.propTypes = {
   achievement: PropTypes.object,
   closeModal: PropTypes.func.isRequired,

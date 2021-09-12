@@ -36,6 +36,7 @@ const ImportFailPage = ({ closeModal }) => {
   );
 };
 
+// props validation
 ImportFailPage.propTypes = {
   closeModal: PropTypes.func.isRequired,
 };

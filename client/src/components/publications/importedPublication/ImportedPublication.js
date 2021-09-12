@@ -112,6 +112,7 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
   );
 };
 
+// props validation
 ImportedPublication.propTypes = {
   pub: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
