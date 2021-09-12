@@ -1,5 +1,5 @@
 /**
- * The MainInfoPage component displays a form of a publication's main attributes: Title, Published Year, Authours, Description and Link
+ * The MainInfoPage component displays a form of a publication's main attributes: Title, Published Year, Authors, Description and Link
  */
 
 import { Formik } from 'formik';
@@ -94,6 +94,8 @@ const MainInfoPage = ({
         initialValues={type === 'update' ? pub : data}
       >
         {({
+          // ↓↓ formik validation need it
+          handleSubmit, // eslint-disable-line no-shadow
           handleChange,
           values,
           touched,
