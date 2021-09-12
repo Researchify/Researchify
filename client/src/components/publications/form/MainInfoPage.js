@@ -94,6 +94,8 @@ const MainInfoPage = ({
         initialValues={type === 'update' ? pub : data}
       >
         {({
+          // ↓↓ formik validation need it
+          handleSubmit, // eslint-disable-line no-shadow
           handleChange,
           values,
           touched,
