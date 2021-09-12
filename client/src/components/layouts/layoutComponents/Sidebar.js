@@ -31,6 +31,7 @@ const Sidebar = ({ data }) => {
   );
 };
 
+// props validation
 Sidebar.propTypes = {
   data: PropTypes.array.isRequired,
 };

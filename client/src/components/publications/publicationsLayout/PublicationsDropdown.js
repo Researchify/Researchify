@@ -88,6 +88,7 @@ const PublicationsDropdown = ({
   );
 };
 
+// props validation
 PublicationsDropdown.propTypes = {
   options: PropTypes.object.isRequired,
   setOptions: PropTypes.func.isRequired,

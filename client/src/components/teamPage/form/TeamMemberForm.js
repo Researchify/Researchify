@@ -138,6 +138,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
   );
 };
 
+// props validation
 TeamMemberForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
   member: PropTypes.object,

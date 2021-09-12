@@ -184,6 +184,7 @@ const ImportSuccessPage = ({ closeModal }) => {
   );
 };
 
+// props validation
 ImportSuccessPage.propTypes = {
   closeModal: PropTypes.func.isRequired,
 };

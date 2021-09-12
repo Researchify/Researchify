@@ -33,6 +33,7 @@ const ImportForm = ({ closeModal }) => {
   );
 };
 
+// props validation
 ImportForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
 };

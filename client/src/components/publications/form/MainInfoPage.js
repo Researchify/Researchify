@@ -214,6 +214,7 @@ const MainInfoPage = ({
   );
 };
 
+// props validation
 MainInfoPage.propTypes = {
   next: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
