@@ -27,7 +27,7 @@ const websiteSchema = new mongoose.Schema(
       required: false,
     },
     publicationOptions: {
-      layout: {
+      groupBy: {
         type: String,
         required: false,
         enum: groupByOptions,

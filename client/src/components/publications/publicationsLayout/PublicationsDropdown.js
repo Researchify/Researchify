@@ -22,18 +22,18 @@ const PublicationsDropdown = ({
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Dropdown>
           <Dropdown.Toggle variant="light" className="mb-2">
-            Layout:
+            Group By:
             {' '}
-            {options.layout}
+            {options.groupBy}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(groupByOptions).map((layout, i) => (
+            {Object.keys(groupByOptions).map((gropuBy, i) => (
               <Dropdown.Item
                 key={i}
                 as="button"
-                onClick={() => setOptions({ ...options, layout: groupByOptions[layout] })}
+                onClick={() => setOptions({ ...options, groupBy: groupByOptions[gropuBy] })}
               >
-                {groupByOptions[layout]}
+                {groupByOptions[gropuBy]}
               </Dropdown.Item>
             ))}
           </Dropdown.Menu>
@@ -59,7 +59,7 @@ const PublicationsDropdown = ({
                 {sortingOptions[sortBy]}
               </Dropdown.Item>
             ))}
-            {options.layout === groupByOptions.CATEGORY
+            {options.groupBy === groupByOptions.CATEGORY
               && (
               <Dropdown.Item
                 as="button"

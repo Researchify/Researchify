@@ -10,8 +10,8 @@ const categoryType = {
   Other: 'Other',
 };
 const groupByOptions = {
-  NONE: 'NONE',
-  CATEGORY: 'CATEGORY',
+  NONE: 'None',
+  CATEGORY: 'Category',
 };
 const sortingOptions = {
   TITLE: 'Title',
