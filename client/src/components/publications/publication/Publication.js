@@ -7,8 +7,6 @@ import React, { useState, useEffect } from 'react';
 import {
   Button,
   Modal,
-  // OverlayTrigger,
-  //  ButtonGroup,
   Row,
   Col,
   Collapse,
@@ -153,7 +151,7 @@ const Publication = ({ pub }) => {
             && (
             <StyledButtonGroup className="float-right">
               <ButtonGroupItem onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
-              <ButtonGroupItem onClick={() => setShowDeleteMessage(true)}><RiDeleteBin6Line /></ButtonGroupItem>
+              <ButtonGroupItem color="red" onClick={() => setShowDeleteMessage(true)}><RiDeleteBin6Line /></ButtonGroupItem>
             </StyledButtonGroup>
             )
             }

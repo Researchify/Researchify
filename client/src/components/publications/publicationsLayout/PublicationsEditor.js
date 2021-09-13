@@ -15,12 +15,13 @@ export const StyledButtonGroup = styled.div`
 
 export const ButtonGroupItem = styled.button`
   background: #ededed;
-  border: 1px solid #ccc;
+  border: 1px solid ${(props) => props.borderColor || '#ccc'};
   padding: 1px 3px;
   border-radius: 3px;
   cursor: pointer;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande";
   width: auto;
+  color: ${(props) => props.color};
   &:hover{
     background: lightgray;
   }
@@ -65,11 +66,11 @@ const PublicationsEditor = ({
       <StyledButtonGroup>
         <Dropdown>
           <Dropdown.Toggle size="sm">
-            ADD
+            Add
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => setShowCreateForm(true)}>Insert Publication</Dropdown.Item>
-            <Dropdown.Item onClick={() => setShowImportForm(true)}>Import Publication</Dropdown.Item>
+            <Dropdown.Item onClick={() => setShowImportForm(true)}>Import Publications</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </StyledButtonGroup>
