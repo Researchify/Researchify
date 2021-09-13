@@ -322,7 +322,7 @@ async function updateTeam(req, res, next) {
  * @returns 400: team id is not in a valid hexadecimal format or current password is incorrect
  */
 async function updatePassword(req, res, next) { // eslint-disable-line no-unused-vars
-  const { team_id: _id } = req.params;
+  const { teamId: _id } = req.params;
   const team = req.body;
 
   const foundTeam = await Team.findOne({ _id });

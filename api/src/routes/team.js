@@ -75,7 +75,7 @@ teamRouter.patch(
 );
 
 teamRouter.patch(
-  '/:team_id/password',
+  '/password/:teamId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
