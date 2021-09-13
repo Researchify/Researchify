@@ -210,11 +210,14 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
     const { data: teamPublications } = await api.fetchPublicationsByTeamId(
       teamId,
     );
-    teamPublications.map(
-      (pub) => ({
-        ...pub,
-        yearPublished: pub.yearPublished.substring(0, 4),
-      }),
+    const newTeamPubs = teamPublications.map(
+      (pub) => {
+        const updatedPub = {
+          ...pub,
+          yearPublished: pub.yearPublished.substring(0, 4), // only get the year from the date format
+        };
+        return updatedPub;
+      },
     );
     // get teamInfo
     const { data: teamInfo } = await api.getTeamJWT();
@@ -229,7 +232,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
 
     const body = {
       ghToken: accessToken,
-      teamPublications,
+      teamPublications: newTeamPubs,
       teamInfo,
       teamMembers,
       teamHomepage,
