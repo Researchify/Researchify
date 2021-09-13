@@ -276,7 +276,7 @@ function teamDataAllocator(teamData) {
  * @param {*} successMsg the success message to display if different from default one
  * @returns
  */
-export const updateTeam = (teamId, teamData,successMsg = 'Team has been updated') => async (dispatch) => {
+export const updateTeam = (teamId, teamData, successMsg = 'Team has been updated') => async (dispatch) => {
   try {
     const { data } = await api.updateTeam(teamId, teamData);
     const updatedTeam = teamDataAllocator(data);
@@ -298,7 +298,7 @@ export const updateTeam = (teamId, teamData,successMsg = 'Team has been updated'
  * @param {*} successMsg the success message to display if different from default one
  * @returns
  */
-export const updatePassword = (teamId, teamData,successMsg = 'Password has been changed') => async (dispatch) => {
+export const updatePassword = (teamId, teamData, successMsg = 'Password has been changed') => async (dispatch) => {
   try {
     const { data } = await api.updatePassword(teamId, teamData);
     const updatedTeam = teamDataAllocator(data);

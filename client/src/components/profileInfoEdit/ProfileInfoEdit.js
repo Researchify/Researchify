@@ -11,10 +11,9 @@ import './ProfileInfoEdit.css';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
-import * as yup from "yup";
+import * as yup from 'yup';
 import profilePic from '../../images/profilepic.jpg';
 import { updateTeam, updatePassword } from '../../actions/team';
-
 
 /**
  * Form component for user update profile
@@ -28,11 +27,10 @@ const ProfileInfoEdit = () => {
     (state) => state.team,
   );
 
-   const [profileData, setInputs] = useState({ teamName, orgName, email});
+  const [profileData, setInputs] = useState({ teamName, orgName, email });
 
-  const [ profileDataPassword, setprofileDataPassword ] = useState({})
-    const [ errors, setErrors ] = useState({})
-
+  const [profileDataPassword, setprofileDataPassword] = useState({});
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     setInputs({ teamName, orgName, email });
@@ -43,92 +41,93 @@ const ProfileInfoEdit = () => {
     setInputs({ ...profileData, [name]: value });
   };
 
-    const setPassword = (field, value) => {
+  const setPassword = (field, value) => {
     setprofileDataPassword({
       ...profileDataPassword,
-      [field]: value
-    })
-        if ( errors[field] ) setErrors({
-      ...errors,
-      [field]: null
-    })
-  }
-    const passwordSchema = yup.object().shape({
-        password: yup
-        .string()
-        .required('Please Enter your password')
-        .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        "Use 8 or more characters with a mix of letters, numbers & symbols"),
-        confirmedPassword: yup
-        .string()
-        .required('Please re-enter your password')
-        .oneOf([yup.ref('password'),null], 'Passwords must match')
-    })
-
-  const checkPassword = async () => {
-        const { password,confirmedPassword } = profileDataPassword
-
-        const valid = await passwordSchema.isValid({
-          password,
-          confirmedPassword
+      [field]: value,
+    });
+    if (errors[field]) {
+      setErrors({
+        ...errors,
+        [field]: null,
       });
-        if (valid){
-            return true;
-        }
-        return false;
-
+    }
   };
 
-    const findFormErrors = async () => {
+  const passwordSchema = yup.object().shape({
+    password: yup
+      .string()
+      .required('Please Enter your password')
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        'Use 8 or more characters with a mix of letters, numbers & symbols'
+      ),
+    confirmedPassword: yup
+      .string()
+      .required('Please re-enter your password')
+      .oneOf([yup.ref('password'), null], 'Passwords must match',)
+  });
 
-        const newErrors = {}
-        // name errors
-        if ( !await checkPassword()){
-            newErrors.password = "Please enter a password at least 8 chars long, using only numbers, letters and characters"
-        }
-        if ({...profileDataPassword}.password !== {...profileDataPassword}.confirmedPassword){
-            newErrors.confirmedPassword = " Passwords do not match"
-        }
-        return newErrors
+
+  const checkPassword = async () => {
+    const { password, confirmedPassword } = profileDataPassword;
+
+    const valid = await passwordSchema.isValid({
+      password,
+      confirmedPassword
+    });
+    if (valid){
+      return true;
     }
+    return false;
+  };
 
-    const handleUpdatePassword = async e => {
-        e.preventDefault()
-        // get our new errors
-        const newErrors = await findFormErrors()
-        // Conditional logic:
-        if (Object.keys(newErrors).length > 0) {
-            // We got errors!
-            setErrors(newErrors)
-        } else {
-            setErrors(newErrors)
-
-            const newdata = {
-                "currentPassword": {...profileDataPassword}.currentPassword,
-                "password": {...profileDataPassword}.password
-            }
-            dispatch(updatePassword(teamId, newdata, ' Password has been updated'));
-        }
+  const findFormErrors = async () => {
+    const newErrors = {};
+    // name errors
+    if (!await checkPassword()){
+      newErrors.password = "Please enter a password at least 8 chars long, using only numbers, letters and characters";
     }
+    if ({ ...profileDataPassword }.password !== { ...profileDataPassword }.confirmedPassword){
+      newErrors.confirmedPassword = " Passwords do not match";
+    }
+    return newErrors;
+  };
 
+  const handleUpdatePassword = async e => {
+    e.preventDefault();
+    // get our new errors
+    const newErrors = await findFormErrors();
+    // Conditional logic:
+    if (Object.keys(newErrors).length > 0) {
+      // We got errors!
+      setErrors(newErrors);
+    } else {
+      setErrors(newErrors);
 
+      const newdata = {
+        currentPassword: { ...profileDataPassword }.currentPassword,
+        password: { ...profileDataPassword }.password,
+      };
+      dispatch(updatePassword(teamId, newdata, ' Password has been updated'));
+    }
+  };
 
   const [validated, setValidated] = useState(false);
   const handleUpdate = async (event) => {
-      const form = event.currentTarget;
-      event.preventDefault();
-      if (form.checkValidity() === false) {
-          event.stopPropagation();
-      } else {
-          const newdata = {
-              "teamName": {...profileData}.teamName,
-              "orgName": {...profileData}.orgName,
-              "email": {...profileData}.email
-          }
-          dispatch(updateTeam(teamId, newdata));
-      }
-      setValidated(true);
+    const form = event.currentTarget;
+    event.preventDefault();
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      const newdata = {
+        teamName: { ...profileData }.teamName,
+        orgName: { ...profileData }.orgName,
+        email: { ...profileData }.email
+      };
+      dispatch(updateTeam(teamId, newdata));
+    }
+    setValidated(true);
   };
 
   const profileDeleted = () => {
@@ -173,7 +172,7 @@ const ProfileInfoEdit = () => {
             />
           </Form.Group>
 
-          <Form.Group>
+            <Form.Group>
             <Form.Label>Research Group Name</Form.Label>
             <Form.Control
               className="placeholder-text"
@@ -198,7 +197,6 @@ const ProfileInfoEdit = () => {
               name="orgName"
             />
           </Form.Group>
-
 
           <div className="my-1">
             <Button
