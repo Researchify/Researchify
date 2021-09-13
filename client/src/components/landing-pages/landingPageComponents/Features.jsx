@@ -5,6 +5,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
+import { PropTypes } from 'prop-types';
 import Divider from '../utils/Divider';
 import { featuresData } from '../data/landing-page-labels';
 
@@ -112,13 +113,13 @@ const Features = () => {
 
         <Grid item xs={12}>
           <Grid container justify="center" spacing={isMobile ? 5 : 10}>
-            {featuresData.map(({ logo, title, description }, index) => (
+            {featuresData.map(({ logo, title, description }) => (
               <FlippingCard
                 logo={logo}
                 title={title}
                 description={description}
                 classes={classes}
-                key={index}
+                key={title}
               />
             ))}
           </Grid>
@@ -126,6 +127,14 @@ const Features = () => {
       </Grid>
     </div>
   );
+};
+
+//props validation
+FlippingCard.propTypes = {
+  logo: PropTypes.element.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default Features;

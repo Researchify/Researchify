@@ -2,6 +2,7 @@
  * LogoutModal component display a modal and ask for confirmation when the sign out button is clicked
  */
 import { Button, Modal } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/auth';
 
@@ -28,6 +29,12 @@ const LogoutModal = ({ logoutAlert, setLogoutAlert }) => {
       </Modal.Footer>
     </Modal>
   );
+};
+
+// props validation
+LogoutModal.propTypes = {
+  logoutAlert: PropTypes.bool.isRequired,
+  setLogoutAlert: PropTypes.func.isRequired,
 };
 
 export default LogoutModal;

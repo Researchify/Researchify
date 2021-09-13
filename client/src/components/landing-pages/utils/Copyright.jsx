@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { Typography, Link } from '@material-ui/core';
 
 const Copyright = ({ invert }) => {
@@ -15,6 +16,11 @@ const Copyright = ({ invert }) => {
       </Typography>
     </>
   );
+};
+
+//props validation
+Copyright.propTypes = {
+  invert: PropTypes.bool.isRequired,
 };
 
 export default Copyright;
