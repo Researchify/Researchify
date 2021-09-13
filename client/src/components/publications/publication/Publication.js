@@ -131,7 +131,7 @@ const Publication = ({ pub }) => {
         className={newlyAdded ? 'newlyAddedPublicationHeader' : 'modalHeader'}
       >
         <Row>
-          <Col md={10} onClick={() => setExpand(!expand)}>
+          <Col md={10} onClick={handleChange}>
             <div style={{ display: 'flex' }}>
               <div style={{ paddingTop: '10px', paddingLeft: '10px' }}>
                 <input type="checkbox" checked={checkedPublications.includes(pub._id) || false} onChange={handleChange} />
