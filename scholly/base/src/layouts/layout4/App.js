@@ -3,11 +3,14 @@
  */
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Header from './components/layout/Header';
 import getRoutes from './components/router/routes';
 import './components/centered.css';
+import { TEAM_INFO } from '../../global/data';
 
 const App = () => {
+  const { teamName } = TEAM_INFO;
   const routeItems = getRoutes().map(({ path, exact, component }) => {
     const View = component;
     return (
@@ -19,6 +22,9 @@ const App = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{teamName}</title>
+      </Helmet>
       <Header />
       <Switch>
         {routeItems}

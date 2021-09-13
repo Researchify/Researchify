@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import {
   Button, Modal, DropdownButton, Dropdown,
 } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import { addPage } from '../../../actions/website';
 import { availablePages as pages } from '../../../config/clientWebsite';
 
@@ -67,6 +68,14 @@ const WebpageSelector = ({
       </Modal>
     </>
   );
+};
+
+// props validation
+WebpageSelector.propTypes = {
+  currentWebPages: PropTypes.array.isRequired,
+  teamId: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  displayModal: PropTypes.bool.isRequired,
 };
 
 export default WebpageSelector;

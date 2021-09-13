@@ -4,6 +4,7 @@
 
 import React, { useState } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import Sidebar from '../layoutComponents/Sidebar';
 import Header from '../layoutComponents/Header';
 import DashboardSidebarData from '../DashboardSidebarData';
@@ -37,6 +38,11 @@ const DashboardLayout = ({ children }) => {
       <LogoutModal logoutAlert={logoutAlert} setLogoutAlert={setLogoutAlert} />
     </>
   );
+};
+
+// props validation
+DashboardLayout.propTypes = {
+  children: PropTypes.element.isRequired,
 };
 
 export default DashboardLayout;

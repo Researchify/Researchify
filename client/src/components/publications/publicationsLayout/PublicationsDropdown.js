@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dropdown, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 
@@ -27,9 +28,9 @@ const PublicationsDropdown = ({
             {options.layout}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(layoutOptions).map((layout, i) => (
+            {Object.keys(layoutOptions).map((layout) => (
               <Dropdown.Item
-                key={i}
+                key={layout}
                 as="button"
                 onClick={() => setOptions({ ...options, layout: layoutOptions[layout] })}
               >
@@ -46,9 +47,9 @@ const PublicationsDropdown = ({
             {options.sortBy}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(sortingOptions).map((sortBy, i) => (
+            {Object.keys(sortingOptions).map((sortBy) => (
               <Dropdown.Item
-                key={i}
+                key={sortBy}
                 as="button"
                 value={sortingOptions[sortBy]}
                 onClick={(e) => {
@@ -85,6 +86,15 @@ const PublicationsDropdown = ({
       </div>
     </div>
   );
+};
+
+// props validation
+PublicationsDropdown.propTypes = {
+  options: PropTypes.object.isRequired,
+  setOptions: PropTypes.func.isRequired,
+  publication: PropTypes.array.isRequired,
+  teamId: PropTypes.string.isRequired,
+  sortPublications: PropTypes.func.isRequired,
 };
 
 export default PublicationsDropdown;

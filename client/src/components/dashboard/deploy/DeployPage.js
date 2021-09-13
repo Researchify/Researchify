@@ -4,6 +4,7 @@ import { GoMarkGithub } from 'react-icons/go';
 import { Button, Spinner } from 'react-bootstrap';
 import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
+import { PropTypes } from 'prop-types';
 
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
@@ -63,17 +64,25 @@ const DeployPage = ({ teamId }) => {
   return (
     <>
       Deploy Website with GitHub
-      {loading ? (
-        <div className="mb-3 mt-3 text-center">
-          <Spinner animation="border" />
-        </div>
-      ) : retrievedAccessToken ? (
-        DeployButton
-      ) : (
-        GitHubLoginButton
-      )}
+      { (() => {
+        if (loading) {
+          return (
+            <div className="mb-3 mt-3 text-center">
+              <Spinner animation="border" />
+            </div>
+          );
+        } if (retrievedAccessToken) {
+          return (DeployButton);
+        }
+        return (GitHubLoginButton);
+      })()}
     </>
   );
+};
+
+// props validation
+DeployPage.propTypes = {
+  teamId: PropTypes.string.isRequired,
 };
 
 export default DeployPage;
