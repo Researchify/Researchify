@@ -5,7 +5,7 @@
 import { categoryTypes, categoryPageSize } from '../../../config/publications';
 import LayoutAllPublications from './LayoutAllPublications';
 
-const LayoutByCategory = ({ teamPublications }) => {
+const LayoutByCategory = ({ teamPublications, setCheckedPublicationId }) => {
   const renderPublicationsByCategory = (categoryType) => {
     const publicationsByCategory = teamPublications.filter(
       (pub) => pub.category.type === categoryType,
@@ -16,6 +16,7 @@ const LayoutByCategory = ({ teamPublications }) => {
         teamPublications={publicationsByCategory}
         pageSize={categoryPageSize}
         groupBy={categoryType}
+        setCheckedPublications={setCheckedPublicationId}
       />
       )
     );

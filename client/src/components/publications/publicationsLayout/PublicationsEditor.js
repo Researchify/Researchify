@@ -2,7 +2,6 @@ import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { AiFillFileAdd } from 'react-icons/ai';
 import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 import '../publications.css';
@@ -65,11 +64,11 @@ const PublicationsEditor = ({
     <>
       <StyledButtonGroup>
         <Dropdown>
-          <Dropdown.Toggle style={{ padding: '5px' }}>
-            <AiFillFileAdd />
+          <Dropdown.Toggle size="sm">
+            ADD
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => setShowCreateForm(true)}>Add Publication</Dropdown.Item>
+            <Dropdown.Item onClick={() => setShowCreateForm(true)}>Insert Publication</Dropdown.Item>
             <Dropdown.Item onClick={() => setShowImportForm(true)}>Import Publication</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

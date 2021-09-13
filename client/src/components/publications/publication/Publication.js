@@ -2,7 +2,7 @@
  * The Publication component displays a single publication details
  */
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import {
   Button,
@@ -26,6 +26,7 @@ const Publication = ({ pub }) => {
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [expand, setExpand] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const { checkedPublications } = useSelector((state) => state.publications);
 
   useEffect(() => {
     if (pub.newlyAdded) {
@@ -110,6 +111,20 @@ const Publication = ({ pub }) => {
     setIsHovering(false);
   };
 
+  const handleChange = () => {
+    if (checkedPublications.includes(pub._id)) {
+      dispatch({
+        type: 'UNCHECK_PUBLICATION',
+        payload: [pub._id],
+      });
+    } else {
+      dispatch({
+        type: 'CHECK_PUBLICATIONS',
+        payload: [pub._id],
+      });
+    }
+  };
+
   return (
     <div className="publication-container" onMouseOver={handleMouseOver} onFocus={handleMouseOver} onMouseLeave={handleMouseLeave} onBlur={handleMouseLeave}>
       <div
@@ -119,7 +134,7 @@ const Publication = ({ pub }) => {
           <Col md={10} onClick={() => setExpand(!expand)}>
             <div style={{ display: 'flex' }}>
               <div style={{ paddingTop: '10px', paddingLeft: '10px' }}>
-                <input type="checkbox" />
+                <input type="checkbox" checked={checkedPublications.includes(pub._id) || false} onChange={handleChange} />
               </div>
               <div className="pubs-title">
                 {pub.link ? (

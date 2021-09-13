@@ -9,12 +9,13 @@ import {
 const initialState = {
   loading: true,
   teamPublications: [],
+  checkedPublications: [],
 };
 
 const publicationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PUBLICATIONS_BY_TEAM_ID:
-      return { loading: false, teamPublications: action.payload };
+      return { ...state, loading: false, teamPublications: action.payload };
     case CREATE_PUBLICATION:
       return {
         ...state,
@@ -34,6 +35,12 @@ const publicationsReducer = (state = initialState, action) => {
       };
     case CREATE_BULK_PUBLICATIONS:
       return { ...state, teamPublications: state.teamPublications.concat(action.payload) };
+    case 'CHECK_PUBLICATIONS':
+      return { ...state, checkedPublications: state.checkedPublications.concat(action.payload) };
+    case 'UNCHECK_PUBLICATION': {
+      const unchecks = action.payload;
+      return { ...state, checkedPublications: state.checkedPublications.filter((checkedPub) => !unchecks.find((uncheck) => uncheck === checkedPub)) };
+    }
     default:
       return state;
   }
