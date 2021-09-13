@@ -10,6 +10,7 @@ import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 import { ButtonGroupItem } from './PublicationsEditor';
+import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 
 const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
   // Since we need to validate pageSize and set default, configPageSize might not necessary
@@ -20,12 +21,12 @@ const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
   const handleChange = () => {
     if (checked) {
       dispatch({
-        type: 'UNCHECK_PUBLICATION',
+        type: UNCHECK_PUBLICATIONS,
         payload: teamPublications.map((pub) => pub._id),
       });
     } else {
       dispatch({
-        type: 'CHECK_PUBLICATIONS',
+        type: CHECK_PUBLICATIONS,
         payload: teamPublications.map((pub) => pub._id),
       });
     }

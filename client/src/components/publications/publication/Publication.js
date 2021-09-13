@@ -17,6 +17,7 @@ import PublicationForm from '../form/PublicationForm';
 import { deletePublication } from '../../../actions/publications';
 import '../publications.css';
 import { StyledButtonGroup, ButtonGroupItem } from '../publicationsLayout/PublicationsEditor';
+import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 
 const Publication = ({ pub }) => {
   const dispatch = useDispatch();
@@ -113,12 +114,12 @@ const Publication = ({ pub }) => {
   const handleChange = () => {
     if (checkedPublications.includes(pub._id)) {
       dispatch({
-        type: 'UNCHECK_PUBLICATION',
+        type: UNCHECK_PUBLICATIONS,
         payload: [pub._id],
       });
     } else {
       dispatch({
-        type: 'CHECK_PUBLICATIONS',
+        type: CHECK_PUBLICATIONS,
         payload: [pub._id],
       });
     }

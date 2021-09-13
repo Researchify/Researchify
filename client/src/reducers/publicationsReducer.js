@@ -4,6 +4,8 @@ import {
   UPDATE_PUBLICATION,
   DELETE_PUBLICATION,
   CREATE_BULK_PUBLICATIONS,
+  CHECK_PUBLICATIONS,
+  UNCHECK_PUBLICATIONS,
 } from '../actions/types';
 
 const initialState = {
@@ -35,9 +37,9 @@ const publicationsReducer = (state = initialState, action) => {
       };
     case CREATE_BULK_PUBLICATIONS:
       return { ...state, teamPublications: state.teamPublications.concat(action.payload) };
-    case 'CHECK_PUBLICATIONS':
+    case CHECK_PUBLICATIONS:
       return { ...state, checkedPublications: state.checkedPublications.concat(action.payload) };
-    case 'UNCHECK_PUBLICATION': {
+    case UNCHECK_PUBLICATIONS: {
       const unchecks = action.payload;
       return { ...state, checkedPublications: state.checkedPublications.filter((checkedPub) => !unchecks.find((uncheck) => uncheck === checkedPub)) };
     }
