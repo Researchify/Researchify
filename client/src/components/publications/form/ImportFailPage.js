@@ -2,7 +2,9 @@
  * The ImportFailPage component displays an error message sent by scholar api if the import is failed
  */
 
-import { Alert, Row, Button } from 'react-bootstrap';
+import { Alert, Button, Row } from 'react-bootstrap';
+
+import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { IMPORT_CLEAR_STATE } from '../../../actions/types';
 
@@ -32,6 +34,11 @@ const ImportFailPage = ({ closeModal }) => {
       </Row>
     </>
   );
+};
+
+// props validation
+ImportFailPage.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default ImportFailPage;

@@ -38,7 +38,7 @@ async function createAchievement(req, res) {
 }
 
 /**
- * Handles a GET request, which will retrieve all the achievements/awards by team in the endpoint /achievements/team/:team_id.
+ * Handles a GET request, which will retrieve all the achievements/awards by team in the endpoint /achievements/team/:teamId.
  *
  * @param req request object - team id (mongo object id) given in the url
  * @param res response object - a list of achievements (see Achievement model)
@@ -46,7 +46,7 @@ async function createAchievement(req, res) {
  * @returns 500: server encountered an unexpected condition
  */
 async function getAllAchievementsByTeam(req, res) {
-  const { team_id: _id } = req.params;
+  const { teamId: _id } = req.params;
 
   try {
     // Store achievements into list, sorted by title in alphabetical order

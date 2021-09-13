@@ -3,6 +3,7 @@
  */
 import './Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 const Sidebar = ({ data }) => {
   const location = useLocation();
@@ -10,9 +11,9 @@ const Sidebar = ({ data }) => {
   return (
     <>
       <ul className="SidebarList">
-        {data.map((val, key) => (
+        {data.map((val) => (
           // if the link property of a sidebar item is undefined, stays in the current page
-          <Link to={val.link ? val.link : '#'} key={key}>
+          <Link to={val.link ? val.link : '#'} key={val.title}>
             <li
               className="row"
               id={location.pathname === val.link ? 'active' : ''}
@@ -28,6 +29,11 @@ const Sidebar = ({ data }) => {
       </ul>
     </>
   );
+};
+
+// props validation
+Sidebar.propTypes = {
+  data: PropTypes.array.isRequired,
 };
 
 export default Sidebar;

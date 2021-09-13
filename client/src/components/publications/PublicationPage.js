@@ -2,7 +2,7 @@
  * The PublicationPage component renders TwitterFeed component and Publications component .
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';

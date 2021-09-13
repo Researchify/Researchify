@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 import {
   Box,
@@ -163,6 +164,13 @@ const AboutUs = () => {
       </Grid>
     </div>
   );
+};
+
+//props validation
+TabPanel.propTypes = {
+  children: PropTypes.array.isRequired,
+  value: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default AboutUs;

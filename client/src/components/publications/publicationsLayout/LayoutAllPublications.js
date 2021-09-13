@@ -5,12 +5,14 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Row, Col } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 import { ButtonGroupItem } from './PublicationsEditor';
 
-const LayoutAllPublications = ({ teamPublications, pageSize, groupBy = null }) => {
+const LayoutAllPublications = ({ teamPublications, pageSize }) => {
+  // Since we need to validate pageSize and set default, configPageSize might not necessary
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
@@ -71,6 +73,15 @@ const LayoutAllPublications = ({ teamPublications, pageSize, groupBy = null }) =
       </div>
     </>
   );
+};
+
+// props validation
+LayoutAllPublications.propTypes = {
+  teamPublications: PropTypes.array.isRequired,
+  pageSize: PropTypes.number,
+};
+LayoutAllPublications.defaultProps = {
+  pageSize: 10,
 };
 
 export default LayoutAllPublications;

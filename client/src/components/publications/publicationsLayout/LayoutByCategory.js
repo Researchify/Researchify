@@ -21,8 +21,8 @@ const LayoutByCategory = ({ teamPublications, setCheckedPublicationId }) => {
       )
     );
   };
-  return Object.keys(categoryTypes).map((category, i) => (
-    <div key={i}>
+  return Object.keys(categoryTypes).map((category) => (
+    <div key={category}>
       {renderPublicationsByCategory(category)}
     </div>
   ));

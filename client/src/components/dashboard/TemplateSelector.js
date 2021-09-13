@@ -7,6 +7,7 @@ import {
   Container, Button, Form, Col, Image,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import { updateTeamTheme } from '../../actions/team';
 
 // Picture of each layout
@@ -212,6 +213,11 @@ const TemplateSelector = (props) => {
       </Button>
     </Form>
   );
+};
+
+// props validation
+TemplateSelector.propTypes = {
+  teamId: PropTypes.string.isRequired,
 };
 
 export default TemplateSelector;

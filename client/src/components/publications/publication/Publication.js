@@ -12,6 +12,7 @@ import {
   Collapse,
 } from 'react-bootstrap';
 import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
+import { PropTypes } from 'prop-types';
 import PublicationForm from '../form/PublicationForm';
 import { deletePublication } from '../../../actions/publications';
 import '../publications.css';
@@ -211,6 +212,11 @@ const Publication = ({ pub }) => {
       </Modal>
     </div>
   );
+};
+
+// props validation
+Publication.propTypes = {
+  pub: PropTypes.object.isRequired,
 };
 
 export default Publication;

@@ -2,7 +2,8 @@
     "env": {
         "commonjs": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "browser": true
     },
     "extends": ["eslint:recommended", "airbnb"],
     "parserOptions": {
@@ -15,6 +16,7 @@
         "max-len": "off",
         "react/prop-types": "off", // should refactor later
         "no-underscore-dangle": "off",
+        "linebreak-style": "off",
         "react/no-array-index-key": "off" // should refactor later
     }
 }
