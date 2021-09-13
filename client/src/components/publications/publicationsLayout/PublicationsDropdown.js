@@ -28,9 +28,9 @@ const PublicationsDropdown = ({
             {options.layout}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(layoutOptions).map((layout, i) => (
+            {Object.keys(layoutOptions).map((layout) => (
               <Dropdown.Item
-                key={i}
+                key={layout}
                 as="button"
                 onClick={() => setOptions({ ...options, layout: layoutOptions[layout] })}
               >
@@ -47,9 +47,9 @@ const PublicationsDropdown = ({
             {options.sortBy}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(sortingOptions).map((sortBy, i) => (
+            {Object.keys(sortingOptions).map((sortBy) => (
               <Dropdown.Item
-                key={i}
+                key={sortBy}
                 as="button"
                 value={sortingOptions[sortBy]}
                 onClick={(e) => {

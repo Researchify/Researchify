@@ -96,7 +96,7 @@ const ImportSuccessPage = ({ closeModal }) => {
     <>
       {currentData().map((pub, idx) => (
         <ImportedPublication
-          key={idx}
+          key={pub}
           pub={pub}
           index={idx}
           setChecked={checkPublication}

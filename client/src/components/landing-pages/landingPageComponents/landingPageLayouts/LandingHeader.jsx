@@ -70,7 +70,7 @@ const Header = ({ linksAreShown }) => {
             {linksAreShown
               && headerLinks.map((h, index) => {
                 return (
-                  <NavItem key={index}>
+                  <NavItem key={h.link}>
                     <HeaderLink id={index} href={h.link}>
                       {h.label}
                     </HeaderLink>
