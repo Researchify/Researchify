@@ -11,7 +11,7 @@ import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 import { ButtonGroupItem } from './PublicationsEditor';
 
-const LayoutAllPublications = ({ teamPublications, pageSize }) => {
+const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
   // Since we need to validate pageSize and set default, configPageSize might not necessary
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
   const [checked, setChecked] = useState(false);
@@ -79,9 +79,11 @@ const LayoutAllPublications = ({ teamPublications, pageSize }) => {
 LayoutAllPublications.propTypes = {
   teamPublications: PropTypes.array.isRequired,
   pageSize: PropTypes.number,
+  groupBy: PropTypes.string,
 };
 LayoutAllPublications.defaultProps = {
   pageSize: 10,
+  groupBy: null,
 };
 
 export default LayoutAllPublications;

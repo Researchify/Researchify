@@ -2,6 +2,7 @@ import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { PropTypes } from 'prop-types';
 import { sortingOptions, layoutOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 import '../publications.css';
@@ -77,10 +78,10 @@ const PublicationsEditor = ({
       <StyledButtonGroup>
         Group By
         {' '}
-        {Object.keys(layoutOptions).map((layout, i) => (
+        {Object.keys(layoutOptions).map((layout) => (
           <ButtonGroupItem
             press={options.layout === layoutOptions[layout]}
-            key={i}
+            key={layout}
             onClick={() => setOptions({ ...options, layout: layoutOptions[layout] })}
           >
             {layoutOptions[layout]}
@@ -90,10 +91,10 @@ const PublicationsEditor = ({
       <StyledButtonGroup>
         Sort By
         {' '}
-        {Object.keys(sortingOptions).map((sortBy, i) => (
+        {Object.keys(sortingOptions).map((sortBy) => (
           <ButtonGroupItem
             press={options.sortBy === sortingOptions[sortBy]}
-            key={i}
+            key={sortBy}
             value={sortingOptions[sortBy]}
             onClick={(e) => {
               setOptions({ ...options, sortBy: sortingOptions[sortBy] });
@@ -127,5 +128,14 @@ const PublicationsEditor = ({
     </>
   );
 };
-
+// props validation
+PublicationsEditor.propTypes = {
+  options: PropTypes.object.isRequired,
+  setOptions: PropTypes.func.isRequired,
+  publication: PropTypes.object.isRequired,
+  teamId: PropTypes.string.isRequired,
+  sortPublications: PropTypes.func.isRequired,
+  setShowCreateForm: PropTypes.func.isRequired,
+  setShowImportForm: PropTypes.func.isRequired,
+};
 export default PublicationsEditor;
