@@ -60,23 +60,22 @@ const ProfileInfoEdit = () => {
       .required('Please Enter your password')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Use 8 or more characters with a mix of letters, numbers & symbols'
+        'Use 8 or more characters with a mix of letters, numbers & symbols',
       ),
     confirmedPassword: yup
       .string()
       .required('Please re-enter your password')
-      .oneOf([yup.ref('password'), null], 'Passwords must match',)
+      .oneOf([yup.ref('password'), null], 'Passwords must match'),
   });
-
 
   const checkPassword = async () => {
     const { password, confirmedPassword } = profileDataPassword;
 
     const valid = await passwordSchema.isValid({
       password,
-      confirmedPassword
+      confirmedPassword,
     });
-    if (valid){
+    if (valid) {
       return true;
     }
     return false;
@@ -85,16 +84,16 @@ const ProfileInfoEdit = () => {
   const findFormErrors = async () => {
     const newErrors = {};
     // name errors
-    if (!await checkPassword()){
-      newErrors.password = "Please enter a password at least 8 chars long, using only numbers, letters and characters";
+    if (!await checkPassword()) {
+      newErrors.password = 'Please enter a password at least 8 chars long, using only numbers, letters and characters';
     }
-    if ({ ...profileDataPassword }.password !== { ...profileDataPassword }.confirmedPassword){
-      newErrors.confirmedPassword = " Passwords do not match";
+    if ({ ...profileDataPassword }.password !== { ...profileDataPassword }.confirmedPassword) {
+      newErrors.confirmedPassword = ' Passwords do not match';
     }
     return newErrors;
   };
 
-  const handleUpdatePassword = async e => {
+  const handleUpdatePassword = async (e) => {
     e.preventDefault();
     // get our new errors
     const newErrors = await findFormErrors();
@@ -123,7 +122,7 @@ const ProfileInfoEdit = () => {
       const newdata = {
         teamName: { ...profileData }.teamName,
         orgName: { ...profileData }.orgName,
-        email: { ...profileData }.email
+        email: { ...profileData }.email,
       };
       dispatch(updateTeam(teamId, newdata));
     }
@@ -159,7 +158,7 @@ const ProfileInfoEdit = () => {
             </Form.Text>
           </Form.Group>
 
-            <Form.Group>
+          <Form.Group>
             <Form.Label>Email</Form.Label>
             <Form.Control
               className="placeholder-text"
@@ -172,7 +171,7 @@ const ProfileInfoEdit = () => {
             />
           </Form.Group>
 
-            <Form.Group>
+          <Form.Group>
             <Form.Label>Research Group Name</Form.Label>
             <Form.Control
               className="placeholder-text"
@@ -220,64 +219,62 @@ const ProfileInfoEdit = () => {
           </div>
         </Form>
       </Container>
-        <div />
-        <p> </p>
-        <Container className="profile-container">
-          <Form
+      <div />
+      <p> </p>
+      <Container className="profile-container">
+        <Form
           className="profile-form"
           noValidate
           onSubmit={handleUpdatePassword}
         >
-              <p className="profile-title-name">Team Password update</p>
+          <p className="profile-title-name">Team Password update</p>
 
-               <Form.Group>
+          <Form.Group>
             <Form.Label>Current Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={profileDataPassword.currentPassword}
-                onChange={ e => setPassword('currentPassword', e.target.value) }
-                isInvalid={ !!errors.currentPassword }
-
-              />
-                  <Form.Control.Feedback type='invalid'>
-        { errors.password }
-    </Form.Control.Feedback>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={profileDataPassword.currentPassword}
+              onChange={(e) => setPassword('currentPassword', e.target.value)}
+              isInvalid={!!errors.currentPassword}
+            />
+            <Form.Control.Feedback type="invalid">
+              { errors.password }
+            </Form.Control.Feedback>
 
           </Form.Group>
 
-              <Form.Group>
+          <Form.Group>
             <Form.Label> New Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={profileDataPassword.password}
-                onChange={ e => setPassword('password', e.target.value) }
-                isInvalid={ !!errors.password }
-
-              />
-                  <Form.Control.Feedback type='invalid'>
-        { errors.password }
-    </Form.Control.Feedback>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={profileDataPassword.password}
+              onChange={(e) => setPassword('password', e.target.value)}
+              isInvalid={!!errors.password}
+            />
+            <Form.Control.Feedback type="invalid">
+              { errors.password }
+            </Form.Control.Feedback>
 
           </Form.Group>
-           <Form.Group>
+          <Form.Group>
             <Form.Label> Confirm Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="confirmedPassword"
-                placeholder="Password"
-                value={profileDataPassword.confirmedPassword}
-                onChange={ e => setPassword('confirmedPassword', e.target.value) }
-                isInvalid={ !!errors.confirmedPassword }
-              />
-    <Form.Control.Feedback type='invalid'>
-        { errors.confirmedPassword }
-    </Form.Control.Feedback>
+            <Form.Control
+              type="password"
+              name="confirmedPassword"
+              placeholder="Password"
+              value={profileDataPassword.confirmedPassword}
+              onChange={(e) => setPassword('confirmedPassword', e.target.value)}
+              isInvalid={!!errors.confirmedPassword}
+            />
+            <Form.Control.Feedback type="invalid">
+              { errors.confirmedPassword }
+            </Form.Control.Feedback>
           </Form.Group>
-              <div className="my-1">
+          <div className="my-1">
             <Button
               id="updateButtonPassword"
               type="submit"
@@ -286,8 +283,8 @@ const ProfileInfoEdit = () => {
             >
               Update Password
             </Button>
-              </div>
-          </Form>
+          </div>
+        </Form>
 
       </Container>
     </div>

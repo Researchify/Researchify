@@ -3,9 +3,6 @@
  */
 import api from './api';
 
-
-
-
 // Publication endpoints.
 export const fetchPublicationsByTeamId = (teamId) => api.get(`/publications/team/${teamId}`);
 export const createPublication = (newPublication) => api.post('/publications/', newPublication);
@@ -25,7 +22,7 @@ export const createTeamMember = (teamId, newTeamMember) => api.post(`/team/${tea
 export const updateTeamMember = (teamId, updatedTeamMember) => api.patch(`/team/${teamId}/member`, updatedTeamMember);
 export const deleteTeamMember = (teamId, teamMemberId) => api.delete(`/team/${teamId}/member/${teamMemberId}`);
 export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, updatedTeam);
-export const updatePassword = (teamId,updatedTeam) => api.patch(`/team/${teamId}/password`, updatedTeam);
+export const updatePassword = (teamId, updatedTeam) => api.patch(`/team/${teamId}/password`, updatedTeam);
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
 export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/deploy`, body);
 
