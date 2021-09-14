@@ -1,7 +1,8 @@
 import React from 'react';
 import '../css/fancy-auth-bg.css';
+import { PropTypes } from 'prop-types';
 
-const AuthBackground = () => {
+const AuthBackground = ({ form }) => {
   const boxes = () => {
     const array = [];
     const numberOfBox = 15;
@@ -15,10 +16,21 @@ const AuthBackground = () => {
       top: 0,
       minHeight: '50vh',
     },
+    form: {
+      zIndex: 1,
+      position: 'absolute',
+      width: '100%',
+      top: '15%',
+      display: 'flex',
+      justifyContent: 'center',
+    },
   };
 
   return (
     <div style={styles.container}>
+      <div style={styles.form}>
+        {form}
+      </div>
       <div className="area">
         <ul className="circles">
           {boxes().map((i) => (
@@ -28,6 +40,14 @@ const AuthBackground = () => {
       </div>
     </div>
   );
+};
+
+// props validation
+AuthBackground.propTypes = {
+  form: PropTypes.element,
+};
+AuthBackground.defaultProps = {
+  form: undefined,
 };
 
 export default AuthBackground;
