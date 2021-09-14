@@ -2,7 +2,7 @@
   box-shadow: 0px 0px 15px -5px black;
   width: 40%;
   min-width: 400px;
-  min-height: 450px;
+  min-height: 500px;
 }
 
 #loginLink {
@@ -10,5 +10,6 @@
   float: left;
 }
 #loginButton {
+  margin-top: 50px;
   float: right;
 }

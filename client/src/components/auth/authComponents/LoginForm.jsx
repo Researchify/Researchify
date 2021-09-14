@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import './Login.css';
+import '../css/login-form.css';
 import { useDispatch } from 'react-redux';
-import { login } from '../../actions/auth';
+import { login } from '../../../actions/auth';
 
 const LoginForm = () => {
   const dispatch = useDispatch();

@@ -7,12 +7,12 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
-import './Register.css';
+import '../css/registration-form.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { createTeam } from '../../actions/team';
+import { createTeam } from '../../../actions/team';
 
 export default function RegistrationForm() {
   const dispatch = useDispatch();
@@ -152,9 +152,6 @@ export default function RegistrationForm() {
               </Form.Control.Feedback>
             </Form.Group>
             <div>
-              <a id="signInLink" href="login">
-                Already have an account? Sign in
-              </a>
               <Button id="submitButton" type="submit" variant="primary">
                 Sign Up
               </Button>

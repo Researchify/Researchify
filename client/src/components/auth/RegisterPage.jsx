@@ -6,11 +6,12 @@ import React from 'react';
 import AuthBackground from './authComponents/AuthBackground';
 import LoginButton from './authComponents/LoginButton';
 import AuthLayout from './AuthLayout';
+import RegistrationForm from './authComponents/RegistrationForm';
 
 const RegisterPage = () => (
   <>
     <AuthLayout button={LoginButton()}>
-      <AuthBackground />
+      <AuthBackground form={RegistrationForm()} />
     </AuthLayout>
   </>
 );

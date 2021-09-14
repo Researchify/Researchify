@@ -6,7 +6,7 @@ import React from 'react';
 import AuthBackground from './authComponents/AuthBackground';
 import RegisterButton from './authComponents/RegisterButton';
 import AuthLayout from './AuthLayout';
-import LoginForm from './LoginForm';
+import LoginForm from './authComponents/LoginForm';
 
 const LoginPage = () => (
   <>
