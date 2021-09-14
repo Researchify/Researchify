@@ -8,9 +8,10 @@ import { createTheme } from '@material-ui/core/styles';
 import { PropTypes } from 'prop-types';
 import AuthHeader from './authComponents/AuthHeader';
 import { theme as colour } from '../landing-pages/theme';
-import Footer from '../landing-pages/landingPageComponents/landingPageLayouts/Footer';
+import AuthFooter from './authComponents/AuthFooter';
 
 const AuthLayout = ({ button, children }) => {
+  // setting theme of the page
   const theme = createTheme({
     palette: {
       primary: {
@@ -21,14 +22,15 @@ const AuthLayout = ({ button, children }) => {
       },
     },
   });
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <AuthHeader button={button} />
-        <div style={{ minHeight: 'calc(100vh)' }}>
+        <div>
           {children}
         </div>
-        <Footer />
+        <AuthFooter />
       </ThemeProvider>
     </>
   );
