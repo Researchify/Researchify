@@ -15,8 +15,8 @@ import {
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
-  REGISTER_SUCCESS,
 } from './types';
+import { login } from './auth';
 import {
   errorActionGlobalCreator,
   successMessageCreator,
@@ -30,10 +30,8 @@ export const createTeam = (teamInfo) => async (dispatch) => {
   try {
     await api.createTeam(teamInfo);
     dispatch(successMessageCreator('Team has been created')); // showing a success notification
-    dispatch({
-      // when user has been registered successfully to allow us to go back to the login page
-      type: REGISTER_SUCCESS,
-    });
+    const authData = { email: teamInfo.email, password: teamInfo.password };
+    dispatch(login(authData));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
