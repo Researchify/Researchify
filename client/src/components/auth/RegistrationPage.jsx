@@ -8,7 +8,7 @@ import LoginButton from './authComponents/LoginButton';
 import AuthLayout from './AuthLayout';
 import RegistrationForm from './authComponents/RegistrationForm';
 
-const RegisterPage = () => (
+const RegistrationPage = () => (
   <>
     <AuthLayout button={LoginButton()}>
       <AuthBackground form={RegistrationForm()} />
@@ -16,4 +16,4 @@ const RegisterPage = () => (
   </>
 );
 
-export default RegisterPage;
+export default RegistrationPage;
