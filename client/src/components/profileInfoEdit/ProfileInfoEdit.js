@@ -89,6 +89,8 @@ const ProfileInfoEdit = () => {
     }
     if ({ ...profileDataPassword }.password !== { ...profileDataPassword }.confirmedPassword) {
       newErrors.confirmedPassword = ' Passwords do not match';
+    } if ({ ...profileDataPassword }.currentPassword === '' || { ...profileDataPassword }.currentPassword === null) {
+      newErrors.currentPassword = ' Please enter a current password';
     }
     return newErrors;
   };
