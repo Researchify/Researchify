@@ -1,3 +1,7 @@
+/**
+ * File exports the fancy moving background to auth pages.
+ * Forms (registration/login) can be passed in.
+ */
 import React from 'react';
 import '../css/fancy-auth-bg.css';
 import { PropTypes } from 'prop-types';

@@ -1,3 +1,7 @@
+/**
+ * File exports the footer for auth pages.
+ * Footer is set to fixed position (will stick at the bottom of the screen when you scroll)
+ */
 import React from 'react';
 import { theme } from '../../landing-pages/theme';
 import Copyright from '../../landing-pages/utils/Copyright';
