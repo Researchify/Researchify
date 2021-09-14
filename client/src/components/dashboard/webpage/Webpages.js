@@ -8,6 +8,7 @@ import {
   Spinner,
 } from 'react-bootstrap';
 import '../Dashboard.css';
+import { PropTypes } from 'prop-types';
 import WebpageDelete from './WebpageDelete';
 import WebpageSelector from './WebpageSelector';
 import ConditionalWrapper from '../../shared/ConditionalWrapper';
@@ -127,8 +128,8 @@ const Webpages = ({
               </td>
             </tr>
 
-            {currentWebPages.map((webPage, index) => (
-              <tr key={index}>
+            {currentWebPages.map((webPage) => (
+              <tr key={webPage}>
                 <td className="body">
                   {webPage}
                   <Button
@@ -155,6 +156,20 @@ const Webpages = ({
       )}
     </>
   );
+};
+
+// props validation
+Webpages.propTypes = {
+  currentWebPages: PropTypes.array.isRequired,
+  directToAnotherPage: PropTypes.func.isRequired,
+  teamId: PropTypes.string.isRequired,
+  setSelectedPage: PropTypes.func.isRequired,
+  selectedPage: PropTypes.string.isRequired,
+  availablePages: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+};
+Webpages.defaultProps = {
+  loading: false,
 };
 
 export default Webpages;

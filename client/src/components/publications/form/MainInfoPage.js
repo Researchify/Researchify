@@ -1,5 +1,5 @@
 /**
- * The MainInfoPage component displays a form of a publication's main attributes: Title, Published Year, Authours, Description and Link
+ * The MainInfoPage component displays a form of a publication's main attributes: Title, Published Year, Authors, Description and Link
  */
 
 import { Formik } from 'formik';
@@ -14,6 +14,7 @@ import {
   Form,
 } from 'react-bootstrap';
 import '../publications.css';
+import { PropTypes } from 'prop-types';
 
 const MainInfoPage = ({
   next, data, type, pub, closeModal,
@@ -56,7 +57,7 @@ const MainInfoPage = ({
   );
 
   const renderAuthors = (values, touched, errors, handleChange, setValues) => values.authors.map((author, index) => (
-    <InputGroup key={index}>
+    <InputGroup key={author}>
       <Form.Control
         className="placeholder-text"
         type="text"
@@ -94,6 +95,8 @@ const MainInfoPage = ({
         initialValues={type === 'update' ? pub : data}
       >
         {({
+          // ↓↓ formik validation need it
+          handleSubmit, // eslint-disable-line no-shadow
           handleChange,
           values,
           touched,
@@ -128,8 +131,8 @@ const MainInfoPage = ({
                 value={values.yearPublished}
                 onChange={handleChange}
               >
-                {years.map((eachYear, index) => (
-                  <option key={`year${index}`} value={eachYear}>
+                {years.map((eachYear) => (
+                  <option key={eachYear} value={eachYear}>
                     {eachYear}
                   </option>
                 ))}
@@ -211,6 +214,18 @@ const MainInfoPage = ({
       </Formik>
     </>
   );
+};
+
+// props validation
+MainInfoPage.propTypes = {
+  next: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  pub: PropTypes.object,
+  closeModal: PropTypes.func.isRequired,
+};
+MainInfoPage.defaultProps = {
+  pub: undefined,
 };
 
 export default MainInfoPage;

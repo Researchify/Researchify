@@ -14,6 +14,7 @@ import {
   ButtonGroup,
   ToggleButton,
 } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import { categoryTypes } from '../../../config/publications';
 import '../publications.css';
 
@@ -63,6 +64,8 @@ const CategoryPage = ({
         initialValues={data}
       >
         {({
+          // ↓↓ formik validation need it
+          handleSubmit, // eslint-disable-line no-shadow
           handleChange,
           values,
           touched,
@@ -73,9 +76,9 @@ const CategoryPage = ({
             <Form.Group>
               <div className="text-center">
                 <ButtonGroup toggle>
-                  {Object.keys(categoryTypes).map((category, idx) => (
+                  {Object.keys(categoryTypes).map((category) => (
                     <ToggleButton
-                      key={idx}
+                      key={category}
                       type="radio"
                       variant="outline-secondary"
                       value={category}
@@ -209,6 +212,14 @@ const CategoryPage = ({
       </Formik>
     </>
   );
+};
+
+// props validation
+CategoryPage.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default CategoryPage;

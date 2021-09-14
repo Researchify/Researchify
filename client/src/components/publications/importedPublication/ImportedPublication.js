@@ -6,6 +6,7 @@ import { Form, Card, Collapse } from 'react-bootstrap';
 import './importedPublication.css';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
 const ImportedPublication = ({ pub, index, setChecked }) => {
   const [expand, setExpand] = useState(false);
@@ -109,6 +110,13 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
       </Card>
     </>
   );
+};
+
+// props validation
+ImportedPublication.propTypes = {
+  pub: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  setChecked: PropTypes.func.isRequired,
 };
 
 export default ImportedPublication;
