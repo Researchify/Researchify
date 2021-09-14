@@ -2,10 +2,9 @@
  * This module contains middleware functions for the publications route (../routes/publications.js).
  */
 const { body, validationResult } = require('express-validator');
-const axios = require('axios');
 const { categoryTypes } = require('../config/publication');
-const { playwrightConfig } = require('../config/playwright');
 const { fillErrorObject } = require('./error');
+const { playwrightConfig, getBrowser } = require('../config/playwright');
 
 /**
  * Handles the validation when creating (POST) a new publication in the database.
@@ -104,17 +103,25 @@ async function validateAuthorId(req, res, next) {
     );
   }
 
-  try {
-    await axios.get(`${playwrightConfig.baseUrl}${_id}`);
-    return next();
-  } catch (error) {
-    // if you mess around with the user id you only get 404
+  console.time('checkAuthor');
+  const context = await getBrowser();
+  const page = await context.newPage();
+  await page.goto(`${playwrightConfig.baseUrl}${_id}`);
+  const pageTitle = await page.$$('title');
+  const titleText = await pageTitle[0].innerText();
+  console.timeEnd('checkAuthor');
+
+
+  if (titleText.includes('404')) {
     return next(
-      fillErrorObject(error.response.status, 'Validation error', [
+      fillErrorObject(404, 'Validation error', [
         'No Google Scholar user profile found with the given id',
       ]),
     );
   }
+
+  req.page = page; // pass the page onto the controller
+  return next();
 }
 
 module.exports = { createPublicationValidation, validateAuthorId };

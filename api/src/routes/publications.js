@@ -35,7 +35,7 @@ publicationsRouter.get(
   // authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  // publicationsMiddleware.validateAuthorId,
+  publicationsMiddleware.validateAuthorId,
   publicationsController.getGoogleScholarPublications,
 );
 

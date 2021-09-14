@@ -13,8 +13,14 @@ const playwrightConfig = {
   sortBySuffix: '&view_op=list_works&sortby=pubdate', // put most recent pubs first
 };
 
-const browserContext = firefox.launch().then((browser) => browser.newContext()).then((context) => context);
+const browserContext = firefox.launch()
+  .then((browser) => browser.newContext());
 
 const getBrowser = async () => browserContext;
+
+// const readyPage = async (url) => {
+//   const page = getBrowser().then((context) => context.newPage()).then((page) => page.goto(url));
+//   return page;
+// };
 
 module.exports = { playwrightConfig, getBrowser };
