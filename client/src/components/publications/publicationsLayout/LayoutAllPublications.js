@@ -2,7 +2,7 @@
  * The LayoutAllPublications component displays a list of publications
  */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Row, Col } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
@@ -17,6 +17,7 @@ const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
+  const { checkedPublications } = useSelector((state) => state.publications);
 
   const handleChange = () => {
     if (checked) {
@@ -33,6 +34,14 @@ const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
     setChecked(!checked);
   };
 
+  const checkedPublicationsCount = () => {
+    let count = 0;
+    teamPublications.forEach((pub) => {
+      if (checkedPublications.includes(pub._id)) count += 1;
+    });
+    return count;
+  };
+
   return (
     <>
       <div className="publicationList">
@@ -41,12 +50,12 @@ const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
             <div style={{ padding: '10px', fontSize: '15px' }}>
               <input type="checkbox" checked={checked} onChange={handleChange} />
               {' '}
-              {checked ? (
+              { checkedPublicationsCount() > 0 ? (
                 <>
                   <ButtonGroupItem borderColor="red" color="red" hoverBorderColor="red" hoverColor="white">
                     <RiDeleteBin6Line />
                     {' '}
-                    {teamPublications.length}
+                    {checkedPublicationsCount()}
                     {' '}
                     Publications
                     {' '}

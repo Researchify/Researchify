@@ -63,7 +63,6 @@
   padding-top: 5px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  background-color: white;
 }
 
 .pubs-title {
@@ -73,6 +72,10 @@
   color: #535151;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+}
+
+.pub {
+  background-color: white;
 }
 
 .pub:hover {
