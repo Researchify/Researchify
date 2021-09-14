@@ -260,6 +260,7 @@ function teamDataAllocator(teamData) {
     email: teamData.email,
     teamName: teamData.teamName,
     orgName: teamData.orgName,
+    profilePic: teamData.profilePic,
     twitterHandle: teamData.twitterHandle,
     repoCreated: teamData.repoCreated,
     error: null,
