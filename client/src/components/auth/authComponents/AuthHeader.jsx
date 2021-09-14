@@ -4,9 +4,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
 } from 'reactstrap';
@@ -31,13 +29,10 @@ const AuthHeader = ({ button }) => {
             IFY
           </h2>
         </NavbarBrand>
-        <NavbarToggler />
-        <Collapse navbar>
-          <Nav className="mr-auto" navbar />
-          <Nav>
-            {button}
-          </Nav>
-        </Collapse>
+        <Nav className="mr-auto" navbar />
+        <Nav>
+          {button}
+        </Nav>
       </Navbar>
     </>
   );

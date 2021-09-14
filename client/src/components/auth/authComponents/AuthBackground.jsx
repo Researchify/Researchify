@@ -1,5 +1,5 @@
 import React from 'react';
-import './fancy-auth-bg.css';
+import '../css/fancy-auth-bg.css';
 
 const AuthBackground = () => {
   const boxes = () => {
