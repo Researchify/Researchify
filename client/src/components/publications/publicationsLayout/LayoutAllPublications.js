@@ -9,8 +9,8 @@ import { PropTypes } from 'prop-types';
 import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
-import { ButtonGroupItem } from './PublicationsEditor';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
+import { ButtonGroupItem } from './PublicationsEditor';
 
 const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
   // Since we need to validate pageSize and set default, configPageSize might not necessary
@@ -43,7 +43,7 @@ const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
               {' '}
               {checked ? (
                 <>
-                  <ButtonGroupItem borderColor="red" color="red">
+                  <ButtonGroupItem borderColor="red" color="red" hoverBorderColor="red" hoverColor="white">
                     <RiDeleteBin6Line />
                     {' '}
                     {teamPublications.length}

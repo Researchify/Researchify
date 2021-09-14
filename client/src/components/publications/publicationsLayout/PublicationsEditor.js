@@ -24,7 +24,8 @@ export const ButtonGroupItem = styled.button`
   width: auto;
   color: ${(props) => props.color};
   &:hover{
-    background: lightgray;
+    background: ${(props) => props.hoverBorderColor || 'lightgrey'};
+    color: ${(props) => props.hoverColor};
   }
   ${({ press }) => (press
     && 'background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'

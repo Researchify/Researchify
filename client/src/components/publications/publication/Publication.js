@@ -14,10 +14,10 @@ import {
 import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import { PropTypes } from 'prop-types';
 import PublicationForm from '../form/PublicationForm';
-import { deletePublication } from '../../../actions/publications';
-import '../publications.css';
 import { StyledButtonGroup, ButtonGroupItem } from '../publicationsLayout/PublicationsEditor';
+import { deletePublication } from '../../../actions/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
+import '../publications.css';
 
 const Publication = ({ pub }) => {
   const dispatch = useDispatch();
@@ -111,7 +111,7 @@ const Publication = ({ pub }) => {
     setIsHovering(false);
   };
 
-  const handleChange = () => {
+  const handleCheck = () => {
     if (checkedPublications.includes(pub._id)) {
       dispatch({
         type: UNCHECK_PUBLICATIONS,
@@ -131,10 +131,10 @@ const Publication = ({ pub }) => {
         className={newlyAdded ? 'newlyAddedPublicationHeader' : 'modalHeader'}
       >
         <Row>
-          <Col md={10} onClick={handleChange}>
+          <Col md={10} onClick={handleCheck}>
             <div style={{ display: 'flex' }}>
               <div style={{ paddingTop: '10px', paddingLeft: '10px' }}>
-                <input type="checkbox" checked={checkedPublications.includes(pub._id) || false} onChange={handleChange} />
+                <input type="checkbox" checked={checkedPublications.includes(pub._id) || false} onChange={handleCheck} />
               </div>
               <div className="pubs-title">
                 {pub.link ? (
@@ -153,7 +153,9 @@ const Publication = ({ pub }) => {
             && (
             <StyledButtonGroup className="float-right">
               <ButtonGroupItem onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
-              <ButtonGroupItem color="red" onClick={() => setShowDeleteMessage(true)}><RiDeleteBin6Line /></ButtonGroupItem>
+              <ButtonGroupItem color="red" hoverBorderColor="red" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+                <RiDeleteBin6Line />
+              </ButtonGroupItem>
             </StyledButtonGroup>
             )
             }
