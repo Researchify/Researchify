@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 import './Login.css';
 import { useDispatch } from 'react-redux';
 import { login } from '../../actions/auth';
+import AuthHeader from './authComponents/AuthHeader';
 
 /**
 Handles the UI for the log in page
@@ -39,6 +40,7 @@ export default function Login() {
 
   return (
     <div>
+      <AuthHeader />
       <div id="login-page">
         <Jumbotron id="form-box">
           <h3 id="LoginHeading">Log In</h3>
