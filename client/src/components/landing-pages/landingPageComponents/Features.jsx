@@ -129,7 +129,7 @@ const Features = () => {
   );
 };
 
-//props validation
+// props validation
 FlippingCard.propTypes = {
   logo: PropTypes.element.isRequired,
   title: PropTypes.string.isRequired,

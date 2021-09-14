@@ -18,7 +18,7 @@ const Copyright = ({ invert }) => {
   );
 };
 
-//props validation
+// props validation
 Copyright.propTypes = {
   invert: PropTypes.bool.isRequired,
 };

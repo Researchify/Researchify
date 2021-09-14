@@ -59,7 +59,7 @@ const TemplateSelector = (props) => {
         secondaryColor,
       });
     } else {
-      setInputs({ ...formInputs, [name]: parseInt(value) });
+      setInputs({ ...formInputs, [name]: parseInt(value, 10) });
     }
   };
 
