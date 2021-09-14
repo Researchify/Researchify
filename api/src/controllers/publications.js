@@ -4,10 +4,9 @@
  */
 const mongoose = require('mongoose');
 const logger = require('winston');
-const { firefox } = require('playwright-firefox');
 
 const { categoryTypes } = require('../config/publication');
-const { playwrightConfig } = require('../config/playwright');
+const { playwrightConfig, getBrowser } = require('../config/playwright');
 
 const Publication = require('../models/publication.model');
 const Team = require('../models/team.model');
@@ -162,10 +161,9 @@ async function getGoogleScholarPublications(req, res) {
   };
 
   console.time('totalScrape');
-  console.time('loadingPage');
-  const browser = await firefox.launch();
-  const context = await browser.newContext();
+  const context = await getBrowser();
   const page = await context.newPage();
+  console.time('loadingPage');
   await page.goto(url);
   console.timeEnd('loadingPage');
 
@@ -175,7 +173,6 @@ async function getGoogleScholarPublications(req, res) {
   if (resultLinks.length === noOfDummyLinks) {
     // no publications found
     response.reachedEnd = true;
-    await browser.close();
   } else {
     console.time('scraping');
     for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
@@ -186,7 +183,7 @@ async function getGoogleScholarPublications(req, res) {
     await Promise.all(links).then(() => { logger.info('Done scraping'); });
     console.timeEnd('scraping');
 
-    await browser.close();
+    await page.close();
 
     const newPublications = await validateImportedPublications(
       teamId,
@@ -220,19 +217,10 @@ async function scrapeGoogleScholar(url, context) {
   logger.info(`Publication url: ${playwrightConfig.gScholarHome + url}`);
   const page = await context.newPage();
   await page.goto(playwrightConfig.gScholarHome + url);
-  // console.time(`gettingTitle${url}`);
-  const title = await page.$$eval('div.gsc_oci_merged_snippet a', (titles) => titles.map((title) => title.innerText)); // we assume the publication title is a link
-  // console.timeEnd(`gettingTitle${url}`);
-
-  // console.time(`gettingLink${url}`);
+  const title = await page.$$eval('div#gsc_oci_title', (titles) => titles.map((title) => title.innerText));
   const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) => links.map((link) => link.href));
-  // console.timeEnd(`gettingLink${url}`);
-  // console.time(`gettingValues${url}`);
   const values = await page.$$eval('div.gsc_oci_value', (titles) => titles.map((title) => title.innerText));
-  // console.timeEnd(`gettingValues${url}`);
-  // console.time(`gettingFields${url}`);
   const fields = await page.$$eval('div.gsc_oci_field', (titles) => titles.map((title) => title.innerText));
-  // console.timeEnd(`gettingFields${url}`);
 
   page.close();
 
