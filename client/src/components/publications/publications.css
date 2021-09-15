@@ -61,6 +61,7 @@
   font-size: 13px;
   padding-left: 15px;
   padding-top: 5px;
+  color: #535151;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
@@ -69,7 +70,7 @@
   font-size: 16px;
   padding: 10px;
   font-weight: 500;
-  color: #535151;
+  color: black;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }

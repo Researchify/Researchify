@@ -28,7 +28,7 @@ export const ButtonGroupItem = styled.button`
     color: ${(props) => props.hoverColor};
   }
   ${({ press }) => (press
-    && 'background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'
+    && 'color: #000000; background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'
   )
 }
 `;
@@ -81,6 +81,7 @@ const PublicationsEditor = ({
         {' '}
         {Object.keys(layoutOptions).map((layout) => (
           <ButtonGroupItem
+            color="grey"
             press={options.layout === layoutOptions[layout]}
             key={layout}
             onClick={() => setOptions({ ...options, layout: layoutOptions[layout] })}
@@ -94,6 +95,7 @@ const PublicationsEditor = ({
         {' '}
         {Object.keys(sortingOptions).map((sortBy) => (
           <ButtonGroupItem
+            color="grey"
             press={options.sortBy === sortingOptions[sortBy]}
             key={sortBy}
             value={sortingOptions[sortBy]}
@@ -108,6 +110,7 @@ const PublicationsEditor = ({
         {options.layout === layoutOptions.BY_CATEGORY
               && (
               <ButtonGroupItem
+                color="grey"
                 press={options.sortBy === 'Category Title'}
                 value="Category Title"
                 onClick={(e) => {
