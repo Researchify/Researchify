@@ -111,7 +111,6 @@ async function validateAuthorId(req, res, next) {
   const titleText = await pageTitle[0].innerText();
   console.timeEnd('checkAuthor');
 
-
   if (titleText.includes('404')) {
     return next(
       fillErrorObject(404, 'Validation error', [
@@ -120,7 +119,7 @@ async function validateAuthorId(req, res, next) {
     );
   }
 
-  req.page = page; // pass the page onto the controller
+  req.page = page; // pass the page onto the controller, profile already loaded
   return next();
 }
 

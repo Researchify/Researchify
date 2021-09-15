@@ -163,9 +163,6 @@ async function getGoogleScholarPublications(req, res) {
   console.time('totalScrape');
   const context = await getBrowser();
   const page = req.page;
-  console.time('loadingPage');
-  await page.goto(url);
-  console.timeEnd('loadingPage');
 
   const resultLinks = await page.$$('.gsc_a_t a');
   const links = [];

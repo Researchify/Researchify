@@ -18,9 +18,4 @@ const browserContext = firefox.launch()
 
 const getBrowser = async () => browserContext;
 
-// const readyPage = async (url) => {
-//   const page = getBrowser().then((context) => context.newPage()).then((page) => page.goto(url));
-//   return page;
-// };
-
 module.exports = { playwrightConfig, getBrowser };
