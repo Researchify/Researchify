@@ -63,8 +63,9 @@ export default function RegistrationForm() {
   const submitForm = async (values, { setFieldError }) => {
     const teamInfo = { ...values };
     delete teamInfo.confirmedPassword;
-    await dispatch(createTeam(teamInfo));
-    if (!logIn && !error) {
+    await dispatch(createTeam(teamInfo)); // need await this action to complete
+    if (!logIn && !error) { // client error
+      // assuming the only client error is 'Email had been registered'
       setFieldError('email', 'Email had been registered');
     }
   };
