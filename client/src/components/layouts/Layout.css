@@ -23,6 +23,7 @@ html,
 body {
   max-width: 100% !important;
   overflow-x: hidden !important;
+  height: auto !important;
 }
 #root {
   height: 100%;
