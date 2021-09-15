@@ -149,7 +149,15 @@ const Publication = ({ pub }) => {
         )}
         <Row>
           <Col md={{ span: 1, offset: 11 }}>
-            <span onClick={() => setExpand(!expand)}>{displayUpArrow()}</span>
+            <span
+              onClick={() => setExpand(!expand)}
+              onKeyPress={() => setExpand(!expand)} // usability, see WCAG 2.1.1
+              role="button"
+              tabIndex={0}
+            >
+              {displayUpArrow()}
+
+            </span>
           </Col>
         </Row>
       </div>
