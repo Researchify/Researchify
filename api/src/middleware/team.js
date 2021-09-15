@@ -1,6 +1,7 @@
 /**
  * This module contains middleware functions for the team route (/routes/teams.js).
  */
+ const axios = require('axios');
 const { body, validationResult } = require('express-validator');
 
 const Team = require('../models/team.model');
@@ -23,6 +24,45 @@ async function validateTeamId(req, res, next) {
   next();
 }
 
+async function validateTeamRepo(req,res,next){
+  const { ghToken } = req.body;
+  const { data } = await axios.get('https://api.github.com/user',
+  {
+    headers: { Authorization: `token ${ghToken}` },
+  });
+  if (data.errors) {
+    return next(
+      fillErrorObject(400, 'Validation error: user doesnt exist!', [data.errors[0].detail]),
+    );
+  }
+
+  // Creating repoName
+  const ghUsername = data.login;
+  const repoName = `${ghUsername}.github.io`;
+  try {
+    const repoValidator = await axios.get(`https://api.github.com/repos/${ghUsername}/${repoName}`, {
+      headers: {
+        Authorization: `token ${ghToken}`,
+        Accept: 'application/vnd.github.v3+json',
+      },
+    });
+    if (repoValidator.status != 200){
+      next(
+        fillErrorObject(404, 'GH pages not found!', [
+          'GitHub Repo doesnt exist for this team!',
+        ]),
+      );
+    }
+    next();
+  } catch (error) {
+    next(
+      fillErrorObject(404, 'GH pages not found!', [
+        'GitHub Repo doesnt exist for this team!',
+      ]),
+    );
+  }
+}
+
 const validateTwitterHandle = [
   body(
     'twitterHandle',
@@ -42,4 +82,4 @@ const validateTwitterHandle = [
   },
 ];
 
-module.exports = { validateTeamId, validateTwitterHandle };
+module.exports = { validateTeamId, validateTeamRepo, validateTwitterHandle };

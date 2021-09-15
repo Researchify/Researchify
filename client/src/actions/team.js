@@ -292,12 +292,12 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
  * @param {*} teamData data object of the data to be deleted
  * @returns
  */
-export const clearTeam = (teamId, isDelete) => async (dispatch) => {
+export const resetTeamData = (teamId, isDelete) => async (dispatch) => {
   try {
     const body = {
       isDeleteFlag: isDelete,
     };
-    await api.clearTeam(teamId, body);
+    await api.resetTeamData(teamId, body);
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

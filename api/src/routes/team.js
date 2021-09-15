@@ -75,11 +75,11 @@ teamRouter.patch(
 );
 
 teamRouter.post(
-  '/:team_id/clear',
+  '/:team_id/resetTeamData',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.clearTeam,
+  teamController.resetTeamData,
 );
 
 teamRouter.post(
@@ -87,6 +87,7 @@ teamRouter.post(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
+  teamMiddleware.validateTeamRepo,
   teamController.deleteGHPages,
 );
 

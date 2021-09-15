@@ -323,7 +323,7 @@ async function updateTeam(req, res, next) {
   * @returns 404: team is not found
   * @returns 400: team id is not in a valid hexadecimal format
   */
-async function clearTeam(req, res, next) {
+async function resetTeamData(req, res, next) {
   try {
     const { team_id: _id } = req.params;
     const { isDeleteFlag } = req.body;
@@ -331,7 +331,7 @@ async function clearTeam(req, res, next) {
     await Website.deleteMany({ teamId: _id });
     await Achievement.deleteMany({ teamId: _id });
     await Publication.deleteMany({ teamId: _id });
-    if (isDeleteFlag === true) {
+    if (isDeleteFlag) {
       await Team.findByIdAndDelete(_id);
       res.status(200).json('Deleted successfully!');
     } else res.status(200).json('Cleared successfully!');
@@ -357,57 +357,38 @@ async function deleteGHPages(req, res, next) {
     {
       headers: { Authorization: `token ${ghToken}` },
     });
-  if (data.errors) {
-    return next(
-      fillErrorObject(400, 'Validation error: Repo doesnt exist!', [data.errors[0].detail]),
-    );
-  }
 
   // Creating repoName
   const ghUsername = data.login;
   logger.info(`GitHub Pages delete initiated for user: ${ghUsername}`);
   const repoName = `${ghUsername}.github.io`;
-  let validFlag = false;
-  try {
-    const repoValidator = await axios.get(`https://api.github.com/repos/${ghUsername}/${repoName}`, {
-      headers: {
-        Authorization: `token ${ghToken}`,
-        Accept: 'application/vnd.github.v3+json',
-      },
-    });
-    if (repoValidator.status === 200) validFlag = true;
-    else validFlag = false;
-  } catch (error) {
-    validFlag = false;
-  }
-  if (validFlag === true) {
+
+   console.log("HOIT"); 
   // delete repo
-    try {
-      const deleteRepo = await axios.delete(
-        `https://api.github.com/repos/${ghUsername}/${repoName}`,
-        {
-          headers: {
-            Authorization: `token ${ghToken}`,
-            Accept: 'application/vnd.github.v3+json',
-          },
+  try {
+    const deleteRepo = await axios.delete(
+      `https://api.github.com/repos/${ghUsername}/${repoName}`,
+      {
+        headers: {
+          Authorization: `token ${ghToken}`,
+          Accept: 'application/vnd.github.v3+json',
         },
-      );
-      // result logged
-      res.status(200).json('Deleted successfully!');
-      if (deleteRepo.status === 204) {
-        logger.info(`GitHub pages deleted for user: ${ghUsername}`);
-      }
-    } catch (error) {
-      logger.info(` Failed: GitHub pages not deleted for user: ${ghUsername}`);
-      return next(
-        fillErrorObject(500, 'Error occurred with server', [error.message]),
-      );
+      },
+    );
+    // result logged
+    res.status(200).json('Deleted successfully!');
+    if (deleteRepo.status === 204) {
+      logger.info(`GitHub pages deleted for user: ${ghUsername}`);
     }
-  } else {
-    logger.info(` Failed: GitHub pages does not exist for user: ${ghUsername}`);
+  } catch (error) {
+    logger.info(` Failed: GitHub pages not deleted for user: ${ghUsername}!`);
+    return next(
+      fillErrorObject(500, 'Error occurred with server!', [error.message]),
+    );
   }
+
   return next(
-    fillErrorObject(500, 'Github Pages doesnt exist for the user', ['Github Pages doesnt exist for the user']),
+    fillErrorObject(500, 'Github Pages doesnt exist for the user!', ['Github Pages doesnt exist for the user!']),
   );
 }
 
@@ -420,7 +401,7 @@ module.exports = {
   deleteTeamMember,
   updateTeamMember,
   updateTeam,
-  clearTeam,
+  resetTeamData,
   getGHAccessToken,
   deployToGHPages,
   deleteGHPages,

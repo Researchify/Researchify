@@ -7,7 +7,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { successMessageCreator } from '../../notification/notificationReduxFunctions';
 import { logout } from '../../actions/auth';
-import { clearTeam, deleteGHPages } from '../../actions/team';
+import { resetTeamData, deleteGHPages } from '../../actions/team';
 
 const ProfileDeleteModal = ({ deleteAlert, setDeleteAlert }) => {
   const { teamId } = useSelector((state) => state.team);
@@ -20,7 +20,7 @@ const ProfileDeleteModal = ({ deleteAlert, setDeleteAlert }) => {
       toast.error('GitHub Pages doesnt exist');
     }
     const isDeleteFlag = true;
-    dispatch(clearTeam(teamId, isDeleteFlag));
+    dispatch(resetTeamData(teamId, isDeleteFlag));
     dispatch(logout());
 
     dispatch(successMessageCreator('Profile data cleared successfully!'));
