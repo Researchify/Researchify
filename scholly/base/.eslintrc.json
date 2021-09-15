@@ -16,6 +16,7 @@
         "max-len": "off",
         "react/prop-types": "off", // should refactor later
         "no-underscore-dangle": "off",
+        "linebreak-style": "off",
         "react/no-array-index-key": "off" // should refactor later
     }
 }

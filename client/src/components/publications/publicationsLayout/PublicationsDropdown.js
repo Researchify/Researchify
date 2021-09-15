@@ -28,9 +28,9 @@ const PublicationsDropdown = ({
             {options.groupBy}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(groupByOptions).map((gropuBy, i) => (
+            {Object.keys(groupByOptions).map((gropuBy) => (
               <Dropdown.Item
-                key={i}
+                key={gropuBy}
                 as="button"
                 onClick={() => {
                   if (gropuBy !== groupByOptions.CATEGORY.toUpperCase() && options.sortBy === 'Category Title') {
@@ -54,9 +54,9 @@ const PublicationsDropdown = ({
             {options.sortBy}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(sortingOptions).map((sortBy, i) => (
+            {Object.keys(sortingOptions).map((sortBy) => (
               <Dropdown.Item
-                key={i}
+                key={sortBy}
                 as="button"
                 value={sortingOptions[sortBy]}
                 onClick={(e) => {

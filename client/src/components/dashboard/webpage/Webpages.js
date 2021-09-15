@@ -128,8 +128,8 @@ const Webpages = ({
               </td>
             </tr>
 
-            {currentWebPages.map((webPage, index) => (
-              <tr key={index}>
+            {currentWebPages.map((webPage) => (
+              <tr key={webPage}>
                 <td className="body">
                   {webPage}
                   <Button
