@@ -2,7 +2,7 @@ import React from 'react';
 import { Dropdown, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { sortingOptions, layoutOptions } from '../../../config/publications';
+import { sortingOptions, groupByOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 
 const PublicationsDropdown = ({
@@ -23,18 +23,25 @@ const PublicationsDropdown = ({
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Dropdown>
           <Dropdown.Toggle variant="light" className="mb-2">
-            Layout:
+            Group By:
             {' '}
-            {options.layout}
+            {options.groupBy}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {Object.keys(layoutOptions).map((layout) => (
+            {Object.keys(groupByOptions).map((gropuBy) => (
               <Dropdown.Item
-                key={layout}
+                key={gropuBy}
                 as="button"
-                onClick={() => setOptions({ ...options, layout: layoutOptions[layout] })}
+                onClick={() => {
+                  if (gropuBy !== groupByOptions.CATEGORY.toUpperCase() && options.sortBy === 'Category Title') {
+                    setOptions({ ...options, groupBy: groupByOptions[gropuBy], sortBy: sortingOptions.TITLE });
+                    sortPublications(publication, sortingOptions.TITLE);
+                    return;
+                  }
+                  setOptions({ ...options, groupBy: groupByOptions[gropuBy] });
+                }}
               >
-                {layoutOptions[layout]}
+                {groupByOptions[gropuBy]}
               </Dropdown.Item>
             ))}
           </Dropdown.Menu>
@@ -60,7 +67,7 @@ const PublicationsDropdown = ({
                 {sortingOptions[sortBy]}
               </Dropdown.Item>
             ))}
-            {options.layout === layoutOptions.BY_CATEGORY
+            {options.groupBy === groupByOptions.CATEGORY
               && (
               <Dropdown.Item
                 as="button"
@@ -81,7 +88,7 @@ const PublicationsDropdown = ({
           variant="secondary"
           onClick={handleUpdate}
         >
-          Update Layout &amp; Sorting Options
+          Update Group by &amp; Sorting Options
         </Button>
       </div>
     </div>

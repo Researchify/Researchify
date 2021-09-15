@@ -21,11 +21,17 @@ export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.fetchPublicationsByTeamId(teamId);
 
-    data.map((pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))); // only get the year from the date format
+    const newData = data.map((pub) => {
+      const updatedPub = {
+        ...pub,
+        yearPublished: pub.yearPublished.substring(0, 4), // only get the year from the date format
+      };
+      return updatedPub;
+    });
 
     dispatch({
       type: GET_PUBLICATIONS_BY_TEAM_ID,
-      payload: data,
+      payload: newData,
     });
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
@@ -35,7 +41,6 @@ export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
 export const createPublication = (publication) => async (dispatch) => {
   try {
     const result = await api.createPublication(publication);
-
     result.data.yearPublished = result.data.yearPublished.substring(0, 4); // only get the year from the date format
 
     dispatch({
