@@ -18,6 +18,7 @@ Handles the UI for the log in page
 export default function Login() {
   const dispatch = useDispatch();
   const { logIn } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.notification);
 
   const teamInfoSchema = yup.object({
     email: yup
@@ -35,7 +36,7 @@ export default function Login() {
 
   const submitForm = async (values, { setFieldError }) => {
     await dispatch(login(values)); // need await this action to complete
-    if (!logIn) {
+    if (!logIn && !error) {
       setFieldError('password', 'Incorrect email/ password');
     }
   };

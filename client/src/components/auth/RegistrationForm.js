@@ -18,6 +18,7 @@ export default function RegistrationForm() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { logIn } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.notification);
 
   useEffect(() => {
     if (logIn) {
@@ -59,10 +60,13 @@ export default function RegistrationForm() {
     confirmedPassword: '',
   };
 
-  const submitForm = (values) => {
+  const submitForm = async (values, { setFieldError }) => {
     const teamInfo = { ...values };
     delete teamInfo.confirmedPassword;
-    dispatch(createTeam(teamInfo));
+    await dispatch(createTeam(teamInfo));
+    if (!logIn && !error) {
+      setFieldError('email', 'Email had been registered');
+    }
   };
 
   return (

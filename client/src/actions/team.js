@@ -33,7 +33,10 @@ export const createTeam = (teamInfo) => async (dispatch) => {
     const authData = { email: teamInfo.email, password: teamInfo.password };
     dispatch(login(authData));
   } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
+    console.log('error', err);
+    if (err.code !== 400) {
+      dispatch(errorActionGlobalCreator(err));
+    }
   }
 };
 
