@@ -22,15 +22,21 @@ const ImportForm = ({ closeModal }) => {
     }
   };
 
-  return loading ? (
-    <div className="mb-3 mt-3 text-center">
-      <Spinner animation="border" />
-    </div>
-  ) : importStatus !== null ? (
-    <div>{displayResult()}</div>
-  ) : (
-    <ProfileLinkPage closeModal={closeModal} />
-  );
+  if (loading) {
+    return (
+      <div className="mb-3 mt-3 text-center">
+        <Spinner animation="border" />
+      </div>
+    );
+  } if (importStatus !== null) {
+    return (<div>{displayResult()}</div>);
+  }
+  return (<ProfileLinkPage closeModal={closeModal} />);
+};
+
+// props validation
+ImportForm.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 };
 
 // props validation

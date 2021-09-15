@@ -64,15 +64,18 @@ const DeployPage = ({ teamId }) => {
   return (
     <>
       Deploy Website with GitHub
-      {loading ? (
-        <div className="mb-3 mt-3 text-center">
-          <Spinner animation="border" />
-        </div>
-      ) : retrievedAccessToken ? (
-        DeployButton
-      ) : (
-        GitHubLoginButton
-      )}
+      { (() => {
+        if (loading) {
+          return (
+            <div className="mb-3 mt-3 text-center">
+              <Spinner animation="border" />
+            </div>
+          );
+        } if (retrievedAccessToken) {
+          return (DeployButton);
+        }
+        return (GitHubLoginButton);
+      })()}
     </>
   );
 };

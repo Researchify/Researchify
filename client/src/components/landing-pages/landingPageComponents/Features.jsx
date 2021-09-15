@@ -113,13 +113,13 @@ const Features = () => {
 
         <Grid item xs={12}>
           <Grid container justify="center" spacing={isMobile ? 5 : 10}>
-            {featuresData.map(({ logo, title, description }, index) => (
+            {featuresData.map(({ logo, title, description }) => (
               <FlippingCard
                 logo={logo}
                 title={title}
                 description={description}
                 classes={classes}
-                key={index}
+                key={title}
               />
             ))}
           </Grid>
@@ -129,7 +129,7 @@ const Features = () => {
   );
 };
 
-//props validation
+// props validation
 FlippingCard.propTypes = {
   logo: PropTypes.element.isRequired,
   title: PropTypes.string.isRequired,

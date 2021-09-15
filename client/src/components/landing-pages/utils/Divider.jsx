@@ -16,7 +16,7 @@ const Divider = ({ width, color }) => {
   return <Box style={style} />;
 };
 
-//props validation
+// props validation
 Divider.propTypes = {
   width: PropTypes.string,
   color: PropTypes.string,
