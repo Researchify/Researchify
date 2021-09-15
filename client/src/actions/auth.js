@@ -31,7 +31,6 @@ export const login = (authData) => async (dispatch) => {
     dispatch({
       type: LOG_IN_FAIL,
     });
-    dispatch(errorActionGlobalCreator(error));
   }
 };
 

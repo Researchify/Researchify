@@ -1,12 +1,14 @@
 /**
  * This file exports an Auth component used to display sign-ins and sign-ups.
  */
-import React, { useState } from 'react';
+import React from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Login.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import * as yup from 'yup';
+import { Formik } from 'formik';
 import { login } from '../../actions/auth';
 
 /**
@@ -15,26 +17,27 @@ Handles the UI for the log in page
 */
 export default function Login() {
   const dispatch = useDispatch();
-  const [inputs, setInputs] = useState({
-    email: '',
-    password: '',
+  const { logIn } = useSelector((state) => state.auth);
+
+  const teamInfoSchema = yup.object({
+    email: yup
+      .string()
+      .required('Please Enter your Email'),
+    password: yup
+      .string()
+      .required('Please Enter your password'),
   });
 
-  const updateValue = (form) => {
-    const { name, value } = form.target;
-    setInputs({ ...inputs, [name]: value });
+  const authData = {
+    email: '',
+    password: '',
   };
 
-  const [validated, setValidated] = useState(false);
-
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    event.preventDefault();
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
+  const submitForm = async (values, { setFieldError }) => {
+    await dispatch(login(values)); // need await this action to complete
+    if (!logIn) {
+      setFieldError('password', 'Incorrect email/ password');
     }
-    setValidated(true);
-    dispatch(login(inputs));
   };
 
   return (
@@ -44,38 +47,55 @@ export default function Login() {
           <h3 id="LoginHeading">Log In</h3>
           <hr />
 
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                onChange={updateValue}
-                name="email"
-                placeholder="Enter email"
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                onChange={updateValue}
-                name="password"
-                placeholder="Password"
-                required
-              />
-            </Form.Group>
-
-            <Button id="loginButton" type="submit" variant="primary">
-              Log in
-            </Button>
-            <div>
-              <a id="loginLink" href="register">
-                Don&apos;t have an account yet? Sign Up today!
-              </a>
-            </div>
-          </Form>
+          <Formik
+            enableReinitialize
+            validationSchema={teamInfoSchema}
+            onSubmit={submitForm}
+            initialValues={authData}
+          >
+            {({
+              handleSubmit, handleChange, values, touched, errors,
+            }) => (
+              <Form noValidate onSubmit={handleSubmit}>
+                <Form.Group>
+                  <Form.Label> Email address </Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                    value={values.email}
+                    onChange={handleChange}
+                    isInvalid={touched.email && errors.email}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.email}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label> Password </Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={values.password}
+                    onChange={handleChange}
+                    isInvalid={touched.password && errors.password}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.password}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Button id="loginButton" type="submit" variant="primary">
+                  Log in
+                </Button>
+                <div>
+                  <a id="loginLink" href="register">
+                    Don&apos;t have an account yet? Sign Up today!
+                  </a>
+                </div>
+              </Form>
+            )}
+          </Formik>
         </Jumbotron>
       </div>
     </div>
