@@ -11,16 +11,15 @@ import './ProfileInfoEdit.css';
 import { useSelector, useDispatch } from 'react-redux';
 import profilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
-import ProfileDeleteModal from './ProfileDeleteModal';
-import ProfileClearModal from './ProfileClearModal';
+import ProfileResetModal from './ProfileResetModal';
 import GhLogInModal from './GhLogInModal';
 /**
  * Form component for user update profile
  */
+let deleteFlag = false;
 const ProfileInfoEdit = () => {
   const dispatch = useDispatch();
-  const [deleteAlert, setDeleteAlert] = useState(false);
-  const [clearAlert, setClearAlert] = useState(false);
+  const [resetAlert, setResetAlert] = useState(false);
   const [logInAlert, setLogInAlert] = useState(false);
 
   const {
@@ -57,6 +56,10 @@ const ProfileInfoEdit = () => {
       setLogInAlert(true);
     }
   };
+  const setDelete = (flag) => {
+    deleteFlag = flag;
+  };
+
   return (
     <>
       <div className="mt-5">
@@ -137,7 +140,8 @@ const ProfileInfoEdit = () => {
                 className="mr-2"
                 onClick={() => {
                   checkLogin();
-                  setClearAlert(true);
+                  setResetAlert(true);
+                  setDelete(false);
                 }}
               >
                 Clear Data
@@ -149,7 +153,8 @@ const ProfileInfoEdit = () => {
                 variant="danger"
                 onClick={() => {
                   checkLogin();
-                  setDeleteAlert(true);
+                  setResetAlert(true);
+                  setDelete(true);
                 }}
               >
                 Delete account
@@ -158,8 +163,7 @@ const ProfileInfoEdit = () => {
           </Form>
         </Container>
       </div>
-      <ProfileDeleteModal deleteAlert={deleteAlert} setDeleteAlert={setDeleteAlert} />
-      <ProfileClearModal clearAlert={clearAlert} setClearAlert={setClearAlert} />
+      <ProfileResetModal resetAlert={resetAlert} setResetAlert={setResetAlert} type={deleteFlag} />
       <GhLogInModal logInAlert={logInAlert} setLogInAlert={setLogInAlert} />
     </>
   );
