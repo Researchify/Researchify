@@ -1,5 +1,5 @@
 /**
- * The LayoutAllPublications component displays a list of publications
+ * The GroupByNone component displays a list of publications
  */
 import React from 'react';
 import { PropTypes } from 'prop-types';
@@ -7,8 +7,7 @@ import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 
-const LayoutAllPublications = ({ teamPublications, pageSize }) => {
-  // Since we need to validate pageSize and set default, configPageSize might not necessary
+const GroupByNone = ({ teamPublications, pageSize }) => {
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
   return (
     <>
@@ -24,12 +23,12 @@ const LayoutAllPublications = ({ teamPublications, pageSize }) => {
 };
 
 // props validation
-LayoutAllPublications.propTypes = {
+GroupByNone.propTypes = {
   teamPublications: PropTypes.array.isRequired,
   pageSize: PropTypes.number,
 };
-LayoutAllPublications.defaultProps = {
+GroupByNone.defaultProps = {
   pageSize: 10,
 };
 
-export default LayoutAllPublications;
+export default GroupByNone;
