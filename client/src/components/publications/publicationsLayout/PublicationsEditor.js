@@ -52,7 +52,7 @@ export const EditorButton = styled.button`
 const PublicationsEditor = ({
   options,
   setOptions,
-  publication,
+  publications,
   teamId,
   sortPublications,
   setShowCreateForm,
@@ -101,7 +101,7 @@ const PublicationsEditor = ({
             value={sortingOptions[sortBy]}
             onClick={(e) => {
               setOptions({ ...options, sortBy: sortingOptions[sortBy] });
-              sortPublications(publication, e.target.value);
+              sortPublications(publications, e.target.value);
             }}
           >
             {sortingOptions[sortBy]}
@@ -115,7 +115,7 @@ const PublicationsEditor = ({
                 value="Category Title"
                 onClick={(e) => {
                   setOptions({ ...options, sortBy: e.target.value });
-                  sortPublications(publication, e.target.value);
+                  sortPublications(publications, e.target.value);
                 }}
               >
                 Category Title
@@ -136,7 +136,7 @@ const PublicationsEditor = ({
 PublicationsEditor.propTypes = {
   options: PropTypes.object.isRequired,
   setOptions: PropTypes.func.isRequired,
-  publication: PropTypes.object.isRequired,
+  publications: PropTypes.array.isRequired,
   teamId: PropTypes.string.isRequired,
   sortPublications: PropTypes.func.isRequired,
   setShowCreateForm: PropTypes.func.isRequired,

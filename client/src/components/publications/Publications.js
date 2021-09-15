@@ -108,7 +108,7 @@ const Publications = () => {
             options={options}
             setOptions={setOptions}
             sortPublications={sortPublications}
-            publication={publications}
+            publications={publications}
             teamId={teamId}
             setShowCreateForm={setShowCreateForm}
             setShowImportForm={setShowImportForm}
