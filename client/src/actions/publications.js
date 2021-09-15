@@ -41,7 +41,6 @@ export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
 export const createPublication = (publication) => async (dispatch) => {
   try {
     const result = await api.createPublication(publication);
-
     result.data.yearPublished = result.data.yearPublished.substring(0, 4); // only get the year from the date format
 
     dispatch({
