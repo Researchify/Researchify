@@ -11,7 +11,7 @@ export const StyledButtonGroup = styled.div`
   background-color: transparent;
   border-radius: 0;
   padding: 5px;
-  color: grey;
+  color: black;
 `;
 
 export const ButtonGroupItem = styled.button`
@@ -28,7 +28,7 @@ export const ButtonGroupItem = styled.button`
     color: ${(props) => props.hoverColor};
   }
   ${({ press }) => (press
-    && 'color: #000000; background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'
+    && 'color: #4d4d4d; background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'
   )
 }
 `;
