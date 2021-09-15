@@ -2,11 +2,10 @@
  * This file exports an Auth component used to display sign-ins and sign-ups.
  */
 import React, { useState } from 'react';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import { Jumbotron, Form } from 'react-bootstrap';
 import '../css/login-form.css';
 import { useDispatch } from 'react-redux';
+import { Button } from '@material-ui/core';
 import { login } from '../../../actions/auth';
 
 const LoginForm = () => {
@@ -35,7 +34,7 @@ const LoginForm = () => {
 
   return (
 
-    <Jumbotron id="form-box">
+    <Jumbotron id="login-form-box">
       <h3 id="LoginHeading">Log In</h3>
       <hr />
 
@@ -62,7 +61,12 @@ const LoginForm = () => {
           />
         </Form.Group>
 
-        <Button id="loginButton" type="submit" variant="primary">
+        <Button
+          id="loginButton"
+          type="submit"
+          variant="outlined"
+          color="primary"
+        >
           Log in
         </Button>
       </Form>
