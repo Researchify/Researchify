@@ -152,13 +152,13 @@ async function createPagesSite(ghUsername, ghToken, repoName) {
       data: pagesBody,
     });
     if (createPagesResponse.status === 201) {
-      logger.log('Pages site successfully created');
+      logger.info('Pages site successfully created');
     } else {
       // see https://docs.github.com/en/rest/reference/repos#create-a-github-pages-site
-      logger.log(createPagesResponse.data);
+      logger.debug(createPagesResponse.data);
     }
   } catch (err) {
-    logger.log(err);
+    logger.error(err);
   }
 }
 
@@ -180,7 +180,7 @@ async function buildPages(ghUsername, ghToken, repoName) {
     });
     logger.info('Build queued');
   } catch (err) {
-    logger.info(err);
+    logger.error(err);
   }
 }
 
