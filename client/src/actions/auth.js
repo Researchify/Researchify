@@ -31,6 +31,10 @@ export const login = (authData) => async (dispatch) => {
     dispatch({
       type: LOG_IN_FAIL,
     });
+    // only show pop up error if it's not a client error, otherwise, will show the error in the form instead
+    if (error.response.status !== 400) {
+      dispatch(errorActionGlobalCreator(error));
+    }
   }
 };
 

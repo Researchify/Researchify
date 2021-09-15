@@ -33,8 +33,8 @@ export const createTeam = (teamInfo) => async (dispatch) => {
     const authData = { email: teamInfo.email, password: teamInfo.password };
     dispatch(login(authData));
   } catch (err) {
-    console.log('error', err);
-    if (err.code !== 400) {
+    // only show pop up error if it's not a client error, otherwise, will show the error in the form instead
+    if (err.response.status !== 400) {
       dispatch(errorActionGlobalCreator(err));
     }
   }
