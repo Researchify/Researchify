@@ -10,7 +10,7 @@ const LoginButton = () => (
     <Grid item xs={6}>
       <Link to="/login" style={{ textDecoration: 'none' }}>
         <Button
-          variant="outlined"
+          variant="contained"
           size="large"
           color="secondary"
           style={{ whiteSpace: 'nowrap' }}

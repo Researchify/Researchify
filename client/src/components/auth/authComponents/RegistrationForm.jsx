@@ -153,8 +153,9 @@ export default function RegistrationForm() {
               <Button
                 id="submitButton"
                 type="submit"
-                variant="outlined"
+                variant="contained"
                 color="primary"
+                size="large"
               >
                 Sign Up
               </Button>

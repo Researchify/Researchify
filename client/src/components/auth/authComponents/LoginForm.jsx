@@ -64,8 +64,9 @@ const LoginForm = () => {
         <Button
           id="loginButton"
           type="submit"
-          variant="outlined"
-          color="primary"
+          variant="contained"
+          color="secondary"
+          size="large"
         >
           Log in
         </Button>
