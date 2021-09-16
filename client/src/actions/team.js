@@ -36,7 +36,7 @@ export const createTeam = (teamInfo, setFieldError) => async (dispatch) => {
     // only show pop up error if it's not a client error, otherwise, show the error on the form instead
     if (err.response.status === 400) {
       // assuming the only client error is 'Email had been registered'
-      setFieldError('email', 'Email had been registered');
+      setFieldError('email', 'Email has been registered');
     } else {
       dispatch(errorActionGlobalCreator(err));
     }
