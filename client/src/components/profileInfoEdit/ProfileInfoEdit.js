@@ -113,9 +113,10 @@ const ProfileInfoEdit = () => {
     if (!await checkPassword()) {
       newErrors.password = 'Please enter a password at least 8 chars long, using only numbers, letters and characters';
     }
+
     if ({ ...profileDataPassword }.password !== { ...profileDataPassword }.confirmedPassword) {
       newErrors.confirmedPassword = ' Passwords do not match';
-    } if ({ ...profileDataPassword }.currentPassword === '' || { ...profileDataPassword }.currentPassword === null) {
+    } if ({ ...profileDataPassword }.currentPassword === '' || { ...profileDataPassword }.currentPassword === null || { ...profileDataPassword }.currentPassword === undefined) {
       newErrors.currentPassword = ' Please enter a current password';
     }
     return newErrors;
