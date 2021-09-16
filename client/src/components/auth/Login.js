@@ -6,7 +6,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Login.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { login } from '../../actions/auth';
@@ -17,8 +17,6 @@ Handles the UI for the log in page
 */
 export default function Login() {
   const dispatch = useDispatch();
-  const { logIn } = useSelector((state) => state.auth);
-  const { error } = useSelector((state) => state.notification);
 
   const teamInfoSchema = yup.object({
     email: yup
@@ -34,12 +32,8 @@ export default function Login() {
     password: '',
   };
 
-  const submitForm = async (values, { setFieldError }) => {
-    await dispatch(login(values)); // need await this action to complete
-    if (!logIn && !error) { // client error
-      // assuming the only client error is 'Incorrect email/passord'
-      setFieldError('password', 'Incorrect email/ password');
-    }
+  const submitForm = (values, { setFieldError }) => {
+    dispatch(login(values, setFieldError));
   };
 
   return (

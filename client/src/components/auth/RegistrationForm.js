@@ -2,29 +2,19 @@
  * This file exports a Registration Form component used to display registration input.
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Col } from 'react-bootstrap';
 import './Register.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { createTeam } from '../../actions/team';
 
 export default function RegistrationForm() {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { logIn } = useSelector((state) => state.auth);
-  const { error } = useSelector((state) => state.notification);
-
-  useEffect(() => {
-    if (logIn) {
-      history.push('/dashboard');
-    }
-  }, [history, logIn]);
 
   const teamInfoSchema = yup.object({
     teamName: yup
@@ -60,14 +50,10 @@ export default function RegistrationForm() {
     confirmedPassword: '',
   };
 
-  const submitForm = async (values, { setFieldError }) => {
+  const submitForm = (values, { setFieldError }) => {
     const teamInfo = { ...values };
     delete teamInfo.confirmedPassword;
-    await dispatch(createTeam(teamInfo)); // need await this action to complete
-    if (!logIn && !error) { // client error
-      // assuming the only client error is 'Email had been registered'
-      setFieldError('email', 'Email had been registered');
-    }
+    dispatch(createTeam(teamInfo, setFieldError)); // need await this action to complete
   };
 
   return (
