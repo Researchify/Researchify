@@ -126,7 +126,8 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
               >
                 <Button
                   id="cancelButton"
-                  variant="contained"
+                  variant="outlined"
+                  color="primary"
                   onClick={closeModal}
                 >
                   Cancel

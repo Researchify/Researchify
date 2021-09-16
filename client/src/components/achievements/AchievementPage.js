@@ -11,6 +11,7 @@ import AchievementForm from './achievementsComponents/AchievementForm';
 import { getAchievementsByTeamId } from '../../actions/achievements';
 import Achievement from './Achievement';
 import './achievementPage.css';
+import './css/achievementForm.css';
 import AddButton from './achievementsComponents/AddButton';
 import AchievementsLayout from './AchievementsLayout';
 
@@ -62,11 +63,11 @@ const AchievementPage = () => {
         )}
 
         {/* A modal for showing create an Achievement */}
-        <Modal show={showCreateForm}>
-          <Modal.Header className="modalHeader">
-            <Modal.Title> New Achievement </Modal.Title>
+        <Modal show={showCreateForm} id="achievementsModal">
+          <Modal.Header>
+            <Modal.Title id="achievementsModalTitle"> New Achievement </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body id="achievementsModalBody">
             <AchievementForm
               type="create"
               closeModal={() => setShowCreateForm(false)}
