@@ -65,6 +65,8 @@ export default function RegistrationForm() {
         validationSchema={teamInfoSchema}
         onSubmit={submitForm}
         initialValues={initialTeamInfo}
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         {({
           handleSubmit, handleChange, values, touched, errors,
