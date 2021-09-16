@@ -8,6 +8,7 @@ import {
   DELETE_WEBPAGE,
   UPDATE_PUBLICATION_OPTIONS,
   UPDATE_WEBSITE_TITLE,
+  UPDATE_WEBSITE_THEME,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 import * as api from '../api';
@@ -81,7 +82,8 @@ export const updatePublicationOptions = (teamId, preference) => async (dispatch)
 
 export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
   try {
-    await api.updateWebsiteTitle(teamId, website);
+    const change = { title: website.websiteTitle };
+    await api.updateClientWebMetadata(teamId, change);
     dispatch({
       type: UPDATE_WEBSITE_TITLE,
       payload: website.websiteTitle,
@@ -89,5 +91,29 @@ export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
     dispatch(successMessageCreator('Title has been updated.'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
+  }
+};
+
+/**
+ * This action creater find/create a new theme and update it in website model.
+ * @param {*} teamId The id of the team whose theme is to be updated
+ * @param {*} themeData Object containing the updated 'layout'
+ * @returns
+ */
+export const updateTheme = (teamId, themeData) => async (dispatch) => {
+  try {
+    console.log(themeData);
+    const { result } = await api.updateClientWebMetadata(teamId, {
+      layout: themeData.layout,
+    });
+    console.log(result);
+
+    dispatch({
+      type: UPDATE_WEBSITE_THEME,
+      payload: themeData,
+    });
+    dispatch(successMessageCreator('Theme has been updated'));
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
   }
 };

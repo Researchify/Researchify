@@ -81,8 +81,7 @@ async function deleteWebPage(req, res, next) {
  * @returns 200: publication options successfully updated in the DB
  * @returns 500: Server error while saving new page name to DB
  */
-async function pathClientWebMetadata(req, res, next) { // eslint-disable-line no-unused-vars
-  console.log(req.body);
+async function patchClientWebMetadata(req, res, next) { // eslint-disable-line no-unused-vars
   const changes = req.body;
   const { team_id: _id } = req.params;// TODO: teamId get from the token instead of parameters?
   console.log('Printing changes');
@@ -101,35 +100,9 @@ async function pathClientWebMetadata(req, res, next) { // eslint-disable-line no
   }
 }
 
-/**
- * Update the HTML <title> tag used for client websites.
- * Currently, we are using the team's name for the title, but this route can be used to update title if need be
- * @param {*} req request object, containing the teamId and website title
- * @param {*} res response object
- * @returns 200: website title successfully updated in the DB
- * @returns 500: Server error while saving website title to DB
- */
-async function updateTitle(req, res, next) { // eslint-disable-line no-unused-vars
-  const updatedTitle = req.body.websiteTitle;
-  const { team_id: _id } = req.params;
-  try {
-    await Website.updateOne(
-      { teamId: _id },
-      {
-        $set: {
-          title: updatedTitle,
-        },
-      },
-    );
-    return res.status(200).json(updatedTitle);
-  } catch (err) {
-    return res.send(fillErrorObject(500, 'Server error', [err.errors]));
-  }
-}
-
 module.exports = {
   addWebPage,
   deleteWebPage,
   getWebPageDetails,
-  pathClientWebMetadata,
+  patchClientWebMetadata,
 };

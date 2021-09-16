@@ -6,9 +6,9 @@ import React, { useState } from 'react';
 import {
   Container, Button, Form, Col, Image,
 } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { updateTheme } from '../../actions/team';
+import { updateTheme } from '../../actions/website';
 
 // Picture of each layout
 import singleColumnLayout from '../../images/theme1.png';
@@ -21,51 +21,24 @@ import zigZagLayout from '../../images/zig-zag-layout.png';
 const TemplateSelector = (props) => {
   const dispatch = useDispatch();
 
-  // Storing and passing Form Inputs, theme1 & layout1 as defualt
-  const [formInputs, setInputs] = useState({
-    layout: 1,
-    primaryColor: '#419aee',
-    secondaryColor: '#8da4d1',
-  });
-  const [theme, setTheme] = useState(1);
+  // Storing and passing Form Inputs, theme1 & layout1 as default
+  const [theme, setTheme] = useState(useSelector((state) => state.website.theme));
+  const [layout, setLayout] = useState(useSelector((state) => state.website.layout));
+  console.log(theme);
+  console.log(`Layout: ${layout}`);
 
   const updateSelections = (form) => {
     const { name, value, id } = form.target;
     if (name === 'theme') {
-      let primaryColor;
-      let secondaryColor;
-      switch (id) {
-        case 'theme1':
-          setTheme(1);
-          primaryColor = '#419aee';
-          secondaryColor = '#8da4d1';
-          break;
-        case 'theme2':
-          setTheme(2);
-          primaryColor = '#000000';
-          secondaryColor = '#ebe6e6';
-          break;
-        case 'theme3':
-          setTheme(3);
-          primaryColor = '#008000';
-          secondaryColor = '#868789';
-          break;
-        default:
-          break;
-      }
-      setInputs({
-        ...formInputs,
-        primaryColor,
-        secondaryColor,
-      });
-    } else {
-      setInputs({ ...formInputs, [name]: parseInt(value, 10) });
+      setTheme(id);
+    } else if (name === 'layout') {
+      setLayout(value);
     }
   };
 
-  const storeInputs = (teamId, inputObject) => {
+  const storeInputs = (teamId) => {
     const changes = {
-      layout: inputObject.layout,
+      layout,
     };
     dispatch(updateTheme(teamId, changes));
   };
@@ -76,7 +49,7 @@ const TemplateSelector = (props) => {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      storeInputs(props.teamId, formInputs);
+      storeInputs(props.teamId);
     }
   };
 
@@ -94,11 +67,11 @@ const TemplateSelector = (props) => {
             <label htmlFor="theme1">
               <Form.Check
                 inline
-                id="theme1"
+                id="1"
                 type="radio"
                 name="theme"
                 onChange={updateSelections}
-                checked={theme === 1}
+                checked={theme === '1'}
                 className="theme-1-radio"
               />
               <div
@@ -109,11 +82,11 @@ const TemplateSelector = (props) => {
             <label htmlFor="theme2">
               <Form.Check
                 inline
-                id="theme2"
+                id="2"
                 type="radio"
                 name="theme"
                 onChange={updateSelections}
-                checked={theme === 2}
+                checked={theme === '2'}
                 className="theme-2-radio"
               />
               <div
@@ -124,11 +97,11 @@ const TemplateSelector = (props) => {
             <label htmlFor="theme3">
               <Form.Check
                 inline
-                id="theme3"
+                id="3"
                 type="radio"
                 name="theme"
                 onChange={updateSelections}
-                checked={theme === 3}
+                checked={theme === '3'}
                 className="theme-3-radio"
               />
               <div
@@ -151,7 +124,7 @@ const TemplateSelector = (props) => {
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label htmlFor="layout1">
                 <Form.Check
-                  checked={formInputs.layout === 1}
+                  checked={layout === '1'}
                   inline
                   id="layout1"
                   type="radio"
@@ -171,7 +144,7 @@ const TemplateSelector = (props) => {
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label htmlFor="layout2">
                 <Form.Check
-                  checked={formInputs.layout === 2}
+                  checked={layout === '2'}
                   inline
                   id="layout2"
                   type="radio"
@@ -191,7 +164,7 @@ const TemplateSelector = (props) => {
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label htmlFor="layout3">
                 <Form.Check
-                  checked={formInputs.layout === 3}
+                  checked={layout === '3'}
                   inline
                   id="layout3"
                   type="radio"
@@ -212,7 +185,7 @@ const TemplateSelector = (props) => {
       </Form.Group>
 
       <Button id="submitButton" type="submit">
-        Create Website
+        Update
       </Button>
     </Form>
   );

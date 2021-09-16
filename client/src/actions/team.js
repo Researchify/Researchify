@@ -292,32 +292,3 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
     dispatch(errorActionGlobalCreator(error));
   }
 };
-
-/**
- * This action creater find/create a new theme and update it in team data.
- * @param {*} teamId
- * @param {*} themeData
- * @returns
- */
-export const updateTheme = (teamId, themeData) => async (dispatch) => {
-  try {
-    //const updatedTheme = await api.findOrCreateTheme(themeData);
-    // const updatedThemeId = updatedTheme.data._id;
-    // const { data } = await api.updateTeam(teamId, {
-    //   themeId: updatedThemeId,
-    // });
-    console.log(themeData);
-    const { result } = await api.updateClientWebMetadata(teamId, {
-      layout: themeData.layout,
-    });
-    console.log(result);
-    // const updatedTeam = teamDataAllocator(data);
-    // dispatch({
-    //   type: UPDATE_TEAM,
-    //   payload: updatedTeam,
-    // });
-    dispatch(successMessageCreator('Theme has been updated'));
-  } catch (error) {
-    dispatch(errorActionGlobalCreator(error));
-  }
-};

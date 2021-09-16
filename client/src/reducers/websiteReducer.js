@@ -8,6 +8,7 @@ import {
   FETCH_WEBSITE_INFO,
   UPDATE_PUBLICATION_OPTIONS,
   UPDATE_WEBSITE_TITLE,
+  UPDATE_WEBSITE_THEME,
 } from '../actions/types';
 
 const INITIAL_WEBSITE_STATE = {
@@ -15,6 +16,8 @@ const INITIAL_WEBSITE_STATE = {
   title: '',
   pages: [],
   publicationOptions: {},
+  layout: '1',
+  theme: '1',
 };
 
 /**
@@ -48,6 +51,8 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
       return { ...state, publicationOptions: payload };
     case UPDATE_WEBSITE_TITLE:
       return { ...state, title: payload };
+    case UPDATE_WEBSITE_THEME:
+      return { ...state, layout: payload.layout };
     default:
       return state;
   }
