@@ -268,7 +268,7 @@ const ProfileInfoEdit = () => {
               isInvalid={!!errors.currentPassword}
             />
             <Form.Control.Feedback type="invalid">
-              { errors.password }
+              { errors.currentPassword }
             </Form.Control.Feedback>
 
           </Form.Group>
