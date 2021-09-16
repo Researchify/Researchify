@@ -32,6 +32,10 @@ const websiteSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    theme: {
+      type: String,
+      required: false,
+    },
     publicationOptions: {
       groupBy: {
         type: String,

@@ -102,15 +102,14 @@ export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
  */
 export const updateTheme = (teamId, themeData) => async (dispatch) => {
   try {
-    console.log(themeData);
-    const { result } = await api.updateClientWebMetadata(teamId, {
+    const { data } = await api.updateClientWebMetadata(teamId, {
       layout: themeData.layout,
+      theme: themeData.theme,
     });
-    console.log(result);
 
     dispatch({
       type: UPDATE_WEBSITE_THEME,
-      payload: themeData,
+      payload: data,
     });
     dispatch(successMessageCreator('Theme has been updated'));
   } catch (error) {

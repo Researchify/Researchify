@@ -84,8 +84,6 @@ async function deleteWebPage(req, res, next) {
 async function patchClientWebMetadata(req, res, next) { // eslint-disable-line no-unused-vars
   const changes = req.body;
   const { team_id: _id } = req.params;// TODO: teamId get from the token instead of parameters?
-  console.log('Printing changes');
-  console.log(changes);
 
   try {
     await Website.updateOne(

@@ -24,8 +24,6 @@ const TemplateSelector = (props) => {
   // Storing and passing Form Inputs, theme1 & layout1 as default
   const [theme, setTheme] = useState(useSelector((state) => state.website.theme));
   const [layout, setLayout] = useState(useSelector((state) => state.website.layout));
-  console.log(theme);
-  console.log(`Layout: ${layout}`);
 
   const updateSelections = (form) => {
     const { name, value, id } = form.target;
@@ -39,6 +37,7 @@ const TemplateSelector = (props) => {
   const storeInputs = (teamId) => {
     const changes = {
       layout,
+      theme,
     };
     dispatch(updateTheme(teamId, changes));
   };
