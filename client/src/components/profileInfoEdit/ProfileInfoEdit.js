@@ -8,7 +8,6 @@ import {
   Button, Form, Container, Image,
 } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
-import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import defaultProfilePic from '../../images/profilepic.jpg';
@@ -89,19 +88,20 @@ const ProfileInfoEdit = () => {
           validated={validated}
           onSubmit={handleUpdate}
         >
-          <p className="profile-title-name">Team Profile Management</p>
+          <p className="profile-title-name">Account Settings</p>
 
           <Form.Group controlId="formProfilePic">
             <Image
+              className="profile-img"
               src={profileData.profilePic}
               roundedCircle
-              height="184px"
-              width="184px"
+              height="200px"
+              width="200px"
             />
-            <Form.Control name="profilePic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} />
-            <Form.Text className="text-muted">
-              Upload a file from your device, at least 184px.
-            </Form.Text>
+            <Form.Label className="upload-label">
+              Change Profile Photo
+            </Form.Label>
+            <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
           </Form.Group>
 
           <Form.Group>
@@ -143,23 +143,20 @@ const ProfileInfoEdit = () => {
             />
           </Form.Group>
 
-          <div className="my-1">
+          <div className="profile-btn-group">
             <Button
               id="updateButton"
               type="submit"
               color="primary"
-              className="mr-2"
+              className="my-2"
             >
               Update
             </Button>
-
-            {/* Button is linked to react-router-dom Link */}
-            <Link to="/dashboard">
-              <Button color="primary">Back</Button>
-            </Link>
-          </div>
-          <div className="my-1">
-            <Button variant="danger" onClick={profileDeleted}>
+            <Button
+              variant="danger"
+              onClick={profileDeleted}
+              className="mt-2"
+            >
               Delete account
             </Button>
           </div>
