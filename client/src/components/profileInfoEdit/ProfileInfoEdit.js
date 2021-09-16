@@ -15,7 +15,6 @@ import * as yup from 'yup';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam, updatePassword } from '../../actions/team';
 
-
 /**
  * Form component for user update profile
  */
