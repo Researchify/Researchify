@@ -18,7 +18,7 @@ import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { deleteAchievement } from '../../actions/achievements';
-import AchievementForm from './form/AchievementForm';
+import AchievementForm from './achievementsComponents/AchievementForm';
 
 const Achievement = ({ achievement }) => {
   const dispatch = useDispatch();

@@ -6,10 +6,12 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Row, Button, Tooltip, OverlayTrigger, Form,
+  Row, Tooltip, OverlayTrigger, Form,
 } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
+import { Button } from '@material-ui/core';
 import { updateAchievement, createAchievement } from '../../../actions/achievements';
+import '../css/achievementForm.css';
 
 const AchievementForm = ({ closeModal, achievement, type }) => {
   const dispatch = useDispatch();
@@ -123,8 +125,8 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
                 overlay={renderTooltip}
               >
                 <Button
-                  className="mr-2"
-                  variant="outline-danger"
+                  id="cancelButton"
+                  variant="contained"
                   onClick={closeModal}
                 >
                   Cancel
@@ -132,10 +134,12 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
               </OverlayTrigger>
             </div>
             <div className="ml-auto mr-3">
-              <Button variant="primary" type="submit">
-                {' '}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
                 Confirm
-                {' '}
               </Button>
             </div>
           </Row>
