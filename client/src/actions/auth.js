@@ -32,9 +32,10 @@ export const login = (authData, setFieldError) => async (dispatch) => {
       type: LOG_IN_FAIL,
     });
     // only show pop up error if it's not a client error, otherwise, show the error on the form instead
-    // assuming the only client error is 'Incorrect email/passord'
-    setFieldError('password', 'Incorrect email/ password');
-    if (error.response.status !== 400) {
+    if (error.response.status === 400) {
+      // assuming the only client error is 'Incorrect email/passord'
+      setFieldError('password', 'Incorrect email/ password');
+    } else {
       dispatch(errorActionGlobalCreator(error));
     }
   }

@@ -29,17 +29,15 @@ import {
 export const createTeam = (teamInfo, setFieldError) => async (dispatch) => {
   try {
     await api.createTeam(teamInfo);
-    dispatch({
-      type: 'register_success',
-    });
     const authData = { email: teamInfo.email, password: teamInfo.password };
     dispatch(login(authData));
     dispatch(successMessageCreator('Team has been created')); // showing a success notification
   } catch (err) {
     // only show pop up error if it's not a client error, otherwise, show the error on the form instead
-    // assuming the only client error is 'Email had been registered'
-    setFieldError('email', 'Email had been registered');
-    if (err.response.status !== 400) {
+    if (err.response.status === 400) {
+      // assuming the only client error is 'Email had been registered'
+      setFieldError('email', 'Email had been registered');
+    } else {
       dispatch(errorActionGlobalCreator(err));
     }
   }
