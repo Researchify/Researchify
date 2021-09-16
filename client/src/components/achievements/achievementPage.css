@@ -23,3 +23,17 @@
   padding-left: 8%;
   padding-right: 8%;
 }
+
+#card {
+    border-radius: 25px;
+    border-color: #56658a;
+
+}
+
+#card-header {
+  background-color: #56658a;
+  color: #ffffff;
+  border-top-left-radius: 25px;  
+  border-top-right-radius: 25px;
+  border-color: #56658a;
+}

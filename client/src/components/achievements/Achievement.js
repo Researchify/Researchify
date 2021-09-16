@@ -54,8 +54,8 @@ const Achievement = ({ achievement }) => {
   return (
     <>
       <Row id="achievement" className="container-fluid mt-4">
-        <Card>
-          <Card.Header as="h5">
+        <Card id="card">
+          <Card.Header as="h5" id="card-header">
             <Row>
               <Col id="achievementTitle">{achievement.title}</Col>
               <Col md={{ span: 1 }}>
