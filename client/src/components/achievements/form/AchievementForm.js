@@ -25,7 +25,7 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
       .min(1000, 'Invalid year')
       .max(new Date().getFullYear(), 'Invalid year')
       .required('Year is required'),
-    description: yup
+    description: yup 
       .string()
       .required('Description is required')
       .min(3, 'Description is at least 3 characters')
