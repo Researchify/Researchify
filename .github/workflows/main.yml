@@ -30,7 +30,7 @@ jobs:
         run: npm run lint
         working-directory: ./scholly/base
   test:
-    name: Unit Tests
+    name: Integration Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -39,6 +39,8 @@ jobs:
         working-directory: ./api
       - run: npm install
         working-directory: ./client
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.6.0
       - name: Run Tests on Node API
         run: npm run test
         working-directory: ./api
