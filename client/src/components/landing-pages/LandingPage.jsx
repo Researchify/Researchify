@@ -53,7 +53,7 @@ const LandingPage = ({ match }) => {
   );
 };
 
-//props validation
+// props validation
 LandingPage.propTypes = {
   match: PropTypes.object.isRequired,
 };

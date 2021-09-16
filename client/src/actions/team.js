@@ -15,8 +15,8 @@ import {
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
-  REGISTER_SUCCESS,
 } from './types';
+import { login } from './auth';
 import {
   errorActionGlobalCreator,
   successMessageCreator,
@@ -30,10 +30,8 @@ export const createTeam = (teamInfo) => async (dispatch) => {
   try {
     await api.createTeam(teamInfo);
     dispatch(successMessageCreator('Team has been created')); // showing a success notification
-    dispatch({
-      // when user has been registered successfully to allow us to go back to the login page
-      type: REGISTER_SUCCESS,
-    });
+    const authData = { email: teamInfo.email, password: teamInfo.password };
+    dispatch(login(authData));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -210,8 +208,14 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
     const { data: teamPublications } = await api.fetchPublicationsByTeamId(
       teamId,
     );
-    teamPublications.map(
-      (pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4)), // eslint-disable-line no-param-reassign
+    const newTeamPubs = teamPublications.map(
+      (pub) => {
+        const updatedPub = {
+          ...pub,
+          yearPublished: pub.yearPublished.substring(0, 4), // only get the year from the date format
+        };
+        return updatedPub;
+      },
     );
     // get teamInfo
     const { data: teamInfo } = await api.getTeamJWT();
@@ -226,7 +230,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
 
     const body = {
       ghToken: accessToken,
-      teamPublications,
+      teamPublications: newTeamPubs,
       teamInfo,
       teamMembers,
       teamHomepage,
@@ -259,6 +263,7 @@ function teamDataAllocator(teamData) {
     email: teamData.email,
     teamName: teamData.teamName,
     orgName: teamData.orgName,
+    profilePic: teamData.profilePic,
     twitterHandle: teamData.twitterHandle,
     repoCreated: teamData.repoCreated,
     error: null,

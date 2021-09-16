@@ -1,5 +1,5 @@
 /**
- * The LayoutAllPublications component displays a list of publications
+ * The GroupByNone component displays a list of publications
  */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,7 @@ import { pageSize as configPageSize } from '../../../config/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 import { ButtonGroupItem } from './PublicationsEditor';
 
-const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
-  // Since we need to validate pageSize and set default, configPageSize might not necessary
+const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
@@ -86,14 +85,14 @@ const LayoutAllPublications = ({ teamPublications, pageSize, groupBy }) => {
 };
 
 // props validation
-LayoutAllPublications.propTypes = {
+GroupByNone.propTypes = {
   teamPublications: PropTypes.array.isRequired,
   pageSize: PropTypes.number,
   groupBy: PropTypes.string,
 };
-LayoutAllPublications.defaultProps = {
+GroupByNone.defaultProps = {
   pageSize: 10,
   groupBy: null,
 };
 
-export default LayoutAllPublications;
+export default GroupByNone;

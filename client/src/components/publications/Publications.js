@@ -11,10 +11,10 @@ import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
 import './publications.css';
-import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
-import LayoutByCategory from './publicationsLayout/LayoutByCategory';
+import GroupByNone from './publicationsLayout/GroupByNone';
+import GroupByCategory from './publicationsLayout/GroupByCategory';
 import PublicationsEditor from './publicationsLayout/PublicationsEditor';
-import { layoutOptions, sortingOptions } from '../../config/publications';
+import { groupByOptions, sortingOptions } from '../../config/publications';
 
 const Publications = () => {
   const dispatch = useDispatch();
@@ -37,11 +37,11 @@ const Publications = () => {
   }, [publicationOptions]);
 
   const renderPublications = () => {
-    switch (options.layout) {
-      case layoutOptions.BY_CATEGORY:
-        return <LayoutByCategory teamPublications={publications} />;
+    switch (options.groupBy) {
+      case groupByOptions.CATEGORY:
+        return <GroupByCategory teamPublications={publications} />;
       default:
-        return <LayoutAllPublications teamPublications={publications} />;
+        return <GroupByNone teamPublications={publications} />;
     }
   };
 

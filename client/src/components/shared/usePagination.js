@@ -16,10 +16,15 @@ const usePagination = (data, itemPerPage) => {
   const [currentPage, setCurrentPage] = useState(1);
   const maxPage = Math.ceil(data.length / itemPerPage);
   const currentData = () => {
-    if (data) {
+    if (data.length > 0) {
       const start = (currentPage - 1) * itemPerPage;
       const end = start + itemPerPage;
-      return data.slice(start, end);
+      const dataOnCurrentPage = data.slice(start, end);
+      if (dataOnCurrentPage.length === 0) { // check if the current page has data (user might delete all data on the current page)
+        setCurrentPage(maxPage);
+        return data.slice(maxPage - 1 * itemPerPage);
+      }
+      return dataOnCurrentPage;
     }
     return [];
   };

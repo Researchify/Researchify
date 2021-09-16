@@ -63,6 +63,10 @@ const teamSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'theme',
     },
+    profilePic: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true },
 );
@@ -72,7 +76,7 @@ const teamSchema = new mongoose.Schema(
 // https://mongoosejs.com/docs/middleware.html#post
 teamSchema.post('save', async (doc) => {
   try {
-    await Website.create({ teamId: doc._id, publicationOptions: { layout: 'All Publication', sortBy: 'Title' } });
+    await Website.create({ teamId: doc._id, publicationOptions: { groupBy: 'None', sortBy: 'Title' } });
     await Homepage.create({ teamId: doc._id });
   } catch (err) {
     logger.error('Failed to create associated documents on team creation.');
