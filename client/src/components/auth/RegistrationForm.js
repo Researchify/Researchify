@@ -53,7 +53,8 @@ export default function RegistrationForm() {
   const submitForm = (values, { setFieldError }) => {
     const teamInfo = { ...values };
     delete teamInfo.confirmedPassword;
-    dispatch(createTeam(teamInfo, setFieldError)); // need await this action to complete
+    // error message could be passed in the setFieldError function to show error on the form
+    dispatch(createTeam(teamInfo, setFieldError));
   };
 
   return (

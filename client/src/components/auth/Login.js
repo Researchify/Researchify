@@ -33,6 +33,7 @@ export default function Login() {
   };
 
   const submitForm = (values, { setFieldError }) => {
+    // error message could be passed in the setFieldError function to show error on the form
     dispatch(login(values, setFieldError));
   };
 
