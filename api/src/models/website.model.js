@@ -4,7 +4,7 @@
  */
 const mongoose = require('mongoose');
 
-const { layoutOptions, sortingOptions } = require('../config/publication');
+const { groupByOptions, sortingOptions } = require('../config/publication');
 
 const websiteSchema = new mongoose.Schema(
   {
@@ -21,16 +21,18 @@ const websiteSchema = new mongoose.Schema(
     title: {
       type: String,
       required: false,
+      minlength: 3,
+      maxlength: 30,
     },
     url: {
       type: String,
       required: false,
     },
     publicationOptions: {
-      layout: {
+      groupBy: {
         type: String,
         required: false,
-        enum: layoutOptions,
+        enum: groupByOptions,
       },
       sortBy: {
         type: String,

@@ -5,6 +5,7 @@ import {
   Row, InputGroup, Button, Form,
 } from 'react-bootstrap';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { PropTypes } from 'prop-types';
 import { importPublications } from '../../../actions/publications';
 import { IMPORT_FAIL, UPDATE_GSCHOLAR_ID } from '../../../actions/types';
 import '../publications.css';
@@ -103,6 +104,11 @@ const ProfileLinkPage = ({ closeModal }) => {
       )}
     </Formik>
   );
+};
+
+// props validation
+ProfileLinkPage.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default ProfileLinkPage;

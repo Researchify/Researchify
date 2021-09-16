@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 import {
   Box,
@@ -39,12 +40,10 @@ const TabPanel = (props) => {
   );
 };
 
-const a11yProps = (index) => {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
-};
+const a11yProps = (index) => ({
+  id: `full-width-tab-${index}`,
+  'aria-controls': `full-width-tabpanel-${index}`,
+});
 
 const AboutUs = () => {
   const isMobile = useMediaQuery('(max-width:600px)'); // should be refactored
@@ -106,7 +105,7 @@ const AboutUs = () => {
               onChange={handleChange}
               aria-label="wrapped label tabs about us"
             >
-              {/**TODO: Can be refactored with loop */}
+              {/** TODO: Can be refactored with loop */}
               <StyledTab value={0} label="Vision" {...a11yProps('one')} />
               <StyledTab
                 value={1}
@@ -122,7 +121,7 @@ const AboutUs = () => {
           </Grid>
         </Grid>
 
-        {/**TODO: Can be refactored with loop */}
+        {/** TODO: Can be refactored with loop */}
         <Grid item className={classes.borderedCard} md={9} xs={12}>
           <center>
             <TabPanel value={value} index={0}>
@@ -163,6 +162,13 @@ const AboutUs = () => {
       </Grid>
     </div>
   );
+};
+
+// props validation
+TabPanel.propTypes = {
+  children: PropTypes.array.isRequired,
+  value: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default AboutUs;

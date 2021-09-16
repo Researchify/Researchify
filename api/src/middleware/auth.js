@@ -19,7 +19,7 @@ const cookieJwtAuth = (req, res, next) => {
   try {
     const { team } = jwt.verify(accessToken, process.env.JWT_SECRET_ACCESS_TOKEN || 'JWT_SECRET_ACCESS_TOKEN');
     req.team = team;
-    next();
+    return next();
   } catch (error) { // access token expire
     // clear the expired access token
     res.clearCookie('accessToken');
@@ -36,17 +36,17 @@ const cookieJwtAuth = (req, res, next) => {
       // verfiy the refresh token
       const { team } = jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH_TOKEN || 'JWT_SECRET_REFRESH_TOKEN');
 
-      // re-gernerate the accessToken
-      const accessToken = jwt.sign({ team }, process.env.JWT_SECRET_ACCESS_TOKEN || 'JWT_SECRET_ACCESS_TOKEN', {
+      // re-generate the accessToken
+      const newAccessToken = jwt.sign({ team }, process.env.JWT_SECRET_ACCESS_TOKEN || 'JWT_SECRET_ACCESS_TOKEN', {
         expiresIn: accessTokenExpiry,
       });
-      res.cookie('accessToken', accessToken, {
+      res.cookie('accessToken', newAccessToken, {
         httpOnly: true,
         maxAge: accessTokenCookieExpiry,
       });
       req.team = team;
-      next();
-    } catch (error) { // both access and refresh token expire
+      return next();
+    } catch (err) { // both access and refresh token expire
       res.clearCookie('refreshToken');
       res.clearCookie('isLogin');
       return next(

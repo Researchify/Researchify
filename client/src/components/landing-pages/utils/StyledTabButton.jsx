@@ -12,12 +12,10 @@ const StyledTab = styled(({ ...props }) => (
   }
 `;
 
-const StyledComponentsTab = (props) => {
-  return (
-    <>
-      <StyledTab {...props} />
-    </>
-  );
-};
+const StyledComponentsTab = (props) => (
+  <>
+    <StyledTab {...props} />
+  </>
+);
 
 export default StyledComponentsTab;

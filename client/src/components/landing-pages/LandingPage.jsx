@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 import { ThemeProvider } from '@material-ui/styles'; // eslint-disable-line import/no-extraneous-dependencies
 import { createTheme } from '@material-ui/core/styles';
@@ -50,6 +51,11 @@ const LandingPage = ({ match }) => {
       </LandingLayout>
     </ThemeProvider>
   );
+};
+
+// props validation
+LandingPage.propTypes = {
+  match: PropTypes.object.isRequired,
 };
 
 export default LandingPage;
