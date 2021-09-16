@@ -5,7 +5,7 @@
 import { categoryTypes, categoryPageSize } from '../../../config/publications';
 import GroupByNone from './GroupByNone';
 
-const GroupByCategory = ({ teamPublications }) => {
+const GroupByCategory = ({ teamPublications, setCheckedPublicationId }) => {
   const renderPublicationsByCategory = (categoryType) => {
     const publicationsByCategory = teamPublications.filter(
       (pub) => pub.category.type === categoryType,

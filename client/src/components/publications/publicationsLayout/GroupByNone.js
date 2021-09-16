@@ -1,7 +1,7 @@
 /**
  * The GroupByNone component displays a list of publications
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Row, Col } from 'react-bootstrap';
@@ -15,8 +15,17 @@ import { ButtonGroupItem } from './PublicationsEditor';
 const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
   const [checked, setChecked] = useState(false);
+  const [checkedCounter, setCheckedCounter] = useState(0);
   const dispatch = useDispatch();
   const { checkedPublications } = useSelector((state) => state.publications);
+
+  useEffect(() => {
+    let count = 0;
+    teamPublications.forEach((pub) => {
+      if (checkedPublications.includes(pub._id)) count += 1;
+    });
+    setCheckedCounter(count);
+  }, [checked, checkedPublications]);
 
   const handleChange = () => {
     if (checked) {
@@ -33,28 +42,20 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
     setChecked(!checked);
   };
 
-  const checkedPublicationsCount = () => {
-    let count = 0;
-    teamPublications.forEach((pub) => {
-      if (checkedPublications.includes(pub._id)) count += 1;
-    });
-    return count;
-  };
-
   return (
     <>
       <div className="publicationList">
         <Row>
           <Col>
             <div style={{ padding: '10px', fontSize: '15px' }}>
-              <input type="checkbox" checked={checked} onChange={handleChange} />
+              <input type="checkbox" checked={checkedCounter === teamPublications.length} onChange={handleChange} />
               {' '}
-              { checkedPublicationsCount() > 0 ? (
+              { checkedCounter > 0 ? (
                 <>
                   <ButtonGroupItem borderColor="red" color="red" hoverBorderColor="red" hoverColor="white">
                     <RiDeleteBin6Line />
                     {' '}
-                    {checkedPublicationsCount()}
+                    {checkedCounter}
                     {' '}
                     Publications
                     {' '}

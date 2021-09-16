@@ -34,10 +34,9 @@ const usePagination = (data, itemPerPage) => {
   const prevPage = () => {
     setCurrentPage(() => Math.max(currentPage - 1, 1));
   };
-  const pagination = () => {
-    return (
-      <div style={{ paddingBottom: '5px' }}>
-        {
+  const pagination = () => (
+    <div style={{ paddingBottom: '5px' }}>
+      {
           currentData().length === 1
             ? ((currentPage - 1) * itemPerPage + 1)
             : (
@@ -48,20 +47,19 @@ const usePagination = (data, itemPerPage) => {
               </>
             )
           }
-        {' '}
-        of
-        {' '}
-        { data.length }
-        {' '}
-        <ArrowButton onClick={prevPage} hover={currentPage !== 1}>
-          <FaAngleLeft />
-        </ArrowButton>
-        <ArrowButton onClick={nextPage} hover={currentPage !== maxPage}>
-          <FaAngleRight />
-        </ArrowButton>
-      </div>
-    );
-  };
+      {' '}
+      of
+      {' '}
+      { data.length }
+      {' '}
+      <ArrowButton onClick={prevPage} hover={currentPage !== 1}>
+        <FaAngleLeft />
+      </ArrowButton>
+      <ArrowButton onClick={nextPage} hover={currentPage !== maxPage}>
+        <FaAngleRight />
+      </ArrowButton>
+    </div>
+  );
 
   return { currentData, pagination };
 };

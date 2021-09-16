@@ -3,7 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import { sortingOptions, layoutOptions } from '../../../config/publications';
+import { sortingOptions, groupByOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 import '../publications.css';
 
@@ -79,14 +79,14 @@ const PublicationsEditor = ({
       <StyledButtonGroup>
         Group By
         {' '}
-        {Object.keys(layoutOptions).map((layout) => (
+        {Object.keys(groupByOptions).map((groupBy) => (
           <ButtonGroupItem
             color="grey"
-            press={options.layout === layoutOptions[layout]}
-            key={layout}
-            onClick={() => setOptions({ ...options, layout: layoutOptions[layout] })}
+            press={options.groupBy === groupByOptions[groupBy]}
+            key={groupBy}
+            onClick={() => setOptions({ ...options, groupBy: groupByOptions[groupBy] })}
           >
-            {layoutOptions[layout]}
+            {groupByOptions[groupBy]}
           </ButtonGroupItem>
         ))}
       </StyledButtonGroup>
@@ -107,7 +107,7 @@ const PublicationsEditor = ({
             {sortingOptions[sortBy]}
           </ButtonGroupItem>
         ))}
-        {options.layout === layoutOptions.BY_CATEGORY
+        {options.groupBy === groupByOptions.CATEGORY
               && (
               <ButtonGroupItem
                 color="grey"
