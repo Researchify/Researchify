@@ -13,7 +13,7 @@ This directory contains test code used to test our Express API endpoints.
 
 ## Usage
 
-There is no additional setup needed, other than ensuring `mongod` is listening locally on port`27017`. Run the tests
+There is no additional setup needed, other than ensuring `mongod` is listening locally on port `27017`. Run the tests
 using `npm`.
 
 ```bash
