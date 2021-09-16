@@ -22,6 +22,7 @@ export const ButtonGroupItem = styled.button`
   cursor: pointer;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande";
   width: auto;
+  transition: all 0.2s ease 0s;
   color: ${(props) => props.color};
   &:hover{
     background: ${(props) => props.hoverBorderColor || 'lightgrey'};
