@@ -17,6 +17,7 @@ import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { GrLinkDown, GrLinkUp } from 'react-icons/gr';
 import { IconContext } from 'react-icons';
+import { PropTypes } from 'prop-types';
 import PublicationForm from '../form/PublicationForm';
 import { deletePublication } from '../../../actions/publications';
 import '../publications.css';
@@ -148,7 +149,15 @@ const Publication = ({ pub }) => {
         )}
         <Row>
           <Col md={{ span: 1, offset: 11 }}>
-            <span onClick={() => setExpand(!expand)}>{displayUpArrow()}</span>
+            <span
+              onClick={() => setExpand(!expand)}
+              onKeyPress={() => setExpand(!expand)} // usability, see WCAG 2.1.1
+              role="button"
+              tabIndex={0}
+            >
+              {displayUpArrow()}
+
+            </span>
           </Col>
         </Row>
       </div>
@@ -246,6 +255,11 @@ const Publication = ({ pub }) => {
       </Modal>
     </>
   );
+};
+
+// props validation
+Publication.propTypes = {
+  pub: PropTypes.object.isRequired,
 };
 
 export default Publication;

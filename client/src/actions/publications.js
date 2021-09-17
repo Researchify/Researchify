@@ -21,11 +21,17 @@ export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
   try {
     const { data } = await api.fetchPublicationsByTeamId(teamId);
 
-    data.map((pub) => (pub.yearPublished = pub.yearPublished.substring(0, 4))); // only get the year from the date format
+    const newData = data.map((pub) => {
+      const updatedPub = {
+        ...pub,
+        yearPublished: pub.yearPublished.substring(0, 4), // only get the year from the date format
+      };
+      return updatedPub;
+    });
 
     dispatch({
       type: GET_PUBLICATIONS_BY_TEAM_ID,
-      payload: data,
+      payload: newData,
     });
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
@@ -35,13 +41,13 @@ export const getPublicationsByTeamId = (teamId) => async (dispatch) => {
 export const createPublication = (publication) => async (dispatch) => {
   try {
     const result = await api.createPublication(publication);
-
     result.data.yearPublished = result.data.yearPublished.substring(0, 4); // only get the year from the date format
 
     dispatch({
       type: CREATE_PUBLICATION,
       payload: { ...result.data, newlyAdded: true },
     });
+    dispatch(successMessageCreator('Publication has been created'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
@@ -68,17 +74,18 @@ export const updatePublication = (id, publication) => async (dispatch) => {
       type: UPDATE_PUBLICATION,
       payload: data,
     });
+    dispatch(successMessageCreator('Publication has been updated'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
 };
 
-export const importPublications = (author_id, startFrom, teamId) => async (dispatch) => {
+export const importPublications = (authorId, startFrom, teamId) => async (dispatch) => {
   try {
     dispatch({
       type: IMPORT_REQUEST,
     });
-    const result = await api.importPublications(author_id, startFrom, teamId);
+    const result = await api.importPublications(authorId, startFrom, teamId);
     const pageNo = startFrom / pageSize + 1;
     if (result.data.reachedEnd) {
       // reached the end of the user's profile
@@ -139,6 +146,7 @@ export const createBulkPublications = (teamId, publicationList) => async (dispat
       type: CREATE_BULK_PUBLICATIONS,
       payload: createdPublications,
     });
+    dispatch(successMessageCreator(`${createdPublications.length} publication(s) has been imported`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

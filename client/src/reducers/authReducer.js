@@ -3,13 +3,12 @@
  */
 import Cookies from 'js-cookie';
 import {
-  LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAIL, LOG_OUT, REGISTER_SUCCESS,
+  LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAIL, LOG_OUT,
 } from '../actions/types';
 
 const INITIAL_AUTH_STATE = {
   logIn: !!Cookies.get('isLogin'),
   loading: false,
-  isRegistered: null,
 };
 
 /**
@@ -29,8 +28,6 @@ const authReducer = (state = INITIAL_AUTH_STATE, action) => {
       return { ...state, loading: false };
     case LOG_OUT:
       return { ...state, loading: false, logIn: false };
-    case REGISTER_SUCCESS:
-      return { ...state, isRegistered: true };
     default:
       return state;
   }

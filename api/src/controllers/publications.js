@@ -4,10 +4,12 @@
  */
 const mongoose = require('mongoose');
 const logger = require('winston');
-const { firefox } = require('playwright');
+const axios = require('axios');
+const cheerio = require('cheerio');
+const iconv = require('iconv-lite');
 
 const { categoryTypes } = require('../config/publication');
-const { playwrightConfig } = require('../config/playwright');
+const { scrapingConfig } = require('../config/scraping');
 
 const Publication = require('../models/publication.model');
 const Team = require('../models/team.model');
@@ -28,16 +30,15 @@ function deletePublication(req, res, next) {
   Publication.findByIdAndRemove(_id)
     .then((foundPublication) => {
       if (foundPublication === null) {
-        next(
+        return next(
           fillErrorObject(400, 'Validation error', [
             'Publication could not be found',
           ]),
         );
-      } else {
-        return res
-          .status(200)
-          .json({ message: 'Publication deleted successfully.' });
       }
+      return res
+        .status(200)
+        .json({ message: 'Publication deleted successfully.' });
     })
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
@@ -62,14 +63,13 @@ function updatePublication(req, res, next) {
     .then((updatedPublication) => {
       if (updatedPublication == null) {
         // nothing returned by the query
-        next(
+        return next(
           fillErrorObject(404, 'Validation error', [
             'Publication could not be found',
           ]),
         );
-      } else {
-        return res.status(200).json(updatedPublication);
       }
+      return res.status(200).json(updatedPublication);
     })
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
@@ -102,7 +102,7 @@ function createPublication(req, res, next) {
 }
 
 /**
- * Handles a GET request, which will retrieve all publications by team in the endpoint /publications/team/:team_id.
+ * Handles a GET request, which will retrieve all publications by team in the endpoint /publications/team/:teamId.
  *
  * @param req request object - team id given in the url
  * @param res response object - a list of publications (see Publications model)
@@ -112,7 +112,7 @@ function createPublication(req, res, next) {
  * @todo filter by other fields like year passed in through req.query
  */
 function readAllPublicationsByTeam(req, res, next) {
-  const { team_id: _id } = req.params;
+  const { teamId: _id } = req.params;
 
   Publication.aggregate([
     {
@@ -130,9 +130,10 @@ function readAllPublicationsByTeam(req, res, next) {
 }
 
 /**
- * Given a google scholar user id, this function uses a headless browser via Playwright to scrape
+ * Given a google scholar user id, this function performs a get request to the GScholar profile
+ *  to get the raw HTML, and passes it to cheerio to scrape.
  * the publications info from a user's profile.
- * @see config/playwright.js
+ * @see config/scraping.js
  * @param req request object - google scholar user id given in the url
  * @param res response object - array of publication objects
  * @returns a list of publications of the given google scholar user id
@@ -140,17 +141,16 @@ function readAllPublicationsByTeam(req, res, next) {
 async function getGoogleScholarPublications(req, res) {
   const author = req.params.gScholarUserId;
   const { startFrom } = req.params;
-  const teamId = req.params.team_id;
+  const teamId = req.params.teamId;
 
-  const { noOfDummyLinks } = playwrightConfig;
-  const { pageSize } = playwrightConfig;
-  const url = playwrightConfig.baseUrl
+  const { pageSize } = scrapingConfig;
+  const url = scrapingConfig.baseUrl
     + author
-    + playwrightConfig.startSuffix
+    + scrapingConfig.startSuffix
     + startFrom
-    + playwrightConfig.pageSizeSuffix
+    + scrapingConfig.pageSizeSuffix
     + pageSize
-    + playwrightConfig.sortBySuffix;
+    + scrapingConfig.sortBySuffix;
   logger.info(`GScholar profile for user id ${author}: ${url}`);
   const publications = [];
   let endOfProfile = false;
@@ -161,26 +161,18 @@ async function getGoogleScholarPublications(req, res) {
     reachedEnd: false,
   };
 
-  const browser = await firefox.launch();
-  const context = await browser.newContext();
-  const page = await context.newPage();
-  await page.goto(url);
-
-  const resultLinks = await page.$$('.gsc_a_t a');
+  const page = await axios.get(url);
+  const $ = cheerio.load(page.data);
   const links = [];
+  $('.gsc_a_at').each((index, value) => {
+    links.push($(value).attr('href'));
+  });
 
-  if (resultLinks.length === noOfDummyLinks) {
-    // no publications found
+  if (links.length === 0) {
     response.reachedEnd = true;
-    await browser.close();
   } else {
-    for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
-      links.push(await resultLinks[i].getAttribute('href'));
-    }
-
-    await browser.close();
-
-    await Promise.all(links.map((x) => scrapeGoogleScholar(x))).then((pub) => publications.push(...pub));
+    await Promise.all(links.map((x) => scrapeGoogleScholar(x)))
+      .then((pub) => publications.push(...pub));
 
     const newPublications = await validateImportedPublications(
       teamId,
@@ -210,22 +202,24 @@ async function getGoogleScholarPublications(req, res) {
  * @returns a publication
  */
 async function scrapeGoogleScholar(url) {
-  logger.info(`Publication url: ${playwrightConfig.gScholarHome + url}`);
-  const browser = await firefox.launch();
-  const context = await browser.newContext();
-  const page = await context.newPage();
-  await page.goto(playwrightConfig.gScholarHome + url);
-  let title = await page.$$eval('a.gsc_oci_title_link', (titles) => titles.map((title) => title.innerText)); // we assume the publication title is a link
+  logger.info(`Publication url: ${scrapingConfig.gScholarHome + url}`);
+  const raw = await axios.get(`${scrapingConfig.gScholarHome + url}`,
+    {
+      responseType: 'arraybuffer', // to deal with special characters
+    });
+  const decodedData = iconv.decode(raw.data, 'ISO-8859-1');
 
-  if (title[0] === undefined) { // if its undefined, then it wasn't a link
-    title = await page.$$eval('div[id=gsc_oci_title]', (titles) => titles.map((title) => title.innerText));
-  }
-
-  const link = await page.$$eval('div.gsc_oci_title_ggi a', (links) => links.map((link) => link.href));
-  const values = await page.$$eval('div.gsc_oci_value', (titles) => titles.map((title) => title.innerText));
-  const fields = await page.$$eval('div.gsc_oci_field', (titles) => titles.map((title) => title.innerText));
-
-  await browser.close();
+  const $ = cheerio.load(decodedData);
+  const title = $('#gsc_oci_title').text();
+  const link = $('.gsc_oci_title_ggi a').attr('href');
+  const values = [];
+  const fields = [];
+  $('.gsc_oci_value').each((index, value) => {
+    values.push($(value).text());
+  });
+  $('.gsc_oci_field').each((index, value) => {
+    fields.push($(value).text());
+  });
 
   const publicationInfo = {};
   fields.forEach((key, i) => {
@@ -254,8 +248,8 @@ async function scrapeGoogleScholar(url) {
 
   const publication = {
     authors: publicationInfo.Authors.split(', '),
-    title: title[0],
-    link: link[0] || '',
+    title,
+    link: link || '',
     description: publicationInfo.Description || '',
     yearPublished: (publicationInfo['Publication date'] || '').substr(0, 4), // assuming first 4 chars is year
     citedBy,
@@ -307,7 +301,7 @@ async function validateImportedPublications(_id, publications) {
 }
 
 /**
- * Handles a POST request, which will create a bulk publications in the database using the endpoint /publications/import/:team_id.
+ * Handles a POST request, which will create a bulk publications in the database using the endpoint /publications/import/:teamId.
  * @param req request object - team id given in the url, an array of publication in body (see Publication model)
  * @param res response object
  * @returns 201: the bulk publications has been created

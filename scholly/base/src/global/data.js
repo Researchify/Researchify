@@ -12,14 +12,20 @@ import {
   FAKE_TEAM_MEMBERS,
   FAKE_TEAM_HOMEPAGE,
   FAKE_WEB_PAGES,
+  FAKE_TEAM_ACHIEVEMENTS,
+  FAKE_LAYOUT_OPTION,
 } from './fakeData';
 
 const env = process.env; // eslint-disable-line prefer-destructuring
+const defaultLayout = 3;
+
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
 let TEAM_MEMBERS;
 let TEAM_HOMEPAGE;
 let WEB_PAGES;
+let TEAM_ACHIEVEMENTS;
+let LAYOUT_OPTION;
 
 if (!env.REACT_APP_DEBUG) {
   /// The list of publications the team has created for rendering in the publications page
@@ -45,6 +51,13 @@ if (!env.REACT_APP_DEBUG) {
   WEB_PAGES = env.REACT_APP_WEB_PAGES
     ? JSON.parse(env.REACT_APP_WEB_PAGES)
     : [];
+
+  /// The list of achievements the team has created for rendering in the achievements page
+  TEAM_ACHIEVEMENTS = env.REACT_APP_TEAM_ACHIEVEMENTS
+    ? JSON.parse(env.REACT_APP_TEAM_ACHIEVEMENTS)
+    : [];
+
+  LAYOUT_OPTION = defaultLayout;
 } else {
   // Running client website locally, so use fake data
   console.log('Running in DEBUG mode, hence using fake data'); // eslint-disable-line no-console
@@ -57,8 +70,18 @@ if (!env.REACT_APP_DEBUG) {
   TEAM_HOMEPAGE = FAKE_TEAM_HOMEPAGE;
 
   WEB_PAGES = FAKE_WEB_PAGES;
+
+  TEAM_ACHIEVEMENTS = FAKE_TEAM_ACHIEVEMENTS;
+
+  LAYOUT_OPTION = FAKE_LAYOUT_OPTION;
 }
 
 export {
-  TEAM_PUBLICATIONS, TEAM_INFO, TEAM_MEMBERS, TEAM_HOMEPAGE, WEB_PAGES,
+  TEAM_PUBLICATIONS,
+  TEAM_INFO,
+  TEAM_MEMBERS,
+  TEAM_HOMEPAGE,
+  TEAM_ACHIEVEMENTS,
+  WEB_PAGES,
+  LAYOUT_OPTION,
 };

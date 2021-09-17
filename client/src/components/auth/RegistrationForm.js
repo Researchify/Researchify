@@ -17,13 +17,13 @@ import { createTeam } from '../../actions/team';
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const isRegistered = useSelector((state) => state.auth.isRegistered);
+  const { logIn } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (isRegistered) {
-      history.push('/login');
+    if (logIn) {
+      history.push('/dashboard');
     }
-  }, [history, isRegistered]);
+  }, [history, logIn]);
 
   const teamInfoSchema = yup.object({
     teamName: yup
@@ -60,8 +60,9 @@ export default function RegistrationForm() {
   };
 
   const submitForm = (values) => {
-    delete values.confirmedPassword;
-    dispatch(createTeam(values));
+    const teamInfo = { ...values };
+    delete teamInfo.confirmedPassword;
+    dispatch(createTeam(teamInfo));
   };
 
   return (

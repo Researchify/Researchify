@@ -6,6 +6,7 @@ import { Form, Card, Collapse } from 'react-bootstrap';
 import './importedPublication.css';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
 const ImportedPublication = ({ pub, index, setChecked }) => {
   const [expand, setExpand] = useState(false);
@@ -58,7 +59,7 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
             <a
               href={pub.link}
               style={{ cursor: 'pointer' }}
-              onClick={() => window.open(`${pub.link}`, '_blank')} // eslint-disable-line no-undef
+              onClick={() => window.open(`${pub.link}`, '_blank')}
             >
               {` ${pub.link}`}
             </a>
@@ -102,13 +103,20 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
           <h6 className="ml-3">
             {' '}
             Year Published:
-            {pub.yearPublished}
+            {` ${pub.yearPublished}`}
           </h6>
           {dropDown}
         </Card.Body>
       </Card>
     </>
   );
+};
+
+// props validation
+ImportedPublication.propTypes = {
+  pub: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  setChecked: PropTypes.func.isRequired,
 };
 
 export default ImportedPublication;

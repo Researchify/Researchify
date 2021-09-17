@@ -6,47 +6,45 @@ const Homepage = require('../models/homepage.model');
 const { fillErrorObject } = require('../middleware/error');
 
 /**
- * Get homepage content on /homepage/:team_id
- * @param {*} req request object, containing team id in url
- * @param {*} res response object, the homepage data of team
+ * Get homepage content on /homepage/:teamId
+ * @returns 200: return the team's homepage info
+ * @returns 404: team's homepage info not found
+ * @returns 500: server error
  * @returns
  */
 async function getHomepage(req, res, next) {
-  const { team_id } = req.params;
+  const { teamId } = req.params;
   try {
-    const foundHomepage = await Homepage.findOne({ teamId: team_id });
+    const foundHomepage = await Homepage.findOne({ teamId });
     if (foundHomepage) {
       return res.status(200).json(foundHomepage);
     }
-    // note: each string in `aboutUs` is a paragraph
-    const emptyHomepage = { teamId: team_id, aboutUs: [''] };
-    return res.status(200).json(emptyHomepage);
+    return next(fillErrorObject(404, 'Validation error', ['No homepage found with the given teamId']));
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
 }
 
 /**
- * Create a new homepage instance for team on /homepage/:team_id
+ * Create a new homepage instance for team on /homepage/:teamId
  * @param {*} req request object, containing team id in the url, homepage data to be post in the body
  * @param {*} res response object, posted homepage data of the team
  * @returns
  */
-async function createOrUpdateHomepage(req, res, next) {
-  const { team_id } = req.params;
+async function updateHomepage(req, res, next) {
+  const { teamId } = req.params;
   const homepageData = req.body;
   try {
-    const foundHomepage = await Homepage.findOne({ teamId: team_id });
+    const foundHomepage = await Homepage.findOne({ teamId });
     if (foundHomepage) {
       const updatedHomepage = await Homepage.findOneAndUpdate(
-        { teamId: team_id },
+        { teamId },
         homepageData,
         { new: true },
       );
       return res.status(200).json(updatedHomepage);
     }
-    const createdHomepage = await Homepage.create(homepageData);
-    return res.status(201).json(createdHomepage);
+    return next(fillErrorObject(404, 'Validation error', ['No homepage found with the given teamId']));
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
@@ -54,5 +52,5 @@ async function createOrUpdateHomepage(req, res, next) {
 
 module.exports = {
   getHomepage,
-  createOrUpdateHomepage,
+  updateHomepage,
 };

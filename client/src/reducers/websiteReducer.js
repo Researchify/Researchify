@@ -8,17 +8,14 @@ import {
   FETCH_WEBSITE_INFO,
   UPDATE_PUBLICATION_OPTIONS,
   RESET_WEBPAGE,
+  UPDATE_WEBSITE_TITLE,
 } from '../actions/types';
-import { layoutOptions, sortingOptions } from '../config/publications';
 
 const INITIAL_WEBSITE_STATE = {
   url: '',
   title: '',
   pages: [],
-  publicationOptions: {
-    layout: layoutOptions.ALL_PUBLICATION,
-    sortBy: sortingOptions.TITLE,
-  },
+  publicationOptions: {},
 };
 
 /**
@@ -52,6 +49,8 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
       return { ...state, publicationOptions: payload };
     case RESET_WEBPAGE:
       return INITIAL_WEBSITE_STATE;
+    case UPDATE_WEBSITE_TITLE:
+      return { ...state, title: payload };
     default:
       return state;
   }

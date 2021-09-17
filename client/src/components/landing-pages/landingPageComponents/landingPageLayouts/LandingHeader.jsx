@@ -8,12 +8,13 @@ import {
   NavItem,
 } from 'reactstrap';
 // import logo from "Assets/images/logo.png";
+import { PropTypes } from 'prop-types';
 import AuthButtons from './AuthButtons';
 import HeaderLink from '../../utils/StyledHeaderLink';
 import { headerLinks } from '../../data/landing-page-labels';
 import { theme } from '../../theme';
 
-const Header = ({ linksAreShown = true }) => {
+const Header = ({ linksAreShown }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -67,15 +68,13 @@ const Header = ({ linksAreShown = true }) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             {linksAreShown
-              && headerLinks.map((h, index) => {
-                return (
-                  <NavItem key={index}>
-                    <HeaderLink id={index} href={h.link}>
-                      {h.label}
-                    </HeaderLink>
-                  </NavItem>
-                );
-              })}
+              && headerLinks.map((h, index) => (
+                <NavItem key={h.link}>
+                  <HeaderLink id={index} href={h.link}>
+                    {h.label}
+                  </HeaderLink>
+                </NavItem>
+              ))}
           </Nav>
           <Nav>
             <AuthButtons />
@@ -84,6 +83,14 @@ const Header = ({ linksAreShown = true }) => {
       </Navbar>
     </>
   );
+};
+
+// props validation
+Header.propTypes = {
+  linksAreShown: PropTypes.bool,
+};
+Header.defaultProps = {
+  linksAreShown: true,
 };
 
 export default Header;

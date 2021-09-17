@@ -4,7 +4,7 @@
 const { body, validationResult } = require('express-validator');
 const axios = require('axios');
 const { categoryTypes } = require('../config/publication');
-const { playwrightConfig } = require('../config/playwright');
+const { scrapingConfig } = require('../config/scraping');
 const { fillErrorObject } = require('./error');
 
 /**
@@ -105,7 +105,7 @@ async function validateAuthorId(req, res, next) {
   }
 
   try {
-    await axios.get(`${playwrightConfig.baseUrl}${_id}`);
+    await axios.get(`${scrapingConfig.baseUrl}${_id}`);
     return next();
   } catch (error) {
     // if you mess around with the user id you only get 404
