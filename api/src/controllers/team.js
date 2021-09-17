@@ -334,8 +334,8 @@ async function resetTeamData(req, res, next) {
     await Publication.deleteMany({ teamId: _id });
     if (isDeleteFlag) {
       await Team.findByIdAndDelete(_id);
-      res.status(200).json('Deleted successfully!');
-    } else res.status(200).json('Cleared successfully!');
+      return res.status(200).json('Deleted successfully!');
+    } else return res.status(200).json('Cleared successfully!');
   } catch (error) {
     return next(
       fillErrorObject(500, 'Error occurred with server', [error.message]),
@@ -376,21 +376,18 @@ async function deleteGHPages(req, res, next) {
         },
       },
     );
-    // result logged
-    res.status(200).json('Deleted successfully!');
     if (deleteRepo.status === 204) {
       logger.info(`GitHub pages deleted for user: ${ghUsername}`);
     }
+    // result logged
+    return res.status(200).json('Deleted successfully!');
+    
   } catch (error) {
     logger.info(` Failed: GitHub pages not deleted for user: ${ghUsername}!`);
     return next(
       fillErrorObject(500, 'Error occurred with server!', [error.message]),
     );
   }
-
-  return next(
-    fillErrorObject(500, 'Github Pages doesnt exist for the user!', ['Github Pages doesnt exist for the user!']),
-  );
 }
 
 module.exports = {

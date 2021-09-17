@@ -9,6 +9,7 @@ const { fillErrorObject } = require('./error');
 
 async function validateTeamId(req, res, next) {
   const { teamId } = req.params;
+  console.log('hit');
   const foundTeam = await Team.findById(teamId)
     .select('_id teamName orgName email teamMembers');
 

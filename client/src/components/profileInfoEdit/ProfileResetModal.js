@@ -5,6 +5,7 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import { logout } from '../../actions/auth';
 import { resetTeamData, deleteGHPages } from '../../actions/team';
 import { resetHomepage } from '../../actions/homepage';
@@ -18,10 +19,12 @@ const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
   const warningMessage = isDeleteFlag ? 'Are you sure you want to delete your account? ' : 'Are you sure you want to reset your account? ';
   const buttonName = isDeleteFlag ? 'Delete' : 'Clear';
   const HandleResetType = () => {
-    const access_token = localStorage.getItem('GH_access_token');
+    const accessToken = localStorage.getItem('GH_access_token');
+    console.log(teamId);
     dispatch(resetHomepage(teamId));
     dispatch(resetWebPage(teamId));
-    dispatch(deleteGHPages(teamId, access_token));
+    console.log(teamId);
+    dispatch(deleteGHPages(teamId, accessToken));
     dispatch(resetTeamData(teamId, isDeleteFlag));
     if (isDeleteFlag) {
       dispatch(logout());
@@ -51,5 +54,12 @@ const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
       </Modal.Footer>
     </Modal>
   );
+};
+
+// props validation
+ProfileResetModal.propTypes = {
+  resetAlert: PropTypes.bool.isRequired,
+  setResetAlert: PropTypes.func.isRequired,
+  type: PropTypes.bool.isRequired,
 };
 export default ProfileResetModal;

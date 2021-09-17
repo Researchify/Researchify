@@ -8,6 +8,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
 import GitHubLogin from 'react-github-login';
+import { PropTypes } from 'prop-types';
 import { githubClientId, scope } from '../../config/deploy';
 import { getGHAccessToken } from '../../actions/team';
 
@@ -58,5 +59,11 @@ const GhLogInModal = ({ logInAlert, setLogInAlert }) => {
       </Modal.Footer>
     </Modal>
   );
+};
+
+// props validation
+GhLogInModal.propTypes = {
+  logInAlert: PropTypes.bool.isRequired,
+  setLogInAlert: PropTypes.func.isRequired,
 };
 export default GhLogInModal;
