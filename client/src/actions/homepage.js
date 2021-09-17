@@ -24,6 +24,9 @@ export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
   }
 };
 
+/**
+ * This todo
+ */
 export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
   try {
     const { data } = await api.createOrUpdateHomepage(teamId, homepageData);
@@ -39,4 +42,16 @@ export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
+};
+
+export const resetHomepage = (teamId) => async (dispatch) => {
+  const updatedHomepage = {
+    teamId,
+    aboutUs: [''],
+  };
+  await api.createOrUpdateHomepage(teamId, updatedHomepage);
+  dispatch({
+    type: UPDATE_HOMEPAGE,
+    payload: updatedHomepage,
+  });
 };

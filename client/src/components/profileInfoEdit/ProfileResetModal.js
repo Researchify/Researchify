@@ -5,38 +5,28 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { successMessageCreator } from '../../notification/notificationReduxFunctions';
 import { logout } from '../../actions/auth';
 import { resetTeamData, deleteGHPages } from '../../actions/team';
+import { resetHomepage } from '../../actions/homepage';
+import { resetWebPage } from '../../actions/website';
 
 const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
   const { teamId } = useSelector((state) => state.team);
   const dispatch = useDispatch();
   const isDeleteFlag = type;
-  const HandleDelete = () => {
-    const access_token = localStorage.getItem('GH_access_token');
-    dispatch(deleteGHPages(teamId, access_token));
-    dispatch(resetTeamData(teamId, isDeleteFlag));
-    dispatch(logout());
-    dispatch(successMessageCreator('Profile data cleared successfully!'));
-  };
-
-  const HandleClear = () => {
-    const accessToken = localStorage.getItem('GH_access_token');
-    dispatch(deleteGHPages(teamId, accessToken));
-    dispatch(resetTeamData(teamId, isDeleteFlag));
-    setResetAlert(false);
-    dispatch(successMessageCreator('Profile data cleared successfully!'));
-  };
-
   const titleMessage = isDeleteFlag ? 'Delete Account Data!' : 'Clear Account Data!';
   const warningMessage = isDeleteFlag ? 'Are you sure you want to delete your account? ' : 'Are you sure you want to reset your account? ';
   const buttonName = isDeleteFlag ? 'Delete' : 'Clear';
   const HandleResetType = () => {
+    const access_token = localStorage.getItem('GH_access_token');
+    dispatch(resetHomepage(teamId));
+    dispatch(resetWebPage(teamId));
+    dispatch(deleteGHPages(teamId, access_token));
+    dispatch(resetTeamData(teamId, isDeleteFlag));
     if (isDeleteFlag) {
-      HandleDelete();
+      dispatch(logout());
     } else {
-      HandleClear();
+      setResetAlert(false);
     }
   };
 

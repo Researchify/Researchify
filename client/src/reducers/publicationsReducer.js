@@ -4,6 +4,7 @@ import {
   UPDATE_PUBLICATION,
   DELETE_PUBLICATION,
   CREATE_BULK_PUBLICATIONS,
+  DELETE_TEAM_PUBLICATIONS,
 } from '../actions/types';
 
 const initialState = {
@@ -34,6 +35,8 @@ const publicationsReducer = (state = initialState, action) => {
       };
     case CREATE_BULK_PUBLICATIONS:
       return { ...state, teamPublications: state.teamPublications.concat(action.payload) };
+    case DELETE_TEAM_PUBLICATIONS:
+      return initialState;
     default:
       return state;
   }

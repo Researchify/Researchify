@@ -35,7 +35,7 @@ export const addWebPage = (teamId, pageName) => api.post(`/clientWebsite/${teamI
 export const getWebsiteInfo = (teamId) => api.get(`/clientWebsite/${teamId}`);
 export const deleteWebPage = (teamId, pageName) => api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
 export const updatePublicationOptions = (teamId, options) => api.post(`/clientWebsite/${teamId}/updatePublicationOptions`, options);
-
+export const resetWebPage = (teamId) => api.delete(`/clientWebsite/${teamId}/reset_page`);
 // Achievement endpoints.
 export const fetchAchievementsByTeamId = (teamId) => api.get(`/achievements/team/${teamId}`);
 export const createAchievement = (newAchievement) => api.post('/achievements/', newAchievement);

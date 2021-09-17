@@ -327,8 +327,6 @@ async function resetTeamData(req, res, next) {
   try {
     const { team_id: _id } = req.params;
     const { isDeleteFlag } = req.body;
-    await HomePage.deleteMany({ teamId: _id });
-    await Website.deleteMany({ teamId: _id });
     await Achievement.deleteMany({ teamId: _id });
     await Publication.deleteMany({ teamId: _id });
     if (isDeleteFlag) {

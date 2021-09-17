@@ -7,6 +7,7 @@ import {
   ADD_WEBPAGE,
   DELETE_WEBPAGE,
   UPDATE_PUBLICATION_OPTIONS,
+  RESET_WEBPAGE,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 import * as api from '../api';
@@ -58,6 +59,18 @@ export const deletePage = (teamId, pageName) => async (dispatch) => {
     dispatch({
       type: DELETE_WEBPAGE,
       payload: pageName,
+    });
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
+};
+
+export const resetWebPage = (teamId) => async (dispatch) => {
+  try {
+    api.resetWebPage(teamId);
+    dispatch({
+      type: RESET_WEBPAGE,
+      payload: null,
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));

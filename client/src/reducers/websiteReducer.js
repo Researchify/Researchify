@@ -7,6 +7,7 @@ import {
   DELETE_WEBPAGE,
   FETCH_WEBSITE_INFO,
   UPDATE_PUBLICATION_OPTIONS,
+  RESET_WEBPAGE,
 } from '../actions/types';
 import { layoutOptions, sortingOptions } from '../config/publications';
 
@@ -49,6 +50,8 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
       };
     case UPDATE_PUBLICATION_OPTIONS:
       return { ...state, publicationOptions: payload };
+    case RESET_WEBPAGE:
+      return INITIAL_WEBSITE_STATE;
     default:
       return state;
   }

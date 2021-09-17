@@ -15,6 +15,8 @@ import {
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
+  DELETE_TEAM,
+  DELETE_TEAM_PUBLICATIONS,
   REGISTER_SUCCESS,
 } from './types';
 import {
@@ -298,6 +300,16 @@ export const resetTeamData = (teamId, isDelete) => async (dispatch) => {
       isDeleteFlag: isDelete,
     };
     await api.resetTeamData(teamId, body);
+    dispatch({
+      type: DELETE_TEAM_PUBLICATIONS,
+      payload: null,
+    });
+    dispatch({
+      type: DELETE_TEAM,
+      payload: null,
+    });
+
+    dispatch(successMessageCreator('Profile has been cleared!'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

@@ -151,9 +151,26 @@ async function updatePublicationOptions(req, res, next) { // eslint-disable-line
   }
 }
 
+function resetWebPage(req, res, next) {
+  const { team_id } = req.params;
+  Website.findOne({ teamId: team_id })
+    .then((website) => {
+      try {
+        website.pages.length=0;
+        // update in db
+        website.save();
+        return res.status(200).json(website);
+      } catch (err) {
+        next(fillErrorObject(500, 'Server error', [err]));
+      }
+    })
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
+}
+
 module.exports = {
   addWebPage,
   deleteWebPage,
   getWebPageDetails,
   updatePublicationOptions,
+  resetWebPage,
 };
