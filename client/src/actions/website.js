@@ -8,7 +8,7 @@ import {
   DELETE_WEBPAGE,
   UPDATE_PUBLICATION_OPTIONS,
   UPDATE_WEBSITE_TITLE,
-  UPDATE_WEBSITE_THEME,
+  UPDATE_WEBSITE_TEMPLATE,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 import * as api from '../api';
@@ -115,7 +115,7 @@ export const updateTheme = (teamId, themeData) => async (dispatch) => {
     const { data } = await api.updateClientWebMetadata(teamId, changes);
 
     dispatch({
-      type: UPDATE_WEBSITE_THEME,
+      type: UPDATE_WEBSITE_TEMPLATE,
       payload: data,
     });
     dispatch(successMessageCreator('Theme has been updated'));
