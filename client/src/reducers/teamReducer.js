@@ -7,7 +7,7 @@ import {
   UNLINK_TEAM_TWITTER,
   GET_GH_ACCESS_TOKEN,
   UPDATE_TEAM,
-  DELETE_TEAM,
+  RESET_TEAM,
   TEAM_ERROR,
 } from '../actions/types';
 
@@ -56,7 +56,7 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return { ...state, retrievedAccessToken: true };
     case UPDATE_TEAM:
       return action.payload;
-    case DELETE_TEAM:
+    case RESET_TEAM:
       return { ...state, repoCreated: false };
     case TEAM_ERROR:
       return {

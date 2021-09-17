@@ -15,7 +15,7 @@ import {
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
-  DELETE_TEAM,
+  RESET_TEAM,
   DELETE_TEAM_PUBLICATIONS,
 } from './types';
 import { login } from './auth';
@@ -313,7 +313,7 @@ export const resetTeamData = (teamId, isDelete) => async (dispatch) => {
       payload: null,
     });
     dispatch({
-      type: DELETE_TEAM,
+      type: RESET_TEAM,
       payload: null,
     });
 

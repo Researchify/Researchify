@@ -18,7 +18,7 @@ export const FETCH_TEAM_INFO = 'FETCH_TEAM_INFO';
 export const LINK_TEAM_TWITTER = 'LINK_TEAM_TWITTER';
 export const UNLINK_TEAM_TWITTER = 'UNLINK_TEAM_TWITTER';
 export const UPDATE_TEAM = 'UPDATE_TEAM';
-export const DELETE_TEAM = 'DELETE_TEAM';
+export const RESET_TEAM = 'RESET_TEAM';
 export const CLEAR_TEAM = 'CLEAR_TEAM';
 
 export const IMPORT_REQUEST = 'IMPORT_REQUEST';
