@@ -31,7 +31,7 @@ async function validateTeamRepo(req, res, next) {
       headers: { Authorization: `token ${ghToken}` },
     });
   if (data.errors) {
-    return next(
+    next(
       fillErrorObject(400, 'Validation error: user doesnt exist!', [data.errors[0].detail]),
     );
   }
@@ -46,7 +46,7 @@ async function validateTeamRepo(req, res, next) {
         Accept: 'application/vnd.github.v3+json',
       },
     });
-    if (repoValidator.status != 200) {
+    if (repoValidator.status !== 200) {
       next(
         fillErrorObject(404, 'GH pages not found!', [
           'GitHub Repo doesnt exist for this team!',

@@ -25,7 +25,7 @@ export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
 };
 
 /**
- * This todo
+ * This function updates the homepage about us page with the string in the text field
  */
 export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
   try {
@@ -44,6 +44,9 @@ export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
   }
 };
 
+/**
+ * This function resets the homepage about us page with an empty string
+ */
 export const resetHomepage = (teamId) => async (dispatch) => {
   const updatedHomepage = {
     teamId,
