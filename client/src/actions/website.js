@@ -95,9 +95,9 @@ export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
 };
 
 /**
- * This action creater find/create a new theme and update it in website model.
+ * This action creator updates the client preference for the theme and layout in the DB and in Redux store
  * @param {*} teamId The id of the team whose theme is to be updated
- * @param {*} themeData Object containing the updated 'layout'
+ * @param {*} themeData Object containing the updated 'layout' and 'theme'
  * @returns
  */
 export const updateTheme = (teamId, themeData) => async (dispatch) => {

@@ -21,7 +21,6 @@ import zigZagLayout from '../../images/zig-zag-layout.png';
 const TemplateSelector = (props) => {
   const dispatch = useDispatch();
 
-  // Storing and passing Form Inputs, theme1 & layout1 as default
   const [theme, setTheme] = useState(useSelector((state) => state.website.theme));
   const [layout, setLayout] = useState(useSelector((state) => state.website.layout));
 
@@ -59,7 +58,7 @@ const TemplateSelector = (props) => {
       onSubmit={handleSubmit}
     >
       <Form.Group controlId="theme">
-        <Form.Label>Select a Theme Colour</Form.Label>
+        <Form.Label>Select a Theme</Form.Label>
         <Container fluid>
           <Form.Row>
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -111,7 +110,7 @@ const TemplateSelector = (props) => {
         </Container>
 
         <Form.Control.Feedback type="invalid">
-          Please select a theme.
+          Please select a Template.
         </Form.Control.Feedback>
       </Form.Group>
 
