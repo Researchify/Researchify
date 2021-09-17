@@ -25,7 +25,7 @@
 }
 
 #card {
-    border-radius: 25px;
+    border-radius: 15px;
     border-color: #56658a;
 
 }
@@ -33,7 +33,7 @@
 #card-header {
   background-color: #56658a;
   color: #ffffff;
-  border-top-left-radius: 25px;  
-  border-top-right-radius: 25px;
+  border-top-left-radius: 13px;  
+  border-top-right-radius: 13px;
   border-color: #56658a;
 }
