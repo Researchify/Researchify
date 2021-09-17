@@ -17,6 +17,7 @@ const INITIAL_TEAM_STATE = {
   teamName: '',
   orgName: '',
   email: '',
+  profilePic: '',
   twitterHandle: '',
   themeId: '',
   repoCreated: false,
@@ -41,6 +42,7 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
         teamName: action.payload.teamName,
         orgName: action.payload.orgName,
         twitterHandle: action.payload.twitterHandle,
+        profilePic: action.payload.profilePic,
       };
     case LINK_TEAM_TWITTER:
       return {

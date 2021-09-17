@@ -14,21 +14,12 @@
         "no-underscore-dangle": "off",
         "no-plusplus": "off", // keep `var ++` for consistency
         "no-use-before-define": ["error", {"functions":  false, "classes":  false}],
+        "react/forbid-prop-types": "off", // we're passing obj/array
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": "off",
         "react/jsx-props-no-spreading": "off",
-        "react/prop-types": "off", // should refactor later
-        "react/no-array-index-key": "off", // should refactor later
-        "no-nested-ternary": "off", // should refactor later
-        "jsx-a11y/click-events-have-key-events": "off", // low-prio refactor
-        "jsx-a11y/no-static-element-interactions": "off", // low-prio refactor
-        "jsx-a11y/no-noninteractive-element-interactions": "off", // low-prio refactor
-        "react/destructuring-assignment": "off", // should refactor later
-        "radix": "off", // low-prio refactor
-        "no-param-reassign": "off", // should refactor later
-        "no-return-assign": "off", // should refactor later
-        "spaced-comment": "off",
-        "arrow-body-style": "off", // should refactor later
+        // ↓↓ in components/pub...publication/publication.js line 34, can refactor later
+        "no-param-reassign": ["error", {"props": true, "ignorePropertyModificationsFor": ["pub"]}], 
         "linebreak-style": "off"
     }
 }

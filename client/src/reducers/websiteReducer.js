@@ -7,6 +7,7 @@ import {
   DELETE_WEBPAGE,
   FETCH_WEBSITE_INFO,
   UPDATE_PUBLICATION_OPTIONS,
+  UPDATE_WEBSITE_TITLE,
 } from '../actions/types';
 
 const INITIAL_WEBSITE_STATE = {
@@ -45,6 +46,8 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
       };
     case UPDATE_PUBLICATION_OPTIONS:
       return { ...state, publicationOptions: payload };
+    case UPDATE_WEBSITE_TITLE:
+      return { ...state, title: payload };
     default:
       return state;
   }
