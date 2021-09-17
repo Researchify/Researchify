@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Button, Form, Container, Image,
 } from 'react-bootstrap';
-import './ProfileInfoEdit.css';
+import './Settings.css';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,7 +17,7 @@ import { updateTeam } from '../../actions/team';
 /**
  * Form component for user update profile
  */
-const ProfileInfoEdit = () => {
+const Settings = () => {
   const dispatch = useDispatch();
 
   const {
@@ -76,7 +76,7 @@ const ProfileInfoEdit = () => {
   };
 
   const profileDeleted = () => {
-    // TODO: Delete profile function is not implemented yet in ProfileInfoEdit.js
+    // TODO: Delete profile function is not implemented yet in Settings.js
     toast.error('Profile has not been deleted');
   };
 
@@ -89,7 +89,7 @@ const ProfileInfoEdit = () => {
           validated={validated}
           onSubmit={handleUpdate}
         >
-          <p className="profile-title-name">Team Profile Management</p>
+          <p className="profile-title-name">Account Settings</p>
 
           <Form.Group controlId="formProfilePic">
             <Image
@@ -169,4 +169,4 @@ const ProfileInfoEdit = () => {
   );
 };
 
-export default ProfileInfoEdit;
+export default Settings;
