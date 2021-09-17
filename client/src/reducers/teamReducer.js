@@ -55,7 +55,7 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
     case UPDATE_TEAM:
       return action.payload;
     case DELETE_TEAM:
-      return INITIAL_TEAM_STATE;
+      return { ...state, repoCreated: false };
     case TEAM_ERROR:
       return {
         ...errorReducer(state, action),
