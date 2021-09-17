@@ -28,8 +28,8 @@ async function validateAchievementObjectId(req, res, next) {
 }
 
 async function validateTeamObjectId(req, res, next) {
-  const { teamId } = req.params;
-  validateObjectId(teamId, 'team', res, next);
+  const { team_id } = req.params;
+  validateObjectId(team_id, 'team', res, next);
 }
 
 module.exports = { validateTeamObjectId, validateAchievementObjectId, validatePublicationObjectId };

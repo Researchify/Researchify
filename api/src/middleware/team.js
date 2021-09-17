@@ -8,9 +8,8 @@ const Team = require('../models/team.model');
 const { fillErrorObject } = require('./error');
 
 async function validateTeamId(req, res, next) {
-  const { teamId } = req.params;
-  console.log('hit');
-  const foundTeam = await Team.findById(teamId)
+  const { team_id } = req.params;
+  const foundTeam = await Team.findById(team_id)
     .select('_id teamName orgName email teamMembers');
 
   if (foundTeam == null) {
