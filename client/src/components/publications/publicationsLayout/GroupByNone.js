@@ -10,6 +10,7 @@ import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
+import { deleteBulkPublications } from '../../../actions/publications';
 import { ButtonGroupItem } from './PublicationsEditor';
 
 const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
@@ -18,6 +19,7 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
   const [checkedCounter, setCheckedCounter] = useState(0);
   const dispatch = useDispatch();
   const { checkedPublications } = useSelector((state) => state.publications);
+  const { teamId } = useSelector((state) => state.team);
 
   useEffect(() => {
     let count = 0;
@@ -42,6 +44,12 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
     setChecked(!checked);
   };
 
+  const handleDelete = () => {
+    const publicationIdList = teamPublications.filter((pub) => checkedPublications.includes(pub._id));
+    dispatch(deleteBulkPublications(teamId, publicationIdList.map((pub) => pub._id)));
+    setCheckedCounter(0);
+  };
+
   return (
     <>
       <div className="publicationList">
@@ -52,7 +60,7 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
               {' '}
               { checkedCounter > 0 ? (
                 <>
-                  <ButtonGroupItem borderColor="red" color="red" hoverBorderColor="red" hoverColor="white">
+                  <ButtonGroupItem borderColor="red" color="red" hoverBorderColor="red" hoverColor="white" onClick={handleDelete}>
                     <RiDeleteBin6Line />
                     {' '}
                     {checkedCounter}

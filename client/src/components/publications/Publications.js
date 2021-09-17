@@ -2,7 +2,7 @@
  * The Publications component displays a list of publications
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Modal, Alert, Jumbotron, Container,
@@ -36,14 +36,14 @@ const Publications = () => {
     setOptions(publicationOptions);
   }, [publicationOptions]);
 
-  const renderPublications = () => {
+  const renderPublications = useCallback(() => {
     switch (options.groupBy) {
       case groupByOptions.CATEGORY:
         return <GroupByCategory teamPublications={publications} />;
       default:
         return <GroupByNone teamPublications={publications} />;
     }
-  };
+  }, [options, publications]);
 
   const sortPublications = (publicationToBeSorted, option) => {
     switch (option) {

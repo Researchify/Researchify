@@ -10,6 +10,7 @@ import {
   IMPORT_FAIL,
   IMPORT_END,
   IMPORT_EMPTY,
+  DELETE_BULK_PUBLICATIONS,
 } from './types';
 import {
   errorActionGlobalCreator,
@@ -147,6 +148,19 @@ export const createBulkPublications = (teamId, publicationList) => async (dispat
       payload: createdPublications,
     });
     dispatch(successMessageCreator(`${createdPublications.length} publication(s) has been imported`));
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
+  }
+};
+
+export const deleteBulkPublications = (teamId, publicationIdList) => async (dispatch) => {
+  try {
+    // await api.deleteBulkPublications(teamId, publicationIdList);
+    dispatch({
+      type: DELETE_BULK_PUBLICATIONS,
+      payload: publicationIdList,
+    });
+    dispatch(successMessageCreator(`${publicationIdList.length} publication(s) has been deleted`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

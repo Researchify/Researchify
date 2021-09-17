@@ -10,6 +10,7 @@ export const updatePublication = (id, updatedPublication) => api.patch(`/publica
 export const deletePublication = (id) => api.delete(`/publications/${id}`);
 export const createBulkPublications = (teamId, publicationList) => api.post(`/publications/import/${teamId}`, publicationList);
 export const importPublications = (authorId, startFrom, teamId) => api.get(`/publications/import/${authorId}/${startFrom}/validate/${teamId}`);
+export const deleteBulkPublications = (teamId, publicationIdList) => api.delete(`/publications/${teamId}`, publicationIdList);
 
 // Team endpoints.
 export const createTeam = (teamInfo) => api.post('/team', teamInfo);
