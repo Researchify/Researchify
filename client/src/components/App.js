@@ -3,7 +3,7 @@
  */
 import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster, useToasterStore } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import NotificationToaster from '../notification/NotificationToaster';
 
@@ -17,12 +17,19 @@ import { authorizeJWT } from '../actions/auth';
 const App = () => {
   const { logIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  const { toasts } = useToasterStore();
   useEffect(() => {
     if (logIn) {
       dispatch(authorizeJWT());
     }
   }, [dispatch, logIn]);
+
+  useEffect(() => {
+    toasts
+      .filter((t) => t.visible) // Only consider visible toasts
+      .filter((_, i) => i >= 2) // Is toast index over limit 2
+      .forEach((t) => toast.dismiss(t.id)); // Dismiss – Use toast.remove(t.id) removal without animation
+  }, [toasts]);
 
   return (
     <>
