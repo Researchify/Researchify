@@ -100,10 +100,10 @@ async function updatePublicationOptions(req, res, next) { // eslint-disable-line
 }
 
 async function resetWebPage(req, res, next) { // eslint-disable-line no-unused-vars
-  const { team_id } = req.params;
+  const { teamId } = req.params;
 
   try {
-    const foundWebsite = await Website.findOne({ teamId: team_id });
+    const foundWebsite = await Website.findOne({ teamId });
     foundWebsite.pages = [];
     foundWebsite.save();
     return res.status(200).json(foundWebsite);

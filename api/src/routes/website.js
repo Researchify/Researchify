@@ -11,10 +11,10 @@ websiteRouter.post('/:teamId/add_page', websiteController.addWebPage);
 
 websiteRouter.post('/:teamId/delete_page', websiteController.deleteWebPage);
 
-websiteRouter.delete('/:team_id/reset_page', websiteController.resetWebPage);
+websiteRouter.delete('/:teamId/reset_page', websiteController.resetWebPage);
 
-websiteRouter.post('/:team_id/updatePublicationOptions', websiteController.updatePublicationOptions);
+websiteRouter.post('/:teamId/updatePublicationOptions', websiteController.updatePublicationOptions);
 
-websiteRouter.post('/:team_id/updateTitle', websiteController.updateTitle);
+websiteRouter.post('/:teamId/updateTitle', websiteController.updateTitle);
 
 module.exports = websiteRouter;

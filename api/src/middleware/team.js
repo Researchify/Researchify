@@ -1,15 +1,15 @@
 /**
  * This module contains middleware functions for the team route (/routes/teams.js).
  */
- const axios = require('axios');
+const axios = require('axios');
 const { body, validationResult } = require('express-validator');
 
 const Team = require('../models/team.model');
 const { fillErrorObject } = require('./error');
 
 async function validateTeamId(req, res, next) {
-  const { team_id } = req.params;
-  const foundTeam = await Team.findById(team_id)
+  const { teamId } = req.params;
+  const foundTeam = await Team.findById(teamId)
     .select('_id teamName orgName email teamMembers');
 
   if (foundTeam == null) {
@@ -24,12 +24,12 @@ async function validateTeamId(req, res, next) {
   next();
 }
 
-async function validateTeamRepo(req,res,next){
+async function validateTeamRepo(req, res, next) {
   const { ghToken } = req.body;
   const { data } = await axios.get('https://api.github.com/user',
-  {
-    headers: { Authorization: `token ${ghToken}` },
-  });
+    {
+      headers: { Authorization: `token ${ghToken}` },
+    });
   if (data.errors) {
     return next(
       fillErrorObject(400, 'Validation error: user doesnt exist!', [data.errors[0].detail]),
@@ -46,7 +46,7 @@ async function validateTeamRepo(req,res,next){
         Accept: 'application/vnd.github.v3+json',
       },
     });
-    if (repoValidator.status != 200){
+    if (repoValidator.status != 200) {
       next(
         fillErrorObject(404, 'GH pages not found!', [
           'GitHub Repo doesnt exist for this team!',

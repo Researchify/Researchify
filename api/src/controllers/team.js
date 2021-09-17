@@ -9,8 +9,6 @@ const logger = require('winston');
 
 const Team = require('../models/team.model');
 const Achievement = require('../models/achievement.model');
-const Website = require('../models/website.model');
-const HomePage = require('../models/homepage.model');
 const Publication = require('../models/publication.model');
 
 const {
@@ -328,14 +326,14 @@ async function updateTeam(req, res, next) {
   */
 async function resetTeamData(req, res, next) {
   try {
-    const { team_id: _id } = req.params;
+    const { teamId } = req.params;
     const { isDeleteFlag } = req.body;
-    await Achievement.deleteMany({ teamId: _id });
-    await Publication.deleteMany({ teamId: _id });
+    await Achievement.deleteMany({ teamId });
+    await Publication.deleteMany({ teamId });
     if (isDeleteFlag) {
-      await Team.findByIdAndDelete(_id);
+      await Team.findByIdAndDelete(teamId);
       return res.status(200).json('Deleted successfully!');
-    } else return res.status(200).json('Cleared successfully!');
+    } return res.status(200).json('Cleared successfully!');
   } catch (error) {
     return next(
       fillErrorObject(500, 'Error occurred with server', [error.message]),
@@ -363,8 +361,6 @@ async function deleteGHPages(req, res, next) {
   const ghUsername = data.login;
   logger.info(`GitHub Pages delete initiated for user: ${ghUsername}`);
   const repoName = `${ghUsername}.github.io`;
-
-   console.log("HOIT"); 
   // delete repo
   try {
     const deleteRepo = await axios.delete(
@@ -381,7 +377,6 @@ async function deleteGHPages(req, res, next) {
     }
     // result logged
     return res.status(200).json('Deleted successfully!');
-    
   } catch (error) {
     logger.info(` Failed: GitHub pages not deleted for user: ${ghUsername}!`);
     return next(
