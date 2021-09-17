@@ -36,3 +36,11 @@
 .header-profile-icon {
   font-size: 25px;
 }
+.dashboard-dropdown-login-details
+{
+    display: flex;
+    min-width: 260px;
+}
+.dashboard-dropdown-toggle{
+    size: 50px;
+}
