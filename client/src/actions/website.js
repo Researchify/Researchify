@@ -68,7 +68,7 @@ export const deletePage = (teamId, pageName) => async (dispatch) => {
 
 export const updatePublicationOptions = (teamId, preference) => async (dispatch) => {
   try {
-    const changes = { publicationOptions: preference };
+    const changes = [{ field: 'publicationOptions', value: preference }];
     const { data } = await api.updateClientWebMetadata(teamId, changes);
     dispatch({
       type: UPDATE_PUBLICATION_OPTIONS,
@@ -102,10 +102,17 @@ export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
  */
 export const updateTheme = (teamId, themeData) => async (dispatch) => {
   try {
-    const { data } = await api.updateClientWebMetadata(teamId, {
-      layout: themeData.layout,
-      theme: themeData.theme,
-    });
+    const changes = [
+      {
+        field: 'layout',
+        value: themeData.layout,
+      },
+      {
+        field: 'theme',
+        value: themeData.theme,
+      },
+    ];
+    const { data } = await api.updateClientWebMetadata(teamId, changes);
 
     dispatch({
       type: UPDATE_WEBSITE_THEME,

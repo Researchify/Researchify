@@ -75,24 +75,28 @@ async function deleteWebPage(req, res, next) {
 }
 
 /**
- * Update publications layout & sorting options
- * @param {*} req request object, containing the teamId and option object
- * @param {*} res response object
+ * Patch client website metadata (Supports patching title, publication options, layout and theme)
+ * @param {*} req request object, an array of objects describing the 'field' to change and it's 'value'
+ * @param {*} res response object (object of changes made)
  * @returns 200: publication options successfully updated in the DB
  * @returns 500: Server error while saving new page name to DB
  */
 async function patchClientWebMetadata(req, res, next) { // eslint-disable-line no-unused-vars
-  const changes = req.body;
+  const data = req.body;
   const { team_id: _id } = req.params;// TODO: teamId get from the token instead of parameters?
+  const newChanges = {};
+  data.forEach((change) => {
+    newChanges[change.field] = change.value;
+  });
 
   try {
     await Website.updateOne(
       { teamId: _id },
       {
-        $set: changes,
+        $set: newChanges,
       },
     );
-    return res.status(200).json(changes);
+    return res.status(200).json(data);
   } catch (err) {
     return res.send(fillErrorObject(500, 'Server error', [err.errors]));
   }
