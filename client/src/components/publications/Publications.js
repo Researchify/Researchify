@@ -103,7 +103,8 @@ const Publications = () => {
   return (
     <Jumbotron style={{ minHeight: '85vH', height: 'auto' }}>
       <Container className="publication-editor">
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}> */}
+        <div>
           <PublicationsEditor
             options={options}
             setOptions={setOptions}
@@ -117,10 +118,12 @@ const Publications = () => {
       </Container>
 
       {teamPublications.length === 0 && !loading ? (
-        <Alert variant="primary">
-          There is no publication for this team. Please add or import
-          publications.
-        </Alert>
+        <div style={{ marginTop: '30px' }} className="publicationList">
+          <Alert variant="primary">
+            There is no publication for this team. Please add or import
+            publications.
+          </Alert>
+        </div>
       ) : (
         renderPublications()
       )}
