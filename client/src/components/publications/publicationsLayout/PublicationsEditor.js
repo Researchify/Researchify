@@ -17,7 +17,7 @@ export const StyledButtonGroup = styled.div`
 export const ButtonGroupItem = styled.button`
   background: #ededed;
   border: 1px solid ${(props) => props.borderColor || '#ccc'};
-  padding: 1px 3px;
+  padding: 1px 10px;
   border-radius: 3px;
   cursor: pointer;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande";

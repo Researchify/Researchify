@@ -101,9 +101,9 @@ const Publications = () => {
   }, [teamPublications]);
 
   return (
-    <Jumbotron>
-      <Container fluid className="publication-editor">
-        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+    <Jumbotron style={{ minHeight: '85vH', height: 'auto' }}>
+      <Container className="publication-editor">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <PublicationsEditor
             options={options}
             setOptions={setOptions}
