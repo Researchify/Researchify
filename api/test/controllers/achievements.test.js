@@ -4,7 +4,7 @@
  */
 const supertest = require('supertest');
 
-const app = require('../../src/server');
+const app = require('../../src/app');
 
 const request = supertest(app);
 
