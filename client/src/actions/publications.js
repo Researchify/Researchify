@@ -3,14 +3,13 @@ import {
   GET_PUBLICATIONS_BY_TEAM_ID,
   CREATE_PUBLICATION,
   UPDATE_PUBLICATION,
-  DELETE_PUBLICATION,
+  DELETE_PUBLICATIONS,
   CREATE_BULK_PUBLICATIONS,
   IMPORT_REQUEST,
   IMPORT_SUCCESS,
   IMPORT_FAIL,
   IMPORT_END,
   IMPORT_EMPTY,
-  DELETE_BULK_PUBLICATIONS,
 } from './types';
 import {
   errorActionGlobalCreator,
@@ -54,14 +53,15 @@ export const createPublication = (publication) => async (dispatch) => {
   }
 };
 
-export const deletePublication = (id) => async (dispatch) => {
+export const deletePublications = (publicationIdList) => async (dispatch) => {
   try {
-    await api.deletePublication(id);
-
+    console.log('called', publicationIdList);
+    // await api.deleteBulkPublications(teamId, publicationIdList);
     dispatch({
-      type: DELETE_PUBLICATION,
-      payload: id,
+      type: DELETE_PUBLICATIONS,
+      payload: publicationIdList,
     });
+    dispatch(successMessageCreator(`${publicationIdList.length} publication(s) has been deleted`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
@@ -148,19 +148,6 @@ export const createBulkPublications = (teamId, publicationList) => async (dispat
       payload: createdPublications,
     });
     dispatch(successMessageCreator(`${createdPublications.length} publication(s) has been imported`));
-  } catch (error) {
-    dispatch(errorActionGlobalCreator(error));
-  }
-};
-
-export const deleteBulkPublications = (teamId, publicationIdList) => async (dispatch) => {
-  try {
-    // await api.deleteBulkPublications(teamId, publicationIdList);
-    dispatch({
-      type: DELETE_BULK_PUBLICATIONS,
-      payload: publicationIdList,
-    });
-    dispatch(successMessageCreator(`${publicationIdList.length} publication(s) has been deleted`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
