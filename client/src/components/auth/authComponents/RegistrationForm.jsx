@@ -4,7 +4,7 @@
 
 import React, { useEffect } from 'react';
 import {
-  Col, Form, Jumbotron, OverlayTrigger, Popover, Button,
+  Col, Form, Jumbotron, OverlayTrigger, Popover,
 } from 'react-bootstrap';
 import '../css/registration-form.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { Button } from '@material-ui/core';
 import { createTeam } from '../../../actions/team';
 
 /**
