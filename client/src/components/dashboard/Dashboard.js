@@ -94,8 +94,26 @@ const Dashboard = () => {
         </Modal.Header>
         <Modal.Body>
           <Card.Body className="publication-body-column">
-            <div className="pub-body-subheader">
+            <div className="modal-subheader">
               Welcome To Researchify!
+            </div>
+            <div className="modal-subheader">
+              Add the pages required by your website in the dashboard and select the theme
+            </div>
+            <div className="modal-subheader">
+              Our Homepage: Enter the text required for your landing page
+            </div>
+            <div className="modal-subheader">
+              Publications: Add or import publications you wish to be displayed
+            </div>
+            <div className="modal-subheader">
+              Team Profile: Manage your Team profile details
+            </div>
+            <div className="modal-subheader">
+              Team Member: Add the team members in your research group
+            </div>
+            <div className="modal-subheader">
+              Achievements: Add the achievements you wish to be displayed
             </div>
           </Card.Body>
         </Modal.Body>
