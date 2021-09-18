@@ -19,7 +19,7 @@ const DiscoverButtonLink = (props) => (
 );
 
 const Content = () => (
-  <div className="context ">
+  <div className="context">
     <Row style={{ margin: 0 }}>
       <Col lg={{ size: 7, offset: 1 }} className="frosted-glass">
         <div style={{ padding: '2rem' }}>

@@ -1,27 +1,19 @@
+/**
+ * File exports login button.
+ */
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-const AuthButtons = () => (
+const LoginButton = () => (
   <Grid container spacing={2}>
-    <Grid item xs={6}>
-      <Link to="/register" style={{ textDecoration: 'none' }}>
-        <Button
-          variant="contained"
-          size="large"
-          color="primary"
-        >
-          Register
-        </Button>
-      </Link>
-    </Grid>
     <Grid item xs={6}>
       <Link to="/login" style={{ textDecoration: 'none' }}>
         <Button
           variant="contained"
           size="large"
           color="secondary"
-          style={{ color: 'white' }}
+          style={{ whiteSpace: 'nowrap', color: 'white' }}
         >
           Log In
         </Button>
@@ -30,4 +22,4 @@ const AuthButtons = () => (
   </Grid>
 );
 
-export default AuthButtons;
+export default LoginButton;
