@@ -46,8 +46,8 @@ if (!env.REACT_APP_DEBUG) {
     ? JSON.parse(env.REACT_APP_TEAM_HOMEPAGE)
     : null;
 
-  WEB_METADATA = env.REACT_APP_WEB_METADATA
-    ? JSON.parse(env.REACT_APP_WEB_METADATA)
+  WEB_METADATA = env.REACT_APP_TEAM_SITE_METADATA
+    ? JSON.parse(env.REACT_APP_TEAM_SITE_METADATA)
     : { pages: [], layout: defaultLayout, publicationOptions: { layout: 'By Category', sortBy: 'Category Title' } };
 
   /// The list of achievements the team has created for rendering in the achievements page
