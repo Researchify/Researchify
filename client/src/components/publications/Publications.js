@@ -103,7 +103,6 @@ const Publications = () => {
   return (
     <Jumbotron style={{ minHeight: '85vH', height: 'auto' }}>
       <Container className="publication-editor">
-        {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}> */}
         <div>
           <PublicationsEditor
             options={options}
