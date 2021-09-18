@@ -3,16 +3,14 @@
  */
 
 import React, { useEffect } from 'react';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { Col } from 'react-bootstrap';
-import './Register.css';
+import { Col, Form, Jumbotron } from 'react-bootstrap';
+import '../css/registration-form.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { createTeam } from '../../actions/team';
+import { Button } from '@material-ui/core';
+import { createTeam } from '../../../actions/team';
 
 export default function RegistrationForm() {
   const dispatch = useDispatch();
@@ -66,7 +64,7 @@ export default function RegistrationForm() {
   };
 
   return (
-    <Jumbotron id="form-box">
+    <Jumbotron id="registration-form-box">
       <h3 id="signUpHeading">Sign Up</h3>
       <hr />
       <Formik
@@ -152,10 +150,13 @@ export default function RegistrationForm() {
               </Form.Control.Feedback>
             </Form.Group>
             <div>
-              <a id="signInLink" href="login">
-                Already have an account? Sign in
-              </a>
-              <Button id="submitButton" type="submit" variant="primary">
+              <Button
+                id="submitButton"
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+              >
                 Sign Up
               </Button>
             </div>

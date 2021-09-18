@@ -3,7 +3,7 @@
  * to the team's GitHub Pages repo.
  */ /* eslint-disable no-console */
 const ghpages = require('gh-pages');
-const winston = require('winston');
+const logger = require('winston');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
@@ -19,8 +19,8 @@ const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
  * @throws Error if the push failed.
  */
 async function pushBuiltAppToPages(ghUsername, ghToken, repoName) {
-  console.log(ghUsername);
-  console.log(ghToken);
+  logger.info(ghUsername);
+  logger.info(ghToken);
   await makeGHRepo(ghUsername, ghToken, repoName);
   await ghpages.publish(
     '../base/build',
@@ -35,15 +35,15 @@ async function pushBuiltAppToPages(ghUsername, ghToken, repoName) {
     },
     (err) => {
       if (err) {
-        winston.error(
+        logger.error(
           `Failed to push built app to GitHub Pages for ${ghUsername}`,
           err,
         );
         throw err;
       } else {
-        winston.info(`Successfully deployed app for ${ghUsername}`);
+        logger.info(`Successfully deployed app for ${ghUsername}`);
       }
-      cleanupBuild(); // TODO this is not working for some reason
+      cleanupBuild();
     },
   );
   await buildPages(ghUsername, ghToken, repoName);
@@ -56,7 +56,7 @@ async function pushBuiltAppToPages(ghUsername, ghToken, repoName) {
 function cleanupBuild() {
   fs.rm(`${PATH_TO_BASE_REACT_APP}/build`, { recursive: true }, (err) => {
     if (err) {
-      winston.error('Failed to remove built directory.');
+      logger.error('Failed to remove built directory.');
     }
   });
 }
@@ -68,22 +68,29 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
     Authorization: `token ${ghToken}`,
     Accept: 'application/vnd.github.v3+json',
   };
-  let repoResponse;
+
+  let repoExists;
   try {
-    repoResponse = await axios.get(
+    const repoResponse = await axios.get(
       `https://api.github.com/search/repositories?${searchQuery}`,
       {
         headers: options,
       },
     );
+    repoExists = repoResponse.data.total_count === 1;
   } catch (err) {
-    console.log(err);
+    if (err.response.status !== 422) {
+      // Error 422 is fine (it can be caused by user having no repo or only private ones in their account), any other should be thrown back up.
+      throw err;
+    }
+    logger.info(
+      `${ghUsername} does not have any repositories, creating one for GH pages...`,
+    );
+    repoExists = false;
   }
 
-  if (repoResponse.data.total_count === 1) {
-    console.log('repo exists already');
-  } else {
-    // if it doesn't, make one
+  if (!repoExists) {
+    // User does not have a repo for github pages, let's create it
     const createRepoBody = {
       name: repoName,
       private: false, // free accounts can only use a public repo for GH pages
@@ -96,9 +103,9 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
         headers: options,
         data: createRepoBody,
       });
-      console.log('Repo was created successfully');
+      logger.info('Repo was created successfully');
     } catch (err) {
-      console.log(err);
+      logger.error(err);
     }
   }
 
@@ -114,10 +121,9 @@ async function makeGHRepo(ghUsername, ghToken, repoName) {
         },
       },
     );
-    console.log('GH Pages already configured for repo');
+    logger.info('GH Pages already configured for repo');
   } catch (err) {
-    console.log(err);
-    console.log('GH pages not created yet');
+    logger.info('GH pages not created yet');
     createPagesSite(ghUsername, ghToken, repoName);
   }
 }
@@ -146,13 +152,13 @@ async function createPagesSite(ghUsername, ghToken, repoName) {
       data: pagesBody,
     });
     if (createPagesResponse.status === 201) {
-      console.log('Pages site successfully created');
+      logger.info('Pages site successfully created');
     } else {
       // see https://docs.github.com/en/rest/reference/repos#create-a-github-pages-site
-      console.log(createPagesResponse.data);
+      logger.debug(createPagesResponse.data);
     }
   } catch (err) {
-    console.log(err);
+    logger.error(err);
   }
 }
 
@@ -172,9 +178,9 @@ async function buildPages(ghUsername, ghToken, repoName) {
       method: 'post',
       headers: options,
     });
-    console.log('Build queued');
+    logger.info('Build queued');
   } catch (err) {
-    console.log(err);
+    logger.error(err);
   }
 }
 
