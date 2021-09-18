@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
@@ -17,7 +17,7 @@ export const StyledButtonGroup = styled.div`
 export const ButtonGroupItem = styled.button`
   background: #ededed;
   border: 1px solid ${(props) => props.borderColor || '#ccc'};
-  padding: 1px 3px;
+  padding: 1px 8px;
   border-radius: 3px;
   cursor: pointer;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande";
@@ -65,72 +65,83 @@ const PublicationsEditor = ({
     dispatch(updatePublicationOptions(teamId, options));
   };
   return (
-    <>
-      <StyledButtonGroup>
-        <Dropdown>
-          <Dropdown.Toggle size="sm">
-            Add
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={() => setShowCreateForm(true)}>Insert Publication</Dropdown.Item>
-            <Dropdown.Item onClick={() => setShowImportForm(true)}>Import Publications</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </StyledButtonGroup>
-      <StyledButtonGroup>
-        Group By
-        {' '}
-        {Object.keys(groupByOptions).map((groupBy) => (
-          <ButtonGroupItem
-            color="grey"
-            press={options.groupBy === groupByOptions[groupBy]}
-            key={groupBy}
-            onClick={() => setOptions({ ...options, groupBy: groupByOptions[groupBy] })}
+    <Row>
+      <Col md={1} sm={2}>
+        <StyledButtonGroup>
+          <Dropdown>
+            <Dropdown.Toggle size="sm">
+              Add
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => setShowCreateForm(true)}>Add Manually</Dropdown.Item>
+              <Dropdown.Item onClick={() => setShowImportForm(true)}>Import Publications</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </StyledButtonGroup>
+      </Col>
+
+      <Col md={4} sm={4}>
+        <StyledButtonGroup>
+          Group By
+          {' '}
+          {Object.keys(groupByOptions).map((groupBy) => (
+            <ButtonGroupItem
+              color="grey"
+              press={options.groupBy === groupByOptions[groupBy]}
+              key={groupBy}
+              onClick={() => setOptions({ ...options, groupBy: groupByOptions[groupBy] })}
+            >
+              {groupByOptions[groupBy]}
+            </ButtonGroupItem>
+          ))}
+        </StyledButtonGroup>
+      </Col>
+
+      <Col md={5} sm={4}>
+        <StyledButtonGroup>
+          Sort By
+          {' '}
+          {Object.keys(sortingOptions).map((sortBy) => (
+            <ButtonGroupItem
+              color="grey"
+              press={options.sortBy === sortingOptions[sortBy]}
+              key={sortBy}
+              value={sortingOptions[sortBy]}
+              onClick={(e) => {
+                setOptions({ ...options, sortBy: sortingOptions[sortBy] });
+                sortPublications(publications, e.target.value);
+              }}
+            >
+              {sortingOptions[sortBy]}
+            </ButtonGroupItem>
+          ))}
+          {options.groupBy === groupByOptions.CATEGORY
+                && (
+                <ButtonGroupItem
+                  color="grey"
+                  press={options.sortBy === 'Category Title'}
+                  value="Category Title"
+                  onClick={(e) => {
+                    setOptions({ ...options, sortBy: e.target.value });
+                    sortPublications(publications, e.target.value);
+                  }}
+                >
+                  Category Title
+                </ButtonGroupItem>
+                )}
+        </StyledButtonGroup>
+      </Col>
+
+      <Col md={2} sm={2}>
+        <StyledButtonGroup>
+          <EditorButton
+            onClick={handleUpdate}
           >
-            {groupByOptions[groupBy]}
-          </ButtonGroupItem>
-        ))}
-      </StyledButtonGroup>
-      <StyledButtonGroup>
-        Sort By
-        {' '}
-        {Object.keys(sortingOptions).map((sortBy) => (
-          <ButtonGroupItem
-            color="grey"
-            press={options.sortBy === sortingOptions[sortBy]}
-            key={sortBy}
-            value={sortingOptions[sortBy]}
-            onClick={(e) => {
-              setOptions({ ...options, sortBy: sortingOptions[sortBy] });
-              sortPublications(publications, e.target.value);
-            }}
-          >
-            {sortingOptions[sortBy]}
-          </ButtonGroupItem>
-        ))}
-        {options.groupBy === groupByOptions.CATEGORY
-              && (
-              <ButtonGroupItem
-                color="grey"
-                press={options.sortBy === 'Category Title'}
-                value="Category Title"
-                onClick={(e) => {
-                  setOptions({ ...options, sortBy: e.target.value });
-                  sortPublications(publications, e.target.value);
-                }}
-              >
-                Category Title
-              </ButtonGroupItem>
-              )}
-      </StyledButtonGroup>
-      <StyledButtonGroup>
-        <EditorButton
-          onClick={handleUpdate}
-        >
-          Update Layout
-        </EditorButton>
-      </StyledButtonGroup>
-    </>
+            Update Layout
+          </EditorButton>
+        </StyledButtonGroup>
+      </Col>
+    </Row>
   );
 };
 // props validation
