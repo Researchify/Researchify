@@ -21,6 +21,7 @@ const AuthButtons = () => (
           variant="contained"
           size="large"
           color="secondary"
+          style={{ color: 'white' }}
         >
           Log In
         </Button>

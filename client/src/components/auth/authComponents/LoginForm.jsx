@@ -67,6 +67,7 @@ const LoginForm = () => {
           variant="contained"
           color="secondary"
           size="large"
+          style={{ color: 'white' }}
         >
           Log in
         </Button>

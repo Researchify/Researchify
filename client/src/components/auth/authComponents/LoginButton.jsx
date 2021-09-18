@@ -13,7 +13,7 @@ const LoginButton = () => (
           variant="contained"
           size="large"
           color="secondary"
-          style={{ whiteSpace: 'nowrap' }}
+          style={{ whiteSpace: 'nowrap', color: 'white' }}
         >
           Log In
         </Button>
