@@ -16,6 +16,11 @@ const AuthHeader = ({ button }) => {
       backgroundColor: 'white',
       transition: 'top 0.5s',
       boxShadow: '0px 14px 25px -20px rgba(0,0,0,0.1)',
+      width: '100%',
+      position: 'fixed',
+      left: 0,
+      top: 0,
+      zIndex: 10,
     },
   };
 
