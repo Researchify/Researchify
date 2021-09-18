@@ -47,7 +47,7 @@ const DashboardSidebarData = () => {
       link: '/achievement',
     },
     {
-      title: 'Settings',
+      title: 'Account',
       icon: <BsPerson />,
       link: '/dashboard/profile',
     },

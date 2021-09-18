@@ -70,10 +70,12 @@ const Header = ({ data, setLogoutAlert }) => {
               <Dropdown.Divider />
               <Dropdown.Item eventKey="2" href="/dashboard/profile">
                 <AiFillSetting />
+                {' '}
                 Settings
               </Dropdown.Item>
               <Dropdown.Item eventKey="3" onClick={() => setLogoutAlert(true)}>
                 <AiOutlineLogout />
+                {' '}
                 Logout
               </Dropdown.Item>
             </Dropdown.Menu>

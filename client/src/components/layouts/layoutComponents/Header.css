@@ -42,5 +42,8 @@
     min-width: 260px;
 }
 .dashboard-dropdown-toggle{
-    size: 50px;
+    font-size: 250%;
+    padding: 20%;
+    border-radius: 100%;
+    background-color: rgba(131, 131, 155, 0.336)
 }
