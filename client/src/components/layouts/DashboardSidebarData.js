@@ -9,7 +9,6 @@ import {
   BsPerson,
   BsPeople,
   // BsFillQuestionCircleFill,
-  BsBoxArrowLeft,
   BsFillAwardFill,
   BsCardText,
 } from 'react-icons/bs';
@@ -18,7 +17,7 @@ import { useSelector } from 'react-redux';
 /*
     List of navigation inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const DashboardSidebarData = ({ setLogoutAlert }) => {
+const DashboardSidebarData = () => {
   const sidebarLinks = [
     {
       title: 'Dashboard',
@@ -26,7 +25,7 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       link: '/dashboard',
     },
     {
-      title: 'Our Homepage',
+      title: 'Homepage',
       icon: <BsCardText />,
       link: '/about-us',
     },
@@ -35,11 +34,6 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       icon: <BsBookHalf />,
       link: '/publications',
       name: 'PUBLICATIONS',
-    },
-    {
-      title: 'Team Profile',
-      icon: <BsPerson />,
-      link: '/dashboard/profile',
     },
     {
       title: 'Team Member',
@@ -52,15 +46,10 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       icon: <BsFillAwardFill />,
       link: '/achievement',
     },
-    // {
-    //   title: 'Help',
-    //   icon: <BsFillQuestionCircleFill />,
-    //   link: '/dashboard/help',
-    // },
     {
-      title: 'Logout',
-      icon: <BsBoxArrowLeft />,
-      action: () => setLogoutAlert(true),
+      title: 'Settings',
+      icon: <BsPerson />,
+      link: '/dashboard/profile',
     },
   ];
 

@@ -16,7 +16,7 @@ import { theme } from '../../landing-pages/theme';
  * This function provides header for Layout.js
  * @returns Header component to be rendered in Layout.js
  */
-const Header = ({ data }) => {
+const Header = ({ data, setLogoutAlert }) => {
   const teamName = useSelector(
     (state) => `${state.team?.teamName}`,
   );
@@ -68,14 +68,12 @@ const Header = ({ data }) => {
 
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item eventKey="2">
+              <Dropdown.Item eventKey="2" href="/dashboard/profile">
                 <AiFillSetting />
-                {' '}
                 Settings
               </Dropdown.Item>
-              <Dropdown.Item eventKey="3">
+              <Dropdown.Item eventKey="3" onClick={() => setLogoutAlert(true)}>
                 <AiOutlineLogout />
-                {' '}
                 Logout
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -90,6 +88,7 @@ const Header = ({ data }) => {
 // props validation
 Header.propTypes = {
   data: PropTypes.object.isRequired,
+  setLogoutAlert: PropTypes.func.isRequired,
 };
 
 export default Header;
