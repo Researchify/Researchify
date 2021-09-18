@@ -9,11 +9,9 @@ const authMiddleware = require('../middleware/auth');
 const teamMiddleware = require('../middleware/team');
 const mongooseMiddleware = require('../middleware/mongoose');
 
-publicationsRouter.delete(
-  '/:id',
-  authMiddleware.cookieJwtAuth,
-  mongooseMiddleware.validatePublicationObjectId,
-  publicationsController.deletePublication,
+publicationsRouter.patch(
+  '/',
+  publicationsController.deletePublications,
 );
 
 publicationsRouter.patch(

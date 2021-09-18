@@ -55,8 +55,9 @@ export const createPublication = (publication) => async (dispatch) => {
 
 export const deletePublications = (publicationIdList) => async (dispatch) => {
   try {
-    console.log('called', publicationIdList);
-    // await api.deleteBulkPublications(teamId, publicationIdList);
+    console.log(publicationIdList);
+    const result = await api.deletePublications(publicationIdList);
+    console.log(result);
     dispatch({
       type: DELETE_PUBLICATIONS,
       payload: publicationIdList,

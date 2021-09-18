@@ -9,7 +9,7 @@ export const createPublication = (newPublication) => api.post('/publications/', 
 export const updatePublication = (id, updatedPublication) => api.patch(`/publications/${id}`, updatedPublication);
 export const createBulkPublications = (teamId, publicationList) => api.post(`/publications/import/${teamId}`, publicationList);
 export const importPublications = (authorId, startFrom, teamId) => api.get(`/publications/import/${authorId}/${startFrom}/validate/${teamId}`);
-export const deletePublications = (teamId, publicationIdList) => api.delete('/publications/', publicationIdList);
+export const deletePublications = (publicationIdList) => api.patch('/publications/', publicationIdList);
 
 // Team endpoints.
 export const createTeam = (teamInfo) => api.post('/team', teamInfo);

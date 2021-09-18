@@ -25,22 +25,14 @@ const { fillErrorObject } = require('../middleware/error');
  * @returns 404: publication not found
  * @returns 400: error deleting publication
  */
-function deletePublication(req, res, next) {
-  const { id: _id } = req.params;
-  Publication.findByIdAndRemove(_id)
-    .then((foundPublication) => {
-      if (foundPublication === null) {
-        return next(
-          fillErrorObject(400, 'Validation error', [
-            'Publication could not be found',
-          ]),
-        );
-      }
-      return res
-        .status(200)
-        .json({ message: 'Publication deleted successfully.' });
-    })
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+async function deletePublications(req, res, next) {
+  try {
+    const publicationIdList = req.body;
+    await Publication.deleteMany({ _id: { $in: publicationIdList } });
+    return res.status(200).json(publicationIdList);
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err.errors]));
+  }
 }
 
 /**
@@ -315,7 +307,7 @@ function importPublications(req, res, next) {
 }
 
 module.exports = {
-  deletePublication,
+  deletePublications,
   updatePublication,
   createPublication,
   readAllPublicationsByTeam,
