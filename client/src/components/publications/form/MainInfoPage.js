@@ -57,7 +57,9 @@ const MainInfoPage = ({
   );
 
   const renderAuthors = (values, touched, errors, handleChange, setValues) => values.authors.map((author, index) => (
-    <InputGroup key={author}>
+    //  ↓↓ need to use index as key, will cause the author field lose focus when typing if use author as key
+    // eslint-disable-next-line react/no-array-index-key
+    <InputGroup key={index}>
       <Form.Control
         className="placeholder-text"
         type="text"
