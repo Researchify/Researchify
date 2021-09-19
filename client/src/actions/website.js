@@ -71,7 +71,6 @@ export const resetWebPage = (teamId) => async (dispatch) => {
     api.resetWebPage(teamId);
     dispatch({
       type: RESET_WEBPAGE,
-      payload: null,
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));

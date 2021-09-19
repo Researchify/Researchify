@@ -46,7 +46,7 @@ async function validateTeamRepo(req, res, next) {
         Accept: 'application/vnd.github.v3+json',
       },
     });
-    if (repoValidator.status !== 200) {
+    if (repoValidator.status === 404) {
       next(
         fillErrorObject(404, 'GH pages not found!', [
           'GitHub Repo doesnt exist for this team!',
@@ -56,8 +56,8 @@ async function validateTeamRepo(req, res, next) {
     next();
   } catch (error) {
     next(
-      fillErrorObject(404, 'GH pages not found!', [
-        'GitHub Repo doesnt exist for this team!',
+      fillErrorObject(500, 'Server Error!', [
+        'Failed to access the repository!',
       ]),
     );
   }

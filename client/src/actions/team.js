@@ -310,11 +310,9 @@ export const resetTeamData = (teamId, isDelete) => async (dispatch) => {
     await api.resetTeamData(teamId, body);
     dispatch({
       type: DELETE_TEAM_PUBLICATIONS,
-      payload: null,
     });
     dispatch({
       type: RESET_TEAM,
-      payload: null,
     });
 
     dispatch(successMessageCreator('Profile has been cleared!'));
