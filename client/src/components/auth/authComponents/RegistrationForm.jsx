@@ -19,6 +19,7 @@ import { createTeam } from '../../../actions/team';
  * Component that tell user the requirements of the password when hover.
  * @param props This variable is needed to pass placement position
  * @returns The tooltip/popover for password
+ * TODO: Moved this into an individual file to reduce line numbers
  */
 const StringPasswordHint = (props) => (
   <Popover id="strong-pw-hint" {...props}>
