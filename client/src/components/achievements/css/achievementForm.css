@@ -6,11 +6,11 @@
     border-radius: 1000px;
 }
 
-#achievementsModalTitle {
+.achievementsModalTitle {
     padding-left: 2.4%;
 }
 
-#achievementsModalBody {
+.achievementsModalBody {
     padding-top: 4%;
     padding-right: 6%;
     padding-left: 6%;

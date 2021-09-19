@@ -71,9 +71,9 @@ const AchievementPage = () => {
         {/* A modal for showing create an Achievement */}
         <Modal show={showCreateForm} id="achievementsModal">
           <Modal.Header>
-            <Modal.Title id="achievementsModalTitle"> New Achievement </Modal.Title>
+            <Modal.Title className="achievementsModalTitle"> New Achievement </Modal.Title>
           </Modal.Header>
-          <Modal.Body id="achievementsModalBody">
+          <Modal.Body className="achievementsModalBody">
             <AchievementForm
               type="create"
               closeModal={() => setShowCreateForm(false)}

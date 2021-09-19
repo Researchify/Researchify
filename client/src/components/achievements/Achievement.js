@@ -6,17 +6,18 @@ import {
   Card,
   Row,
   Col,
-  Button,
   Modal,
   ButtonGroup,
   OverlayTrigger,
 } from 'react-bootstrap';
+import { Button } from '@material-ui/core';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import './css/achievementForm.css';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './achievementsComponents/AchievementForm';
 
@@ -34,8 +35,10 @@ const Achievement = ({ achievement }) => {
     <ButtonGroup>
       <Button
         onClick={() => setShowUpdateForm(true)}
-        variant="primary"
+        variant="contained"
         data-toggle="modal"
+        color="primary"
+        size="large"
       >
         {' '}
         <AiFillEdit />
@@ -43,8 +46,10 @@ const Achievement = ({ achievement }) => {
       </Button>
       <Button
         onClick={() => setShowDeleteMessage(true)}
-        variant="danger"
+        variant="contained"
         data-toggle="modal"
+        color="secondary"
+        size="large"
       >
         <AiFillDelete />
       </Button>
@@ -67,7 +72,7 @@ const Achievement = ({ achievement }) => {
                 >
                   <Button variant="default">
                     <IconContext.Provider
-                      value={{ color: 'black', size: '20px' }}
+                      value={{ color: 'white', size: '20px' }}
                     >
                       <BsThreeDotsVertical />
                     </IconContext.Provider>
@@ -88,10 +93,10 @@ const Achievement = ({ achievement }) => {
       </Row>
 
       <Modal show={showUpdateForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> Edit Achievement </Modal.Title>
+        <Modal.Header className="achievementModalHeader">
+          <Modal.Title className="achievementsModalTitle"> Edit Achievement </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="achievementsModalBody">
           <AchievementForm
             type="update"
             achievement={achievement}
@@ -101,22 +106,26 @@ const Achievement = ({ achievement }) => {
       </Modal>
 
       <Modal show={showDeleteMessage}>
-        <Modal.Header className="modalHeader">
+        <Modal.Header>
           <Modal.Title> Delete Achievement </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to delete this achievement?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
-            {' '}
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => setShowDeleteMessage(false)}
+          >
             Cancel
-            {' '}
           </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            {' '}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleDelete}
+          >
             Confirm
-            {' '}
           </Button>
         </Modal.Footer>
       </Modal>
