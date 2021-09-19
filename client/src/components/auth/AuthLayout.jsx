@@ -27,7 +27,7 @@ const AuthLayout = ({ button, children }) => {
     <>
       <ThemeProvider theme={theme}>
         <AuthHeader button={button} />
-        <div style={{ minHeight: 'calc(100vh)', marginTop: '70px' }}>
+        <div style={{ minHeight: 'calc(100vh - 70px)', marginTop: '70px' }}>
           {children}
         </div>
         <AuthFooter />
