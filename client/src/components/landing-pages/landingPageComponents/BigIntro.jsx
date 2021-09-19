@@ -1,10 +1,10 @@
-import React from "react";
-import { Row, Col } from "reactstrap";
-import { Button } from "@material-ui/core";
-import "../css/big-intro.css";
-import "../css/big-intro.mobile.css";
-import styled from "styled-components";
-import AnchorLink from "react-anchor-link-smooth-scroll";
+import React from 'react';
+import { Row, Col } from 'reactstrap';
+import { Button } from '@material-ui/core';
+import '../css/big-intro.css';
+import '../css/big-intro.mobile.css';
+import styled from 'styled-components';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import IntroImage from '../../../images/intro.svg';
 
 const StyledButtonLink = styled(AnchorLink)`
@@ -12,48 +12,44 @@ const StyledButtonLink = styled(AnchorLink)`
     text-decoration: none;
   }
 `;
-const DiscoverButtonLink = (props) => {
-  return (
-    <>
-      <StyledButtonLink {...props} />
-    </>
-  );
-};
+const DiscoverButtonLink = (props) => (
+  <>
+    <StyledButtonLink {...props} />
+  </>
+);
 
-const Content = () => {
-  return (
-    <div className="context ">
-      <Row style={{ margin: 0 }} >
-        <Col lg={{size: 7, offset: 1}} className="frosted-glass">
-          <div style={{padding: '2rem'}}>
-            <h1>
-              A Research Profile Builder
-            </h1>
-            <p>
-              Researchify is a web application that helps researchers without programming nor 
-              graphic design knowledge to build and publish their own research profile website.
-            </p>
+const Content = () => (
+  <div className="context">
+    <Row style={{ margin: 0 }}>
+      <Col lg={{ size: 7, offset: 1 }} className="frosted-glass">
+        <div style={{ padding: '2rem' }}>
+          <h1>
+            A Research Profile Builder
+          </h1>
+          <p>
+            Researchify is a web application that helps researchers without programming nor
+            graphic design knowledge to build and publish their own research profile website.
+          </p>
 
-            <DiscoverButtonLink href="#about" style={{}}>
-              <Button
-                variant="contained"
-                size="large"
-                color="secondary"
-                className="mr-2"
-              >
-                Discover More
-              </Button>
+          <DiscoverButtonLink href="#about" style={{}}>
+            <Button
+              variant="contained"
+              size="large"
+              color="secondary"
+              className="mr-2"
+            >
+              Discover More
+            </Button>
 
-            </DiscoverButtonLink>
-          </div>
-        </Col>
-        <Col lg={{size: 2}} >
-          <img src={IntroImage} alt="man watching presentation" width={370}/>
-        </Col>
-      </Row>
-    </div>
-  );
-};
+          </DiscoverButtonLink>
+        </div>
+      </Col>
+      <Col lg={{ size: 2 }}>
+        <img src={IntroImage} alt="man watching presentation" width={370} />
+      </Col>
+    </Row>
+  </div>
+);
 
 const BigIntro = () => {
   const boxes = () => {
@@ -65,9 +61,9 @@ const BigIntro = () => {
 
   const styles = {
     container: {
-      position: "relative",
+      position: 'relative',
       top: 0,
-      minHeight: "50vh",
+      minHeight: '50vh',
     },
   };
 

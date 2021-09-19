@@ -10,6 +10,7 @@ import {
   BsPeople,
   // BsFillQuestionCircleFill,
   BsBoxArrowLeft,
+  BsFillAwardFill,
   BsCardText,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
@@ -45,6 +46,11 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       icon: <BsPeople />,
       link: '/team',
       name: 'TEAM',
+    },
+    {
+      title: 'Achievements',
+      icon: <BsFillAwardFill />,
+      link: '/achievement',
     },
     // {
     //   title: 'Help',

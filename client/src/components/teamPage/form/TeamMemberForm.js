@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Row, Button, Tooltip, OverlayTrigger, Form,
 } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import { createTeamMember, updateTeamMember } from '../../../actions/team';
 
 const TeamMemberForm = ({ closeModal, member, type }) => {
@@ -135,6 +136,16 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
       )}
     </Formik>
   );
+};
+
+// props validation
+TeamMemberForm.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  member: PropTypes.object,
+  type: PropTypes.string.isRequired,
+};
+TeamMemberForm.defaultProps = {
+  member: undefined,
 };
 
 export default TeamMemberForm;

@@ -1,19 +1,20 @@
-import React from "react";
+import React from 'react';
+import { PropTypes } from 'prop-types';
 
 import { ThemeProvider } from '@material-ui/styles'; // eslint-disable-line import/no-extraneous-dependencies
 import { createTheme } from '@material-ui/core/styles';
 
-import AboutUs from "./landingPageComponents/AboutUs";
-import BigIntro from "./landingPageComponents/BigIntro";
-import Description from "./landingPageComponents/Description";
-import Features from "./landingPageComponents/Features";
-import LandingLayout from "./landingPageComponents/landingPageLayouts/LandingLayout";
-import { theme as colour } from "./theme";
+import AboutUs from './landingPageComponents/AboutUs';
+import BigIntro from './landingPageComponents/BigIntro';
+import Description from './landingPageComponents/Description';
+import Features from './landingPageComponents/Features';
+import LandingLayout from './landingPageComponents/landingPageLayouts/LandingLayout';
+import { theme as colour } from './theme';
 
 /**
  * Landing page component gets called by App.js
  * @param {*} route of component
- * @returns 
+ * @returns
  */
 const LandingPage = ({ match }) => {
   const theme = createTheme({
@@ -46,10 +47,15 @@ const LandingPage = ({ match }) => {
         <section id="company">
           <AboutUs />
         </section>
-      
+
       </LandingLayout>
     </ThemeProvider>
   );
+};
+
+// props validation
+LandingPage.propTypes = {
+  match: PropTypes.object.isRequired,
 };
 
 export default LandingPage;

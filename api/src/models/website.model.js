@@ -1,9 +1,10 @@
 /**
  * This module exports a "Website" mongoose Schema, which represents a team's web page.
+ * Associated to a trigger, a website document of a team will be created automaically in db when a new team is created in db.
  */
 const mongoose = require('mongoose');
 
-const { layoutOptions, sortingOptions } = require('../config/publication');
+const { groupByOptions, sortingOptions } = require('../config/publication');
 
 const websiteSchema = new mongoose.Schema(
   {
@@ -20,16 +21,18 @@ const websiteSchema = new mongoose.Schema(
     title: {
       type: String,
       required: false,
+      minlength: 3,
+      maxlength: 30,
     },
     url: {
       type: String,
       required: false,
     },
     publicationOptions: {
-      layout: {
+      groupBy: {
         type: String,
         required: false,
-        enum: layoutOptions,
+        enum: groupByOptions,
       },
       sortBy: {
         type: String,

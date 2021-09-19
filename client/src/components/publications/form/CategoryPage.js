@@ -14,6 +14,7 @@ import {
   ButtonGroup,
   ToggleButton,
 } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import { categoryTypes } from '../../../config/publications';
 import '../publications.css';
 
@@ -63,7 +64,8 @@ const CategoryPage = ({
         initialValues={data}
       >
         {({
-          handleSubmit,
+          // ↓↓ formik validation need it
+          handleSubmit, // eslint-disable-line no-shadow
           handleChange,
           values,
           touched,
@@ -74,22 +76,20 @@ const CategoryPage = ({
             <Form.Group>
               <div className="text-center">
                 <ButtonGroup toggle>
-                  {Object.keys(categoryTypes).map((category, idx) => (
+                  {Object.keys(categoryTypes).map((category) => (
                     <ToggleButton
-                      key={idx}
+                      key={category}
                       type="radio"
                       variant="outline-secondary"
-                      value={category.toUpperCase()}
+                      value={category}
                       checked={values.category.type.toUpperCase() === category.toUpperCase()}
-                      onChange={(e) =>
-                        setValues({
-                          ...values,
-                          category: {
-                            ...values.category,
-                            type: e.currentTarget.value,
-                          },
-                        })
-                      }
+                      onChange={(e) => setValues({
+                        ...values,
+                        category: {
+                          ...values.category,
+                          type: e.currentTarget.value,
+                        },
+                      })}
                     >
                       {category}
                     </ToggleButton>
@@ -103,8 +103,7 @@ const CategoryPage = ({
                 {' '}
                 {Object.keys(categoryTypes)
                   .filter(
-                    (category) =>
-                      category.toUpperCase() === values.category.type.toUpperCase()
+                    (category) => category.toUpperCase() === values.category.type.toUpperCase(),
                   )
                   .map((category) => `${
                     category.charAt(0) + category.slice(1).toLowerCase()
@@ -213,6 +212,14 @@ const CategoryPage = ({
       </Formik>
     </>
   );
+};
+
+// props validation
+CategoryPage.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default CategoryPage;

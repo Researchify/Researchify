@@ -4,18 +4,24 @@
 
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import DashboardLayout from './DashboardLayout';
 
-const DashboardLayoutRoute = ({ component: Component, ...rest }) =>
+const DashboardLayoutRoute = ({ component: Component, ...rest }) => (
 // get 'component' and renamed to 'Component', any other 'props' renamed to 'rest'
-  (
-    <Route
-      {...rest}
-      render={(routeProps) => (
-        <DashboardLayout>
-          <Component {...routeProps} />
-        </DashboardLayout>
-      )}
-    />
-  );
+  <Route
+    {...rest}
+    render={(routeProps) => (
+      <DashboardLayout>
+        <Component {...routeProps} />
+      </DashboardLayout>
+    )}
+  />
+);
+
+// props validation
+DashboardLayoutRoute.propTypes = {
+  component: PropTypes.func.isRequired,
+};
+
 export default DashboardLayoutRoute;

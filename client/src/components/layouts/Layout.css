@@ -1,5 +1,5 @@
 .page-content-wrapper {
-  margin-left: 170px;
+  margin-left: 155px;
 }
 
 .sidebar-wrapper {
@@ -23,7 +23,7 @@ html,
 body {
   max-width: 100% !important;
   overflow-x: hidden !important;
-  height: 100% !important;
+  height: auto !important;
 }
 #root {
   height: 100%;

@@ -2,28 +2,29 @@
  * The Publications component displays a list of publications
  */
 
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Spinner, Alert } from 'react-bootstrap';
+import {
+  Modal, Alert, Jumbotron, Container,
+} from 'react-bootstrap';
 import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
 import './publications.css';
-import LayoutAllPublications from './publicationsLayout/LayoutAllPublications';
-import LayoutByCategory from './publicationsLayout/LayoutByCategory';
-import PublicationsButtons from './publicationsLayout/PublicationsButtons';
-import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
-import { layoutOptions, sortingOptions } from '../../config/publications';
+import GroupByNone from './publicationsLayout/GroupByNone';
+import GroupByCategory from './publicationsLayout/GroupByCategory';
+import PublicationsEditor from './publicationsLayout/PublicationsEditor';
+import { groupByOptions, sortingOptions } from '../../config/publications';
 
 const Publications = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
   const { publicationOptions } = useSelector((state) => state.website);
   const { loading, teamPublications } = useSelector((state) => state.publications);
-  const [ showCreateForm, setShowCreateForm ] = useState(false);
-  const [ showImportForm, setShowImportForm ] = useState(false);
-  const [ options, setOptions ] = useState(publicationOptions);
-  const [ publications, setPublications ] = useState(teamPublications);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showImportForm, setShowImportForm] = useState(false);
+  const [options, setOptions] = useState(publicationOptions);
+  const [publications, setPublications] = useState(teamPublications);
 
   useEffect(() => {
     if (teamId) {
@@ -32,89 +33,96 @@ const Publications = () => {
   }, [dispatch, teamId]);
 
   useEffect(() => {
-    setOptions(publicationOptions)
-  }, [publicationOptions])
+    setOptions(publicationOptions);
+  }, [publicationOptions]);
 
   const renderPublications = () => {
-    switch (options.layout) {
-      case layoutOptions.BY_CATEGORY:
-        return <LayoutByCategory teamPublications={publications} />;
+    switch (options.groupBy) {
+      case groupByOptions.CATEGORY:
+        return <GroupByCategory teamPublications={publications} />;
       default:
-        return <LayoutAllPublications teamPublications={publications} />;
+        return <GroupByNone teamPublications={publications} />;
     }
-  }
+  };
 
   const sortPublications = (publicationToBeSorted, option) => {
-    if (option === options.sortBy) {
-      return publicationToBeSorted;
-    }
     switch (option) {
       case sortingOptions.AUTHOR:
-        publicationToBeSorted.sort((a, b) =>
-          a.authors[0].toLowerCase() > b.authors[0].toLowerCase() ? 1 : -1
-        );
+        publicationToBeSorted.sort((a, b) => {
+          if (a.authors[0].toLowerCase() > b.authors[0].toLowerCase()) return 1;
+          if (a.authors[0].toLowerCase() < b.authors[0].toLowerCase()) return -1;
+          return 0;
+        });
         break;
       case sortingOptions.TITLE:
         // publication title
-        publicationToBeSorted.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
+        publicationToBeSorted.sort((a, b) => {
+          if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+          if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+          return 0;
+        });
+        break;
+      case sortingOptions.YEAR:
+        // year
+        publicationToBeSorted.sort((a, b) => {
+          if (a.year > b.year) return -1;
+          if (a.year < b.year) return 1;
+          return 0;
+        });
         break;
       case 'Category Title':
         // journal or conference title
-        publicationToBeSorted.sort((a, b) =>
-          a.category.categoryTitle.toLowerCase() >
-          b.category.categoryTitle.toLowerCase()
-            ? 1
-            : -1
-        );
+        publicationToBeSorted.sort((a, b) => {
+          if (a.category.categoryTitle.toLowerCase() > b.category.categoryTitle.toLowerCase()) return 1;
+          if (a.category.categoryTitle.toLowerCase() < b.category.categoryTitle.toLowerCase()) return -1;
+          return 0;
+        });
         break;
       default:
         // sort by title then year for consistency with the db
-        publicationToBeSorted.sort((a, b) =>
-          a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
-        );
-        publicationToBeSorted.sort((a, b) => (a.year > b.year ? -1 : 1));
+        publicationToBeSorted.sort((a, b) => {
+          if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+          if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+          return 0;
+        });
+        publicationToBeSorted.sort((a, b) => {
+          if (a.year > b.year) return -1;
+          if (a.year < b.year) return 1;
+          return 0;
+        });
         break;
-      }
-      return publicationToBeSorted
-    };
-  
-    useEffect(() => {
-      const sortedPublication = sortPublications(teamPublications, options.sortBy)
-      setPublications(sortedPublication)
-    }, [teamPublications])
+    }
+    return publicationToBeSorted;
+  };
+
+  useEffect(() => {
+    const sortedPublication = sortPublications(teamPublications, options.sortBy);
+    setPublications(sortedPublication);
+  }, [teamPublications]);
 
   return (
-    <>
-      <PublicationsButtons
-        setShowCreateForm={setShowCreateForm}
-        setShowImportForm={setShowImportForm}
-      />
-      <PublicationsDropdown
-        options={options}
-        setOptions={setOptions}
-        sortPublications={sortPublications}
-        publication={publications}
-        teamId={teamId}
-      />
-      <div className="text-center">
-        {loading ? (
-          <Spinner animation="border" />
-        ) : (
-          <h4>
-            Total of
-            {` ${teamPublications.length} `}
-            publications
-          </h4>
-        )}
-      </div>
+    <Jumbotron style={{ minHeight: '85vH', height: 'auto' }}>
+      <Container className="publication-editor">
+        <div>
+          <PublicationsEditor
+            options={options}
+            setOptions={setOptions}
+            sortPublications={sortPublications}
+            publications={publications}
+            teamId={teamId}
+            setShowCreateForm={setShowCreateForm}
+            setShowImportForm={setShowImportForm}
+          />
+        </div>
+      </Container>
 
       {teamPublications.length === 0 && !loading ? (
-        <Alert variant="primary">
-          There is no publication for this team. Please add or import
-          publications.
-        </Alert>
+        <div style={{ marginTop: '30px' }} className="publicationList">
+          <Alert variant="primary">
+            There is no publication for this team. Please add or import
+            publications.
+          </Alert>
+        </div>
       ) : (
         renderPublications()
       )}
@@ -141,7 +149,7 @@ const Publications = () => {
           <ImportForm closeModal={() => setShowImportForm(false)} />
         </Modal.Body>
       </Modal>
-    </>
+    </Jumbotron>
   );
 };
 

@@ -113,7 +113,7 @@ dist
 
 # mac os
 .DS_Store
-.vscode/launch.json
+.vscode
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

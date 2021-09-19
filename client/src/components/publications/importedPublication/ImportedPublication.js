@@ -6,6 +6,7 @@ import { Form, Card, Collapse } from 'react-bootstrap';
 import './importedPublication.css';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
 const ImportedPublication = ({ pub, index, setChecked }) => {
   const [expand, setExpand] = useState(false);
@@ -21,57 +22,47 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
           {pub.category.type.charAt(0)
             + pub.category.type.slice(1).toLowerCase()}
           :
-          {' '}
-          {pub.category.categoryTitle}
+          {` ${pub.category.categoryTitle}`}
         </h6>
         {pub.category.issue && (
         <h6>
-          {' '}
           Issue:
-          {pub.category.issue}
+          {` ${pub.category.issue}`}
         </h6>
         )}
         {pub.category.volume && (
         <h6>
-          {' '}
           Volume:
-          {pub.category.volume}
+          {` ${pub.category.volume}`}
         </h6>
         )}
         {pub.category.pages && (
         <h6>
-          {' '}
           Pages:
-          {pub.category.pages}
+          {` ${pub.category.pages}`}
         </h6>
         )}
         {pub.category.publisher && (
           <h6>
-            {' '}
             Publisher:
-            {pub.category.publisher}
+            {` ${pub.category.publisher}`}
           </h6>
         )}
         <h6>
-          {' '}
           Description:
-          {pub.description}
+          {` ${pub.description}`}
         </h6>
         {/* { pub.link && <h6> Link: <a style={{cursor: 'pointer'}} onClick={() => window.open(`${pub.link}`, '_blank')}>{pub.link} </a> </h6> } */}
         {pub.link && (
           <h6>
-            {' '}
             Link:
-            {' '}
             <a
               href={pub.link}
               style={{ cursor: 'pointer' }}
-              onClick={() => window.open(`${pub.link}`, '_blank')} // eslint-disable-line no-undef
+              onClick={() => window.open(`${pub.link}`, '_blank')}
             >
-              {pub.link}
-              {' '}
+              {` ${pub.link}`}
             </a>
-            {' '}
           </h6>
         )}
       </div>
@@ -112,13 +103,20 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
           <h6 className="ml-3">
             {' '}
             Year Published:
-            {pub.yearPublished}
+            {` ${pub.yearPublished}`}
           </h6>
           {dropDown}
         </Card.Body>
       </Card>
     </>
   );
+};
+
+// props validation
+ImportedPublication.propTypes = {
+  pub: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  setChecked: PropTypes.func.isRequired,
 };
 
 export default ImportedPublication;

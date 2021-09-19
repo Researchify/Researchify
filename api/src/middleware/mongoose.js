@@ -22,9 +22,14 @@ async function validatePublicationObjectId(req, res, next) {
   validateObjectId(_id, 'publication', res, next);
 }
 
-async function validateTeamObjectId(req, res, next) {
-  const { team_id } = req.params;
-  validateObjectId(team_id, 'team', res, next);
+async function validateAchievementObjectId(req, res, next) {
+  const { id: _id } = req.params;
+  validateObjectId(_id, 'achievement', res, next);
 }
 
-module.exports = { validateTeamObjectId, validatePublicationObjectId };
+async function validateTeamObjectId(req, res, next) {
+  const { teamId } = req.params;
+  validateObjectId(teamId, 'team', res, next);
+}
+
+module.exports = { validateTeamObjectId, validateAchievementObjectId, validatePublicationObjectId };
