@@ -13,9 +13,9 @@ import '../../shared/css/baseColours.css';
 
 const darkMode = true;
 if (darkMode) {
-  import '../../shared/css/darkColours.css';
+  import('../../shared/css/darkColours.css');
 } else {
-  import '../../shared/css/lightColours.css';
+  import('../../shared/css/lightColours.css');
 }
 
 const App = () => {

@@ -49,7 +49,7 @@ a:hover, a:focus, .navbar a:hover, .navbar a:focus {
     border-color: var(--researchify-color-quinary);
 }
 
-.team-card {
+.team-card, .award-card {
     color: var(--researchify-text-color-secondary);
     background-color: var(--researchify-color-secondary);
 }
