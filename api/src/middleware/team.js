@@ -13,7 +13,7 @@ async function validateTeamId(req, res, next) {
     .select('_id teamName orgName email teamMembers');
 
   if (foundTeam == null) {
-    next(
+    return next(
       fillErrorObject(404, 'Validation error', [
         'No team found with the given id',
       ]),
@@ -21,7 +21,7 @@ async function validateTeamId(req, res, next) {
   }
 
   req.foundTeam = foundTeam; // todo: does this need to be set inside middleware?
-  next();
+  return next();
 }
 
 async function validateGhUser(req, res, next) {
@@ -35,14 +35,16 @@ async function validateGhUser(req, res, next) {
       fillErrorObject(400, 'Validation error: user doesnt exist!', [data.errors[0].detail]),
     );
   }
-  console.log(data.login);
-  req.username=data.login;
+  req.username = data.login;
   return next();
 }
 
 async function validateTeamRepo(req, res, next) {
   // Creating repoName
-  const { ghUsername } = req.username;
+  const { ghToken } = req.body;
+
+  const ghUsername = req.username;
+
   console.log(ghUsername);
   const repoName = `${ghUsername}.github.io`;
   try {
@@ -53,15 +55,15 @@ async function validateTeamRepo(req, res, next) {
       },
     });
     if (repoValidator.status !== 204) {
-      next(
+      return next(
         fillErrorObject(404, 'GH pages not found!', [
           'GitHub Repo doesnt exist for this team!',
         ]),
       );
     }
-    next();
+    return next();
   } catch (error) {
-    next(
+    return next(
       fillErrorObject(500, 'Server Error!', [
         'Failed to access the repository!',
       ]),
@@ -88,4 +90,6 @@ const validateTwitterHandle = [
   },
 ];
 
-module.exports = { validateTeamId, validateTeamRepo, validateGhUser, validateTwitterHandle };
+module.exports = {
+  validateTeamId, validateTeamRepo, validateGhUser, validateTwitterHandle,
+};
