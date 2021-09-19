@@ -3,17 +3,18 @@
  */
 
 import {
-  Row, Col, Container, CardDeck, Button, Modal, Spinner, Alert,
+  Row, Col, Container, CardDeck, Modal, Spinner, Alert,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
+import { Button } from '@material-ui/core';
 import AchievementForm from './achievementsComponents/AchievementForm';
 import { getAchievementsByTeamId } from '../../actions/achievements';
 import Achievement from './Achievement';
 import './achievementPage.css';
 import './css/achievementForm.css';
-import AddButton from './achievementsComponents/AddButton';
 import AchievementsLayout from './AchievementsLayout';
+import AddButton from './achievementsComponents/AddButton';
 
 const AchievementPage = () => {
   const dispatch = useDispatch();
@@ -35,8 +36,13 @@ const AchievementPage = () => {
           <Col>
             <h1>Achievements</h1>
           </Col>
-          <Col id="achievementButton" md={{ offset: 5 }}>
-            <Button className="mt-2" onClick={() => setShowCreateForm(true)}>
+          <Col id="achievementButton" md={{ offset: 4 }}>
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              onClick={() => setShowCreateForm(true)}
+            >
               Add Achievement
             </Button>
           </Col>

@@ -24,6 +24,7 @@ const AchievementsLayout = ({ button, children }) => {
   return (
     <>
       <ThemeProvider theme={theme} button={button}>
+
         <div>
           {children}
         </div>
