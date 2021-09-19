@@ -12,7 +12,7 @@ import WebpageDelete from './WebpageDelete';
 import WebpageSelector from './WebpageSelector';
 import ConditionalWrapper from '../../shared/ConditionalWrapper';
 import {
-  PrimaryButton, DangerButton,
+  PrimaryButton, SecondaryButton, DangerButton,
 } from '../../shared/styledComponents';
 
 const Webpages = ({
@@ -118,14 +118,14 @@ const Webpages = ({
             <tr key="default-homepage">
               <td className="body">
                 HOMEPAGE
-                <PrimaryButton
+                <SecondaryButton
                   className="action float-right mx-2"
                   onClick={() => {
                     directToAnotherPage('HOME PAGE');
                   }}
                 >
                   <BsPencilSquare />
-                </PrimaryButton>
+                </SecondaryButton>
               </td>
             </tr>
 
@@ -139,15 +139,14 @@ const Webpages = ({
                   >
                     Delete
                   </DangerButton>
-                  <PrimaryButton
-                    variant="outline-success"
+                  <SecondaryButton
                     className="action float-right mx-2"
                     onClick={() => {
                       directToAnotherPage(webPage);
                     }}
                   >
                     <BsPencilSquare />
-                  </PrimaryButton>
+                  </SecondaryButton>
                 </td>
               </tr>
             ))}

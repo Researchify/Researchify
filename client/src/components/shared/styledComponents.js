@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 // eslint-disable-next-line import/prefer-default-export
-// export const PrimaryButton = styled.button` // Boostrap Blue
+// export const PrimaryButton = styled.button` // Bootstrap Blue
 //     border: 1px solid transparent;
 //     padding: .375rem .75rem;
 //     border-radius: .25rem;
@@ -15,34 +15,49 @@ import styled from 'styled-components';
 //   }
 // `;
 
-// export const PrimaryButton = styled.button` // Purple
-//     padding: .375rem .75rem;
-//     border: 1px solid #56658a;
-//     border-radius: .25rem;
-//     background-color: #56658a;
-//     color: white;
-//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-//     font-size: ${(props) => props.fontSize}; //.875rem;
-//   &:hover{
-//     background-color:rgb(60, 70, 96);
-//   }
-// `;
-
-export const PrimaryButton = styled.button` // Gold
+export const PrimaryButton = styled.button` // Purple
     padding: .375rem .75rem;
-    border: 1px;
+    border: 1px solid #56658a;
     border-radius: .25rem;
-    border-color: #AB9671;
-    background-color: #AB9671;
+    background-color: #56658a;
     color: white;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     font-size: ${(props) => props.fontSize}; //.875rem;
   &:hover{
-    background-color:rgb(119, 105, 79);
+    background-color:rgb(60, 70, 96);
   }
 `;
 
-export const SecondaryButton = styled.button` // Outline-Gold 
+// export const SecondaryButton = styled.button` // Outline-Purple
+//     padding: .375rem .75rem;
+//     border: 1px solid #56658a;
+//     border-radius: .25rem;
+//     background-color: white;
+//     color: #56658a;
+//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+//     font-size: ${(props) => props.fontSize}; //.875rem;
+//   &:hover{
+//     background-color:rgb(60, 70, 96);
+//     color: white;
+//   }
+// `;
+
+// export const PrimaryButton = styled.button` // Gold
+//     padding: .375rem .75rem;
+//     border: 1px;
+//     border-radius: .25rem;
+//     border-color: #AB9671;
+//     background-color: #AB9671;
+//     color: white;
+//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+//     font-size: ${(props) => props.fontSize}; //.875rem;
+//   &:hover{
+//     background-color: #AB9671;
+//     color: white;
+//   }
+// `;
+
+export const SecondaryButton = styled.button` // Outline-Gold
     padding: .375rem .75rem;
     border: 1px solid #AB9671;
     border-radius: .25rem;
