@@ -9,6 +9,7 @@
         "ecmaVersion": 12
     },
     "rules": {
+        "linebreak-style": ["error", "windows"],
         "max-len": "off",
         "no-underscore-dangle": "off",
         "no-plusplus": "off",

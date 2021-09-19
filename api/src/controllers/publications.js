@@ -17,13 +17,12 @@ const Team = require('../models/team.model');
 const { fillErrorObject } = require('../middleware/error');
 
 /**
- * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
+ * Handles a PATCH request to delete a list of publication by the mongo object id on the endpoint /publications/
  *
- * @param req request object - the publication id given in the url
+ * @param req request object - the list of publication ids given in the body
  * @param res response object
- * @returns 200: publication deleted successfully
- * @returns 404: publication not found
- * @returns 400: error deleting publication
+ * @returns 200: publications deleted successfully
+ * @returns 400: error deleting publications
  */
 async function deletePublications(req, res, next) {
   try {
