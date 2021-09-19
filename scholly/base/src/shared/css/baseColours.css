@@ -98,3 +98,13 @@ a:hover, a:focus, .navbar a:hover, .navbar a:focus, .sidebar a:focus {
     border-color: var(--researchify-color-secondary)!important;
     color: var(--researchify-text-color)!important;
 }
+
+.team-card-container .bg-white, .team-card-container .bg-light {
+    background-color: var(--researchify-color-secondary)!important;
+    color: var(--researchify-text-color)!important;
+}
+
+.team-card-container .bg-secondary {
+    background-color: var(--researchify-text-color)!important;
+    color: var(--researchify-color-secondary)!important;
+}
