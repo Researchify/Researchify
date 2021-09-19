@@ -172,7 +172,7 @@ async function getGoogleScholarPublications(req, res) {
     response.reachedEnd = true;
   } else {
     console.time('scraping');
-    for (let i = noOfDummyLinks; i < 2; i++) {
+    for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
       links.push(resultLinks[i].getAttribute('href')
         .then((url) => scrapeGoogleScholar(url, context))
         .then((pub) => publications.push(pub)));

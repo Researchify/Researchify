@@ -13,7 +13,7 @@
       "image": "ak1738/researchify-api",
       "hostname": "api",
       "essential": false,
-      "memory": 256,
+      "memory": 512,
       "links": [
         "scholly"
       ]

@@ -10,6 +10,6 @@ RUN npm install
 
 COPY . .
 
-USER root
-
-CMD ["npm", "start"]
+#USER root
+#
+#CMD ["npm", "start"]
