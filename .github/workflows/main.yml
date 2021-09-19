@@ -87,7 +87,7 @@ jobs:
 #          file: ./scholly/Dockerfile
 #          push: true
 #          tags: ak1738/researchify-scholly-staging:latest
- deploy:
+  deploy:
    name: Deploy to AWS Elastic Beanstalk
    needs:
      # - static_analysis
