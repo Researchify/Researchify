@@ -59,7 +59,6 @@ const publicationsReducer = (state = initialState, action) => {
         delete pub.newlyAdded;
         return pub;
       });
-      console.log(updatedlist);
       return {
         ...state,
         teamPublications: updatedlist,

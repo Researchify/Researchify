@@ -3,16 +3,48 @@
  */
 
 import React, { useEffect } from 'react';
-import { Col, Form, Jumbotron } from 'react-bootstrap';
+import {
+  Col, Form, Jumbotron, OverlayTrigger, Popover,
+} from 'react-bootstrap';
 import '../css/registration-form.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { BsQuestionCircle } from 'react-icons/bs';
 import { Button } from '@material-ui/core';
 import { createTeam } from '../../../actions/team';
 
-export default function RegistrationForm() {
+/**
+ * Component that tell user the requirements of the password when hover.
+ * @param props This variable is needed to pass placement position
+ * @returns The tooltip/popover for password
+ * TODO: Moved this into an individual file to reduce line numbers
+ */
+const StringPasswordHint = (props) => (
+  <Popover id="strong-pw-hint" {...props}>
+    <Popover.Content>
+      Password must include:
+      <br />
+      {' '}
+      - 8-20 characters
+      <br />
+      {' '}
+      - At least 1 uppercase letter
+      <br />
+      {' '}
+      - At least 1 lowercase letter
+      <br />
+      {' '}
+      - At least 1 number
+      <br />
+      {' '}
+      - At least 1 symbol from @$!%*#?&
+    </Popover.Content>
+  </Popover>
+);
+
+const RegistrationForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { logIn } = useSelector((state) => state.auth);
@@ -41,7 +73,7 @@ export default function RegistrationForm() {
       .required('Please Enter your password')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Use 8 or more characters with a mix of letters, numbers & symbols',
+        'Password is not strong enough',
       ),
     confirmedPassword: yup
       .string()
@@ -122,7 +154,13 @@ export default function RegistrationForm() {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
-              <Form.Label> Password </Form.Label>
+              <Form.Label>
+                Password
+                {'  '}
+                <OverlayTrigger trigger="hover" placement="right" overlay={StringPasswordHint}>
+                  <BsQuestionCircle style={{ color: 'grey' }} />
+                </OverlayTrigger>
+              </Form.Label>
               <Form.Control
                 type="password"
                 name="password"
@@ -165,4 +203,6 @@ export default function RegistrationForm() {
       </Formik>
     </Jumbotron>
   );
-}
+};
+
+export default RegistrationForm;
