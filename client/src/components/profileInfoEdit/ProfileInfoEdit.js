@@ -153,7 +153,7 @@ const ProfileInfoEdit = () => {
               Update
             </Button>
             <Button
-              variant="danger"
+              variant="outline-danger"
               onClick={profileDeleted}
               className="mt-2"
             >
