@@ -71,11 +71,11 @@ async function storeHandle(req, res, next) {
 }
 
 /**
-  * Gets the team info
-  * @param {*} req request object contains the teamId decoded in auth middleware
-  * @param {*} res response object, the team related info
-  * @returns 200: the team related info
-  */
+ * Gets the team info
+ * @param {*} req request object contains the teamId decoded in auth middleware
+ * @param {*} res response object, the team related info
+ * @returns 200: the team related info
+ */
 function getTeam(req, res, next) {
   Team.findById(req.team._id)
     .select('_id teamName orgName email twitterHandle profilePic')
@@ -89,11 +89,11 @@ function getTeam(req, res, next) {
 }
 
 /**
-  * Handles a POST request to add a team on the endpoint /team.
-  * @param {*} req request object -  json object containing at least two fields - teamName and orgName.
-  * @param {*} res response object - updated team object
-  * @returns 201: returns updated team details
-  */
+ * Handles a POST request to add a team on the endpoint /team.
+ * @param {*} req request object -  json object containing at least two fields - teamName and orgName.
+ * @param {*} res response object - updated team object
+ * @returns 201: returns updated team details
+ */
 async function createTeam(req, res, next) {
   const foundTeam = await Team.findOne({ email: req.body.email });
   if (foundTeam) {
@@ -317,13 +317,13 @@ async function updateTeam(req, res, next) {
 }
 
 /**
-  * Clear the team Data from the database on /team/:team_id
-  * @param {} req request object, containing team id in the url
-  * @param {*} res response object, the deleted team document
-  * @returns 200: teamn is deleted
-  * @returns 404: team is not found
-  * @returns 400: team id is not in a valid hexadecimal format
-  */
+ * Clear the team Data from the database on /team/:team_id
+ * @param {} req request object, containing team id in the url
+ * @param {*} res response object, the deleted team document
+ * @returns 200: teamn is deleted
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
 async function resetTeamData(req, res, next) {
   try {
     const { teamId } = req.params;
@@ -342,13 +342,13 @@ async function resetTeamData(req, res, next) {
 }
 
 /**
-  * Delete the team from the database on /team/:team_id
-  * @param {} req request object, containing team id in the url
-  * @param {*} res response object, the deleted team document
-  * @returns 200: team is deleted
-  * @returns 404: team is not found
-  * @returns 400: team id is not in a valid hexadecimal format
-  */
+ * Delete the team from the database on /team/:team_id
+ * @param {} req request object, containing team id in the url
+ * @param {*} res response object, the deleted team document
+ * @returns 200: team is deleted
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
 async function deleteGHPages(req, res, next) {
   const { ghToken } = req.body;
   // Call github API to get username
