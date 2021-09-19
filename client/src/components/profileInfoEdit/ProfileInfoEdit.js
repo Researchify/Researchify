@@ -161,15 +161,14 @@ const ProfileInfoEdit = () => {
               </Button>
               <Button
                 id="clearButton"
-                color="primary"
-                className="mr-2"
+                variant="danger"
                 onClick={() => {
                   checkLogin();
                   setResetAlert(true);
                   setDelete(false);
                 }}
               >
-                Clear Data
+                Reset Data
               </Button>
 
             </div>

@@ -350,15 +350,8 @@ async function resetTeamData(req, res, next) {
  * @returns 400: team id is not in a valid hexadecimal format
  */
 async function deleteGHPages(req, res, next) {
-  const { ghToken } = req.body;
-  // Call github API to get username
-  const { data } = await axios.get('https://api.github.com/user',
-    {
-      headers: { Authorization: `token ${ghToken}` },
-    });
-
-  // Creating repoName
-  const ghUsername = data.login;
+  const ghUsername = req.username;
+  console.log(ghUsername);
   logger.info(`GitHub Pages delete initiated for user: ${ghUsername}`);
   const repoName = `${ghUsername}.github.io`;
   // delete repo

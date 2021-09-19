@@ -87,6 +87,7 @@ teamRouter.post(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
+  teamMiddleware.validateGhUser,
   teamMiddleware.validateTeamRepo,
   teamController.deleteGHPages,
 );
