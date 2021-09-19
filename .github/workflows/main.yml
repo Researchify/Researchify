@@ -88,28 +88,28 @@ jobs:
          push: true
          tags: ak1738/researchify-scholly-staging:latest
   deploy:
-   name: Deploy to AWS Elastic Beanstalk
-   needs:
-     # - static_analysis
-     # - test
-     - publish
-   runs-on: ubuntu-latest
-   if: github.ref == 'refs/heads/vgoh1/revert-playwright'
-   steps:
-     - uses: actions/checkout@v2
-     - name: Generate Deployment Package
-       run: zip -r deploy.zip . -x '*.git*' '**/node_modules/*'
-     - name: Deploy to EB
-       uses: einaregilsson/beanstalk-deploy@v16
-       with:
-         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         application_name: "researchify"
-         environment_name: "Researchify-env-staging"
-         version_label: researchify-app-${{ github.SHA }}
-         version_description: Commit ${{ github.SHA }} deployed by github actions
-         region: "ap-southeast-2"
-         deployment_package: deploy.zip
-         use_existing_version_if_available: true
-         wait_for_deployment: true
-         wait_for_environment_recovery: 60
+    name: Deploy to AWS Elastic Beanstalk
+    needs:
+      # - static_analysis
+      # - test
+      - publish
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/vgoh1/revert-playwright'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate Deployment Package
+        run: zip -r deploy.zip . -x '*.git*' '**/node_modules/*'
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v16
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: "researchify"
+          environment_name: "Researchify-env-staging"
+          version_label: researchify-app-${{ github.SHA }}
+          version_description: Commit ${{ github.SHA }} deployed by github actions
+          region: "ap-southeast-2"
+          deployment_package: deploy.zip
+          use_existing_version_if_available: true
+          wait_for_deployment: true
+          wait_for_environment_recovery: 60
