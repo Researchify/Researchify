@@ -11,6 +11,7 @@ const mongooseMiddleware = require('../middleware/mongoose');
 
 publicationsRouter.patch(
   '/',
+  authMiddleware.cookieJwtAuth,
   publicationsController.deletePublications,
 );
 

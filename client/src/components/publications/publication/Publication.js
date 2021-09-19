@@ -32,12 +32,9 @@ const Publication = ({ pub }) => {
 
   useEffect(() => {
     if (pub.newlyAdded) {
-      // delete pub.newlyAdded;
+      delete pub.newlyAdded;
       setInterval(() => {
         setNewlyAdded(false);
-        dispatch({
-          type: 'REVERT_HEADER_COLOR',
-        });
       }, 2500);
       setNewlyAdded(true);
     }

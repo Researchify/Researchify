@@ -6,6 +6,7 @@ import {
   CREATE_BULK_PUBLICATIONS,
   CHECK_PUBLICATIONS,
   UNCHECK_PUBLICATIONS,
+  REVERT_HEADER_COLOR,
 } from '../actions/types';
 
 const initialState = {
@@ -54,7 +55,7 @@ const publicationsReducer = (state = initialState, action) => {
         checkedPublications: state.checkedPublications.filter((checkedPub) => !unchecks.find((uncheck) => uncheck === checkedPub)),
       };
     }
-    case 'REVERT_HEADER_COLOR': {
+    case REVERT_HEADER_COLOR: {
       const updatedlist = state.teamPublications.map((pub) => {
         delete pub.newlyAdded;
         return pub;
