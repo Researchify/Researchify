@@ -352,10 +352,6 @@ async function resetTeamData(req, res, next) {
 async function deleteGHPages(req, res, next) {
   const { ghToken } = req.body;
   const ghUsername = req.username;
-
-  console.log(ghToken);
-  console.log(ghUsername);
-
   logger.info(`GitHub Pages delete initiated for user: ${ghUsername}`);
   const repoName = `${ghUsername}.github.io`;
   // delete repo

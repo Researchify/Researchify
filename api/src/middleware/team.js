@@ -45,7 +45,6 @@ async function validateTeamRepo(req, res, next) {
 
   const ghUsername = req.username;
 
-  console.log(ghUsername);
   const repoName = `${ghUsername}.github.io`;
   try {
     const repoValidator = await axios.get(`https://api.github.com/repos/${ghUsername}/${repoName}`, {
@@ -54,7 +53,7 @@ async function validateTeamRepo(req, res, next) {
         Accept: 'application/vnd.github.v3+json',
       },
     });
-    if (repoValidator.status !== 204) {
+    if (repoValidator.status !== 200) {
       return next(
         fillErrorObject(404, 'GH pages not found!', [
           'GitHub Repo doesnt exist for this team!',
