@@ -6,8 +6,10 @@ import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Header from './components/layout/Header';
 import getRoutes from './components/router/routes';
-import './components/centered.css';
 import { TEAM_INFO } from '../../global/data';
+import './components/centered.css';
+import '../../shared/css/style.css';
+import '../../shared/css/baseColours.css';
 
 const darkMode = true;
 if (darkMode) {

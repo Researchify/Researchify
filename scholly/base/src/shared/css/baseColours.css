@@ -53,16 +53,3 @@ a:hover, a:focus, .navbar a:hover, .navbar a:focus {
     color: var(--researchify-text-color-secondary);
     background-color: var(--researchify-color-secondary);
 }
-
-.navbar-brand {
-    font-weight: 700;
-}
-
-.nav-link {
-    color: inherit;
-    font-weight: 500;
-}
-
-.publication-card {
-    background-color: transparent;
-}
