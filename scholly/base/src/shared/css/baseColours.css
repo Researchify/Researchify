@@ -7,20 +7,20 @@ a {
     color: var(--researchify-link-color);
 }
 
-a:hover, a:focus, .navbar a:hover, .navbar a:focus {
+a:hover, a:focus, .navbar a:hover, .navbar a:focus, .sidebar a:focus {
     color: var(--researchify-link-hover-color);
 }
 
-.navbar {
+.navbar, .sidebar {
     color: var(--researchify-text-color-secondary);
     background-color: var(--researchify-color-secondary);
 }
 
-.navbar a {
+.navbar a, .sidebar a {
     color: var(--researchify-text-color-secondary);
 }
 
-.navbar a:hover, .navbar a:focus {
+.navbar a:hover, .navbar a:focus, .sidebar a:hover, .sidebar a:focus {
     color: var(--researchify-link-hover-color-secondary)
 }
 
@@ -52,4 +52,20 @@ a:hover, a:focus, .navbar a:hover, .navbar a:focus {
 .team-card, .award-card {
     color: var(--researchify-text-color-secondary);
     background-color: var(--researchify-color-secondary);
+}
+
+.publication-title-column {
+    background-color: unset;
+}
+
+.card .btn {
+    background-color: var(--researchify-color-primary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.card .btn:hover, .card .btn:active, .card .btn:focus {
+    background-color: var(--researchify-color-tertiary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
 }

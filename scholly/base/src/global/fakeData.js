@@ -182,7 +182,7 @@ export const FAKE_TEAM_HOMEPAGE = {
   aboutUs: ['This is first paragraph.', 'This is second paragraph.', 'This is third paragraph.'],
 };
 
-export const FAKE_LAYOUT_OPTION = 1;
+export const FAKE_LAYOUT_OPTION = 2;
 
 export const FAKE_TEAM_ACHIEVEMENTS = [
   {
