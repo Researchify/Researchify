@@ -172,7 +172,7 @@ async function getGoogleScholarPublications(req, res) {
     response.reachedEnd = true;
   } else {
     console.time('scraping');
-    for (let i = noOfDummyLinks; i < resultLinks.length; i++) {
+    for (let i = noOfDummyLinks; i < 2; i++) {
       links.push(resultLinks[i].getAttribute('href')
         .then((url) => scrapeGoogleScholar(url, context))
         .then((pub) => publications.push(pub)));
@@ -180,7 +180,7 @@ async function getGoogleScholarPublications(req, res) {
     await Promise.all(links).then(() => { logger.info('Done scraping'); });
     console.timeEnd('scraping');
 
-    await page.close();
+    // await page.close();
 
     const newPublications = await validateImportedPublications(
       teamId,
@@ -212,6 +212,7 @@ async function getGoogleScholarPublications(req, res) {
  */
 async function scrapeGoogleScholar(url, context) {
   logger.info(`Publication url: ${playwrightConfig.gScholarHome + url}`);
+  console.log(url);
   const page = await context.newPage();
   await page.goto(playwrightConfig.gScholarHome + url);
   const title = await page.$$eval('div#gsc_oci_title', (titles) => titles.map((title) => title.innerText));
@@ -219,7 +220,7 @@ async function scrapeGoogleScholar(url, context) {
   const values = await page.$$eval('div.gsc_oci_value', (titles) => titles.map((title) => title.innerText));
   const fields = await page.$$eval('div.gsc_oci_field', (titles) => titles.map((title) => title.innerText));
 
-  page.close();
+  // await page.close();
 
   const publicationInfo = {};
   fields.forEach((key, i) => {

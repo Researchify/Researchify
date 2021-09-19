@@ -23,7 +23,7 @@
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.2",
-    "playwright-firefox": "^1.14.1",
+    "playwright-webkit": "^1.14.1",
     "winston": "^3.3.3"
   },
   "devDependencies": {

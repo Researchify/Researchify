@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM playwright:focal
 
 WORKDIR '/home/node/app'
 

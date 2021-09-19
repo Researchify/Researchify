@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM mcr.microsoft.com/playwright:focal
 
 WORKDIR '/home/node/app'
 
@@ -10,6 +10,6 @@ RUN npm install
 
 COPY . .
 
-USER node
+USER root
 
 CMD ["npm", "start"]

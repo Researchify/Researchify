@@ -1,7 +1,7 @@
 /**
  * This module stores the configuration for using Puppeteer to scrape Google Scholar.
  */
-const { firefox } = require('playwright-firefox');
+const { webkit } = require('playwright-webkit');
 
 const playwrightConfig = {
   noOfDummyLinks: 4, // first 4 links aren't publications can be ignored
@@ -13,7 +13,7 @@ const playwrightConfig = {
   sortBySuffix: '&view_op=list_works&sortby=pubdate', // put most recent pubs first
 };
 
-const browserContext = firefox.launch()
+const browserContext = webkit.launch()
   .then((browser) => browser.newContext());
 
 const getBrowser = async () => browserContext;
