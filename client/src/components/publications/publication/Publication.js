@@ -17,7 +17,7 @@ import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import { PropTypes } from 'prop-types';
 import PublicationForm from '../form/PublicationForm';
 import { StyledButtonGroup, ButtonGroupItem } from '../publicationsLayout/PublicationsEditor';
-import { deletePublications } from '../../../actions/publications';
+import { deletePublication } from '../../../actions/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 import '../publications.css';
 
@@ -41,7 +41,7 @@ const Publication = ({ pub }) => {
   }, [pub]);
 
   const handleDelete = () => {
-    dispatch(deletePublications([pub._id]));
+    dispatch(deletePublication(pub._id));
     setShowDeleteMessage(false);
   };
 

@@ -2,11 +2,12 @@ import {
   GET_PUBLICATIONS_BY_TEAM_ID,
   CREATE_PUBLICATION,
   UPDATE_PUBLICATION,
-  DELETE_PUBLICATIONS,
+  DELETE_PUBLICATION,
   CREATE_BULK_PUBLICATIONS,
   CHECK_PUBLICATIONS,
   UNCHECK_PUBLICATIONS,
   REVERT_HEADER_COLOR,
+  DELETE_BULK_PUBLICATIONS,
 } from '../actions/types';
 
 const initialState = {
@@ -29,15 +30,13 @@ const publicationsReducer = (state = initialState, action) => {
         ...state,
         teamPublications: state.teamPublications.map((pub) => (pub._id === action.payload._id ? action.payload : pub)),
       };
-    case DELETE_PUBLICATIONS: {
-      const deletedPubIds = action.payload;
+    case DELETE_PUBLICATION:
       return {
         ...state,
         teamPublications: state.teamPublications.filter(
-          (pub) => !deletedPubIds.find((id) => id === pub._id),
+          (pub) => pub._id !== action.payload,
         ),
       };
-    }
     case CREATE_BULK_PUBLICATIONS:
       return {
         ...state,
@@ -53,6 +52,15 @@ const publicationsReducer = (state = initialState, action) => {
       return {
         ...state,
         checkedPublications: state.checkedPublications.filter((checkedPub) => !unchecks.find((uncheck) => uncheck === checkedPub)),
+      };
+    }
+    case DELETE_BULK_PUBLICATIONS: {
+      const deletedPubIds = action.payload;
+      return {
+        ...state,
+        teamPublications: state.teamPublications.filter(
+          (pub) => !deletedPubIds.find((id) => id === pub._id),
+        ),
       };
     }
     case REVERT_HEADER_COLOR: {

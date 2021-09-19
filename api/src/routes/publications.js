@@ -9,10 +9,11 @@ const authMiddleware = require('../middleware/auth');
 const teamMiddleware = require('../middleware/team');
 const mongooseMiddleware = require('../middleware/mongoose');
 
-publicationsRouter.patch(
-  '/',
+publicationsRouter.delete(
+  '/:id',
   authMiddleware.cookieJwtAuth,
-  publicationsController.deletePublications,
+  mongooseMiddleware.validatePublicationObjectId,
+  publicationsController.deletePublication,
 );
 
 publicationsRouter.patch(
@@ -52,6 +53,12 @@ publicationsRouter.post(
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
   publicationsController.importPublications,
+);
+
+publicationsRouter.patch(
+  '/',
+  authMiddleware.cookieJwtAuth,
+  publicationsController.deleteBulkPublications,
 );
 
 module.exports = publicationsRouter;
