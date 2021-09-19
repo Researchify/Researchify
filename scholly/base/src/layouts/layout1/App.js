@@ -9,7 +9,13 @@ import Header from './components/layout/Header';
 import getRoutes from './components/router/routes';
 import './components/centered.css';
 import '../../shared/css/baseColours.css';
-import '../../shared/css/darkColours.css';
+
+const darkMode = true;
+if (darkMode) {
+  import '../../shared/css/darkColours.css';
+} else {
+  import '../../shared/css/lightColours.css';
+}
 
 const App = () => {
   const { teamName } = TEAM_INFO;

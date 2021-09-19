@@ -9,6 +9,13 @@ import getRoutes from './components/router/routes';
 import './components/centered.css';
 import { TEAM_INFO } from '../../global/data';
 
+const darkMode = true;
+if (darkMode) {
+  import '../../shared/css/darkColours.css';
+} else {
+  import '../../shared/css/lightColours.css';
+}
+
 const App = () => {
   const { teamName } = TEAM_INFO;
   const routeItems = getRoutes().map(({ path, exact, component }) => {
