@@ -23,24 +23,22 @@ import { createTeam } from '../../../actions/team';
 const StringPasswordHint = (props) => (
   <Popover id="strong-pw-hint" {...props}>
     <Popover.Content>
-      <p>
-        Password must include:
-        <br />
-        {' '}
-        - 8-20 characters
-        <br />
-        {' '}
-        - At least 1 uppercase letter
-        <br />
-        {' '}
-        - At least 1 lowercase letter
-        <br />
-        {' '}
-        - At least 1 number
-        <br />
-        {' '}
-        - At least 1 symbol from @$!%*#?&
-      </p>
+      Password must include:
+      <br />
+      {' '}
+      - 8-20 characters
+      <br />
+      {' '}
+      - At least 1 uppercase letter
+      <br />
+      {' '}
+      - At least 1 lowercase letter
+      <br />
+      {' '}
+      - At least 1 number
+      <br />
+      {' '}
+      - At least 1 symbol from @$!%*#?&
     </Popover.Content>
   </Popover>
 );
