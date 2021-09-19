@@ -180,7 +180,7 @@ async function getGoogleScholarPublications(req, res) {
     await Promise.all(links).then(() => { logger.info('Done scraping'); });
     console.timeEnd('scraping');
 
-    // await page.close();
+    await page.close();
 
     const newPublications = await validateImportedPublications(
       teamId,
@@ -220,7 +220,7 @@ async function scrapeGoogleScholar(url, context) {
   const values = await page.$$eval('div.gsc_oci_value', (titles) => titles.map((title) => title.innerText));
   const fields = await page.$$eval('div.gsc_oci_field', (titles) => titles.map((title) => title.innerText));
 
-  // await page.close();
+  await page.close();
 
   const publicationInfo = {};
   fields.forEach((key, i) => {
