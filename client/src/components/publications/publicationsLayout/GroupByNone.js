@@ -29,7 +29,7 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
       if (checkedPublications.includes(pub._id)) count += 1;
     });
     setCheckedCounter(count);
-  }, [checkAll, checkedPublications]);
+  }, [checkAll, checkedPublications, teamPublications]);
 
   const handleChange = () => {
     if (checkAll) {

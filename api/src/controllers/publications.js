@@ -15,15 +15,16 @@ const Publication = require('../models/publication.model');
 const Team = require('../models/team.model');
 
 const { fillErrorObject } = require('../middleware/error');
+
 /**
-* Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
-*
-* @param req request object - the publication id given in the url
-* @param res response object
-* @returns 200: publication deleted successfully
-* @returns 404: publication not found
-* @returns 400: error deleting publication
-*/
+ * Handles a DELETE request to delete a publication by the mongo object id on the endpoint /publications/:id.
+ *
+ * @param req request object - the publication id given in the url
+ * @param res response object
+ * @returns 200: publication deleted successfully
+ * @returns 404: publication not found
+ * @returns 400: error deleting publication
+ */
 function deletePublication(req, res, next) {
   const { id: _id } = req.params;
   Publication.findByIdAndRemove(_id)

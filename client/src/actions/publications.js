@@ -62,6 +62,7 @@ export const deletePublication = (id) => async (dispatch) => {
       type: DELETE_PUBLICATION,
       payload: id,
     });
+    dispatch(successMessageCreator('Publication has been deleted'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
