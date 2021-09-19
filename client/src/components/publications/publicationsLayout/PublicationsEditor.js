@@ -6,6 +6,7 @@ import { PropTypes } from 'prop-types';
 import { sortingOptions, groupByOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 import '../publications.css';
+import { PrimaryButton } from '../../shared/styledComponents';
 
 export const StyledButtonGroup = styled.div`
   background-color: transparent;
@@ -32,22 +33,6 @@ export const ButtonGroupItem = styled.button`
     && 'color: #4d4d4d; background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'
   )
 }
-`;
-
-export const EditorButton = styled.button`
-  color: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  width: auto;
-  background-color: #007bff;
-  border-color: #007bff;
-  padding: .25rem .5rem;
-  font-size: .875rem;
-  line-height: 1.5;
-  border-radius: .2rem;
-  &:hover{
-    background-color: #0069d9;
-  }
 `;
 
 const PublicationsEditor = ({
@@ -134,11 +119,12 @@ const PublicationsEditor = ({
 
       <Col md={2} sm={2}>
         <StyledButtonGroup>
-          <EditorButton
+          <PrimaryButton
+            fontSize="0.875rem"
             onClick={handleUpdate}
           >
             Update Layout
-          </EditorButton>
+          </PrimaryButton>
         </StyledButtonGroup>
       </Col>
     </Row>

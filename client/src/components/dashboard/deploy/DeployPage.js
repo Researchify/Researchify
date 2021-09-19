@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
-import { Button, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
 import { PropTypes } from 'prop-types';
@@ -9,6 +9,8 @@ import { PropTypes } from 'prop-types';
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
 import './DeployPage.css';
+
+import { PrimaryButton } from '../../shared/styledComponents';
 
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
@@ -51,14 +53,13 @@ const DeployPage = ({ teamId }) => {
   );
 
   const DeployButton = (
-    <Button
+    <PrimaryButton
       className="float-right"
-      variant="primary"
       disabled={!retrievedAccessToken}
       onClick={handleDeploy}
     >
       Deploy to GitHub Pages
-    </Button>
+    </PrimaryButton>
   );
 
   return (

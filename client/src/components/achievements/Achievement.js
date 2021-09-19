@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
+import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 
 const Achievement = ({ achievement }) => {
   const dispatch = useDispatch();
@@ -32,22 +33,20 @@ const Achievement = ({ achievement }) => {
 
   const displayOptions = (
     <ButtonGroup>
-      <Button
+      <PrimaryButton
         onClick={() => setShowUpdateForm(true)}
-        variant="primary"
         data-toggle="modal"
       >
         {' '}
         <AiFillEdit />
         {' '}
-      </Button>
-      <Button
+      </PrimaryButton>
+      <DangerButton
         onClick={() => setShowDeleteMessage(true)}
-        variant="danger"
         data-toggle="modal"
       >
         <AiFillDelete />
-      </Button>
+      </DangerButton>
     </ButtonGroup>
   );
 
