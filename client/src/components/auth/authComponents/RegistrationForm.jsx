@@ -17,19 +17,19 @@ export default function RegistrationForm() {
   const teamInfoSchema = yup.object({
     teamName: yup
       .string()
-      .required('Team Name is required')
+      .required('Team name is required')
       .min(3, 'Must be at least 3 characters'),
     orgName: yup
       .string()
-      .required('Organization Name is required')
+      .required('Organization name is required')
       .min(3, 'Must be at least 3 characters'),
     email: yup
       .string()
-      .email('Invalid Email')
+      .email('Invalid email')
       .required('Email is required'),
     password: yup
       .string()
-      .required('Please Enter your password')
+      .required('Please enter your password')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         'Use 8 or more characters with a mix of letters, numbers & symbols',

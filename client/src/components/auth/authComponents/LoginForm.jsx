@@ -16,10 +16,10 @@ const LoginForm = () => {
   const teamInfoSchema = yup.object({
     email: yup
       .string()
-      .required('Please Enter your Email'),
+      .required('Please enter your email'),
     password: yup
       .string()
-      .required('Please Enter your password'),
+      .required('Please enter your password'),
   });
 
   const authData = {
