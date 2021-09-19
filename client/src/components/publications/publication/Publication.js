@@ -32,13 +32,16 @@ const Publication = ({ pub }) => {
 
   useEffect(() => {
     if (pub.newlyAdded) {
-      delete pub.newlyAdded;
+      // delete pub.newlyAdded;
       setInterval(() => {
         setNewlyAdded(false);
+        dispatch({
+          type: 'REVERT_HEADER_COLOR',
+        });
       }, 2500);
       setNewlyAdded(true);
     }
-  }, [pub.newlyAdded, pub._id]);
+  }, [pub]);
 
   const handleDelete = () => {
     dispatch(deletePublications([pub._id]));

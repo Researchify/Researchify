@@ -50,6 +50,7 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
     const publicationIdList = teamPublications.filter((pub) => checkedPublications.includes(pub._id));
     dispatch(deletePublications(publicationIdList.map((pub) => pub._id)));
     setCheckedCounter(0);
+    setShowDeleteMessage(false);
   };
 
   return (
