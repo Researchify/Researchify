@@ -20,28 +20,28 @@ jobs:
           context: ./api
           file: ./api/Dockerfile
           push: true
-          tags: ak1738/researchify-api:latest
+          tags: ak1738/researchify-api-staging:latest
       - name: Push Client Image to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: ./client
           file: ./client/Dockerfile
           push: true
-          tags: ak1738/researchify-client:latest
+          tags: ak1738/researchify-client-staging:latest
       - name: Push NGINX Image to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: ./nginx
           file: ./nginx/Dockerfile
           push: true
-          tags: ak1738/researchify-nginx:latest
+          tags: ak1738/researchify-nginx-staging:latest
       - name: Push Scholly Image to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: ./scholly
           file: ./scholly/Dockerfile
           push: true
-          tags: ak1738/researchify-scholly:latest
+          tags: ak1738/researchify-scholly-staging:latest
   deploy:
     name: Deploy to AWS Elastic Beanstalk
     needs:
