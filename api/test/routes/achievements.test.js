@@ -4,14 +4,14 @@
  */
 const supertest = require('supertest');
 
-const Achievement = require('../../src/models/achievement.model');
-const {
-  connectDb,
-  closeConnection,
-  clearAllCollections,
-  deleteDb,
-  seedDb,
-} = require('../util/db');
+// const Achievement = require('../../src/models/achievement.model');
+// const {
+//   connectDb,
+//   closeConnection,
+//   clearAllCollections,
+//   deleteDb,
+//   seedDb,
+// } = require('../util/db');
 
 const app = require('../../src/app');
 
