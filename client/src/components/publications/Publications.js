@@ -4,15 +4,16 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Spinner, Alert } from 'react-bootstrap';
+import {
+  Modal, Alert, Jumbotron, Container,
+} from 'react-bootstrap';
 import { getPublicationsByTeamId } from '../../actions/publications';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
 import './publications.css';
 import GroupByNone from './publicationsLayout/GroupByNone';
 import GroupByCategory from './publicationsLayout/GroupByCategory';
-import PublicationsButtons from './publicationsLayout/PublicationsButtons';
-import PublicationsDropdown from './publicationsLayout/PublicationsDropdown';
+import PublicationsEditor from './publicationsLayout/PublicationsEditor';
 import { groupByOptions, sortingOptions } from '../../config/publications';
 
 const Publications = () => {
@@ -61,6 +62,14 @@ const Publications = () => {
           return 0;
         });
         break;
+      case sortingOptions.YEAR:
+        // year
+        publicationToBeSorted.sort((a, b) => {
+          if (a.year > b.year) return -1;
+          if (a.year < b.year) return 1;
+          return 0;
+        });
+        break;
       case 'Category Title':
         // journal or conference title
         publicationToBeSorted.sort((a, b) => {
@@ -92,35 +101,28 @@ const Publications = () => {
   }, [teamPublications]);
 
   return (
-    <>
-      <PublicationsButtons
-        setShowCreateForm={setShowCreateForm}
-        setShowImportForm={setShowImportForm}
-      />
-      <PublicationsDropdown
-        options={options}
-        setOptions={setOptions}
-        sortPublications={sortPublications}
-        publication={publications}
-        teamId={teamId}
-      />
-      <div className="text-center">
-        {loading ? (
-          <Spinner animation="border" />
-        ) : (
-          <h4>
-            Total of
-            {` ${teamPublications.length} `}
-            publications
-          </h4>
-        )}
-      </div>
+    <Jumbotron style={{ minHeight: '85vH', height: 'auto' }}>
+      <Container className="publication-editor">
+        <div>
+          <PublicationsEditor
+            options={options}
+            setOptions={setOptions}
+            sortPublications={sortPublications}
+            publications={publications}
+            teamId={teamId}
+            setShowCreateForm={setShowCreateForm}
+            setShowImportForm={setShowImportForm}
+          />
+        </div>
+      </Container>
 
       {teamPublications.length === 0 && !loading ? (
-        <Alert variant="primary">
-          There is no publication for this team. Please add or import
-          publications.
-        </Alert>
+        <div style={{ marginTop: '30px' }} className="publicationList">
+          <Alert variant="primary">
+            There is no publication for this team. Please add or import
+            publications.
+          </Alert>
+        </div>
       ) : (
         renderPublications()
       )}
@@ -147,7 +149,7 @@ const Publications = () => {
           <ImportForm closeModal={() => setShowImportForm(false)} />
         </Modal.Body>
       </Modal>
-    </>
+    </Jumbotron>
   );
 };
 
