@@ -16,9 +16,9 @@ const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
   const dispatch = useDispatch();
 
   const isDeleteFlag = type;
-  const titleMessage = isDeleteFlag ? 'Delete Account Data!' : 'Clear Account Data!';
+  const titleMessage = isDeleteFlag ? 'Delete Account Data!' : 'Reset Account Data!';
   const warningMessage = isDeleteFlag ? 'Are you sure you want to delete your account? ' : 'Are you sure you want to reset your account? ';
-  const buttonName = isDeleteFlag ? 'Delete' : 'Clear';
+  const buttonName = isDeleteFlag ? 'Delete' : 'Reset';
 
   const HandleResetType = () => {
     const accessToken = localStorage.getItem('GH_access_token');
