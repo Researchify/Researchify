@@ -26,7 +26,7 @@ const Publication = ({ pub }) => {
           {pub.yearPublished}
           {' '}
         </div>
-        <Button variant="primary" className="button-pub" onClick={() => setModalShow(true)}>
+        <Button variant="" className="button-pub" onClick={() => setModalShow(true)}>
           View this Publication
         </Button>
         <PublicationModal

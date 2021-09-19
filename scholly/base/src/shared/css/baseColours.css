@@ -49,6 +49,18 @@ a:hover, a:focus, .navbar a:hover, .navbar a:focus, .sidebar a:focus {
     border-color: var(--researchify-color-quinary);
 }
 
+.btn {
+    background-color: var(--researchify-color-secondary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.btn:hover, .btn:active, .btn:focus {
+    background-color: var(--researchify-color-tertiary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
 .team-card, .award-card {
     color: var(--researchify-text-color-secondary);
     background-color: var(--researchify-color-secondary);
@@ -68,4 +80,21 @@ a:hover, a:focus, .navbar a:hover, .navbar a:focus, .sidebar a:focus {
     background-color: var(--researchify-color-tertiary);
     border-color: var(--researchify-color-secondary);
     color: var(--researchify-text-color);
+}
+
+.modal-content {
+    background-color: var(--researchify-color-primary);
+    color: var(--researchify-text-color);
+}
+
+.modal .btn {
+    background-color: var(--researchify-color-secondary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.modal .btn:hover, .modal .btn:active, .modal .btn:focus {
+    background-color: var(--researchify-color-tertiary)!important;
+    border-color: var(--researchify-color-secondary)!important;
+    color: var(--researchify-text-color)!important;
 }
