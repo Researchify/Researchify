@@ -4,16 +4,16 @@
  */
 import React, { useState } from 'react';
 import {
-  Container, Button, Form, Col, Image,
+  Container, Button, Form, Col, Card,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { updateTheme } from '../../actions/website';
 
 // Picture of each layout
-import singleColumnLayout from '../../images/theme1.png';
-import fShapeLayout from '../../images/f-shape-layout.png';
-import zigZagLayout from '../../images/zig-zag-layout.png';
+import layout1 from '../../images/layout_1.png';
+import layout2 from '../../images/layout_2.png';
+import layout3 from '../../images/layout_3.png';
 
 /**
  * Form for user input github credentials and select template.
@@ -118,7 +118,7 @@ const TemplateSelector = (props) => {
         <Form.Label>Select a Layout</Form.Label>
         <Container fluid>
           <Form.Row>
-            <Col className="layout-display">
+            <Col className="layout-display" xs={12} xl={4} sm={6}>
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label htmlFor="layout1">
                 <Form.Check
@@ -132,13 +132,17 @@ const TemplateSelector = (props) => {
                   className="form-radio-text"
                   onChange={updateSelections}
                 />
-                <Image
-                  src={singleColumnLayout}
-                  className="img-fluid"
-                />
+                <Card border="dark">
+
+                  <Card.Img
+                    src={layout1}
+                    style={{ width: '18rem', height: '12rem' }}
+                    className="img-fluid"
+                  />
+                </Card>
               </label>
             </Col>
-            <Col className="layout-display">
+            <Col className="layout-display" xs={12} xl={4} sm={6}>
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label htmlFor="layout2">
                 <Form.Check
@@ -152,13 +156,16 @@ const TemplateSelector = (props) => {
                   className="form-radio-text"
                   onChange={updateSelections}
                 />
-                <Image
-                  src={fShapeLayout}
-                  className="img-fluid"
-                />
+                <Card border="dark">
+                  <Card.Img
+                    src={layout2}
+                    style={{ width: '18rem', height: '12rem' }}
+                    className="img-fluid"
+                  />
+                </Card>
               </label>
             </Col>
-            <Col className="layout-display">
+            <Col className="layout-display" xs={12} xl={4} sm={12}>
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label htmlFor="layout3">
                 <Form.Check
@@ -172,10 +179,13 @@ const TemplateSelector = (props) => {
                   className="form-radio-text"
                   onChange={updateSelections}
                 />
-                <Image
-                  src={zigZagLayout}
-                  className="img-fluid"
-                />
+                <Card>
+                  <Card.Img
+                    src={layout3}
+                    style={{ width: '18rem', height: '12rem' }}
+                    className="img-fluid"
+                  />
+                </Card>
               </label>
             </Col>
           </Form.Row>
