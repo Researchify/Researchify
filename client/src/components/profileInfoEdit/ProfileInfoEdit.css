@@ -28,23 +28,23 @@
 }
 
 .profile-pic {
-  width:0;
-  height:0;
-  z-index:-1;
-  position:absolute;
-  overflow:hidden;
-  opacity:0;
+  width: 0;
+  height: 0;
+  z-index: -1;
+  position: absolute;
+  overflow: hidden;
+  opacity: 0;
 }
 
 .upload-label {
-  width:180px;
-  height:38px;
-  background:#0d6efd;
-  color:white;
-  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
-  display:block;
-  text-align:center;
-  line-height:38px;
+  width: 180px;
+  height: 38px;
+  background: #0d6efd;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  display: block;
+  text-align: center;
+  line-height: 38px;
   border-radius: 5px;
   margin: 0 auto;
   cursor: pointer;
@@ -52,7 +52,7 @@
 
 .upload-label:hover {
   background: #104ba9;
-  color:white;
+  color: white;
 }
 
 .profile-btn-group {
