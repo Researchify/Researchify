@@ -61,7 +61,7 @@ const Dashboard = () => {
               loading={loading}
             />
           </Tab>
-          <Tab eventKey="theme" title="Theme">
+          <Tab eventKey="theme" title="Theme" className="pb-5">
             <TemplateSelector teamId={teamId} />
           </Tab>
         </Tabs>

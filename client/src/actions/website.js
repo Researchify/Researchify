@@ -109,7 +109,8 @@ export const updateTheme = (teamId, themeData) => async (dispatch) => {
       },
       {
         field: 'theme',
-        value: themeData.theme,
+        // DB expects a string not a boolean
+        value: themeData.darkMode ? '2' : '1',
       },
     ];
     const { data } = await api.updateClientWebMetadata(teamId, changes);
