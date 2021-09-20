@@ -117,7 +117,6 @@ const Achievement = ({ achievement }) => {
             <Button
               variant="outlined"
               color="primary"
-              padding-right="100px"
               onClick={() => setShowDeleteMessage(false)}
             >
               Cancel
