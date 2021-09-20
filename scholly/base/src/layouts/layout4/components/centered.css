@@ -5,10 +5,6 @@
   top: 0;
 }
 
-a {
-  color: inherit;
-}
-
 /* top padding for each page, to avoid overlapping with header */
 .pages-top-padding {
   padding-top: 50px;
@@ -56,6 +52,7 @@ a {
 }
 
 .publication-title-column {
+  background-color: white;
   border: transparent;
 }
 

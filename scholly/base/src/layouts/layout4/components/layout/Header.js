@@ -15,7 +15,8 @@ const Header = () => {
       <Navbar
         collapseOnSelect
         expand="md"
-        variant=""
+        bg="light"
+        variant="primary"
         fixed="top"
       >
         <Container fluid>
