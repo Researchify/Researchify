@@ -1,5 +1,5 @@
 /**
- * Exports client website metadata-related enums
+ * Exports client website metadata-related enums.
  */
 
 const layoutOptions = ['1', '2', '3'];

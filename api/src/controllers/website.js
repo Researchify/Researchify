@@ -81,7 +81,7 @@ async function deleteWebPage(req, res, next) {
  * @returns 200: changes updated in DB
  * @returns 500: Server error while saving to DB
  */
-async function patchClientWebMetadata(req, res, next) { // eslint-disable-line no-unused-vars
+async function updateClientWebMetadata(req, res, next) { // eslint-disable-line no-unused-vars
   const data = req.body;
   const { team_id: _id } = req.params;// TODO: teamId get from the token instead of parameters?
   const newChanges = {};
@@ -106,5 +106,5 @@ module.exports = {
   addWebPage,
   deleteWebPage,
   getWebPageDetails,
-  patchClientWebMetadata,
+  updateClientWebMetadata,
 };

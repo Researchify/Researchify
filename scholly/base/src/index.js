@@ -15,11 +15,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-grid.css';
 import 'bootstrap/dist/css/bootstrap-reboot.css';
 
-import { WEB_METADATA } from './global/data';
+import { TEAM_SITE_METADATA } from './global/data';
 
 /// Decides which of the root App components of the various layouts to display.
 /// This determination is based off the provided LAYOUT_OPTION environment variable.
-const layoutOption = WEB_METADATA.layout;
+const layoutOption = TEAM_SITE_METADATA.layout;
 const layoutToDisplay = () => {
   switch (layoutOption) {
     case '1': // TODO: there might be a better way to do this.

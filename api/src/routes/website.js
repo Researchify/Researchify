@@ -11,6 +11,6 @@ websiteRouter.post('/:teamId/add_page', websiteController.addWebPage);
 
 websiteRouter.post('/:teamId/delete_page', websiteController.deleteWebPage);
 
-websiteRouter.patch('/:team_id', websiteController.patchClientWebMetadata);
+websiteRouter.patch('/:team_id', websiteController.updateClientWebMetadata);
 
 module.exports = websiteRouter;

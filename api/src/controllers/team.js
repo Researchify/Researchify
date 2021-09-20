@@ -251,7 +251,7 @@ async function deployToGHPages(req, res, next) {
     teamInfo,
     teamMembers,
     teamHomepage,
-    webMetaData,
+    teamSiteMetadata,
     teamAchievements,
   } = req.body;
 
@@ -275,7 +275,7 @@ async function deployToGHPages(req, res, next) {
     teamInfo,
     teamMembers,
     teamHomepage,
-    webMetaData,
+    teamSiteMetadata,
     teamAchievements,
   };
 
