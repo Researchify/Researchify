@@ -28,45 +28,43 @@ export const PrimaryButton = styled.button` // Purple
   }
 `;
 
-// export const SecondaryButton = styled.button` // Outline-Purple
+// export const SecondaryButton = styled.button` // Outline-Gold
 //     padding: .375rem .75rem;
-//     border: 1px solid #56658a;
+//     border: 1px solid #AB9671;
 //     border-radius: .25rem;
-//     background-color: white;
-//     color: #56658a;
+//     background-color: inherit;
+//     color: #AB9671;
 //     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 //     font-size: ${(props) => props.fontSize}; //.875rem;
 //   &:hover{
-//     background-color:rgb(60, 70, 96);
+//     background-color:rgb(119, 105, 79);
 //     color: white;
 //   }
 // `;
 
 // export const PrimaryButton = styled.button` // Gold
 //     padding: .375rem .75rem;
-//     border: 1px;
+//     border: 1px solid #AB9671;
 //     border-radius: .25rem;
-//     border-color: #AB9671;
 //     background-color: #AB9671;
 //     color: white;
 //     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 //     font-size: ${(props) => props.fontSize}; //.875rem;
 //   &:hover{
-//     background-color: #AB9671;
-//     color: white;
+//     background-color: rgb(119, 105, 79);
 //   }
 // `;
 
-export const SecondaryButton = styled.button` // Outline-Gold
+export const SecondaryButton = styled.button` // Outline-Purple
     padding: .375rem .75rem;
-    border: 1px solid #AB9671;
+    border: 1px solid #56658a;
     border-radius: .25rem;
-    background-color: inherit;
-    color: #AB9671;
+    background-color: transparent;
+    color: #56658a;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     font-size: ${(props) => props.fontSize}; //.875rem;
   &:hover{
-    background-color:#AB9671;
+    background-color:rgb(60, 70, 96);
     color: white;
   }
 `;

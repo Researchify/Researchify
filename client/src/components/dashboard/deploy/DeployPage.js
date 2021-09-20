@@ -6,11 +6,38 @@ import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
 import { PropTypes } from 'prop-types';
 
+import styled from 'styled-components';
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
 import './DeployPage.css';
 
 import { PrimaryButton } from '../../shared/styledComponents';
+
+// const GHButton = styled(GitHubLogin)` //Purple
+//     padding: .375rem .75rem;
+//     border: 1px solid #56658a;
+//     border-radius: .25rem;
+//     background-color: #56658a;
+//     color: white;
+//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+//     font-size: ${(props) => props.fontSize}; //.875rem;
+//   &:hover{
+//     background-color:rgb(60, 70, 96);
+//   }
+// `;
+
+const GHButton = styled(GitHubLogin)` //Gold
+    padding: .375rem .75rem;
+    border: 1px solid #AB9671 !important;
+    border-radius: .25rem;
+    background-color: #AB9671;
+    color: white;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: ${(props) => props.fontSize}; //.875rem;
+  &:hover{
+    background-color: rgb(119, 105, 79);
+  }
+`;
 
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
@@ -39,7 +66,7 @@ const DeployPage = ({ teamId }) => {
   };
 
   const GitHubLoginButton = (
-    <GitHubLogin
+    <GHButton
       className="float-right github-login-button"
       clientId={githubClientId}
       scope={scope}
@@ -49,7 +76,7 @@ const DeployPage = ({ teamId }) => {
     >
       <GoMarkGithub className="mr-2" />
       Login with GitHub
-    </GitHubLogin>
+    </GHButton>
   );
 
   const DeployButton = (

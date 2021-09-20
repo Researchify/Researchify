@@ -15,7 +15,7 @@ export const StyledButtonGroup = styled.div`
   color: black;
 `;
 
-export const ButtonGroupItem = styled.button`
+export const ButtonGroupItem = styled.button` 
   background: #ededed;
   border: 1px solid ${(props) => props.borderColor || '#ccc'};
   padding: 1px 8px;
@@ -33,6 +33,45 @@ export const ButtonGroupItem = styled.button`
     && 'color: #4d4d4d; background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'
   )
 }
+`;
+
+export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
+    padding: .375rem .75rem;
+    border: 1px solid #56658a;
+    border-radius: .25rem;
+    background-color: #56658a;
+    color: white;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: ${(props) => props.fontSize};
+  &:not(:disabled){
+    background-color:#56658a !important;
+  }
+  &:not(:disabled):hover{
+    background-color:rgb(60, 70, 96) !important;
+  }
+`;
+
+// export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Gold
+//     padding: .375rem .75rem;
+//     border: 1px solid #AB9671;
+//     border-radius: .25rem;
+//     border-color: #AB9671;
+//     background-color: #AB9671;
+//     color: white;
+//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+//     font-size: ${(props) => props.fontSize};
+//   &:not(:disabled){
+//     background-color:#AB9671 !important;
+//   }
+//   &:not(:disabled):hover{
+//     background-color:rgb(119, 105, 79) !important;
+//   }
+// `;
+
+export const StyledDropdowItem = styled(Dropdown.Item)`
+  &:not(:disabled):hover{
+    background-color:#F6F6F6 !important;
+  }
 `;
 
 const PublicationsEditor = ({
@@ -54,12 +93,12 @@ const PublicationsEditor = ({
       <Col md={1} sm={2}>
         <StyledButtonGroup>
           <Dropdown>
-            <Dropdown.Toggle size="sm">
+            <StyledDropdownToggle size="sm">
               Add
-            </Dropdown.Toggle>
+            </StyledDropdownToggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => setShowCreateForm(true)}>Add Manually</Dropdown.Item>
-              <Dropdown.Item onClick={() => setShowImportForm(true)}>Import Publications</Dropdown.Item>
+              <StyledDropdowItem onClick={() => setShowCreateForm(true)}>Add Manually</StyledDropdowItem>
+              <StyledDropdowItem onClick={() => setShowImportForm(true)}>Import Publications</StyledDropdowItem>
             </Dropdown.Menu>
           </Dropdown>
         </StyledButtonGroup>

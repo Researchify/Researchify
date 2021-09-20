@@ -8,13 +8,14 @@ import React from 'react';
 import {
   Row,
   InputGroup,
+  Button,
   Tooltip,
   OverlayTrigger,
   Form,
 } from 'react-bootstrap';
 import '../publications.css';
 import { PropTypes } from 'prop-types';
-import { PrimaryButton, SecondaryButton, DangerButton } from '../../shared/styledComponents';
+import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 
 const MainInfoPage = ({
   next, data, type, pub, closeModal,
@@ -70,16 +71,17 @@ const MainInfoPage = ({
         isInvalid={touched.authors && errors.authors && errors.authors[index]}
       />
       <InputGroup.Append>
-        <SecondaryButton
+        <Button
           onClick={() => {
             const newAuthors = values.authors;
             newAuthors.splice(index, 1);
             setValues({ ...values, authors: newAuthors });
           }}
+          variant="outline-secondary"
           disabled={values.authors.length === 1}
         >
           Remove
-        </SecondaryButton>
+        </Button>
       </InputGroup.Append>
       <Form.Control.Feedback type="invalid">
         {errors.authors && errors.authors[index]}
@@ -143,13 +145,14 @@ const MainInfoPage = ({
             <Form.Group>
               <Form.Label> Authors </Form.Label>
               {renderAuthors(values, touched, errors, handleChange, setValues)}
-              <SecondaryButton
+              <Button
+                variant="secondary"
                 onClick={() => {
                   setValues({ ...values, authors: [...values.authors, ''] });
                 }}
               >
                 Add Author
-              </SecondaryButton>
+              </Button>
             </Form.Group>
 
             <Form.Group>
@@ -194,7 +197,6 @@ const MainInfoPage = ({
                 >
                   <DangerButton
                     className="mr-2"
-                    variant="outline-danger"
                     onClick={closeModal}
                   >
                     Cancel
@@ -202,7 +204,7 @@ const MainInfoPage = ({
                 </OverlayTrigger>
               </div>
               <div className="ml-auto mr-3">
-                <PrimaryButton variant="outline-primary" type="submit">
+                <PrimaryButton type="submit">
                   {' '}
                   Next
                   {' '}
