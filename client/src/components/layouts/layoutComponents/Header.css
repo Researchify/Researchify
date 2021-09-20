@@ -1,39 +1,38 @@
 .header {
-    top: 0;
-    padding-top: 5px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #26282a;
-    max-height: 70px;
+  top: 0;
+  padding-top: 5px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #26282a;
+  max-height: 70px;
 }
 
 .profile-picture {
-    height: 30px;
+  height: 30px;
 }
 
 .header-link {
-    color: #000000;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
-    padding: 15px;
+  color: #000000;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 15px;
 }
 
 .header-link:hover {
-    color: #2b61f2;
-    text-decoration: none;
+  color: #2b61f2;
+  text-decoration: none;
 }
 
 .header-brand {
-    color: #03a9f4;
-    margin-left: 12px;
-    font-family: 'Fredoka One', cursive;
+  color: #03a9f4;
+  margin-left: 12px;
+  font-family: "Fredoka One", cursive;
 }
 
 .header-brand:hover {
-    color: #2b61f2;
-    text-decoration: none;
+  color: #2b61f2;
+  text-decoration: none;
 }
 
 .header-profile-icon {
-    font-size: 25px;
+  font-size: 25px;
 }
-  
