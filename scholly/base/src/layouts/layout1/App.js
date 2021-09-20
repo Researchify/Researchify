@@ -11,7 +11,7 @@ import './components/centered.css';
 import '../../shared/css/style.css';
 import '../../shared/css/baseColours.css';
 
-const darkMode = true;
+const darkMode = false;
 if (darkMode) {
   import('../../shared/css/darkColours.css');
 } else {
