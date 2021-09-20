@@ -21,7 +21,7 @@ import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
 import profilePic from '../../images/profilepic.jpg';
-import { PrimaryButton, SecondaryButton, DangerButton } from '../shared/styledComponents';
+import { SecondaryButton, DangerButton } from '../shared/styledComponents';
 
 const TeamMember = ({ member }) => {
   const dispatch = useDispatch();
@@ -36,15 +36,17 @@ const TeamMember = ({ member }) => {
 
   const displayOptions = (
     <ButtonGroup>
-      <PrimaryButton
+      <SecondaryButton
+        backgroundColor="white"
         onClick={() => setShowUpdateForm(true)}
         data-toggle="modal"
       >
         {' '}
         <AiFillEdit />
         {' '}
-      </PrimaryButton>
+      </SecondaryButton>
       <DangerButton
+        backgroundColor="white"
         onClick={() => setShowDeleteMessage(true)}
         data-toggle="modal"
       >

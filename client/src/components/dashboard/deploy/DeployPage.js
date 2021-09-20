@@ -13,31 +13,31 @@ import './DeployPage.css';
 
 import { PrimaryButton } from '../../shared/styledComponents';
 
-// const GHButton = styled(GitHubLogin)` //Purple
-//     padding: .375rem .75rem;
-//     border: 1px solid #56658a;
-//     border-radius: .25rem;
-//     background-color: #56658a;
-//     color: white;
-//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-//     font-size: ${(props) => props.fontSize}; //.875rem;
-//   &:hover{
-//     background-color:rgb(60, 70, 96);
-//   }
-// `;
-
-const GHButton = styled(GitHubLogin)` //Gold
+const GHButton = styled(GitHubLogin)` //Purple
     padding: .375rem .75rem;
-    border: 1px solid #AB9671 !important;
+    border: 1px solid #56658a;
     border-radius: .25rem;
-    background-color: #AB9671;
+    background-color: #56658a;
     color: white;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     font-size: ${(props) => props.fontSize}; //.875rem;
   &:hover{
-    background-color: rgb(119, 105, 79);
+    background-color:rgb(60, 70, 96);
   }
 `;
+
+// const GHButton = styled(GitHubLogin)` //Gold
+//     padding: .375rem .75rem;
+//     border: 1px solid #AB9671 !important;
+//     border-radius: .25rem;
+//     background-color: #AB9671;
+//     color: white;
+//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+//     font-size: ${(props) => props.fontSize}; //.875rem;
+//   &:hover{
+//     background-color: rgb(119, 105, 79);
+//   }
+// `;
 
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();

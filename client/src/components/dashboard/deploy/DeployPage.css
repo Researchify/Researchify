@@ -3,7 +3,7 @@
   padding-left: 7px;
   padding-right: 9px;
   border: 1px;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   border-color: #007bff;
   background-color: #007bff;
   color: white;
@@ -11,12 +11,12 @@
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.github-login-button:hover{
+.github-login-button:hover {
   background-color: #0069d9;
   border-color: #0062cc;
 }
 
-.github-login-button:focus{
+.github-login-button:focus {
   color: #fff;
   background-color: #0069d9;
   border-color: #0062cc;

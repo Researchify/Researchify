@@ -154,8 +154,8 @@ const Publication = ({ pub }) => {
               isHovering
             && (
             <StyledButtonGroup className="float-right">
-              <ButtonGroupItem onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
-              <ButtonGroupItem color="red" hoverBorderColor="red" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+              <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
+              <ButtonGroupItem color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
                 <RiDeleteBin6Line />
               </ButtonGroupItem>
             </StyledButtonGroup>

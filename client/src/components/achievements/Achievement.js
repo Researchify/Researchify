@@ -19,7 +19,7 @@ import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
-import { PrimaryButton, DangerButton } from '../shared/styledComponents';
+import { SecondaryButton, DangerButton } from '../shared/styledComponents';
 
 const Achievement = ({ achievement }) => {
   const dispatch = useDispatch();
@@ -33,14 +33,14 @@ const Achievement = ({ achievement }) => {
 
   const displayOptions = (
     <ButtonGroup>
-      <PrimaryButton
+      <SecondaryButton
         onClick={() => setShowUpdateForm(true)}
         data-toggle="modal"
       >
         {' '}
         <AiFillEdit />
         {' '}
-      </PrimaryButton>
+      </SecondaryButton>
       <DangerButton
         onClick={() => setShowDeleteMessage(true)}
         data-toggle="modal"
