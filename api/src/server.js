@@ -1,13 +1,11 @@
 /**
- * This module configures and starts an express REST API server.
+ * This module configures and exports an Express REST API server.
  */
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
-const connectDb = require('./config/db');
-const logger = require('./config/log');
 const publicationsRouter = require('./routes/publications');
 const teamRouter = require('./routes/team');
 const authRouter = require('./routes/auth');
@@ -16,13 +14,10 @@ const websiteRouter = require('./routes/website');
 const achievementsRouter = require('./routes/achievements');
 const homepageRouter = require('./routes/homepage');
 const { errorHandler } = require('./middleware/error');
+require('./config/log');
 
-// Connect to the database
-connectDb();
-
-// Create and configure express server
+// Create Express server
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Use cors and express.json and cookie parser
 app.use(cors());
@@ -45,5 +40,4 @@ app.use('/homepage', homepageRouter);
 // Use the custom error handling middleware
 app.use(errorHandler);
 
-// Listen for connections
-app.listen(PORT, () => logger.info(`Server running on port: ${PORT}`));
+module.exports = app;
