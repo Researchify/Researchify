@@ -11,10 +11,13 @@ import './components/centered.css';
 import '../../shared/css/style.css';
 import '../../shared/css/baseColours.css';
 
-const darkMode = false;
-if (darkMode) {
+const themeOption = '1';
+if (themeOption === '1') {
+  import('../../shared/css/lightColours.css');
+} else if (themeOption === '2') {
   import('../../shared/css/darkColours.css');
 } else {
+  // Fallback to light mode if unkown theme option is used
   import('../../shared/css/lightColours.css');
 }
 
