@@ -89,9 +89,7 @@ const ProfileInfoEdit = () => {
         'Use 8 or more characters with a mix of letters, numbers & symbols',
       ),
     confirmedPassword: yup
-      .string()
-      .required('Please re-enter your password')
-      .oneOf([yup.ref('password'), null], 'Passwords must match'),
+      .string(),
   });
 
   const checkPassword = async () => {
