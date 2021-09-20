@@ -16,16 +16,17 @@ const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
   const dispatch = useDispatch();
 
   const isDeleteFlag = type;
-  const titleMessage = isDeleteFlag ? 'Delete Account Data!' : 'Reset Account Data!';
+  const titleMessage = isDeleteFlag ? 'Delete Account!' : 'Reset Account Data!';
   const warningMessage = isDeleteFlag ? 'Are you sure you want to delete your account? ' : 'Are you sure you want to reset your account? ';
   const buttonName = isDeleteFlag ? 'Delete' : 'Reset';
-
+  const warningContent = isDeleteFlag ? 'All significant data will be reset!' : 'All significant data will be deleted including your account data!';
   const HandleResetType = () => {
     const accessToken = localStorage.getItem('GH_access_token');
     dispatch(resetHomepage(teamId));
     dispatch(resetWebPage(teamId));
-    dispatch(deleteGHPages(teamId, accessToken));
-
+    if (accessToken) {
+      dispatch(deleteGHPages(teamId, accessToken));
+    }
     // changes based on button clicked at run time
     dispatch(resetTeamData(teamId, isDeleteFlag));
 
@@ -45,7 +46,7 @@ const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
       </Modal.Header>
       <Modal.Body>
         {warningMessage}
-        All significant data will be deleted!
+        {warningContent}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="light" onClick={() => setResetAlert(false)}>

@@ -44,11 +44,11 @@ const GhLogInModal = ({ logInAlert, setLogInAlert }) => {
   return (
     <Modal show={logInAlert}>
       <Modal.Header className="modalHeader">
-        <Modal.Title> Log in! </Modal.Title>
+        <Modal.Title> Please Log in to GitHub </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Looks like you need to log in to continue the ongoing process!
-
+        You will need to login to your GitHub account to proceed with clearing your account data
+        The github repo would not be deleted if you do not login.
         Please Login!
       </Modal.Body>
       <Modal.Footer>

@@ -315,7 +315,7 @@ export const resetTeamData = (teamId, isDelete) => async (dispatch) => {
       type: RESET_TEAM,
     });
 
-    dispatch(successMessageCreator('Profile has been cleared!'));
+    dispatch(successMessageCreator('Your account data has been reset.'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
@@ -358,7 +358,7 @@ export const deleteGHPages = (teamId, accessToken) => async (dispatch) => {
       ghToken: accessToken,
     };
     await api.deleteGHPages(teamId, body);
-    dispatch(successMessageCreator('The deployed GH Pages have been deleted'));
+    dispatch(successMessageCreator('Your GitHub Pages website has been deleted.'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }

@@ -332,8 +332,8 @@ async function resetTeamData(req, res, next) {
     await Publication.deleteMany({ teamId });
     if (isDeleteFlag) {
       await Team.findByIdAndDelete(teamId);
-      return res.status(200).json('Deleted successfully!');
-    } return res.status(200).json('Cleared successfully!');
+      return res.status(200).json('Deleted successfully.');
+    } return res.status(200).json('Cleared successfully.');
   } catch (error) {
     return next(
       fillErrorObject(500, 'Error occurred with server', [error.message]),
