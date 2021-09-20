@@ -113,20 +113,25 @@ const Achievement = ({ achievement }) => {
           Are you sure you want to delete this achievement?
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => setShowDeleteMessage(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleDelete}
-          >
-            Confirm
-          </Button>
+          <div>
+            <Button
+              variant="outlined"
+              color="primary"
+              padding-right="100px"
+              onClick={() => setShowDeleteMessage(false)}
+            >
+              Cancel
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleDelete}
+            >
+              Confirm
+            </Button>
+          </div>
         </Modal.Footer>
       </Modal>
     </>
