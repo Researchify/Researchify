@@ -41,6 +41,7 @@ const AchievementPage = () => {
               variant="contained"
               size="large"
               color="primary"
+              style={{ textTransform: 'capitalize' }}
               onClick={() => setShowCreateForm(true)}
             >
               Add Achievement
