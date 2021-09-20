@@ -24,6 +24,10 @@ a:hover, a:focus, .navbar a:hover, .navbar a:focus, .sidebar a:focus {
     color: var(--researchify-link-hover-color-secondary)
 }
 
+.publication-card {
+    background-color: transparent;
+}
+
 .publication-card .card-header {
     color: var(--researchify-text-color-secondary);
     background-color: var(--researchify-color-secondary);
@@ -67,7 +71,7 @@ a:hover, a:focus, .navbar a:hover, .navbar a:focus, .sidebar a:focus {
 }
 
 .publication-title-column {
-    background-color: unset;
+    background-color: var(--researchify-color-tertiary);
 }
 
 .card .btn {
