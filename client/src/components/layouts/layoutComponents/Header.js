@@ -17,22 +17,14 @@ import { theme } from '../../landing-pages/theme';
  * @returns Header component to be rendered in Layout.js
  */
 const Header = ({ data, setLogoutAlert }) => {
-  const teamName = useSelector(
-    (state) => `${state.team?.teamName}`,
-  );
-  const orgName = useSelector(
-    (state) => `${state.team?.orgName}`,
-  );
-  const profilePic = useSelector(
-    (state) => `${state.team?.profilePic}`,
-  );
+  const { teamName, orgName, profilePic } = useSelector((state) => state.team);
   // TODO: Remove hard-coded team id and publications id from the links
   return (
     <>
       <Navbar className="header" fixed="top">
         <NavbarBrand href="/">
           <Link className="header-brand" to={data.dashboardURL}>
-            <h2 style={{ color: theme.dark }}>
+            <h2 style={{ color: theme.dark, fontFamily: 'Arial' }}>
               RE
               <b style={{ color: theme.primary }}>SEARCH</b>
               IFY
