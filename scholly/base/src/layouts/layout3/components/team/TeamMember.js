@@ -3,21 +3,39 @@
  */
 
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import {
+  Card, Row, Col, Container,
+} from 'react-bootstrap';
 import profilePicture from '../../../../shared/images/profilepic.jpg';
 import { TEAM_MEMBERS } from '../../../../global/data';
 
 const teamMembers = TEAM_MEMBERS;
 
 const TeamMember = ({ member }) => (
-  <Card style={{ display: 'flex', flexDirection: teamMembers.indexOf(member) % 2 === 0 ? 'row' : 'row-reverse' }} className="team-card">
-    <Card.Img style={{ width: '210px' }} variant="top" src={profilePicture} />
-    <Card.Body>
-      <div className="member-name">{member.fullName}</div>
-      <div className="member-position">{member.position}</div>
-      <div className="member-summary">{member.summary}</div>
-    </Card.Body>
-  </Card>
+  <>
+    <Container className="pages-top-padding ">
+      <Card className="shadow text-center" bg={teamMembers.indexOf(member) % 2 === 0 ? 'white' : 'secondary'}>
+        <Card.Body>
+          <Row>
+            <Card.Img style={{ width: '160px', height: '120px' }} src={profilePicture} className="team-member-picture " />
+            <Col>
+              <Card.Title as="h5">{member.fullName}</Card.Title>
+              <Card.Text as="h6">
+                {' '}
+                {member.position}
+                {' '}
+              </Card.Text>
+              <Card.Text as="h7">
+                {' '}
+                {member.summary}
+                {' '}
+              </Card.Text>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+    </Container>
+  </>
 );
 
 export default TeamMember;
