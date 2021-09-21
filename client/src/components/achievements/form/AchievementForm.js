@@ -11,7 +11,7 @@ import {
 import { PropTypes } from 'prop-types';
 import { Button } from '@material-ui/core';
 import { updateAchievement, createAchievement } from '../../../actions/achievements';
-import '../css/achievementForm.css';
+import './achievementForm.css';
 
 const AchievementForm = ({ closeModal, achievement, type }) => {
   const dispatch = useDispatch();
