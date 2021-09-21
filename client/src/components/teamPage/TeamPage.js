@@ -3,7 +3,7 @@
  */
 
 import {
-  Container, CardDeck, Button, Modal, Spinner, Alert,
+  Container, CardDeck, Modal, Spinner, Alert,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -12,6 +12,7 @@ import TeamMember from './TeamMember';
 import TeamMemberForm from './form/TeamMemberForm';
 import { getTeamMembersByTeamId } from '../../actions/team';
 import './teamPage.css';
+import { PrimaryButton } from '../shared/styledComponents';
 
 const TeamPage = () => {
   const dispatch = useDispatch();
@@ -29,9 +30,9 @@ const TeamPage = () => {
   return (
     <div className="teamPageContainer">
       <h1>Meet Our Team Members</h1>
-      <Button className="mt-2" onClick={() => setShowCreateForm(true)}>
+      <PrimaryButton className="mt-2" onClick={() => setShowCreateForm(true)}>
         Add Team Member
-      </Button>
+      </PrimaryButton>
 
       <div className="text-center">
         {loading && <Spinner className="mt-5" animation="border" />}

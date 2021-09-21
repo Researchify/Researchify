@@ -2,11 +2,12 @@
  * The ImportFailPage component displays an error message sent by scholar api if the import is failed
  */
 
-import { Alert, Button, Row } from 'react-bootstrap';
+import { Alert, Row } from 'react-bootstrap';
 
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { IMPORT_CLEAR_STATE } from '../../../actions/types';
+import { DangerButton } from '../../shared/styledComponents';
 
 const ImportFailPage = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -23,13 +24,12 @@ const ImportFailPage = ({ closeModal }) => {
       <Alert variant="danger">We were unable to import your publications.</Alert>
       <Row>
         <div className="ml-auto mt-3 mr-3">
-          <Button
+          <DangerButton
             className="mr-2"
-            variant="outline-danger"
             onClick={handleClose}
           >
             Close
-          </Button>
+          </DangerButton>
         </div>
       </Row>
     </>
