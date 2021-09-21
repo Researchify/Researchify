@@ -5,11 +5,13 @@
 .sidebar-wrapper {
   width: 170px;
   max-width: 170px;
-  background-color: #26282a;
+  background-color: rgb(60, 70, 96);
   padding-left: 0;
   padding-right: 0;
   position: fixed;
   height: 100%;
+  border: 1px solid grey;
+  border-color: grey;
 }
 
 /* Content save space for header */

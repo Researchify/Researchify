@@ -7,7 +7,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import {
-  Button,
   Modal,
   Row,
   Col,
@@ -20,6 +19,7 @@ import { StyledButtonGroup, ButtonGroupItem } from '../publicationsLayout/Public
 import { deletePublication } from '../../../actions/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 import '../publications.css';
+import { SecondaryButton, DangerButton } from '../../shared/styledComponents';
 
 const Publication = ({ pub }) => {
   const dispatch = useDispatch();
@@ -154,8 +154,8 @@ const Publication = ({ pub }) => {
               isHovering
             && (
             <StyledButtonGroup className="float-right">
-              <ButtonGroupItem onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
-              <ButtonGroupItem color="red" hoverBorderColor="red" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+              <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
+              <ButtonGroupItem color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
                 <RiDeleteBin6Line />
               </ButtonGroupItem>
             </StyledButtonGroup>
@@ -203,16 +203,16 @@ const Publication = ({ pub }) => {
           Are you sure you want to delete this publication?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
+          <SecondaryButton onClick={() => setShowDeleteMessage(false)}>
             {' '}
             Cancel
             {' '}
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
+          </SecondaryButton>
+          <DangerButton onClick={handleDelete}>
             {' '}
             Confirm
             {' '}
-          </Button>
+          </DangerButton>
         </Modal.Footer>
       </Modal>
     </div>

@@ -4,7 +4,7 @@
  */
 import React, { useState } from 'react';
 import {
-  Container, Button, Form, Col, Image,
+  Container, Form, Col, Image,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -14,6 +14,8 @@ import { updateTeamTheme } from '../../actions/team';
 import singleColumnLayout from '../../images/theme1.png';
 import fShapeLayout from '../../images/f-shape-layout.png';
 import zigZagLayout from '../../images/zig-zag-layout.png';
+
+import { PrimaryButton } from '../shared/styledComponents';
 
 /**
  * Form for user input github credentials and select template.
@@ -208,9 +210,9 @@ const TemplateSelector = (props) => {
         </Container>
       </Form.Group>
 
-      <Button id="submitButton" type="submit">
+      <PrimaryButton id="submitButton" type="submit">
         Create Website
-      </Button>
+      </PrimaryButton>
     </Form>
   );
 };
