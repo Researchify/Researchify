@@ -67,7 +67,7 @@ const DeployPage = ({ teamId }) => {
 
   const GitHubLoginButton = (
     <GHButton
-      className="float-right github-login-button"
+      className="float-right"
       clientId={githubClientId}
       scope={scope}
       onSuccess={onSuccessfulLogin}
