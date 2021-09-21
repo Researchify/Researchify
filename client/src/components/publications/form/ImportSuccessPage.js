@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import {
   Row,
-  Button,
   Tooltip,
   OverlayTrigger,
 } from 'react-bootstrap';
@@ -23,6 +22,7 @@ import {
 import { pageSize } from '../../../config/publications';
 import usePagination from '../../shared/usePagination';
 import ConditionalWrapper from '../../shared/ConditionalWrapper';
+import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 
 const ImportSuccessPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);
@@ -116,13 +116,12 @@ const ImportSuccessPage = ({ closeModal }) => {
             placement="bottom"
             overlay={renderTooltip}
           >
-            <Button
+            <DangerButton
               className="mr-2"
-              variant="outline-danger"
               onClick={handleClose}
             >
               Cancel
-            </Button>
+            </DangerButton>
           </OverlayTrigger>
         </div>
         <ConditionalWrapper
@@ -140,14 +139,13 @@ const ImportSuccessPage = ({ closeModal }) => {
             className="mt-2 ml-auto mr-3 text-center"
             style={{ display: 'inline-block', cursor: 'not-allowed' }}
           >
-            <Button
-              variant="primary"
+            <PrimaryButton
               disabled={reachedEnd}
               onClick={handlePagination}
               style={reachedEnd ? { pointerEvents: 'none' } : {}}
             >
               Show more
-            </Button>
+            </PrimaryButton>
           </div>
         </ConditionalWrapper>
 
@@ -164,8 +162,7 @@ const ImportSuccessPage = ({ closeModal }) => {
             )}
           >
             <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
-              <Button
-                variant="primary"
+              <PrimaryButton
                 disabled={!publicationsToImport.includes(true)}
                 style={
                   !publicationsToImport.includes(true)
@@ -175,7 +172,7 @@ const ImportSuccessPage = ({ closeModal }) => {
                 onClick={handleConfirmImport}
               >
                 Import
-              </Button>
+              </PrimaryButton>
             </div>
           </ConditionalWrapper>
         </div>
