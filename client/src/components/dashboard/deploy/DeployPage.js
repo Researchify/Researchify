@@ -9,7 +9,6 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
-import './DeployPage.css';
 
 import { PrimaryButton } from '../../shared/styledComponents';
 
