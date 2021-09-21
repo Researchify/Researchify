@@ -81,3 +81,31 @@ export const DangerButton = styled.button`
     color: white;
   }
 `;
+
+export const OptionEditButton = styled.button` // FIXXXXXX
+    padding: .375rem .75rem;
+    border: 1px solid rgb(60, 70, 96);
+    border-radius: .25rem;
+    background-color: rgb(88, 102, 138);
+    color: white;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: ${(props) => props.fontSize}; //.875rem;
+  &:hover{
+    background-color: rgb(60, 70, 96);
+    color: white;
+  }
+`;
+
+export const OptionDeleteButton = styled.button` // Outline-Purple
+    padding: .375rem .75rem;
+    border: 1px solid #56658a;
+    border-radius: .25rem;
+    background-color: #AB9671;
+    color: white;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: ${(props) => props.fontSize}; //.875rem;
+  &:hover{
+    background-color: #8c7a5b;
+    color: white;
+  }
+`;

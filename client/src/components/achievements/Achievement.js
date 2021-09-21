@@ -17,6 +17,12 @@ import { IconContext } from 'react-icons';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import {
+  PrimaryButton,
+  SecondaryButton,
+  OptionEditButton,
+  OptionDeleteButton,
+} from '../shared/styledComponents';
 import './form/achievementForm.css';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
@@ -33,26 +39,20 @@ const Achievement = ({ achievement }) => {
 
   const displayOptions = (
     <ButtonGroup>
-      <Button
+      <OptionEditButton
         onClick={() => setShowUpdateForm(true)}
-        variant="contained"
         data-toggle="modal"
-        color="primary"
-        size="large"
       >
         {' '}
         <AiFillEdit />
         {' '}
-      </Button>
-      <Button
+      </OptionEditButton>
+      <OptionDeleteButton
         onClick={() => setShowDeleteMessage(true)}
-        variant="contained"
         data-toggle="modal"
-        color="secondary"
-        size="large"
       >
         <AiFillDelete />
-      </Button>
+      </OptionDeleteButton>
     </ButtonGroup>
   );
 
@@ -114,22 +114,18 @@ const Achievement = ({ achievement }) => {
         </Modal.Body>
         <Modal.Footer>
           <div>
-            <Button
-              variant="outlined"
-              color="primary"
+            <SecondaryButton
               onClick={() => setShowDeleteMessage(false)}
             >
               Cancel
-            </Button>
+            </SecondaryButton>
           </div>
           <div>
-            <Button
-              variant="contained"
-              color="primary"
+            <PrimaryButton
               onClick={handleDelete}
             >
               Confirm
-            </Button>
+            </PrimaryButton>
           </div>
         </Modal.Footer>
       </Modal>

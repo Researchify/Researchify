@@ -9,9 +9,9 @@ import {
   Row, Tooltip, OverlayTrigger, Form,
 } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
-import { Button } from '@material-ui/core';
 import { updateAchievement, createAchievement } from '../../../actions/achievements';
 import './achievementForm.css';
+import { PrimaryButton, SecondaryButton } from '../../shared/styledComponents';
 
 const AchievementForm = ({ closeModal, achievement, type }) => {
   const dispatch = useDispatch();
@@ -124,24 +124,20 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
                 placement="bottom"
                 overlay={renderTooltip}
               >
-                <Button
-                  id="cancelButton"
-                  variant="outlined"
-                  color="primary"
+                <SecondaryButton
+                  type="button"
                   onClick={closeModal}
                 >
                   Cancel
-                </Button>
+                </SecondaryButton>
               </OverlayTrigger>
             </div>
             <div className="ml-auto mr-3">
-              <Button
+              <PrimaryButton
                 type="submit"
-                variant="contained"
-                color="primary"
               >
                 Confirm
-              </Button>
+              </PrimaryButton>
             </div>
           </Row>
         </Form>

@@ -7,12 +7,12 @@ import {
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import { Button } from '@material-ui/core';
 import AchievementForm from './form/AchievementForm';
 import { getAchievementsByTeamId } from '../../actions/achievements';
 import Achievement from './Achievement';
 import './achievementPage.css';
 import './form/achievementForm.css';
+import { PrimaryButton } from '../shared/styledComponents';
 
 const AchievementPage = () => {
   const dispatch = useDispatch();
@@ -34,15 +34,12 @@ const AchievementPage = () => {
           <h1>Achievements</h1>
         </Col>
         <Col id="achievementButton" md={{ offset: 4 }}>
-          <Button
-            variant="contained"
-            size="large"
-            color="primary"
-            style={{ textTransform: 'capitalize' }}
+          <PrimaryButton
+            className="mt-2"
             onClick={() => setShowCreateForm(true)}
           >
             Add Achievement
-          </Button>
+          </PrimaryButton>
         </Col>
       </Row>
       <div className="text-center">
