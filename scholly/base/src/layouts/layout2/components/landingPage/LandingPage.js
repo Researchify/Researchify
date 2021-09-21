@@ -10,7 +10,7 @@ const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
   const { teamName } = TEAM_INFO;
   return (
-    <div style={{ maxWidth: '1000px' }}>
+    <>
       <Helmet>
         <title>
           {' '}
@@ -37,7 +37,7 @@ const landingPage = () => {
         </div>
         <br />
       </Container>
-    </div>
+    </>
   );
 };
 
