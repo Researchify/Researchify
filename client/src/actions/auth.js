@@ -18,7 +18,7 @@ import { errorActionGlobalCreator } from '../notification/notificationReduxFunct
  * @param authData data associated to the authentication response.
  * @returns an action of type AUTH_SIGN_IN with the payload as the authData.
  */
-export const login = (authData) => async (dispatch) => {
+export const login = (authData, setFieldError) => async (dispatch) => {
   try {
     dispatch({
       type: LOG_IN_REQUEST,
@@ -31,7 +31,14 @@ export const login = (authData) => async (dispatch) => {
     dispatch({
       type: LOG_IN_FAIL,
     });
-    dispatch(errorActionGlobalCreator(error));
+    // only show pop up error if it's not a client error, otherwise, show the error on the form instead
+    if (error.response.status === 400) {
+      // assuming the only client error is 'Incorrect email/passord'
+      setFieldError('password', 'Incorrect email/password');
+      setFieldError('email', ' ');
+    } else {
+      dispatch(errorActionGlobalCreator(error));
+    }
   }
 };
 
