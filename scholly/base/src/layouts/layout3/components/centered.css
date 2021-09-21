@@ -18,6 +18,13 @@
   object-fit: cover;
 }
 
+.left {
+  float: left;
+  padding: 0 20px 20px 0;
+  width: 50%;
+  height: 30%;
+}
+
 .landing-center-title {
   text-align: center;
   padding-top: 25px;
@@ -122,6 +129,19 @@
   float: left;
 }
 
+
+.twitter-feed {
+  border: 1px solid #ccc !important;
+  border-radius: 16px;
+  margin-top: 60px;
+  position: fixed;
+}
+
+.pub-left-main {
+  width: 80%;
+  float: left;
+}
+
 /* team page */
 .team-pg-title {
   text-align: center;
@@ -146,53 +166,25 @@
 
 .member-summary {
   padding-top: 15px;
-  text-align: center;
+  text-align: justify;
   text-indent: 5%;
 }
 
 .team-card-container {
   padding-top: 12px;
-  padding-left: 100px;
+  padding-left: 50px;
   padding-right: 50px;
 }
 
 .team-card {
   border: transparent;
   min-width: 210px;
-  max-height: 210px;
+  max-width: 210px;
 }
 
 .team-card-deck {
   align-content: center;
   justify-content: center;
-  display: block;
-
-
-}
-
-
-.award-name {
-  text-align: center;
-  font-weight: 600;
-  font-size: large;
-}
-
-.award-position {
-  text-align: center;
-  font-weight: 450;
-  font-size: small;
-}
-
-.award-summary {
-  padding-top: 15px;
-  text-align: center;
-}
-
-.left {
-  float: left;
-  padding: 0 20px 20px 0;
-  width: 50%;
-  height: 30%;
 }
 
 .button-pub{
@@ -205,4 +197,3 @@
 
 
 }
-
