@@ -1,8 +1,7 @@
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { BsPeopleCircle } from 'react-icons/bs';
 import { PropTypes } from 'prop-types';
 
 import './Header.css';
@@ -12,23 +11,36 @@ import './Header.css';
  * @returns Header component to be rendered in Layout.js
  */
 const Header = ({ data }) => {
-  const userName = useSelector(
-    (state) => `${state.team?.teamName} @ ${state.team?.orgName}`,
+  const {
+    teamName, orgName, profilePic,
+  } = useSelector(
+    (state) => state.team,
   );
-  // TODO: Remove hard-coded team id and publications id from the links
+
+  const userName = `${teamName} @ ${orgName}`;
+
   return (
     <>
       <Navbar className="header" fixed="top">
         <Navbar.Brand>
           <Link className="header-brand" to={data.dashboardURL}>
-            {data.title}
+            <h2 style={{ color: '#414656' }}>
+              RE
+              <b style={{ color: '#56658a' }}>SEARCH</b>
+              IFY
+            </h2>
           </Link>
         </Navbar.Brand>
         <Nav className="mr-auto" />
         <Nav>
           <Link className="header-link" to="/dashboard/profile">
-            <BsPeopleCircle className="header-profile-icon" />
-            {' '}
+            <Image
+              className="header-profile-img"
+              src={profilePic}
+              roundedCircle
+              height="45px"
+              width="45px"
+            />
             {userName}
           </Link>
         </Nav>
