@@ -19,7 +19,7 @@ if (themeOption === '1') {
 } else if (themeOption === '2') {
   import('../../shared/css/darkColours.css');
 } else {
-  // Fallback to light mode if unkown theme option is used
+  // Fallback to light mode if unknown theme option is used
   import('../../shared/css/lightColours.css');
 }
 
