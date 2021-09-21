@@ -51,12 +51,8 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       title: 'Achievements',
       icon: <BsFillAwardFill />,
       link: '/achievement',
+      name: 'ACHIEVEMENTS',
     },
-    // {
-    //   title: 'Help',
-    //   icon: <BsFillQuestionCircleFill />,
-    //   link: '/dashboard/help',
-    // },
     {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
