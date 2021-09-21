@@ -51,16 +51,6 @@ const layoutToDisplay = () => {
           </React.Suspense>
         </>
       );
-    case 4:
-      // eslint-disable-next-line no-case-declarations
-      const AppLayout4 = React.lazy(() => import('./layouts/layout4/App'));
-      return (
-        <>
-          <React.Suspense fallback={<></>}>
-            <AppLayout4 />
-          </React.Suspense>
-        </>
-      );
 
     default:
       // eslint-disable-next-line no-case-declarations
