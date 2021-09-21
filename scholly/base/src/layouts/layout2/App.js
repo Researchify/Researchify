@@ -4,7 +4,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Container, Row, Col } from 'react-bootstrap';
 import { TEAM_INFO } from '../../global/data';
 import Sidebar from './components/layout/Sidebar';
 import './components/layout/Sidebar.css';
@@ -38,20 +37,11 @@ const App = () => {
       <Helmet>
         <title>{teamName}</title>
       </Helmet>
-      <Container fluid>
-        <Row>
-          <Col xs={3} id="sidebar-wrapper" md={3} lg={3} xl={2}>
-            <Sidebar />
 
-          </Col>
-          <Col className="page-content-wrapper" md={8} lg={4} xl={9}>
-            <Switch>
-              {routeItems}
-            </Switch>
-          </Col>
-        </Row>
-
-      </Container>
+      <Sidebar />
+      <Switch>
+        {routeItems}
+      </Switch>
 
     </>
   );
