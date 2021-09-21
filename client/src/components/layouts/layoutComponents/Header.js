@@ -24,11 +24,7 @@ const Header = ({ data }) => {
       <Navbar className="header" fixed="top">
         <Navbar.Brand>
           <Link className="header-brand" to={data.dashboardURL}>
-            <h2 style={{ color: '#414656' }}>
-              RE
-              <b style={{ color: '#56658a' }}>SEARCH</b>
-              IFY
-            </h2>
+            {data.title}
           </Link>
         </Navbar.Brand>
         <Nav className="mr-auto" />
