@@ -143,23 +143,22 @@ const ProfileInfoEdit = () => {
             />
           </Form.Group>
 
-          <div className="profile-btn-group">
-            <PrimaryButton
-              id="updateButton"
-              type="submit"
-              color="primary"
-              className="my-2"
-            >
-              Update
-            </PrimaryButton>
-            <DangerButton
-              variant="outline-danger"
-              onClick={profileDeleted}
-              className="mt-2"
-            >
-              Delete account
-            </DangerButton>
-          </div>
+          <PrimaryButton
+            id="updateButton"
+            type="submit"
+            color="primary"
+            className="my-2"
+          >
+            Update
+          </PrimaryButton>
+          <DangerButton
+            variant="outline-danger"
+            onClick={profileDeleted}
+            className="mt-2"
+            style={{ float: 'right' }}
+          >
+            Delete account
+          </DangerButton>
         </Form>
       </Container>
     </div>
