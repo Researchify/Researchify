@@ -26,6 +26,7 @@ import {
 import './form/achievementForm.css';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
+import { SecondaryButton, DangerButton } from '../shared/styledComponents';
 
 const Achievement = ({ achievement }) => {
   const dispatch = useDispatch();

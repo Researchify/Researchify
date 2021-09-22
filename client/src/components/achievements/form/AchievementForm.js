@@ -11,7 +11,7 @@ import {
 import { PropTypes } from 'prop-types';
 import { updateAchievement, createAchievement } from '../../../actions/achievements';
 import './achievementForm.css';
-import { PrimaryButton, SecondaryButton } from '../../shared/styledComponents';
+import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 
 const AchievementForm = ({ closeModal, achievement, type }) => {
   const dispatch = useDispatch();
@@ -124,19 +124,19 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
                 placement="bottom"
                 overlay={renderTooltip}
               >
-                <SecondaryButton
-                  type="button"
+                <DangerButton
+                  className="mr-2"
                   onClick={closeModal}
                 >
                   Cancel
-                </SecondaryButton>
+                </DangerButton>
               </OverlayTrigger>
             </div>
             <div className="ml-auto mr-3">
-              <PrimaryButton
-                type="submit"
-              >
+              <PrimaryButton type="submit">
+                {' '}
                 Confirm
+                {' '}
               </PrimaryButton>
             </div>
           </Row>

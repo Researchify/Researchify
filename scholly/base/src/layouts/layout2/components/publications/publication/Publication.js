@@ -27,13 +27,13 @@ const Publication = ({ pub }) => {
           eventKey={pub._id}
           className="publication-title-column"
         >
-          <Button variant="dark" onClick={() => setExpanded(!expanded)}>
+          <Button onClick={() => setExpanded(!expanded)}>
             Read
             {expanded ? ' Less' : ' More'}
           </Button>
           {' '}
         </Accordion.Toggle>
-        <Button variant="dark"> Go to Publication </Button>
+        <Button> Go to Publication </Button>
       </div>
 
       <Collapse in={expanded} eventKey={pub._id}>
