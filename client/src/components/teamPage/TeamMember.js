@@ -20,7 +20,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
-import profilePic from '../../images/profilepicfilled.jpg';
+import profilePic from '../../images/profilepic.jpg';
 import {
   SecondaryButton,
   DangerButton,
