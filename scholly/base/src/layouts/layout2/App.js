@@ -47,8 +47,8 @@ const App = () => {
     footerMenuHeight: 50,
     showFooterMenuText: width > 500,
     showSidebar: width > 768,
-    sidebarWidth: width < 1100 ? 50 : 140,
-    sidebarCollapsed: width < 1100,
+    sidebarWidth: width < 1200 ? 50 : 140,
+    sidebarCollapsed: width < 1200,
   };
 
   const contentStyle = {
