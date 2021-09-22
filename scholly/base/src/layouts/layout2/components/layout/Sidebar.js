@@ -42,7 +42,7 @@ const Sidebar = ({ styles }) => {
       {headerData.map((item) => (
         <div style={menuItemStyle}>
           <Link style={{ padding: 10 }} key={item.title} to={item.path}>
-            <span style={iconStyle}>{item.icon}</span>
+            <span className="mr-3" style={iconStyle}>{item.icon}</span>
             {!styles.sidebarCollapsed && item.title}
           </Link>
         </div>
