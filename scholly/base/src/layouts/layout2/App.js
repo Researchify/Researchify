@@ -13,6 +13,7 @@ import '../../shared/css/style.css';
 import '../../shared/css/baseColours.css';
 import TopBar from './components/layout/TopBar';
 import FooterMenu from './components/layout/FooterMenu';
+import ScrollIntoView from './components/layout/ScrollIntoView';
 
 const themeOption = '1';
 if (themeOption === '1') {
@@ -27,26 +28,21 @@ if (themeOption === '1') {
 const App = () => {
   const { teamName } = TEAM_INFO;
   const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
+  const headerData = getRoutes();
 
   const updateDimensions = () => {
     const windowWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
-    const windowHeight = typeof window !== 'undefined' ? window.innerHeight : 0;
 
     setWidth(windowWidth);
-    setHeight(windowHeight);
   };
 
-  console.log(height, width);
-
   useEffect(() => {
+    window.scrollTo(0, 0);
     updateDimensions();
     window.addEventListener('resize', updateDimensions);
   }, []);
 
   const styles = {
-    white: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-    black: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
     topBarHeight: 40,
     footerMenuHeight: 50,
     showFooterMenuText: width > 500,
@@ -62,7 +58,7 @@ const App = () => {
     paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20,
   };
 
-  const routeItems = getRoutes().map(({ path, exact, component }) => {
+  const routeItems = headerData.map(({ path, exact, component }) => {
     const View = component;
     return (
       <Route exact={exact} path={path} key={path}>
@@ -73,7 +69,6 @@ const App = () => {
   return (
     <div
       style={{
-        backgroundColor: styles.black(0.05),
         minHeight: '100vh',
         position: 'relative',
       }}
@@ -83,17 +78,18 @@ const App = () => {
       </Helmet>
 
       {styles.showSidebar ? (
-        <Sidebar styles={styles} />
+        <Sidebar styles={styles} menuItems={headerData} />
       ) : (
         <TopBar styles={styles} />
       )}
-
-      <Switch>
-        {routeItems}
-      </Switch>
+      <ScrollIntoView>
+        <Switch>
+          {routeItems}
+        </Switch>
+      </ScrollIntoView>
 
       {!styles.showSidebar && (
-      <FooterMenu styles={styles} />
+      <FooterMenu styles={styles} menuItems={headerData} />
       )}
 
     </div>

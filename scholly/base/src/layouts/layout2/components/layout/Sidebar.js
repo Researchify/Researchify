@@ -3,11 +3,10 @@
 import React from 'react';
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
-import getRoutes from '../router/routes';
+
 import { TEAM_INFO } from '../../../../global/data';
 
-const Sidebar = ({ styles }) => {
-  const headerData = getRoutes();
+const Sidebar = ({ styles, menuItems }) => {
   const { teamName } = TEAM_INFO;
   const sidebarStyle = {
     height: '100vh',
@@ -39,7 +38,7 @@ const Sidebar = ({ styles }) => {
   return (
     <div style={sidebarStyle}>
       <div style={logoStyle}>{styles.sidebarCollapsed ? '' : teamName }</div>
-      {headerData.map((item) => (
+      {menuItems.map((item) => (
         <div style={menuItemStyle}>
           <Link style={{ padding: 10 }} key={item.title} to={item.path}>
             <span className="mr-3" style={iconStyle}>{item.icon}</span>
