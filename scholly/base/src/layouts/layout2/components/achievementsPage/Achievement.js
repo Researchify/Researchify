@@ -40,7 +40,7 @@ const Achievement = ({ achievement }) => {
               <br />
               {
                                 shouldShowExpand && (
-                                <Button className="read-more-button" variant="dark" onClick={() => setExpanded(!expanded)}>
+                                <Button className="read-more-button" onClick={() => setExpanded(!expanded)}>
                                   Read
                                   {expanded ? ' Less' : ' More'}
                                 </Button>

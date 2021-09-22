@@ -70,6 +70,7 @@
 .publication-card {
   border: transparent;
   padding-bottom: 15px;
+  text-align: center;
 }
 
 .pub-category-above-title {
@@ -188,12 +189,5 @@
 }
 
 .button-pub{
-  margin: 0;
-  position: absolute;
-
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-
-
+  margin: 10px 0 5px 0;
 }

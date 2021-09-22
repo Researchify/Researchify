@@ -52,7 +52,7 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
               {' '}
               { checkedCounter > 0 ? (
                 <>
-                  <ButtonGroupItem borderColor="red" color="red" hoverBorderColor="red" hoverColor="white">
+                  <ButtonGroupItem borderColor="#9c503d" color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white">
                     <RiDeleteBin6Line />
                     {' '}
                     {checkedCounter}
