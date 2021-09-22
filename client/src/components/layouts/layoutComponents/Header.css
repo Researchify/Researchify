@@ -1,8 +1,7 @@
 .header {
   top: 0;
-  padding-top: 5px;
   background-color: #f8f8f8;
-  border-bottom: 1px solid #26282a;
+  border-bottom: 1px solid #414656;
   max-height: 70px;
 }
 
@@ -17,17 +16,6 @@
 
 .header-link:hover {
   color: #414656;
-  text-decoration: none;
-}
-
-.header-brand {
-  color: #03a9f4;
-  margin-left: 12px;
-  font-family: "Fredoka One", cursive;
-}
-
-.heard-brand:hover {
-  color: #2b61f2;
   text-decoration: none;
 }
 
