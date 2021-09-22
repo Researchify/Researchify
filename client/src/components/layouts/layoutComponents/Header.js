@@ -22,10 +22,12 @@ const Header = ({ data }) => {
   return (
     <>
       <Navbar className="header" fixed="top">
-        <Navbar.Brand>
-          <Link className="header-brand" to={data.dashboardURL}>
-            {data.title}
-          </Link>
+        <Navbar.Brand href={data.dashboardURL}>
+          <h2 style={{ color: '#414656' }}>
+            RE
+            <b style={{ color: '#56658a' }}>SEARCH</b>
+            IFY
+          </h2>
         </Navbar.Brand>
         <Nav className="mr-auto" />
         <Nav>
