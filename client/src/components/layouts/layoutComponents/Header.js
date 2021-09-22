@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Navbar, Nav, Dropdown, Image, Row, Col, Container,
 } from 'react-bootstrap';
@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { AiFillSetting, AiOutlineLogout } from 'react-icons/ai';
 import { PropTypes } from 'prop-types';
-
 import './Header.css';
 import { NavbarBrand } from 'reactstrap';
 import { theme } from '../../landing-pages/theme';
+import defaultProfilePic from '../../../images/profilepic.jpg';
 
 /**
  * This function provides header for Layout.js
@@ -18,6 +18,21 @@ import { theme } from '../../landing-pages/theme';
  */
 const Header = ({ data, setLogoutAlert }) => {
   const { teamName, orgName, profilePic } = useSelector((state) => state.team);
+  const [profileData, setProfileData] = useState({
+    teamName, orgName, profilePic,
+  });
+  useEffect(() => {
+    setProfileData({
+      teamName, orgName, profilePic,
+    });
+  }, [orgName, teamName, profilePic]);
+
+  /**
+   * Updates profile image field when user uploads file
+   */
+
+  // If profilePic is undefined, set a default profile pic
+  profileData.profilePic = profileData.profilePic ?? defaultProfilePic;
   // TODO: Remove hard-coded team id and publications id from the links
   return (
     <>
@@ -44,16 +59,16 @@ const Header = ({ data, setLogoutAlert }) => {
                   <Row>
 
                     <Image
-                      src={profilePic}
+                      src={profileData.profilePic}
                       roundedCircle
                       height="60px"
                       width="60px"
                     />
 
                     <Col>
-                      {teamName}
+                      {profileData.teamName}
                       <br />
-                      {orgName}
+                      {profileData.orgName}
                     </Col>
                   </Row>
                 </Container>
