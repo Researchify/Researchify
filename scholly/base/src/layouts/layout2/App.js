@@ -47,8 +47,8 @@ const App = () => {
     footerMenuHeight: 50,
     showFooterMenuText: width > 500,
     showSidebar: width > 768,
-    sidebarWidth: width < 1100 ? 50 : 140,
-    sidebarCollapsed: width < 1100,
+    sidebarWidth: width < 1200 ? 50 : 140,
+    sidebarCollapsed: width < 1200,
   };
 
   const contentStyle = {
@@ -56,6 +56,7 @@ const App = () => {
     paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
     paddingRight: 20,
     paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20,
+    maxWidth: '1200px',
   };
 
   const routeItems = headerData.map(({
@@ -64,10 +65,11 @@ const App = () => {
     const View = component;
     return (
       <Route exact={exact} path={path} key={path}>
-        {styles.showSidebar ? <DesktopTopBar styles={styles} title={title} />
-          : <MobileTopBar styles={styles} title={title} />}
-        <div style={contentStyle}>
-          {View ? <View /> : null}
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={contentStyle}>
+            {styles.showSidebar && <DesktopTopBar styles={styles} />}
+            {View ? <View /> : null}
+          </div>
         </div>
       </Route>
     );

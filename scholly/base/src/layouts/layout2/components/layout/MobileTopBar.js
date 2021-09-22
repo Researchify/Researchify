@@ -14,7 +14,7 @@ const MobileTopBar = ({ styles, title }) => {
     borderBottom: '1px solid #d8d8d8',
     padding: '0px 20px',
     boxSizing: 'border-box',
-    zIndex: 5,
+    zIndex: 3,
   };
   const { teamName, orgName } = TEAM_INFO;
   return (
