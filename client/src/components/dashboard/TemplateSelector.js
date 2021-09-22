@@ -24,7 +24,7 @@ import { PrimaryButton } from '../shared/styledComponents';
 const TemplateSelector = (props) => {
   const dispatch = useDispatch();
   const template = useSelector((state) => state.website.template);
-  console.log(template);
+
   const [darkMode, setDarkMode] = useState(template.theme === darkThemePlaceholder);
   const [layout, setLayout] = useState(template.layout);
 
