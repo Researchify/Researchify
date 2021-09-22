@@ -4,7 +4,7 @@
 
 const layoutOptions = ['1', '2', '3'];
 
-const themeOptions = ['1', '2', '3'];
+const themeOptions = ['light', 'dark'];
 
 module.exports = {
   layoutOptions,

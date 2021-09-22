@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { updateTheme } from '../../actions/website';
+import { darkThemePlaceholder, lightThemePlaceholder } from '../../config/clientWebsite';
 
 // Picture of each layout
 import layout1 from '../../images/layout_1.png';
@@ -20,15 +21,15 @@ import layout3 from '../../images/layout_3.png';
  */
 const TemplateSelector = (props) => {
   const dispatch = useDispatch();
-  const clientSiteMetadata = useSelector((state) => state.website);
-
-  const [darkMode, setDarkMode] = useState(clientSiteMetadata.darkTheme);
-  const [layout, setLayout] = useState(clientSiteMetadata.layout);
+  const template = useSelector((state) => state.website.template);
+  console.log(template);
+  const [darkMode, setDarkMode] = useState(template.theme === darkThemePlaceholder);
+  const [layout, setLayout] = useState(template.layout);
 
   useEffect(() => {
-    setDarkMode(clientSiteMetadata.darkTheme);
-    setLayout(clientSiteMetadata.layout);
-  }, [clientSiteMetadata]);
+    setDarkMode(template.theme === darkThemePlaceholder);
+    setLayout(template.layout);
+  }, [template]);
 
   const updateSelections = (form) => {
     const { name, value } = form.target;
@@ -38,11 +39,11 @@ const TemplateSelector = (props) => {
   };
 
   const storeInputs = (teamId) => {
-    const changes = {
+    const data = {
       layout,
-      darkMode,
+      theme: darkMode ? darkThemePlaceholder : lightThemePlaceholder,
     };
-    dispatch(updateTheme(teamId, changes));
+    dispatch(updateTheme(teamId, data));
   };
 
   const handleSubmit = (event) => {

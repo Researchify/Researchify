@@ -26,15 +26,17 @@ const websiteSchema = new mongoose.Schema(
       minlength: 3,
       maxlength: 30,
     },
-    layout: {
-      type: String,
-      enum: layoutOptions,
-      required: false,
-    },
-    theme: {
-      type: String,
-      enum: themeOptions,
-      required: false,
+    template: {
+      layout: {
+        type: String,
+        enum: layoutOptions,
+        required: false,
+      },
+      theme: {
+        type: String,
+        enum: themeOptions,
+        required: false,
+      },
     },
     publicationOptions: {
       groupBy: {

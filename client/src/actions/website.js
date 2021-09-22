@@ -100,24 +100,19 @@ export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
  * @param {*} themeData Object containing the updated 'layout' and 'theme'
  * @returns
  */
-export const updateTheme = (teamId, themeData) => async (dispatch) => {
+export const updateTheme = (teamId, templateData) => async (dispatch) => {
   try {
     const changes = [
       {
-        field: 'layout',
-        value: themeData.layout,
-      },
-      {
-        field: 'theme',
-        // DB expects a string not a boolean
-        value: themeData.darkMode ? '2' : '1',
+        field: 'template',
+        value: templateData,
       },
     ];
     await api.updateClientWebMetadata(teamId, changes);
 
     dispatch({
       type: UPDATE_WEBSITE_TEMPLATE,
-      payload: themeData,
+      payload: templateData,
     });
     dispatch(successMessageCreator('Theme has been updated'));
   } catch (error) {

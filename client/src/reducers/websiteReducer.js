@@ -16,8 +16,7 @@ const INITIAL_WEBSITE_STATE = {
   title: '',
   pages: [],
   publicationOptions: {},
-  layout: '1',
-  darkTheme: false,
+  template: { layout: '1', theme: 'light' },
 };
 
 /**
@@ -46,15 +45,14 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
         title: payload.title ?? state.title,
         pages: payload.pages ?? state.pages,
         publicationOptions: payload.publicationOptions ?? state.publicationOptions,
-        layout: payload.layout ?? state.layout,
-        darkTheme: payload.theme === '2',
+        template: payload.template ?? state.template,
       };
     case UPDATE_PUBLICATION_OPTIONS:
       return { ...state, publicationOptions: payload };
     case UPDATE_WEBSITE_TITLE:
       return { ...state, title: payload };
     case UPDATE_WEBSITE_TEMPLATE:
-      return { ...state, layout: payload.layout, darkTheme: payload.darkMode };
+      return { ...state, template: payload };
     default:
       return state;
   }
