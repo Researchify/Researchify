@@ -4,7 +4,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Button, Form, Col, Card,
+  Container, Form, Col, Card,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -15,6 +15,8 @@ import { darkThemePlaceholder, lightThemePlaceholder } from '../../config/client
 import layout1 from '../../images/layout_1.png';
 import layout2 from '../../images/layout_2.png';
 import layout3 from '../../images/layout_3.png';
+
+import { PrimaryButton } from '../shared/styledComponents';
 
 /**
  * Form for user input github credentials and select template.
@@ -151,9 +153,9 @@ const TemplateSelector = (props) => {
           </Container>
         </Form.Group>
 
-        <Button type="submit" className="float-right">
-          Update
-        </Button>
+        <PrimaryButton id="submitButton" type="submit">
+          Create Website
+        </PrimaryButton>
       </Form>
     </>
   );

@@ -3,7 +3,7 @@
  */
 
 import {
-  Row, Col, Container, CardDeck, Button, Modal, Spinner, Alert,
+  Row, Col, Container, CardDeck, Modal, Spinner, Alert,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import AchievementForm from './form/AchievementForm';
 import { getAchievementsByTeamId } from '../../actions/achievements';
 import Achievement from './Achievement';
 import './achievementPage.css';
+import { PrimaryButton } from '../shared/styledComponents';
 
 const AchievementPage = () => {
   const dispatch = useDispatch();
@@ -32,9 +33,9 @@ const AchievementPage = () => {
           <h1>Achievements</h1>
         </Col>
         <Col id="achievementButton" md={{ offset: 5 }}>
-          <Button className="mt-2" onClick={() => setShowCreateForm(true)}>
+          <PrimaryButton className="mt-2" onClick={() => setShowCreateForm(true)}>
             Add Achievement
-          </Button>
+          </PrimaryButton>
         </Col>
       </Row>
       <div className="text-center">
