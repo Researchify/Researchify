@@ -194,15 +194,15 @@ function updateTeamMember(req, res, next) {
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
- async function resetTeamMember(req, res, next) {
-  const { teamId } =req.params;
-  try{
+async function resetTeamMember(req, res, next) {
+  const { teamId } = req.params;
+  try {
     const team = await Team.findOne({ _id: teamId });
-    team.teamMembers=[];
+    team.teamMembers = [];
     team.save();
     return res.status(200).json(team);
-  } catch(err) {
-    return res.send(fillErrorObject(500, 'Serrrer error', [err]));
+  } catch (err) {
+    return next(fillErrorObject(500, 'Serrrer error', [err]));
   }
 }
 
