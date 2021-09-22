@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
 
-import { PrimaryButton, SecondaryButton, DangerButton } from '../shared/styledComponents';
+import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 
 /**
  * Form component for user update profile
@@ -97,8 +97,6 @@ const ProfileInfoEdit = () => {
               className="profile-img"
               src={profileData.profilePic}
               roundedCircle
-              height="200px"
-              width="200px"
             />
             <Form.Label className="upload-label">
               Change Profile Photo
