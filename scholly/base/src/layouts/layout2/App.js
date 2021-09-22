@@ -6,7 +6,6 @@ import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { TEAM_INFO } from '../../global/data';
 import Sidebar from './components/layout/Sidebar';
-import './components/layout/Sidebar.css';
 import getRoutes from './components/router/routes';
 import './components/centered.css';
 import '../../shared/css/style.css';

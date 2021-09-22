@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
-import './Sidebar.css';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({ styles, menuItems }) => {
