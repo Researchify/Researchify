@@ -10,6 +10,7 @@ import {
   CREATE_TEAM_MEMBER,
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
+  RESET_TEAM_MEMBER,
   GET_GH_ACCESS_TOKEN,
   DEPLOY_REQUEST,
   DEPLOY_SUCCESS,
@@ -17,6 +18,7 @@ import {
   UPDATE_TEAM,
   RESET_TEAM,
   DELETE_TEAM_PUBLICATIONS,
+  RESET_ACHIEVEMENT,
 } from './types';
 import { login } from './auth';
 import {
@@ -188,6 +190,23 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
   }
 };
 
+/**
+ * This action creator will be called when a user resets a team member from the team
+ *
+ * @param teamId id of the team
+ * @returns a thunk responsible for calling the api and dispatching a DELETE_TEAM_MEMBER action
+ */
+export const resetTeamMember = (teamId) => async (dispatch) => {
+  try {
+    await api.resetTeamMember(teamId);
+    dispatch({
+      type: RESET_TEAM_MEMBER,
+    });
+  } catch (err) {
+    dispatch(errorActionGlobalCreator(err));
+  }
+};
+
 export const getGHAccessToken = (teamId, code) => async (dispatch) => {
   try {
     const { data } = await api.getGHAccessToken(teamId, code);
@@ -310,6 +329,9 @@ export const resetTeamData = (teamId, isDelete) => async (dispatch) => {
     await api.resetTeamData(teamId, body);
     dispatch({
       type: DELETE_TEAM_PUBLICATIONS,
+    });
+    dispatch({
+      type: RESET_ACHIEVEMENT,
     });
     dispatch({
       type: RESET_TEAM,

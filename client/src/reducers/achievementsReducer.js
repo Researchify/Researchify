@@ -6,6 +6,7 @@ import {
   CREATE_ACHIEVEMENT,
   UPDATE_ACHIEVEMENT,
   DELETE_ACHIEVEMENT,
+  RESET_ACHIEVEMENT,
 } from '../actions/types';
 
 const initialState = {
@@ -31,6 +32,8 @@ const achievementsReducer = (state = initialState, action) => {
           (achievement) => achievement._id !== action.payload,
         ),
       };
+    case RESET_ACHIEVEMENT:
+      return initialState;
     default:
       return state;
   }

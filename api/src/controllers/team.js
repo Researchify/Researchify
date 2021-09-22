@@ -187,6 +187,26 @@ function updateTeamMember(req, res, next) {
 }
 
 /**
+ * Reset the team member from the database on /team/:teamId/member.
+ * @param {*} req request object, containing team id in the url
+ * @param {*} res response object, the updated team member document
+ * @returns 200: the team member was updated
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+ async function resetTeamMember(req, res, next) {
+  const { teamId } =req.params;
+  try{
+    const team = await Team.findOne({ _id: teamId });
+    team.teamMembers=[];
+    team.save();
+    return res.status(200).json(team);
+  } catch(err) {
+    return res.send(fillErrorObject(500, 'Serrrer error', [err]));
+  }
+}
+
+/**
  * Handles a GET request on /:teamId/gh_auth/:code to exchange a GitHub
  * temporary code acquired during the first step of the GitHub OAuth flow with a
  * GitHub access token.
@@ -386,6 +406,7 @@ module.exports = {
   readTeamMembersByTeam,
   deleteTeamMember,
   updateTeamMember,
+  resetTeamMember,
   updateTeam,
   resetTeamData,
   getGHAccessToken,

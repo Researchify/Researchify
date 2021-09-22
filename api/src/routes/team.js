@@ -54,6 +54,14 @@ teamRouter.patch(
   teamController.updateTeamMember,
 );
 
+teamRouter.delete(
+  '/:teamId/reset-members',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.resetTeamMember,
+);
+
 teamRouter.get(
   '/:teamId/gh_auth/:code',
   teamController.getGHAccessToken,

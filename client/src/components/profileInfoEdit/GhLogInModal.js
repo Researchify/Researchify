@@ -47,9 +47,10 @@ const GhLogInModal = ({ logInAlert, setLogInAlert }) => {
         <Modal.Title> Please Log in to GitHub </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        You will need to login to your GitHub account to proceed with clearing your account data
-        The github repo would not be deleted if you do not login.
-        Please Login!
+        <p>
+          You will need to login to your GitHub account to proceed with clearing your account data.
+        </p>
+        However, if you choose to not login, your GitHub repository containing your website data will not be deleted.
       </Modal.Body>
       <Modal.Footer>
         <Button variant="light" onClick={() => setLogInAlert(false)}>

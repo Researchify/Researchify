@@ -3,6 +3,7 @@ import {
   CREATE_TEAM_MEMBER,
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
+  RESET_TEAM_MEMBER,
 } from '../actions/types';
 
 const initialState = {
@@ -28,6 +29,8 @@ const teamMembersReducer = (state = initialState, action) => {
           (member) => member._id !== action.payload,
         ),
       };
+    case RESET_TEAM_MEMBER:
+      return initialState;
     default:
       return state;
   }

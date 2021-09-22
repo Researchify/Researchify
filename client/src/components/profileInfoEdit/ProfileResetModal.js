@@ -7,7 +7,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { logout } from '../../actions/auth';
-import { resetTeamData, deleteGHPages } from '../../actions/team';
+import { resetTeamMember, resetTeamData, deleteGHPages } from '../../actions/team';
 import { resetHomepage } from '../../actions/homepage';
 import { resetWebPage } from '../../actions/website';
 
@@ -22,6 +22,7 @@ const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
   const warningContent = isDeleteFlag ? 'All significant data will be reset!' : 'All significant data will be deleted including your account data!';
   const HandleResetType = () => {
     const accessToken = localStorage.getItem('GH_access_token');
+    dispatch(resetTeamMember(teamId));
     dispatch(resetHomepage(teamId));
     dispatch(resetWebPage(teamId));
     if (accessToken) {
