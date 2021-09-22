@@ -113,11 +113,11 @@ export const updateTheme = (teamId, themeData) => async (dispatch) => {
         value: themeData.darkMode ? '2' : '1',
       },
     ];
-    const { data } = await api.updateClientWebMetadata(teamId, changes);
+    await api.updateClientWebMetadata(teamId, changes);
 
     dispatch({
       type: UPDATE_WEBSITE_TEMPLATE,
-      payload: data,
+      payload: themeData,
     });
     dispatch(successMessageCreator('Theme has been updated'));
   } catch (error) {

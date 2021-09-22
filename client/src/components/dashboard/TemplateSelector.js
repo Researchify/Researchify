@@ -2,7 +2,7 @@
  * This file exports a pop up window, that prompts user
  * to select a theme in Researchify dashboard page.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container, Button, Form, Col, Card,
 } from 'react-bootstrap';
@@ -20,10 +20,15 @@ import layout3 from '../../images/layout_3.png';
  */
 const TemplateSelector = (props) => {
   const dispatch = useDispatch();
+  const clientSiteMetadata = useSelector((state) => state.website);
 
-  /* eslint-disable no-unused-vars */
-  const [darkMode, setDarkMode] = useState(useSelector((state) => state.website.darkTheme));
-  const [layout, setLayout] = useState(useSelector((state) => state.website.layout));
+  const [darkMode, setDarkMode] = useState(clientSiteMetadata.darkTheme);
+  const [layout, setLayout] = useState(clientSiteMetadata.layout);
+
+  useEffect(() => {
+    setDarkMode(clientSiteMetadata.darkTheme);
+    setLayout(clientSiteMetadata.layout);
+  }, [clientSiteMetadata]);
 
   const updateSelections = (form) => {
     const { name, value } = form.target;
