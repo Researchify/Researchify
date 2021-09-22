@@ -21,7 +21,13 @@ import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
 import profilePic from '../../images/profilepic.jpg';
-import { SecondaryButton, DangerButton } from '../shared/styledComponents';
+import {
+  SecondaryButton,
+  DangerButton,
+  OptionEditButton,
+  RedDeleteButton,
+} from '../shared/styledComponents';
+import './teamMember.css';
 // remove later
 
 const TeamMember = ({ member }) => {
@@ -37,7 +43,7 @@ const TeamMember = ({ member }) => {
 
   const displayOptions = (
     <ButtonGroup>
-      <SecondaryButton
+      <OptionEditButton
         backgroundColor="white"
         onClick={() => setShowUpdateForm(true)}
         data-toggle="modal"
@@ -45,21 +51,21 @@ const TeamMember = ({ member }) => {
         {' '}
         <AiFillEdit />
         {' '}
-      </SecondaryButton>
-      <DangerButton
+      </OptionEditButton>
+      <RedDeleteButton
         backgroundColor="white"
         onClick={() => setShowDeleteMessage(true)}
         data-toggle="modal"
       >
         <AiFillDelete />
-      </DangerButton>
+      </RedDeleteButton>
     </ButtonGroup>
   );
 
   return (
     <>
       <Col className="container-fluid mt-4">
-        <Card bg="light" style={{ width: '25rem', height: '100%' }}>
+        <Card id="card" bg="light" style={{ width: '25rem', height: '100%' }}>
           <Row>
             <Col md={{ span: 2, offset: 10 }}>
               <OverlayTrigger
