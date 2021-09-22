@@ -21,7 +21,7 @@ import {
   DangerButton,
   SecondaryButton,
   OptionEditButton,
-  OptionDeleteButton,
+  RedDeleteButton,
 } from '../shared/styledComponents';
 import './form/achievementForm.css';
 import { deleteAchievement } from '../../actions/achievements';
@@ -47,12 +47,12 @@ const Achievement = ({ achievement }) => {
         <AiFillEdit />
         {' '}
       </OptionEditButton>
-      <OptionDeleteButton
+      <RedDeleteButton
         onClick={() => setShowDeleteMessage(true)}
         data-toggle="modal"
       >
         <AiFillDelete />
-      </OptionDeleteButton>
+      </RedDeleteButton>
     </ButtonGroup>
   );
 

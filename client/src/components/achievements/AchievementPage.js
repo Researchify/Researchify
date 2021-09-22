@@ -3,7 +3,7 @@
  */
 
 import {
-  Row, Col, Container, CardDeck, Modal, Spinner, Alert,
+  Container, CardDeck, Modal, Spinner, Alert,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
@@ -29,19 +29,14 @@ const AchievementPage = () => {
 
   return (
     <div className="achievementPageContainer">
-      <Row className="container-fluid mt-4">
-        <Col>
-          <h1>Achievements</h1>
-        </Col>
-        <Col id="achievementButton" md={{ offset: 5 }}>
-          <PrimaryButton
-            className="mt-2"
-            onClick={() => setShowCreateForm(true)}
-          >
-            Add Achievement
-          </PrimaryButton>
-        </Col>
-      </Row>
+      <h1>Achievements</h1>
+      <PrimaryButton
+        className="mt-2"
+        onClick={() => setShowCreateForm(true)}
+      >
+        Add Achievement
+      </PrimaryButton>
+
       <div className="text-center">
         {loading && <Spinner className="mt-5" animation="border" />}
       </div>

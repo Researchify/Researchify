@@ -96,7 +96,7 @@ export const OptionEditButton = styled.button` // FIXXXXXX
   }
 `;
 
-export const OptionDeleteButton = styled.button` // Outline-Purple
+export const OptionDeleteButton = styled.button` // Gold with darker gold background when hovering
     padding: .375rem .75rem;
     border: 1px solid #56658a;
     border-radius: .25rem;
@@ -107,5 +107,18 @@ export const OptionDeleteButton = styled.button` // Outline-Purple
   &:hover{
     background-color: #8c7a5b;
     color: white;
+  }
+`;
+
+export const RedDeleteButton = styled.button` // Red with darker red background when hovering
+    padding: .375rem .75rem;
+    border: 1px solid #9e2833;
+    border-radius: .25rem;
+    background-color: #dc3545;
+    color: white;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: ${(props) => props.fontSize}; //.875rem;
+  &:hover{
+    background-color: #9e2833;
   }
 `;
