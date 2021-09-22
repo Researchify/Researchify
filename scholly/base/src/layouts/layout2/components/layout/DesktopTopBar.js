@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TEAM_INFO } from '../../../../global/data';
 
-const DesktopTopBar = ({ styles }) => {
+const DesktopTopBar = ({ styles, title }) => {
   const topBarStyle = {
     top: 0,
     display: 'flex',
@@ -16,12 +16,15 @@ const DesktopTopBar = ({ styles }) => {
     boxSizing: 'border-box',
     fontSize: 34,
     marginLeft: styles.sidebarWidth,
+    zIndex: 5,
   };
   const { teamName, orgName } = TEAM_INFO;
   return (
     <div style={topBarStyle}>
       <span>{teamName}</span>
       <span>{orgName}</span>
+      <span style={{ fontSize: 28, fontWeight: 'normal' }}> - </span>
+      <span style={{ fontSize: 28, fontWeight: 'normal' }}>{title}</span>
     </div>
   );
 };

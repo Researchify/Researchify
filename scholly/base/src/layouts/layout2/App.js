@@ -53,39 +53,35 @@ const App = () => {
 
   const contentStyle = {
     paddingTop: styles.showSidebar ? 20 : styles.mobiletopBarHeight + 20,
-    paddingRight: 20,
     paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
+    paddingRight: 20,
     paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20,
   };
 
-  const routeItems = headerData.map(({ path, exact, component }) => {
+  const routeItems = headerData.map(({
+    title, path, exact, component,
+  }) => {
     const View = component;
     return (
       <Route exact={exact} path={path} key={path}>
-        {styles.showSidebar && <DesktopTopBar styles={styles} />}
-        <div style={contentStyle}>{View ? <View /> : null}</div>
+        {styles.showSidebar ? <DesktopTopBar styles={styles} title={title} />
+          : <MobileTopBar styles={styles} title={title} />}
+        <div style={contentStyle}>
+          {View ? <View /> : null}
+        </div>
       </Route>
     );
   });
   return (
     <div
-      style={{
-        minHeight: '100vh',
-        position: 'relative',
-      }}
+      style={{ minHeight: '100vh', position: 'relative' }}
     >
       <Helmet>
         <title>{teamName}</title>
       </Helmet>
 
-      {styles.showSidebar ? (
-        <>
-          <Sidebar styles={styles} menuItems={headerData} />
-
-        </>
-      ) : (
-        <MobileTopBar styles={styles} />
-      )}
+      {styles.showSidebar
+        && <Sidebar styles={styles} menuItems={headerData} />}
       <ScrollIntoView>
         <Switch>
           {routeItems}

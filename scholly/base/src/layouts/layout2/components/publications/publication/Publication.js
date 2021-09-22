@@ -1,74 +1,105 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /**
  * The Publication component displays a single publication.
  */
 import React, { useState } from 'react';
-import {
-  Accordion, Card, Button, Collapse,
-} from 'react-bootstrap';
+import { Collapse, ListGroup } from 'react-bootstrap';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 const Publication = ({ pub }) => {
-  const [expanded, setExpanded] = useState(false);
-  return (
-    <Card className="team-card m-5 border-0 shadow ">
-      <Card.Header className="publication-title-column">
-        <div className="pub-category-above-title">{pub.category.type}</div>
-        <div className="publication-title">
-          {' '}
-          {pub.title}
-        </div>
-        <div className="pub-year-below-title">
-          {' '}
-          {pub.yearPublished}
-          {' '}
-        </div>
-      </Card.Header>
-      <div className="publication-card-buttons publication-title-column">
-        <Accordion.Toggle
-          eventKey={pub._id}
-          className="publication-title-column"
-        >
-          <Button onClick={() => setExpanded(!expanded)}>
-            Read
-            {expanded ? ' Less' : ' More'}
-          </Button>
-          {' '}
-        </Accordion.Toggle>
-        <Button> Go to Publication </Button>
-      </div>
+  const [isHovering, setIsHovering] = useState(false);
+  const [isHoveringArrow, setIsHoveringArrow] = useState(false);
+  const [expand, setExpand] = useState(false);
 
-      <Collapse in={expanded} eventKey={pub._id}>
-        <Card.Body className="publication-body-column">
-          <div className="pub-body-subheader">Authors</div>
-          <div className="pub-body-content">
-            {pub.authors.map((author) => `${author}`).join(', ')}
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+
+  const dropDown = (
+    <Collapse in={expand}>
+      <div style={{
+        textAlign: 'left', marginTop: '15px', marginLeft: '30px', marginRight: '30px', color: 'grey',
+      }}
+      >
+        {pub.description}
+      </div>
+    </Collapse>
+  );
+
+  return (
+    <ListGroup style={{ marginBottom: '20px' }}>
+      <ListGroup.Item
+        style={{
+          textAlign: 'left', backgroundColor: isHovering && '#F5F5F5',
+        }}
+        onMouseOver={handleMouseOver}
+        onFocus={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+        onBlur={handleMouseLeave}
+      >
+        <div><b>{pub.title}</b></div>
+        <div className="pub-text">{pub.authors.map((author) => `${author}`).join(', ')}</div>
+        {
+          pub.category.categoryTitle && (
+          <div className="pub-text">
+            <i>{pub.category.categoryTitle}</i>
+              {pub.category.issue && `, Issue ${pub.category.issue}`}
+              {pub.category.volume && `, Volume ${pub.category.volume}`}
+              {pub.category.pages && `, Page ${pub.category.pages}`}
+              {`,  ${pub.yearPublished}`}
           </div>
-          <div className="pub-body-subheader">Description</div>
-          <div className="pub-body-content pub-body-paragraph">
-            {pub.description}
+          )
+        }
+        {
+          pub.category.publisher && (
+          <div className="pub-text">
+            Published by
+            {' '}
+            {pub.category.publisher}
           </div>
-          <div className="pub-body-subheader">
-            {pub.category.categoryTitle
-              ? pub.category.type.charAt(0)
-                    + pub.category.type.slice(1).toLowerCase()
-              : ''}
+          )
+        }
+        <div>
+          {
+            pub.link && (
+            <a href={pub.link} target="_blank" rel="noreferrer">PDF</a>)
+          }
+          {pub.category.categoryTitle
+        && pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}
+        </div>
+
+      </ListGroup.Item>
+
+      {pub.description
+      && (
+      <ListGroup.Item
+        style={{ backgroundColor: isHoveringArrow && '#F5F5F5', cursor: isHoveringArrow && 'pointer' }}
+        onMouseOver={() => setIsHoveringArrow(true)}
+        onFocus={() => setIsHoveringArrow(true)}
+        onMouseLeave={() => setIsHoveringArrow(false)}
+        onBlur={() => setIsHoveringArrow(false)}
+        onClick={() => setExpand(!expand)}
+      >
+        <>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ textAlign: 'left' }}>Description</div>
+            <div style={{ textAlign: 'right' }}>
+              {expand ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              {' '}
+            </div>
           </div>
-          <div className="pub-body-content">
-            {pub.category.categoryTitle
-              ? pub.category.categoryTitle
-                    + (pub.category.issue ? `, Issue ${pub.category.issue}` : '')
-                    + (pub.category.volume ? `, Volume ${pub.category.volume}` : '')
-                    + (pub.category.pages ? `, Page ${pub.category.pages}` : '')
-              : ''}
-          </div>
-          <div className="pub-body-subheader">
-            {pub.category.publisher ? 'Published by' : null}
-          </div>
-          <div className="pub-body-content">{pub.category.publisher}</div>
-        </Card.Body>
-      </Collapse>
-    </Card>
+          {dropDown}
+        </>
+      </ListGroup.Item>
+      )}
+
+    </ListGroup>
 
   );
 };
-
 export default Publication;

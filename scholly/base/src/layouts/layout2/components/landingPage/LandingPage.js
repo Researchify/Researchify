@@ -47,7 +47,7 @@ const landingPage = () => {
 
         <Row>
           <Col md={9}>
-            <div style={{ textAlign: 'left' }}>
+            <div className="mb-4" style={{ textAlign: 'left' }}>
               <b>RECENT PUBLICATIONS </b>
               {' '}
               <Link to="/publication">

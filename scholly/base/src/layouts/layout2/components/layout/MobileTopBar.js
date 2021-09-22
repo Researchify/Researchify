@@ -1,7 +1,7 @@
 import React from 'react';
 import { TEAM_INFO } from '../../../../global/data';
 
-const MobileTopBar = ({ styles }) => {
+const MobileTopBar = ({ styles, title }) => {
   const topBarStyle = {
     position: 'fixed',
     top: 0,
@@ -12,14 +12,15 @@ const MobileTopBar = ({ styles }) => {
     height: styles.mobiletopBarHeight,
     backgroundColor: '#DEE4E7',
     borderBottom: '1px solid #d8d8d8',
-    fontWeight: 'bold',
     padding: '0px 20px',
     boxSizing: 'border-box',
+    zIndex: 5,
   };
   const { teamName, orgName } = TEAM_INFO;
   return (
     <div style={topBarStyle}>
       <span>{teamName}</span>
+      <span style={{ fontWeight: 'bold' }}>{title}</span>
       <span>{orgName}</span>
     </div>
   );
