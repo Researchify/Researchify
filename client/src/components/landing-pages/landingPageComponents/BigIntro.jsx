@@ -6,7 +6,7 @@ import '../css/big-intro.mobile.css';
 import styled from 'styled-components';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import IntroImage from '../../../images/intro.svg';
-//Initial commit
+
 const StyledButtonLink = styled(AnchorLink)`
   &:hover {
     text-decoration: none;
