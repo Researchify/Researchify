@@ -56,14 +56,19 @@ const App = () => {
     paddingRight: 20,
     paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
     paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20,
+    maxWidth: '1200px',
   };
 
   const routeItems = headerData.map(({ path, exact, component }) => {
     const View = component;
     return (
       <Route exact={exact} path={path} key={path}>
-        {styles.showSidebar && <DesktopTopBar styles={styles} />}
-        <div style={contentStyle}>{View ? <View /> : null}</div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={contentStyle}>
+            {styles.showSidebar && <DesktopTopBar styles={styles} />}
+            {View ? <View /> : null}
+          </div>
+        </div>
       </Route>
     );
   });
