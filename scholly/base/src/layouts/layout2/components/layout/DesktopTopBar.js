@@ -16,7 +16,7 @@ const DesktopTopBar = ({ styles, title }) => {
     <div style={topBarStyle}>
       <span>{teamName}</span>
       <span>{orgName}</span>
-      <span style={{ fontSize: 28, fontWeight: 'normal' }}> - </span>
+      <span style={{ fontSize: 28, fontWeight: 'normal' }}>-</span>
       <span style={{ fontSize: 28, fontWeight: 'normal' }}>{title}</span>
     </div>
   );

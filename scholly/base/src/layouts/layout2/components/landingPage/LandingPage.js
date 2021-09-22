@@ -26,7 +26,7 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
-      <Container fluid className="text-center mt-3 mb-3">
+      <Container fluid className="text-center mb-3">
         <h2>
           {' '}
           Welcome to the
@@ -59,9 +59,11 @@ const landingPage = () => {
             ))}
           </Col>
           <Col md={3}>
-            <b>UPDATES </b>
-            <div className="mt-3">
-              <TwitterFeed linkedHandle={twitterHandle} />
+            <div className="mb-4" style={{ textAlign: 'left' }}>
+              <b>UPDATES </b>
+              <div className="mt-3">
+                <TwitterFeed linkedHandle={twitterHandle} />
+              </div>
             </div>
           </Col>
         </Row>

@@ -32,7 +32,7 @@ const Publication = ({ pub }) => {
   );
 
   return (
-    <ListGroup style={{ marginBottom: '20px' }}>
+    <ListGroup style={{ marginBottom: '10px' }}>
       <ListGroup.Item
         style={{
           textAlign: 'left', backgroundColor: isHovering && '#F5F5F5',
@@ -48,6 +48,7 @@ const Publication = ({ pub }) => {
           pub.category.categoryTitle && (
           <div className="pub-text">
             <i>{pub.category.categoryTitle}</i>
+              {pub.category.categoryTitle && `, ${pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}`}
               {pub.category.issue && `, Issue ${pub.category.issue}`}
               {pub.category.volume && `, Volume ${pub.category.volume}`}
               {pub.category.pages && `, Page ${pub.category.pages}`}
@@ -64,15 +65,13 @@ const Publication = ({ pub }) => {
           </div>
           )
         }
-        <div>
-          {
-            pub.link && (
-            <a href={pub.link} target="_blank" rel="noreferrer">PDF</a>)
-          }
-          {pub.category.categoryTitle
-        && pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}
-        </div>
-
+        {
+          pub.link && (
+            <div className="pub-text">
+              <a href={pub.link} target="_blank" rel="noreferrer">PDF</a>
+            </div>
+          )
+        }
       </ListGroup.Item>
 
       {pub.description

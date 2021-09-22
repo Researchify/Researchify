@@ -65,10 +65,11 @@ const App = () => {
     const View = component;
     return (
       <Route exact={exact} path={path} key={path}>
+        {!styles.showSidebar && <MobileTopBar styles={styles} title={title} />}
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div style={contentStyle}>
-            {styles.showSidebar && <DesktopTopBar styles={styles} />}
-            {View ? <View /> : null}
+            {styles.showSidebar && <DesktopTopBar styles={styles} title={title} />}
+            {View && <View />}
           </div>
         </div>
       </Route>
@@ -81,19 +82,14 @@ const App = () => {
       <Helmet>
         <title>{teamName}</title>
       </Helmet>
-
       {styles.showSidebar
-        && <Sidebar styles={styles} menuItems={headerData} />}
+        ? <Sidebar styles={styles} menuItems={headerData} />
+        : <FooterMenu styles={styles} menuItems={headerData} />}
       <ScrollIntoView>
         <Switch>
           {routeItems}
         </Switch>
       </ScrollIntoView>
-
-      {!styles.showSidebar && (
-      <FooterMenu styles={styles} menuItems={headerData} />
-      )}
-
     </div>
   );
 };
