@@ -37,11 +37,6 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       name: 'PUBLICATIONS',
     },
     {
-      title: 'Team Profile',
-      icon: <BsPerson />,
-      link: '/dashboard/profile',
-    },
-    {
       title: 'Team Member',
       icon: <BsPeople />,
       link: '/team',
@@ -52,6 +47,11 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       icon: <BsFillAwardFill />,
       link: '/achievement',
       name: 'ACHIEVEMENTS',
+    },
+    {
+      title: 'Account',
+      icon: <BsPerson />,
+      link: '/dashboard/profile',
     },
     {
       title: 'Logout',
