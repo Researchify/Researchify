@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  Button, Form, Container, Image,
+  Form, Container, Image,
 } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,6 +13,8 @@ import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
 import ProfileResetModal from './ProfileResetModal';
 import GhLogInModal from './GhLogInModal';
+import { PrimaryButton, DangerButton } from '../shared/styledComponents';
+
 /**
   * Form component for user update profile
   */
@@ -96,19 +98,18 @@ const ProfileInfoEdit = () => {
             validated={validated}
             onSubmit={handleUpdate}
           >
-            <p className="profile-title-name">Team Profile Management</p>
+            <p className="profile-title-name">Account Settings</p>
 
             <Form.Group controlId="formProfilePic">
               <Image
+                className="profile-img"
                 src={profileData.profilePic}
                 roundedCircle
-                height="184px"
-                width="184px"
               />
-              <Form.Control name="profilePic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} />
-              <Form.Text className="text-muted">
-                Upload a file from your device, at least 184px.
-              </Form.Text>
+              <Form.Label className="upload-label">
+                Change Profile Photo
+              </Form.Label>
+              <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
             </Form.Group>
 
             <Form.Group>
@@ -151,17 +152,16 @@ const ProfileInfoEdit = () => {
             </Form.Group>
 
             <div className="my-1">
-              <Button
+              <PrimaryButton
                 id="updateButton"
                 type="submit"
                 color="primary"
-                className="mr-2"
+                className="my-2"
               >
                 Update
-              </Button>
-              <Button
-                id="clearButton"
-                variant="danger"
+              </PrimaryButton>
+              <DangerButton
+                variant="outline-danger"
                 onClick={() => {
                   checkLogin();
                   setResetAlert(true);
@@ -169,12 +169,12 @@ const ProfileInfoEdit = () => {
                 }}
               >
                 Reset Data
-              </Button>
+              </DangerButton>
 
             </div>
             <div className="my-1">
-              <Button
-                variant="danger"
+              <DangerButton
+                variant="outline-danger"
                 onClick={() => {
                   checkLogin();
                   setResetAlert(true);
@@ -182,7 +182,7 @@ const ProfileInfoEdit = () => {
                 }}
               >
                 Delete account
-              </Button>
+              </DangerButton>
             </div>
           </Form>
         </Container>

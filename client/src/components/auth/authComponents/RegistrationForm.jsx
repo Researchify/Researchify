@@ -2,13 +2,12 @@
  * This file exports a Registration Form component used to display registration input.
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Col, Form, Jumbotron, OverlayTrigger, Popover,
 } from 'react-bootstrap';
 import '../css/registration-form.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { BsQuestionCircle } from 'react-icons/bs';
@@ -46,31 +45,23 @@ const StringPasswordHint = (props) => (
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { logIn } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (logIn) {
-      history.push('/dashboard');
-    }
-  }, [history, logIn]);
 
   const teamInfoSchema = yup.object({
     teamName: yup
       .string()
-      .required('Team Name is required')
+      .required('Team name is required')
       .min(3, 'Must be at least 3 characters'),
     orgName: yup
       .string()
-      .required('Organization Name is required')
+      .required('Organization name is required')
       .min(3, 'Must be at least 3 characters'),
     email: yup
       .string()
-      .email('Invalid Email')
+      .email('Invalid email')
       .required('Email is required'),
     password: yup
       .string()
-      .required('Please Enter your password')
+      .required('Please enter your password')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         'Password is not strong enough',
@@ -89,10 +80,11 @@ const RegistrationForm = () => {
     confirmedPassword: '',
   };
 
-  const submitForm = (values) => {
+  const submitForm = (values, { setFieldError }) => {
     const teamInfo = { ...values };
     delete teamInfo.confirmedPassword;
-    dispatch(createTeam(teamInfo));
+    // error message could be passed in the setFieldError function to show error on the form
+    dispatch(createTeam(teamInfo, setFieldError));
   };
 
   return (
