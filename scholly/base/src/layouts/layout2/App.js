@@ -11,9 +11,10 @@ import getRoutes from './components/router/routes';
 import './components/centered.css';
 import '../../shared/css/style.css';
 import '../../shared/css/baseColours.css';
-import TopBar from './components/layout/TopBar';
+import MobileTopBar from './components/layout/MobileTopBar';
 import FooterMenu from './components/layout/FooterMenu';
 import ScrollIntoView from './components/layout/ScrollIntoView';
+import DesktopTopBar from './components/layout/DesktopTopBar';
 
 const themeOption = '1';
 if (themeOption === '1') {
@@ -32,7 +33,6 @@ const App = () => {
 
   const updateDimensions = () => {
     const windowWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
-
     setWidth(windowWidth);
   };
 
@@ -43,16 +43,17 @@ const App = () => {
   }, []);
 
   const styles = {
-    topBarHeight: 40,
+    mobiletopBarHeight: 40,
+    desktoptopBarHeight: 80,
     footerMenuHeight: 50,
     showFooterMenuText: width > 500,
     showSidebar: width > 768,
-    sidebarWidth: width < 1100 ? 50 : 200,
+    sidebarWidth: width < 1100 ? 50 : 140,
     sidebarCollapsed: width < 1100,
   };
 
   const contentStyle = {
-    paddingTop: styles.showSidebar ? 20 : styles.topBarHeight + 20,
+    paddingTop: styles.showSidebar ? 20 : styles.mobiletopBarHeight + 20,
     paddingRight: 20,
     paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
     paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20,
@@ -62,6 +63,7 @@ const App = () => {
     const View = component;
     return (
       <Route exact={exact} path={path} key={path}>
+        {styles.showSidebar && <DesktopTopBar styles={styles} />}
         <div style={contentStyle}>{View ? <View /> : null}</div>
       </Route>
     );
@@ -78,9 +80,12 @@ const App = () => {
       </Helmet>
 
       {styles.showSidebar ? (
-        <Sidebar styles={styles} menuItems={headerData} />
+        <>
+          <Sidebar styles={styles} menuItems={headerData} />
+
+        </>
       ) : (
-        <TopBar styles={styles} />
+        <MobileTopBar styles={styles} />
       )}
       <ScrollIntoView>
         <Switch>

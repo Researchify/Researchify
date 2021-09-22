@@ -1,7 +1,7 @@
 import React from 'react';
 import { TEAM_INFO } from '../../../../global/data';
 
-const TopBar = ({ styles }) => {
+const MobileTopBar = ({ styles }) => {
   const topBarStyle = {
     position: 'fixed',
     top: 0,
@@ -9,8 +9,8 @@ const TopBar = ({ styles }) => {
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    height: styles.topBarHeight,
-    backgroundColor: '#fff',
+    height: styles.mobiletopBarHeight,
+    backgroundColor: '#DEE4E7',
     borderBottom: '1px solid #d8d8d8',
     fontWeight: 'bold',
     padding: '0px 20px',
@@ -25,4 +25,4 @@ const TopBar = ({ styles }) => {
   );
 };
 
-export default TopBar;
+export default MobileTopBar;

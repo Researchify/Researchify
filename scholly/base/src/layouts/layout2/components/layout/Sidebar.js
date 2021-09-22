@@ -4,16 +4,13 @@ import React from 'react';
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
 
-import { TEAM_INFO } from '../../../../global/data';
-
 const Sidebar = ({ styles, menuItems }) => {
-  const { teamName } = TEAM_INFO;
   const sidebarStyle = {
     height: '100vh',
     width: styles.sidebarWidth,
     position: 'fixed',
-    backgroundColor: 'lightgrey',
-    paddingTop: 40,
+    paddingTop: 80,
+    backgroundColor: '#DEE4E7',
   };
 
   const menuItemStyle = {
@@ -28,20 +25,12 @@ const Sidebar = ({ styles, menuItems }) => {
     marginRight: styles.sidebarCollapsed ? 0 : 10,
   };
 
-  const logoStyle = {
-    textAlign: 'center',
-    fontSize: 34,
-    marginBottom: 60,
-    fontWeight: 'bold',
-  };
-
   return (
     <div style={sidebarStyle}>
-      <div style={logoStyle}>{styles.sidebarCollapsed ? '' : teamName }</div>
       {menuItems.map((item) => (
         <div style={menuItemStyle}>
           <Link style={{ padding: 10 }} key={item.title} to={item.path}>
-            <span className="mr-3" style={iconStyle}>{item.icon}</span>
+            {styles.sidebarCollapsed && <span className="mr-3" style={iconStyle}>{item.icon}</span>}
             {!styles.sidebarCollapsed && item.title}
           </Link>
         </div>
