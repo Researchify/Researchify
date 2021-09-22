@@ -33,7 +33,7 @@ const AchievementPage = () => {
         <Col>
           <h1>Achievements</h1>
         </Col>
-        <Col id="achievementButton" md={{ offset: 4 }}>
+        <Col id="achievementButton" md={{ offset: 5 }}>
           <PrimaryButton
             className="mt-2"
             onClick={() => setShowCreateForm(true)}

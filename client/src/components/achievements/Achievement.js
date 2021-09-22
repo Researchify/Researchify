@@ -18,7 +18,7 @@ import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import {
-  PrimaryButton,
+  DangerButton,
   SecondaryButton,
   OptionEditButton,
   OptionDeleteButton,
@@ -121,11 +121,11 @@ const Achievement = ({ achievement }) => {
             </SecondaryButton>
           </div>
           <div>
-            <PrimaryButton
+            <DangerButton
               onClick={handleDelete}
             >
               Confirm
-            </PrimaryButton>
+            </DangerButton>
           </div>
         </Modal.Footer>
       </Modal>
