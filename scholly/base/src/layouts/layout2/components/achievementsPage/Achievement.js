@@ -1,63 +1,40 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /**
- * This component display a single award as a card component.
- * trial comment
+ * The Publication component displays a single publication.
  */
-
-import React, { useState, useEffect, useRef } from 'react';
-import {
-  Card, Row, Col, Button,
-} from 'react-bootstrap';
-import awardPicture from '../../../../shared/images/awardpic.jpg';
+import React, { useState } from 'react';
+import { ListGroup } from 'react-bootstrap';
 
 const Achievement = ({ achievement }) => {
-  const ref = useRef();
-  const [expanded, setExpanded] = useState(true);
-  const [shouldShowExpand, setShouldShowExpand] = useState(false);
-  const MAX_EXPANDED_HEIGHT = 500;
-  const maxHeight = 90;
-  useEffect(() => {
-    if (ref.current.scrollHeight > maxHeight) {
-      setShouldShowExpand(true);
-      setExpanded(false);
-    }
-  }, [maxHeight]);
+  const [isHovering, setIsHovering] = useState(false);
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
   return (
-    <Col>
-      <Card className="award-card m-4 border-0 shadow ">
-        <Row>
-          <Col>
-            <Card.Body>
-              <Card.Title as="h5">{achievement.title}</Card.Title>
-              <Card.Text as="h6">
-                {achievement.yearAwarded}
-              </Card.Text>
-              <hr />
-              <Card.Text as="h7">
-                <div style={{ maxHeight: expanded ? MAX_EXPANDED_HEIGHT : maxHeight }} className="award-summary" ref={ref}>
-                  {achievement.description}
-                </div>
-              </Card.Text>
-              <br />
-              {
-                                shouldShowExpand && (
-                                <Button className="read-more-button" onClick={() => setExpanded(!expanded)}>
-                                  Read
-                                  {expanded ? ' Less' : ' More'}
-                                </Button>
-                                )
-
-                            }
-
-            </Card.Body>
-          </Col>
-          <Col>
-            <Card.Img src={awardPicture} className="award-picture" />
-          </Col>
-        </Row>
-      </Card>
-    </Col>
+    <ListGroup style={{ marginBottom: '10px' }}>
+      <ListGroup.Item
+        style={{
+          textAlign: 'left', backgroundColor: isHovering && '#F5F5F5',
+        }}
+        onMouseOver={handleMouseOver}
+        onFocus={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+        onBlur={handleMouseLeave}
+      >
+        <row>
+          <b>{achievement.title}</b>
+          <i className="float-right">{achievement.yearAwarded}</i>
+        </row>
+        <div className="pub-text">
+          {achievement.description}
+        </div>
+      </ListGroup.Item>
+    </ListGroup>
 
   );
 };
-
 export default Achievement;

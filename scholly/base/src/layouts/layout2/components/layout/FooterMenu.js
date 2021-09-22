@@ -27,8 +27,9 @@ const FooterMenu = ({ styles, menuItems }) => (
         }}
       >
         <Link key={item.title} to={item.path}>
-          <span style={{ marginRight: 5, fontSize: 20 }}>{item.icon}</span>
-          {styles.showFooterMenuText && item.title}
+          {styles.showFooterMenuText
+            ? item.title
+            : <span style={{ marginRight: 5, fontSize: 20 }}>{item.icon}</span>}
         </Link>
       </div>
     ))}
