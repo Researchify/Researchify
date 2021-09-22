@@ -1,0 +1,114 @@
+body {
+    background-color: var(--researchify-color-primary);
+    color: var(--researchify-text-color);
+}
+
+a {
+    color: var(--researchify-link-color);
+}
+
+a:hover, a:focus, .navbar a:hover, .navbar a:focus, .sidebar a:focus {
+    color: var(--researchify-link-hover-color);
+}
+
+.navbar, .sidebar {
+    color: var(--researchify-text-color-secondary);
+    background-color: var(--researchify-color-secondary);
+}
+
+.navbar a, .sidebar a {
+    color: var(--researchify-text-color-secondary);
+}
+
+.navbar a:hover, .navbar a:focus, .sidebar a:hover, .sidebar a:focus {
+    color: var(--researchify-link-hover-color-secondary)
+}
+
+.publication-card {
+    background-color: transparent;
+}
+
+.publication-card .card-header {
+    color: var(--researchify-text-color-secondary);
+    background-color: var(--researchify-color-secondary);
+}
+
+.publication-card .card-body {
+    background-color: var(--researchify-color-tertiary);
+}
+
+.pagination .page-item .page-link {
+    background-color: var(--researchify-color-secondary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--researchify-color-quaternary);
+    border-color: var(--researchify-color-quaternary);
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: var(--researchify-color-quinary);
+    border-color: var(--researchify-color-quinary);
+}
+
+.btn {
+    background-color: var(--researchify-color-secondary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.btn:hover, .btn:active, .btn:focus {
+    background-color: var(--researchify-color-tertiary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.team-card, .award-card {
+    color: var(--researchify-text-color-secondary);
+    background-color: var(--researchify-color-secondary);
+}
+
+.publication-title-column {
+    background-color: var(--researchify-color-tertiary);
+}
+
+.card .btn {
+    background-color: var(--researchify-color-primary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.card .btn:hover, .card .btn:active, .card .btn:focus {
+    background-color: var(--researchify-color-tertiary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.modal-content {
+    background-color: var(--researchify-color-primary);
+    color: var(--researchify-text-color);
+}
+
+.modal .btn {
+    background-color: var(--researchify-color-secondary);
+    border-color: var(--researchify-color-secondary);
+    color: var(--researchify-text-color);
+}
+
+.modal .btn:hover, .modal .btn:active, .modal .btn:focus {
+    background-color: var(--researchify-color-tertiary)!important;
+    border-color: var(--researchify-color-secondary)!important;
+    color: var(--researchify-text-color)!important;
+}
+
+.team-card-container .bg-white, .team-card-container .bg-light {
+    background-color: var(--researchify-color-secondary)!important;
+    color: var(--researchify-text-color)!important;
+}
+
+.team-card-container .bg-secondary {
+    background-color: var(--researchify-text-color)!important;
+    color: var(--researchify-color-secondary)!important;
+}

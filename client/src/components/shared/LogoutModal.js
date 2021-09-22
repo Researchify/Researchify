@@ -1,10 +1,11 @@
 /**
  * LogoutModal component display a modal and ask for confirmation when the sign out button is clicked
  */
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/auth';
+import { SecondaryButton, DangerButton } from './styledComponents';
 
 const LogoutModal = ({ logoutAlert, setLogoutAlert }) => {
   const dispatch = useDispatch();
@@ -20,12 +21,12 @@ const LogoutModal = ({ logoutAlert, setLogoutAlert }) => {
         Are you sure you want to log out?
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="light" onClick={() => setLogoutAlert(false)}>
+        <SecondaryButton onClick={() => setLogoutAlert(false)}>
           Cancel
-        </Button>
-        <Button variant="danger" onClick={handleSignOut}>
+        </SecondaryButton>
+        <DangerButton onClick={handleSignOut}>
           Yes
-        </Button>
+        </DangerButton>
       </Modal.Footer>
     </Modal>
   );
