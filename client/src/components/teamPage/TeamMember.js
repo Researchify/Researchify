@@ -22,6 +22,7 @@ import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
 import profilePic from '../../images/profilepic.jpg';
 import { SecondaryButton, DangerButton } from '../shared/styledComponents';
+// remove later
 
 const TeamMember = ({ member }) => {
   const dispatch = useDispatch();
