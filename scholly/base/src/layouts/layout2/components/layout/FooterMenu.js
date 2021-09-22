@@ -13,6 +13,7 @@ const FooterMenu = ({ styles, menuItems }) => (
       color: '#fff',
       position: 'fixed',
       bottom: 0,
+      zIndex: 3,
     }}
   >
     {menuItems.map((item, i) => (

@@ -16,6 +16,7 @@ const DesktopTopBar = ({ styles }) => {
     boxSizing: 'border-box',
     fontSize: 34,
     marginLeft: styles.sidebarWidth,
+    zIndex: 3,
   };
   const { teamName, orgName } = TEAM_INFO;
   return (
