@@ -12,7 +12,7 @@ const Sidebar = () => {
     <>
 
       <Nav
-        className="col-md-12 d-none d-md-block bg-light sidebar me-auto"
+        className="col-md-12 d-none d-md-block sidebar me-auto"
         activeKey="/home"
       >
         <div className="landing-center-title">{teamName}</div>

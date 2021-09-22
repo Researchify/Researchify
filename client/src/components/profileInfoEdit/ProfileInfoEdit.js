@@ -5,13 +5,15 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  Button, Form, Container, Image,
+  Form, Container, Image,
 } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
+
+import { PrimaryButton, SecondaryButton, DangerButton } from '../shared/styledComponents';
 
 /**
  * Form component for user update profile
@@ -144,21 +146,21 @@ const ProfileInfoEdit = () => {
           </Form.Group>
 
           <div className="profile-btn-group">
-            <Button
+            <PrimaryButton
               id="updateButton"
               type="submit"
               color="primary"
               className="my-2"
             >
               Update
-            </Button>
-            <Button
+            </PrimaryButton>
+            <DangerButton
               variant="outline-danger"
               onClick={profileDeleted}
               className="mt-2"
             >
               Delete account
-            </Button>
+            </DangerButton>
           </div>
         </Form>
       </Container>

@@ -2,13 +2,14 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Row, InputGroup, Button, Form,
+  Row, InputGroup, Form,
 } from 'react-bootstrap';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { PropTypes } from 'prop-types';
 import { importPublications } from '../../../actions/publications';
 import { IMPORT_FAIL, UPDATE_GSCHOLAR_ID } from '../../../actions/types';
 import '../publications.css';
+import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 
 const ProfileLinkPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);
@@ -86,18 +87,17 @@ const ProfileLinkPage = ({ closeModal }) => {
 
           <Row>
             <div className="ml-auto mr-3">
-              <Button
+              <DangerButton
                 className="mr-2"
-                variant="outline-danger"
                 onClick={closeModal}
               >
                 Cancel
-              </Button>
-              <Button variant="primary" type="submit">
+              </DangerButton>
+              <PrimaryButton variant="primary" type="submit">
                 {' '}
                 Confirm
                 {' '}
-              </Button>
+              </PrimaryButton>
             </div>
           </Row>
         </Form>

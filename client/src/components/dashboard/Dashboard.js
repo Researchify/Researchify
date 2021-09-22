@@ -36,6 +36,9 @@ const Dashboard = () => {
       case 'HOME PAGE':
         history.push('/about-us');
         break;
+      case 'ACHIEVEMENTS':
+        history.push('/achievement');
+        break;
       default:
         history.push('/');
     }
