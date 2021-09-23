@@ -10,7 +10,7 @@ import {
 } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import { updateAchievement, createAchievement } from '../../../actions/achievements';
-
+import './achievementForm.css';
 import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 
 const AchievementForm = ({ closeModal, achievement, type }) => {
