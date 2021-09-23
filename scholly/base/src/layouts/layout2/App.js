@@ -13,7 +13,7 @@ import './components/centered.css';
 import '../../shared/css/style.css';
 import '../../shared/css/baseColours.css';
 
-const themeOption = TEAM_SITE_METADATA.theme;
+const themeOption = TEAM_SITE_METADATA.template.theme;
 if (themeOption === 'light') {
   import('../../shared/css/lightColours.css');
 } else if (themeOption === 'dark') {

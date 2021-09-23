@@ -50,7 +50,15 @@ if (!env.REACT_APP_DEBUG) {
   TEAM_SITE_METADATA = env.REACT_APP_TEAM_SITE_METADATA
     ? JSON.parse(env.REACT_APP_TEAM_SITE_METADATA)
     : {
-      pages: [], layout: defaultLayout, theme: defaultTheme, publicationOptions: { layout: 'By Category', sortBy: 'Category Title' },
+      pages: [],
+      template: {
+        layout: defaultLayout,
+        theme: defaultTheme,
+      },
+      publicationOptions: {
+        layout: 'By Category',
+        sortBy: 'Category Title',
+      },
     };
 
   /// The list of achievements the team has created for rendering in the achievements page
