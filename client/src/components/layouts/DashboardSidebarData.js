@@ -54,6 +54,11 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       name: 'ACHIEVEMENTS',
     },
     {
+      title: 'Account',
+      icon: <BsPerson />,
+      link: '/dashboard/profile',
+    },
+    {
       title: 'Logout',
       icon: <BsBoxArrowLeft />,
       action: () => setLogoutAlert(true),
