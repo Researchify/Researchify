@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import {
   Table,
-  Button,
   Tooltip,
   OverlayTrigger,
   Spinner,
@@ -12,6 +11,9 @@ import { PropTypes } from 'prop-types';
 import WebpageDelete from './WebpageDelete';
 import WebpageSelector from './WebpageSelector';
 import ConditionalWrapper from '../../shared/ConditionalWrapper';
+import {
+  PrimaryButton, SecondaryButton, DangerButton,
+} from '../../shared/styledComponents';
 
 const Webpages = ({
   currentWebPages,
@@ -82,14 +84,14 @@ const Webpages = ({
           )}
         >
           <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
-            <Button
+            <PrimaryButton
               className="mr-2"
               onClick={showDisplayPageModal}
               disabled={disableAddButton}
               style={disableAddButton ? { pointerEvents: 'none' } : {}}
             >
               Add Page
-            </Button>
+            </PrimaryButton>
           </div>
         </ConditionalWrapper>
       </div>
@@ -116,15 +118,14 @@ const Webpages = ({
             <tr key="default-homepage">
               <td className="body">
                 HOMEPAGE
-                <Button
-                  variant="outline-success"
+                <SecondaryButton
                   className="action float-right mx-2"
                   onClick={() => {
                     directToAnotherPage('HOME PAGE');
                   }}
                 >
                   <BsPencilSquare />
-                </Button>
+                </SecondaryButton>
               </td>
             </tr>
 
@@ -132,22 +133,20 @@ const Webpages = ({
               <tr key={webPage}>
                 <td className="body">
                   {webPage}
-                  <Button
-                    variant="outline-danger"
+                  <DangerButton
                     className="action primary-danger float-right"
                     onClick={() => promptDeleteConfirmation(webPage)}
                   >
                     Delete
-                  </Button>
-                  <Button
-                    variant="outline-success"
+                  </DangerButton>
+                  <SecondaryButton
                     className="action float-right mx-2"
                     onClick={() => {
                       directToAnotherPage(webPage);
                     }}
                   >
                     <BsPencilSquare />
-                  </Button>
+                  </SecondaryButton>
                 </td>
               </tr>
             ))}

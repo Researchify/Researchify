@@ -3,11 +3,12 @@
  */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Button from 'react-bootstrap/Button';
 import { Timeline } from 'react-twitter-widgets';
 
 import { unlinkTwitter } from '../../actions/team';
 import './TwitterFeed.css';
+
+import { PrimaryButton } from '../shared/styledComponents';
 
 const TwitterFeed = () => {
   const dispatch = useDispatch();
@@ -19,13 +20,12 @@ const TwitterFeed = () => {
         dataSource={{ sourceType: 'profile', screenName: team.twitterHandle }}
         options={{ height: 800 }}
       />
-      <Button
-        size="sm"
-        variant="outline-secondary"
+      <PrimaryButton
+        fontSize="0.875rem"
         onClick={() => dispatch(unlinkTwitter(team.teamId))}
       >
         Unlink Twitter
-      </Button>
+      </PrimaryButton>
     </div>
   );
 };

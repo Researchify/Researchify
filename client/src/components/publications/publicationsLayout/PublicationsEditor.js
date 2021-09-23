@@ -6,6 +6,7 @@ import { PropTypes } from 'prop-types';
 import { sortingOptions, groupByOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 import '../publications.css';
+import { PrimaryButton } from '../../shared/styledComponents';
 
 export const StyledButtonGroup = styled.div`
   background-color: transparent;
@@ -14,7 +15,7 @@ export const StyledButtonGroup = styled.div`
   color: black;
 `;
 
-export const ButtonGroupItem = styled.button`
+export const ButtonGroupItem = styled.button` 
   background: #ededed;
   border: 1px solid ${(props) => props.borderColor || '#ccc'};
   padding: 1px 8px;
@@ -34,19 +35,42 @@ export const ButtonGroupItem = styled.button`
 }
 `;
 
-export const EditorButton = styled.button`
-  color: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  width: auto;
-  background-color: #007bff;
-  border-color: #007bff;
-  padding: .25rem .5rem;
-  font-size: .875rem;
-  line-height: 1.5;
-  border-radius: .2rem;
-  &:hover{
-    background-color: #0069d9;
+export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
+    padding: .375rem .75rem;
+    border: 1px solid #56658a;
+    border-radius: .25rem;
+    background-color: #56658a;
+    color: white;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: ${(props) => props.fontSize};
+  &:not(:disabled){
+    background-color:#56658a !important;
+  }
+  &:not(:disabled):hover{
+    background-color:rgb(60, 70, 96) !important;
+  }
+`;
+
+// export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Gold
+//     padding: .375rem .75rem;
+//     border: 1px solid #AB9671;
+//     border-radius: .25rem;
+//     border-color: #AB9671;
+//     background-color: #AB9671;
+//     color: white;
+//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+//     font-size: ${(props) => props.fontSize};
+//   &:not(:disabled){
+//     background-color:#AB9671 !important;
+//   }
+//   &:not(:disabled):hover{
+//     background-color:rgb(119, 105, 79) !important;
+//   }
+// `;
+
+export const StyledDropdowItem = styled(Dropdown.Item)`
+  &:not(:disabled):hover{
+    background-color:#F6F6F6 !important;
   }
 `;
 
@@ -69,12 +93,12 @@ const PublicationsEditor = ({
       <Col md={1} sm={2}>
         <StyledButtonGroup>
           <Dropdown>
-            <Dropdown.Toggle size="sm">
+            <StyledDropdownToggle size="sm">
               Add
-            </Dropdown.Toggle>
+            </StyledDropdownToggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => setShowCreateForm(true)}>Add Manually</Dropdown.Item>
-              <Dropdown.Item onClick={() => setShowImportForm(true)}>Import Publications</Dropdown.Item>
+              <StyledDropdowItem onClick={() => setShowCreateForm(true)}>Add Manually</StyledDropdowItem>
+              <StyledDropdowItem onClick={() => setShowImportForm(true)}>Import Publications</StyledDropdowItem>
             </Dropdown.Menu>
           </Dropdown>
         </StyledButtonGroup>
@@ -134,11 +158,12 @@ const PublicationsEditor = ({
 
       <Col md={2} sm={2}>
         <StyledButtonGroup>
-          <EditorButton
+          <PrimaryButton
+            fontSize="0.875rem"
             onClick={handleUpdate}
           >
             Update Layout
-          </EditorButton>
+          </PrimaryButton>
         </StyledButtonGroup>
       </Col>
     </Row>

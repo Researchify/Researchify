@@ -5,15 +5,16 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  Button, Form, Container, Image,
+  Form, Container, Image,
 } from 'react-bootstrap';
 import './ProfileInfoEdit.css';
-import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam, updatePassword } from '../../actions/team';
+
+import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 
 /**
  * Form component for user update profile
@@ -170,19 +171,18 @@ const ProfileInfoEdit = () => {
           validated={validated}
           onSubmit={handleUpdate}
         >
-          <p className="profile-title-name">Team Profile Management</p>
+          <p className="profile-title-name">Account Settings</p>
 
           <Form.Group controlId="formProfilePic">
             <Image
+              className="profile-img"
               src={profileData.profilePic}
               roundedCircle
-              height="184px"
-              width="184px"
             />
-            <Form.Control name="profilePic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} />
-            <Form.Text className="text-muted">
-              Upload a file from your device, at least 184px.
-            </Form.Text>
+            <Form.Label className="upload-label">
+              Change Profile Photo
+            </Form.Label>
+            <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
           </Form.Group>
 
           <Form.Group>

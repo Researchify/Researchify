@@ -5,8 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "postinstall": "concurrently \"cd client && npm install\" \"cd api && npm install\"",
-    "start": "concurrently \"cd api && node src/server.js\" \"cd client && npm start\"",
-    "dev": "concurrently \"cd api && node src/server.js\" \"cd client && npm start\""
+    "start": "concurrently \"cd api && node src/index.js\" \"cd client && npm start\"",
+    "dev": "concurrently \"cd api && node src/index.js\" \"cd client && npm start\""
   },
   "keywords": [],
   "author": "FIT3170-2021 Team 2",
