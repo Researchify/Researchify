@@ -18,7 +18,7 @@ const {
 } = require('./data');
 
 const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
-const BUILD_TIMEOUT = 100000;  // 100 seconds to build.
+const BUILD_TIMEOUT = 100000; // 100 seconds to build.
 const BUILD_COMMAND = 'npm';
 const BUILD_ARGS = ['run', 'build', '--prefix', PATH_TO_BASE_REACT_APP];
 
