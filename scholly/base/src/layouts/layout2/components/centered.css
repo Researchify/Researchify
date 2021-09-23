@@ -69,7 +69,6 @@
 }
 
 .publication-title-column {
-  background-color: white;
   border: transparent;
 }
 
@@ -169,7 +168,6 @@
 
 
 .team-card {
-  background-color: #dddcdc;
   padding: 3rem;
   text-align: justify;
 }
@@ -186,7 +184,6 @@
 }
 
 .award-card {
-  background-color: #dddcdc;
   padding: 3rem;
   margin: auto;
   min-height: 3.78in;

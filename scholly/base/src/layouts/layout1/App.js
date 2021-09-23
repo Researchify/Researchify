@@ -8,6 +8,18 @@ import { TEAM_INFO } from '../../global/data';
 import Header from './components/layout/Header';
 import getRoutes from './components/router/routes';
 import './components/centered.css';
+import '../../shared/css/style.css';
+import '../../shared/css/baseColours.css';
+
+const themeOption = '1';
+if (themeOption === '1') {
+  import('../../shared/css/lightColours.css');
+} else if (themeOption === '2') {
+  import('../../shared/css/darkColours.css');
+} else {
+  // Fallback to light mode if unknown theme option is used
+  import('../../shared/css/lightColours.css');
+}
 
 const App = () => {
   const { teamName } = TEAM_INFO;
