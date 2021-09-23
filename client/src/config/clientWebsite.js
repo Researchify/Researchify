@@ -3,4 +3,7 @@
  */
 const availablePages = ['PUBLICATIONS', 'TEAM', 'ACHIEVEMENTS'];
 
-module.exports = { availablePages };
+const darkThemePlaceholder = 'dark';
+const lightThemePlaceholder = 'light';
+
+module.exports = { availablePages, darkThemePlaceholder, lightThemePlaceholder };
