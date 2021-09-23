@@ -77,7 +77,7 @@ const teamSchema = new mongoose.Schema(
 teamSchema.post('save', async (doc) => {
   try {
     await Website.create({
-      teamId: doc._id, publicationOptions: { groupBy: 'None', sortBy: 'Title' }, template: { layout: '1', theme: 'light'},
+      teamId: doc._id, publicationOptions: { groupBy: 'None', sortBy: 'Title' }, template: { layout: '1', theme: 'light' },
     });
     await Homepage.create({ teamId: doc._id });
   } catch (err) {
