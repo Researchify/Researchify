@@ -27,7 +27,7 @@ const App = () => {
   useEffect(() => {
     toasts
       .filter((t) => t.visible) // Only consider visible toasts
-      .filter((_, i) => i >= 2) // Is toast index over limit 2
+      .filter((_, i) => i >= 1) // Is toast index over limit 2
       .forEach((t) => toast.dismiss(t.id)); // Dismiss – Use toast.remove(t.id) removal without animation
   }, [toasts]);
 
