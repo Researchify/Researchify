@@ -32,8 +32,7 @@ export const findOrCreateTheme = (themeData) => api.post('/theme', themeData);
 export const addWebPage = (teamId, pageName) => api.post(`/clientWebsite/${teamId}/add_page`, pageName);
 export const getWebsiteInfo = (teamId) => api.get(`/clientWebsite/${teamId}`);
 export const deleteWebPage = (teamId, pageName) => api.post(`/clientWebsite/${teamId}/delete_page`, pageName);
-export const updatePublicationOptions = (teamId, options) => api.post(`/clientWebsite/${teamId}/updatePublicationOptions`, options);
-export const updateWebsiteTitle = (teamId, title) => api.post(`/clientWebsite/${teamId}/updateTitle`, title);
+export const updateClientWebMetadata = (teamId, changes) => api.patch(`/clientWebsite/${teamId}`, changes);
 
 // Achievement endpoints.
 export const fetchAchievementsByTeamId = (teamId) => api.get(`/achievements/team/${teamId}`);
