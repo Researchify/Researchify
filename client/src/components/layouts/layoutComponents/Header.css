@@ -24,4 +24,5 @@
   border: #56658a;
   border-style: solid;
   border-width: 2px;
+  object-fit: cover;
 }
