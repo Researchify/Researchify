@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { login } from '../../../actions/auth';
+import { login,resetPassword } from '../../../actions/auth';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -30,6 +30,10 @@ const LoginForm = () => {
   const submitForm = (values, { setFieldError }) => {
     // error message could be passed in the setFieldError function to show error on the form
     dispatch(login(values, setFieldError));
+  };
+
+  const resetPwd = () =>{
+    dispatch(resetPassword());
   };
 
   return (
@@ -85,10 +89,25 @@ const LoginForm = () => {
             >
               Log in
             </Button>
+
           </Form>
+
         )}
       </Formik>
+      <div>
+        <Button
+              id="resetButton"
+              variant="contained"
+              color="secondary"
+              size="large"
+              style={{ color: 'white' }}
+              onClick={resetPwd}
+            >
+              Reset Password
+            </Button>
+      </div>
     </Jumbotron>
+
   );
 };
 

@@ -81,7 +81,19 @@ function logout(req, res) {
   res.status(200).json('Logout Successfully');
 }
 
+/**
+ * resets team pwd on /team/resetPwd
+ * @param {*} req request object
+ * @param {*} res response object
+ * @returns 200: reset pwd successfully
+ * @returns 404: error occur
+ */
+function resetPwd(req, res) {
+
+}
+
 module.exports = {
   login,
   logout,
+  resetPwd
 };
