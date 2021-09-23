@@ -154,7 +154,7 @@ const TemplateSelector = (props) => {
         </Form.Group>
 
         <PrimaryButton id="submitButton" type="submit">
-          Create Website
+          Update
         </PrimaryButton>
       </Form>
     </>

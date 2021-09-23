@@ -17,6 +17,7 @@ import {
 
 const env = process.env; // eslint-disable-line prefer-destructuring
 const defaultLayout = 3;
+const defaultTheme = 'light';
 
 let TEAM_PUBLICATIONS;
 let TEAM_INFO;
@@ -48,7 +49,17 @@ if (!env.REACT_APP_DEBUG) {
 
   TEAM_SITE_METADATA = env.REACT_APP_TEAM_SITE_METADATA
     ? JSON.parse(env.REACT_APP_TEAM_SITE_METADATA)
-    : { pages: [], layout: defaultLayout, publicationOptions: { layout: 'By Category', sortBy: 'Category Title' } };
+    : {
+      pages: [],
+      template: {
+        layout: defaultLayout,
+        theme: defaultTheme,
+      },
+      publicationOptions: {
+        layout: 'By Category',
+        sortBy: 'Category Title',
+      },
+    };
 
   /// The list of achievements the team has created for rendering in the achievements page
   TEAM_ACHIEVEMENTS = env.REACT_APP_TEAM_ACHIEVEMENTS
