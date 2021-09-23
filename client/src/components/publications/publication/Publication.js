@@ -31,8 +31,8 @@ const Publication = ({ pub }) => {
   const { checkedPublications } = useSelector((state) => state.publications);
 
   useEffect(() => {
-    if (pub.newlyAdded) {
-      delete pub.newlyAdded;
+    if (pub.isNewlyAdded) {
+      delete pub.isNewlyAdded;
       setInterval(() => {
         setNewlyAdded(false);
       }, 2500);

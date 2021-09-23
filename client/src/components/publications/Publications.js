@@ -99,7 +99,7 @@ const Publications = () => {
   useEffect(() => {
     const sortedPublication = sortPublications(teamPublications, options.sortBy);
     setPublications(sortedPublication);
-    const newlyAddedPublications = teamPublications.filter((pub) => pub.newlyAdded === true);
+    const newlyAddedPublications = teamPublications.filter((pub) => pub.isNewlyAdded);
     if (newlyAddedPublications.length > 0) {
       setTimeout(() => {
         dispatch({

@@ -7,7 +7,7 @@ import {
   CHECK_PUBLICATIONS,
   UNCHECK_PUBLICATIONS,
   REVERT_HEADER_COLOR,
-  DELETE_BULK_PUBLICATIONS,
+  DELETE_BATCH_PUBLICATIONS,
 } from '../actions/types';
 
 const initialState = {
@@ -54,7 +54,7 @@ const publicationsReducer = (state = initialState, action) => {
         checkedPublications: state.checkedPublications.filter((checkedPub) => !unchecks.find((uncheck) => uncheck === checkedPub)),
       };
     }
-    case DELETE_BULK_PUBLICATIONS: {
+    case DELETE_BATCH_PUBLICATIONS: {
       const deletedPubIds = action.payload;
       return {
         ...state,
@@ -65,7 +65,7 @@ const publicationsReducer = (state = initialState, action) => {
     }
     case REVERT_HEADER_COLOR: {
       const updatedlist = state.teamPublications.map((pub) => {
-        delete pub.newlyAdded;
+        delete pub.isNewlyAdded;
         return pub;
       });
       return {
