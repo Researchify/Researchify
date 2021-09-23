@@ -6,7 +6,7 @@
 const path = require('path');
 const util = require('util');
 const logger = require('winston');
-const execFile = util.promisify(require('child_process').execFile);
+const exec = util.promisify(require('child_process').exec);
 
 const {
   REACT_APP_TEAM_INFO,
@@ -36,7 +36,7 @@ async function buildBaseApp(data) {
     ({
       stdout,
       stderr,
-    } = await execFile(
+    } = await exec(
       BUILD_COMMAND, BUILD_ARGS,
       {
         cwd: PATH_TO_BASE_REACT_APP,
