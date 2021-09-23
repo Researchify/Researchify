@@ -6,7 +6,7 @@
 const path = require('path');
 const util = require('util');
 const logger = require('winston');
-const exec = util.promisify(require('child_process').exec);
+const execFile = util.promisify(require('child_process').execFile);
 
 const {
   REACT_APP_TEAM_INFO,
@@ -20,7 +20,10 @@ const {
 const PATH_TO_BASE_REACT_APP = path.join(__dirname, '..', '..', '/base');
 const BUILD_TIMEOUT = 100000; // 100 seconds to build.
 const BUILD_COMMAND = 'npm';
-const BUILD_ARGS = ['run', 'build', '--prefix', PATH_TO_BASE_REACT_APP];
+const BUILD_ARGS = ['run', 'build'];
+
+/// To support Windows developers: https://stackoverflow.com/a/54515183/15507541
+const useShell = process.env.NODE_ENV !== 'production';
 
 /**
  * This function spawns a process to build the React base app with the environment variables set to the
@@ -36,12 +39,12 @@ async function buildBaseApp(data) {
     ({
       stdout,
       stderr,
-    } = await exec(
+    } = await execFile(
       BUILD_COMMAND, BUILD_ARGS,
       {
         cwd: PATH_TO_BASE_REACT_APP,
         env: {
-          ...process.env, // Retain the current process' Environment Variables
+          ...process.env, // Retain the current process' Environment Variables.
           [REACT_APP_TEAM_PUBLICATIONS]: JSON.stringify(data.teamPublications),
           [REACT_APP_TEAM_INFO]: JSON.stringify(data.teamInfo),
           [REACT_APP_TEAM_MEMBERS]: JSON.stringify(data.teamMembers),
@@ -50,6 +53,7 @@ async function buildBaseApp(data) {
           [REACT_APP_TEAM_ACHIEVEMENTS]: JSON.stringify(data.teamAchievements),
         },
         timeout: BUILD_TIMEOUT,
+        shell: useShell,
       },
     ));
     logger.info('Base app built successfully.');
