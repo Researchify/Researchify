@@ -3,6 +3,7 @@ import { Navbar, Nav, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import defaultProfilePic from '../../../images/profilepic.jpg';
 
 import './Header.css';
 
@@ -19,6 +20,8 @@ const Header = ({ data }) => {
 
   const userName = `${teamName} @ ${orgName}`;
 
+  const profileImg = profilePic ?? defaultProfilePic;
+
   return (
     <>
       <Navbar className="header" fixed="top">
@@ -34,7 +37,7 @@ const Header = ({ data }) => {
           <Link className="header-link" to="/dashboard/profile">
             <Image
               className="header-profile-img"
-              src={profilePic}
+              src={profileImg}
               roundedCircle
               height="45px"
               width="45px"
