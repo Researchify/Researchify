@@ -3,7 +3,7 @@
  */
 
 import {
-  Row, Col, Container, CardDeck, Modal, Spinner, Alert,
+  Container, CardDeck, Modal, Spinner, Alert,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import AchievementForm from './form/AchievementForm';
 import { getAchievementsByTeamId } from '../../actions/achievements';
 import Achievement from './Achievement';
 import './achievementPage.css';
+import './form/achievementForm.css';
 import { PrimaryButton } from '../shared/styledComponents';
 
 const AchievementPage = () => {
@@ -28,16 +29,14 @@ const AchievementPage = () => {
 
   return (
     <div className="achievementPageContainer">
-      <Row className="container-fluid mt-4">
-        <Col>
-          <h1>Achievements</h1>
-        </Col>
-        <Col id="achievementButton" md={{ offset: 5 }}>
-          <PrimaryButton className="mt-2" onClick={() => setShowCreateForm(true)}>
-            Add Achievement
-          </PrimaryButton>
-        </Col>
-      </Row>
+      <h1>Achievements</h1>
+      <PrimaryButton
+        className="mt-2"
+        onClick={() => setShowCreateForm(true)}
+      >
+        Add Achievement
+      </PrimaryButton>
+
       <div className="text-center">
         {loading && <Spinner className="mt-5" animation="border" />}
       </div>
@@ -60,11 +59,11 @@ const AchievementPage = () => {
       )}
 
       {/* A modal for showing create an Achievement */}
-      <Modal show={showCreateForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> New Achievement </Modal.Title>
+      <Modal show={showCreateForm} id="achievementsModal">
+        <Modal.Header>
+          <Modal.Title className="achievementsModalTitle"> New Achievement </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="achievementsModalBody">
           <AchievementForm
             type="create"
             closeModal={() => setShowCreateForm(false)}
