@@ -9,3 +9,18 @@
 .placeholder-text::placeholder {
   color: #A9A9A9
 }
+
+#teamMemberModal {
+  border-radius: 1000px;
+}
+
+.teamMemberTitle {
+  padding-left: 2.4%;
+}
+
+.teamMemberBody {
+  padding-top: 4%;
+  padding-right: 6%;
+  padding-left: 6%;
+  padding-bottom: 5%;
+}

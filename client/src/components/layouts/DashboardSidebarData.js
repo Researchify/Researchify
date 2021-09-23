@@ -42,7 +42,7 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       link: '/dashboard/profile',
     },
     {
-      title: 'Team Member',
+      title: 'Team Members',
       icon: <BsPeople />,
       link: '/team',
       name: 'TEAM',
