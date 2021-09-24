@@ -153,22 +153,26 @@
   font-size: xx-large;
 }
 
-.member-name {
-  text-align: center;
-  font-weight: 600;
-  font-size: large;
+.teamMemberBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 24px;
 }
 
-.member-position {
-  text-align: center;
-  font-weight: 450;
-  font-size: small;
+.team-member-name {
+  font-weight: bold;
+  color: rgb(49, 49, 49);
+  font-size: 18px;
 }
 
-.member-summary {
-  padding-top: 15px;
-  text-align: justify;
-  text-indent: 5%;
+.team-member-position {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.team-member-summary {
+  font-size: 15px;
 }
 
 .team-card-container {
@@ -182,17 +186,20 @@
   max-width: 210px;
 }
 
-.team-card-deck {
+.card-deck {
   align-content: center;
   justify-content: center;
   border-top-style: solid;
   border-top-color:grey;
   border-width: 1px;
+  padding-top: 20px;
 }
 
 .button-pub{
   margin: 10px 0 5px 0;
 }
+
+/* achievement page */
 
 .achievementBody {
   display: flex;
@@ -201,7 +208,6 @@
 }
 
 .award-name {
-  font-family: "Verdana", sans-serif;
   font-weight: bold;
   color: rgb(49, 49, 49);
   font-size: 16px;
@@ -215,3 +221,8 @@
 .award-summary {
   font-size: 15px;
 }
+
+.fontx {
+  font-family: "Verdana", sans-serif;
+}
+
