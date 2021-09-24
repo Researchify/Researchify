@@ -1,8 +1,10 @@
 export const FAKE_TEAM_SITE_METADATA = {
   pages: ['PUBLICATIONS', 'TEAM', 'ACHIEVEMENTS'],
   publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
-  layout: '2',
-  theme: '2',
+  template: {
+    layout: '2',
+    theme: 'light',
+  },
 };
 
 export const FAKE_PUBLICATIONS = [
