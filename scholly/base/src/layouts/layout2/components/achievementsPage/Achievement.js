@@ -30,7 +30,7 @@ const Achievement = ({ achievement }) => {
         <b>{achievement.title}</b>
         <i className="float-right">{achievement.yearAwarded}</i>
       </row>
-      <div style={{ color: 'var(--researchify-text-color-secondary)' }}>
+      <div style={{ marginRight: '20px', color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
         {achievement.description}
       </div>
     </ListGroup.Item>

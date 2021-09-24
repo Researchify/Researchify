@@ -23,7 +23,7 @@ const Publication = ({ pub }) => {
   const dropDown = (
     <Collapse in={expand}>
       <div style={{
-        textAlign: 'left', marginTop: '15px', marginLeft: '30px', marginRight: '30px', color: 'var(--researchify-text-color-secondary)',
+        textAlign: 'left', marginTop: '15px', marginLeft: '30px', marginRight: '30px', color: isHoveringArrow ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)',
       }}
       >
         {pub.description}
@@ -32,7 +32,7 @@ const Publication = ({ pub }) => {
   );
 
   return (
-    <ListGroup style={{ marginBottom: '15px' }}>
+    <ListGroup style={{ marginBottom: '15px', boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)' }}>
       <ListGroup.Item
         style={{
           textAlign: 'left',
@@ -51,7 +51,7 @@ const Publication = ({ pub }) => {
         </div>
         {
           pub.category.categoryTitle && (
-          <div style={{ fontStyle: 'italic', color: 'var(--researchify-text-color)' }}>
+          <div style={{ fontStyle: 'italic', color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
             {pub.category.categoryTitle}
             {pub.category.categoryTitle && `, ${pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}`}
             {pub.category.issue && `, Issue ${pub.category.issue}`}
@@ -61,10 +61,10 @@ const Publication = ({ pub }) => {
           </div>
           )
         }
-        <div style={{ color: 'var(--researchify-text-color)' }}>{pub.authors.map((author) => `${author}`).join(', ')}</div>
+        <div style={{ color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>{pub.authors.map((author) => `${author}`).join(', ')}</div>
         {
           pub.category.publisher && (
-          <div style={{ color: 'var(--researchify-text-color)' }}>
+          <div style={{ color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
             Published by
             {' '}
             {pub.category.publisher}
@@ -73,7 +73,7 @@ const Publication = ({ pub }) => {
         }
         {
           pub.link && (
-            <div className="pub-text">
+            <div>
               <a style={{ fontSize: '16px' }} href={pub.link} target="_blank" rel="noreferrer">PDF</a>
             </div>
           )
@@ -91,7 +91,7 @@ const Publication = ({ pub }) => {
         onClick={() => setExpand(!expand)}
       >
         <>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--researchify-text-color-secondary)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: isHoveringArrow ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
             <div style={{ textAlign: 'left' }}>Description</div>
             <div style={{ textAlign: 'right' }}>
               {expand ? <IoIosArrowUp /> : <IoIosArrowDown />}
