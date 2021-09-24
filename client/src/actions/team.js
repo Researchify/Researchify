@@ -231,7 +231,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
     // get team homepage content
     const { data: teamHomepage } = await api.getHomepage(teamId);
     // get user selected web pages to deploy
-    const { data: webPages } = await api.getWebsiteInfo(teamId);
+    const { data: teamSiteMetadata } = await api.getWebsiteInfo(teamId);
     // get achievements
     const { data: teamAchievements } = await api.fetchAchievementsByTeamId(teamId);
 
@@ -241,7 +241,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       teamInfo,
       teamMembers,
       teamHomepage,
-      webPages,
+      teamSiteMetadata,
       teamAchievements,
     };
 
@@ -318,30 +318,6 @@ export const updatePassword = (teamId, teamData, successMsg = 'Password has been
       payload: updatedTeam,
     });
     dispatch(successMessageCreator(successMsg));
-  } catch (error) {
-    dispatch(errorActionGlobalCreator(error));
-  }
-};
-
-/**
- * This action creater find/create a new theme and update it in team data.
- * @param {*} teamId
- * @param {*} themeData
- * @returns
- */
-export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
-  try {
-    const updatedTheme = await api.findOrCreateTheme(themeData);
-    const updatedThemeId = updatedTheme.data._id;
-    const { data } = await api.updateTeam(teamId, {
-      themeId: updatedThemeId,
-    });
-    const updatedTeam = teamDataAllocator(data);
-    dispatch({
-      type: UPDATE_TEAM,
-      payload: updatedTeam,
-    });
-    dispatch(successMessageCreator('Theme has been updated'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
