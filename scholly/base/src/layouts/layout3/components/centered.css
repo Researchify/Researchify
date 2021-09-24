@@ -172,7 +172,6 @@
 }
 
 .team-card-container {
-  padding-top: 12px;
   padding-left: 50px;
   padding-right: 50px;
 }
@@ -186,8 +185,33 @@
 .team-card-deck {
   align-content: center;
   justify-content: center;
+  border-top-style: solid;
+  border-top-color:grey;
+  border-width: 1px;
 }
 
 .button-pub{
   margin: 10px 0 5px 0;
+}
+
+.achievementBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.award-name {
+  font-family: "Verdana", sans-serif;
+  font-weight: bold;
+  color: rgb(49, 49, 49);
+  font-size: 16px;
+}
+
+.award-year {
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+}
+
+.award-summary {
+  font-size: 15px;
 }
