@@ -12,6 +12,7 @@ import {
   BsBoxArrowLeft,
   BsFillAwardFill,
   BsCardText,
+  BsColumns,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 
@@ -47,6 +48,11 @@ const DashboardSidebarData = ({ setLogoutAlert }) => {
       icon: <BsFillAwardFill />,
       link: '/achievement',
       name: 'ACHIEVEMENTS',
+    },
+    {
+      title: 'Template Selector',
+      icon: <BsColumns />,
+      link: '/templates',
     },
     {
       title: 'Account',

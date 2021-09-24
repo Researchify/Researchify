@@ -12,6 +12,7 @@ import PublicationPage from '../publications/PublicationPage';
 import TeamPage from '../teamPage/TeamPage';
 import AchievementPage from '../achievements/AchievementPage';
 import ClientHomeEditor from '../clientHomeEditor/ClientHomeEditor';
+import TemplateSelectorPage from '../templateSelectorPage/TemplateSelectorPage';
 
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
@@ -51,6 +52,7 @@ const PrivateRoute = () => {
         exact
         component={ClientHomeEditor}
       />
+      <DashboardLayoutRoute path="/templates" exact component={TemplateSelectorPage} />
       {/*  If login, any other route not stated above will be redirect dashboard page */}
       <Redirect to="/dashboard" />
     </Switch>
