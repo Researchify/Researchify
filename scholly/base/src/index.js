@@ -19,7 +19,7 @@ import { TEAM_SITE_METADATA } from './global/data';
 
 /// Decides which of the root App components of the various layouts to display.
 /// This determination is based off the provided LAYOUT_OPTION environment variable.
-const layoutOption = TEAM_SITE_METADATA.layout;
+const layoutOption = TEAM_SITE_METADATA.template.layout;
 const layoutToDisplay = () => {
   switch (layoutOption) {
     case '1': // TODO: there might be a better way to do this.
