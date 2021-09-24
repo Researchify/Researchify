@@ -23,7 +23,7 @@ const Publication = ({ pub }) => {
   const dropDown = (
     <Collapse in={expand}>
       <div style={{
-        textAlign: 'left', marginTop: '15px', marginLeft: '30px', marginRight: '30px', color: 'grey',
+        textAlign: 'left', marginTop: '15px', marginLeft: '30px', marginRight: '30px', color: '#707070',
       }}
       >
         {pub.description}
@@ -32,30 +32,30 @@ const Publication = ({ pub }) => {
   );
 
   return (
-    <ListGroup style={{ marginBottom: '10px' }}>
+    <ListGroup>
       <ListGroup.Item
         style={{
-          textAlign: 'left', backgroundColor: isHovering && '#F5F5F5',
+          textAlign: 'left', backgroundColor: isHovering && '#f5f8fa',
         }}
         onMouseOver={handleMouseOver}
         onFocus={handleMouseOver}
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
       >
-        <div><b>{pub.title}</b></div>
-        <div className="pub-text">{pub.authors.map((author) => `${author}`).join(', ')}</div>
+        <div style={{ fontSize: '17px', fontWeight: 'bold' }}>{pub.title}</div>
         {
           pub.category.categoryTitle && (
-          <div className="pub-text">
-            <i>{pub.category.categoryTitle}</i>
-              {pub.category.categoryTitle && `, ${pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}`}
-              {pub.category.issue && `, Issue ${pub.category.issue}`}
-              {pub.category.volume && `, Volume ${pub.category.volume}`}
-              {pub.category.pages && `, Page ${pub.category.pages}`}
-              {`,  ${pub.yearPublished}`}
+          <div className="pub-text" style={{ fontStyle: 'italic' }}>
+            {pub.category.categoryTitle}
+            {pub.category.categoryTitle && `, ${pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}`}
+            {pub.category.issue && `, Issue ${pub.category.issue}`}
+            {pub.category.volume && `, Volume ${pub.category.volume}`}
+            {pub.category.pages && `, Page ${pub.category.pages}`}
+            {`,  ${pub.yearPublished}`}
           </div>
           )
         }
+        <div className="pub-text">{pub.authors.map((author) => `${author}`).join(', ')}</div>
         {
           pub.category.publisher && (
           <div className="pub-text">
@@ -77,7 +77,7 @@ const Publication = ({ pub }) => {
       {pub.description
       && (
       <ListGroup.Item
-        style={{ backgroundColor: isHoveringArrow && '#F5F5F5', cursor: isHoveringArrow && 'pointer' }}
+        style={{ backgroundColor: isHoveringArrow && '#f5f8fa', cursor: isHoveringArrow && 'pointer' }}
         onMouseOver={() => setIsHoveringArrow(true)}
         onFocus={() => setIsHoveringArrow(true)}
         onMouseLeave={() => setIsHoveringArrow(false)}

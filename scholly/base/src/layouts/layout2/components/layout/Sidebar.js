@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
+import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({ styles, menuItems }) => {
@@ -28,10 +29,10 @@ const Sidebar = ({ styles, menuItems }) => {
     <div style={sidebarStyle}>
       {menuItems.map((item) => (
         <div style={menuItemStyle}>
-          <Link style={{ padding: 10 }} key={item.title} to={item.path}>
+          <Nav.Link style={{ padding: 10 }} key={item.title} as={Link} to={item.path}>
             {styles.sidebarCollapsed && <span className="mr-3" style={iconStyle}>{item.icon}</span>}
             {!styles.sidebarCollapsed && item.title}
-          </Link>
+          </Nav.Link>
         </div>
       ))}
     </div>

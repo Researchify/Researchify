@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { TEAM_HOMEPAGE, TEAM_INFO, TEAM_PUBLICATIONS } from '../../../../global/data';
 import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';
+import '../centered.css';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
@@ -46,10 +47,9 @@ const landingPage = () => {
         </div>
 
         <Row>
-          <Col md={9}>
+          <Col md={twitterHandle ? 9 : 12}>
             <div className="mb-4" style={{ textAlign: 'left' }}>
               <b>RECENT PUBLICATIONS </b>
-              {' '}
               <Link to="/publication">
                 (VIEW ALL PAPERS)
               </Link>
@@ -58,14 +58,19 @@ const landingPage = () => {
               <Publication pub={pub} key={pub._id} />
             ))}
           </Col>
-          <Col md={3}>
-            <div className="mb-4" style={{ textAlign: 'left' }}>
-              <b>UPDATES </b>
-              <div className="mt-3">
-                <TwitterFeed linkedHandle={twitterHandle} />
+          {
+            twitterHandle && (
+            <Col md={3}>
+              <div className="mb-4" style={{ textAlign: 'left' }}>
+                <b>UPDATES </b>
+                <div className="mt-3">
+                  <TwitterFeed linkedHandle={twitterHandle} />
+                </div>
               </div>
-            </div>
-          </Col>
+            </Col>
+            )
+          }
+
         </Row>
       </Container>
     </>
