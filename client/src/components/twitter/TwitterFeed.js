@@ -39,7 +39,7 @@ const twitterTimelineHeight = () => {
   }
 };
 
-// function returning twitter component to be rendered
+// function returning twitter component
 const TwitterFeed = () => {
   // get team from state
   const dispatch = useDispatch();
