@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import { TEAM_HOMEPAGE, TEAM_INFO, TEAM_PUBLICATIONS } from '../../../../global/data';
 import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';
-import '../centered.css';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;

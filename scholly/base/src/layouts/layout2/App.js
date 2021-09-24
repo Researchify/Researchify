@@ -76,9 +76,7 @@ const App = () => {
     );
   });
   return (
-    <div
-      style={{ minHeight: '100vh', position: 'relative' }}
-    >
+    <div style={{ minHeight: '100vh', position: 'relative' }}>
       <Helmet>
         <title>{teamName}</title>
       </Helmet>
