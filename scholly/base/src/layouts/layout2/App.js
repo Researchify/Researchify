@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { TEAM_INFO } from '../../global/data';
+import { TEAM_INFO, TEAM_SITE_METADATA } from '../../global/data';
 import Sidebar from './components/layout/Sidebar';
 import getRoutes from './components/router/routes';
 import './components/centered.css';
@@ -15,10 +15,10 @@ import FooterMenu from './components/layout/FooterMenu';
 import ScrollIntoView from './components/layout/ScrollIntoView';
 import DesktopTopBar from './components/layout/DesktopTopBar';
 
-const themeOption = '1';
-if (themeOption === '1') {
+const themeOption = TEAM_SITE_METADATA.template.theme;
+if (themeOption === 'light') {
   import('../../shared/css/lightColours.css');
-} else if (themeOption === '2') {
+} else if (themeOption === 'dark') {
   import('../../shared/css/darkColours.css');
 } else {
   // Fallback to light mode if unknown theme option is used

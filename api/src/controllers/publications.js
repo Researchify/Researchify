@@ -314,6 +314,24 @@ function importPublications(req, res, next) {
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
+/**
+ * Handles a PATCH request to delete a list of publication by the mongo object id on the endpoint /publications/
+ *
+ * @param req request object - the list of publication ids given in the body
+ * @param res response object
+ * @returns 200: publications deleted successfully
+ * @returns 400: error deleting publications
+ */
+async function deleteBulkPublications(req, res, next) {
+  try {
+    const publicationIdList = req.body;
+    await Publication.deleteMany({ _id: { $in: publicationIdList } });
+    return res.status(200).json(publicationIdList);
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err.errors]));
+  }
+}
+
 module.exports = {
   deletePublication,
   updatePublication,
@@ -321,4 +339,5 @@ module.exports = {
   readAllPublicationsByTeam,
   importPublications,
   getGoogleScholarPublications,
+  deleteBulkPublications,
 };

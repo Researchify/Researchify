@@ -1,6 +1,10 @@
-export const FAKE_WEB_PAGES = {
+export const FAKE_TEAM_SITE_METADATA = {
   pages: ['PUBLICATIONS', 'TEAM', 'ACHIEVEMENTS'],
   publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
+  template: {
+    layout: '2',
+    theme: 'light',
+  },
 };
 
 export const FAKE_PUBLICATIONS = [
@@ -183,8 +187,6 @@ export const FAKE_TEAM_HOMEPAGE = {
     'The mission of the Interactive Data Lab is to enhance people ability to understand and communicate data through the design of new interactive systems for data visualization and analysis. We study the perceptual, cognitive and social factors affecting data analysis in order to improve the efficiency and scale at which expert analysts work, and to lower barriers for non-experts.',
     'Motivating questions include: How might we enable users to transform and integrate data with minimal programming? How can we support expressive and effective visualization designs? Can we build systems to query and visualize massive data sets at interactive rates? How might we enable domain experts to guide machine learning methods to produce better models?'],
 };
-
-export const FAKE_LAYOUT_OPTION = 2;
 
 export const FAKE_TEAM_ACHIEVEMENTS = [
   {
