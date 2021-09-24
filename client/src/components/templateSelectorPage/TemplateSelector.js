@@ -4,19 +4,15 @@
  */
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Form, Col, Card,
+  Container, Form, Col,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { updateTheme } from '../../actions/website';
 import { darkThemePlaceholder, lightThemePlaceholder } from '../../config/clientWebsite';
 
-// Picture of each layout
-import layout1 from '../../images/layout_1.png';
-import layout2 from '../../images/layout_2.png';
-import layout3 from '../../images/layout_3.png';
-
 import { PrimaryButton } from '../shared/styledComponents';
+import LayoutThumbnail from './LayoutThumbnail';
 
 /**
  * Form for user input github credentials and select template.
@@ -94,13 +90,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <Card border="dark" className="mt-3">
-                    <Card.Img
-                      src={layout1}
-                      style={{ width: '18rem', height: '12rem' }}
-                      className="img-fluid"
-                    />
-                  </Card>
+                  <LayoutThumbnail layoutOption={1} />
                 </label>
               </Col>
               <Col className="layout-display" xs={12} xl={4} sm={6}>
@@ -117,13 +107,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <Card border="dark" className="mt-3">
-                    <Card.Img
-                      src={layout2}
-                      style={{ width: '18rem', height: '12rem' }}
-                      className="img-fluid"
-                    />
-                  </Card>
+                  <LayoutThumbnail layoutOption={2} />
                 </label>
               </Col>
               <Col className="layout-display" xs={12} xl={4} sm={12}>
@@ -140,13 +124,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <Card border="dark" className="mt-3">
-                    <Card.Img
-                      src={layout3}
-                      style={{ width: '18rem', height: '12rem' }}
-                      className="img-fluid"
-                    />
-                  </Card>
+                  <LayoutThumbnail layoutOption={3} />
                 </label>
               </Col>
             </Form.Row>
