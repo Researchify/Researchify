@@ -1,12 +1,12 @@
 :root {
-    --researchify-text-color: #fff;
-    --researchify-text-color-secondary: #fff;
-    --researchify-link-color: #fff;
-    --researchify-link-hover-color: #c7c7c7;
-    --researchify-link-hover-color-secondary: #c7c7c7;
-    --researchify-color-primary: #474747;
-    --researchify-color-secondary: #212121;
-    --researchify-color-tertiary: #333333;
-    --researchify-color-quaternary: #000;
-    --researchify-color-quinary: #888888;
+  --researchify-text-color: #fff;
+  --researchify-text-color-secondary: #667580;
+  --researchify-link-color: #2b7bb9;
+  --researchify-link-hover-color: #3b94d9;
+  --researchify-link-hover-color-secondary: #c7c7c7;
+  --researchify-color-primary: #474747;
+  --researchify-color-secondary: #292f33;
+  --researchify-color-tertiary: #24282c;
+  --researchify-color-quaternary: #000;
+  --researchify-color-quinary: #888888;
 }

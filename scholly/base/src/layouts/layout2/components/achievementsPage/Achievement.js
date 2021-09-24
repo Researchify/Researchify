@@ -15,10 +15,11 @@ const Achievement = ({ achievement }) => {
     setIsHovering(false);
   };
   return (
-
     <ListGroup.Item
       style={{
-        textAlign: 'left', backgroundColor: isHovering && '#f5f8fa',
+        textAlign: 'left',
+        backgroundColor: isHovering ? 'var(--researchify-color-tertiary)' : 'var(--researchify-color-secondary)',
+        color: 'var(--researchify-text-color)',
       }}
       onMouseOver={handleMouseOver}
       onFocus={handleMouseOver}
@@ -29,7 +30,7 @@ const Achievement = ({ achievement }) => {
         <b>{achievement.title}</b>
         <i className="float-right">{achievement.yearAwarded}</i>
       </row>
-      <div className="pub-text">
+      <div style={{ color: 'var(--researchify-text-color-secondary)' }}>
         {achievement.description}
       </div>
     </ListGroup.Item>

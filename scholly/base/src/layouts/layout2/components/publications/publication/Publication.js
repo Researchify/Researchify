@@ -23,7 +23,7 @@ const Publication = ({ pub }) => {
   const dropDown = (
     <Collapse in={expand}>
       <div style={{
-        textAlign: 'left', marginTop: '15px', marginLeft: '30px', marginRight: '30px', color: '#707070',
+        textAlign: 'left', marginTop: '15px', marginLeft: '30px', marginRight: '30px', color: 'var(--researchify-text-color-secondary)',
       }}
       >
         {pub.description}
@@ -32,20 +32,26 @@ const Publication = ({ pub }) => {
   );
 
   return (
-    <ListGroup>
+    <ListGroup style={{ marginBottom: '15px' }}>
       <ListGroup.Item
         style={{
-          textAlign: 'left', backgroundColor: isHovering && '#f5f8fa',
+          textAlign: 'left',
+          backgroundColor: isHovering ? 'var(--researchify-color-tertiary)' : 'var(--researchify-color-secondary)',
         }}
         onMouseOver={handleMouseOver}
         onFocus={handleMouseOver}
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
       >
-        <div style={{ fontSize: '17px', fontWeight: 'bold' }}>{pub.title}</div>
+        <div style={{
+          fontSize: '17px', fontWeight: 'bold', color: 'var(--researchify-text-color)',
+        }}
+        >
+          {pub.title}
+        </div>
         {
           pub.category.categoryTitle && (
-          <div className="pub-text" style={{ fontStyle: 'italic' }}>
+          <div style={{ fontStyle: 'italic', color: 'var(--researchify-text-color)' }}>
             {pub.category.categoryTitle}
             {pub.category.categoryTitle && `, ${pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}`}
             {pub.category.issue && `, Issue ${pub.category.issue}`}
@@ -55,10 +61,10 @@ const Publication = ({ pub }) => {
           </div>
           )
         }
-        <div className="pub-text">{pub.authors.map((author) => `${author}`).join(', ')}</div>
+        <div style={{ color: 'var(--researchify-text-color)' }}>{pub.authors.map((author) => `${author}`).join(', ')}</div>
         {
           pub.category.publisher && (
-          <div className="pub-text">
+          <div style={{ color: 'var(--researchify-text-color)' }}>
             Published by
             {' '}
             {pub.category.publisher}
@@ -68,7 +74,7 @@ const Publication = ({ pub }) => {
         {
           pub.link && (
             <div className="pub-text">
-              <a href={pub.link} target="_blank" rel="noreferrer">PDF</a>
+              <a style={{ fontSize: '16px' }} href={pub.link} target="_blank" rel="noreferrer">PDF</a>
             </div>
           )
         }
@@ -77,7 +83,7 @@ const Publication = ({ pub }) => {
       {pub.description
       && (
       <ListGroup.Item
-        style={{ backgroundColor: isHoveringArrow && '#f5f8fa', cursor: isHoveringArrow && 'pointer' }}
+        style={{ backgroundColor: isHoveringArrow ? 'var(--researchify-color-tertiary)' : 'var(--researchify-color-secondary)', cursor: isHoveringArrow && 'pointer' }}
         onMouseOver={() => setIsHoveringArrow(true)}
         onFocus={() => setIsHoveringArrow(true)}
         onMouseLeave={() => setIsHoveringArrow(false)}
@@ -85,7 +91,7 @@ const Publication = ({ pub }) => {
         onClick={() => setExpand(!expand)}
       >
         <>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--researchify-text-color-secondary)' }}>
             <div style={{ textAlign: 'left' }}>Description</div>
             <div style={{ textAlign: 'right' }}>
               {expand ? <IoIosArrowUp /> : <IoIosArrowDown />}

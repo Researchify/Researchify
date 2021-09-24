@@ -10,11 +10,11 @@ const FooterMenu = ({ styles, menuItems }) => (
       alignItems: 'stretch',
       width: '100%',
       height: styles.footerMenuHeight,
-      backgroundColor: '#DEE4E7',
-      color: 'black',
+      backgroundColor: 'var(--researchify-color-quaternary)',
       position: 'fixed',
       bottom: 0,
       zIndex: 3,
+      color: 'var(--researchify-text-color)',
     }}
   >
     {menuItems.map((item, i) => (

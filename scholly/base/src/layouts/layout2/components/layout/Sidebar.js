@@ -10,7 +10,7 @@ const Sidebar = ({ styles, menuItems }) => {
     width: styles.sidebarWidth,
     position: 'fixed',
     paddingTop: 80,
-    backgroundColor: '#DEE4E7',
+    backgroundColor: 'var(--researchify-color-quaternary)',
   };
 
   const menuItemStyle = {

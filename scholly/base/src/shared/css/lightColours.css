@@ -1,12 +1,12 @@
 :root {
-    --researchify-text-color: #000;
-    --researchify-text-color-secondary: #000;
-    --researchify-link-color: #000;
-    --researchify-link-hover-color: #8c94a5;
-    --researchify-link-hover-color-secondary: #8c94a5;
-    --researchify-color-primary: #fff;
-    --researchify-color-secondary: #DEE4E7;
-    --researchify-color-tertiary: #f6f9fa;
-    --researchify-color-quaternary: #aecad8;
-    --researchify-color-quinary: #DEE4E7;
+  --researchify-text-color: #000;
+  --researchify-text-color-secondary: rgb(92, 92, 92);
+  --researchify-link-color: #2b7bb9;
+  --researchify-link-hover-color: #3b94d9;
+  --researchify-link-hover-color-secondary: #8c94a5;
+  --researchify-color-primary: #fff;
+  --researchify-color-secondary: #f6f9fa;
+  --researchify-color-tertiary: #dee4e7;
+  --researchify-color-quaternary: #aecad8;
+  --researchify-color-quinary: #dee4e7;
 }

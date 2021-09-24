@@ -62,7 +62,7 @@ const landingPage = () => {
             <Col md={3}>
               <div className="mb-4" style={{ textAlign: 'left' }}>
                 <b>UPDATES </b>
-                <div className="mt-3">
+                <div className="mt-4">
                   <TwitterFeed linkedHandle={twitterHandle} />
                 </div>
               </div>
