@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {
   Navbar, Nav, Dropdown, Image, Row, Col, Container,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BsFillPersonFill } from 'react-icons/bs';
-import { AiFillSetting, AiOutlineLogout } from 'react-icons/ai';
+import { AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
 import { PropTypes } from 'prop-types';
 import './Header.css';
 import { NavbarBrand } from 'reactstrap';
@@ -33,6 +33,7 @@ const Header = ({ data, setLogoutAlert }) => {
 
   // If profilePic is undefined, set a default profile pic
   profileData.profilePic = profileData.profilePic ?? defaultProfilePic;
+  const history = useHistory();
   // TODO: Remove hard-coded team id and publications id from the links
   return (
     <>
@@ -66,7 +67,9 @@ const Header = ({ data, setLogoutAlert }) => {
                     />
 
                     <Col>
-                      {profileData.teamName}
+                      <strong style={{ fontSize: '150%' }}>
+                        {profileData.teamName}
+                      </strong>
                       <br />
                       {profileData.orgName}
                     </Col>
@@ -75,10 +78,10 @@ const Header = ({ data, setLogoutAlert }) => {
 
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item eventKey="2" href="/dashboard/profile">
-                <AiFillSetting />
+              <Dropdown.Item eventKey="2" onClick={() => history.push('/dashboard/profile')}>
+                <AiOutlineUser />
                 {' '}
-                Settings
+                Account
               </Dropdown.Item>
               <Dropdown.Item eventKey="3" onClick={() => setLogoutAlert(true)}>
                 <AiOutlineLogout />
