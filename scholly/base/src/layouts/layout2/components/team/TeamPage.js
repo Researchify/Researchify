@@ -1,15 +1,17 @@
 /**
  * The TeamPage component displays a list of team members.
  */
-import React from 'react';
-import { Container, CardGroup } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { TEAM_MEMBERS, TEAM_INFO } from '../../../../global/data';
+import ProfilePic from './ProfilePic';
 import TeamMember from './TeamMember';
 
 const TeamPage = () => {
   const teamMembers = TEAM_MEMBERS;
   const { teamName } = TEAM_INFO;
+  const [hoveredMember, setHoveredMember] = useState(null);
   return (
     <>
       <Helmet>
@@ -21,16 +23,26 @@ const TeamPage = () => {
           {' '}
         </title>
       </Helmet>
-      <Container className="pages-top-padding text-center ">
-        <div className="team-pg-title">Meet Our Team</div>
-      </Container>
-      <Container fluid>
-        <CardGroup className="d-block">
-          {teamMembers.map((member) => (
+
+      <Row>
+        <Col md={6}>
+          {
+            hoveredMember && <TeamMember member={hoveredMember} />
+          }
+        </Col>
+        <Col md={6}>
+          {/* {teamMembers.map((member) => (
             <TeamMember member={member} key={member._id} />
-          ))}
-        </CardGroup>
-      </Container>
+          ))} */}
+
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {teamMembers.map((member) => (
+              <ProfilePic member={member} key={member._id} setHoveredMember={setHoveredMember} />
+            ))}
+          </div>
+
+        </Col>
+      </Row>
 
     </>
   );

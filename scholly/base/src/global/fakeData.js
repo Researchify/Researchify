@@ -3,7 +3,7 @@ export const FAKE_TEAM_SITE_METADATA = {
   publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
   template: {
     layout: '2',
-    theme: 'light',
+    theme: 'dark',
   },
 };
 
@@ -162,6 +162,42 @@ export const FAKE_TEAM_INFO = {
 };
 
 export const FAKE_TEAM_MEMBERS = [
+  {
+    fullName: 'John',
+    position: 'Chief Scientist',
+    summary:
+        'John is a chief scientist at MonTeam, working with the top government agencies to fight the pressing issues arising from climate change',
+  },
+  {
+    fullName: 'Yoshua Benjio',
+    position: 'Chief Data Scientist',
+    summary:
+        'Hailed as one of the founders of Deep Learning, Yoshua works at MonTeam to oversee strategic deep learning project designs',
+  },
+  {
+    fullName: 'Jeremy Buffet',
+    position: 'Chief Economist',
+    summary:
+        'Jeremy Buffet leads our macro-economic unit in predicting macro factors and their impact on society',
+  },
+  {
+    fullName: 'John',
+    position: 'Chief Scientist',
+    summary:
+        'John is a chief scientist at MonTeam, working with the top government agencies to fight the pressing issues arising from climate change',
+  },
+  {
+    fullName: 'Yoshua Benjio',
+    position: 'Chief Data Scientist',
+    summary:
+        'Hailed as one of the founders of Deep Learning, Yoshua works at MonTeam to oversee strategic deep learning project designs',
+  },
+  {
+    fullName: 'Jeremy Buffet',
+    position: 'Chief Economist',
+    summary:
+        'Jeremy Buffet leads our macro-economic unit in predicting macro factors and their impact on society',
+  },
   {
     fullName: 'John',
     position: 'Chief Scientist',
