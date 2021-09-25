@@ -6,17 +6,24 @@ import {
   Card,
   Row,
   Col,
-  Button,
   Modal,
   ButtonGroup,
   OverlayTrigger,
 } from 'react-bootstrap';
+import { Button } from '@material-ui/core';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import {
+  DangerButton,
+  SecondaryButton,
+  OptionEditButton,
+  RedDeleteButton,
+} from '../shared/styledComponents';
+import './form/achievementForm.css';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
 
@@ -32,30 +39,28 @@ const Achievement = ({ achievement }) => {
 
   const displayOptions = (
     <ButtonGroup>
-      <Button
+      <OptionEditButton
         onClick={() => setShowUpdateForm(true)}
-        variant="primary"
         data-toggle="modal"
       >
         {' '}
         <AiFillEdit />
         {' '}
-      </Button>
-      <Button
+      </OptionEditButton>
+      <RedDeleteButton
         onClick={() => setShowDeleteMessage(true)}
-        variant="danger"
         data-toggle="modal"
       >
         <AiFillDelete />
-      </Button>
+      </RedDeleteButton>
     </ButtonGroup>
   );
 
   return (
     <>
       <Row id="achievement" className="container-fluid mt-4">
-        <Card>
-          <Card.Header as="h5">
+        <Card id="card">
+          <Card.Header as="h5" id="card-header">
             <Row>
               <Col id="achievementTitle">{achievement.title}</Col>
               <Col md={{ span: 1 }}>
@@ -67,7 +72,7 @@ const Achievement = ({ achievement }) => {
                 >
                   <Button variant="default">
                     <IconContext.Provider
-                      value={{ color: 'black', size: '20px' }}
+                      value={{ color: 'white', size: '20px' }}
                     >
                       <BsThreeDotsVertical />
                     </IconContext.Provider>
@@ -88,10 +93,10 @@ const Achievement = ({ achievement }) => {
       </Row>
 
       <Modal show={showUpdateForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> Edit Achievement </Modal.Title>
+        <Modal.Header className="achievementModalHeader">
+          <Modal.Title className="achievementsModalTitle"> Edit Achievement </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="achievementsModalBody">
           <AchievementForm
             type="update"
             achievement={achievement}
@@ -101,23 +106,27 @@ const Achievement = ({ achievement }) => {
       </Modal>
 
       <Modal show={showDeleteMessage}>
-        <Modal.Header className="modalHeader">
+        <Modal.Header>
           <Modal.Title> Delete Achievement </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to delete this achievement?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
-            {' '}
-            Cancel
-            {' '}
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            {' '}
-            Confirm
-            {' '}
-          </Button>
+          <div>
+            <SecondaryButton
+              onClick={() => setShowDeleteMessage(false)}
+            >
+              Cancel
+            </SecondaryButton>
+          </div>
+          <div>
+            <DangerButton
+              onClick={handleDelete}
+            >
+              Confirm
+            </DangerButton>
+          </div>
         </Modal.Footer>
       </Modal>
     </>

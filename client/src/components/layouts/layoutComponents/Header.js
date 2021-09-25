@@ -2,16 +2,13 @@ import React, { useEffect, useState } from 'react';
 import {
   Navbar, Nav, Dropdown, Image, Row, Col, Container,
 } from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
-import { PropTypes } from 'prop-types';
 import './Header.css';
-import { NavbarBrand } from 'reactstrap';
-import { theme } from '../../landing-pages/theme';
+import { PropTypes } from 'prop-types';
 import defaultProfilePic from '../../../images/profilepic.jpg';
-
 /**
  * This function provides header for Layout.js
  * @returns Header component to be rendered in Layout.js
@@ -38,15 +35,13 @@ const Header = ({ data, setLogoutAlert }) => {
   return (
     <>
       <Navbar className="header" fixed="top">
-        <NavbarBrand href="/">
-          <Link className="header-brand" to={data.dashboardURL}>
-            <h2 style={{ color: theme.dark, fontFamily: 'Arial' }}>
-              RE
-              <b style={{ color: theme.primary }}>SEARCH</b>
-              IFY
-            </h2>
-          </Link>
-        </NavbarBrand>
+        <Navbar.Brand href={data.dashboardURL}>
+          <h2 style={{ color: '#414656' }}>
+            RE
+            <b style={{ color: '#56658a' }}>SEARCH</b>
+            IFY
+          </h2>
+        </Navbar.Brand>
         <Nav className="mr-auto" />
         <Nav>
           <Dropdown drop="down" alignRight="end" className="header-link">
@@ -61,6 +56,7 @@ const Header = ({ data, setLogoutAlert }) => {
                   <Row>
 
                     <Image
+                      className="header-profile-img"
                       src={profileData.profilePic}
                       roundedCircle
                       height="60px"

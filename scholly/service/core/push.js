@@ -23,7 +23,7 @@ async function pushBuiltAppToPages(ghUsername, ghToken, repoName) {
   logger.info(ghToken);
   await makeGHRepo(ghUsername, ghToken, repoName);
   await ghpages.publish(
-    '../base/build',
+    `${PATH_TO_BASE_REACT_APP}/build`,
     {
       branch: 'main',
       repo: `https://${ghUsername}:${ghToken}@github.com/${ghUsername}/${ghUsername}.github.io.git`,

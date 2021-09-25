@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Button, Modal, DropdownButton, Dropdown,
+  Modal, DropdownButton, Dropdown,
 } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import { addPage } from '../../../actions/website';
 import { availablePages as pages } from '../../../config/clientWebsite';
+import { PrimaryButton } from '../../shared/styledComponents';
 
 const WebpageSelector = ({
   currentWebPages, teamId, closeModal, displayModal,
@@ -57,13 +58,13 @@ const WebpageSelector = ({
               </Dropdown.Item>
             ))}
           </DropdownButton>
-          <Button
+          <PrimaryButton
             className="float-right"
             disabled={displayButton}
             onClick={handleSubmit}
           >
             Confirm
-          </Button>
+          </PrimaryButton>
         </Modal.Body>
       </Modal>
     </>
