@@ -14,7 +14,11 @@ const DesktopTopBar = ({ styles, title }) => {
   const { teamName, orgName } = TEAM_INFO;
   return (
     <div style={topBarStyle}>
-      <span>{teamName}</span>
+      <span>
+        {teamName}
+        {' '}
+        @
+      </span>
       <span>{orgName}</span>
       <span style={{ fontSize: 28, fontWeight: 'normal' }}>
         -
