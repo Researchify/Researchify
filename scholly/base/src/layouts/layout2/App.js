@@ -56,7 +56,7 @@ const App = () => {
     paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
     paddingRight: 20,
     paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20,
-    maxWidth: '1200px',
+    width: '1200px',
   };
 
   const routeItems = headerData.map(({
