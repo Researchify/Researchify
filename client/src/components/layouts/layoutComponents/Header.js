@@ -53,6 +53,7 @@ const Header = ({ data, setLogoutAlert }) => {
             <Dropdown.Toggle
               as={BsFillPersonFill}
               className="dashboard-dropdown-toggle"
+              cursor="pointer"
             />
             <Dropdown.Menu>
               <Dropdown.Item className="dashboard-dropdown-login-details">

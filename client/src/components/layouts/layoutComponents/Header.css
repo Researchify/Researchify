@@ -1,7 +1,7 @@
 .header {
   top: 0;
   padding-top: 5px;
-  background-color: #ffffff;
+  background-color: #f8f8f8;
   border-bottom: 1px solid #26282a;
   max-height: 70px;
 }
@@ -36,14 +36,15 @@
 .header-profile-icon {
   font-size: 25px;
 }
-.dashboard-dropdown-login-details
-{
-    display: flex;
-    min-width: 260px;
+
+.dashboard-dropdown-login-details{
+  display: flex;
+  min-width: 260px;
 }
+
 .dashboard-dropdown-toggle{
-    font-size: 250%;
-    padding: 20%;
-    border-radius: 100%;
-    background-color: rgba(131, 131, 155, 0.336)
+  font-size: 250%;
+  padding: 20%;
+  border-radius: 100%;
+  background-color: rgba(131, 131, 155, 0.336)
 }

@@ -25,7 +25,7 @@ const DashboardSidebarData = () => {
       link: '/dashboard',
     },
     {
-      title: 'Homepage',
+      title: 'Our Homepage',
       icon: <BsCardText />,
       link: '/about-us',
     },
