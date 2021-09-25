@@ -8,7 +8,7 @@ const Sidebar = ({ styles, menuItems }) => {
     height: '100vh',
     width: styles.sidebarWidth,
     position: 'fixed',
-    paddingTop: 80,
+    paddingTop: 90,
     backgroundColor: '#DEE4E7',
   };
 

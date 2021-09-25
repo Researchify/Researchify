@@ -43,7 +43,7 @@ const App = () => {
 
   const styles = {
     mobiletopBarHeight: 40,
-    desktoptopBarHeight: 80,
+    desktoptopBarHeight: 60,
     footerMenuHeight: 50,
     showFooterMenuText: width > 500,
     showSidebar: width > 768,
@@ -86,7 +86,6 @@ const App = () => {
       {styles.showSidebar ? (
         <>
           <Sidebar styles={styles} menuItems={headerData} />
-
         </>
       ) : (
         <MobileTopBar styles={styles} />
