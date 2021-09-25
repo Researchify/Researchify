@@ -7,10 +7,12 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  Form, Button, Spinner, Jumbotron,
+  Form, Spinner, Jumbotron,
 } from 'react-bootstrap';
 import { linkTwitter } from '../../actions/team';
 import './TwitterLink.css';
+
+import { PrimaryButton } from '../shared/styledComponents';
 
 const TwitterLink = () => {
   const dispatch = useDispatch();
@@ -69,9 +71,13 @@ const TwitterLink = () => {
                   {errors.twitterHandle}
                 </Form.Control.Feedback>
 
-                <Button type="submit" size="sm" className="twitter-link_button">
+                <PrimaryButton
+                  fontSize="0.875rem"
+                  type="submit"
+                  className="twitter-link_button"
+                >
                   Link Twitter
-                </Button>
+                </PrimaryButton>
               </Form.Group>
             </Form>
           )}

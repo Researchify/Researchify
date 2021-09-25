@@ -4,7 +4,7 @@
 const winston = require('winston');
 
 winston.configure({
-  level: 'info',
+  level: 'debug',
   format: winston.format.combine(
     winston.format.timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',

@@ -45,6 +45,12 @@ const DashboardSidebarData = () => {
       title: 'Achievements',
       icon: <BsFillAwardFill />,
       link: '/achievement',
+      name: 'ACHIEVEMENTS',
+    },
+    {
+      title: 'Account',
+      icon: <BsPerson />,
+      link: '/dashboard/profile',
     },
     {
       title: 'Account',

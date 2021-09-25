@@ -1,6 +1,10 @@
-export const FAKE_WEB_PAGES = {
+export const FAKE_TEAM_SITE_METADATA = {
   pages: ['PUBLICATIONS', 'TEAM', 'ACHIEVEMENTS'],
   publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
+  template: {
+    layout: '2',
+    theme: 'light',
+  },
 };
 
 export const FAKE_PUBLICATIONS = [
@@ -181,8 +185,6 @@ export const FAKE_TEAM_MEMBERS = [
 export const FAKE_TEAM_HOMEPAGE = {
   aboutUs: ['This is first paragraph.', 'This is second paragraph.', 'This is third paragraph.'],
 };
-
-export const FAKE_LAYOUT_OPTION = 3;
 
 export const FAKE_TEAM_ACHIEVEMENTS = [
   {

@@ -4,12 +4,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, Container, Button } from 'react-bootstrap';
-import './ClientHomeEditor.css';
+import { Form, Container } from 'react-bootstrap';
+import './css/ClientHomeEditor.css';
 import {
   getHomepageDataByTeamId,
   updateHomepage,
 } from '../../actions/homepage';
+
+import { PrimaryButton } from '../shared/styledComponents';
 
 const ClientHomeEditor = () => {
   // get state from redux
@@ -66,14 +68,14 @@ const ClientHomeEditor = () => {
           <Form.Control
             name="aboutUs"
             as="textarea"
-            rows={6}
+            rows={33}
             // join the string list to display paragraphs
             defaultValue={homepageValues.aboutUs.join('\n\n')}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <PrimaryButton type="submit">
           Save
-        </Button>
+        </PrimaryButton>
       </Form>
     </Container>
   );

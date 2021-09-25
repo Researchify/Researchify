@@ -6,11 +6,11 @@ import {
   Card,
   Row,
   Col,
-  Button,
   Image,
   Modal,
   ButtonGroup,
   OverlayTrigger,
+  Button,
 } from 'react-bootstrap';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
@@ -21,6 +21,7 @@ import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
 import profilePic from '../../images/profilepic.jpg';
+import { SecondaryButton, DangerButton } from '../shared/styledComponents';
 
 const TeamMember = ({ member }) => {
   const dispatch = useDispatch();
@@ -35,22 +36,22 @@ const TeamMember = ({ member }) => {
 
   const displayOptions = (
     <ButtonGroup>
-      <Button
+      <SecondaryButton
+        backgroundColor="white"
         onClick={() => setShowUpdateForm(true)}
-        variant="primary"
         data-toggle="modal"
       >
         {' '}
         <AiFillEdit />
         {' '}
-      </Button>
-      <Button
+      </SecondaryButton>
+      <DangerButton
+        backgroundColor="white"
         onClick={() => setShowDeleteMessage(true)}
-        variant="danger"
         data-toggle="modal"
       >
         <AiFillDelete />
-      </Button>
+      </DangerButton>
     </ButtonGroup>
   );
 
@@ -114,16 +115,16 @@ const TeamMember = ({ member }) => {
           Are you sure you want to delete this team member?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
+          <SecondaryButton onClick={() => setShowDeleteMessage(false)}>
             {' '}
             Cancel
             {' '}
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
+          </SecondaryButton>
+          <DangerButton variant="danger" onClick={handleDelete}>
             {' '}
             Confirm
             {' '}
-          </Button>
+          </DangerButton>
         </Modal.Footer>
       </Modal>
     </>
