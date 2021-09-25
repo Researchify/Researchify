@@ -1,0 +1,5 @@
+@media screen and (max-width: 1024px) {
+  .home-editor-right-col {
+    display: none !important;
+  }
+}
