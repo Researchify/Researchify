@@ -12,7 +12,7 @@ import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
 
 import { PrimaryButton } from '../../shared/styledComponents';
 
-const GHButton = styled(GitHubLogin)` //Purple
+export const GHButton = styled(GitHubLogin)` //Purple
     padding: .375rem .75rem;
     border: 1px solid #56658a;
     border-radius: .25rem;

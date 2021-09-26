@@ -7,10 +7,10 @@ import toast from 'react-hot-toast';
 import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
-import GitHubLogin from 'react-github-login';
 import { PropTypes } from 'prop-types';
 import { githubClientId, scope } from '../../config/deploy';
 import { getGHAccessToken } from '../../actions/team';
+import { GHButton } from '../dashboard/deploy/DeployPage';
 
 const GhLogInModal = ({ logInAlert, setLogInAlert }) => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const GhLogInModal = ({ logInAlert, setLogInAlert }) => {
     toast.error('You must login with GitHub to deploy');
   };
   const GitHubLoginButton = (
-    <GitHubLogin
+    <GHButton
       className="float-right github-login-button"
       clientId={githubClientId}
       scope={scope}
@@ -38,7 +38,7 @@ const GhLogInModal = ({ logInAlert, setLogInAlert }) => {
     >
       <GoMarkGithub className="mr-2" />
       Login with GitHub
-    </GitHubLogin>
+    </GHButton>
   );
 
   return (
