@@ -65,7 +65,7 @@ const TeamMember = ({ member }) => {
   return (
     <>
       <Col className="container-fluid mt-4">
-        <Card id="card" bg="light" style={{ width: '25rem', height: '100%' }}>
+        <Card id="team-card" bg="light" style={{ width: '25rem', height: '100%' }}>
           <Row>
             <Col md={{ span: 2, offset: 10 }}>
               <OverlayTrigger
