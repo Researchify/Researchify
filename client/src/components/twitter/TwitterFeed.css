@@ -1,9 +1,0 @@
-.twitter-feed {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #ccc !important;
-  border-radius: 16px;
-  padding-bottom: 30px;
-  position: fixed;
-}
