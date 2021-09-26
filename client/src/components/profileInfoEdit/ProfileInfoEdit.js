@@ -92,99 +92,103 @@ const ProfileInfoEdit = () => {
     <>
       <div className="mt-5">
         <Container className="profile-container">
-          <Form
-            className="profile-form"
-            noValidate
-            validated={validated}
-            onSubmit={handleUpdate}
-          >
-            <p className="profile-title-name">Account Settings</p>
+          <div className="container-padding">
+            <Form
+              className="profile-form"
+              noValidate
+              validated={validated}
+              onSubmit={handleUpdate}
+            >
+              <p className="profile-title-name">Account Settings</p>
 
-            <Form.Group controlId="formProfilePic">
-              <Image
-                className="profile-img"
-                src={profileData.profilePic}
-                roundedCircle
-              />
-              <Form.Label className="upload-label">
-                Change Profile Photo
-              </Form.Label>
-              <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
-            </Form.Group>
+              <Form.Group controlId="formProfilePic">
+                <Image
+                  className="profile-img"
+                  src={profileData.profilePic}
+                  roundedCircle
+                />
+                <Form.Label className="upload-label">
+                  Change Profile Photo
+                </Form.Label>
+                <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Research Group Name</Form.Label>
-              <Form.Control
-                className="placeholder-text"
-                type="text"
-                placeholder="Allan Lab"
-                defaultValue={profileData.teamName}
-                onChange={updateInputs}
-                required
-                name="teamName"
-              />
-            </Form.Group>
+              <Form.Group>
+                <Form.Label>Research Group Name</Form.Label>
+                <Form.Control
+                  className="placeholder-text"
+                  type="text"
+                  placeholder="Allan Lab"
+                  defaultValue={profileData.teamName}
+                  onChange={updateInputs}
+                  required
+                  name="teamName"
+                />
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Organisation Name</Form.Label>
-              <Form.Control
-                className="placeholder-text"
-                type="text"
-                placeholder="Leiden University"
-                defaultValue={profileData.orgName}
-                onChange={updateInputs}
-                required
-                name="orgName"
-              />
-            </Form.Group>
+              <Form.Group>
+                <Form.Label>Organisation Name</Form.Label>
+                <Form.Control
+                  className="placeholder-text"
+                  type="text"
+                  placeholder="Leiden University"
+                  defaultValue={profileData.orgName}
+                  onChange={updateInputs}
+                  required
+                  name="orgName"
+                />
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                className="placeholder-text"
-                type="email"
-                placeholder="allenlab@gmail.com"
-                name="email"
-                defaultValue={profileData.email}
-                onChange={updateInputs}
-                required
-              />
-            </Form.Group>
+              <Form.Group>
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  className="placeholder-text"
+                  type="email"
+                  placeholder="allenlab@gmail.com"
+                  name="email"
+                  defaultValue={profileData.email}
+                  onChange={updateInputs}
+                  required
+                />
+              </Form.Group>
+              <div className="mx-1">
+                <PrimaryButton
+                  id="updateButton"
+                  type="submit"
+                  color="primary"
+                  className="my-2"
+                >
+                  Update
+                </PrimaryButton>
+              </div>
+            </Form>
+            <DangerButton
+              variant="outline-danger"
+              className="ml-1"
+              style={{
+                align: 'center',
+              }}
+              onClick={() => {
+                checkLogin();
+                setResetAlert(true);
+                setDelete(false);
+              }}
+            >
+              Reset Data
+            </DangerButton>
 
-            <div className="my-1">
-              <PrimaryButton
-                id="updateButton"
-                type="submit"
-                color="primary"
-                className="my-2"
-              >
-                Update
-              </PrimaryButton>
-              <DangerButton
-                variant="outline-danger"
-                onClick={() => {
-                  checkLogin();
-                  setResetAlert(true);
-                  setDelete(false);
-                }}
-              >
-                Reset Data
-              </DangerButton>
-
-            </div>
-            <div className="my-1">
-              <DangerButton
-                variant="outline-danger"
-                onClick={() => {
-                  checkLogin();
-                  setResetAlert(true);
-                  setDelete(true);
-                }}
-              >
-                Delete account
-              </DangerButton>
-            </div>
-          </Form>
+            <DangerButton
+              variant="outline-danger"
+              className="ml-2"
+              onClick={() => {
+                checkLogin();
+                setResetAlert(true);
+                setDelete(true);
+              }}
+            >
+              Delete account
+            </DangerButton>
+          </div>
         </Container>
       </div>
       <ProfileResetModal resetAlert={resetAlert} setResetAlert={setResetAlert} type={deleteFlag} />

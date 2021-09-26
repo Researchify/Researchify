@@ -16,7 +16,7 @@ const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
   const dispatch = useDispatch();
 
   const isDeleteFlag = type;
-  const titleMessage = isDeleteFlag ? 'Delete Account!' : 'Reset Account Data!';
+  const titleMessage = isDeleteFlag ? 'Delete Account' : 'Reset Account Data';
   const warningMessage = isDeleteFlag ? 'Are you sure you want to delete your account? ' : 'Are you sure you want to reset your account? ';
   const buttonName = isDeleteFlag ? 'Delete' : 'Reset';
   const warningContent = isDeleteFlag ? 'All significant data will be reset!' : 'All significant data will be deleted including your account data!';
