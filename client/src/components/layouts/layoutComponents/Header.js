@@ -8,6 +8,7 @@ import { AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
 import './Header.css';
 import { PropTypes } from 'prop-types';
 import defaultProfilePic from '../../../images/profilepic.jpg';
+import HeaderProfileThumbnail from './HeaderProfileThumbnail';
 /**
  * This function provides header for Layout.js
  * @returns Header component to be rendered in Layout.js
@@ -29,15 +30,6 @@ const Header = ({ data, setLogoutAlert }) => {
 
   // If profilePic is undefined, set a default profile pic
   profileData.profilePic = profileData.profilePic ?? defaultProfilePic;
-  const profileIcon = (
-    <Image
-      className="header-profile-img"
-      src={profileData.profilePic}
-      roundedCircle
-      height="45px"
-      width="45px"
-    />
-  );
   const history = useHistory();
   // TODO: Remove hard-coded team id and publications id from the links
   return (
@@ -54,17 +46,25 @@ const Header = ({ data, setLogoutAlert }) => {
         <Nav>
           <Dropdown drop="down" alignRight="end" className="header-link">
             <Dropdown.Toggle
-              as={profileIcon}
+              as={HeaderProfileThumbnail}
               className="dashboard-dropdown-toggle"
               cursor="pointer"
-            />
+            >
+              {profilePic}
+            </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item className="dashboard-dropdown-login-details">
                 <Container fluid>
                   <Row>
-                    {profileIcon}
+                    <Image
+                      className="header-profile-img"
+                      src={profileData.profilePic}
+                      roundedCircle
+                      height="45px"
+                      width="45px"
+                    />
                     <Col>
-                      <strong style={{ fontSize: '150%' }}>
+                      <strong style={{ fontSize: '110%' }}>
                         {profileData.teamName}
                       </strong>
                       <br />

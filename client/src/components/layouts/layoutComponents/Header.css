@@ -41,3 +41,7 @@
   border-width: 2px;
   object-fit: cover;
 }
+
+.header-profile-img:hover{
+  cursor: pointer;
+}
