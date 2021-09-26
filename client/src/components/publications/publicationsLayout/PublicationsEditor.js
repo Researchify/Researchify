@@ -35,38 +35,38 @@ export const ButtonGroupItem = styled.button`
 }
 `;
 
-export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
-    padding: .375rem .75rem;
-    border: 1px solid #56658a;
-    border-radius: .25rem;
-    background-color: #56658a;
-    color: white;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    font-size: ${(props) => props.fontSize};
-  &:not(:disabled){
-    background-color:#56658a !important;
-  }
-  &:not(:disabled):hover{
-    background-color:rgb(60, 70, 96) !important;
-  }
-`;
-
-// export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Gold
+// export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
 //     padding: .375rem .75rem;
-//     border: 1px solid #AB9671;
+//     border: 1px solid #56658a;
 //     border-radius: .25rem;
-//     border-color: #AB9671;
-//     background-color: #AB9671;
+//     background-color: #56658a;
 //     color: white;
 //     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 //     font-size: ${(props) => props.fontSize};
 //   &:not(:disabled){
-//     background-color:#AB9671 !important;
+//     background-color:#56658a !important;
 //   }
 //   &:not(:disabled):hover{
-//     background-color:rgb(119, 105, 79) !important;
+//     background-color:rgb(60, 70, 96) !important;
 //   }
 // `;
+
+export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Gold
+    padding: .375rem .75rem;
+    border: 1px solid #AB9671;
+    border-radius: .25rem;
+    border-color: #AB9671;
+    background-color: #AB9671;
+    color: white;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: ${(props) => props.fontSize};
+  &:not(:disabled){
+    background-color:#AB9671 !important;
+  }
+  &:not(:disabled):hover{
+    background-color:rgb(119, 105, 79) !important;
+  }
+`;
 
 export const StyledDropdowItem = styled(Dropdown.Item)`
   &:not(:disabled):hover{
@@ -90,7 +90,7 @@ const PublicationsEditor = ({
   };
   return (
     <Row>
-      <Col md={1} sm={2}>
+      <Col md={3} sm={3}>
         <StyledButtonGroup>
           <Dropdown>
             <StyledDropdownToggle size="sm">
@@ -104,7 +104,7 @@ const PublicationsEditor = ({
         </StyledButtonGroup>
       </Col>
 
-      <Col md={4} sm={4}>
+      <Col md={3} sm={3}>
         <StyledButtonGroup>
           Group By
           {' '}
@@ -121,7 +121,7 @@ const PublicationsEditor = ({
         </StyledButtonGroup>
       </Col>
 
-      <Col md={5} sm={4}>
+      <Col md={4} sm={4}>
         <StyledButtonGroup>
           Sort By
           {' '}
@@ -157,7 +157,7 @@ const PublicationsEditor = ({
       </Col>
 
       <Col md={2} sm={2}>
-        <StyledButtonGroup>
+        <StyledButtonGroup className="float-right">
           <PrimaryButton
             fontSize="0.875rem"
             onClick={handleUpdate}
