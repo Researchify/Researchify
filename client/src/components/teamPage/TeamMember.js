@@ -28,11 +28,7 @@ import {
   RedDeleteButton,
 } from '../shared/styledComponents';
 import './teamMember.css';
-<<<<<<< HEAD
-// remove later
-=======
 import './teamPage.css';
->>>>>>> main
 
 const TeamMember = ({ member }) => {
   const dispatch = useDispatch();
