@@ -14,6 +14,10 @@
   border-radius: 1000px;
 }
 
+.teamMemberModalHeader {
+  background-color: white;
+}
+
 .teamMemberTitle {
   padding-left: 2.4%;
 }
