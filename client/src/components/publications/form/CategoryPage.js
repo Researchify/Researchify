@@ -109,6 +109,8 @@ const CategoryPage = ({
                     category.charAt(0) + category.slice(1).toLowerCase()
                   } title`)}
                 {' '}
+                *
+                {' '}
               </Form.Label>
               <Form.Control
                 className="placeholder-text"

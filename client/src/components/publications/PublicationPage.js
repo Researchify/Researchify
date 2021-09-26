@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Jumbotron, Container, Modal,
+  Container, Modal,
 } from 'react-bootstrap';
 import Publications from './Publications';
 import PublicationsEditor from './publicationsLayout/PublicationsEditor';
@@ -81,7 +81,8 @@ const PublicationPage = () => {
   }, [teamPublications]);
 
   return (
-    <Jumbotron style={{ minHeight: '85vH', height: 'auto' }}>
+    <div className="publicationPageContainer">
+      <h1 className="mb-4">Publications</h1>
       <Container className="publication-editor">
         <div>
           <PublicationsEditor
@@ -125,7 +126,7 @@ const PublicationPage = () => {
           <ImportForm closeModal={() => setShowImportForm(false)} />
         </Modal.Body>
       </Modal>
-    </Jumbotron>
+    </div>
   );
 };
 

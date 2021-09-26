@@ -108,7 +108,7 @@ const MainInfoPage = ({
         }) => (
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
-              <Form.Label>Publication Title</Form.Label>
+              <Form.Label>Publication Title *</Form.Label>
               <Form.Control
                 className="placeholder-text"
                 as="textarea"
@@ -125,7 +125,7 @@ const MainInfoPage = ({
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Published Year</Form.Label>
+              <Form.Label>Published Year *</Form.Label>
               <Form.Control
                 className="placeholder-text"
                 as="select"
@@ -143,9 +143,10 @@ const MainInfoPage = ({
             </Form.Group>
 
             <Form.Group>
-              <Form.Label> Authors </Form.Label>
+              <Form.Label> Authors *</Form.Label>
               {renderAuthors(values, touched, errors, handleChange, setValues)}
               <Button
+                className="mt-2"
                 variant="secondary"
                 onClick={() => {
                   setValues({ ...values, authors: [...values.authors, ''] });
@@ -156,7 +157,7 @@ const MainInfoPage = ({
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Description *</Form.Label>
               <Form.Control
                 className="placeholder-text"
                 as="textarea"
