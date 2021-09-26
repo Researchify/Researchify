@@ -53,7 +53,7 @@ const Header = ({ data, setLogoutAlert }) => {
               {profilePic}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item className="dashboard-dropdown-login-details">
+              <Dropdown.Item className="dashboard-dropdown-login-details" disabled>
                 <Container fluid>
                   <Row>
                     <Image
@@ -63,7 +63,7 @@ const Header = ({ data, setLogoutAlert }) => {
                       height="45px"
                       width="45px"
                     />
-                    <Col>
+                    <Col className="dashboard-dropdown-login-details-info">
                       <strong style={{ fontSize: '110%' }}>
                         {profileData.teamName}
                       </strong>

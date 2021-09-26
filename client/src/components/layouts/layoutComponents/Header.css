@@ -26,8 +26,12 @@
 .dashboard-dropdown-login-details{
   display: flex;
   min-width: 260px;
-}
 
+}
+.dashboard-dropdown-login-details-info
+{
+  filter: brightness(20%);
+}
 .dashboard-dropdown-toggle{
   font-size: 250%;
   padding: 20%;
