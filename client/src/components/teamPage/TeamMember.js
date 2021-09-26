@@ -28,7 +28,11 @@ import {
   RedDeleteButton,
 } from '../shared/styledComponents';
 import './teamMember.css';
+<<<<<<< HEAD
 // remove later
+=======
+import './teamPage.css';
+>>>>>>> main
 
 const TeamMember = ({ member }) => {
   const dispatch = useDispatch();
@@ -65,7 +69,7 @@ const TeamMember = ({ member }) => {
   return (
     <>
       <Col className="container-fluid mt-4">
-        <Card id="card" bg="light" style={{ width: '25rem', height: '100%' }}>
+        <Card id="team-card" bg="light" style={{ width: '25rem', height: '100%' }}>
           <Row>
             <Col md={{ span: 2, offset: 10 }}>
               <OverlayTrigger
@@ -76,7 +80,7 @@ const TeamMember = ({ member }) => {
               >
                 <Button variant="default">
                   <IconContext.Provider
-                    value={{ color: 'black', size: '20px' }}
+                    value={{ color: '#56658a', size: '20px' }}
                   >
                     <BsThreeDotsVertical />
                   </IconContext.Provider>
@@ -101,11 +105,11 @@ const TeamMember = ({ member }) => {
         </Card>
       </Col>
 
-      <Modal show={showUpdateForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> Edit Team Member </Modal.Title>
+      <Modal show={showUpdateForm} id="teamMemberModal">
+        <Modal.Header className="teamMemberModalHeader">
+          <Modal.Title className="teamMemberTitle"> Edit Team Member </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="teamMemberBody">
           <TeamMemberForm
             type="update"
             member={member}
@@ -114,8 +118,8 @@ const TeamMember = ({ member }) => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showDeleteMessage}>
-        <Modal.Header className="modalHeader">
+      <Modal show={showDeleteMessage} id="teamMemberModal">
+        <Modal.Header className="teamMemberModalHeader">
           <Modal.Title> Delete Team Member </Modal.Title>
         </Modal.Header>
         <Modal.Body>

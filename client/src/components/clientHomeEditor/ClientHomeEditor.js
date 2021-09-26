@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Container } from 'react-bootstrap';
-import './ClientHomeEditor.css';
+import './css/ClientHomeEditor.css';
 import {
   getHomepageDataByTeamId,
   updateHomepage,
@@ -68,7 +68,7 @@ const ClientHomeEditor = () => {
           <Form.Control
             name="aboutUs"
             as="textarea"
-            rows={6}
+            rows={33}
             // join the string list to display paragraphs
             defaultValue={homepageValues.aboutUs.join('\n\n')}
           />

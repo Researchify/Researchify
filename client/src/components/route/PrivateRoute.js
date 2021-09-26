@@ -11,8 +11,7 @@ import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
 import PublicationPage from '../publications/PublicationPage';
 import TeamPage from '../teamPage/TeamPage';
 import AchievementPage from '../achievements/AchievementPage';
-import ClientHomeEditor from '../clientHomeEditor/ClientHomeEditor';
-
+import ClientHomeEditorPage from '../clientHomeEditor/ClientHomeEditorPage';
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
 import { logout } from '../../actions/auth';
@@ -49,7 +48,7 @@ const PrivateRoute = () => {
       <DashboardLayoutRoute
         path="/about-us"
         exact
-        component={ClientHomeEditor}
+        component={ClientHomeEditorPage}
       />
       {/*  If login, any other route not stated above will be redirect dashboard page */}
       <Redirect to="/dashboard" />
