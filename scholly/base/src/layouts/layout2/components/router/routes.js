@@ -1,3 +1,6 @@
+import { BsBookHalf, BsPeopleFill } from 'react-icons/bs';
+import { GiAchievement } from 'react-icons/gi';
+import { AiFillHome } from 'react-icons/ai';
 import { TEAM_SITE_METADATA } from '../../../../global/data';
 import PublicationPage from '../publications/PublicationPage';
 import LandingPage from '../landingPage/LandingPage';
@@ -10,18 +13,21 @@ const availableRoutes = [
     path: '/publication',
     exact: true,
     component: PublicationPage,
+    icon: <BsBookHalf />,
   },
   {
     title: 'Team',
     path: '/team',
     exact: true,
     component: TeamPage,
+    icon: <BsPeopleFill />,
   },
   {
     title: 'Achievements',
     path: '/achievements',
     exact: true,
     component: Achievements,
+    icon: <GiAchievement />,
   },
 ];
 
@@ -31,6 +37,7 @@ const defaultRoutes = [
     path: '/',
     exact: true,
     component: LandingPage,
+    icon: <AiFillHome />,
   },
 ];
 
