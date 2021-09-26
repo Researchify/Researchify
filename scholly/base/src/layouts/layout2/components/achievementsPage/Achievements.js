@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { ListGroup } from 'react-bootstrap';
 import { TEAM_ACHIEVEMENTS, TEAM_INFO } from '../../../../global/data';
 import Achievement from './Achievement';
 
@@ -21,11 +20,9 @@ const Achievements = () => {
           {' '}
         </title>
       </Helmet>
-      <ListGroup style={{ width: '100%', boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)' }}>
-        {teamAchievements.map((achievement) => (
-          <Achievement achievement={achievement} key={achievement._id} />
-        ))}
-      </ListGroup>
+      {teamAchievements.map((achievement) => (
+        <Achievement achievement={achievement} key={achievement._id} />
+      ))}
     </>
   );
 };

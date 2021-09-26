@@ -32,7 +32,7 @@ const Publication = ({ pub }) => {
   );
 
   return (
-    <ListGroup style={{ marginBottom: '15px', boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)' }}>
+    <ListGroup style={{ marginBottom: '10px', boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)' }}>
       <ListGroup.Item
         style={{
           textAlign: 'left',
@@ -91,7 +91,7 @@ const Publication = ({ pub }) => {
         onClick={() => setExpand(!expand)}
       >
         <>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: isHoveringArrow ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--researchify-text-color)' }}>
             <div style={{ textAlign: 'left' }}>Description</div>
             <div style={{ textAlign: 'right' }}>
               {expand ? <IoIosArrowUp /> : <IoIosArrowDown />}

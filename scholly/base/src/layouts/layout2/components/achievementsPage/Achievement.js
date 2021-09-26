@@ -15,25 +15,27 @@ const Achievement = ({ achievement }) => {
     setIsHovering(false);
   };
   return (
-    <ListGroup.Item
-      style={{
-        textAlign: 'left',
-        backgroundColor: isHovering ? 'var(--researchify-color-tertiary)' : 'var(--researchify-color-secondary)',
-        color: 'var(--researchify-text-color)',
-      }}
-      onMouseOver={handleMouseOver}
-      onFocus={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-      onBlur={handleMouseLeave}
-    >
-      <row>
-        <b>{achievement.title}</b>
-        <i className="float-right">{achievement.yearAwarded}</i>
-      </row>
-      <div style={{ marginRight: '20px', color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
-        {achievement.description}
-      </div>
-    </ListGroup.Item>
+    <ListGroup style={{ marginBottom: '10px', width: '100%', boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)' }}>
+      <ListGroup.Item
+        style={{
+          textAlign: 'left',
+          backgroundColor: isHovering ? 'var(--researchify-color-tertiary)' : 'var(--researchify-color-secondary)',
+          color: 'var(--researchify-text-color)',
+        }}
+        onMouseOver={handleMouseOver}
+        onFocus={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+        onBlur={handleMouseLeave}
+      >
+        <row>
+          <b>{achievement.title}</b>
+          <i className="float-right">{achievement.yearAwarded}</i>
+        </row>
+        <div style={{ marginRight: '20px', color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
+          {achievement.description}
+        </div>
+      </ListGroup.Item>
+    </ListGroup>
 
   );
 };
