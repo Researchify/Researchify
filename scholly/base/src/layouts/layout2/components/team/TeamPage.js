@@ -2,11 +2,12 @@
  * The TeamPage component displays a list of team members.
  */
 import React, { useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import Container from 'react-bootstrap/Container';
 import { TEAM_MEMBERS, TEAM_INFO } from '../../../../global/data';
 import ProfilePic from './ProfilePic';
-import TeamMember from './TeamMember';
+// import TeamMemberMobile from './TeamMemberMobile';
+import TeamMemberDesktop from './TeamMemberDesktop';
 
 const TeamPage = () => {
   const teamMembers = TEAM_MEMBERS;
@@ -23,26 +24,18 @@ const TeamPage = () => {
           {' '}
         </title>
       </Helmet>
+      <Container fluid>
+        <div style={{ margin: 'auto', display: 'flex', flexWrap: 'wrap' }}>
+          {teamMembers.slice(0, 3).map((member) => (
+            <ProfilePic member={member} key={member._id} setHoveredMember={setHoveredMember} />
+          ))}
+          {teamMembers.map((member) => (
+            <ProfilePic member={member} key={member._id} setHoveredMember={setHoveredMember} />
+          ))}
 
-      <Row>
-        <Col md={6}>
-          {
-            hoveredMember && <TeamMember member={hoveredMember} />
-          }
-        </Col>
-        <Col md={6}>
-          {/* {teamMembers.map((member) => (
-            <TeamMember member={member} key={member._id} />
-          ))} */}
-
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {teamMembers.map((member) => (
-              <ProfilePic member={member} key={member._id} setHoveredMember={setHoveredMember} />
-            ))}
-          </div>
-
-        </Col>
-      </Row>
+        </div>
+        <TeamMemberDesktop member={hoveredMember} />
+      </Container>
 
     </>
   );

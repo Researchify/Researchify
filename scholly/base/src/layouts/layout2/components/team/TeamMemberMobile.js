@@ -4,9 +4,9 @@
 
 import React, { useState } from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
-import profilePicture from '../../../../shared/images/profilepic.jpg';
+import profilePicture from '../../../../shared/images/profilepig.jpg';
 
-const TeamMember = ({ member }) => {
+const TeamMemberMobile = ({ member }) => {
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -19,6 +19,7 @@ const TeamMember = ({ member }) => {
       style={{
         marginBottom: '15px',
         width: '100%',
+        height: '180px',
         boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
         backgroundColor: isHovering ? 'var(--researchify-color-tertiary)' : 'var(--researchify-color-secondary)',
       }}
@@ -29,7 +30,9 @@ const TeamMember = ({ member }) => {
     >
       <Row>
         <Col md={4} sm={4} xs={4}>
-          <Card.Img src={profilePicture} />
+          <div style={{ height: '180px', width: '150px' }}>
+            <Card.Img style={{ maxWidth: '100%', minheight: 'auto' }} src={profilePicture} />
+          </div>
         </Col>
         <Col md={8} sm={8} xs={8}>
           <Card.Body>
@@ -47,4 +50,4 @@ const TeamMember = ({ member }) => {
   );
 };
 
-export default TeamMember;
+export default TeamMemberMobile;
