@@ -31,14 +31,14 @@ const Publication = ({ pub }) => {
   const { checkedPublications } = useSelector((state) => state.publications);
 
   useEffect(() => {
-    if (pub.newlyAdded) {
-      delete pub.newlyAdded;
+    if (pub.isNewlyAdded) {
+      delete pub.isNewlyAdded;
       setInterval(() => {
         setNewlyAdded(false);
       }, 2500);
       setNewlyAdded(true);
     }
-  }, [pub.newlyAdded, pub._id]);
+  }, [pub]);
 
   const handleDelete = () => {
     dispatch(deletePublication(pub._id));

@@ -9,6 +9,7 @@ import {
   UPDATE_PUBLICATION_OPTIONS,
   RESET_WEBPAGE,
   UPDATE_WEBSITE_TITLE,
+  UPDATE_WEBSITE_TEMPLATE,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 import * as api from '../api';
@@ -79,7 +80,8 @@ export const resetWebPage = (teamId) => async (dispatch) => {
 
 export const updatePublicationOptions = (teamId, preference) => async (dispatch) => {
   try {
-    const { data } = await api.updatePublicationOptions(teamId, preference);
+    const changes = [{ field: 'publicationOptions', value: preference }];
+    const { data } = await api.updateClientWebMetadata(teamId, changes);
     dispatch({
       type: UPDATE_PUBLICATION_OPTIONS,
       payload: data,
@@ -92,7 +94,8 @@ export const updatePublicationOptions = (teamId, preference) => async (dispatch)
 
 export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
   try {
-    await api.updateWebsiteTitle(teamId, website);
+    const change = { title: website.websiteTitle };
+    await api.updateClientWebMetadata(teamId, change);
     dispatch({
       type: UPDATE_WEBSITE_TITLE,
       payload: website.websiteTitle,
@@ -100,5 +103,31 @@ export const updateWebsiteTitle = (teamId, website) => async (dispatch) => {
     dispatch(successMessageCreator('Title has been updated.'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
+  }
+};
+
+/**
+ * This action creator updates the client preference for the theme and layout in the DB and in Redux store
+ * @param {*} teamId The id of the team whose theme is to be updated
+ * @param {*} themeData Object containing the updated 'layout' and 'theme'
+ * @returns
+ */
+export const updateTheme = (teamId, templateData) => async (dispatch) => {
+  try {
+    const changes = [
+      {
+        field: 'template',
+        value: templateData,
+      },
+    ];
+    await api.updateClientWebMetadata(teamId, changes);
+
+    dispatch({
+      type: UPDATE_WEBSITE_TEMPLATE,
+      payload: templateData,
+    });
+    dispatch(successMessageCreator('Theme has been updated'));
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
   }
 };

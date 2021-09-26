@@ -2,7 +2,7 @@
  * The Publications component displays a list of publications
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Modal, Alert, Jumbotron, Container,
@@ -15,6 +15,7 @@ import GroupByNone from './publicationsLayout/GroupByNone';
 import GroupByCategory from './publicationsLayout/GroupByCategory';
 import PublicationsEditor from './publicationsLayout/PublicationsEditor';
 import { groupByOptions, sortingOptions } from '../../config/publications';
+import { REVERT_HEADER_COLOR } from '../../actions/types';
 
 const Publications = () => {
   const dispatch = useDispatch();
@@ -36,14 +37,14 @@ const Publications = () => {
     setOptions(publicationOptions);
   }, [publicationOptions]);
 
-  const renderPublications = () => {
+  const renderPublications = useCallback(() => {
     switch (options.groupBy) {
       case groupByOptions.CATEGORY:
         return <GroupByCategory teamPublications={publications} />;
       default:
         return <GroupByNone teamPublications={publications} />;
     }
-  };
+  }, [options, publications, teamPublications]);
 
   const sortPublications = (publicationToBeSorted, option) => {
     switch (option) {
@@ -98,6 +99,15 @@ const Publications = () => {
   useEffect(() => {
     const sortedPublication = sortPublications(teamPublications, options.sortBy);
     setPublications(sortedPublication);
+    const newlyAddedPublications = teamPublications.filter((pub) => pub.isNewlyAdded);
+    if (newlyAddedPublications.length > 0) {
+      setTimeout(() => {
+        dispatch({
+          type: REVERT_HEADER_COLOR,
+          payload: newlyAddedPublications,
+        });
+      }, 2500);
+    }
   }, [teamPublications]);
 
   return (

@@ -15,6 +15,6 @@ websiteRouter.delete('/:teamId/reset_page', websiteController.resetWebPage);
 
 websiteRouter.post('/:teamId/updatePublicationOptions', websiteController.updatePublicationOptions);
 
-websiteRouter.post('/:teamId/updateTitle', websiteController.updateTitle);
+websiteRouter.patch('/:team_id', websiteController.updateClientWebMetadata);
 
 module.exports = websiteRouter;

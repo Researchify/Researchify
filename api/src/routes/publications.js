@@ -55,4 +55,10 @@ publicationsRouter.post(
   publicationsController.importPublications,
 );
 
+publicationsRouter.patch(
+  '/',
+  authMiddleware.cookieJwtAuth,
+  publicationsController.deleteBulkPublications,
+);
+
 module.exports = publicationsRouter;

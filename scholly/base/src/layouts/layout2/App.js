@@ -1,22 +1,24 @@
 /**
  * Root App.js
  */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Container, Row, Col } from 'react-bootstrap';
-import { TEAM_INFO } from '../../global/data';
+import { TEAM_INFO, TEAM_SITE_METADATA } from '../../global/data';
 import Sidebar from './components/layout/Sidebar';
-import './components/layout/Sidebar.css';
 import getRoutes from './components/router/routes';
 import './components/centered.css';
 import '../../shared/css/style.css';
 import '../../shared/css/baseColours.css';
+import MobileTopBar from './components/layout/MobileTopBar';
+import FooterMenu from './components/layout/FooterMenu';
+import ScrollIntoView from './components/layout/ScrollIntoView';
+import DesktopTopBar from './components/layout/DesktopTopBar';
 
-const themeOption = '1';
-if (themeOption === '1') {
+const themeOption = TEAM_SITE_METADATA.template.theme;
+if (themeOption === 'light') {
   import('../../shared/css/lightColours.css');
-} else if (themeOption === '2') {
+} else if (themeOption === 'dark') {
   import('../../shared/css/darkColours.css');
 } else {
   // Fallback to light mode if unknown theme option is used
@@ -25,35 +27,80 @@ if (themeOption === '1') {
 
 const App = () => {
   const { teamName } = TEAM_INFO;
-  const routeItems = getRoutes().map(({ path, exact, component }) => {
+  const [width, setWidth] = useState(0);
+  const headerData = getRoutes();
+
+  const updateDimensions = () => {
+    const windowWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+    setWidth(windowWidth);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+  }, []);
+
+  const styles = {
+    mobiletopBarHeight: 40,
+    desktoptopBarHeight: 60,
+    footerMenuHeight: 50,
+    showFooterMenuText: width > 500,
+    showSidebar: width > 768,
+    sidebarWidth: width < 1200 ? 50 : 140,
+    sidebarCollapsed: width < 1200,
+  };
+
+  const contentStyle = {
+    paddingTop: styles.showSidebar ? 20 : styles.mobiletopBarHeight + 20,
+    paddingRight: 20,
+    paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
+    paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20,
+    maxWidth: '1200px',
+  };
+
+  const routeItems = headerData.map(({ path, exact, component }) => {
     const View = component;
     return (
       <Route exact={exact} path={path} key={path}>
-        <div>{View ? <View /> : null}</div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={contentStyle}>
+            {styles.showSidebar && <DesktopTopBar styles={styles} />}
+            {View ? <View /> : null}
+          </div>
+        </div>
       </Route>
     );
   });
   return (
-    <>
+    <div
+      style={{
+        minHeight: '100vh',
+        position: 'relative',
+      }}
+    >
       <Helmet>
         <title>{teamName}</title>
       </Helmet>
-      <Container fluid>
-        <Row>
-          <Col xs={3} id="sidebar-wrapper" md={3} lg={3} xl={2}>
-            <Sidebar />
 
-          </Col>
-          <Col className="page-content-wrapper" md={8} lg={4} xl={9}>
-            <Switch>
-              {routeItems}
-            </Switch>
-          </Col>
-        </Row>
+      {styles.showSidebar ? (
+        <>
+          <Sidebar styles={styles} menuItems={headerData} />
+        </>
+      ) : (
+        <MobileTopBar styles={styles} />
+      )}
+      <ScrollIntoView>
+        <Switch>
+          {routeItems}
+        </Switch>
+      </ScrollIntoView>
 
-      </Container>
+      {!styles.showSidebar && (
+      <FooterMenu styles={styles} menuItems={headerData} />
+      )}
 
-    </>
+    </div>
   );
 };
 

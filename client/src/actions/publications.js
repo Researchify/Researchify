@@ -10,6 +10,7 @@ import {
   IMPORT_FAIL,
   IMPORT_END,
   IMPORT_EMPTY,
+  DELETE_BATCH_PUBLICATIONS,
 } from './types';
 import {
   errorActionGlobalCreator,
@@ -45,7 +46,7 @@ export const createPublication = (publication) => async (dispatch) => {
 
     dispatch({
       type: CREATE_PUBLICATION,
-      payload: { ...result.data, newlyAdded: true },
+      payload: { ...result.data, isNewlyAdded: true },
     });
     dispatch(successMessageCreator('Publication has been created'));
   } catch (error) {
@@ -61,6 +62,7 @@ export const deletePublication = (id) => async (dispatch) => {
       type: DELETE_PUBLICATION,
       payload: id,
     });
+    dispatch(successMessageCreator('Publication has been deleted'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
@@ -139,14 +141,27 @@ export const createBulkPublications = (teamId, publicationList) => async (dispat
     const createdPublications = result.data.map((pub) => ({
       ...pub,
       yearPublished: pub.yearPublished.substring(0, 4),
-      newlyAdded: true,
+      isNewlyAdded: true,
     }));
 
     dispatch({
       type: CREATE_BULK_PUBLICATIONS,
       payload: createdPublications,
     });
-    dispatch(successMessageCreator(`${createdPublications.length} publication(s) has been imported`));
+    dispatch(successMessageCreator(`${createdPublications.length} publication(s) have been imported`));
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
+  }
+};
+
+export const deleteBatchPublications = (publicationIdList) => async (dispatch) => {
+  try {
+    await api.deleteBatchPublications(publicationIdList);
+    dispatch({
+      type: DELETE_BATCH_PUBLICATIONS,
+      payload: publicationIdList,
+    });
+    dispatch(successMessageCreator(`${publicationIdList.length} publication(s) have been deleted`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

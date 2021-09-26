@@ -15,13 +15,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-grid.css';
 import 'bootstrap/dist/css/bootstrap-reboot.css';
 
-import { LAYOUT_OPTION } from './global/data';
+import { TEAM_SITE_METADATA } from './global/data';
 
 /// Decides which of the root App components of the various layouts to display.
 /// This determination is based off the provided LAYOUT_OPTION environment variable.
+const layoutOption = TEAM_SITE_METADATA.template.layout;
 const layoutToDisplay = () => {
-  switch (LAYOUT_OPTION) {
-    case 1: // TODO: there might be a better way to do this.
+  switch (layoutOption) {
+    case '1': // TODO: there might be a better way to do this.
       // eslint-disable-next-line no-case-declarations
       const AppLayout1 = React.lazy(() => import('./layouts/layout1/App'));
       return (
@@ -31,7 +32,7 @@ const layoutToDisplay = () => {
           </React.Suspense>
         </>
       );
-    case 2:
+    case '2':
       // eslint-disable-next-line no-case-declarations
       const AppLayout2 = React.lazy(() => import('./layouts/layout2/App'));
       return (
@@ -41,7 +42,7 @@ const layoutToDisplay = () => {
           </React.Suspense>
         </>
       );
-    case 3:
+    case '3':
       // eslint-disable-next-line no-case-declarations
       const AppLayout3 = React.lazy(() => import('./layouts/layout3/App'));
       return (

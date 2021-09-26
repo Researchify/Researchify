@@ -1,4 +1,7 @@
-import { WEB_PAGES } from '../../../../global/data';
+import { BsBookHalf, BsPeopleFill } from 'react-icons/bs';
+import { GiAchievement } from 'react-icons/gi';
+import { AiFillHome } from 'react-icons/ai';
+import { TEAM_SITE_METADATA } from '../../../../global/data';
 import PublicationPage from '../publications/PublicationPage';
 import LandingPage from '../landingPage/LandingPage';
 import TeamPage from '../team/TeamPage';
@@ -10,18 +13,21 @@ const availableRoutes = [
     path: '/publication',
     exact: true,
     component: PublicationPage,
+    icon: <BsBookHalf />,
   },
   {
     title: 'Team',
     path: '/team',
     exact: true,
     component: TeamPage,
+    icon: <BsPeopleFill />,
   },
   {
     title: 'Achievements',
     path: '/achievements',
     exact: true,
     component: Achievements,
+    icon: <GiAchievement />,
   },
 ];
 
@@ -31,6 +37,7 @@ const defaultRoutes = [
     path: '/',
     exact: true,
     component: LandingPage,
+    icon: <AiFillHome />,
   },
 ];
 
@@ -38,7 +45,7 @@ const defaultRoutes = [
  * Get the routes to the web pages the client wants deployed
  */
 const getRoutes = () => {
-  const routes = availableRoutes.filter(({ title }) => WEB_PAGES.pages.includes(title.toUpperCase()));
+  const routes = availableRoutes.filter(({ title }) => TEAM_SITE_METADATA.pages.includes(title.toUpperCase()));
 
   return [...defaultRoutes, ...routes];
 };
