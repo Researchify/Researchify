@@ -49,3 +49,7 @@
 .header-profile-img:hover{
   cursor: pointer;
 }
+.dashboard-login-dropdown-item.active, .dashboard-login-dropdown-item:active {
+  color: #fff;
+  background-color: #56658a;
+}

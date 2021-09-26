@@ -75,12 +75,12 @@ const Header = ({ data, setLogoutAlert }) => {
 
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item eventKey="2" onClick={() => history.push('/dashboard/profile')}>
+              <Dropdown.Item className="dashboard-login-dropdown-item" eventKey="2" onClick={() => history.push('/dashboard/profile')} active={false}>
                 <AiOutlineUser />
                 {' '}
                 Account
               </Dropdown.Item>
-              <Dropdown.Item eventKey="3" onClick={() => setLogoutAlert(true)}>
+              <Dropdown.Item className="dashboard-login-dropdown-item" eventKey="3" onClick={() => setLogoutAlert(true)} active={false}>
                 <AiOutlineLogout />
                 {' '}
                 Logout
