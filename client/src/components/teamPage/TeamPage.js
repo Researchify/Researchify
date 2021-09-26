@@ -29,7 +29,7 @@ const TeamPage = () => {
 
   return (
     <div className="teamPageContainer">
-      <h1>Meet Our Team Members</h1>
+      <h1>Team Members</h1>
       <PrimaryButton className="mt-2" onClick={() => setShowCreateForm(true)}>
         Add Team Member
       </PrimaryButton>
@@ -56,11 +56,11 @@ const TeamPage = () => {
       )}
 
       {/* A modal for showing create a team member */}
-      <Modal show={showCreateForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> New Team Member </Modal.Title>
+      <Modal show={showCreateForm} id="teamMemberModal">
+        <Modal.Header className="teamMemberModalHeader">
+          <Modal.Title className="teamMemberTitle"> New Team Member </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="teamMemberBody">
           <TeamMemberForm
             type="create"
             closeModal={() => setShowCreateForm(false)}

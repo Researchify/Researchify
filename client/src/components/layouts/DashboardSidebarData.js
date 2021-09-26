@@ -36,7 +36,7 @@ const DashboardSidebarData = () => {
       name: 'PUBLICATIONS',
     },
     {
-      title: 'Team Member',
+      title: 'Team Members',
       icon: <BsPeople />,
       link: '/team',
       name: 'TEAM',
