@@ -139,7 +139,7 @@ async function updateClientWebMetadata(req, res, next) { // eslint-disable-line 
   } catch (err) {
     return res.send(fillErrorObject(500, 'Server error', [err.errors]));
   }
-} b
+}
 
 module.exports = {
   addWebPage,
