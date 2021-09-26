@@ -1,5 +1,7 @@
 import React from 'react';
-import { Dropdown, Row, Col } from 'react-bootstrap';
+import {
+  Dropdown, Row, Col, OverlayTrigger, Popover,
+} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
@@ -36,7 +38,6 @@ export const ButtonGroupItem = styled.button`
 `;
 
 export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
-    padding: .375rem .75rem;
     border: 1px solid #56658a;
     border-radius: .25rem;
     background-color: #56658a;
@@ -55,6 +56,14 @@ export const StyledDropdowItem = styled(Dropdown.Item)`
     background-color:#F6F6F6 !important;
   }
 `;
+
+const ButtonHint = (props) => (
+  <Popover id="strong-pw-hint" {...props}>
+    <Popover.Content>
+      Update your publications sorting and group by options in the deployed website
+    </Popover.Content>
+  </Popover>
+);
 
 const PublicationsEditor = ({
   options,
@@ -75,7 +84,7 @@ const PublicationsEditor = ({
       <Col md={4} sm={4} style={{ marginBottom: '10px' }}>
         <Dropdown>
           <StyledDropdownToggle>
-            Add
+            Add Publication(s)
           </StyledDropdownToggle>
           <Dropdown.Menu>
             <StyledDropdowItem onClick={() => setShowCreateForm(true)}>Add Manually</StyledDropdowItem>
@@ -136,12 +145,14 @@ const PublicationsEditor = ({
       </Col>
 
       <Col md={2} sm={2}>
-        <PrimaryButton
-          className="float-right"
-          onClick={handleUpdate}
-        >
-          Update Layout
-        </PrimaryButton>
+        <OverlayTrigger trigger="hover" placement="bottom" overlay={ButtonHint}>
+          <PrimaryButton
+            className="float-right"
+            onClick={handleUpdate}
+          >
+            Update Layout
+          </PrimaryButton>
+        </OverlayTrigger>
       </Col>
     </Row>
   );

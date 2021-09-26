@@ -152,7 +152,7 @@ const MainInfoPage = ({
                   setValues({ ...values, authors: [...values.authors, ''] });
                 }}
               >
-                Add Author
+                Add More Author
               </Button>
             </Form.Group>
 

@@ -25,7 +25,7 @@
 }
 
 .publicationHeader:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(231, 229, 229);
   border: 1px solid rgb(240, 240, 240);
 }
 
@@ -69,7 +69,7 @@
 .publication-container {
   border: 2px solid rgb(214, 214, 214);
   border-width: thin;
-  border-radius: 15px;
+  border-radius: 10px;
   overflow: hidden;
 }
 
