@@ -25,7 +25,7 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
-      <Container fluid className=" mt-3 mb-3">
+      <Container fluid className="mb-3">
         <h2>
           Welcome to
           {' '}

@@ -66,8 +66,8 @@ const Publications = () => {
       case sortingOptions.YEAR:
         // year
         publicationToBeSorted.sort((a, b) => {
-          if (a.year > b.year) return -1;
-          if (a.year < b.year) return 1;
+          if (a.yearPublished > b.yearPublished) return -1;
+          if (a.yearPublished < b.yearPublished) return 1;
           return 0;
         });
         break;
@@ -87,8 +87,8 @@ const Publications = () => {
           return 0;
         });
         publicationToBeSorted.sort((a, b) => {
-          if (a.year > b.year) return -1;
-          if (a.year < b.year) return 1;
+          if (a.yearPublished > b.yearPublished) return -1;
+          if (a.yearPublished < b.yearPublished) return 1;
           return 0;
         });
         break;

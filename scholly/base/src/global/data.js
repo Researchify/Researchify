@@ -56,8 +56,8 @@ if (!env.REACT_APP_DEBUG) {
         theme: defaultTheme,
       },
       publicationOptions: {
-        layout: 'By Category',
-        sortBy: 'Category Title',
+        groupBy: 'Category',
+        sortBy: 'Title',
       },
     };
 
