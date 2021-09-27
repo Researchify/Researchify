@@ -82,7 +82,7 @@ const PublicationPage = () => {
 
   return (
     <div className="publicationPageContainer">
-      <h1 className="mb-4">Publications</h1>
+      <h1 className="mb-4 ml-2">Publications</h1>
       <Container className="publication-editor">
         <div>
           <PublicationsEditor
