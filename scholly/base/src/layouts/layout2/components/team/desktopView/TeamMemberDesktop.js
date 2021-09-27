@@ -32,7 +32,7 @@ const TeamMemberDesktop = ({ teamMembers }) => {
               </Card.Body>
             )
             : (
-              <div style={{ height: '180px', width: '490px' }}>
+              <div style={{ height: '180px', width: '490px', paddingRight: '15px' }}>
                 <h2> Space for group logo/ recruitment news?? </h2>
               </div>
             )
@@ -44,7 +44,7 @@ const TeamMemberDesktop = ({ teamMembers }) => {
           onFocus={() => handleMouseOver(member)}
           onMouseLeave={handleMouseLeave}
           onBlur={handleMouseLeave}
-          style={{ paddingBottom: '10px', paddingRight: '6px' }}
+          style={{ paddingBottom: '6px', paddingRight: '6px' }}
         >
           <ProfilePic member={member} key={index} hoveredMember={hoveredMember} setHoveredMember={() => setHoveredMember} />
         </div>
