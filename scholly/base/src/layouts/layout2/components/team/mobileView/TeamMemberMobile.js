@@ -8,11 +8,9 @@ import profilePicture from '../../../../../shared/images/profilepic.jpg';
 
 const TeamMemberMobile = ({ teamMembers }) => {
   const [hoveredMember, setHoveredMember] = useState(null);
-
   const handleMouseOver = (index) => {
     setHoveredMember(index);
   };
-
   const handleMouseLeave = () => {
     setHoveredMember(null);
   };

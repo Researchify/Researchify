@@ -9,7 +9,9 @@ const ProfilePic = ({ member, hoveredMember }) => (
     }}
   >
     <ListGroup.Item
-      style={{ height: '180px', width: '157px', backgroundColor: 'var(--researchify-color-secondary' }}
+      style={{
+        padding: '5px', height: '180px', width: '157px', backgroundColor: 'var(--researchify-color-secondary',
+      }}
     >
       <Image
         alt="img"
@@ -19,7 +21,7 @@ const ProfilePic = ({ member, hoveredMember }) => (
         src={profilePicture}
       />
       <div style={{
-        position: 'absolute', bottom: '1px', left: '16px', color: hoveredMember === member ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)',
+        position: 'absolute', left: '16px', color: hoveredMember === member ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)',
       }}
       >
         {member.fullName}
