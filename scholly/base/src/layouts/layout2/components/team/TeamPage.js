@@ -1,23 +1,34 @@
 /**
  * The TeamPage component displays a list of team members.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import Container from 'react-bootstrap/Container';
 import { TEAM_MEMBERS, TEAM_INFO } from '../../../../global/data';
-import ProfilePic from './ProfilePic';
 // import TeamMemberMobile from './TeamMemberMobile';
-import TeamMemberDesktop from './TeamMemberDesktop';
+import TeamMemberDesktop from './desktopView/TeamMemberDesktop';
+import TeamMemberMobile from './mobileView/TeamMemberMobile';
 
 const TeamPage = () => {
+  const [width, setWidth] = useState(0);
   const teamMembers = TEAM_MEMBERS;
   const { teamName } = TEAM_INFO;
-  const [hoveredMember, setHoveredMember] = useState(null);
+
+  const updateDimensions = () => {
+    const windowWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+    setWidth(windowWidth);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+  }, []);
+
   return (
     <>
       <Helmet>
         <title>
-          {' '}
           Team -
           {' '}
           {teamName}
@@ -25,18 +36,12 @@ const TeamPage = () => {
         </title>
       </Helmet>
       <Container fluid>
-        <div style={{ margin: 'auto', display: 'flex', flexWrap: 'wrap' }}>
-          {teamMembers.slice(0, 3).map((member) => (
-            <ProfilePic member={member} key={member._id} setHoveredMember={setHoveredMember} />
-          ))}
-          {teamMembers.map((member) => (
-            <ProfilePic member={member} key={member._id} setHoveredMember={setHoveredMember} />
-          ))}
-
-        </div>
-        <TeamMemberDesktop member={hoveredMember} />
+        {
+          width > 768
+            ? <TeamMemberDesktop teamMembers={teamMembers} />
+            : <TeamMemberMobile teamMembers={teamMembers} />
+        }
       </Container>
-
     </>
   );
 };
