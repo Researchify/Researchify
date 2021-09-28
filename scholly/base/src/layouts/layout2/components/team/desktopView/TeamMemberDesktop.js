@@ -1,5 +1,5 @@
 /**
- * This component display a single team member as a card component.
+ * This component display all the team members in Desktop view
  */
 
 import React, { useState } from 'react';
@@ -22,27 +22,24 @@ const TeamMemberDesktop = ({ teamMembers }) => {
     }}
     >
       <div>
-        {hoveredMember ? (
-          <Card.Body style={{ height: '180px', width: '490px' }}>
-            <Card.Title as="h5">{hoveredMember.fullName}</Card.Title>
-            <Card.Text><i>{hoveredMember.position}</i></Card.Text>
-            <Card.Text as="h7">
-              {hoveredMember.summary}
-            </Card.Text>
-          </Card.Body>
-        ) : (
-          <div style={{
-            display: 'flex', justifyContent: 'center', height: '180px', width: '490px',
-          }}
-          >
-            <Image
-              style={{
-                width: 'auto', height: 'auto',
-              }}
-              src={profilePic}
-            />
-          </div>
-        )}
+        {
+          profilePic && (hoveredMember ? (
+            <Card.Body style={{ height: '180px', width: '490px' }}>
+              <Card.Title as="h5">{hoveredMember.fullName}</Card.Title>
+              <Card.Text><i>{hoveredMember.position}</i></Card.Text>
+              <Card.Text as="h7">
+                {hoveredMember.summary}
+              </Card.Text>
+            </Card.Body>
+          ) : (
+            <div style={{
+              display: 'flex', justifyContent: 'center', height: '180px', width: '490px',
+            }}
+            >
+              <Image style={{ width: 'auto', height: 'auto' }} src={profilePic} />
+            </div>
+          ))
+       }
       </div>
       {teamMembers.map((member, index) => (
         <div
@@ -55,6 +52,19 @@ const TeamMemberDesktop = ({ teamMembers }) => {
           <ProfilePic member={member} key={index} hoveredMember={hoveredMember} setHoveredMember={() => setHoveredMember} />
         </div>
       ))}
+
+      <div>
+        {
+          !profilePic && (hoveredMember && (
+            <Card.Body style={{ height: '180px', width: '490px' }}>
+              <Card.Title as="h5">{hoveredMember.fullName}</Card.Title>
+              <Card.Text><i>{hoveredMember.position}</i></Card.Text>
+              <Card.Text as="h7">{hoveredMember.summary}</Card.Text>
+            </Card.Body>
+          ))
+       }
+      </div>
+
     </div>
   );
 };
