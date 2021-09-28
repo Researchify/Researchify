@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { updateTheme } from '../../actions/website';
 import { darkThemePlaceholder, lightThemePlaceholder } from '../../config/clientWebsite';
-
 import { PrimaryButton } from '../shared/styledComponents';
 import LayoutThumbnail from './LayoutThumbnail';
 

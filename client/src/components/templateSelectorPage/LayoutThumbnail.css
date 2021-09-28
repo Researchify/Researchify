@@ -63,3 +63,16 @@
     background-color: #9b896a;
     border-color: #9b896a;
 }
+
+.layout-preview-modal .modal-content{
+    background-color: #e9ecef;
+}
+.layout-preview-dialog
+{
+    width: 90vw;
+    max-width: 90vw;
+}
+.carousel-caption
+{
+    background-color: #3C4660;filter: brightness(125%);
+}
