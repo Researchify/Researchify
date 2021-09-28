@@ -31,16 +31,21 @@ const TeamMemberMobile = ({ teamMembers }) => {
         onBlur={handleMouseLeave}
       >
         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <div style={{ height: 'auto', minWidth: '150px' }}>
+          <div style={{
+            height: 'auto', minWidth: '150px', maxWidth: '150px',
+          }}
+          >
             <Card.Img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={profilePicture} />
           </div>
-          <Card.Body>
-            <Card.Title style={{ fontSize: '17px' }}>{member.fullName}</Card.Title>
-            <Card.Text style={{ fontSize: '16px' }}>{member.position}</Card.Text>
-            <Card.Text style={{ fontSize: '14px', color: hoveredMember === index ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
-              {member.summary}
-            </Card.Text>
-          </Card.Body>
+          <div>
+            <Card.Body>
+              <Card.Title style={{ fontSize: '17px' }}>{member.fullName}</Card.Title>
+              <Card.Text style={{ fontSize: '16px' }}>{member.position}</Card.Text>
+              <Card.Text style={{ fontSize: '14px', color: hoveredMember === index ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
+                {member.summary}
+              </Card.Text>
+            </Card.Body>
+          </div>
         </div>
       </Card>
     ))

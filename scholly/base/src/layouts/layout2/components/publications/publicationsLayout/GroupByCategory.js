@@ -13,7 +13,7 @@ const CategoryList = ({ teamPublications }) => {
     );
     return (
       publicationsByCategory.length > 0 && (
-      <Tab eventKey={categoryType} title={categoryType}>
+      <Tab style={{ color: 'var(--researchify-text-color)' }} eventKey={categoryType} title={categoryType.toUpperCase()}>
         <GroupByNone groupBy={categoryType} teamPublications={teamPublications} />
       </Tab>
       )
@@ -21,7 +21,7 @@ const CategoryList = ({ teamPublications }) => {
   };
 
   return (
-    <Tabs className="mb-1">
+    <Tabs className="mb-2">
       {
         Object.keys(categoryTypes).map((category) => (
           renderPublicationsByCategory(category)))

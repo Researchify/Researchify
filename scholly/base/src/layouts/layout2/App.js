@@ -54,7 +54,7 @@ const App = () => {
   const contentStyle = {
     paddingTop: styles.showSidebar ? 20 : styles.mobiletopBarHeight + 20,
     paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
-    paddingRight: 1,
+    paddingRight: styles.showSidebar ? 20 : 1,
     paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 1,
     width: '1200px',
   };
