@@ -108,7 +108,11 @@ const MainInfoPage = ({
         }) => (
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
-              <Form.Label>Publication Title *</Form.Label>
+              <Form.Label>
+                Publication Title
+                {' '}
+                <span style={{ color: 'red' }}>*</span>
+              </Form.Label>
               <Form.Control
                 className="placeholder-text"
                 as="textarea"
@@ -125,7 +129,11 @@ const MainInfoPage = ({
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Published Year *</Form.Label>
+              <Form.Label>
+                Published Year
+                {' '}
+                <span style={{ color: 'red' }}>*</span>
+              </Form.Label>
               <Form.Control
                 className="placeholder-text"
                 as="select"
@@ -143,7 +151,12 @@ const MainInfoPage = ({
             </Form.Group>
 
             <Form.Group>
-              <Form.Label> Authors *</Form.Label>
+              <Form.Label>
+                {' '}
+                Authors
+                {' '}
+                <span style={{ color: 'red' }}>*</span>
+              </Form.Label>
               {renderAuthors(values, touched, errors, handleChange, setValues)}
               <Button
                 className="mt-2"
@@ -157,7 +170,11 @@ const MainInfoPage = ({
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Description *</Form.Label>
+              <Form.Label>
+                Description
+                {' '}
+                <span style={{ color: 'red' }}>*</span>
+              </Form.Label>
               <Form.Control
                 className="placeholder-text"
                 as="textarea"

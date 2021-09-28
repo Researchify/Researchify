@@ -109,8 +109,7 @@ const CategoryPage = ({
                     category.charAt(0) + category.slice(1).toLowerCase()
                   } title`)}
                 {' '}
-                *
-                {' '}
+                <span style={{ color: 'red' }}>*</span>
               </Form.Label>
               <Form.Control
                 className="placeholder-text"
