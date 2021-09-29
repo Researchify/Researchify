@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Navbar, Nav, Dropdown, Image, Row, Col, Container,
+  Navbar, Nav, Dropdown, Image, Row, Container,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -55,7 +55,7 @@ const Header = ({ data, setLogoutAlert }) => {
             <Dropdown.Menu>
               <Dropdown.Item className="dashboard-dropdown-login-details" disabled>
                 <Container fluid>
-                  <Row>
+                  <Row className="flex-nowrap">
                     <Image
                       className="header-profile-img"
                       src={profileData.profilePic}
@@ -63,13 +63,13 @@ const Header = ({ data, setLogoutAlert }) => {
                       height="45px"
                       width="45px"
                     />
-                    <Col className="dashboard-dropdown-login-details-info">
+                    <div className="dashboard-dropdown-login-details-info">
                       <strong style={{ fontSize: '110%' }}>
                         {profileData.teamName}
                       </strong>
                       <br />
                       {profileData.orgName}
-                    </Col>
+                    </div>
                   </Row>
                 </Container>
 
