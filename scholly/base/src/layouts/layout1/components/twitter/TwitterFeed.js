@@ -7,7 +7,7 @@ import './TwitterFeed.css';
 
 const TwitterFeed = ({ linkedHandle }) => (
   <div className="twitter-feed">
-    <Timeline dataSource={{ sourceType: 'profile', screenName: linkedHandle }} options={{ height: 800 }} />
+    <Timeline dataSource={{ sourceType: 'profile', screenName: linkedHandle }} options={{ height: 600 }} />
   </div>
 );
 
