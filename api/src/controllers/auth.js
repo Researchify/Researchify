@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const Team = require('../models/team.model');
+import updatePassword from '.';
 const { fillErrorObject } = require('../middleware/error');
 const {
   accessTokenExpiry,
@@ -88,7 +89,52 @@ function logout(req, res) {
  * @returns 200: reset pwd successfully
  * @returns 404: error occur
  */
-function resetPwd(req, res) {
+async function resetPwd(req, res) {
+  const { teamId: _id } = req.params;
+  var generator = require('generate-password');
+
+  var password = generator.generate({
+    length: 10,
+    numbers: true,
+    symbols: true,
+    strict: true
+  });
+  try {
+      const updatedTeam = await Team.findByIdAndUpdate(_id, {password}, {
+        new: true,
+        runValidators: true,
+      });
+      updatedTeam.password = '';
+
+    } catch (e) {
+      return next(
+        fillErrorObject(500, 'Server error', [e]),
+      );
+  }
+  var nodemailer = require('nodemailer');
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'Reasearchify123@gmail.com',
+      pass: 'Research123$$'
+    }
+  });
+
+  var mailOptions = {
+    from: 'Reasearchify123@gmail.com',
+    to: 'myfriend@yahoo.com',
+    subject: 'Researchify password reset email',
+    text: 'Hi,\n This is your new password: '+password+'\n Please login to your researchify account and change it to one of your choosing.\n Regards, Researchify team'
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      return next(
+        fillErrorObject(500, 'Server error', [e]),
+      );
+  }});
+  return res.status(200).json(updatedTeam);
 
 }
 

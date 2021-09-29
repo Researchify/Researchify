@@ -49,7 +49,7 @@ export const login = (authData, setFieldError) => async (dispatch) => {
  */
 export const resetPassword = () => async (dispatch) => {
   try {
-    await api.resetPwd();
+    await api.resetPwd(teamId);
     dispatch({
       type: RESET_PWD,
     });
