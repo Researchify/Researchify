@@ -6,9 +6,7 @@ import React from 'react';
 import {
   BsFillGridFill,
   BsBookHalf,
-  BsPerson,
   BsPeople,
-  // BsFillQuestionCircleFill,
   BsFillAwardFill,
   BsCardText,
 } from 'react-icons/bs';
@@ -23,11 +21,6 @@ const DashboardSidebarData = () => {
       title: 'Dashboard',
       icon: <BsFillGridFill />,
       link: '/dashboard',
-    },
-    {
-      title: 'Account',
-      icon: <BsPerson />,
-      link: '/dashboard/profile',
     },
     {
       title: 'Our Homepage',
