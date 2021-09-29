@@ -8,6 +8,7 @@ import {
   Row,
   Tooltip,
   OverlayTrigger,
+  ListGroup,
 } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import ImportedPublication from '../importedPublication/ImportedPublication';
@@ -94,14 +95,16 @@ const ImportSuccessPage = ({ closeModal }) => {
 
   return (
     <>
-      {currentData().map((pub, idx) => (
-        <ImportedPublication
-          key={pub}
-          pub={pub}
-          index={idx}
-          setChecked={checkPublication}
-        />
-      ))}
+      <ListGroup>
+        {currentData().map((pub, idx) => (
+          <ImportedPublication
+            key={pub}
+            pub={pub}
+            index={idx}
+            setChecked={checkPublication}
+          />
+        ))}
+      </ListGroup>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {publications.length > 0 ? (
           pagination()

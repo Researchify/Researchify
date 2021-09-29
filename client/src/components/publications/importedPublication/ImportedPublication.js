@@ -2,7 +2,7 @@
  * The ImportedPublication component displays an individual imported publication when the import is success
  */
 
-import { Form, Card, Collapse } from 'react-bootstrap';
+import { Collapse, ListGroup } from 'react-bootstrap';
 import './importedPublication.css';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -10,104 +10,107 @@ import { PropTypes } from 'prop-types';
 
 const ImportedPublication = ({ pub, index, setChecked }) => {
   const [expand, setExpand] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const { publicationsToImport } = useSelector(
     (state) => state.importedPublications,
   );
   const { publications } = useSelector((state) => state.importedPublications);
 
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+
   const dropDown = (
     <Collapse in={expand}>
-      <div className="ml-3">
-        <h6>
-          {pub.category.type.charAt(0)
+      <div className="ml-4">
+        <span>
+          <b>
+            {pub.category.type.charAt(0)
             + pub.category.type.slice(1).toLowerCase()}
+          </b>
           :
           {` ${pub.category.categoryTitle}`}
-        </h6>
+          <br />
+        </span>
         {pub.category.issue && (
-        <h6>
-          Issue:
+        <span>
+          <b>Issue:</b>
           {` ${pub.category.issue}`}
-        </h6>
+          <br />
+        </span>
         )}
         {pub.category.volume && (
-        <h6>
+        <span>
           Volume:
           {` ${pub.category.volume}`}
-        </h6>
+          <br />
+        </span>
         )}
         {pub.category.pages && (
-        <h6>
+        <span>
           Pages:
           {` ${pub.category.pages}`}
-        </h6>
+          <br />
+        </span>
         )}
         {pub.category.publisher && (
-          <h6>
-            Publisher:
+          <span>
+            <b>Publisher:</b>
             {` ${pub.category.publisher}`}
-          </h6>
+            <br />
+          </span>
         )}
-        <h6>
-          Description:
+        <span>
+          <b>Description:</b>
           {` ${pub.description}`}
-        </h6>
-        {/* { pub.link && <h6> Link: <a style={{cursor: 'pointer'}} onClick={() => window.open(`${pub.link}`, '_blank')}>{pub.link} </a> </h6> } */}
-        {pub.link && (
-          <h6>
-            Link:
-            <a
-              href={pub.link}
-              style={{ cursor: 'pointer' }}
-              onClick={() => window.open(`${pub.link}`, '_blank')}
-            >
-              {` ${pub.link}`}
-            </a>
-          </h6>
-        )}
+        </span>
       </div>
     </Collapse>
   );
 
-  const handleChange = () => {
+  const handleCheck = () => {
     setChecked(index);
     setExpand(expand);
   };
 
   return (
     <>
-      <Card onClick={() => setExpand(!expand)}>
-        <Card.Body>
-          <Form>
-            <Form.Group>
-              <div className="inputGroupWithCheckbox">
-                <Form.Check
-                  type="checkbox"
-                  checked={publicationsToImport[publications.indexOf(pub)]}
-                  onChange={handleChange}
-                />
-                <Card.Title>
-                  {' '}
-                  {pub.title}
-                  {' '}
-                </Card.Title>
-              </div>
-            </Form.Group>
-          </Form>
-
-          <Card.Subtitle className="m-3 text-muted">
-            {' '}
-            {pub.authors.map((author) => `${author}`).join(', ')}
-            {' '}
-          </Card.Subtitle>
-          <h6 className="ml-3">
-            {' '}
-            Year Published:
-            {` ${pub.yearPublished}`}
-          </h6>
-          {dropDown}
-        </Card.Body>
-      </Card>
+      <ListGroup.Item
+        style={{ background: isHovering && '#f6f9fa', cursor: isHovering && 'pointer', fontSize: '16px' }}
+        onMouseOver={handleMouseOver}
+        onFocus={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+        onBlur={handleMouseLeave}
+        onClick={() => setExpand(!expand)}
+      >
+        <div style={{ display: 'flex' }}>
+          <div>
+            <input type="checkbox" checked={publicationsToImport[publications.indexOf(pub)]} onChange={handleCheck} />
+          </div>
+          <div style={{ marginLeft: '10px', fontWeight: 'bold' }}>
+            {pub.link ? (
+              <a href={pub.link} target="_blank" rel="noreferrer">
+                {pub.title}
+              </a>
+            ) : (
+              pub.title
+            )}
+          </div>
+        </div>
+        <h6 className="ml-4 m-1 text-muted">
+          {pub.authors.map((author) => `${author}`).join(', ')}
+        </h6>
+        <h6 className="ml-4 ">
+          {' '}
+          Year Published:
+          {` ${pub.yearPublished}`}
+        </h6>
+        {dropDown}
+      </ListGroup.Item>
     </>
   );
 };
