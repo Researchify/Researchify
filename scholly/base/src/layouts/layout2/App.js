@@ -52,10 +52,10 @@ const App = () => {
   };
 
   const contentStyle = {
-    paddingTop: styles.showSidebar ? 20 : styles.mobiletopBarHeight + 20,
-    paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
-    paddingRight: styles.showSidebar ? 20 : 1,
-    paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 1,
+    paddingTop: styles.showSidebar ? 20 : styles.mobiletopBarHeight + 10,
+    paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 10,
+    paddingRight: styles.showSidebar ? 20 : 10,
+    paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 10,
     width: '1200px',
   };
 

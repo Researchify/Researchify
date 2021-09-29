@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import Container from 'react-bootstrap/Container';
 import { TEAM_ACHIEVEMENTS, TEAM_INFO } from '../../../../global/data';
 import Achievement from './Achievement';
 
@@ -21,11 +20,9 @@ const Achievements = () => {
           {' '}
         </title>
       </Helmet>
-      <Container fluid>
-        {teamAchievements.map((achievement) => (
-          <Achievement achievement={achievement} key={achievement._id} />
-        ))}
-      </Container>
+      {teamAchievements.map((achievement) => (
+        <Achievement achievement={achievement} key={achievement._id} />
+      ))}
     </>
   );
 };

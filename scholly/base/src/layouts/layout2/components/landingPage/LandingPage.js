@@ -2,9 +2,7 @@
  * This file output landing page (homepage) of client-site.
  */
 import React from 'react';
-import {
-  Col, Container, Image, Row,
-} from 'react-bootstrap';
+import { Col, Image, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { TEAM_HOMEPAGE, TEAM_INFO, TEAM_PUBLICATIONS } from '../../../../global/data';
@@ -25,7 +23,7 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
-      <Container fluid className="mb-3">
+      <div className="mb-3">
         <h2>
           Welcome to
           {' '}
@@ -71,7 +69,7 @@ const landingPage = () => {
           }
 
         </Row>
-      </Container>
+      </div>
     </>
   );
 };
