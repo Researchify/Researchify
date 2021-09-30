@@ -2,7 +2,7 @@ export const FAKE_TEAM_SITE_METADATA = {
   pages: ['PUBLICATIONS', 'TEAM', 'ACHIEVEMENTS'],
   publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
   template: {
-    layout: '2',
+    layout: '1',
     theme: 'light',
   },
 };
@@ -156,7 +156,7 @@ export const FAKE_PUBLICATIONS = [
 ];
 
 export const FAKE_TEAM_INFO = {
-  twitterHandle: 'elonmusk',
+  twitterHandle: 'monashuni',
   orgName: 'Monash',
   teamName: 'MonTeam',
 };
