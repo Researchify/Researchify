@@ -4,7 +4,6 @@ import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 
-
 const Sidebar = ({ styles, menuItems }) => {
   const location = useLocation();
   const sidebarStyle = {
