@@ -1,4 +1,5 @@
 import React from 'react';
+import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const FooterMenu = ({ styles, menuItems }) => (
@@ -9,11 +10,11 @@ const FooterMenu = ({ styles, menuItems }) => (
       alignItems: 'stretch',
       width: '100%',
       height: styles.footerMenuHeight,
-      backgroundColor: '#DEE4E7',
-      color: '#fff',
+      backgroundColor: 'var(--researchify-color-quaternary)',
       position: 'fixed',
       bottom: 0,
       zIndex: 3,
+      color: 'var(--researchify-text-color)',
     }}
   >
     {menuItems.map((item, i) => (
@@ -26,10 +27,11 @@ const FooterMenu = ({ styles, menuItems }) => (
           flex: 1,
         }}
       >
-        <Link key={item.title} to={item.path}>
-          <span style={{ marginRight: 5, fontSize: 20 }}>{item.icon}</span>
-          {styles.showFooterMenuText && item.title}
-        </Link>
+        <Nav.Link key={item.title} as={Link} to={item.path}>
+          {styles.showFooterMenuText
+            ? item.title
+            : <span style={{ marginRight: 5, fontSize: 20 }}>{item.icon}</span>}
+        </Nav.Link>
       </div>
     ))}
   </div>
