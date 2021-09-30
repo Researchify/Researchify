@@ -19,7 +19,6 @@ const landingPage = () => {
     <>
       <Helmet>
         <title>
-          {' '}
           Home -
           {' '}
           {teamName}
@@ -28,15 +27,16 @@ const landingPage = () => {
       </Helmet>
       <Container fluid className=" mt-3 mb-3">
         <h2>
-          {' '}
-          Welcome to the
+          Welcome to
           {' '}
           {teamName}
         </h2>
-        <Image
-          style={{ maxWidth: '100%', height: 'auto' }}
-          src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Image
+            style={{ maxWidth: '100%', height: 'auto' }}
+            src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          />
+        </div>
         <div className="mt-2 mb-5">
           {homepageData.aboutUs.map((paragraph) => (
             <div style={{ textAlign: 'left' }}>
@@ -46,10 +46,9 @@ const landingPage = () => {
         </div>
 
         <Row>
-          <Col md={9}>
-            <div style={{ textAlign: 'left' }}>
+          <Col md={twitterHandle ? 9 : 12}>
+            <div className="mb-4" style={{ textAlign: 'left' }}>
               <b>RECENT PUBLICATIONS </b>
-              {' '}
               <Link to="/publication">
                 (VIEW ALL PAPERS)
               </Link>
@@ -58,12 +57,19 @@ const landingPage = () => {
               <Publication pub={pub} key={pub._id} />
             ))}
           </Col>
-          <Col md={3}>
-            <b>UPDATES </b>
-            <div className="mt-3">
-              <TwitterFeed linkedHandle={twitterHandle} />
-            </div>
-          </Col>
+          {
+            twitterHandle && (
+            <Col md={3}>
+              <div className="mb-4" style={{ textAlign: 'left' }}>
+                <b>UPDATES </b>
+                <div className="mt-4">
+                  <TwitterFeed linkedHandle={twitterHandle} />
+                </div>
+              </div>
+            </Col>
+            )
+          }
+
         </Row>
       </Container>
     </>
