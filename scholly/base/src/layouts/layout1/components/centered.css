@@ -62,7 +62,7 @@
 
 .publication-card {
   border: transparent;
-  padding:10px;
+  padding-bottom: 15px;
 }
 
 .pub-category-above-title {
@@ -107,6 +107,7 @@
   border-radius: 16px;
   margin-top: 28px;
   position:relative;
+  height: inherit;
 }
 
 .pub-left-main {

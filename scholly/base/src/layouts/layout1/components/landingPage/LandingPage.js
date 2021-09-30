@@ -58,7 +58,6 @@ const landingPage = () => {
             </Col>
           </Row>
         </Container>
-        <b>UPDATES </b>
       </Container>
     </>
   );
