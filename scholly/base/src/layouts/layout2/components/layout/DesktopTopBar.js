@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TEAM_INFO } from '../../../../global/data';
 
-const DesktopTopBar = ({ styles }) => {
+const DesktopTopBar = ({ styles, title }) => {
   const topBarStyle = {
     top: 0,
     width: '100%',
@@ -20,6 +20,11 @@ const DesktopTopBar = ({ styles }) => {
         @
       </span>
       <span>{orgName}</span>
+      <span style={{ fontSize: 28, fontWeight: 'normal' }}>
+        -
+        {' '}
+        {title}
+      </span>
     </div>
   );
 };
