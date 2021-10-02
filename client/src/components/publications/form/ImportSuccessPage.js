@@ -107,7 +107,9 @@ const ImportSuccessPage = ({ closeModal }) => {
       </ListGroup>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {publications.length > 0 ? (
-          pagination()
+          <span style={{ marginTop: '10px' }}>
+            {pagination()}
+          </span>
         ) : (
           <h4>No publications retrieved so far...</h4>
         )}
