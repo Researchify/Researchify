@@ -81,7 +81,7 @@ const PublicationsEditor = ({
   };
   return (
     <Row>
-      <Col md={4} sm={4} style={{ marginBottom: '10px' }}>
+      <Col md={3} sm={3} style={{ marginBottom: '10px' }}>
         <Dropdown>
           <StyledDropdownToggle style={{ whiteSpace: 'normal' }}>
             Add Publication(s)
@@ -93,7 +93,7 @@ const PublicationsEditor = ({
         </Dropdown>
       </Col>
 
-      <Col md={6} sm={6}>
+      <Col md={{ span: 6, offset: 1 }} sm={{ span: 6, offset: 1 }}>
         <Row>
           <StyledButtonGroup style={{ marginLeft: '12px' }}>
             Group By
