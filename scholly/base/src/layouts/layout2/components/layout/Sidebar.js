@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = ({ styles, menuItems }) => {
+  const location = useLocation();
   const sidebarStyle = {
     height: '100vh',
     width: styles.sidebarWidth,
     position: 'fixed',
     paddingTop: 90,
-    backgroundColor: '#DEE4E7',
+    backgroundColor: 'var(--researchify-color-quaternary)',
   };
 
   const menuItemStyle = {
@@ -28,10 +30,15 @@ const Sidebar = ({ styles, menuItems }) => {
     <div style={sidebarStyle}>
       {menuItems.map((item) => (
         <div style={menuItemStyle}>
-          <Link style={{ padding: 10 }} key={item.title} to={item.path}>
+          <Nav.Link
+            style={{ color: location.pathname === item.path && 'var(--researchify-link-color' }}
+            key={item.title}
+            as={Link}
+            to={item.path}
+          >
             {styles.sidebarCollapsed && <span className="mr-3" style={iconStyle}>{item.icon}</span>}
             {!styles.sidebarCollapsed && item.title}
-          </Link>
+          </Nav.Link>
         </div>
       ))}
     </div>
