@@ -10,10 +10,6 @@ A summary of the change
 - [ ] Documentation
 - [ ] Improvement
 
-# Problem
-
-Briefly describe the root cause and analysis of the problem
-
 # Solution description
 
 Describe your code changes in detail for reviewers.
