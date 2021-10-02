@@ -1,6 +1,6 @@
 export const FAKE_TEAM_SITE_METADATA = {
   pages: ['PUBLICATIONS', 'TEAM', 'ACHIEVEMENTS'],
-  publicationOptions: { groupBy: 'None', sortBy: 'Year' },
+  publicationOptions: { groupBy: 'Category', sortBy: 'Year' },
   template: {
     layout: '2',
     theme: 'light',

@@ -3,7 +3,6 @@
  */
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import Container from 'react-bootstrap/Container';
 import { TEAM_MEMBERS, TEAM_INFO } from '../../../../global/data';
 import TeamMemberDesktop from './desktopView/TeamMemberDesktop';
 import TeamMemberMobile from './mobileView/TeamMemberMobile';
