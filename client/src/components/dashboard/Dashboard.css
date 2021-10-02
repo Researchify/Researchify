@@ -38,93 +38,110 @@
   padding-bottom: 1px;
 }
 
-.researchify-dashboard-container{
-    padding-top: 12%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.researchify-dashboard-container {
+  padding-top: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .dashboard-modal {
-    width: 200%;
-    height: auto;
+  width: 200%;
+  height: auto;
 }
 
-.researchify-dashboard-card{
-    width:70%;
-    padding-top: 100px;
-    padding-bottom: 1px;
+.researchify-dashboard-card {
+  width: 70%;
+  padding-top: 100px;
+  padding-bottom: 1px;
 }
 
-.researchify-dashboard-card-group{
-    padding-top: 80px;
+.researchify-dashboard-card-group {
+  padding-top: 80px;
 }
 
-.researchify-dashboard-card-icons{
-    font-size: 333%;
-
+.researchify-dashboard-card-icons {
+  font-size: 333%;
 }
 
-.researchify-dashboard-card-link{
-    color: black;
+.researchify-dashboard-card-link {
+  color: black;
 }
 
-.researchify-dashboard-card-link:hover{
-    text-decoration: none;
+.researchify-dashboard-card-link:hover {
+  text-decoration: none;
 }
 
-.theme-icon{
-    color: transparent;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    margin-left: -5px;
-    margin-right: 30px;
+.theme-icon {
+  color: transparent;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-left: -5px;
+  margin-right: 30px;
 }
 
-.theme-1-icon{
-  background: linear-gradient(to right, #8da4d1 0%, #8da4d1 50%, #419aee 50%, #419aee 100%);
+.theme-1-icon {
+  background: linear-gradient(
+    to right,
+    #8da4d1 0%,
+    #8da4d1 50%,
+    #419aee 50%,
+    #419aee 100%
+  );
   position: relative;
   top: 5px;
   left: 33px;
 }
 
-.theme-2-icon{
-    background: linear-gradient(to right, #ebe6e6, #ebe6e6 50%, #000000 50%, #000000 100%);
-    position: relative;
-    top: 5px;
-    left: 60px;
+.theme-2-icon {
+  background: linear-gradient(
+    to right,
+    #ebe6e6,
+    #ebe6e6 50%,
+    #000000 50%,
+    #000000 100%
+  );
+  position: relative;
+  top: 5px;
+  left: 60px;
 }
 
-.theme-3-icon{
-  background: linear-gradient(to right, #868789 0%, #868789 50%, #008000 50%, #008000 100%);
+.theme-3-icon {
+  background: linear-gradient(
+    to right,
+    #868789 0%,
+    #868789 50%,
+    #008000 50%,
+    #008000 100%
+  );
   position: relative;
   top: 5px;
   left: 87px;
 }
 
 .tab-content {
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    padding: 10px;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 10px;
 }
 
 .nav-tabs {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-.theme-1-radio{
+.theme-1-radio {
   position: absolute;
   top: 177px;
   left: 89px;
 }
 
-.theme-2-radio{
+.theme-2-radio {
   position: absolute;
   top: 177px;
   left: 200px;
 }
 
-.theme-3-radio{
+.theme-3-radio {
   position: absolute;
   top: 177px;
   left: 311px;
