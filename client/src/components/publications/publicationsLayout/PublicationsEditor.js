@@ -83,7 +83,7 @@ const PublicationsEditor = ({
     <Row>
       <Col md={4} sm={4} style={{ marginBottom: '10px' }}>
         <Dropdown>
-          <StyledDropdownToggle>
+          <StyledDropdownToggle style={{ whiteSpace: 'normal' }}>
             Add Publication(s)
           </StyledDropdownToggle>
           <Dropdown.Menu>
@@ -145,7 +145,7 @@ const PublicationsEditor = ({
       </Col>
 
       <Col md={2} sm={2}>
-        <OverlayTrigger trigger="hover" placement="bottom" overlay={ButtonHint}>
+        <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ButtonHint}>
           <PrimaryButton
             className="float-right"
             onClick={handleUpdate}
