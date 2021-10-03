@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "testcov": "npm run test -- --coverage --watchAll=false",
@@ -44,8 +44,7 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest",
-      "eslint-config-airbnb"
+      "react-app/jest"
     ]
   },
   "browserslist": {
