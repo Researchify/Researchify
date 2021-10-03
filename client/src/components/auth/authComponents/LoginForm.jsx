@@ -9,6 +9,7 @@ import { Button } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { login, resetPassword } from '../../../actions/auth';
+// import { errorActionGlobalCreator } from '../../../notification/notificationReduxFunctions';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -34,8 +35,11 @@ const LoginForm = () => {
 
   const resetPwd = (values) => {
     // eslint-disable-next-line
-    dispatch(resetPassword(values.email));
+    if (values.email != '') {
+      dispatch(resetPassword(values.email));
+    }
   };
+
 
   return (
     <Jumbotron id="login-form-box">

@@ -139,7 +139,7 @@ async function resetPwd(req, res) {
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       return next(
-        fillErrorObject(500, 'Server error', [e]),
+        fillErrorObject(500, 'Server error', [error]),
       );
   }});
   return res.status(200);
