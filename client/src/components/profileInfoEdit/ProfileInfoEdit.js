@@ -11,6 +11,7 @@ import './ProfileInfoEdit.css';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
+import Link from '@material-ui/core/Link';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam, updatePassword } from '../../actions/team';
 
@@ -225,24 +226,24 @@ const ProfileInfoEdit = () => {
           </Form.Group>
 
           <div className="my-1">
-            <Button
+            <PrimaryButton
               id="updateButton"
               type="submit"
               color="primary"
               className="mr-2"
             >
               Update
-            </Button>
+            </PrimaryButton>
 
             {/* Button is linked to react-router-dom Link */}
             <Link to="/dashboard">
-              <Button color="primary">Back</Button>
+              <PrimaryButton color="primary">Back</PrimaryButton>
             </Link>
           </div>
           <div className="my-1">
-            <Button variant="danger" onClick={profileDeleted}>
+            <DangerButton onClick={profileDeleted}>
               Delete account
-            </Button>
+            </DangerButton>
           </div>
         </Form>
       </Container>
@@ -251,7 +252,6 @@ const ProfileInfoEdit = () => {
       <Container className="profile-container">
         <Form
           className="profile-form"
-          noValidate
           onSubmit={handleUpdatePassword}
         >
           <p className="profile-title-name">Team Password update</p>
@@ -302,14 +302,14 @@ const ProfileInfoEdit = () => {
             </Form.Control.Feedback>
           </Form.Group>
           <div className="my-1">
-            <Button
+            <PrimaryButton
               id="updateButtonPassword"
               type="submit"
               color="primary"
               className="mr-2"
             >
               Update Password
-            </Button>
+            </PrimaryButton>
           </div>
         </Form>
 

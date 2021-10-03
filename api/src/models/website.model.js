@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 
 const { groupByOptions, sortingOptions } = require('../config/publication');
 
+const { themeOptions, layoutOptions } = require('../config/website');
+
 const websiteSchema = new mongoose.Schema(
   {
     teamId: {
@@ -24,9 +26,17 @@ const websiteSchema = new mongoose.Schema(
       minlength: 3,
       maxlength: 30,
     },
-    url: {
-      type: String,
-      required: false,
+    template: {
+      layout: {
+        type: String,
+        enum: layoutOptions,
+        required: false,
+      },
+      theme: {
+        type: String,
+        enum: themeOptions,
+        required: false,
+      },
     },
     publicationOptions: {
       groupBy: {
