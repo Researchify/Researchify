@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { login,resetPassword } from '../../../actions/auth';
+import { login, resetPassword } from '../../../actions/auth';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -32,8 +32,9 @@ const LoginForm = () => {
     dispatch(login(values, setFieldError));
   };
 
-  const resetPwd = () =>{
-    dispatch(resetPassword());
+  const resetPwd = (values) => {
+    // eslint-disable-next-line
+    dispatch(resetPassword(values.email));
   };
 
   return (
@@ -89,23 +90,19 @@ const LoginForm = () => {
             >
               Log in
             </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => resetPwd(values)}
+            >
+              Reset Password
+            </Button>
 
           </Form>
 
         )}
       </Formik>
-      <div>
-        <Button
-              id="resetButton"
-              variant="contained"
-              color="secondary"
-              size="large"
-              style={{ color: 'white' }}
-              onClick={resetPwd}
-            >
-              Reset Password
-            </Button>
-      </div>
+
     </Jumbotron>
 
   );

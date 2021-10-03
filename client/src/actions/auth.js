@@ -9,7 +9,6 @@ import {
   LOG_IN_FAIL,
   FETCH_TEAM_INFO,
   FETCH_WEBSITE_INFO,
-  RESET_PWD,
 } from './types';
 import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
 
@@ -47,14 +46,18 @@ export const login = (authData, setFieldError) => async (dispatch) => {
  * This action creator will be called when a pwd needs to be reset
  * @returns an action of type RESET_PWD.
  */
-export const resetPassword = (teamId) => async (dispatch) => {
+export const resetPassword = (email) => async (dispatch) => {
   try {
-    await api.resetPwd(teamId);
+    await api.resetPwd(email);
     dispatch({
-      type: RESET_PWD,
+      type: LOG_IN_SUCCESS,
     });
   } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
+    if (err) {
+      // eslint-disable-next-line
+      console.log(err);
+      dispatch(errorActionGlobalCreator(err));
+    }
   }
 };
 

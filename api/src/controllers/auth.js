@@ -4,7 +4,8 @@
  */
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+var generator = require('generate-password');
+var nodemailer = require('nodemailer');
 const Team = require('../models/team.model');
 
 const { fillErrorObject } = require('../middleware/error');
@@ -90,8 +91,8 @@ function logout(req, res) {
  * @returns 404: error occur
  */
 async function resetPwd(req, res) {
-  const { teamId: _id } = req.params;
-  var generator = require('generate-password');
+  const { email: email } = req.params;
+
 
   var password = generator.generate({
     length: 10,
@@ -99,34 +100,41 @@ async function resetPwd(req, res) {
     symbols: true,
     strict: true
   });
+
+  var transporter;
+  var mailOptions;
+
   try {
-      const updatedTeam = await Team.findByIdAndUpdate(_id, {password}, {
+      const foundTeam = await Team.findOne({ email: email });
+      console.log(foundTeam);
+      const updatedTeam = await Team.findByIdAndUpdate(foundTeam._id, {password}, {
         new: true,
         runValidators: true,
       });
       updatedTeam.password = '';
 
+      transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'Reasearchify123@gmail.com',
+          pass: 'Research123$$'
+        }
+      });
+
+      mailOptions = {
+        from: 'Reasearchify123@gmail.com',
+        to: email,
+        subject: 'Researchify password reset email',
+        text: 'Hi,\n This is your new password: '+password+'\n Please login to your researchify account and change it to one of your choosing.\n Regards, Researchify team'
+      };
     } catch (e) {
       return next(
         fillErrorObject(500, 'Server error', [e]),
       );
   }
-  var nodemailer = require('nodemailer');
 
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'Reasearchify123@gmail.com',
-      pass: 'Research123$$'
-    }
-  });
 
-  var mailOptions = {
-    from: 'Reasearchify123@gmail.com',
-    to: 'myfriend@yahoo.com',
-    subject: 'Researchify password reset email',
-    text: 'Hi,\n This is your new password: '+password+'\n Please login to your researchify account and change it to one of your choosing.\n Regards, Researchify team'
-  };
+
 
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
@@ -134,7 +142,7 @@ async function resetPwd(req, res) {
         fillErrorObject(500, 'Server error', [e]),
       );
   }});
-  return res.status(200).json(updatedTeam);
+  return res.status(200);
 
 }
 
