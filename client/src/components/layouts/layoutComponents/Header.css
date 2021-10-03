@@ -19,10 +19,37 @@
   text-decoration: none;
 }
 
+.header-profile-icon {
+  font-size: 25px;
+}
+
+.dashboard-dropdown-login-details{
+  display: flex;
+  min-width: 260px;
+
+}
+.dashboard-dropdown-login-details-info
+{
+  filter: brightness(20%);
+}
+.dashboard-dropdown-toggle{
+  font-size: 250%;
+  padding: 20%;
+  border-radius: 100%;
+  background-color: rgba(131, 131, 155, 0.336)
+}
 .header-profile-img {
   margin-right: 15px;
   border: #56658a;
   border-style: solid;
   border-width: 2px;
   object-fit: cover;
+}
+
+.header-profile-img:hover{
+  cursor: pointer;
+}
+.dashboard-login-dropdown-item.active, .dashboard-login-dropdown-item:active {
+  color: #fff;
+  background-color: #56658a;
 }
