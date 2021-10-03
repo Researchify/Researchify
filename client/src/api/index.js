@@ -3,6 +3,8 @@
  */
 import api from './api';
 
+
+
 // Publication endpoints.
 export const fetchPublicationsByTeamId = (teamId) => api.get(`/publications/team/${teamId}`);
 export const createPublication = (newPublication) => api.post('/publications/', newPublication);
@@ -45,7 +47,7 @@ export const deleteAchievement = (id) => api.delete(`/achievements/${id}`);
 // Auth endpoints.
 export const loginTeam = (teamCredentials) => api.post('/auth/login', teamCredentials);
 export const logoutTeam = () => api.post('/auth/logout');
-
+export const resetPwd = (teamId) => api.get(`auth/resetPwd/${teamId}`);
 // Client Homepage endpoints.
 export const getHomepage = (teamId) => api.get(`/homepage/${teamId}`);
 export const createOrUpdateHomepage = (teamId, homepageData) => api.post(`/homepage/${teamId}`, homepageData);

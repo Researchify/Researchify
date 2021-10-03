@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const Team = require('../models/team.model');
-import updatePassword from '.';
+
 const { fillErrorObject } = require('../middleware/error');
 const {
   accessTokenExpiry,
