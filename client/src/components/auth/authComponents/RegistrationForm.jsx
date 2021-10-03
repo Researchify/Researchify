@@ -64,7 +64,7 @@ const RegistrationForm = () => {
       .required('Please enter your password')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Password is not strong enough',
+        'Password must contain 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 symbol.',
       ),
     confirmedPassword: yup
       .string()
