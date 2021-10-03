@@ -8,8 +8,8 @@
  * https://create-react-app.dev/docs/adding-custom-environment-variables/
  */
 
-/// We require access to the "repo" scope to allow pushing to the pages repo.
-export const scope = 'repo';
+/// We require access to the "public_repo" scope to allow pushing to the pages repo.
+export const scope = 'public_repo';
 /// Configured client ID of the GitHub OAuth application.
 export let githubClientId; // eslint-disable-line import/no-mutable-exports
 
