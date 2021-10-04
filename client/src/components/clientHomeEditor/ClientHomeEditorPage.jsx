@@ -19,7 +19,8 @@ const styles = {
     width: '20%',
     height: 'inherit',
     maxWidth: '333px',
-    padding: '16px',
+    paddingTop: '40px',
+    paddingRight: '30px',
   },
   twitterIconFloat: {
     zIndex: '20',
