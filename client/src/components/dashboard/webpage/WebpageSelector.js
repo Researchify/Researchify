@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Modal, DropdownButton, Dropdown,
+  Modal, DropdownButton, Dropdown, Row,
 } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
+import WebpageCard from './WebpageCard';
 import { addPage } from '../../../actions/website';
-import { availablePages as pages } from '../../../config/clientWebsite';
+import { availablePages as pages, pageDescriptions } from '../../../config/clientWebsite';
 import { PrimaryButton } from '../../shared/styledComponents';
 
 const WebpageSelector = ({
@@ -58,6 +59,10 @@ const WebpageSelector = ({
               </Dropdown.Item>
             ))}
           </DropdownButton>
+          {console.log(webpageOfferings)}
+          <Row xs={1} md={2} className="g-4">
+            {webpageOfferings.map((pageName) => (<WebpageCard page={pageName} description={pageDescriptions[pageName]} />))}
+          </Row>
           <PrimaryButton
             className="float-right"
             disabled={displayButton}
