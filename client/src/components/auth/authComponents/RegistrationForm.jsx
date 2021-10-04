@@ -148,7 +148,7 @@ const RegistrationForm = () => {
               <Form.Label>
                 Password
                 {'  '}
-                <OverlayTrigger trigger="hover" placement="right" overlay={StringPasswordHint}>
+                <OverlayTrigger trigger={['hover', 'focus']} placement="right" overlay={StringPasswordHint}>
                   <BsQuestionCircle style={{ color: 'grey' }} />
                 </OverlayTrigger>
               </Form.Label>
