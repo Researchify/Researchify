@@ -7,12 +7,15 @@ import {
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { TEAM_PUBLICATIONS, TEAM_HOMEPAGE, TEAM_INFO } from '../../../../global/data';
+import {
+  TEAM_PUBLICATIONS, TEAM_HOMEPAGE, TEAM_INFO, TEAM_SITE_METADATA,
+} from '../../../../global/data';
 import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
+  const themeOption = TEAM_SITE_METADATA.template.theme;
   const { teamName, twitterHandle } = TEAM_INFO;
   const pubs = TEAM_PUBLICATIONS;
 
@@ -54,7 +57,7 @@ const landingPage = () => {
             </Col>
             <Col xs="3">
               <div className="recent-pub-title">NEWS</div>
-              <TwitterFeed linkedHandle={twitterHandle} />
+              <TwitterFeed linkedHandle={twitterHandle} themeOption={themeOption} />
             </Col>
           </Row>
         </Container>

@@ -5,9 +5,9 @@ import React from 'react';
 import { Timeline } from 'react-twitter-widgets';
 import './TwitterFeed.css';
 
-const TwitterFeed = ({ linkedHandle }) => (
+const TwitterFeed = ({ linkedHandle, themeOption }) => (
   <div className="twitter-feed">
-    <Timeline dataSource={{ sourceType: 'profile', screenName: linkedHandle }} options={{ height: 600 }} />
+    <Timeline dataSource={{ sourceType: 'profile', screenName: linkedHandle }} options={{ theme: themeOption, height: 600 }} />
   </div>
 );
 
