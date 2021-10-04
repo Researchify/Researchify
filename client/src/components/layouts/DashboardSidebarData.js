@@ -7,7 +7,6 @@ import {
   BsFillGridFill,
   BsBookHalf,
   BsPeople,
-  BsPerson,
   BsFillAwardFill,
   BsCardText,
 } from 'react-icons/bs';
@@ -45,11 +44,6 @@ const DashboardSidebarData = () => {
       icon: <BsFillAwardFill />,
       link: '/achievement',
       name: 'ACHIEVEMENTS',
-    },
-    {
-      title: 'Account',
-      icon: <BsPerson />,
-      link: '/dashboard/profile',
     },
   ];
 
