@@ -25,7 +25,7 @@ const Achievements = () => {
         <div className="team-pg-title w-100 text-center">Achievements</div>
       </Container>
       <Container fluid className="team-card-container">
-        <CardDeck className="team-card-deck">
+        <CardDeck className="card-deck">
           {teamAchievements.map((achievement, i) => (
             <Achievement style={{ display: 'flex', flexDirection: i % 2 === 0 ? 'row' : 'row-reverse' }} achievement={achievement} key={achievement._id} />
           ))}

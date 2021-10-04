@@ -25,7 +25,7 @@ const TeamPage = () => {
         <div className="team-pg-title">Meet Our Team</div>
       </Container>
       <Container fluid className="team-card-container">
-        <CardDeck className="team-card-deck">
+        <CardDeck className="card-deck">
           {teamMembers.map((member) => (
             <TeamMember member={member} key={member._id} />
           ))}
