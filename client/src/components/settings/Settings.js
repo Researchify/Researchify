@@ -18,7 +18,7 @@ import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 /**
  * Form component for user update profile
  */
-const ProfileInfoEdit = () => {
+const Settings = () => {
   const dispatch = useDispatch();
 
   const {
@@ -77,7 +77,7 @@ const ProfileInfoEdit = () => {
   };
 
   const profileDeleted = () => {
-    // TODO: Delete profile function is not implemented yet in ProfileInfoEdit.js
+    // TODO: Delete profile function is not implemented yet in Settings.js
     toast.error('Profile has not been deleted');
   };
 
@@ -165,4 +165,4 @@ const ProfileInfoEdit = () => {
   );
 };
 
-export default ProfileInfoEdit;
+export default Settings;
