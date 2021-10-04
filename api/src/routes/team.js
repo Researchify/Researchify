@@ -27,8 +27,7 @@ teamRouter.patch(
 teamRouter.delete('/:teamId',
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.deleteTeam,
-);
+  teamController.deleteTeam);
 
 teamRouter.post(
   '/:teamId/member',
