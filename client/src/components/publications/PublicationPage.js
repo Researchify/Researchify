@@ -82,19 +82,17 @@ const PublicationPage = () => {
 
   return (
     <div className="publicationPageContainer">
-      <h1 className="mb-4 ml-2">Publications</h1>
+      <h2 className="mb-4 ml-2">Publications</h2>
       <Container className="publication-editor">
-        <div>
-          <PublicationsEditor
-            options={options}
-            setOptions={setOptions}
-            sortPublications={sortPublications}
-            publications={publications}
-            teamId={teamId}
-            setShowCreateForm={setShowCreateForm}
-            setShowImportForm={setShowImportForm}
-          />
-        </div>
+        <PublicationsEditor
+          options={options}
+          setOptions={setOptions}
+          sortPublications={sortPublications}
+          publications={publications}
+          teamId={teamId}
+          setShowCreateForm={setShowCreateForm}
+          setShowImportForm={setShowImportForm}
+        />
       </Container>
       <Publications
         options={options}
