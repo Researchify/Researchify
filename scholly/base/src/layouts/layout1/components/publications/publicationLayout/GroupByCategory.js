@@ -2,7 +2,7 @@
  * The GroupByCategory component displays a list of publications group by category
  */
 import React from 'react';
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tabs, Tab, Accordion } from 'react-bootstrap';
 import { categoryTypes } from '../../../../../shared/config/publications';
 import GroupByNone from './GroupByNone';
 
@@ -13,9 +13,11 @@ const GroupByCategory = ({ teamPublications }) => {
     );
     return (
       publicationsByCategory.length > 0 && (
-      <Tab style={{ color: 'var(--researchify-text-color)' }} eventKey={categoryType} title={categoryType.toUpperCase()}>
-        <GroupByNone groupBy={categoryType} teamPublications={teamPublications} />
-      </Tab>
+        <Tab style={{ color: 'var(--researchify-text-color)' }} eventKey={categoryType} title={categoryType.toUpperCase()}>
+          <Accordion>
+            <GroupByNone groupBy={categoryType} teamPublications={teamPublications} />
+          </Accordion>
+        </Tab>
       )
     );
   };

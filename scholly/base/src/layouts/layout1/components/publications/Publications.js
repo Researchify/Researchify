@@ -2,7 +2,6 @@
  * The Publications component displays a list of publications.
  */
 import React from 'react';
-import { Accordion } from 'react-bootstrap';
 import GroupByCategory from './publicationLayout/GroupByCategory';
 import GroupByNone from './publicationLayout/GroupByNone';
 import { TEAM_PUBLICATIONS, TEAM_SITE_METADATA } from '../../../../global/data';
@@ -23,11 +22,7 @@ const Publications = () => {
   };
 
   return (
-    <>
-      <Accordion>
-        {renderPublications()}
-      </Accordion>
-    </>
+    renderPublications()
   );
 };
 
