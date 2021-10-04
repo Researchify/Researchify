@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Form, Container, Image,
 } from 'react-bootstrap';
-import './ProfileInfoEdit.css';
+import './Settings.css';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import defaultProfilePic from '../../images/profilepic.jpg';

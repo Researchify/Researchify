@@ -7,6 +7,7 @@ import {
   BsFillGridFill,
   BsBookHalf,
   BsPeople,
+  BsPerson,
   BsFillAwardFill,
   BsCardText,
 } from 'react-icons/bs';
@@ -49,11 +50,6 @@ const DashboardSidebarData = () => {
       title: 'Account',
       icon: <BsPerson />,
       link: '/dashboard/profile',
-    },
-    {
-      title: 'Logout',
-      icon: <BsBoxArrowLeft />,
-      action: () => setLogoutAlert(true),
     },
   ];
 
