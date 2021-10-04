@@ -24,11 +24,13 @@ const App = () => {
     }
   }, [dispatch, logIn]);
 
+// This code snippet is responsible for setting a limit to the number of toasts that can be stacked at any point of time.
+// Refer to:https://github.com/timolins/react-hot-toast/issues/31#issuecomment-803359550
   useEffect(() => {
     toasts
-      .filter((t) => t.visible) // Only consider visible toasts
-      .filter((_, i) => i >= 1) // Is toast index over limit 2
-      .forEach((t) => toast.dismiss(t.id)); // Dismiss – Use toast.remove(t.id) removal without animation
+      .filter((t) => t.visible) // Filtering out the visible toasts
+      .filter((_, i) => i >= 1) // Setting the limit to be 1
+      .forEach((t) => toast.dismiss(t.id)); // remove previous toasts
   }, [toasts]);
 
   return (
