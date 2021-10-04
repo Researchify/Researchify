@@ -64,7 +64,7 @@ const RegistrationForm = () => {
       .required('Please enter your password')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Password must contain 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 symbol.',
+        'Password must contain 8 characters, 1 uppercase, \n1 lowercase, 1 number and 1 symbol.',
       ),
     confirmedPassword: yup
       .string()
@@ -161,7 +161,7 @@ const RegistrationForm = () => {
                 onChange={handleChange}
                 isInvalid={touched.password && errors.password}
               />
-              <Form.Control.Feedback type="invalid">
+              <Form.Control.Feedback type="invalid" style={{ whiteSpace: 'pre-wrap' }}>
                 {errors.password}
               </Form.Control.Feedback>
             </Form.Group>
