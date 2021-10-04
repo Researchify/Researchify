@@ -62,9 +62,11 @@ const RegistrationForm = () => {
     password: yup
       .string()
       .required('Please enter your password')
+      .min(8, 'Password must contain at least 8 characters')
+      .max(20, 'Password is too long')
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Password must contain 8 characters, 1 uppercase, \n1 lowercase, 1 number and 1 symbol.',
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/,
+        'Password must contain at least 8 characters, 1 uppercase, \n1 lowercase and 1 number',
       ),
     confirmedPassword: yup
       .string()
