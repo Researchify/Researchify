@@ -42,7 +42,7 @@ const landingPage = () => {
         ))}
         <Container fluid>
           <Row className="recent-publication-section">
-            <Col xs="9">
+            <Col md={twitterHandle ? 9 : 12}>
               <div className="recent-pub-title">
                 RECENT PUBLICATIONS
               </div>
@@ -55,10 +55,14 @@ const landingPage = () => {
                 </Accordion>
               ))}
             </Col>
-            <Col xs="3">
-              <div className="recent-pub-title">NEWS</div>
-              <TwitterFeed linkedHandle={twitterHandle} themeOption={themeOption} />
-            </Col>
+            {
+              twitterHandle && (
+              <Col md={3}>
+                <div className="recent-pub-title">NEWS</div>
+                <TwitterFeed linkedHandle={twitterHandle} themeOption={themeOption} />
+              </Col>
+              )
+            }
           </Row>
         </Container>
       </Container>

@@ -3,7 +3,7 @@ export const FAKE_TEAM_SITE_METADATA = {
   publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
   template: {
     layout: '1',
-    theme: 'light',
+    theme: 'dark',
   },
 };
 
