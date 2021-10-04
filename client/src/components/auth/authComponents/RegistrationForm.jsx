@@ -36,9 +36,6 @@ const StringPasswordHint = (props) => (
       <br />
       {' '}
       - At least 1 number
-      <br />
-      {' '}
-      - At least 1 symbol from @$!%*#?&
     </Popover.Content>
   </Popover>
 );
