@@ -18,19 +18,20 @@ const App = () => {
   const { logIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { toasts } = useToasterStore();
+
   useEffect(() => {
     if (logIn) {
       dispatch(authorizeJWT());
     }
   }, [dispatch, logIn]);
 
-// This code snippet is responsible for setting a limit to the number of toasts that can be stacked at any point of time.
-// Refer to:https://github.com/timolins/react-hot-toast/issues/31#issuecomment-803359550
+  // Responsible for setting a limit to the number of toasts that can be stacked at any point of time.
+  // See :https://github.com/timolins/react-hot-toast/issues/31#issuecomment-803359550
   useEffect(() => {
     toasts
-      .filter((t) => t.visible) // Filtering out the visible toasts
-      .filter((_, i) => i >= 1) // Setting the limit to be 1
-      .forEach((t) => toast.dismiss(t.id)); // remove previous toasts
+      .filter((t) => t.visible)
+      .filter((_, i) => i >= 1)
+      .forEach((t) => toast.dismiss(t.id));
   }, [toasts]);
 
   return (
