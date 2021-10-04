@@ -29,10 +29,7 @@ const StringPasswordHint = (props) => (
       - 8-20 characters
       <br />
       {' '}
-      - At least 1 uppercase letter
-      <br />
-      {' '}
-      - At least 1 lowercase letter
+      - At least 1 alphabet letter
       <br />
       {' '}
       - At least 1 number
@@ -63,7 +60,7 @@ const RegistrationForm = () => {
       .max(20, 'Password is too long')
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/,
-        'Password must contain at least 8 characters, 1 uppercase, \n1 lowercase and 1 number',
+        'Password must contain at least 8 characters, 1 alphabet and 1 number',
       ),
     confirmedPassword: yup
       .string()
