@@ -20,7 +20,6 @@ const styles = {
     borderColor: '#ccc',
     borderStyle: 'solid',
     borderRadius: '16px',
-
   },
 };
 

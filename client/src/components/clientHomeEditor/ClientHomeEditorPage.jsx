@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import { FaTwitter } from 'react-icons/fa';
+import { ImCross } from 'react-icons/im';
 import TwitterFeed from '../twitter/TwitterFeed';
 import TwitterLink from '../twitter/TwitterLink';
 import ClientHomeEditor from './ClientHomeEditor';
@@ -30,14 +31,18 @@ const styles = {
     height: '50px',
     width: '50px',
     color: '#56658a',
+    borderStyle: 'solid',
+    borderRadius: '50%',
+    padding: '5px',
+    backgroundColor: 'white',
   },
   twitterBoxFloat: {
     zIndex: '20',
     position: 'fixed',
-    bottom: '0',
-    right: '0',
-    marginRight: '30px',
-    marginBottom: '30px',
+    bottom: '90px',
+    right: '30px',
+    margin: 'auto',
+    backgroundColor: 'white',
   },
 };
 
@@ -48,15 +53,16 @@ const ClientHomeEditorPage = () => {
     if (linkedHandle) {
       return <TwitterFeed />;
     }
-
     return <TwitterLink />;
   };
+
   // show twitter icon or close icon
   const [twitterIcon, setTwitterIcon] = useState(true);
-  // shows twitter box in narrow view
+  // trigger button
   const twitterIconClicked = () => {
     setTwitterIcon(!twitterIcon);
   };
+
   // return entire page
   return (
     <>
@@ -80,16 +86,26 @@ const ClientHomeEditorPage = () => {
       {twitterIcon
         ? null
         : (
-          <Twitter
+          <div
             className="home-editor-narrow-twitter"
             style={styles.twitterBoxFloat}
-          />
+          >
+            <Twitter />
+          </div>
         )}
-      <FaTwitter
-        style={styles.twitterIconFloat}
-        className="home-editor-narrow-twitter"
-        onClick={twitterIconClicked}
-      />
+      {twitterIcon ? (
+        <FaTwitter
+          onClick={twitterIconClicked}
+          style={styles.twitterIconFloat}
+          className="home-editor-narrow-twitter"
+        />
+      ) : (
+        <ImCross
+          onClick={twitterIconClicked}
+          style={styles.twitterIconFloat}
+          className="home-editor-narrow-twitter"
+        />
+      )}
     </>
   );
 };
