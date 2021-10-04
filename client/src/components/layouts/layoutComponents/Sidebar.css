@@ -22,11 +22,11 @@
 
 .SidebarList .row:hover {
   cursor: pointer;
-  background-color: #2b61f2;
+  background-color: #ab9671;
 }
 
 .SidebarList #active {
-  background-color: #2b61f2;
+  background-color: #ab9671;
 }
 
 .row #icon {

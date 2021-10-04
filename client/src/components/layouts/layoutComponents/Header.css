@@ -1,38 +1,55 @@
 .header {
   top: 0;
-  padding-top: 5px;
   background-color: #f8f8f8;
-  border-bottom: 1px solid #26282a;
+  border-bottom: 1px solid #414656;
   max-height: 70px;
 }
 
-.profile-picture {
-  height: 30px;
-}
-
 .header-link {
-  color: #000000;
+  color: #56658a;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  font-weight: bold;
   padding: 15px;
+  font-size: 18px;
 }
 
 .header-link:hover {
-  color: #2b61f2;
-  text-decoration: none;
-}
-
-.header-brand {
-  color: #03a9f4;
-  margin-left: 12px;
-  font-family: "Fredoka One", cursive;
-}
-
-.header-brand:hover {
-  color: #2b61f2;
+  color: #414656;
   text-decoration: none;
 }
 
 .header-profile-icon {
   font-size: 25px;
+}
+
+.dashboard-dropdown-login-details{
+  display: flex;
+  min-width: 260px;
+
+}
+.dashboard-dropdown-login-details-info
+{
+  filter: brightness(20%);
+}
+.dashboard-dropdown-toggle{
+  font-size: 250%;
+  padding: 20%;
+  border-radius: 100%;
+  background-color: rgba(131, 131, 155, 0.336)
+}
+.header-profile-img {
+  margin-right: 15px;
+  border: #56658a;
+  border-style: solid;
+  border-width: 2px;
+  object-fit: cover;
+}
+
+.header-profile-img:hover{
+  cursor: pointer;
+}
+.dashboard-login-dropdown-item.active, .dashboard-login-dropdown-item:active {
+  color: #fff;
+  background-color: #56658a;
 }

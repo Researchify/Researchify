@@ -1,31 +1,62 @@
 /**
- * The TwitterFeed component displays a panel that renders a linked twitter account's feed.
+ * The TwitterFeed component displays a panel that renders a linked
+ * twitter account's feed.
  */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Button from 'react-bootstrap/Button';
 import { Timeline } from 'react-twitter-widgets';
-
 import { unlinkTwitter } from '../../actions/team';
-import './TwitterFeed.css';
+import { PrimaryButton } from '../shared/styledComponents';
 
+// css styles
+const styles = {
+  twitterFeed: {
+    paddingTop: '15px',
+    paddingBottom: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderWidth: '1px',
+    borderColor: '#ccc',
+    borderStyle: 'solid',
+    borderRadius: '16px',
+    position: 'fixed',
+  },
+};
+
+// function of changing twitter height according window
+const twitterTimelineHeight = () => {
+  const windowHeight = window.innerHeight;
+  switch (true) {
+    case (windowHeight >= 1000):
+      return { height: 800 };
+    case (windowHeight < 1000 && windowHeight >= 800):
+      return { height: 600 };
+    case (windowHeight < 800 && windowHeight >= 600):
+      return { height: 400 };
+    default:
+      return { height: 300 };
+  }
+};
+
+// function returning twitter component
 const TwitterFeed = () => {
+  // get team from state
   const dispatch = useDispatch();
   const team = useSelector((state) => state.team);
 
   return (
-    <div className="twitter-feed">
+    <div style={styles.twitterFeed}>
       <Timeline
         dataSource={{ sourceType: 'profile', screenName: team.twitterHandle }}
-        options={{ height: 800 }}
+        options={twitterTimelineHeight()}
       />
-      <Button
-        size="sm"
-        variant="outline-secondary"
+      <PrimaryButton
+        fontSize="0.875rem"
         onClick={() => dispatch(unlinkTwitter(team.teamId))}
       >
         Unlink Twitter
-      </Button>
+      </PrimaryButton>
     </div>
   );
 };

@@ -5,14 +5,15 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  Button, Form, Container, Image,
+  Form, Container, Image,
 } from 'react-bootstrap';
-import './Settings.css';
-import { Link } from 'react-router-dom';
+import './ProfileInfoEdit.css';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
+
+import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 
 /**
  * Form component for user update profile
@@ -93,15 +94,14 @@ const Settings = () => {
 
           <Form.Group controlId="formProfilePic">
             <Image
+              className="profile-img"
               src={profileData.profilePic}
               roundedCircle
-              height="184px"
-              width="184px"
             />
-            <Form.Control name="profilePic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} />
-            <Form.Text className="text-muted">
-              Upload a file from your device, at least 184px.
-            </Form.Text>
+            <Form.Label className="upload-label">
+              Change Profile Photo
+            </Form.Label>
+            <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
           </Form.Group>
 
           <Form.Group>
@@ -143,26 +143,22 @@ const Settings = () => {
             />
           </Form.Group>
 
-          <div className="my-1">
-            <Button
-              id="updateButton"
-              type="submit"
-              color="primary"
-              className="mr-2"
-            >
-              Update
-            </Button>
-
-            {/* Button is linked to react-router-dom Link */}
-            <Link to="/dashboard">
-              <Button color="primary">Back</Button>
-            </Link>
-          </div>
-          <div className="my-1">
-            <Button variant="danger" onClick={profileDeleted}>
-              Delete account
-            </Button>
-          </div>
+          <PrimaryButton
+            id="updateButton"
+            type="submit"
+            color="primary"
+            className="my-2"
+          >
+            Update
+          </PrimaryButton>
+          <DangerButton
+            variant="outline-danger"
+            onClick={profileDeleted}
+            className="mt-2"
+            style={{ float: 'right' }}
+          >
+            Delete account
+          </DangerButton>
         </Form>
       </Container>
     </div>

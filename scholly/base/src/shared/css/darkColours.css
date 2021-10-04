@@ -1,0 +1,14 @@
+:root {
+  --researchify-text-color: #fff;
+  --researchify-text-color-secondary: #b6babd;
+  --researchify-link-color: #2b7bb9;
+  --researchify-link-hover-color: #3b94d9;
+  --researchify-link-hover-color-secondary: #c7c7c7;
+  --researchify-color-primary: #1a1b1b;
+  /* twitter feed dark theme backgorund color */
+  --researchify-color-secondary: #292f33;
+  /* twitter feed dark theme backgorund hover color */
+  --researchify-color-tertiary: #24282c;
+  --researchify-color-quaternary: #282929;
+  --researchify-color-quinary: #888888;
+}
