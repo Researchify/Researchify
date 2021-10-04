@@ -23,91 +23,133 @@ const LoginForm = () => {
       .required('Please enter your password'),
   });
 
+  const pwdInfoSchema = yup.object({
+    email: yup
+      .string()
+      .required('Please enter your email'),
+  });
+
   const authData = {
     email: '',
     password: '',
+  };
+
+  const pwdData = {
+    email: '',
   };
 
   const submitForm = (values, { setFieldError }) => {
     // error message could be passed in the setFieldError function to show error on the form
     dispatch(login(values, setFieldError));
   };
-
   const resetPwd = (values) => {
-    // eslint-disable-next-line
-    if (values.email != '') {
-      dispatch(resetPassword(values.email));
-    }
+    // error message could be passed in the setFieldError function to show error on the form
+    dispatch(resetPassword(values.email));
   };
 
-
   return (
-    <Jumbotron id="login-form-box">
-      <h3 id="LoginHeading">Log In</h3>
-      <hr />
+    <div>
+      <Jumbotron id="login-form-box">
+        <h3 id="LoginHeading">Log In</h3>
+        <hr />
 
-      <Formik
-        enableReinitialize
-        validationSchema={teamInfoSchema}
-        onSubmit={submitForm}
-        initialValues={authData}
-      >
-        {({
-          handleSubmit, handleChange, values, touched, errors,
-        }) => (
-          <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Label> Email address </Form.Label>
-              <Form.Control
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={values.email}
-                onChange={handleChange}
-                isInvalid={touched.email && errors.email}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.email}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label> Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={values.password}
-                onChange={handleChange}
-                isInvalid={touched.password && errors.password}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.password}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Button
-              id="loginButton"
-              type="submit"
-              variant="contained"
-              color="secondary"
-              size="large"
-              style={{ color: 'white' }}
-            >
-              Log in
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => resetPwd(values)}
-            >
-              Reset Password
-            </Button>
+        <Formik
+          enableReinitialize
+          validationSchema={teamInfoSchema}
+          onSubmit={submitForm}
+          initialValues={authData}
+        >
+          {({
+            handleSubmit, handleChange, values, touched, errors,
+          }) => (
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label> Email address </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  placeholder="Email"
+                  value={values.email}
+                  onChange={handleChange}
+                  isInvalid={touched.email && errors.email}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label> Password </Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={values.password}
+                  onChange={handleChange}
+                  isInvalid={touched.password && errors.password}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.password}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Button
+                id="loginButton"
+                type="submit"
+                variant="contained"
+                color="secondary"
+                size="large"
+                style={{ color: 'white' }}
+              >
+                Log in
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      </Jumbotron>
+      <Jumbotron id="login-form-box">
+        <h3 id="LoginHeading">Reset Password</h3>
+        <hr />
+        <Formik
+          enableReinitialize
+          validationSchema={pwdInfoSchema}
+          onSubmit={resetPwd}
+          initialValues={pwdData}
+        >
+          {({
+            handleSubmit, handleChange, values, touched, errors,
+          }) => (
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label> Email address </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  placeholder="Email"
+                  value={values.email}
+                  onChange={handleChange}
+                  isInvalid={touched.email && errors.email}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Button
+                id="resetButton"
+                type="submit"
+                variant="contained"
+                color="secondary"
+                size="large"
+                style={{ color: 'white' }}
+              >
+                Reset Password
+              </Button>
 
-          </Form>
+            </Form>
 
-        )}
-      </Formik>
+          )}
+        </Formik>
 
-    </Jumbotron>
+      </Jumbotron>
+    </div>
 
   );
 };

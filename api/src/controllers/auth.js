@@ -107,6 +107,8 @@ async function resetPwd(req, res) {
   try {
       const foundTeam = await Team.findOne({ email: email });
       console.log(foundTeam);
+      const salt = await bcrypt.genSalt();
+      const password = await bcrypt.hash(password, salt);
       const updatedTeam = await Team.findByIdAndUpdate(foundTeam._id, {password}, {
         new: true,
         runValidators: true,

@@ -10,7 +10,7 @@ import {
   FETCH_TEAM_INFO,
   FETCH_WEBSITE_INFO,
 } from './types';
-import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
+import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
 /**
  * This action creator will be called when a user signs in.
@@ -52,6 +52,7 @@ export const resetPassword = (email) => async (dispatch) => {
     dispatch({
       type: LOG_IN_SUCCESS,
     });
+    dispatch(successMessageCreator('Password successfully reset'));
   } catch (err) {
     if (err) {
       // eslint-disable-next-line
