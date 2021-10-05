@@ -103,11 +103,13 @@
 }
 
 .twitter-feed {
-  border-radius: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 16px;
   margin-top: 28px;
   position:relative;
   height: inherit;
-  object-fit: fill;
+  width: fit-content;
 }
 
 .pub-left-main {
@@ -189,4 +191,9 @@
   padding-left: 40px;
   padding-right: 40px;
   font-size: xx-large;
+}
+.recent-publication-link
+{
+  text-align: center;
+  padding-bottom: 10px;
 }

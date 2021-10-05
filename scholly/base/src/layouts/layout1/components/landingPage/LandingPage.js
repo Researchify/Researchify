@@ -46,9 +46,11 @@ const landingPage = () => {
               <div className="recent-pub-title">
                 RECENT PUBLICATIONS
               </div>
-              <Link to="/publication">
-                (VIEW ALL PAPERS)
-              </Link>
+              <div className="recent-publication-link">
+                <Link to="/publication">
+                  (VIEW ALL PAPERS)
+                </Link>
+              </div>
               {pubs.slice(0, 6).map((pub) => (
                 <Accordion>
                   <Publication pub={pub} key={pub._id} />
