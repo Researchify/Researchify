@@ -112,7 +112,7 @@ const Features = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container justify="center" spacing={isMobile ? 5 : 10}>
+          <Grid container justifyContent="center" spacing={isMobile ? 5 : 10}>
             {featuresData.map(({ logo, title, description }) => (
               <FlippingCard
                 logo={logo}
