@@ -21,7 +21,7 @@
 .landing-center-title {
   text-align: center;
   padding-top: 25px;
-  font-weight: bolder;
+  font-weight: 460;
   padding-left: 40px;
   padding-right: 40px;
   font-size: xx-large;
@@ -186,7 +186,7 @@
 .recent-pub-title
 {
   text-align: center;
-  padding-top: 8px;
+  padding-top: 50px;
   font-weight: 460;
   padding-left: 40px;
   padding-right: 40px;
