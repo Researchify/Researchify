@@ -12,6 +12,7 @@ import { PropTypes } from 'prop-types';
 import { createTeamMember, updateTeamMember } from '../../../actions/team';
 
 import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
+import defaultProfilePic from '../../../images/profilepic.jpg';
 
 const TeamMemberForm = ({ closeModal, member, type }) => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
     fullName: '',
     position: '',
     summary: '',
+    memberPic: defaultProfilePic,
   };
 
   const submitForm = (values) => {
@@ -108,6 +110,13 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
             <Form.Control.Feedback type="invalid">
               {errors.summary}
             </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>
+              Member Photo
+            </Form.Label>
+            <Form.Control type="file" accept="image/*" multiple={false} />
           </Form.Group>
 
           <Row>
