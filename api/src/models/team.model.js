@@ -55,6 +55,10 @@ const teamSchema = new mongoose.Schema(
           required: false,
           minLength: 3,
         },
+        memberPic: {
+          type: String,
+          required: false,
+        },
       },
     ],
     githubUsername: {
