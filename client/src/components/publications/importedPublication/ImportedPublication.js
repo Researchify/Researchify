@@ -91,7 +91,7 @@ const ImportedPublication = ({ pub, index, setChecked }) => {
           <div>
             <input type="checkbox" checked={publicationsToImport[publications.indexOf(pub)]} onChange={handleCheck} />
           </div>
-          <div style={{ marginLeft: '10px', fontWeight: 'bold' }}>
+          <div style={{ marginLeft: '10px', fontSize: '16', fontWeight: '500' }}>
             {pub.link ? (
               <a href={pub.link} target="_blank" rel="noreferrer">
                 {pub.title}
