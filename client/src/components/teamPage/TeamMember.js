@@ -93,7 +93,10 @@ const TeamMember = ({ member }) => {
             roundedCircle
             height="130px"
             width="130px"
-            style={{ alignSelf: 'center' }}
+            style={{
+              alignSelf: 'center',
+              objectFit: 'cover',
+            }}
           />
           <Card.Body>
             <Card.Title className="text-center">{member.fullName}</Card.Title>
