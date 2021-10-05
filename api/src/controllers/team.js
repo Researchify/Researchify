@@ -16,9 +16,186 @@ const {
 const { fillErrorObject } = require('../middleware/error');
 
 /**
+ * Handles a POST request to create a team on the endpoint /team.
+ * A post-hook/middleware is associated with the {@link Team} model that will
+ * create default-initialized dependent documents for the team being created.
+ *
+ * @param req request object containing at least two fields: teamName & orgName.
+ * @param res response object - updated team object
+ * @param next handler to the next middleware
+ * @returns 201: returns updated team details
+ */
+async function createTeam(req, res, next) {
+  const foundTeam = await Team.findOne({ email: req.body.email });
+  if (foundTeam) {
+    return next(
+      fillErrorObject(400, 'Duplicate email error', [
+        'Email had been registered',
+      ]),
+    );
+  }
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  const hashedTeam = {
+    ...req.body,
+    password: hashedPassword,
+  };
+  const createdTeam = await Team.create(hashedTeam);
+  // remove sensitive data
+  delete createTeam.password;
+  return res.status(201).json(createdTeam);
+}
+
+/**
+ * Gets the team info
+ * @param {*} req request object contains the teamId decoded in auth middleware
+ * @param {*} res response object, the team related info
+ * @param next handler to the next middleware
+ * @returns 200: the team related info
+ */
+function getTeam(req, res, next) {
+  Team.findById(req.team._id)
+    .select('_id teamName orgName email twitterHandle profilePic')
+    .then((foundTeam) => {
+      if (foundTeam) {
+        return res.status(200).send(foundTeam);
+      }
+      return next(fillErrorObject(404, 'Team not found',
+        ['Team with the given id could not be found']));
+    })
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
+}
+
+/**
+ * Update the team from the database on /team/:teamId
+ * @param req request object, containing team id in the url
+ * @param res response object, the updated team document
+ * @param next handler to the next middleware
+ * @returns 200: team updated
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+async function updateTeam(req, res, next) {
+  const { teamId: _id } = req.params;
+  const team = req.body;
+
+  try {
+    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+      new: true,
+      runValidators: true,
+    });
+    return res.status(200).json(updatedTeam);
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err]));
+  }
+}
+
+/**
+ * Handles a DELETE request to remove a team on the endpoint /team/:teamId.
+ * A post-hook/middleware is associated with the {@link Team} model that will
+ * delete all dependent documents for the team being deleted.
+ *
+ * @param req request object
+ * @param res response object
+ * @param next handler to the next middleware
+ * @returns 204 no content, if the delete was successful
+ * @returns 500 if a server error occurred
+ */
+async function deleteTeam(req, res, next) {
+  const { foundTeam } = req;
+  try {
+    await foundTeam.remove();
+    return res.status(204).send();
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err]));
+  }
+}
+
+/**
+ * POST request to create a new team member to the database on /team/:teamId/member.
+ * @param {*} req request object, containing team id in the url
+ * @param {*} res response object, the created team member document
+ * @param next handler to the next middleware
+ * @returns 200: the team member was created
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+function createTeamMember(req, res, next) {
+  let teamMember = req.body;
+  const memberId = new mongoose.Types.ObjectId();
+  const { foundTeam } = req;
+  teamMember = {
+    ...teamMember,
+    _id: memberId,
+  };
+
+  foundTeam.teamMembers.push(teamMember);
+  foundTeam
+    .save()
+    .then(() => res.status(200).json(teamMember))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
+}
+
+/**
+ * Gets the team member array from the database on /team/:teamId/member.
+ * @param {*} req request object, containing team id in the url
+ * @param {*} res response object, the returned team member array
+ * @returns 200: the team member array was returned
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+function readTeamMembersByTeam(req, res) {
+  const { foundTeam } = req;
+  return res.status(200).send(foundTeam.teamMembers);
+}
+
+/**
+ * Update the team member from the database on /team/:teamId/member.
+ * @param {*} req request object, containing team id in the url
+ * @param {*} res response object, the updated team member document
+ * @param next handler to the next middleware
+ * @returns 200: the team member was updated
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+function updateTeamMember(req, res, next) {
+  const updatedTeamMember = req.body;
+  Team.updateOne(
+    { 'teamMembers._id': updatedTeamMember._id },
+    {
+      $set: {
+        'teamMembers.$': updatedTeamMember,
+      },
+    },
+  )
+    .then(() => res.status(200).json(updatedTeamMember))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
+}
+
+/**
+ * Delete the team member from the database on /team/:teamId/member/:member_id.
+ * @param {*} req request object, containing team id in the url
+ * @param {*} res response object, the relevant message returned
+ * @param next handler to the next middleware
+ * @returns 200: the team member was deleted
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+function deleteTeamMember(req, res, next) {
+  const { foundTeam } = req;
+  const { memberId } = req.params;
+  foundTeam.teamMembers.pull({ _id: memberId });
+  foundTeam
+    .save()
+    .then(() => res.status(200).json(foundTeam.teamMembers))
+    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
+}
+
+/**
  * Associates a twitter handle with a team on the /team/twitter-handle/:teamId endpoint.
  * @param {*} req request object, containing the teamId in the url and twitter handle in the body
  * @param {*} res response object
+ * @param next handler to the next middleware
  * @returns 200: successful added twitter handle to team
  * @returns 400: team id is not in a valid hexadecimal format
  * @returns 404: team is not found, or handle is invalid
@@ -65,122 +242,6 @@ async function storeHandle(req, res, next) {
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
-}
-
-/**
- * Gets the team info
- * @param {*} req request object contains the teamId decoded in auth middleware
- * @param {*} res response object, the team related info
- * @returns 200: the team related info
- */
-function getTeam(req, res, next) {
-  Team.findById(req.team._id)
-    .select('_id teamName orgName email twitterHandle profilePic')
-    .then((foundTeam) => {
-      if (foundTeam) {
-        return res.status(200).send(foundTeam);
-      }
-      return next(fillErrorObject(404, 'Team not found', ['Team with the given id could not be found']));
-    })
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
-}
-
-/**
- * Handles a POST request to add a team on the endpoint /team.
- * @param {*} req request object -  json object containing at least two fields - teamName and orgName.
- * @param {*} res response object - updated team object
- * @returns 201: returns updated team details
- */
-async function createTeam(req, res, next) {
-  const foundTeam = await Team.findOne({ email: req.body.email });
-  if (foundTeam) {
-    return next(
-      fillErrorObject(400, 'Duplicate email error', [
-        'Email had been registered',
-      ]),
-    );
-  }
-  const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-  const hashedTeam = { ...req.body, password: hashedPassword };
-  const createdTeam = await Team.create(hashedTeam);
-  // remove sensitive data
-  delete createTeam.password;
-  return res.status(201).json(createdTeam);
-}
-
-/**
- * Gets the team member array from the database on /team/:teamId/member.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the returned team member array
- * @returns 200: the team member array was returned
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-function readTeamMembersByTeam(req, res) {
-  const { foundTeam } = req;
-  return res.status(200).send(foundTeam.teamMembers);
-}
-
-/**
- * POST request to create a new team member to the database on /team/:teamId/member.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the created team member document
- * @returns 200: the team member was created
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-function createTeamMember(req, res, next) {
-  let teamMember = req.body;
-  const memberId = new mongoose.Types.ObjectId();
-  const { foundTeam } = req;
-  teamMember = { ...teamMember, _id: memberId };
-
-  foundTeam.teamMembers.push(teamMember);
-  foundTeam
-    .save()
-    .then(() => res.status(200).json(teamMember))
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
-}
-
-/**
- * Delete the team member from the database on /team/:teamId/member/:member_id.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the relevant message returned
- * @returns 200: the team member was deleted
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-function deleteTeamMember(req, res, next) {
-  const { foundTeam } = req;
-  const { memberId } = req.params;
-  foundTeam.teamMembers.pull({ _id: memberId });
-  foundTeam
-    .save()
-    .then(() => res.status(200).json(foundTeam.teamMembers))
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
-}
-
-/**
- * Update the team member from the database on /team/:teamId/member.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the updated team member document
- * @returns 200: the team member was updated
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-function updateTeamMember(req, res, next) {
-  const updatedTeamMember = req.body;
-  Team.updateOne(
-    { 'teamMembers._id': updatedTeamMember._id },
-    {
-      $set: {
-        'teamMembers.$': updatedTeamMember,
-      },
-    },
-  )
-    .then(() => res.status(200).json(updatedTeamMember))
-    .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
 /**
@@ -290,79 +351,16 @@ async function deployToGHPages(req, res, next) {
   }
 }
 
-/**
- * Update the team from the database on /team/:teamId
- * @param {} req request object, containing team id in the url
- * @param {*} res response object, the updated team document
- * @returns 200: team updated
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-async function updateTeam(req, res, next) {
-  const { teamId: _id } = req.params;
-  const team = req.body;
-
-  try {
-    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
-      new: true,
-      runValidators: true,
-    });
-    return res.status(200).json(updatedTeam);
-  } catch (err) {
-    return next(fillErrorObject(500, 'Server error', [err]));
-  }
-}
-
-/**
- * Update the team's password from the database on /team/:team_id
- * @param {} req request object, containing team id in the url
- * @param {*} res response object, the updated team document
- * @returns 200: team updated
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format or current password is incorrect
- */
-async function updatePassword(req, res, next) { // eslint-disable-line no-unused-vars
-  const { teamId: _id } = req.params;
-  const team = req.body;
-
-  const foundTeam = await Team.findOne({ _id });
-
-  if (await bcrypt.compare(team.currentPassword, foundTeam.password)) {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(team.password, salt);
-    team.password = hashedPassword;
-
-    try {
-      const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
-        new: true,
-        runValidators: true,
-      });
-      updatedTeam.password = '';
-      return res.status(200).json(updatedTeam);
-    } catch (e) {
-      return next(
-        fillErrorObject(500, 'Server error', [e]),
-      );
-    }
-  } else {
-    return next(
-      fillErrorObject(400, 'Authentication error', [
-        'Incorrect password',
-      ]),
-    );
-  }
-}
-
 module.exports = {
-  storeHandle,
-  getTeam,
   createTeam,
+  getTeam,
+  updateTeam,
+  deleteTeam,
   createTeamMember,
   readTeamMembersByTeam,
-  deleteTeamMember,
   updateTeamMember,
-  updateTeam,
+  deleteTeamMember,
+  storeHandle,
   getGHAccessToken,
   deployToGHPages,
-  updatePassword,
 };

@@ -18,12 +18,7 @@ const DB_HOST = process.env.DB_TEST_HOST || 'localhost';
  */
 async function connectDb(dbName) {
   const uri = `mongodb://${DB_HOST}:${PORT}/${dbName}`;
-  await mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  });
+  await mongoose.connect(uri);
 }
 
 /**

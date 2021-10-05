@@ -1,3 +1,11 @@
+.publicationPageContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
 .publicationList {
   width: 100%;
   max-width: 1200px;
@@ -7,24 +15,18 @@
   border-width: thin;
   border-color: rgb(212, 207, 205);
 }
-
-.publicationListHeader {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-}
-
 .newlyAddedPublicationHeader {
   background-color: rgb(60, 179, 113);
-  height: auto;
 }
 
-.modalHeader {
+.publicationHeader {
   background-color: rgb(240, 240, 240);
+  border: 1px solid rgb(240, 240, 240);
 }
 
-.modalHeader:hover {
-  background-color: lightgrey;
+.publicationHeader:hover {
+  background-color: rgb(231, 229, 229);
+  border: 1px solid rgb(240, 240, 240);
 }
 
 .blur {
@@ -39,7 +41,7 @@
 }
 
 .pubs-props {
-  font-size: 13px;
+  font-size: 16px;
   padding-left: 15px;
   padding-top: 5px;
   color: #535151;
@@ -48,7 +50,7 @@
 }
 
 .pubs-title {
-  font-size: 16px;
+  font-size: 19px;
   padding: 10px;
   font-weight: 500;
   color: black;
@@ -65,8 +67,10 @@
 }
 
 .publication-container {
-  border: solid rgb(205, 205, 206);
+  border: 2px solid rgb(214, 214, 214);
   border-width: thin;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .publication-editor {
