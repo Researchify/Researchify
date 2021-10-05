@@ -20,7 +20,7 @@ import { REVERT_HEADER_COLOR } from '../../actions/types';
 const Publications = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
-  const publicationOptions = useSelector((state) => state.website.publicationOptions);
+  const { publicationOptions } = useSelector((state) => state.website);
   const { loading, teamPublications } = useSelector((state) => state.publications);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showImportForm, setShowImportForm] = useState(false);
@@ -32,6 +32,7 @@ const Publications = () => {
       dispatch(getPublicationsByTeamId(teamId));
     }
   }, [dispatch, teamId]);
+
   useEffect(() => {
     setOptions(publicationOptions);
   }, [publicationOptions]);

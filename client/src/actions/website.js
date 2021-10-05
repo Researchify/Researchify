@@ -72,7 +72,7 @@ export const updatePublicationOptions = (teamId, preference) => async (dispatch)
     const { data } = await api.updateClientWebMetadata(teamId, changes);
     dispatch({
       type: UPDATE_PUBLICATION_OPTIONS,
-      payload: data[0], // Data: array with 1 element. Client takes the obj not array
+      payload: data,
     });
     dispatch(successMessageCreator('Preference has been updated.'));
   } catch (err) {
