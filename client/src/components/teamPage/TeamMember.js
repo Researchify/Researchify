@@ -20,7 +20,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
-import profilePic from '../../images/profilepic.jpg';
+import defaultProfilePic from '../../images/profilepic.jpg';
 import {
   SecondaryButton,
   DangerButton,
@@ -35,6 +35,7 @@ const TeamMember = ({ member }) => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const teamId = useSelector((state) => state.team.teamId);
+  const memberPic = member.memberPic ?? defaultProfilePic;
 
   const handleDelete = () => {
     dispatch(deleteTeamMember(teamId, member._id));
@@ -85,7 +86,7 @@ const TeamMember = ({ member }) => {
             </Col>
           </Row>
           <Image
-            src={profilePic}
+            src={memberPic}
             roundedCircle
             height="130px"
             width="130px"
