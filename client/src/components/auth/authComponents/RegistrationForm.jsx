@@ -29,16 +29,10 @@ const StringPasswordHint = (props) => (
       - 8-20 characters
       <br />
       {' '}
-      - At least 1 uppercase letter
-      <br />
-      {' '}
-      - At least 1 lowercase letter
+      - At least 1 letter
       <br />
       {' '}
       - At least 1 number
-      <br />
-      {' '}
-      - At least 1 symbol from @$!%*#?&
     </Popover.Content>
   </Popover>
 );
@@ -62,9 +56,11 @@ const RegistrationForm = () => {
     password: yup
       .string()
       .required('Please enter your password')
+      .min(8, 'Password must contain at least 8 characters')
+      .max(20, 'Password is too long')
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Password is not strong enough',
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/,
+        'Password must be 8 or more characters with a mix of letters and numbers',
       ),
     confirmedPassword: yup
       .string()
@@ -149,7 +145,7 @@ const RegistrationForm = () => {
               <Form.Label>
                 Password
                 {'  '}
-                <OverlayTrigger trigger="hover" placement="right" overlay={StringPasswordHint}>
+                <OverlayTrigger trigger={['hover', 'focus']} placement="right" overlay={StringPasswordHint}>
                   <BsQuestionCircle style={{ color: 'grey' }} />
                 </OverlayTrigger>
               </Form.Label>
@@ -161,7 +157,7 @@ const RegistrationForm = () => {
                 onChange={handleChange}
                 isInvalid={touched.password && errors.password}
               />
-              <Form.Control.Feedback type="invalid">
+              <Form.Control.Feedback type="invalid" style={{ whiteSpace: 'pre-wrap' }}>
                 {errors.password}
               </Form.Control.Feedback>
             </Form.Group>
