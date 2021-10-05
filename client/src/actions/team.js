@@ -162,11 +162,11 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
  */
 export const updateTeamMember = (id, teamMember) => async (dispatch) => {
   try {
-    const { data } = await api.updateTeamMember(id, teamMember);
+    await api.updateTeamMember(id, teamMember);
 
     dispatch({
       type: UPDATE_TEAM_MEMBER,
-      payload: data,
+      payload: teamMember,
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
