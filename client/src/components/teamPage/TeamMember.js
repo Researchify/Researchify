@@ -35,7 +35,6 @@ const TeamMember = ({ member }) => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const teamId = useSelector((state) => state.team.teamId);
-  const memberPic = member.memberPic ?? defaultProfilePic;
 
   const handleDelete = () => {
     dispatch(deleteTeamMember(teamId, member._id));
@@ -63,6 +62,10 @@ const TeamMember = ({ member }) => {
     </ButtonGroup>
   );
 
+  if (member.memberPic === undefined) {
+    member.memberPic = defaultProfilePic; // eslint-disable-line no-param-reassign
+  }
+
   return (
     <>
       <Col className="container-fluid mt-4">
@@ -86,7 +89,7 @@ const TeamMember = ({ member }) => {
             </Col>
           </Row>
           <Image
-            src={memberPic}
+            src={member.memberPic}
             roundedCircle
             height="130px"
             width="130px"

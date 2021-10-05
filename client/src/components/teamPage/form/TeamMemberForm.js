@@ -35,11 +35,9 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
     fullName: '',
     position: '',
     summary: '',
-    memberPic: '',
   };
 
   const submitForm = (values) => {
-    console.log('values', values);
     if (type === 'update') {
       dispatch(updateTeamMember(teamId, values));
     } else if (type === 'create') {
