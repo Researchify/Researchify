@@ -128,9 +128,15 @@ const Publication = ({ pub }) => {
   };
 
   return (
-    <div className="publication-container" onMouseOver={handleMouseOver} onFocus={handleMouseOver} onMouseLeave={handleMouseLeave} onBlur={handleMouseLeave}>
+    <div
+      className="publication-container mb-2"
+      onMouseOver={handleMouseOver}
+      onFocus={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+      onBlur={handleMouseLeave}
+    >
       <div
-        className={newlyAdded ? 'newlyAddedPublicationHeader' : 'modalHeader'}
+        className={newlyAdded ? 'newlyAddedPublicationHeader' : 'publicationHeader'}
       >
         <Row>
           <Col md={10} onClick={handleCheck}>
@@ -140,7 +146,7 @@ const Publication = ({ pub }) => {
               </div>
               <div className="pubs-title">
                 {pub.link ? (
-                  <a href={pub.link} target="_blank" rel="noreferrer">
+                  <a style={{ color: '#2b7bb9', textDecoration: 'underline' }} href={pub.link} target="_blank" rel="noreferrer">
                     {pub.title}
                   </a>
                 ) : (
@@ -170,7 +176,7 @@ const Publication = ({ pub }) => {
           <b> Authors: </b>
           {pub.authors.map((author) => `${author}`).join(', ')}
         </div>
-        <div className="pubs-props">
+        <div className={expand ? 'pubs-props' : 'blur pubs-props'}>
           {' '}
           <b>Year Published: </b>
           {pub.yearPublished}
@@ -182,7 +188,7 @@ const Publication = ({ pub }) => {
 
       {/* A modal for showing update publication from */}
       <Modal show={showUpdateForm}>
-        <Modal.Header className="modalHeader">
+        <Modal.Header>
           <Modal.Title> Edit Publication </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -196,7 +202,7 @@ const Publication = ({ pub }) => {
 
       {/* A modal for showing confirm delete message */}
       <Modal show={showDeleteMessage}>
-        <Modal.Header className="modalHeader">
+        <Modal.Header>
           <Modal.Title> Delete Publication </Modal.Title>
         </Modal.Header>
         <Modal.Body>

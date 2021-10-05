@@ -21,11 +21,10 @@ async function handleDeployEvent(req, res) {
 
   logger.info(`Attempting to build and deploy application for team ${teamId}`);
   const data = req.body;
-  const repoName = `${data.ghUsername}.github.io`;
 
   try {
     await build(data);
-    await push(data.ghUsername, data.ghToken, repoName);
+    await push(data.ghUsername, data.ghToken);
     return res
       .status(200)
       .send('Successfully deployed application to GitHub Pages.');
@@ -35,7 +34,7 @@ async function handleDeployEvent(req, res) {
     return res
       .status(500)
       .send(
-        "Something went wrong. Researchify couldn't build/push your application.",
+        'Something went wrong. Researchify couldn\'t build/push your application.',
       );
   }
 }

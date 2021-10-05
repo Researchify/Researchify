@@ -29,7 +29,7 @@ const AchievementPage = () => {
 
   return (
     <div className="achievementPageContainer">
-      <h1>Achievements</h1>
+      <h2>Achievements</h2>
       <PrimaryButton
         className="mt-2"
         onClick={() => setShowCreateForm(true)}

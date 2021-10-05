@@ -2,40 +2,34 @@
  * The Publications component displays a list of publications
  */
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Modal, Alert, Jumbotron, Container,
-} from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 import { getPublicationsByTeamId } from '../../actions/publications';
-import PublicationForm from './form/PublicationForm';
-import ImportForm from './form/ImportForm';
 import './publications.css';
 import GroupByNone from './publicationsLayout/GroupByNone';
 import GroupByCategory from './publicationsLayout/GroupByCategory';
-import PublicationsEditor from './publicationsLayout/PublicationsEditor';
-import { groupByOptions, sortingOptions } from '../../config/publications';
+
+import { groupByOptions } from '../../config/publications';
 import { REVERT_HEADER_COLOR } from '../../actions/types';
 
-const Publications = () => {
+const Publications = ({
+  options,
+  sortPublications,
+  publications,
+  teamId,
+  setPublications,
+
+}) => {
   const dispatch = useDispatch();
-  const teamId = useSelector((state) => state.team.teamId);
-  const { publicationOptions } = useSelector((state) => state.website);
-  const { loading, teamPublications } = useSelector((state) => state.publications);
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [showImportForm, setShowImportForm] = useState(false);
-  const [options, setOptions] = useState(publicationOptions);
-  const [publications, setPublications] = useState(teamPublications);
+  const { loading } = useSelector((state) => state.publications);
 
   useEffect(() => {
     if (teamId) {
       dispatch(getPublicationsByTeamId(teamId));
     }
   }, [dispatch, teamId]);
-
-  useEffect(() => {
-    setOptions(publicationOptions);
-  }, [publicationOptions]);
 
   const renderPublications = useCallback(() => {
     switch (options.groupBy) {
@@ -44,62 +38,12 @@ const Publications = () => {
       default:
         return <GroupByNone teamPublications={publications} />;
     }
-  }, [options, publications, teamPublications]);
-
-  const sortPublications = (publicationToBeSorted, option) => {
-    switch (option) {
-      case sortingOptions.AUTHOR:
-        publicationToBeSorted.sort((a, b) => {
-          if (a.authors[0].toLowerCase() > b.authors[0].toLowerCase()) return 1;
-          if (a.authors[0].toLowerCase() < b.authors[0].toLowerCase()) return -1;
-          return 0;
-        });
-        break;
-      case sortingOptions.TITLE:
-        // publication title
-        publicationToBeSorted.sort((a, b) => {
-          if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
-          if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
-          return 0;
-        });
-        break;
-      case sortingOptions.YEAR:
-        // year
-        publicationToBeSorted.sort((a, b) => {
-          if (a.year > b.year) return -1;
-          if (a.year < b.year) return 1;
-          return 0;
-        });
-        break;
-      case 'Category Title':
-        // journal or conference title
-        publicationToBeSorted.sort((a, b) => {
-          if (a.category.categoryTitle.toLowerCase() > b.category.categoryTitle.toLowerCase()) return 1;
-          if (a.category.categoryTitle.toLowerCase() < b.category.categoryTitle.toLowerCase()) return -1;
-          return 0;
-        });
-        break;
-      default:
-        // sort by title then year for consistency with the db
-        publicationToBeSorted.sort((a, b) => {
-          if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
-          if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
-          return 0;
-        });
-        publicationToBeSorted.sort((a, b) => {
-          if (a.year > b.year) return -1;
-          if (a.year < b.year) return 1;
-          return 0;
-        });
-        break;
-    }
-    return publicationToBeSorted;
-  };
+  }, [options, publications]);
 
   useEffect(() => {
-    const sortedPublication = sortPublications(teamPublications, options.sortBy);
+    const sortedPublication = sortPublications(publications, options.sortBy);
     setPublications(sortedPublication);
-    const newlyAddedPublications = teamPublications.filter((pub) => pub.isNewlyAdded);
+    const newlyAddedPublications = publications.filter((pub) => pub.isNewlyAdded);
     if (newlyAddedPublications.length > 0) {
       setTimeout(() => {
         dispatch({
@@ -108,25 +52,11 @@ const Publications = () => {
         });
       }, 2500);
     }
-  }, [teamPublications]);
+  }, [publications]);
 
   return (
-    <Jumbotron style={{ minHeight: '85vH', height: 'auto' }}>
-      <Container className="publication-editor">
-        <div>
-          <PublicationsEditor
-            options={options}
-            setOptions={setOptions}
-            sortPublications={sortPublications}
-            publications={publications}
-            teamId={teamId}
-            setShowCreateForm={setShowCreateForm}
-            setShowImportForm={setShowImportForm}
-          />
-        </div>
-      </Container>
-
-      {teamPublications.length === 0 && !loading ? (
+    <>
+      {publications.length === 0 && !loading ? (
         <div style={{ marginTop: '30px' }} className="publicationList">
           <Alert variant="primary">
             There is no publication for this team. Please add or import
@@ -137,30 +67,15 @@ const Publications = () => {
         renderPublications()
       )}
 
-      {/* A modal for showing create publication form */}
-      <Modal show={showCreateForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> New Publication </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <PublicationForm
-            type="create"
-            closeModal={() => setShowCreateForm(false)}
-          />
-        </Modal.Body>
-      </Modal>
-
-      {/* A modal for showing import publication form */}
-      <Modal size="lg" show={showImportForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> Import from Google Scholar </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <ImportForm closeModal={() => setShowImportForm(false)} />
-        </Modal.Body>
-      </Modal>
-    </Jumbotron>
+    </>
   );
 };
-
+// props validation
+Publications.propTypes = {
+  options: PropTypes.object.isRequired,
+  setPublications: PropTypes.func.isRequired,
+  publications: PropTypes.array.isRequired,
+  teamId: PropTypes.string.isRequired,
+  sortPublications: PropTypes.func.isRequired,
+};
 export default Publications;
