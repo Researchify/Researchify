@@ -6,10 +6,7 @@ import React from 'react';
 import {
   BsFillGridFill,
   BsBookHalf,
-  BsPerson,
   BsPeople,
-  // BsFillQuestionCircleFill,
-  BsBoxArrowLeft,
   BsFillAwardFill,
   BsCardText,
 } from 'react-icons/bs';
@@ -18,7 +15,7 @@ import { useSelector } from 'react-redux';
 /*
     List of navigation inside the sidebar. Change the link to Nav.Link either here or in Sidebar.js.
 */
-const DashboardSidebarData = ({ setLogoutAlert }) => {
+const DashboardSidebarData = () => {
   const sidebarLinks = [
     {
       title: 'Dashboard',

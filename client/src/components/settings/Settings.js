@@ -16,10 +16,16 @@ import GhLogInModal from './GhLogInModal';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 
 /**
+<<<<<<< HEAD:client/src/components/profileInfoEdit/ProfileInfoEdit.js
   * Form component for user update profile
   */
 let deleteFlag = false;
 const ProfileInfoEdit = () => {
+=======
+ * Form component for user update profile
+ */
+const Settings = () => {
+>>>>>>> main:client/src/components/settings/Settings.js
   const dispatch = useDispatch();
   const [resetAlert, setResetAlert] = useState(false);
   const [logInAlert, setLogInAlert] = useState(false);
@@ -78,6 +84,7 @@ const ProfileInfoEdit = () => {
     }
     setValidated(true);
   };
+<<<<<<< HEAD:client/src/components/profileInfoEdit/ProfileInfoEdit.js
   const checkLogin = () => {
     const accessToken = localStorage.getItem('GH_access_token');
     if (accessToken === null) {
@@ -86,6 +93,12 @@ const ProfileInfoEdit = () => {
   };
   const setDelete = (flag) => {
     deleteFlag = flag;
+=======
+
+  const profileDeleted = () => {
+    // TODO: Delete profile function is not implemented yet in Settings.js
+    toast.error('Profile has not been deleted');
+>>>>>>> main:client/src/components/settings/Settings.js
   };
 
   return (
@@ -196,4 +209,9 @@ const ProfileInfoEdit = () => {
     </>
   );
 };
+<<<<<<< HEAD:client/src/components/profileInfoEdit/ProfileInfoEdit.js
 export default ProfileInfoEdit;
+=======
+
+export default Settings;
+>>>>>>> main:client/src/components/settings/Settings.js

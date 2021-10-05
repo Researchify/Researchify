@@ -22,13 +22,11 @@ const DashboardLayout = ({ children }) => {
 
   return (
     <>
-      <Header data={headerData} />
+      <Header data={headerData} setLogoutAlert={setLogoutAlert} />
       <Container fluid className="researchify-content-top-padding">
         <Row className="content-under-header">
           <Col className="sidebar-wrapper">
-
-            <Sidebar data={DashboardSidebarData({ setLogoutAlert })} />
-
+            <Sidebar data={DashboardSidebarData()} />
           </Col>
           <Col className="page-content-wrapper">
             {children}

@@ -4,37 +4,24 @@
 
 import React from 'react';
 import {
-  Card, Row, Col, Container,
+  Card,
 } from 'react-bootstrap';
 import profilePicture from '../../../../shared/images/profilepic.jpg';
-import { TEAM_MEMBERS } from '../../../../global/data';
-
-const teamMembers = TEAM_MEMBERS;
 
 const TeamMember = ({ member }) => (
   <>
-    <Container className="pages-top-padding ">
-      <Card className="shadow text-center" bg={teamMembers.indexOf(member) % 2 === 0 ? 'white' : 'secondary'}>
-        <Card.Body>
-          <Row>
-            <Card.Img style={{ width: '160px', height: '120px' }} src={profilePicture} className="team-member-picture " />
-            <Col>
-              <Card.Title as="h5">{member.fullName}</Card.Title>
-              <Card.Text as="h6">
-                {' '}
-                {member.position}
-                {' '}
-              </Card.Text>
-              <Card.Text as="h7">
-                {' '}
-                {member.summary}
-                {' '}
-              </Card.Text>
-            </Col>
-          </Row>
-        </Card.Body>
-      </Card>
-    </Container>
+    <div className="row mb-2" style={{ width: '70%', padding: '5px' }}>
+      <div className="row g-0">
+        <div className="col-md-auto">
+          <Card.Img style={{ width: '160px', height: '160px' }} src={profilePicture} className="team-member-picture " />
+        </div>
+        <div className="col teamMemberBody">
+          <div className="fontx team-member-name d-block w-100 text-left">{member.fullName}</div>
+          <div className="team-member-position d-block w-100 text-left">{member.position}</div>
+          <div className="team-member-summary d-block w-100 text-left">{member.summary}</div>
+        </div>
+      </div>
+    </div>
   </>
 );
 
