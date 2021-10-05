@@ -31,7 +31,6 @@ const Header = ({ data, setLogoutAlert }) => {
   // If profilePic is undefined, set a default profile pic
   profileData.profilePic = profileData.profilePic ?? defaultProfilePic;
   const history = useHistory();
-  // TODO: Remove hard-coded team id and publications id from the links
   return (
     <>
       <Navbar className="header" fixed="top">
@@ -50,7 +49,7 @@ const Header = ({ data, setLogoutAlert }) => {
               className="dashboard-dropdown-toggle"
               cursor="pointer"
             >
-              {profilePic}
+              {profileData.profilePic}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item className="dashboard-dropdown-login-details" disabled>

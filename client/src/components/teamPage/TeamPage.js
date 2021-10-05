@@ -29,7 +29,7 @@ const TeamPage = () => {
 
   return (
     <div className="teamPageContainer">
-      <h1>Team Members</h1>
+      <h2>Team Members</h2>
       <PrimaryButton className="mt-2" onClick={() => setShowCreateForm(true)}>
         Add Team Member
       </PrimaryButton>
