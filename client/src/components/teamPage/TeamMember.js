@@ -53,9 +53,8 @@ const TeamMember = ({ member }) => {
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
         id="team-card"
-        bg="light"
         style={{
-          margin: '8px', minWidth: '550px', maxWidth: '550px', height: '100%',
+          margin: '8px', minWidth: '550px', maxWidth: '550px', height: '100%', backgroundColor: isHovering ? 'rgb(231, 229, 229)' : '#f8f9fa',
         }}
       >
         <Row>
