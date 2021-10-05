@@ -8,14 +8,9 @@ import {
   Col,
   Image,
   Modal,
-  ButtonGroup,
-  OverlayTrigger,
-  Button,
 } from 'react-bootstrap';
 import { useState } from 'react';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { IconContext } from 'react-icons';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
@@ -24,8 +19,8 @@ import profilePic from '../../images/profilepic.jpg';
 import {
   SecondaryButton,
   DangerButton,
-  OptionEditButton,
-  RedDeleteButton,
+  StyledButtonGroup,
+  ButtonGroupItem,
 } from '../shared/styledComponents';
 import './teamMember.css';
 import './teamPage.css';
@@ -34,6 +29,7 @@ const TeamMember = ({ member }) => {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const teamId = useSelector((state) => state.team.teamId);
 
   const handleDelete = () => {
@@ -41,65 +37,60 @@ const TeamMember = ({ member }) => {
     setShowDeleteMessage(false);
   };
 
-  const displayOptions = (
-    <ButtonGroup>
-      <OptionEditButton
-        backgroundColor="white"
-        onClick={() => setShowUpdateForm(true)}
-        data-toggle="modal"
-      >
-        {' '}
-        <AiFillEdit />
-        {' '}
-      </OptionEditButton>
-      <RedDeleteButton
-        backgroundColor="white"
-        onClick={() => setShowDeleteMessage(true)}
-        data-toggle="modal"
-      >
-        <AiFillDelete />
-      </RedDeleteButton>
-    </ButtonGroup>
-  );
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
 
   return (
     <>
-      <Col className="container-fluid mt-4">
-        <Card id="team-card" bg="light" style={{ width: '25rem', height: '100%' }}>
-          <Row>
-            <Col md={{ span: 2, offset: 10 }}>
-              <OverlayTrigger
-                rootClose
-                trigger="click"
-                placement="bottom"
-                overlay={displayOptions}
-              >
-                <Button variant="default">
-                  <IconContext.Provider
-                    value={{ color: '#56658a', size: '20px' }}
-                  >
-                    <BsThreeDotsVertical />
-                  </IconContext.Provider>
-                </Button>
-              </OverlayTrigger>
-            </Col>
-          </Row>
-          <Image
-            src={profilePic}
-            roundedCircle
-            height="130px"
-            width="130px"
-            style={{ alignSelf: 'center' }}
-          />
-          <Card.Body>
-            <Card.Title className="text-center">{member.fullName}</Card.Title>
-            <Card.Subtitle className="text-center mb-2 text-muted">
-              {member.position}
-            </Card.Subtitle>
-            <Card.Text>{member.summary}</Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
+      <Card
+        onMouseOver={handleMouseOver}
+        onFocus={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+        onBlur={handleMouseLeave}
+        id="team-card"
+        bg="light"
+        style={{
+          margin: '8px', minWidth: '550px', maxWidth: '550px', height: '100%',
+        }}
+      >
+        <Row>
+          <Col md={3}>
+            <Image
+              src={profilePic}
+              roundedCircle
+              height="130px"
+              width="130px"
+              style={{ alignSelf: 'center', margin: '10px' }}
+            />
+
+          </Col>
+          <Col md={9}>
+            {
+                isHovering
+              && (
+              <StyledButtonGroup className="float-right" style={{ margin: '5px' }}>
+                <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
+                <ButtonGroupItem color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+                  <RiDeleteBin6Line />
+                </ButtonGroupItem>
+              </StyledButtonGroup>
+              )
+              }
+            <Card.Body>
+              <Card.Title>{member.fullName}</Card.Title>
+              <Card.Subtitle className=" mb-2 text-muted">
+                {member.position}
+              </Card.Subtitle>
+              <Card.Text>{member.summary}</Card.Text>
+            </Card.Body>
+          </Col>
+        </Row>
+      </Card>
 
       <Modal show={showUpdateForm} id="teamMemberModal">
         <Modal.Header className="teamMemberModalHeader">

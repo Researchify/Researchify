@@ -62,7 +62,11 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Full Name</Form.Label>
+            <Form.Label>
+              Full Name
+              {' '}
+              <span style={{ color: 'red' }}>*</span>
+            </Form.Label>
             <Form.Control
               className="placeholder-text"
               type="text"
