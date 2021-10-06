@@ -20,7 +20,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
-import defaultProfilePic from '../../images/profilepic.jpg';
 import {
   SecondaryButton,
   DangerButton,
@@ -61,10 +60,6 @@ const TeamMember = ({ member }) => {
       </RedDeleteButton>
     </ButtonGroup>
   );
-
-  if (member.memberPic === undefined) {
-    member.memberPic = defaultProfilePic; // eslint-disable-line no-param-reassign
-  }
 
   return (
     <>

@@ -4,7 +4,6 @@
 
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
-import profilePic from '../../../../../shared/images/profilepic.jpg';
 
 const TeamMemberMobile = ({ teamMembers }) => {
   const [hoveredMember, setHoveredMember] = useState(null);
@@ -14,11 +13,6 @@ const TeamMemberMobile = ({ teamMembers }) => {
   const handleMouseLeave = () => {
     setHoveredMember(null);
   };
-
-  if (member.memberPic === undefined) {
-    member.memberPic = profilePic; // eslint-disable-line no-param-reassign
-  }
-
 
   return (
     teamMembers.map((member, index) => (
