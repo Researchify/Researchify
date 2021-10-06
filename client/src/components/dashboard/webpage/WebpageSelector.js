@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Modal, Row,
@@ -14,26 +14,18 @@ const WebpageSelector = ({
 }) => {
   const dispatch = useDispatch();
   // All our web-page offerings
-  const availablePages = pages;
   // webpageOfferings = availablePages - currentWebPages
   // const webpageOfferings = availablePages.filter(
   //   (page) => !currentWebPages.includes(page),
   // );
-  const [availPages, setAvailPages] = useState(availablePages.filter(
-    (page) => !currentWebPages.includes(page),
-  ));
-  console.log(availPages);
+  const [availPages, setAvailPages] = useState([]);
+  console.log('available ', availPages);
+  console.log('cuurent', currentWebPages);
 
   // To control disabling the 'Next' Button in the pop-up
   const [displayButton, setDisplayButton] = useState(true);
 
   const [selectedPages, setSelectedPages] = useState([]);
-
-  const refreshWebpagesOfferings = () => {
-    setAvailPages(availPages.filter(
-      (page) => !currentWebPages.includes(page),
-    ));
-  };
 
   const handlePageSelection = (page) => {
     if (!selectedPages.includes(page)) {
@@ -47,13 +39,22 @@ const WebpageSelector = ({
     } else {
       setDisplayButton(true);
     }
-    refreshWebpagesOfferings();
   };
 
   const handleSubmit = () => {
     dispatch(addPage(teamId, selectedPages));
+    setSelectedPages([]);
     closeModal();
   };
+
+  useEffect(() => {
+    console.log(pages.filter(
+      (page) => !currentWebPages.includes(page),
+    ));
+    setAvailPages(pages.filter(
+      (page) => !currentWebPages.includes(page),
+    ));
+  }, [pages]);
 
   return (
     <>
