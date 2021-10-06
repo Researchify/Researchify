@@ -8,7 +8,6 @@ import {
   Form, Container, Image,
 } from 'react-bootstrap';
 import './Settings.css';
-import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
@@ -20,8 +19,6 @@ import { PrimaryButton, DangerButton } from '../shared/styledComponents';
   * Form component for user update profile
   */
 
- * Form component for user update profile
- */
 let deleteFlag = false;
 const Settings = () => {
   const dispatch = useDispatch();
