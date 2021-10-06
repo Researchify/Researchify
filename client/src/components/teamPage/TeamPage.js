@@ -10,24 +10,24 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import React, { useEffect, useState } from 'react';
 import TeamMember from './TeamMember';
 import TeamMemberForm from './form/TeamMemberForm';
-import { getTeamMembersByTeamId } from '../../actions/team';
+import { getTeamMembersByTeamId, deleteBatchTeamMembers } from '../../actions/team';
 import './teamPage.css';
-import { PrimaryButton, ButtonGroupItem } from '../shared/styledComponents';
+import { PrimaryButton, ButtonGroupItem, DangerButton } from '../shared/styledComponents';
 
 const TeamPage = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
+  const { loading, teamMembers } = useSelector((state) => state.teamMember);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [checkedMember, setCheckedMember] = useState([]);
   const [checkAll, setCheckAll] = useState(false);
+  const [showDeleteAll, setShowDeleteAll] = useState(false);
 
   useEffect(() => {
     if (teamId) {
       dispatch(getTeamMembersByTeamId(teamId));
     }
   }, [dispatch, teamId]);
-
-  const { loading, teamMembers } = useSelector((state) => state.teamMember);
 
   const handleCheck = (memberId) => {
     if (checkedMember.includes(memberId)) {
@@ -46,6 +46,13 @@ const TeamPage = () => {
     setCheckAll(!checkAll);
   };
 
+  const handleDelete = () => {
+    dispatch(deleteBatchTeamMembers(teamId, checkedMember));
+    setCheckAll(false);
+    setCheckedMember([]);
+    setShowDeleteAll(false);
+  };
+
   return (
     <div className="teamPageContainer">
       <h2>Team Members</h2>
@@ -57,7 +64,13 @@ const TeamPage = () => {
         {' '}
         { checkedMember.length > 0 ? (
           <>
-            <ButtonGroupItem borderColor="#9c503d" color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white">
+            <ButtonGroupItem
+              borderColor="#9c503d"
+              color="#9c503d"
+              hoverBorderColor="#9c503d"
+              hoverColor="white"
+              onClick={() => setShowDeleteAll(true)}
+            >
               <RiDeleteBin6Line />
               {' '}
               {checkedMember.length}
@@ -103,6 +116,32 @@ const TeamPage = () => {
             closeModal={() => setShowCreateForm(false)}
           />
         </Modal.Body>
+      </Modal>
+
+      {/* A modal for showing confirm delete message */}
+      <Modal show={showDeleteAll}>
+        <Modal.Header className="modalHeader">
+          <Modal.Title> Delete Publications </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete
+          {' '}
+          {checkedMember.length}
+          {' '}
+          team member(s)?
+        </Modal.Body>
+        <Modal.Footer>
+          <PrimaryButton variant="light" onClick={() => setShowDeleteAll(false)}>
+            {' '}
+            Cancel
+            {' '}
+          </PrimaryButton>
+          <DangerButton variant="danger" onClick={handleDelete}>
+            {' '}
+            Confirm
+            {' '}
+          </DangerButton>
+        </Modal.Footer>
       </Modal>
     </div>
   );
