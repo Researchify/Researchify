@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
-import profilePicture from '../../../../../shared/images/profilepic.jpg';
+import profilePic from '../../../../../shared/images/profilepic.jpg';
 
 const TeamMemberMobile = ({ teamMembers }) => {
   const [hoveredMember, setHoveredMember] = useState(null);
@@ -14,6 +14,11 @@ const TeamMemberMobile = ({ teamMembers }) => {
   const handleMouseLeave = () => {
     setHoveredMember(null);
   };
+
+  if (member.memberPic === undefined) {
+    member.memberPic = profilePic; // eslint-disable-line no-param-reassign
+  }
+
 
   return (
     teamMembers.map((member, index) => (
@@ -35,7 +40,7 @@ const TeamMemberMobile = ({ teamMembers }) => {
             height: 'auto', minWidth: '150px', maxWidth: '150px',
           }}
           >
-            <Card.Img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={profilePicture} />
+            <Card.Img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={member.memberPic} />
           </div>
           <div>
             <Card.Body>
