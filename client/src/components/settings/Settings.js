@@ -7,7 +7,8 @@ import React, { useState, useEffect } from 'react';
 import {
   Form, Container, Image,
 } from 'react-bootstrap';
-import './ProfileInfoEdit.css';
+import './Settings.css';
+import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
@@ -16,16 +17,13 @@ import GhLogInModal from './GhLogInModal';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 
 /**
-<<<<<<< HEAD:client/src/components/profileInfoEdit/ProfileInfoEdit.js
   * Form component for user update profile
   */
-let deleteFlag = false;
-const ProfileInfoEdit = () => {
-=======
+
  * Form component for user update profile
  */
+let deleteFlag = false;
 const Settings = () => {
->>>>>>> main:client/src/components/settings/Settings.js
   const dispatch = useDispatch();
   const [resetAlert, setResetAlert] = useState(false);
   const [logInAlert, setLogInAlert] = useState(false);
@@ -84,7 +82,6 @@ const Settings = () => {
     }
     setValidated(true);
   };
-<<<<<<< HEAD:client/src/components/profileInfoEdit/ProfileInfoEdit.js
   const checkLogin = () => {
     const accessToken = localStorage.getItem('GH_access_token');
     if (accessToken === null) {
@@ -93,12 +90,6 @@ const Settings = () => {
   };
   const setDelete = (flag) => {
     deleteFlag = flag;
-=======
-
-  const profileDeleted = () => {
-    // TODO: Delete profile function is not implemented yet in Settings.js
-    toast.error('Profile has not been deleted');
->>>>>>> main:client/src/components/settings/Settings.js
   };
 
   return (
@@ -209,9 +200,4 @@ const Settings = () => {
     </>
   );
 };
-<<<<<<< HEAD:client/src/components/profileInfoEdit/ProfileInfoEdit.js
-export default ProfileInfoEdit;
-=======
-
 export default Settings;
->>>>>>> main:client/src/components/settings/Settings.js

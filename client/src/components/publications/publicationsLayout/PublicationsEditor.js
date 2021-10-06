@@ -1,5 +1,7 @@
 import React from 'react';
-import { Dropdown, Row, Col } from 'react-bootstrap';
+import {
+  Dropdown, Row, Col, OverlayTrigger, Popover,
+} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
@@ -10,7 +12,6 @@ import { PrimaryButton } from '../../shared/styledComponents';
 
 export const StyledButtonGroup = styled.div`
   background-color: transparent;
-  border-radius: 0;
   padding: 5px;
   color: black;
 `;
@@ -28,6 +29,7 @@ export const ButtonGroupItem = styled.button`
   &:hover{
     background: ${(props) => props.hoverBorderColor || 'lightgrey'};
     color: ${(props) => props.hoverColor};
+    border: ${(props) => props.hoverBorderColor || 'lightgrey'};
   }
   ${({ press }) => (press
     && 'color: #4d4d4d; background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'
@@ -36,13 +38,11 @@ export const ButtonGroupItem = styled.button`
 `;
 
 export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
-    padding: .375rem .75rem;
     border: 1px solid #56658a;
     border-radius: .25rem;
     background-color: #56658a;
     color: white;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    font-size: ${(props) => props.fontSize};
   &:not(:disabled){
     background-color:#56658a !important;
   }
@@ -51,28 +51,19 @@ export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
   }
 `;
 
-// export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Gold
-//     padding: .375rem .75rem;
-//     border: 1px solid #AB9671;
-//     border-radius: .25rem;
-//     border-color: #AB9671;
-//     background-color: #AB9671;
-//     color: white;
-//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-//     font-size: ${(props) => props.fontSize};
-//   &:not(:disabled){
-//     background-color:#AB9671 !important;
-//   }
-//   &:not(:disabled):hover{
-//     background-color:rgb(119, 105, 79) !important;
-//   }
-// `;
-
 export const StyledDropdowItem = styled(Dropdown.Item)`
   &:not(:disabled):hover{
     background-color:#F6F6F6 !important;
   }
 `;
+
+const ButtonHint = (props) => (
+  <Popover id="strong-pw-hint" {...props}>
+    <Popover.Content>
+      Update your publications sorting and group by options in the deployed website
+    </Popover.Content>
+  </Popover>
+);
 
 const PublicationsEditor = ({
   options,
@@ -90,81 +81,78 @@ const PublicationsEditor = ({
   };
   return (
     <Row>
-      <Col md={1} sm={2}>
-        <StyledButtonGroup>
-          <Dropdown>
-            <StyledDropdownToggle size="sm">
-              Add
-            </StyledDropdownToggle>
-            <Dropdown.Menu>
-              <StyledDropdowItem onClick={() => setShowCreateForm(true)}>Add Manually</StyledDropdowItem>
-              <StyledDropdowItem onClick={() => setShowImportForm(true)}>Import Publications</StyledDropdowItem>
-            </Dropdown.Menu>
-          </Dropdown>
-        </StyledButtonGroup>
+      <Col md={3} sm={3} style={{ marginBottom: '10px' }}>
+        <Dropdown>
+          <StyledDropdownToggle style={{ whiteSpace: 'normal' }}>
+            Add Publication(s)
+          </StyledDropdownToggle>
+          <Dropdown.Menu>
+            <StyledDropdowItem onClick={() => setShowCreateForm(true)}>Add Manually</StyledDropdowItem>
+            <StyledDropdowItem onClick={() => setShowImportForm(true)}>Import Publications</StyledDropdowItem>
+          </Dropdown.Menu>
+        </Dropdown>
       </Col>
 
-      <Col md={4} sm={4}>
-        <StyledButtonGroup>
-          Group By
-          {' '}
-          {Object.keys(groupByOptions).map((groupBy) => (
+      <Col md={{ span: 6, offset: 1 }} sm={{ span: 6, offset: 1 }}>
+        <Row>
+          <StyledButtonGroup style={{ marginLeft: '12px' }}>
+            Group By
+            {' '}
+            {Object.keys(groupByOptions).map((groupBy) => (
+              <ButtonGroupItem
+                color="grey"
+                press={options.groupBy === groupByOptions[groupBy]}
+                key={groupBy}
+                onClick={() => setOptions({ ...options, groupBy: groupByOptions[groupBy] })}
+              >
+                {groupByOptions[groupBy]}
+              </ButtonGroupItem>
+            ))}
+          </StyledButtonGroup>
+          <StyledButtonGroup style={{ marginLeft: '12px' }}>
+            Sort By
+            {' '}
+            {Object.keys(sortingOptions).map((sortBy) => (
+              <ButtonGroupItem
+                color="grey"
+                press={options.sortBy === sortingOptions[sortBy]}
+                key={sortBy}
+                value={sortingOptions[sortBy]}
+                onClick={(e) => {
+                  setOptions({ ...options, sortBy: sortingOptions[sortBy] });
+                  sortPublications(publications, e.target.value);
+                }}
+              >
+                {sortingOptions[sortBy]}
+              </ButtonGroupItem>
+            ))}
+            {options.groupBy === groupByOptions.CATEGORY
+            && (
             <ButtonGroupItem
               color="grey"
-              press={options.groupBy === groupByOptions[groupBy]}
-              key={groupBy}
-              onClick={() => setOptions({ ...options, groupBy: groupByOptions[groupBy] })}
-            >
-              {groupByOptions[groupBy]}
-            </ButtonGroupItem>
-          ))}
-        </StyledButtonGroup>
-      </Col>
-
-      <Col md={5} sm={4}>
-        <StyledButtonGroup>
-          Sort By
-          {' '}
-          {Object.keys(sortingOptions).map((sortBy) => (
-            <ButtonGroupItem
-              color="grey"
-              press={options.sortBy === sortingOptions[sortBy]}
-              key={sortBy}
-              value={sortingOptions[sortBy]}
+              press={options.sortBy === 'Category Title'}
+              value="Category Title"
               onClick={(e) => {
-                setOptions({ ...options, sortBy: sortingOptions[sortBy] });
+                setOptions({ ...options, sortBy: e.target.value });
                 sortPublications(publications, e.target.value);
               }}
             >
-              {sortingOptions[sortBy]}
+              Category Title
             </ButtonGroupItem>
-          ))}
-          {options.groupBy === groupByOptions.CATEGORY
-                && (
-                <ButtonGroupItem
-                  color="grey"
-                  press={options.sortBy === 'Category Title'}
-                  value="Category Title"
-                  onClick={(e) => {
-                    setOptions({ ...options, sortBy: e.target.value });
-                    sortPublications(publications, e.target.value);
-                  }}
-                >
-                  Category Title
-                </ButtonGroupItem>
-                )}
-        </StyledButtonGroup>
+            )}
+          </StyledButtonGroup>
+        </Row>
       </Col>
 
       <Col md={2} sm={2}>
-        <StyledButtonGroup>
+        <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ButtonHint}>
           <PrimaryButton
-            fontSize="0.875rem"
+            className="float-right"
             onClick={handleUpdate}
           >
             Update Layout
           </PrimaryButton>
-        </StyledButtonGroup>
+        </OverlayTrigger>
       </Col>
     </Row>
   );

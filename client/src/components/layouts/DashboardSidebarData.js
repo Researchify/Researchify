@@ -45,16 +45,6 @@ const DashboardSidebarData = () => {
       link: '/achievement',
       name: 'ACHIEVEMENTS',
     },
-    {
-      title: 'Account',
-      icon: <BsPerson />,
-      link: '/dashboard/profile',
-    },
-    {
-      title: 'Logout',
-      icon: <BsBoxArrowLeft />,
-      action: () => setLogoutAlert(true),
-    },
   ];
 
   const pagesAdded = useSelector((state) => state.website.pages);

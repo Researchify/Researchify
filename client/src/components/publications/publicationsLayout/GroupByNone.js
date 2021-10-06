@@ -58,7 +58,7 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
       <div className="publicationList">
         <Row>
           <Col>
-            <div style={{ padding: '10px', fontSize: '15px' }}>
+            <div style={{ padding: '10px', fontSize: '17px' }}>
               <input type="checkbox" checked={checkedCounter === teamPublications.length} onChange={handleChange} />
               {' '}
               { checkedCounter > 0 ? (
@@ -77,9 +77,9 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
             </div>
           </Col>
           <Col>
-            <h5 className="text-center">
+            <h4 className="text-center">
               {groupBy || ' '}
-            </h5>
+            </h4>
           </Col>
           <Col>
             <div className="float-right">

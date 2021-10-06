@@ -36,7 +36,7 @@ const App = () => {
 
   return (
     <>
-      <Toaster position="bottom-center" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       <BrowserRouter>
         <NotificationToaster />
         { logIn ? <PrivateRoute /> : <PublicRoute /> }

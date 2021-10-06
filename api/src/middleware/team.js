@@ -7,10 +7,18 @@ const { body, validationResult } = require('express-validator');
 const Team = require('../models/team.model');
 const { fillErrorObject } = require('./error');
 
+/**
+ * Middleware that validates a team id supplied in the request's parameters.
+ * Once validated, the team is attached to the request object for use by
+ * the next middleware.
+ *
+ * @param req request object
+ * @param res response object
+ * @param next handler to the next middleware
+ */
 async function validateTeamId(req, res, next) {
   const { teamId } = req.params;
-  const foundTeam = await Team.findById(teamId)
-    .select('_id teamName orgName email teamMembers');
+  const foundTeam = await Team.findById(teamId);
 
   if (foundTeam == null) {
     return next(
