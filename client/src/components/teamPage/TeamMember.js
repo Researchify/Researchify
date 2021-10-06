@@ -4,10 +4,10 @@
 
 import {
   Card,
-  Row,
-  Col,
   Image,
   Modal,
+  Row,
+  Col,
 } from 'react-bootstrap';
 import { useState } from 'react';
 import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
@@ -54,23 +54,22 @@ const TeamMember = ({ member }) => {
         onBlur={handleMouseLeave}
         id="team-card"
         style={{
-          margin: '8px', minWidth: '550px', maxWidth: '550px', height: '100%', backgroundColor: isHovering ? 'rgb(231, 229, 229)' : '#f8f9fa',
+          margin: '15px', minWidth: '350px', maxWidth: '350px', height: '100%', backgroundColor: isHovering ? 'rgb(231, 229, 229)' : '#f8f9fa',
         }}
       >
         <Row>
-          <Col md={3}>
+          <Col md={{ span: 4, offset: 3 }} xs={{ span: 4, offset: 3 }}>
             <Image
               src={profilePic}
               roundedCircle
               height="130px"
               width="130px"
-              style={{ alignSelf: 'center', margin: '10px' }}
+              style={{ alignSelf: 'center', marginTop: '10px', marginLeft: '15px' }}
             />
-
           </Col>
-          <Col md={9}>
+          <Col>
             {
-                isHovering
+              isHovering
               && (
               <StyledButtonGroup className="float-right" style={{ margin: '5px' }}>
                 <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
@@ -80,15 +79,16 @@ const TeamMember = ({ member }) => {
               </StyledButtonGroup>
               )
               }
-            <Card.Body>
-              <Card.Title>{member.fullName}</Card.Title>
-              <Card.Subtitle className=" mb-2 text-muted">
-                {member.position}
-              </Card.Subtitle>
-              <Card.Text>{member.summary}</Card.Text>
-            </Card.Body>
           </Col>
         </Row>
+
+        <Card.Body>
+          <Card.Title className="text-center">{member.fullName}</Card.Title>
+          <Card.Subtitle className="text-center mb-2 text-muted">
+            {member.position}
+          </Card.Subtitle>
+          <Card.Text className="text-center">{member.summary}</Card.Text>
+        </Card.Body>
       </Card>
 
       <Modal show={showUpdateForm} id="teamMemberModal">
