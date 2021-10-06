@@ -61,7 +61,7 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
         <Row>
           <Col md={8}>
             <input style={{ marginTop: '12px', marginLeft: '12px' }} type="checkbox" checked={checkedMember.includes(member._id)} />
-            <Card.Body style={{ paddingRight: '2px' }}>
+            <Card.Body style={{ paddingRight: '2px', paddingTop: '5px' }}>
               <Card.Title>{member.fullName}</Card.Title>
               <Card.Subtitle className=" mb-2 text-muted">
                 {member.position}
