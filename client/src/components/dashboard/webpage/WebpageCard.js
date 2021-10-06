@@ -11,12 +11,14 @@ const WebpageCard = ({
   return (
     <>
       <Form.Group>
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '17rem' }}>
           <Card.Body>
-            <Form.Check type="checkbox" onChange={handleChange} />
-            <Card.Title>
-              {page}
-            </Card.Title>
+            <div style={{ display: 'flex' }}>
+              <Form.Check type="checkbox" onChange={handleChange} />
+              <Card.Title>
+                {page}
+              </Card.Title>
+            </div>
             <Card.Text>
               {description}
             </Card.Text>
