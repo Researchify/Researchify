@@ -16,6 +16,12 @@ import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 const AchievementForm = ({ closeModal, achievement, type }) => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
+  const year = new Date().getFullYear();
+  const years = Array.from(
+    new Array(year - 1899),
+    (val, index) => year - index,
+  );
+
   const validationSchema = yup.object({
     title: yup
       .string()
@@ -90,16 +96,18 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
           <Form.Group>
             <Form.Label>Year</Form.Label>
             <Form.Control
-              type="text"
+              as="select"
               name="yearAwarded"
               placeholder="YYYY"
               value={values.yearAwarded}
               onChange={handleChange}
-              isInvalid={touched.yearAwarded && errors.yearAwarded}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.yearAwarded}
-            </Form.Control.Feedback>
+            >
+              {years.map((eachYear) => (
+                <option key={eachYear} value={eachYear}>
+                  {eachYear}
+                </option>
+              ))}
+            </Form.Control>
           </Form.Group>
           <Form.Group>
             <Form.Label>Description</Form.Label>
