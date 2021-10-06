@@ -64,15 +64,19 @@ const WebpageSelector = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row xs={1} md={2} className="g-4">
-            {availPages.map((pageName) => (
-              <WebpageCard
-                page={pageName}
-                description={pageDescriptions[pageName]}
-                handlePageSelection={handlePageSelection}
-              />
-            ))}
-          </Row>
+          <div style={{ margin: 'auto', width: '74%' }}>
+            <Row xs={1} md={2} className="g-4">
+              {availPages.map((pageName) => (
+
+                <WebpageCard
+                  page={pageName}
+                  description={pageDescriptions[pageName]}
+                  handlePageSelection={handlePageSelection}
+                />
+
+              ))}
+            </Row>
+          </div>
           <PrimaryButton
             className="float-right"
             disabled={displayButton}
