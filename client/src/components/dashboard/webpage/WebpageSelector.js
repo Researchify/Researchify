@@ -54,7 +54,7 @@ const WebpageSelector = ({
     setAvailPages(pages.filter(
       (page) => !currentWebPages.includes(page),
     ));
-  }, [pages]);
+  }, [currentWebPages]);
 
   return (
     <>
