@@ -25,7 +25,7 @@ import {
 import './teamMember.css';
 import './teamPage.css';
 
-const TeamMember = ({ member }) => {
+const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
@@ -52,23 +52,25 @@ const TeamMember = ({ member }) => {
         onFocus={handleMouseOver}
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
+        onClick={() => setCheckedMember(member._id)}
         id="team-card"
         style={{
           margin: '8px', minWidth: '550px', maxWidth: '550px', height: '100%', backgroundColor: isHovering ? 'rgb(231, 229, 229)' : '#f8f9fa',
         }}
       >
         <Row>
-          <Col md={3}>
-            <Image
-              src={profilePic}
-              roundedCircle
-              height="130px"
-              width="130px"
-              style={{ alignSelf: 'center', margin: '10px' }}
-            />
+          <Col md={8}>
+            <input style={{ marginTop: '12px', marginLeft: '12px' }} type="checkbox" checked={checkedMember.includes(member._id)} />
+            <Card.Body style={{ paddingRight: '2px' }}>
+              <Card.Title>{member.fullName}</Card.Title>
+              <Card.Subtitle className=" mb-2 text-muted">
+                {member.position}
+              </Card.Subtitle>
+              <Card.Text>{member.summary}</Card.Text>
+            </Card.Body>
 
           </Col>
-          <Col md={9}>
+          <Col md={4}>
             {
                 isHovering
               && (
@@ -80,13 +82,16 @@ const TeamMember = ({ member }) => {
               </StyledButtonGroup>
               )
               }
-            <Card.Body>
-              <Card.Title>{member.fullName}</Card.Title>
-              <Card.Subtitle className=" mb-2 text-muted">
-                {member.position}
-              </Card.Subtitle>
-              <Card.Text>{member.summary}</Card.Text>
+            <Card.Body style={{ padding: '5px' }}>
+              <Image
+                src={profilePic}
+                roundedCircle
+                height="130px"
+                width="130px"
+                style={{ marginTop: !isHovering && '43px' }}
+              />
             </Card.Body>
+
           </Col>
         </Row>
       </Card>
@@ -131,6 +136,8 @@ const TeamMember = ({ member }) => {
 // props validation
 TeamMember.propTypes = {
   member: PropTypes.object.isRequired,
+  checkedMember: PropTypes.array.isRequired,
+  setCheckedMember: PropTypes.func.isRequired,
 };
 
 export default TeamMember;
