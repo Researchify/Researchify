@@ -5,7 +5,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { TEAM_HOMEPAGE, TEAM_INFO } from '../../../../global/data';
-import profilePicture from '../../../../shared/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
+import landingPicture from '../../../../shared/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
@@ -21,13 +21,15 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
-      <Container fluid className="pages-top-padding">
+      <Container fluid className="pages-top-padding pages-side-padding">
         <div className="landing-center-title">About Us</div>
-        {/* eslint-disable-next-line jsx-a11y/alt-text */}
-        <img src={profilePicture} align="left" className="left" />
-        {homepageData.aboutUs.map((paragraph) => (
-          <div className="landing-center-content">{paragraph}</div>
-        ))}
+        <Container fluid className="container-body">
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          <img src={landingPicture} align="left" className="left landing-image" style={{ width: '35%' }} />
+          {homepageData.aboutUs.map((paragraph) => (
+            <div className="landing-center-content">{paragraph}</div>
+          ))}
+        </Container>
       </Container>
     </>
   );

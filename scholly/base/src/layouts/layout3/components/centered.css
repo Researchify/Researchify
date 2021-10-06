@@ -10,6 +10,25 @@
   padding-top: 50px;
 }
 
+/* side padding for each page */
+.pages-side-padding {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+/* Break line between pages heading and body for each page */
+.container-body {
+  align-content: center;
+  justify-content: center;
+  border-top-style: solid;
+  border-top-color:grey;
+  border-width: 1px;
+  padding-top: 20px;
+  padding-left: 45px;
+  padding-right: 45px;
+  margin-top: 15px;
+}
+
 /* landing pages */
 .landing-carousel-img {
   height: 300px;
@@ -25,6 +44,9 @@
   height: 30%;
 }
 
+.landing-image {
+  padding-top: 24px;
+}
 .landing-center-title {
   text-align: center;
   padding-top: 25px;
@@ -35,7 +57,7 @@
 }
 
 .landing-center-content {
-  text-align: center;
+  text-align: left;
   padding-top: 20px;
   padding-left: 40px;
   padding-right: 40px;
@@ -162,7 +184,6 @@
 
 .team-member-name {
   font-weight: bold;
-  color: rgb(49, 49, 49);
   font-size: 18px;
 }
 
@@ -213,7 +234,6 @@
 
 .award-name {
   font-weight: bold;
-  color: rgb(49, 49, 49);
   font-size: 15px;
 }
 
