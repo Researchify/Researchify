@@ -4,11 +4,10 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import profilePicture from '../../../../shared/images/profilepic.jpg';
 
 const TeamMember = ({ member }) => (
   <Card className="team-card">
-    <Card.Img variant="top" src={profilePicture} />
+    <Card.Img variant="top" src={member.memberPic} />
     <Card.Body>
       <div className="member-name">{member.fullName}</div>
       <div className="member-position">{member.position}</div>
