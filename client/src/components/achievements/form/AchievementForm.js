@@ -36,13 +36,12 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
     description: yup
       .string()
       .required('Description is required')
-      .min(3, 'Description is at least 3 characters')
-      .max(500, 'Max 500 characters'),
+      .min(5, 'Description is at least 5 characters'),
   });
 
   const initValues = {
     title: '',
-    yearAwarded: '',
+    yearAwarded: year,
     description: '',
   };
 

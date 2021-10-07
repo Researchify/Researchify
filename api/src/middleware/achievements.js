@@ -17,7 +17,7 @@ const createAchievementValidation = [
     .escape(),
   body('description', 'Error: Description must be at least 5 characters.')
     .trim()
-    .isLength({ min: 5, max: 500 })
+    .isLength({ min: 5 })
     .escape(),
   body('yearAwarded', 'Error: Year awarded must be within 1000 to current year.')
     .isInt({ min: 1000, max: new Date().getFullYear() }),

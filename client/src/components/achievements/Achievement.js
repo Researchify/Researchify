@@ -7,77 +7,65 @@ import {
   Row,
   Col,
   Modal,
-  ButtonGroup,
-  OverlayTrigger,
 } from 'react-bootstrap';
-import { Button } from '@material-ui/core';
 import { useState } from 'react';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { IconContext } from 'react-icons';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import {
   DangerButton,
   SecondaryButton,
-  OptionEditButton,
-  RedDeleteButton,
 } from '../shared/styledComponents';
 import './form/achievementForm.css';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
+import { StyledButtonGroup, ButtonGroupItem } from '../publications/publicationsLayout/PublicationsEditor';
 
 const Achievement = ({ achievement }) => {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const handleDelete = () => {
     dispatch(deleteAchievement(achievement._id));
     setShowDeleteMessage(false);
   };
 
-  const displayOptions = (
-    <ButtonGroup>
-      <OptionEditButton
-        onClick={() => setShowUpdateForm(true)}
-        data-toggle="modal"
-      >
-        {' '}
-        <AiFillEdit />
-        {' '}
-      </OptionEditButton>
-      <RedDeleteButton
-        onClick={() => setShowDeleteMessage(true)}
-        data-toggle="modal"
-      >
-        <AiFillDelete />
-      </RedDeleteButton>
-    </ButtonGroup>
-  );
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
 
   return (
     <>
-      <Row id="achievement" className="container-fluid mt-4">
+      <Row
+        id="achievement"
+        className="container-fluid mt-4"
+        onMouseOver={handleMouseOver}
+        onFocus={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+        onBlur={handleMouseLeave}
+      >
         <Card id="card">
           <Card.Header as="h5" id="card-header">
             <Row>
               <Col id="achievementTitle">{achievement.title}</Col>
-              <Col md={{ span: 1 }}>
-                <OverlayTrigger
-                  rootClose
-                  trigger="click"
-                  placement="bottom"
-                  overlay={displayOptions}
-                >
-                  <Button variant="default">
-                    <IconContext.Provider
-                      value={{ color: 'white', size: '20px' }}
-                    >
-                      <BsThreeDotsVertical />
-                    </IconContext.Provider>
-                  </Button>
-                </OverlayTrigger>
+              <Col md={{ span: 3 }}>
+                {
+                  isHovering
+                && (
+                <StyledButtonGroup className="float-right" style={{ padding: '1px' }}>
+                  <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
+                  <ButtonGroupItem color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+                    <RiDeleteBin6Line />
+                  </ButtonGroupItem>
+                </StyledButtonGroup>
+                )
+                }
               </Col>
             </Row>
           </Card.Header>
