@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
+import '../Dashboard.css';
 
 const WebpageCard = ({
   page, description, handlePageSelection,
 }) => {
-  const handleChange = () => {
+  const [selected, setSelected] = useState(false);
+
+  const handleClick = () => {
+    setSelected(!selected);
     handlePageSelection(page);
   };
+
   return (
     <>
       <Form.Group>
-        <Card style={{ width: '17rem' }}>
+        <Card
+          className={selected === true ? 'selected-card' : 'card'}
+          style={{ width: '17rem', 'border-radius': '13px' }}
+          onClick={handleClick}
+        >
           <Card.Body>
             <div style={{ display: 'flex' }}>
-              <Form.Check type="checkbox" onChange={handleChange} />
               <Card.Title>
                 {page}
               </Card.Title>
