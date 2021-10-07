@@ -76,7 +76,7 @@
 
 .publication-title {
   font-size: large;
-  text-align: center;
+  text-align: left;
   font-weight: 600;
 }
 
@@ -92,19 +92,20 @@
 .publication-card {
   border: transparent;
   padding-bottom: 15px;
-  text-align: center;
+  text-align: left;
 }
 
 .pub-category-above-title {
   font-style: italic;
   font-size: medium;
-  text-align: center;
+  text-align: left;
   font-weight: 450;
 }
 
 .pub-year-below-title {
-  font-size: smaller;
-  text-align: center;
+  font-style: italic;
+  text-align: left;
+  padding-top: 1px;
 }
 
 .pub-body-subheader {

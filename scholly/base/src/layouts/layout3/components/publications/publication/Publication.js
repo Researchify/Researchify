@@ -17,14 +17,18 @@ const Publication = ({ pub }) => {
         className="publication-title-column"
       >
         <div className="pub-category-above-title">{pub.category.type}</div>
-        <div className="publication-title">
-          {' '}
-          {pub.title}
-        </div>
-        <div className="pub-year-below-title">
-          {' '}
-          {pub.yearPublished}
-          {' '}
+        <div className="row">
+          <div className="pub-year-below-title col-md-auto">
+            {pub.yearPublished}
+          </div>
+          <div className="col">
+            <div className="publication-title row">
+              {pub.title}
+            </div>
+            <div className="row">
+              {pub.authors.map((author) => `${author}`).join(', ')}
+            </div>
+          </div>
         </div>
         <Button variant="" className="button-pub" onClick={() => setModalShow(true)}>
           View this Publication
