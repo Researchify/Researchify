@@ -149,6 +149,7 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
       type: CREATE_TEAM_MEMBER,
       payload: data,
     });
+    dispatch(successMessageCreator('Team member has been created'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -169,6 +170,7 @@ export const updateTeamMember = (id, teamMember) => async (dispatch) => {
       type: UPDATE_TEAM_MEMBER,
       payload: data,
     });
+    dispatch(successMessageCreator('Team member has been updated'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -188,6 +190,7 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
       type: DELETE_TEAM_MEMBER,
       payload: memberId,
     });
+    dispatch(successMessageCreator('Team member has been deleted'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }

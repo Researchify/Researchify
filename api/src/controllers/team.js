@@ -191,6 +191,14 @@ function deleteTeamMember(req, res, next) {
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
+/**
+ * Handles a PATCH request to delete a list of team members by the mongo object id on the endpoint /team/:teamId/members/
+ *
+ * @param req request object - the list of team member ids given in the body
+ * @param res response object
+ * @returns 200: team members deleted successfully
+ * @returns 400: error deleting team members
+ */
 async function deleteBatchTeamMembers(req, res, next) {
   try {
     const { teamId } = req.params;
@@ -199,7 +207,7 @@ async function deleteBatchTeamMembers(req, res, next) {
       { _id: teamId },
       { $pull: { teamMembers: { _id: { $in: teamMemberIdList } } } },
       { new: true },
-      );
+    );
     return res.status(200).json(teamMemberIdList);
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
