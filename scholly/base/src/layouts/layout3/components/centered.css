@@ -85,6 +85,10 @@
   border: transparent;
 }
 
+.publication-category-info {
+  padding-left: 0px;
+}
+
 .publication-body-column {
   border: transparent;
 }
@@ -106,6 +110,7 @@
   font-style: italic;
   text-align: left;
   padding-top: 1px;
+  padding-right: 6px;
 }
 
 .pub-body-subheader {
@@ -116,7 +121,7 @@
 }
 
 .pub-body-content {
-  text-align: center;
+  text-align: left;
   font-size: medium;
   padding-bottom: 15px;
 }
