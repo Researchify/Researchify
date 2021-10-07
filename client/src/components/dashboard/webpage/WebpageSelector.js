@@ -70,6 +70,7 @@ const WebpageSelector = ({
             <Row xs={1} md={2} className="g-4">
               {availablePages.map((pageName) => (
                 <WebpageCard
+                  key={pageName}
                   page={pageName}
                   description={pageDescriptions[pageName]}
                   handlePageSelection={handlePageSelection}
