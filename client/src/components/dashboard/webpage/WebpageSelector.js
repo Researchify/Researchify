@@ -26,7 +26,8 @@ const WebpageSelector = ({
     } else {
       // eslint-disable-next-line no-param-reassign
       delete selectedPages[selectedPages.indexOf(page)]; // causes the element to be empty
-      console.log(selectedPages.filter((inPage) => pages.includes(inPage)));
+      // eslint-disable-next-line no-param-reassign
+      selectedPages = selectedPages.filter((inPage) => pages.includes(inPage));
     }
     setSelectedPages(selectedPages);
     if (selectedPages.length > 0) {
