@@ -15,6 +15,7 @@ import {
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
+  DELETE_BATCH_TEAM_MEMBERS,
 } from './types';
 import { login } from './auth';
 import {
@@ -294,6 +295,19 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
       payload: updatedTeam,
     });
     dispatch(successMessageCreator('Team has been updated'));
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
+  }
+};
+
+export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => async (dispatch) => {
+  try {
+    await api.deleteBatchTeamMembers(teamId, teamMemberIdList);
+    dispatch({
+      type: DELETE_BATCH_TEAM_MEMBERS,
+      payload: teamMemberIdList,
+    });
+    dispatch(successMessageCreator(`${teamMemberIdList.length} team member(s) have been deleted`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

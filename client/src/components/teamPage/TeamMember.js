@@ -25,7 +25,7 @@ import {
 import './teamMember.css';
 import './teamPage.css';
 
-const TeamMember = ({ member }) => {
+const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
@@ -52,6 +52,7 @@ const TeamMember = ({ member }) => {
         onFocus={handleMouseOver}
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
+        onClick={() => setCheckedMember(member._id)}
         id="team-card"
         style={{
           margin: '15px', minWidth: '350px', maxWidth: '350px', height: '100%', backgroundColor: isHovering ? 'rgb(231, 229, 229)' : '#f8f9fa',
@@ -131,6 +132,8 @@ const TeamMember = ({ member }) => {
 // props validation
 TeamMember.propTypes = {
   member: PropTypes.object.isRequired,
+  checkedMember: PropTypes.array.isRequired,
+  setCheckedMember: PropTypes.func.isRequired,
 };
 
 export default TeamMember;
