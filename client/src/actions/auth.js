@@ -44,14 +44,13 @@ export const login = (authData, setFieldError) => async (dispatch) => {
 
 /**
  * This action creator will be called when a pwd needs to be reset
- * @returns an action of type RESET_PWD.
+ *
  */
 export const resetPassword = (email) => async (dispatch) => {
   try {
     await api.resetPwd(email);
-    dispatch({
-      type: LOG_IN_SUCCESS,
-    });
+    // eslint-disable-next-line
+    console.log("success");
     dispatch(successMessageCreator('Password successfully reset'));
   } catch (err) {
     if (err) {

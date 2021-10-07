@@ -90,31 +90,31 @@ function logout(req, res) {
  * @returns 200: reset pwd successfully
  * @returns 404: error occur
  */
-async function resetPwd(req, res) {
+async function resetPwd(req, res,next) {
   const { email: email } = req.params;
 
 
   var password = generator.generate({
     length: 10,
     numbers: true,
-    symbols: true,
+    symbols: false,
     strict: true
   });
-
+  password = password + '$';
   var transporter;
   var mailOptions;
-
+  const salt = await bcrypt.genSalt();
+  password = await bcrypt.hash(password, salt);
   try {
       const foundTeam = await Team.findOne({ email: email });
-      console.log(foundTeam);
-      const salt = await bcrypt.genSalt();
-      const password = await bcrypt.hash(password, salt);
+      //console.log(foundTeam);
+      //console.log(password);
       const updatedTeam = await Team.findByIdAndUpdate(foundTeam._id, {password}, {
         new: true,
         runValidators: true,
       });
       updatedTeam.password = '';
-
+      //console.log(updatedTeam);
       transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -141,7 +141,7 @@ async function resetPwd(req, res) {
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       return next(
-        fillErrorObject(500, 'Server error', [error]),
+        fillErrorObject(500, 'Server error', [info]),
       );
   }});
   return res.status(200);
