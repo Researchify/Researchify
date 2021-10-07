@@ -191,22 +191,20 @@ function deleteTeamMember(req, res, next) {
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
 
-
 async function deleteBatchTeamMembers(req, res, next) {
   try {
     const { teamId } = req.params;
     const teamMemberIdList = req.body;
     await Team.findOneAndUpdate(
       { _id: teamId },
-      { $pull: { teamMembers: { _id: { $in:teamMemberIdList }}}},
-      { new: true }
+      { $pull: { teamMembers: { _id: { $in: teamMemberIdList } } } },
+      { new: true },
       );
     return res.status(200).json(teamMemberIdList);
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err.errors]));
   }
 }
-
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:teamId endpoint.
