@@ -12,6 +12,12 @@
 
 /* side padding for each page */
 .pages-side-padding {
+  padding-left: 95px;
+  padding-right: 95px;
+}
+
+/* side padding for publications page */
+.page-publications-side-padding {
   padding-left: 35px;
   padding-right: 35px;
 }
@@ -23,10 +29,23 @@
   border-top-style: solid;
   border-top-color:grey;
   border-width: 1px;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-left: 45px;
   padding-right: 45px;
   margin-top: 15px;
+}
+
+/* Break line between pages heading and body for publication page */
+.publication-container-body {
+  align-content: center;
+  justify-content: center;
+  border-top-style: solid;
+  border-top-color:grey;
+  border-width: 1px;
+  padding-top: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+  margin-top: 16px;
 }
 
 /* landing pages */
@@ -97,6 +116,10 @@
   border: transparent;
   padding-bottom: 15px;
   text-align: left;
+}
+
+.publication-row {
+  padding-top: 10px;
 }
 
 .pub-category-above-title {
@@ -203,8 +226,8 @@
 }
 
 .team-card-container {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 110px;
+  padding-right: 110px;
 }
 
 .team-card {
@@ -235,7 +258,7 @@
 }
 
 #achievementImage {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .award-name {

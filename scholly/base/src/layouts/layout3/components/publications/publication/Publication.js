@@ -9,9 +9,9 @@ const Publication = ({ pub }) => (
     as={Card.Header}
     eventKey={pub._id}
     className="row mb-2"
-    style={{ width: '70%' }}
+    style={{ width: '100%' }}
   >
-    <div className="row">
+    <div className="publication-row row">
       <div className="pub-year-below-title col-md-auto">
         {pub.yearPublished}
       </div>
@@ -19,7 +19,7 @@ const Publication = ({ pub }) => (
         <div className="publication-title row">
           {pub.title}
         </div>
-        <div className=" row">
+        <div className="row">
           {
             pub.category.categoryTitle && (
             <div className="publication-category-info" style={{ fontStyle: 'italic' }}>

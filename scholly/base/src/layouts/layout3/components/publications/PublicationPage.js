@@ -25,9 +25,9 @@ const PublicationPage = () => {
           {' '}
         </title>
       </Helmet>
-      <Container className="pages-top-padding pages-side-padding mt-3 mb-3">
+      <Container className="pages-top-padding page-publications-side-padding mt-3 mb-3">
         <div className="publication-pg-title">Our Publications</div>
-        <Container fluid>
+        <Container fluid className="publication-container-body">
           <Publications />
         </Container>
       </Container>
