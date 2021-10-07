@@ -18,7 +18,7 @@ const WebpageCard = ({
       <Form.Group>
         <Card
           className={selected === true ? 'selected-card' : 'card'}
-          style={{ width: '17rem', 'border-radius': '13px' }}
+          style={{ width: '17rem', borderRadius: '13px' }}
           onClick={handleClick}
         >
           <Card.Body>
