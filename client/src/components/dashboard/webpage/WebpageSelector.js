@@ -11,7 +11,7 @@ import { PrimaryButton } from '../../shared/styledComponents';
 import ConditionalWrapper from '../../shared/ConditionalWrapper';
 
 const WebpageSelector = ({
-  currentWebPages, teamId, closeModal, displayModal,
+  currentWebPages, teamId, closeModal, displayModal, selectedPages, setSelectedPages,
 }) => {
   const dispatch = useDispatch();
 
@@ -20,13 +20,13 @@ const WebpageSelector = ({
   // To control disabling the 'Next' Button in the pop-up
   const [displayButton, setDisplayButton] = useState(true);
 
-  const [selectedPages, setSelectedPages] = useState([]);
-
   const handlePageSelection = (page) => {
     if (!selectedPages.includes(page)) {
       selectedPages.push(page);
     } else {
-      selectedPages.pop(page);
+      // eslint-disable-next-line no-param-reassign
+      delete selectedPages[selectedPages.indexOf(page)]; // causes the element to be empty
+      console.log(selectedPages.filter((inPage) => pages.includes(inPage)));
     }
     setSelectedPages(selectedPages);
     if (selectedPages.length > 0) {
@@ -110,6 +110,8 @@ WebpageSelector.propTypes = {
   teamId: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   displayModal: PropTypes.bool.isRequired,
+  selectedPages: PropTypes.array.isRequired,
+  setSelectedPages: PropTypes.func.isRequired,
 };
 
 export default WebpageSelector;

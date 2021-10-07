@@ -28,9 +28,11 @@ const Webpages = ({
   const showDeleteModal = () => setDeleteModal(true);
   const closeDeleteModal = () => setDeleteModal(false);
 
+  const [selectedPages, setSelectedPages] = useState([]);
+
   const [displayPageModal, setDisplayPageModal] = useState(false);
   const showDisplayPageModal = () => setDisplayPageModal(true);
-  const closeDisplayPageModal = () => setDisplayPageModal(false);
+  const closeDisplayPageModal = () => { setSelectedPages([]); setDisplayPageModal(false); };
 
   const [disableAddButton, setDisableAddButton] = useState(false);
 
@@ -70,6 +72,8 @@ const Webpages = ({
         currentWebPages={currentWebPages}
         displayModal={displayPageModal}
         closeModal={closeDisplayPageModal}
+        selectedPages={selectedPages}
+        setSelectedPages={setSelectedPages}
       />
       <div className="mb-3 text-center">
         <ConditionalWrapper
