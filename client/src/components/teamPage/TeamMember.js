@@ -45,6 +45,12 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
     setIsHovering(false);
   };
 
+  // prevent clicking on inner div calling the outer div onclick function
+  const childCallback = (event) => {
+    event.stopPropagation();
+    return false;
+  };
+
   return (
     <>
       <Card
@@ -53,6 +59,7 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
         id="team-card"
+        onClick={() => setCheckedMember(member._id)}
         style={{
           margin: '15px', minWidth: '350px', maxWidth: '350px', height: '100%', backgroundColor: isHovering ? 'rgb(231, 229, 229)' : '#f8f9fa',
         }}
@@ -60,7 +67,6 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
         <Row>
           <Col md={3} xs={3}>
             <input
-              onClick={() => setCheckedMember(member._id)}
               style={{ marginTop: '12px', marginLeft: '12px' }}
               type="checkbox"
               checked={checkedMember.includes(member._id)}
@@ -79,7 +85,7 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
             {
               isHovering
               && (
-              <StyledButtonGroup className="float-right" style={{ margin: '5px' }}>
+              <StyledButtonGroup onClick={childCallback} className="float-right" style={{ margin: '5px' }}>
                 <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
                 <ButtonGroupItem color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
                   <RiDeleteBin6Line />
