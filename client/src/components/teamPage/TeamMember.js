@@ -52,14 +52,21 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
         onFocus={handleMouseOver}
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
-        onClick={() => setCheckedMember(member._id)}
         id="team-card"
         style={{
           margin: '15px', minWidth: '350px', maxWidth: '350px', height: '100%', backgroundColor: isHovering ? 'rgb(231, 229, 229)' : '#f8f9fa',
         }}
       >
         <Row>
-          <Col md={{ span: 4, offset: 3 }} xs={{ span: 4, offset: 3 }}>
+          <Col md={3} xs={3}>
+            <input
+              onClick={() => setCheckedMember(member._id)}
+              style={{ marginTop: '12px', marginLeft: '12px' }}
+              type="checkbox"
+              checked={checkedMember.includes(member._id)}
+            />
+          </Col>
+          <Col md={4} xs={4}>
             <Image
               src={profilePic}
               roundedCircle
