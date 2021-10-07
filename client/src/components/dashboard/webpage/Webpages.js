@@ -19,8 +19,8 @@ const Webpages = ({
   currentWebPages,
   directToAnotherPage,
   teamId,
-  setSelectedPage,
-  selectedPage,
+  setPageToDelete,
+  pageToDelete,
   availablePages,
   loading,
 }) => {
@@ -54,7 +54,7 @@ const Webpages = ({
   }, [currentWebPages]);
 
   const promptDeleteConfirmation = (pageName) => {
-    setSelectedPage(pageName);
+    setPageToDelete(pageName);
     showDeleteModal();
   };
 
@@ -62,10 +62,10 @@ const Webpages = ({
     <>
       <WebpageDelete
         teamId={teamId}
-        selectedPage={selectedPage}
+        selectedPage={pageToDelete}
         displayModal={displayDeleteModal}
         closeModal={closeDeleteModal}
-        setSelectedPage={setSelectedPage}
+        setSelectedPage={setPageToDelete}
       />
       <WebpageSelector
         teamId={teamId}
@@ -166,8 +166,8 @@ Webpages.propTypes = {
   currentWebPages: PropTypes.array.isRequired,
   directToAnotherPage: PropTypes.func.isRequired,
   teamId: PropTypes.string.isRequired,
-  setSelectedPage: PropTypes.func.isRequired,
-  selectedPage: PropTypes.string.isRequired,
+  setPageToDelete: PropTypes.func.isRequired,
+  pageToDelete: PropTypes.string.isRequired,
   availablePages: PropTypes.array.isRequired,
   loading: PropTypes.bool,
 };
