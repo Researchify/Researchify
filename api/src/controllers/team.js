@@ -384,13 +384,9 @@ async function deployToGHPages(req, res, next) {
 async function resetTeamData(req, res, next) {
   try {
     const { teamId } = req.params;
-    const { isDeleteFlag } = req.body;
     await Achievement.deleteMany({ teamId });
     await Publication.deleteMany({ teamId });
-    if (isDeleteFlag) {
-      await Team.findByIdAndDelete(teamId);
-      return res.status(200).json('Deleted successfully.');
-    } return res.status(200).json('Cleared successfully.');
+    return res.status(200).json('Cleared successfully.');
   } catch (error) {
     return next(
       fillErrorObject(500, 'Error occurred with server', [error.message]),

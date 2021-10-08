@@ -320,6 +320,15 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
   }
 };
 
+export const deleteTeam = (teamId) => async (dispatch) => {
+  try {
+    await await api.deleteTeam(teamId);
+    dispatch(successMessageCreator('Your account data has been Deleted.'));
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
+  }
+};
+
 /**
  * This action creator will be called when a user want to delete their account
  *
@@ -327,12 +336,9 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
  * @param {*} teamData data object of the data to be deleted
  * @returns
  */
-export const resetTeamData = (teamId, isDelete) => async (dispatch) => {
+export const resetTeamData = (teamId) => async (dispatch) => {
   try {
-    const body = {
-      isDeleteFlag: isDelete,
-    };
-    await api.resetTeamData(teamId, body);
+    await api.resetTeamData(teamId);
     dispatch({
       type: DELETE_TEAM_PUBLICATIONS,
     });

@@ -97,7 +97,7 @@ teamRouter.patch(
   teamController.updateTeam,
 );
 
-teamRouter.post(
+teamRouter.delete(
   '/:teamId/resetTeamData',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
