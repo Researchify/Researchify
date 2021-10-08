@@ -19,7 +19,25 @@ require('./config/log');
 // Create Express server
 const app = express();
 
-// Connect to the database
-connectDb();
+// Use cors and express.json and cookie parser
+app.use(cors());
+app.use(express.json({ limit: '30mb', extended: true })); // express.json() parses requests with json payloads and uses "body-parser"
+app.use(express.urlencoded({ limit: '30mb', extended: true }));
+app.use(cookieParser());
+
+// "Welcome" route
+app.get('/', (req, res) => res.send('You have reached the Researchify API'));
+
+// Use the routes
+app.use('/publications', publicationsRouter);
+app.use('/team', teamRouter);
+app.use('/auth', authRouter);
+app.use('/theme', themeRouter);
+app.use('/clientWebsite', websiteRouter);
+app.use('/achievements', achievementsRouter);
+app.use('/homepage', homepageRouter);
+
+// Use the custom error handling middleware
+app.use(errorHandler);
 
 module.exports = app;
