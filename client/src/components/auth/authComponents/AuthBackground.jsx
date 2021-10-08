@@ -35,8 +35,8 @@ const AuthBackground = ({ form }) => {
       <div style={styles.form}>
         {form}
       </div>
-      <div className="area">
-        <ul className="circles">
+      <div className="auth-area">
+        <ul className="auth-circles">
           {boxes().map((i) => (
             <li key={i} />
           ))}

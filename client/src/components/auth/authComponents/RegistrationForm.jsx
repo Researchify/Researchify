@@ -2,46 +2,65 @@
  * This file exports a Registration Form component used to display registration input.
  */
 
-import React, { useEffect } from 'react';
-import { Col, Form, Jumbotron } from 'react-bootstrap';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  Col, Form, Jumbotron, OverlayTrigger, Popover,
+} from 'react-bootstrap';
 import '../css/registration-form.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { BsQuestionCircle } from 'react-icons/bs';
 import { Button } from '@material-ui/core';
 import { createTeam } from '../../../actions/team';
 
-export default function RegistrationForm() {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const { logIn } = useSelector((state) => state.auth);
+/**
+ * Component that tell user the requirements of the password when hover.
+ * @param props This variable is needed to pass placement position
+ * @returns The tooltip/popover for password
+ * TODO: Moved this into an individual file to reduce line numbers
+ */
+const StringPasswordHint = (props) => (
+  <Popover id="strong-pw-hint" {...props}>
+    <Popover.Content>
+      Password must include:
+      <br />
+      {' '}
+      - 8-20 characters
+      <br />
+      {' '}
+      - At least 1 letter
+      <br />
+      {' '}
+      - At least 1 number
+    </Popover.Content>
+  </Popover>
+);
 
-  useEffect(() => {
-    if (logIn) {
-      history.push('/dashboard');
-    }
-  }, [history, logIn]);
+const RegistrationForm = () => {
+  const dispatch = useDispatch();
 
   const teamInfoSchema = yup.object({
     teamName: yup
       .string()
-      .required('Team Name is required')
+      .required('Team name is required')
       .min(3, 'Must be at least 3 characters'),
     orgName: yup
       .string()
-      .required('Organization Name is required')
+      .required('Organization name is required')
       .min(3, 'Must be at least 3 characters'),
     email: yup
       .string()
-      .email('Invalid Email')
+      .email('Invalid email')
       .required('Email is required'),
     password: yup
       .string()
-      .required('Please Enter your password')
+      .required('Please enter your password')
+      .min(8, 'Password must contain at least 8 characters')
+      .max(20, 'Password is too long')
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Use 8 or more characters with a mix of letters, numbers & symbols',
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/,
+        'Password must be 8 or more characters with a mix of letters and numbers',
       ),
     confirmedPassword: yup
       .string()
@@ -57,10 +76,11 @@ export default function RegistrationForm() {
     confirmedPassword: '',
   };
 
-  const submitForm = (values) => {
+  const submitForm = (values, { setFieldError }) => {
     const teamInfo = { ...values };
     delete teamInfo.confirmedPassword;
-    dispatch(createTeam(teamInfo));
+    // error message could be passed in the setFieldError function to show error on the form
+    dispatch(createTeam(teamInfo, setFieldError));
   };
 
   return (
@@ -77,6 +97,54 @@ export default function RegistrationForm() {
           handleSubmit, handleChange, values, touched, errors,
         }) => (
           <Form noValidate onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Label> Email address </Form.Label>
+              <Form.Control
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={values.email}
+                onChange={handleChange}
+                isInvalid={touched.email && errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.email}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>
+                Password
+                {'  '}
+                <OverlayTrigger trigger={['hover', 'focus']} placement="right" overlay={StringPasswordHint}>
+                  <BsQuestionCircle style={{ color: 'grey' }} />
+                </OverlayTrigger>
+              </Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={values.password}
+                onChange={handleChange}
+                isInvalid={touched.password && errors.password}
+              />
+              <Form.Control.Feedback type="invalid" style={{ whiteSpace: 'pre-wrap' }}>
+                {errors.password}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label> Confirm Password </Form.Label>
+              <Form.Control
+                type="password"
+                name="confirmedPassword"
+                placeholder="Password"
+                value={values.confirmedPassword}
+                onChange={handleChange}
+                isInvalid={touched.confirmedPassword && errors.confirmedPassword}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.confirmedPassword}
+              </Form.Control.Feedback>
+            </Form.Group>
             <Form.Row>
               <Form.Group as={Col} md="6">
                 <Form.Label> Team name </Form.Label>
@@ -107,48 +175,6 @@ export default function RegistrationForm() {
                 </Form.Control.Feedback>
               </Form.Group>
             </Form.Row>
-            <Form.Group>
-              <Form.Label> Email address </Form.Label>
-              <Form.Control
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={values.email}
-                onChange={handleChange}
-                isInvalid={touched.email && errors.email}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.email}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label> Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={values.password}
-                onChange={handleChange}
-                isInvalid={touched.password && errors.password}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.password}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label> Confirm Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="confirmedPassword"
-                placeholder="Password"
-                value={values.confirmedPassword}
-                onChange={handleChange}
-                isInvalid={touched.confirmedPassword && errors.confirmedPassword}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.confirmedPassword}
-              </Form.Control.Feedback>
-            </Form.Group>
             <div>
               <Button
                 id="submitButton"
@@ -165,4 +191,6 @@ export default function RegistrationForm() {
       </Formik>
     </Jumbotron>
   );
-}
+};
+
+export default RegistrationForm;

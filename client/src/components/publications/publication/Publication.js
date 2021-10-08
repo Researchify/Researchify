@@ -1,26 +1,25 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /**
  * The Publication component displays a single publication details
  */
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import {
-  Button,
   Modal,
-  OverlayTrigger,
-  ButtonGroup,
   Row,
   Col,
   Collapse,
 } from 'react-bootstrap';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { GrLinkDown, GrLinkUp } from 'react-icons/gr';
-import { IconContext } from 'react-icons';
+import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import { PropTypes } from 'prop-types';
 import PublicationForm from '../form/PublicationForm';
+import { StyledButtonGroup, ButtonGroupItem } from '../publicationsLayout/PublicationsEditor';
 import { deletePublication } from '../../../actions/publications';
+import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 import '../publications.css';
+import { SecondaryButton, DangerButton } from '../../shared/styledComponents';
 
 const Publication = ({ pub }) => {
   const dispatch = useDispatch();
@@ -28,80 +27,35 @@ const Publication = ({ pub }) => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [expand, setExpand] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const { checkedPublications } = useSelector((state) => state.publications);
 
   useEffect(() => {
-    if (pub.newlyAdded) {
-      delete pub.newlyAdded;
+    if (pub.isNewlyAdded) {
+      delete pub.isNewlyAdded;
       setInterval(() => {
         setNewlyAdded(false);
       }, 2500);
       setNewlyAdded(true);
     }
-  }, [pub.newlyAdded, pub._id]);
+  }, [pub]);
 
   const handleDelete = () => {
     dispatch(deletePublication(pub._id));
     setShowDeleteMessage(false);
   };
 
-  // Parameters are to remove warning when button is clicked.
-  // See PR#160 for more information.
-  const displayOptions = ({
-    placement,
-    scheduleUpdate,
-    arrowProps,
-    outOfBoundaries,
-    show,
-    ...props
-  }) => (
-    <ButtonGroup {...props}>
-      <Button
-        onClick={() => setShowUpdateForm(true)}
-        variant="primary"
-        data-toggle="modal"
-      >
-        {' '}
-        <AiFillEdit />
-        {' '}
-      </Button>
-      <Button
-        onClick={() => setShowDeleteMessage(true)}
-        variant="danger"
-        data-toggle="modal"
-      >
-        <AiFillDelete />
-      </Button>
-    </ButtonGroup>
-  );
-
-  const displayUpArrow = () => (
-    expand && (
-    <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-      <GrLinkUp className="ml-3" />
-    </IconContext.Provider>
-    )
-  );
-
-  const displayDownArrow = () => (
-    !expand && (
-    <IconContext.Provider value={{ color: 'black', size: '25px' }}>
-      <GrLinkDown onClick={() => setExpand(!expand)} className="ml-2" />
-    </IconContext.Provider>
-    )
-  );
-
   const dropDown = (
     <Collapse in={expand}>
-      <div className="mb-3 ml-3 mr-2">
-        <h5>
+      <div className="pub" onClick={() => setExpand(!expand)}>
+        <div className="pubs-props">
           {' '}
           <b>Description:</b>
           {' '}
           {pub.description}
           {' '}
-        </h5>
-        <h5>
-          {' '}
+        </div>
+        <div className="pubs-props">
           <b>
             {pub.category.type.charAt(0)
               + pub.category.type.slice(1).toLowerCase()}
@@ -110,117 +64,131 @@ const Publication = ({ pub }) => {
           {' '}
           {pub.category.categoryTitle}
           {' '}
-        </h5>
+        </div>
         {pub.category.issue && (
-          <h5>
+          <div className="pubs-props">
             {' '}
             <b>Issue:</b>
             {' '}
             {pub.category.issue}
             {' '}
-          </h5>
+          </div>
         )}
         {pub.category.volume && (
-          <h5>
+          <div className="pubs-props">
             {' '}
             <b>Volume:</b>
             {' '}
             {pub.category.volume}
             {' '}
-          </h5>
+          </div>
         )}
         {pub.category.pages && (
-          <h5>
+          <div className="pubs-props">
             {' '}
             <b>Pages:</b>
             {' '}
             {pub.category.pages}
             {' '}
-          </h5>
+          </div>
         )}
         {pub.category.publisher && (
-          <h5>
+          <div className="pubs-props">
             {' '}
             <b>Publisher:</b>
             {' '}
             {pub.category.publisher}
             {' '}
-          </h5>
+          </div>
         )}
-        <Row>
-          <Col md={{ span: 1, offset: 11 }}>
-            <span
-              onClick={() => setExpand(!expand)}
-              onKeyPress={() => setExpand(!expand)} // usability, see WCAG 2.1.1
-              role="button"
-              tabIndex={0}
-            >
-              {displayUpArrow()}
-
-            </span>
-          </Col>
-        </Row>
       </div>
     </Collapse>
   );
 
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+
+  const handleCheck = () => {
+    if (checkedPublications.includes(pub._id)) {
+      dispatch({
+        type: UNCHECK_PUBLICATIONS,
+        payload: [pub._id],
+      });
+    } else {
+      dispatch({
+        type: CHECK_PUBLICATIONS,
+        payload: [pub._id],
+      });
+    }
+  };
+
   return (
-    <>
+    <div
+      className="publication-container mb-2"
+      onMouseOver={handleMouseOver}
+      onFocus={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+      onBlur={handleMouseLeave}
+    >
       <div
-        className={newlyAdded ? 'newlyAddedPublicationHeader' : 'modalHeader'}
+        className={newlyAdded ? 'newlyAddedPublicationHeader' : 'publicationHeader'}
       >
         <Row>
-          <Col md={11}>
-            <h3 className="ml-3 mt-3">
-              {pub.link ? (
-                <a href={pub.link} target="_blank" rel="noreferrer">
-                  {pub.title}
-                </a>
-              ) : (
-                pub.title
-              )}
-            </h3>
+          <Col md={10} onClick={handleCheck}>
+            <div style={{ display: 'flex' }}>
+              <div style={{ paddingTop: '10px', paddingLeft: '10px' }}>
+                <input type="checkbox" checked={checkedPublications.includes(pub._id) || false} onChange={handleCheck} />
+              </div>
+              <div className="pubs-title">
+                {pub.link ? (
+                  <a style={{ color: '#2b7bb9', textDecoration: 'underline' }} href={pub.link} target="_blank" rel="noreferrer">
+                    {pub.title}
+                  </a>
+                ) : (
+                  pub.title
+                )}
+              </div>
+            </div>
           </Col>
-          <Col md={1}>
-            <OverlayTrigger
-              rootClose
-              trigger="click"
-              placement="bottom"
-              overlay={displayOptions}
-            >
-              <Button className="mt-3 mb-3" variant="default">
-                <IconContext.Provider value={{ color: 'black', size: '20px' }}>
-                  <BsThreeDotsVertical />
-                </IconContext.Provider>
-              </Button>
-            </OverlayTrigger>
+          <Col md={2}>
+            {
+              isHovering
+            && (
+            <StyledButtonGroup className="float-right">
+              <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
+              <ButtonGroupItem color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+                <RiDeleteBin6Line />
+              </ButtonGroupItem>
+            </StyledButtonGroup>
+            )
+            }
           </Col>
         </Row>
       </div>
 
-      <div className={expand ? 'ml-3 mt-3' : 'ml-3 mt-3 mb-2'}>
-        <h5>
+      <div className="pub" onClick={() => setExpand(!expand)}>
+        <div className="pubs-props">
           <b> Authors: </b>
           {pub.authors.map((author) => `${author}`).join(', ')}
-        </h5>
-        <Row>
-          <Col md={11}>
-            <h5 className={expand ? '' : 'blur'}>
-              {' '}
-              <b>Year Published: </b>
-              {pub.yearPublished}
-              {' '}
-            </h5>
-          </Col>
-          <Col md={1}>{displayDownArrow()}</Col>
-        </Row>
+        </div>
+        <div className={expand ? 'pubs-props' : 'blur pubs-props'}>
+          {' '}
+          <b>Year Published: </b>
+          {pub.yearPublished}
+          {' '}
+        </div>
       </div>
 
       {dropDown}
 
       {/* A modal for showing update publication from */}
       <Modal show={showUpdateForm}>
-        <Modal.Header className="modalHeader">
+        <Modal.Header>
           <Modal.Title> Edit Publication </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -234,26 +202,26 @@ const Publication = ({ pub }) => {
 
       {/* A modal for showing confirm delete message */}
       <Modal show={showDeleteMessage}>
-        <Modal.Header className="modalHeader">
+        <Modal.Header>
           <Modal.Title> Delete Publication </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to delete this publication?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
+          <SecondaryButton onClick={() => setShowDeleteMessage(false)}>
             {' '}
             Cancel
             {' '}
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
+          </SecondaryButton>
+          <DangerButton onClick={handleDelete}>
             {' '}
             Confirm
             {' '}
-          </Button>
+          </DangerButton>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 

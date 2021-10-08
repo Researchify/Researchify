@@ -2,7 +2,6 @@
  * The PublicationPage component displays a list of publications and a twitter panel.
  */
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import { Helmet } from 'react-helmet';
 import { TEAM_INFO } from '../../../../global/data';
 // import Row from 'react-bootstrap/Row';
@@ -25,12 +24,7 @@ const PublicationPage = () => {
           {' '}
         </title>
       </Helmet>
-      <Container className="pages-top-padding text-center mt-3 mb-3">
-        <div className="publication-pg-title">Our Publications</div>
-      </Container>
-      <Container fluid>
-        <Publications />
-      </Container>
+      <Publications />
     </>
   );
 };

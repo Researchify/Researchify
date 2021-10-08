@@ -7,12 +7,11 @@ import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 // Pages
 import Dashboard from '../dashboard/Dashboard';
-import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
+import Settings from '../settings/Settings';
 import PublicationPage from '../publications/PublicationPage';
 import TeamPage from '../teamPage/TeamPage';
 import AchievementPage from '../achievements/AchievementPage';
-import ClientHomeEditor from '../clientHomeEditor/ClientHomeEditor';
-
+import ClientHomeEditorPage from '../clientHomeEditor/ClientHomeEditorPage';
 // Layout
 import DashboardLayoutRoute from '../layouts/dashboardLayout/DashboardLayoutRoute';
 import { logout } from '../../actions/auth';
@@ -37,7 +36,7 @@ const PrivateRoute = () => {
       <DashboardLayoutRoute
         path="/dashboard/profile"
         exact
-        component={ProfileInfoEdit}
+        component={Settings}
       />
       <DashboardLayoutRoute
         path="/publications"
@@ -49,7 +48,7 @@ const PrivateRoute = () => {
       <DashboardLayoutRoute
         path="/about-us"
         exact
-        component={ClientHomeEditor}
+        component={ClientHomeEditorPage}
       />
       {/*  If login, any other route not stated above will be redirect dashboard page */}
       <Redirect to="/dashboard" />

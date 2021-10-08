@@ -36,6 +36,9 @@ const Dashboard = () => {
       case 'HOME PAGE':
         history.push('/about-us');
         break;
+      case 'ACHIEVEMENTS':
+        history.push('/achievement');
+        break;
       default:
         history.push('/');
     }
@@ -61,7 +64,7 @@ const Dashboard = () => {
               loading={loading}
             />
           </Tab>
-          <Tab eventKey="theme" title="Theme">
+          <Tab eventKey="theme" title="Theme" className="pb-5">
             <TemplateSelector teamId={teamId} />
           </Tab>
         </Tabs>

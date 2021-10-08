@@ -6,11 +6,11 @@ import {
   Card,
   Row,
   Col,
-  Button,
   Image,
   Modal,
   ButtonGroup,
   OverlayTrigger,
+  Button,
 } from 'react-bootstrap';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
@@ -21,6 +21,14 @@ import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
 import profilePic from '../../images/profilepic.jpg';
+import {
+  SecondaryButton,
+  DangerButton,
+  OptionEditButton,
+  RedDeleteButton,
+} from '../shared/styledComponents';
+import './teamMember.css';
+import './teamPage.css';
 
 const TeamMember = ({ member }) => {
   const dispatch = useDispatch();
@@ -35,29 +43,29 @@ const TeamMember = ({ member }) => {
 
   const displayOptions = (
     <ButtonGroup>
-      <Button
+      <OptionEditButton
+        backgroundColor="white"
         onClick={() => setShowUpdateForm(true)}
-        variant="primary"
         data-toggle="modal"
       >
         {' '}
         <AiFillEdit />
         {' '}
-      </Button>
-      <Button
+      </OptionEditButton>
+      <RedDeleteButton
+        backgroundColor="white"
         onClick={() => setShowDeleteMessage(true)}
-        variant="danger"
         data-toggle="modal"
       >
         <AiFillDelete />
-      </Button>
+      </RedDeleteButton>
     </ButtonGroup>
   );
 
   return (
     <>
       <Col className="container-fluid mt-4">
-        <Card bg="light" style={{ width: '25rem', height: '100%' }}>
+        <Card id="team-card" bg="light" style={{ width: '25rem', height: '100%' }}>
           <Row>
             <Col md={{ span: 2, offset: 10 }}>
               <OverlayTrigger
@@ -68,7 +76,7 @@ const TeamMember = ({ member }) => {
               >
                 <Button variant="default">
                   <IconContext.Provider
-                    value={{ color: 'black', size: '20px' }}
+                    value={{ color: '#56658a', size: '20px' }}
                   >
                     <BsThreeDotsVertical />
                   </IconContext.Provider>
@@ -93,11 +101,11 @@ const TeamMember = ({ member }) => {
         </Card>
       </Col>
 
-      <Modal show={showUpdateForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> Edit Team Member </Modal.Title>
+      <Modal show={showUpdateForm} id="teamMemberModal">
+        <Modal.Header className="teamMemberModalHeader">
+          <Modal.Title className="teamMemberTitle"> Edit Team Member </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="teamMemberBody">
           <TeamMemberForm
             type="update"
             member={member}
@@ -106,24 +114,24 @@ const TeamMember = ({ member }) => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showDeleteMessage}>
-        <Modal.Header className="modalHeader">
+      <Modal show={showDeleteMessage} id="teamMemberModal">
+        <Modal.Header className="teamMemberModalHeader">
           <Modal.Title> Delete Team Member </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to delete this team member?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
+          <SecondaryButton onClick={() => setShowDeleteMessage(false)}>
             {' '}
             Cancel
             {' '}
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
+          </SecondaryButton>
+          <DangerButton variant="danger" onClick={handleDelete}>
             {' '}
             Confirm
             {' '}
-          </Button>
+          </DangerButton>
         </Modal.Footer>
       </Modal>
     </>

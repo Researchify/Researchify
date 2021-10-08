@@ -7,7 +7,6 @@ import * as yup from 'yup';
 import React from 'react';
 import {
   Row,
-  Button,
   Tooltip,
   OverlayTrigger,
   Form,
@@ -17,6 +16,7 @@ import {
 import { PropTypes } from 'prop-types';
 import { categoryTypes } from '../../../config/publications';
 import '../publications.css';
+import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 
 const CategoryPage = ({
   next, prev, data, closeModal,
@@ -109,6 +109,7 @@ const CategoryPage = ({
                     category.charAt(0) + category.slice(1).toLowerCase()
                   } title`)}
                 {' '}
+                <span style={{ color: 'red' }}>*</span>
               </Form.Label>
               <Form.Control
                 className="placeholder-text"
@@ -184,27 +185,25 @@ const CategoryPage = ({
                   placement="bottom"
                   overlay={renderTooltip}
                 >
-                  <Button
+                  <DangerButton
                     className="mr-2"
-                    variant="outline-danger"
                     onClick={closeModal}
                   >
                     Cancel
-                  </Button>
+                  </DangerButton>
                 </OverlayTrigger>
               </div>
 
               <div className="ml-auto mr-3">
-                <Button
-                  variant="outline-primary"
+                <PrimaryButton
                   className="mr-2"
                   onClick={() => prev(values)}
                 >
                   {' '}
                   Back
                   {' '}
-                </Button>
-                <Button type="submit"> Confirm </Button>
+                </PrimaryButton>
+                <PrimaryButton type="submit"> Confirm </PrimaryButton>
               </div>
             </Row>
           </Form>

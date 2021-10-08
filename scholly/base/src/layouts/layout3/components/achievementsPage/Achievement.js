@@ -4,20 +4,26 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { TEAM_ACHIEVEMENTS } from '../../../../global/data';
-import profilePicture from '../../../../shared/images/awardpic.jpg';
+import awardPicture from '../../../../shared/images/certificatepic.png';
 
-const teamAchievements = TEAM_ACHIEVEMENTS;
+let bgTheme = 'bg-secondary';
+const Achievement = ({ achievement }) => {
+  bgTheme = (bgTheme === 'bg-secondary') ? 'bg-light' : 'bg-secondary';
 
-const Achievement = ({ achievement }) => (
-  <Card style={{ display: 'flex', flexDirection: teamAchievements.indexOf(achievement) % 2 === 0 ? 'row' : 'row-reverse' }} className="team-card">
-    <Card.Img style={{ width: '210px' }} variant="top" src={profilePicture} />
-    <Card.Body>
-      <div className="award-name">{achievement.title}</div>
-      <div className="award-position">{achievement.yearAwarded}</div>
-      <div className="award-summary">{achievement.description}</div>
-    </Card.Body>
-  </Card>
-);
+  return (
+    <div className="row mb-2" style={{ width: '70%' }}>
+      <div className="row g-0" id="achievementImage">
+        <div className="col-md-auto h-100">
+          <Card.Img variant="top" src={awardPicture} style={{ height: '60px', width: '60px' }} />
+        </div>
+        <div className="col achievementBody">
+          <div className="fontx award-name d-block w-100 text-left">{achievement.title}</div>
+          <div className="award-year d-block w-100 text-left">{achievement.yearAwarded}</div>
+          <div className="award-summary d-block w-100 text-left">{achievement.description}</div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Achievement;

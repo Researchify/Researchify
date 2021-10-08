@@ -1,14 +1,25 @@
 /**
- * This module connects to the database and starts up the Express REST API server.
+ * This module configures and exports an Express REST API server.
  */
-const app = require('./app');
-const connectDb = require('./config/db');
-const logger = require('./config/log');
+const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
-const PORT = process.env.PORT || 5000;
+const publicationsRouter = require('./routes/publications');
+const teamRouter = require('./routes/team');
+const authRouter = require('./routes/auth');
+const themeRouter = require('./routes/theme');
+const websiteRouter = require('./routes/website');
+const achievementsRouter = require('./routes/achievements');
+const homepageRouter = require('./routes/homepage');
+const { errorHandler } = require('./middleware/error');
+require('./config/log');
+
+// Create Express server
+const app = express();
 
 // Connect to the database
 connectDb();
 
-// Listen for connections
-app.listen(PORT, () => logger.info(`Server running on port: ${PORT}`));
+module.exports = app;

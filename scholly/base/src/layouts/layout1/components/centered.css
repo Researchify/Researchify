@@ -62,7 +62,6 @@
 
 .publication-card {
   border: transparent;
-  padding-bottom: 15px;
 }
 
 .pub-category-above-title {
@@ -167,7 +166,6 @@
   justify-content: center;
 }
 
-
 .award-card {
   border: transparent;
   min-width: 210px;
@@ -188,5 +186,4 @@
 .award-summary {
   padding-top: 15px;
   text-align: center;
-
 }

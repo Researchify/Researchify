@@ -26,14 +26,20 @@ import {
  * Create a new team to database.
  * @param teamInfo contains teamName, orgName and email
  */
-export const createTeam = (teamInfo) => async (dispatch) => {
+export const createTeam = (teamInfo, setFieldError) => async (dispatch) => {
   try {
     await api.createTeam(teamInfo);
-    dispatch(successMessageCreator('Team has been created')); // showing a success notification
     const authData = { email: teamInfo.email, password: teamInfo.password };
     dispatch(login(authData));
+    dispatch(successMessageCreator('Team has been created')); // showing a success notification
   } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
+    // only show pop up error if it's not a client error, otherwise, show the error on the form instead
+    if (err.response.status === 400) {
+      // assuming the only client error is 'Email had been registered'
+      setFieldError('email', 'Email has been registered');
+    } else {
+      dispatch(errorActionGlobalCreator(err));
+    }
   }
 };
 
@@ -224,7 +230,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
     // get team homepage content
     const { data: teamHomepage } = await api.getHomepage(teamId);
     // get user selected web pages to deploy
-    const { data: webPages } = await api.getWebsiteInfo(teamId);
+    const { data: teamSiteMetadata } = await api.getWebsiteInfo(teamId);
     // get achievements
     const { data: teamAchievements } = await api.fetchAchievementsByTeamId(teamId);
 
@@ -234,7 +240,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       teamInfo,
       teamMembers,
       teamHomepage,
-      webPages,
+      teamSiteMetadata,
       teamAchievements,
     };
 
@@ -288,30 +294,6 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
       payload: updatedTeam,
     });
     dispatch(successMessageCreator('Team has been updated'));
-  } catch (error) {
-    dispatch(errorActionGlobalCreator(error));
-  }
-};
-
-/**
- * This action creater find/create a new theme and update it in team data.
- * @param {*} teamId
- * @param {*} themeData
- * @returns
- */
-export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
-  try {
-    const updatedTheme = await api.findOrCreateTheme(themeData);
-    const updatedThemeId = updatedTheme.data._id;
-    const { data } = await api.updateTeam(teamId, {
-      themeId: updatedThemeId,
-    });
-    const updatedTeam = teamDataAllocator(data);
-    dispatch({
-      type: UPDATE_TEAM,
-      payload: updatedTeam,
-    });
-    dispatch(successMessageCreator('Theme has been updated'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

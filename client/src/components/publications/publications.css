@@ -1,54 +1,81 @@
+.publicationPageContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
 .publicationList {
   width: 100%;
   max-width: 1200px;
   margin: auto;
   margin-bottom: 40px;
   margin-top: 20px;
-  border: solid rgb(96, 96, 97);
   border-width: thin;
   border-color: rgb(212, 207, 205);
 }
-
-.publicationListHeader {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-  margin-bottom: 10px;
-}
-
 .newlyAddedPublicationHeader {
   background-color: rgb(60, 179, 113);
 }
 
-.modalHeader {
+.publicationHeader {
   background-color: rgb(240, 240, 240);
+  border: 1px solid rgb(240, 240, 240);
+}
+
+.publicationHeader:hover {
+  background-color: rgb(231, 229, 229);
+  border: 1px solid rgb(240, 240, 240);
 }
 
 .blur {
   background: -webkit-linear-gradient(#333, #eee);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-bottom: 3px;
 }
 
 .placeholder-text::placeholder {
   color: #a9a9a9;
 }
 
-.pub-page-pub-col {
-  width: 80%;
-  float: left;
+.pubs-props {
+  font-size: 16px;
+  padding-left: 15px;
+  padding-top: 5px;
+  color: #535151;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-.pub-page-tweet-col {
-  float: right;
-  width: 20%;
-  height: inherit;
-  max-width: 333px;
-  padding: 16px;
+.pubs-title {
+  font-size: 19px;
+  padding: 10px;
+  font-weight: 500;
+  color: black;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-@media screen and (max-width: 1024px) {
-  .pub-page-tweet-col {
-    display: none !important;
-  }
+.pub {
+  background-color: white;
+}
+
+.pub:hover {
+  cursor: pointer;
+}
+
+.publication-container {
+  border: 2px solid rgb(214, 214, 214);
+  border-width: thin;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.publication-editor {
+  box-shadow: 0 4px 2px -2px gray;
+  z-index: 3;
+  width: 100%;
+  max-width: 1200px;
 }

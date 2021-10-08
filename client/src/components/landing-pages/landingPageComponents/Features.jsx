@@ -12,7 +12,7 @@ import { featuresData } from '../data/landing-page-labels';
 // icons
 
 const FlippingCard = ({
-  logo, title, description, classes,
+  logo, title, description, classes, isMobile,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -31,7 +31,7 @@ const FlippingCard = ({
               {' '}
               {logo}
             </Box>
-            <Box fontSize="h5.fontSize" margin={2} color="secondary.main">
+            <Box fontSize={isMobile ? 'h6.fontSize' : 'h5.fontSize'} margin={!isMobile && 2} color="secondary.main">
               {title}
             </Box>
             <Button
@@ -73,9 +73,9 @@ const Features = () => {
       flexGrow: 1,
     },
     paper: {
-      height: isMobile ? 100 : 250,
-      width: isMobile ? 100 : 250,
-      padding: '2rem',
+      height: isMobile ? 160 : 250,
+      width: isMobile ? 160 : 250,
+      padding: isMobile ? '1rem' : '2rem',
     },
     container: {
       width: isMobile ? 'inherit' : '80vw',
@@ -112,7 +112,7 @@ const Features = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container justify="center" spacing={isMobile ? 5 : 10}>
+          <Grid container justifyContent="center" spacing={isMobile ? 5 : 10}>
             {featuresData.map(({ logo, title, description }) => (
               <FlippingCard
                 logo={logo}
@@ -120,6 +120,7 @@ const Features = () => {
                 description={description}
                 classes={classes}
                 key={title}
+                isMobile={isMobile}
               />
             ))}
           </Grid>
@@ -135,6 +136,7 @@ FlippingCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 export default Features;

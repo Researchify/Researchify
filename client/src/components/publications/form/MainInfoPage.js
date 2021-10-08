@@ -15,6 +15,7 @@ import {
 } from 'react-bootstrap';
 import '../publications.css';
 import { PropTypes } from 'prop-types';
+import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 
 const MainInfoPage = ({
   next, data, type, pub, closeModal,
@@ -57,7 +58,9 @@ const MainInfoPage = ({
   );
 
   const renderAuthors = (values, touched, errors, handleChange, setValues) => values.authors.map((author, index) => (
-    <InputGroup key={author}>
+    //  ↓↓ need to use index as key, will cause the author field lose focus when typing if use author as key
+    // eslint-disable-next-line react/no-array-index-key
+    <InputGroup key={index}>
       <Form.Control
         className="placeholder-text"
         type="text"
@@ -105,7 +108,11 @@ const MainInfoPage = ({
         }) => (
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
-              <Form.Label>Publication Title</Form.Label>
+              <Form.Label>
+                Publication Title
+                {' '}
+                <span style={{ color: 'red' }}>*</span>
+              </Form.Label>
               <Form.Control
                 className="placeholder-text"
                 as="textarea"
@@ -122,7 +129,11 @@ const MainInfoPage = ({
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Published Year</Form.Label>
+              <Form.Label>
+                Published Year
+                {' '}
+                <span style={{ color: 'red' }}>*</span>
+              </Form.Label>
               <Form.Control
                 className="placeholder-text"
                 as="select"
@@ -140,20 +151,30 @@ const MainInfoPage = ({
             </Form.Group>
 
             <Form.Group>
-              <Form.Label> Authors </Form.Label>
+              <Form.Label>
+                {' '}
+                Authors
+                {' '}
+                <span style={{ color: 'red' }}>*</span>
+              </Form.Label>
               {renderAuthors(values, touched, errors, handleChange, setValues)}
               <Button
+                className="mt-2"
                 variant="secondary"
                 onClick={() => {
                   setValues({ ...values, authors: [...values.authors, ''] });
                 }}
               >
-                Add Author
+                Add More Author
               </Button>
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Description</Form.Label>
+              <Form.Label>
+                Description
+                {' '}
+                <span style={{ color: 'red' }}>*</span>
+              </Form.Label>
               <Form.Control
                 className="placeholder-text"
                 as="textarea"
@@ -192,21 +213,20 @@ const MainInfoPage = ({
                   placement="bottom"
                   overlay={renderTooltip}
                 >
-                  <Button
+                  <DangerButton
                     className="mr-2"
-                    variant="outline-danger"
                     onClick={closeModal}
                   >
                     Cancel
-                  </Button>
+                  </DangerButton>
                 </OverlayTrigger>
               </div>
               <div className="ml-auto mr-3">
-                <Button variant="outline-primary" type="submit">
+                <PrimaryButton type="submit">
                   {' '}
                   Next
                   {' '}
-                </Button>
+                </PrimaryButton>
               </div>
             </Row>
           </Form>

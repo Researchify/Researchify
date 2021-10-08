@@ -6,10 +6,12 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Row, Button, Tooltip, OverlayTrigger, Form,
+  Row, Tooltip, OverlayTrigger, Form,
 } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import { updateAchievement, createAchievement } from '../../../actions/achievements';
+import './achievementForm.css';
+import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 
 const AchievementForm = ({ closeModal, achievement, type }) => {
   const dispatch = useDispatch();
@@ -122,21 +124,20 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
                 placement="bottom"
                 overlay={renderTooltip}
               >
-                <Button
+                <DangerButton
                   className="mr-2"
-                  variant="outline-danger"
                   onClick={closeModal}
                 >
                   Cancel
-                </Button>
+                </DangerButton>
               </OverlayTrigger>
             </div>
             <div className="ml-auto mr-3">
-              <Button variant="primary" type="submit">
+              <PrimaryButton type="submit">
                 {' '}
                 Confirm
                 {' '}
-              </Button>
+              </PrimaryButton>
             </div>
           </Row>
         </Form>
