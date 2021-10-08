@@ -136,6 +136,12 @@
   padding-right: 6px;
 }
 
+.pub-pdf-link {
+  text-align: left;
+  padding-left: 0px;
+  padding-right: 6px;
+}
+
 .pub-body-subheader {
   text-align: center;
   font-style: italic;

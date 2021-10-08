@@ -12,8 +12,19 @@ const Publication = ({ pub }) => (
     style={{ width: '100%' }}
   >
     <div className="publication-row row">
-      <div className="pub-year-below-title col-md-auto">
-        {pub.yearPublished}
+      <div className="col-md-auto">
+        <div className="pub-year-below-title row">
+          {pub.yearPublished}
+        </div>
+        <div className="row">
+          {
+            pub.link && (
+              <div className="pub-pdf-link">
+                <a style={{ fontSize: '16px' }} href={pub.link} target="_blank" rel="noreferrer">PDF</a>
+              </div>
+            )
+          }
+        </div>
       </div>
       <div className="col">
         <div className="publication-title row">
