@@ -22,17 +22,14 @@
   padding-right: 35px;
 }
 
-/* Break line between pages heading and body for each page */
+/* Body for each page */
 .container-body {
   align-content: center;
   justify-content: center;
-  border-top-style: solid;
-  border-top-color:grey;
-  border-width: 1px;
-  padding-top: 10px;
+  padding-top: 30px;
   padding-left: 45px;
   padding-right: 45px;
-  margin-top: 15px;
+  padding-bottom: 40px;
 }
 
 /* Break line between pages heading and body for publication page */
@@ -65,6 +62,7 @@
 
 .landing-image {
   padding-top: 24px;
+  padding-left: 40px;
 }
 .landing-center-title {
   text-align: center;
@@ -81,6 +79,19 @@
   padding-left: 40px;
   padding-right: 40px;
   font-size: medium;
+}
+
+.recent-publications-title {
+  text-align: left;
+  padding-top: 25px;
+  font-weight: bolder;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: xx-large;
+}
+
+.recent-publications-body {
+  padding-left: 50px;
 }
 
 /* publication page */
