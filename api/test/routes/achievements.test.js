@@ -1,6 +1,5 @@
 /**
  * Tests the achievements controller
- * 
  */
 const supertest = require('supertest');
 
