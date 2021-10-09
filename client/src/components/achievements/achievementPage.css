@@ -1,13 +1,14 @@
 .achievementPageContainer {
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    margin-bottom: 40px;
-    margin-top: 20px;
-  }
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
 
 #achievementTitle {
   margin-top: 0.8%;
+  margin-left: 5px;
 }
 
 #yearAwarded {
@@ -25,15 +26,14 @@
 }
 
 #card {
-    border-radius: 15px;
-    border-color: #56658a;
-
+  border-radius: 15px;
+  border-color: #56658a;
 }
 
 #card-header {
   background-color: #56658a;
   color: #ffffff;
-  border-top-left-radius: 13px;  
+  border-top-left-radius: 13px;
   border-top-right-radius: 13px;
   border-color: #56658a;
 }

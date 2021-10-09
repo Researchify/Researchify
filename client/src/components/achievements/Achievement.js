@@ -21,11 +21,13 @@ import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
 import { StyledButtonGroup, ButtonGroupItem } from '../publications/publicationsLayout/PublicationsEditor';
 
-const Achievement = ({ achievement }) => {
+const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement }) => {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+
+  console.log(checkedAchievement);
 
   const handleDelete = () => {
     dispatch(deleteAchievement(achievement._id));
@@ -49,18 +51,28 @@ const Achievement = ({ achievement }) => {
         onFocus={handleMouseOver}
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
+        onClick={() => setCheckedAchievement(achievement._id)}
       >
         <Card id="card">
           <Card.Header as="h5" id="card-header">
             <Row>
-              <Col id="achievementTitle">{achievement.title}</Col>
+              <Col>
+                <div style={{ display: 'flex' }}>
+                  <div style={{ paddingTop: '5px' }}>
+                    <input type="checkbox" checked={checkedAchievement.includes(achievement._id)} />
+                  </div>
+                  <div id="achievementTitle">
+                    {achievement.title}
+                  </div>
+                </div>
+              </Col>
               <Col md={{ span: 3 }}>
                 {
                   isHovering
                 && (
                 <StyledButtonGroup className="float-right" style={{ padding: '1px' }}>
                   <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
-                  <ButtonGroupItem color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+                  <ButtonGroupItem color="#dc3545" hoverBorderColor="#dc3545" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
                     <RiDeleteBin6Line />
                   </ButtonGroupItem>
                 </StyledButtonGroup>
@@ -124,6 +136,8 @@ const Achievement = ({ achievement }) => {
 // props validation
 Achievement.propTypes = {
   achievement: PropTypes.object.isRequired,
+  checkedAchievement: PropTypes.array.isRequired,
+  setCheckedAchievement: PropTypes.func.isRequired,
 };
 
 export default Achievement;

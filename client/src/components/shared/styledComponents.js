@@ -80,6 +80,10 @@ export const DangerButton = styled.button`
     background-color: #dc3545;
     color: white;
   }
+  &:disabled{
+    pointer-events: none;
+    opacity: .65;
+  }
 `;
 
 export const OptionEditButton = styled.button` // Blue with a darker blue background when hovering
