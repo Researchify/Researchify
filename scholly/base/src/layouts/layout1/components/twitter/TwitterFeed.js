@@ -5,16 +5,17 @@ import React from 'react';
 import { Timeline } from 'react-twitter-widgets';
 import './TwitterFeed.css';
 
-const TwitterFeed = ({ linkedHandle, themeOption }) => {
+const TwitterFeed = ({ linkedHandle, themeOption, twitterHeight }) => {
   let borderColour = '#000000';
   if (themeOption === 'dark') {
     borderColour = '#ffffff';
   }
+  console.log(twitterHeight);
   return (
     <div className="twitter-feed">
       <Timeline
         dataSource={{ sourceType: 'profile', screenName: linkedHandle }}
-        options={{ theme: themeOption, height: 600, borderColor: borderColour }}
+        options={{ theme: themeOption, height: twitterHeight, borderColor: borderColour }}
       />
     </div>
   );

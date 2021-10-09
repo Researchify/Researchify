@@ -1,7 +1,7 @@
 /**
  * This file output landing page (homepage) of client-site.
  */
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Row, Col, Accordion, Container,
 } from 'react-bootstrap';
@@ -18,7 +18,12 @@ const landingPage = () => {
   const themeOption = TEAM_SITE_METADATA.template.theme;
   const { teamName, twitterHandle } = TEAM_INFO;
   const pubs = TEAM_PUBLICATIONS;
+  const [height, setHeight] = useState(0);
+  const ref = useRef(null);
 
+  useEffect(() => {
+    setHeight(ref.current.clientHeight);
+  });
   return (
     <>
       <Helmet>
@@ -31,18 +36,18 @@ const landingPage = () => {
         </title>
       </Helmet>
       <Container fluid className="pages-top-padding">
-        <div className="landing-center-title">
-          Welcome to
-          {' '}
-          {teamName}
-          !
-        </div>
-        {homepageData.aboutUs.map((paragraph) => (
-          <div className="landing-center-content">{paragraph}</div>
-        ))}
-        <Container fluid>
-          <Row className="recent-publication-section">
-            <Col md={twitterHandle ? 9 : 12}>
+        <Row>
+          <Col md={twitterHandle ? 9 : 12}>
+            <div ref={ref}>
+              <div className="landing-center-title">
+                Welcome to
+                {' '}
+                {teamName}
+                !
+              </div>
+              {homepageData.aboutUs.map((paragraph) => (
+                <div className="landing-center-content">{paragraph}</div>
+              ))}
               <div className="recent-pub-title">
                 RECENT PUBLICATIONS
               </div>
@@ -51,22 +56,24 @@ const landingPage = () => {
                   (VIEW ALL PAPERS)
                 </Link>
               </div>
-              {pubs.slice(0, 6).map((pub) => (
-                <Accordion>
-                  <Publication pub={pub} key={pub._id} />
-                </Accordion>
-              ))}
+              <div className="recent-publication">
+                {pubs.slice(0, 5).map((pub) => (
+                  <Accordion>
+                    <Publication pub={pub} key={pub._id} />
+                  </Accordion>
+                ))}
+              </div>
+
+            </div>
+          </Col>
+          {
+            twitterHandle && (
+            <Col md={3} className=" d-flex justify-content-end news-section">
+              <TwitterFeed linkedHandle={twitterHandle} themeOption={themeOption} twitterHeight={height - 90} />
             </Col>
-            {
-              twitterHandle && (
-              <Col md={3}>
-                <div className="recent-pub-title">NEWS</div>
-                <TwitterFeed linkedHandle={twitterHandle} themeOption={themeOption} />
-              </Col>
-              )
-            }
-          </Row>
-        </Container>
+            )
+          }
+        </Row>
       </Container>
     </>
   );

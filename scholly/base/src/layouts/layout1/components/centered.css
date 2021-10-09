@@ -28,11 +28,12 @@
 }
 
 .landing-center-content {
-  text-align: center;
+  text-align: left;
   padding-top: 20px;
   padding-left: 40px;
   padding-right: 40px;
   font-size: medium;
+  max-width: 1300px;
 }
 
 /* publication page */
@@ -191,6 +192,18 @@
   padding-left: 40px;
   padding-right: 40px;
   font-size: xx-large;
+}
+.news-section
+{
+  padding-bottom: 25px;
+  max-width: 500px;
+}
+.recent-publication
+{
+  max-width: 1300px;
+  align-items: center;
+  justify-content: center;
+  padding-left: 40px;
 }
 .recent-publication-link
 {
