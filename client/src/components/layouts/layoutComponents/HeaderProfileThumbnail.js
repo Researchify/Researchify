@@ -19,7 +19,7 @@ const HeaderProfileThumbnail = React.forwardRef(({ children, onClick }, ref) => 
 ));
 
 HeaderProfileThumbnail.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 export default HeaderProfileThumbnail;

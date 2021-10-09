@@ -10,7 +10,6 @@ import getRoutes from './components/router/routes';
 import './components/centered.css';
 import '../../shared/css/style.css';
 import '../../shared/css/baseColours.css';
-import MobileTopBar from './components/layout/MobileTopBar';
 import FooterMenu from './components/layout/FooterMenu';
 import ScrollIntoView from './components/layout/ScrollIntoView';
 import DesktopTopBar from './components/layout/DesktopTopBar';
@@ -42,7 +41,6 @@ const App = () => {
   }, []);
 
   const styles = {
-    mobiletopBarHeight: 40,
     desktoptopBarHeight: 60,
     footerMenuHeight: 50,
     showFooterMenuText: width > 500,
@@ -52,10 +50,10 @@ const App = () => {
   };
 
   const contentStyle = {
-    paddingTop: styles.showSidebar ? 20 : styles.mobiletopBarHeight + 10,
-    paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 10,
-    paddingRight: styles.showSidebar ? 20 : 10,
-    paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 10,
+    paddingTop: 15,
+    paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
+    paddingRight: 20,
+    paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20,
     width: '1200px',
   };
 
@@ -65,7 +63,6 @@ const App = () => {
     const View = component;
     return (
       <Route exact={exact} path={path} key={path}>
-        {!styles.showSidebar && <MobileTopBar styles={styles} title={title} />}
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div style={contentStyle}>
             {styles.showSidebar && <DesktopTopBar styles={styles} title={title} />}

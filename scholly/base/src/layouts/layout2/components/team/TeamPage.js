@@ -34,10 +34,10 @@ const TeamPage = () => {
         </title>
       </Helmet>
       {
-          width > 768
-            ? <TeamMemberDesktop teamMembers={teamMembers} />
-            : <TeamMemberMobile teamMembers={teamMembers} />
-        }
+        width > 768
+          ? <TeamMemberDesktop teamMembers={teamMembers} />
+          : <TeamMemberMobile teamMembers={teamMembers} />
+      }
     </>
   );
 };
