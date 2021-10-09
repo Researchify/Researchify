@@ -22,7 +22,7 @@ const landingPage = () => {
   const ref = useRef(null);
 
   useEffect(() => {
-    setHeight(ref.current.clientHeight);
+    setHeight((ref.current.clientHeight > 600) ? ref.current.clientHeight : 600);
   });
   return (
     <>
@@ -36,7 +36,7 @@ const landingPage = () => {
         </title>
       </Helmet>
       <Container fluid className="pages-top-padding">
-        <Row style={{ paddingBottom: 50 }}>
+        <Row>
           <Col md={twitterHandle ? 9 : 12}>
             <div ref={ref}>
               <Container fluid>
