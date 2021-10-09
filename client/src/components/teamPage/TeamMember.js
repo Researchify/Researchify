@@ -61,7 +61,7 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
         id="team-card"
         onClick={() => setCheckedMember(member._id)}
         style={{
-          margin: '15px', minWidth: '350px', maxWidth: '350px', height: '100%', backgroundColor: isHovering ? 'rgb(231, 229, 229)' : '#f8f9fa',
+          margin: '15px', minWidth: '350px', maxWidth: '350px', height: '100%', backgroundColor: isHovering ? '#f5f2f2' : '#f8f9fa',
         }}
       >
         <Row>
@@ -87,7 +87,7 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
               && (
               <StyledButtonGroup onClick={childCallback} className="float-right" style={{ margin: '5px' }}>
                 <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
-                <ButtonGroupItem color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+                <ButtonGroupItem color="#dc3545" hoverBorderColor="#dc3545" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
                   <RiDeleteBin6Line />
                 </ButtonGroupItem>
               </StyledButtonGroup>

@@ -12,7 +12,7 @@ import TeamMember from './TeamMember';
 import TeamMemberForm from './form/TeamMemberForm';
 import { getTeamMembersByTeamId, deleteBatchTeamMembers } from '../../actions/team';
 import './teamPage.css';
-import { PrimaryButton, ButtonGroupItem, DangerButton } from '../shared/styledComponents';
+import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 
 const TeamPage = () => {
   const dispatch = useDispatch();
@@ -29,10 +29,19 @@ const TeamPage = () => {
     }
   }, [dispatch, teamId]);
 
+  useEffect(() => {
+    if (checkedMember.length === teamMembers.length) {
+      setCheckAll(true);
+    }
+  }, [checkedMember]);
+
   const handleCheck = (memberId) => {
     if (checkedMember.includes(memberId)) {
       setCheckedMember(checkedMember.filter((checkedId) => checkedId !== memberId));
       return;
+    }
+    if (checkedMember.length === teamMembers.length) {
+      setCheckAll(true);
     }
     setCheckedMember([...checkedMember, memberId]);
   };
@@ -59,29 +68,23 @@ const TeamPage = () => {
       <PrimaryButton className="mt-2" onClick={() => setShowCreateForm(true)}>
         Add Team Member
       </PrimaryButton>
+      {' '}
+      <DangerButton
+        onClick={() => setShowDeleteAll(true)}
+        disabled={checkedMember.length === 0}
+      >
+        <RiDeleteBin6Line />
+        {' '}
+        {checkedMember.length > 0 && checkedMember.length}
+        {' '}
+        Team Members
+        {' '}
+      </DangerButton>
       <div style={{ padding: '20px', fontSize: '17px' }}>
         <input type="checkbox" checked={checkedMember.length === teamMembers.length} onChange={handleCheckAll} />
         {' '}
-        { checkedMember.length > 0 ? (
-          <>
-            <ButtonGroupItem
-              borderColor="#9c503d"
-              color="#9c503d"
-              hoverBorderColor="#9c503d"
-              hoverColor="white"
-              onClick={() => setShowDeleteAll(true)}
-            >
-              <RiDeleteBin6Line />
-              {' '}
-              {checkedMember.length}
-              {' '}
-              Team Members
-              {' '}
-            </ButtonGroupItem>
-          </>
-        )
-          : 'Select All'}
-
+        { checkedMember.length === teamMembers.length ? 'De-Select All' : 'Select All'}
+        {' '}
       </div>
 
       <div className="text-center">
