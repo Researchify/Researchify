@@ -2,9 +2,7 @@
  * This file output landing page (homepage) of client-site.
  */
 import React from 'react';
-import {
-  Col, Image, Row,
-} from 'react-bootstrap';
+import { Col, Image, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { TEAM_HOMEPAGE, TEAM_INFO, TEAM_PUBLICATIONS } from '../../../../global/data';
