@@ -26,6 +26,10 @@ export const PrimaryButton = styled.button` // Purple
   &:hover{
     background-color:rgb(60, 70, 96);
   }
+  &:disabled{
+    background-color: #99a2ba;
+    border: 1px solid #99a2ba;
+  }
 `;
 
 // export const SecondaryButton = styled.button` // Outline-Gold
