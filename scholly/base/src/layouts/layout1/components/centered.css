@@ -25,6 +25,7 @@
   padding-left: 40px;
   padding-right: 40px;
   font-size: xx-large;
+  max-width: 1300px;
 }
 
 .landing-center-content {
@@ -187,15 +188,18 @@
 .recent-pub-title
 {
   text-align: center;
+  justify-content: center;
   padding-top: 50px;
   font-weight: 460;
   padding-left: 40px;
   padding-right: 40px;
   font-size: xx-large;
+  max-width: 1300px;
 }
 .news-section
 {
   padding-bottom: 25px;
+  padding-right: 20px ;
   max-width: 500px;
 }
 .recent-publication
@@ -204,9 +208,13 @@
   align-items: center;
   justify-content: center;
   padding-left: 40px;
+  padding-right: 40px;
 }
 .recent-publication-link
 {
+  padding-left: 40px;
+  padding-right: 40px;
   text-align: center;
   padding-bottom: 10px;
+  max-width: 1300px;
 }

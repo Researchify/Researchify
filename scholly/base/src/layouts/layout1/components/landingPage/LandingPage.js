@@ -36,39 +36,40 @@ const landingPage = () => {
         </title>
       </Helmet>
       <Container fluid className="pages-top-padding">
-        <Row>
+        <Row style={{ paddingBottom: 50 }}>
           <Col md={twitterHandle ? 9 : 12}>
             <div ref={ref}>
-              <div className="landing-center-title">
-                Welcome to
-                {' '}
-                {teamName}
-                !
-              </div>
-              {homepageData.aboutUs.map((paragraph) => (
-                <div className="landing-center-content">{paragraph}</div>
-              ))}
-              <div className="recent-pub-title">
-                RECENT PUBLICATIONS
-              </div>
-              <div className="recent-publication-link">
-                <Link to="/publication">
-                  (VIEW ALL PAPERS)
-                </Link>
-              </div>
-              <div className="recent-publication">
-                {pubs.slice(0, 5).map((pub) => (
-                  <Accordion>
-                    <Publication pub={pub} key={pub._id} />
-                  </Accordion>
+              <Container fluid>
+                <div className="landing-center-title">
+                  Welcome to
+                  {' '}
+                  {teamName}
+                  !
+                </div>
+                {homepageData.aboutUs.map((paragraph) => (
+                  <div className="landing-center-content">{paragraph}</div>
                 ))}
-              </div>
-
+                <div className="recent-pub-title">
+                  RECENT PUBLICATIONS
+                </div>
+                <div className="recent-publication-link">
+                  <Link to="/publication">
+                    (VIEW ALL PAPERS)
+                  </Link>
+                </div>
+                <div className="recent-publication">
+                  {pubs.slice(0, 5).map((pub) => (
+                    <Accordion>
+                      <Publication pub={pub} key={pub._id} />
+                    </Accordion>
+                  ))}
+                </div>
+              </Container>
             </div>
           </Col>
           {
             twitterHandle && (
-            <Col md={3} className=" d-flex justify-content-end news-section">
+            <Col md={3} className="d-flex justify-content-end news-section" style={{ maxHeight: height }}>
               <TwitterFeed linkedHandle={twitterHandle} themeOption={themeOption} twitterHeight={height - 90} />
             </Col>
             )
