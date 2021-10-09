@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import AchievementForm from './form/AchievementForm';
-import { getAchievementsByTeamId } from '../../actions/achievements';
+import { getAchievementsByTeamId, deleteBatchAchievements } from '../../actions/achievements';
 import Achievement from './Achievement';
 import './achievementPage.css';
 import './form/achievementForm.css';
@@ -48,8 +48,7 @@ const AchievementPage = () => {
   };
 
   const handleDelete = () => {
-    // dispatch(deleteBatchTeamMembers(teamId, checkedMember));
-    console.log(teamId, checkedAchievement);
+    dispatch(deleteBatchAchievements(checkedAchievement));
     setCheckAll(false);
     setCheckedAchievement([]);
     setShowDeleteAll(false);

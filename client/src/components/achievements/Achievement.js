@@ -27,8 +27,6 @@ const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement })
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
-  console.log(checkedAchievement);
-
   const handleDelete = () => {
     dispatch(deleteAchievement(achievement._id));
     setShowDeleteMessage(false);
@@ -70,7 +68,7 @@ const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement })
                 {
                   isHovering
                 && (
-                <StyledButtonGroup className="float-right" style={{ padding: '1px' }}>
+                <StyledButtonGroup className="float-right" style={{ padding: '0px' }}>
                   <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
                   <ButtonGroupItem color="#dc3545" hoverBorderColor="#dc3545" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
                     <RiDeleteBin6Line />

@@ -130,9 +130,29 @@ async function updateAchievement(req, res) {
   }
 }
 
+/**
+ * Handles a PATCH request to delete a list of achievements by the mongo object id on the endpoint /achievement/
+ *
+ * @param req request object - the list of achievement ids given in the body
+ * @param res response object
+ * @returns 200: achievement deleted successfully
+ * @returns 400: error deleting achievement
+ */
+ async function deleteBatchAchievements(req, res, next) {
+  try {
+    const achievementIdList = req.body;
+    console.log('achievementIdList', achievementIdList)
+    await Achievement.deleteMany({ _id: { $in: achievementIdList } });
+    return res.status(200).json(achievementIdList);
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err.errors]));
+  }
+}
+
 module.exports = {
   createAchievement,
   getAllAchievementsByTeam,
   deleteAchievement,
   updateAchievement,
+  deleteBatchAchievements,
 };
