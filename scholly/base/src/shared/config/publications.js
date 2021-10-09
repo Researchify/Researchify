@@ -3,7 +3,7 @@
  */
 const pageSize = 10;
 const categoryPageSize = 5;
-const categoryType = {
+const categoryTypes = {
   Journal: 'Journal',
   Conference: 'Conference',
   Book: 'Book',
@@ -20,5 +20,5 @@ const sortingOptions = {
 };
 
 module.exports = {
-  pageSize, categoryPageSize, categoryType, groupByOptions, sortingOptions,
+  pageSize, categoryPageSize, categoryTypes, groupByOptions, sortingOptions,
 };

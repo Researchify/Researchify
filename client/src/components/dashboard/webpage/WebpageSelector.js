@@ -1,70 +1,105 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Modal, DropdownButton, Dropdown,
+  Modal, Row, Tooltip, OverlayTrigger,
 } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
+import WebpageCard from './WebpageCard';
 import { addPage } from '../../../actions/website';
-import { availablePages as pages } from '../../../config/clientWebsite';
+import { availablePages as pages, pageDescriptions } from '../../../config/clientWebsite';
 import { PrimaryButton } from '../../shared/styledComponents';
+import ConditionalWrapper from '../../shared/ConditionalWrapper';
 
 const WebpageSelector = ({
-  currentWebPages, teamId, closeModal, displayModal,
+  currentWebPages, teamId, closeModal, displayModal, selectedPages, setSelectedPages,
 }) => {
   const dispatch = useDispatch();
-  // All our web-page offerings
-  const availablePages = pages;
-  // webpageOfferings = availablePages - currentWebPages
-  const webpageOfferings = availablePages.filter(
-    (page) => !currentWebPages.includes(page),
-  );
-  const pagePlaceholder = 'Select page to add';
 
-  const [selectedPage, setSelectedPage] = useState(pagePlaceholder);
+  const [availablePages, setAvailablePages] = useState([]);
 
   // To control disabling the 'Next' Button in the pop-up
   const [displayButton, setDisplayButton] = useState(true);
 
-  const handlePageSelection = (e) => {
-    setSelectedPage(e);
-    setDisplayButton(false);
+  const handlePageSelection = (page) => {
+    if (!selectedPages.includes(page)) {
+      selectedPages.push(page);
+    } else {
+      // eslint-disable-next-line no-param-reassign
+      delete selectedPages[selectedPages.indexOf(page)]; // causes the element to be empty
+      // eslint-disable-next-line no-param-reassign
+      selectedPages = selectedPages.filter((inPage) => pages.includes(inPage));
+    }
+    setSelectedPages(selectedPages);
+    if (selectedPages.length > 0) {
+      setDisplayButton(false);
+    } else {
+      setDisplayButton(true);
+    }
   };
 
   const handleSubmit = () => {
-    dispatch(addPage(teamId, selectedPage));
-    setSelectedPage(pagePlaceholder);
+    dispatch(addPage(teamId, selectedPages));
+    setSelectedPages([]);
+    setDisplayButton(true);
     closeModal();
   };
+
+  useEffect(() => {
+    // calculate the available pages based on selected pages
+    setAvailablePages(pages.filter(
+      (page) => !currentWebPages.includes(page),
+    ));
+  }, [currentWebPages]);
+
+  const renderDisableConfirmButtonTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Please select a page to add
+    </Tooltip>
+  );
 
   return (
     <>
       <Modal show={displayModal} onHide={closeModal} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-center">
-            Choose the Page you want to add to your website
+            Choose the page you want to add to your website
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DropdownButton
-            className="mx-10"
-            id="dropdown-basic-button"
-            variant="secondary"
-            title={selectedPage}
-            onSelect={handlePageSelection}
+          <div style={{ margin: 'auto', width: '74%' }}>
+            <Row xs={1} md={2} className="g-4">
+              {availablePages.map((pageName) => (
+                <WebpageCard
+                  key={pageName}
+                  page={pageName}
+                  description={pageDescriptions[pageName]}
+                  handlePageSelection={handlePageSelection}
+                />
+              ))}
+            </Row>
+          </div>
+          <ConditionalWrapper
+            condition={displayButton}
+            wrapper={(children) => (
+              <OverlayTrigger
+                placement="bottom"
+                overlay={renderDisableConfirmButtonTooltip}
+              >
+                {children}
+              </OverlayTrigger>
+            )}
           >
-            {webpageOfferings.map((pageName) => (
-              <Dropdown.Item key={pageName} eventKey={pageName}>
-                {pageName}
-              </Dropdown.Item>
-            ))}
-          </DropdownButton>
-          <PrimaryButton
-            className="float-right"
-            disabled={displayButton}
-            onClick={handleSubmit}
-          >
-            Confirm
-          </PrimaryButton>
+            <div style={{ display: 'inline-block', cursor: 'not-allowed', float: 'right' }}>
+              <PrimaryButton
+                disabled={displayButton}
+                onClick={handleSubmit}
+                style={displayButton ? { pointerEvents: 'none' } : {}}
+              >
+                Confirm
+              </PrimaryButton>
+            </div>
+
+          </ConditionalWrapper>
         </Modal.Body>
       </Modal>
     </>
@@ -77,6 +112,8 @@ WebpageSelector.propTypes = {
   teamId: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   displayModal: PropTypes.bool.isRequired,
+  selectedPages: PropTypes.array.isRequired,
+  setSelectedPages: PropTypes.func.isRequired,
 };
 
 export default WebpageSelector;

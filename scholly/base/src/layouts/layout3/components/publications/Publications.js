@@ -3,18 +3,29 @@
  */
 import React from 'react';
 import { Accordion } from 'react-bootstrap';
-import Publication from './publication/Publication';
-import { TEAM_PUBLICATIONS } from '../../../../global/data';
+import GroupByCategory from './publicationLayout/GroupByCategory';
+import GroupByNone from './publicationLayout/GroupByNone';
+import { TEAM_PUBLICATIONS, TEAM_SITE_METADATA } from '../../../../global/data';
+import sortPublications from '../../../../shared/sortPublications';
+import { groupByOptions } from '../../../../shared/config/publications';
 
 const Publications = () => {
-  const teamPublications = TEAM_PUBLICATIONS;
+  const { publicationOptions } = TEAM_SITE_METADATA;
+  const publications = sortPublications(TEAM_PUBLICATIONS, publicationOptions.sortBy);
+
+  const renderPublications = () => {
+    switch (publicationOptions.groupBy) {
+      case groupByOptions.CATEGORY:
+        return <GroupByCategory teamPublications={publications} />;
+      default:
+        return <GroupByNone teamPublications={publications} />;
+    }
+  };
 
   return (
     <>
       <Accordion>
-        {teamPublications.map((pub) => (
-          <Publication pub={pub} key={pub._id} />
-        ))}
+        {renderPublications()}
       </Accordion>
     </>
   );

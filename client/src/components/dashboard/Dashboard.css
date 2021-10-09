@@ -146,3 +146,19 @@
   top: 177px;
   left: 311px;
 }
+
+.card:hover {
+  border: 1px solid #a4a4a8;
+  background-color: #fafafa;
+}
+
+.selected-card {
+  border: 2px solid #56658a;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.selected-card:hover {
+  border: 2px solid #56658a;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color: #fafafa;
+}

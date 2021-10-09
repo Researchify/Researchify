@@ -20,8 +20,7 @@ const Dashboard = () => {
   const teamId = useSelector((state) => state.team.teamId);
   const { pages: currentWebPages, loading } = useSelector((state) => state.website);
 
-  const pagePlaceholder = 'Select page to add';
-  const [selectedPage, setSelectedPage] = useState(pagePlaceholder);
+  const [pageToDelete, setPageToDelete] = useState('None');
 
   const [currentTab, setCurrentTab] = useState('home');
 
@@ -58,8 +57,8 @@ const Dashboard = () => {
               currentWebPages={currentWebPages}
               directToAnotherPage={directToAnotherPage}
               teamId={teamId}
-              setSelectedPage={setSelectedPage}
-              selectedPage={selectedPage}
+              setPageToDelete={setPageToDelete}
+              pageToDelete={pageToDelete}
               availablePages={availablePages}
               loading={loading}
             />

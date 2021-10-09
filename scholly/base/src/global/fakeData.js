@@ -1,6 +1,6 @@
 export const FAKE_TEAM_SITE_METADATA = {
   pages: ['PUBLICATIONS', 'TEAM', 'ACHIEVEMENTS'],
-  publicationOptions: { layout: 'All Publication', sortBy: 'Author' },
+  publicationOptions: { groupBy: 'Category', sortBy: 'Year' },
   template: {
     layout: '1',
     theme: 'dark',
@@ -90,7 +90,7 @@ export const FAKE_PUBLICATIONS = [
       'Christoph Treude',
       'Xiang Chen',
     ],
-    yearPublished: '2017',
+    yearPublished: '2019',
   },
   {
     _id: 'fake_publication_5',
