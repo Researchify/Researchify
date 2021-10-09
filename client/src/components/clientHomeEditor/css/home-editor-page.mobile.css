@@ -3,3 +3,9 @@
     display: none !important;
   }
 }
+
+@media screen and (min-width: 1024px) {
+  .home-editor-narrow-twitter {
+    display: none !important;
+  }
+}
