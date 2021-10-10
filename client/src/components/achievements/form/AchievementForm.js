@@ -78,7 +78,11 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Achievement Title</Form.Label>
+            <Form.Label>
+              Achievement Title
+              {' '}
+              <span style={{ color: 'red' }}>*</span>
+            </Form.Label>
             <Form.Control
               type="text"
               name="title"
@@ -92,7 +96,11 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Year</Form.Label>
+            <Form.Label>
+              Year
+              {' '}
+              <span style={{ color: 'red' }}>*</span>
+            </Form.Label>
             <Form.Control
               as="select"
               name="yearAwarded"
@@ -108,7 +116,11 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
             </Form.Control>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Description</Form.Label>
+            <Form.Label>
+              Description
+              {' '}
+              <span style={{ color: 'red' }}>*</span>
+            </Form.Label>
             <Form.Control
               as="textarea"
               row={5}
