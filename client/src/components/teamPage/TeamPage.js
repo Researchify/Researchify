@@ -3,7 +3,7 @@
  */
 
 import {
-  CardDeck, Modal, Spinner, Alert,
+  CardDeck, Modal, Spinner, Alert, OverlayTrigger, Tooltip,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -13,6 +13,7 @@ import TeamMemberForm from './form/TeamMemberForm';
 import { getTeamMembersByTeamId, deleteBatchTeamMembers } from '../../actions/team';
 import './teamPage.css';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
+import ConditionalWrapper from '../shared/ConditionalWrapper';
 
 const TeamPage = () => {
   const dispatch = useDispatch();
@@ -62,6 +63,12 @@ const TeamPage = () => {
     setShowDeleteAll(false);
   };
 
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Plsease select a team member to delete
+    </Tooltip>
+  );
+
   return (
     <div className="teamPageContainer">
       <h2>Team Members</h2>
@@ -69,17 +76,33 @@ const TeamPage = () => {
         Add Team Member
       </PrimaryButton>
       {' '}
-      <DangerButton
-        onClick={() => setShowDeleteAll(true)}
-        disabled={checkedMember.length === 0}
+      <ConditionalWrapper
+        condition={checkedMember.length === 0}
+        wrapper={(children) => (
+          <OverlayTrigger
+            placement="bottom"
+            overlay={renderTooltip}
+          >
+            {children}
+          </OverlayTrigger>
+        )}
       >
-        <RiDeleteBin6Line />
-        {' '}
-        {checkedMember.length > 0 && checkedMember.length}
-        {' '}
-        Team Members
-        {' '}
-      </DangerButton>
+        <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
+          <DangerButton
+            className="mr-2"
+            onClick={() => setShowDeleteAll(true)}
+            disabled={checkedMember.length === 0}
+
+          >
+            <RiDeleteBin6Line />
+            {' '}
+            {checkedMember.length > 0 && checkedMember.length}
+            {' '}
+            Team Members
+            {' '}
+          </DangerButton>
+        </div>
+      </ConditionalWrapper>
       <div style={{ padding: '20px', fontSize: '17px' }}>
         <input type="checkbox" checked={checkedMember.length === teamMembers.length} onChange={handleCheckAll} />
         {' '}

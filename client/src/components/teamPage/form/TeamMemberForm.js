@@ -122,6 +122,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
                 overlay={renderTooltip}
               >
                 <DangerButton
+                  type="button"
                   className="mr-2"
                   onClick={closeModal}
                 >
