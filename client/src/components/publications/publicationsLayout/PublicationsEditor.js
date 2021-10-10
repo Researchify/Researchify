@@ -8,34 +8,7 @@ import { PropTypes } from 'prop-types';
 import { sortingOptions, groupByOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 import '../publications.css';
-import { PrimaryButton } from '../../shared/styledComponents';
-
-export const StyledButtonGroup = styled.div`
-  background-color: transparent;
-  padding: 5px;
-  color: black;
-`;
-
-export const ButtonGroupItem = styled.button` 
-  background: #ededed;
-  border: 1px solid ${(props) => props.borderColor || '#ccc'};
-  padding: 1px 8px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande";
-  width: auto;
-  transition: all 0.2s ease 0s;
-  color: ${(props) => props.color};
-  &:hover{
-    background: ${(props) => props.hoverBorderColor || 'lightgrey'};
-    color: ${(props) => props.hoverColor};
-    border: ${(props) => props.hoverBorderColor || 'lightgrey'};
-  }
-  ${({ press }) => (press
-    && 'color: #4d4d4d; background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'
-  )
-}
-`;
+import { PrimaryButton, StyledButtonGroup, ButtonGroupItem } from '../../shared/styledComponents';
 
 export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
     border: 1px solid #56658a;
