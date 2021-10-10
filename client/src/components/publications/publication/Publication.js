@@ -15,11 +15,12 @@ import {
 import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import { PropTypes } from 'prop-types';
 import PublicationForm from '../form/PublicationForm';
-import { StyledButtonGroup, ButtonGroupItem } from '../publicationsLayout/PublicationsEditor';
 import { deletePublication } from '../../../actions/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 import '../publications.css';
-import { SecondaryButton, DangerButton } from '../../shared/styledComponents';
+import {
+  SecondaryButton, DangerButton, StyledButtonGroup, ButtonGroupItem,
+} from '../../shared/styledComponents';
 
 const Publication = ({ pub }) => {
   const dispatch = useDispatch();
