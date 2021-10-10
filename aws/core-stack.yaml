@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 'Consists of an Elastic Beanstalk Docker setup to host our full stack application.'
+Resources:
+  # An Elastic Beanstalk Application
+  EBApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      Description: 'An Elastic Beanstalk Application for the MERN setup'
+      ApplicationName: 'MERN Template App'
+  # A Web Server Docker Environment
+  EBEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      Description: 'An Elastic Beanstalk Environment for the MERN Template Application'
+      ApplicationName: !Ref EBApplication
+      EnvironmentName: 'MERN-Template-App-Environment'
+      OptionSettings:
+        - Namespace: aws:elasticbeanstalk:environment
+          OptionName: EnvironmentType
+          Value: SingleInstance
+        - Namespace: 'aws:ec2:instances'
+          OptionName: InstanceTypes
+          Value: 't2.micro'
+        - Namespace: 'aws:autoscaling:launchconfiguration'
+          OptionName: IamInstanceProfile
+          Value: !Ref EBEC2InstanceProfile
+        - Namespace: 'aws:elasticbeanstalk:environment'
+          OptionName: ServiceRole
+          Value: !Ref EBServiceRole
+      SolutionStackName: '64bit Amazon Linux 2 v3.4.7 running Docker'
+      Tier:
+        Name: WebServer
+        Type: Standard
+  # The Instance Profile attached to the internal EC2 instances
+  EBEC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref EBEC2InstanceProfileRole
+  # The Role attached to the Instance Profile
+  EBEC2InstanceProfileRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: 'ec2.amazonaws.com'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier
+        - arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker
+        - arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier
+  # A Service Role for Elastic Beanstalk to allow Enhanced Health Monitoring
+  EBServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: 'elasticbeanstalk.amazonaws.com'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth
