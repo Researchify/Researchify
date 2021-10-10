@@ -13,7 +13,7 @@ const { fillErrorObject } = require('./error');
 const createAchievementValidation = [
   body('title', 'Error: Title must be at least 3 characters.')
     .trim()
-    .isLength({ min: 3, max: 50 })
+    .isLength({ min: 3, max: 60 })
     .escape(),
   body('description', 'Error: Description must be at least 5 characters.')
     .trim()

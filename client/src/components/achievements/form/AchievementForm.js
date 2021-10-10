@@ -30,7 +30,6 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
       .max(60, 'Achievement Name is at less than 60 characters'),
     yearAwarded: yup
       .number()
-      .min(1000, 'Invalid year')
       .max(new Date().getFullYear(), 'Invalid year')
       .required('Year is required'),
     description: yup
