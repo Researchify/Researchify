@@ -3,7 +3,6 @@
  */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 import {
   Row, Col, Modal, Button,
 } from 'react-bootstrap';
@@ -13,7 +12,6 @@ import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 import { deleteBatchPublications } from '../../../actions/publications';
-import { ButtonGroupItem } from '../../shared/styledComponents';
 
 const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
@@ -61,19 +59,7 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
             <div style={{ padding: '10px', fontSize: '17px' }}>
               <input type="checkbox" checked={checkedCounter === teamPublications.length} onChange={handleChange} />
               {' '}
-              { checkedCounter > 0 ? (
-                <>
-                  <ButtonGroupItem borderColor="#9c503d" color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
-                    <RiDeleteBin6Line />
-                    {' '}
-                    {checkedCounter}
-                    {' '}
-                    Publications
-                    {' '}
-                  </ButtonGroupItem>
-                </>
-              )
-                : 'Select All'}
+              { checkedCounter > 0 ? 'De-Select All' : 'Select All'}
             </div>
           </Col>
           <Col>

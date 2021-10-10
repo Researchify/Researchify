@@ -72,10 +72,3 @@
   border-radius: 10px;
   overflow: hidden;
 }
-
-.publication-editor {
-  box-shadow: 0 4px 2px -2px gray;
-  z-index: 3;
-  width: 100%;
-  max-width: 1200px;
-}

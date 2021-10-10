@@ -1,14 +1,18 @@
 import React from 'react';
 import {
-  Dropdown, Row, Col, OverlayTrigger, Popover,
+  Dropdown, OverlayTrigger, Tooltip,
 } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { sortingOptions, groupByOptions } from '../../../config/publications';
 import { updatePublicationOptions } from '../../../actions/website';
 import '../publications.css';
-import { PrimaryButton, StyledButtonGroup, ButtonGroupItem } from '../../shared/styledComponents';
+import {
+  PrimaryButton, StyledButtonGroup, ButtonGroupItem, DangerButton,
+} from '../../shared/styledComponents';
+import ConditionalWrapper from '../../shared/ConditionalWrapper';
 
 export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
     border: 1px solid #56658a;
@@ -31,11 +35,9 @@ export const StyledDropdowItem = styled(Dropdown.Item)`
 `;
 
 const ButtonHint = (props) => (
-  <Popover id="strong-pw-hint" {...props}>
-    <Popover.Content>
-      Update your publications sorting and group by options in the deployed website
-    </Popover.Content>
-  </Popover>
+  <Tooltip id="button-tooltip" {...props}>
+    Update your publications sorting and group by options in the deployed website
+  </Tooltip>
 );
 
 const PublicationsEditor = ({
@@ -48,13 +50,20 @@ const PublicationsEditor = ({
   setShowImportForm,
 }) => {
   const dispatch = useDispatch();
-
+  const { checkedPublications } = useSelector((state) => state.publications);
   const handleUpdate = () => {
     dispatch(updatePublicationOptions(teamId, options));
   };
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Plsease select a publication to delete
+    </Tooltip>
+  );
+
   return (
-    <Row>
-      <Col md={3} sm={3} style={{ marginBottom: '10px' }}>
+    <div style={{ marginTop: '15px', display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', justifyContent: 'start' }}>
         <Dropdown>
           <StyledDropdownToggle style={{ whiteSpace: 'normal' }}>
             Add Publication(s)
@@ -64,42 +73,69 @@ const PublicationsEditor = ({
             <StyledDropdowItem onClick={() => setShowImportForm(true)}>Import Publications</StyledDropdowItem>
           </Dropdown.Menu>
         </Dropdown>
-      </Col>
+        {' '}
+        <ConditionalWrapper
+          condition={checkedPublications.length === 0}
+          wrapper={(children) => (
+            <OverlayTrigger
+              placement="bottom"
+              overlay={renderTooltip}
+            >
+              {children}
+            </OverlayTrigger>
+          )}
+        >
+          <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
+            <DangerButton
+              style={{ marginLeft: '5px' }}
+              onClick={() => console.log('setShowDeleteAll(true)')}
+              disabled={checkedPublications.length === 0}
+            >
+              <RiDeleteBin6Line />
+              {' '}
+              {checkedPublications.length > 0 && checkedPublications.length}
+              {' '}
+              Team Members
+              {' '}
+            </DangerButton>
+          </div>
+        </ConditionalWrapper>
+      </div>
 
-      <Col md={{ span: 6, offset: 1 }} sm={{ span: 6, offset: 1 }}>
-        <Row>
-          <StyledButtonGroup style={{ marginLeft: '12px' }}>
-            Group By
-            {' '}
-            {Object.keys(groupByOptions).map((groupBy) => (
-              <ButtonGroupItem
-                color="grey"
-                press={options.groupBy === groupByOptions[groupBy]}
-                key={groupBy}
-                onClick={() => setOptions({ ...options, groupBy: groupByOptions[groupBy] })}
-              >
-                {groupByOptions[groupBy]}
-              </ButtonGroupItem>
-            ))}
-          </StyledButtonGroup>
-          <StyledButtonGroup style={{ marginLeft: '12px' }}>
-            Sort By
-            {' '}
-            {Object.keys(sortingOptions).map((sortBy) => (
-              <ButtonGroupItem
-                color="grey"
-                press={options.sortBy === sortingOptions[sortBy]}
-                key={sortBy}
-                value={sortingOptions[sortBy]}
-                onClick={(e) => {
-                  setOptions({ ...options, sortBy: sortingOptions[sortBy] });
-                  sortPublications(publications, e.target.value);
-                }}
-              >
-                {sortingOptions[sortBy]}
-              </ButtonGroupItem>
-            ))}
-            {options.groupBy === groupByOptions.CATEGORY
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <StyledButtonGroup style={{ marginLeft: '12px' }}>
+          Group By
+          {' '}
+          {Object.keys(groupByOptions).map((groupBy) => (
+            <ButtonGroupItem
+              color="grey"
+              press={options.groupBy === groupByOptions[groupBy]}
+              key={groupBy}
+              onClick={() => setOptions({ ...options, groupBy: groupByOptions[groupBy] })}
+            >
+              {groupByOptions[groupBy]}
+            </ButtonGroupItem>
+          ))}
+        </StyledButtonGroup>
+
+        <StyledButtonGroup style={{ marginLeft: '12px' }}>
+          Sort By
+          {' '}
+          {Object.keys(sortingOptions).map((sortBy) => (
+            <ButtonGroupItem
+              color="grey"
+              press={options.sortBy === sortingOptions[sortBy]}
+              key={sortBy}
+              value={sortingOptions[sortBy]}
+              onClick={(e) => {
+                setOptions({ ...options, sortBy: sortingOptions[sortBy] });
+                sortPublications(publications, e.target.value);
+              }}
+            >
+              {sortingOptions[sortBy]}
+            </ButtonGroupItem>
+          ))}
+          {options.groupBy === groupByOptions.CATEGORY
             && (
             <ButtonGroupItem
               color="grey"
@@ -113,11 +149,8 @@ const PublicationsEditor = ({
               Category Title
             </ButtonGroupItem>
             )}
-          </StyledButtonGroup>
-        </Row>
-      </Col>
+        </StyledButtonGroup>
 
-      <Col md={2} sm={2}>
         <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ButtonHint}>
           <PrimaryButton
             className="float-right"
@@ -126,8 +159,8 @@ const PublicationsEditor = ({
             Update Layout
           </PrimaryButton>
         </OverlayTrigger>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
 // props validation
