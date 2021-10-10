@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: 'Consists of an Elastic Beanstalk Docker setup to host our full stack application.'
+Description: "Consists of an Elastic Beanstalk Docker setup to host Researchify's full stack application."
 Resources:
   # An Elastic Beanstalk Application
   EBApplication:

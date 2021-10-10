@@ -29,4 +29,7 @@ Ensure that the flag `--capabilities=CAPABILITY_IAM` is passed as the stack make
 the [`--capabilities` flag](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/create-stack.html#options)
 for more information.
 
-To update the stack, replace `create-stack` with `update-stack`.
+## Updating the Core stack
+
+To update the stack, make your updates to the YAML configuration, and replace `create-stack` with `update-stack` in the
+command above.
