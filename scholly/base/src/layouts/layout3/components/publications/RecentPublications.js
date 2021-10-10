@@ -1,5 +1,5 @@
 /**
- * The Publications component displays a list of publications.
+ * The RecentPublications component displays a list of the 5 most recent publications.
  */
 import React from 'react';
 import { Accordion } from 'react-bootstrap';

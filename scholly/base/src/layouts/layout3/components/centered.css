@@ -29,6 +29,15 @@
   padding-top: 30px;
   padding-left: 45px;
   padding-right: 45px;
+}
+
+/* Body for landing page's recent publications */
+.container-recent-pub-body {
+  align-content: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-left: 45px;
+  padding-right: 45px;
   padding-bottom: 40px;
 }
 
@@ -83,7 +92,6 @@
 
 .recent-publications-title {
   text-align: left;
-  padding-top: 25px;
   font-weight: bolder;
   padding-left: 40px;
   padding-right: 40px;

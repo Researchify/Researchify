@@ -24,11 +24,12 @@ const landingPage = () => {
       </Helmet>
       <Container fluid className="pages-top-padding pages-side-padding">
         <Container fluid className="container-body">
-          {/* eslint-disable-next-line jsx-a11y/alt-text */}
-          <img src={landingPicture} align="left" className="left landing-image" style={{ width: '35%' }} />
+          <img src={landingPicture} alt="Computer" align="left" className="left landing-image" style={{ width: '35%' }} />
           {homepageData.aboutUs.map((paragraph) => (
             <div className="landing-center-content">{paragraph}</div>
           ))}
+        </Container>
+        <Container fluid className="container-recent-pub-body">
           <div className="recent-publications-title">Recent Publications</div>
           <div className="recent-publications-body">
             <RecentPublications />
