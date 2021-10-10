@@ -1,9 +1,13 @@
+/**
+ *    This file contains the Layout Thumbnail Component.
+ */
 import {
   Card, Button, Modal, Carousel, Row, Col, Container,
 } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import './LayoutThumbnail.css';
+
 // Image Imports for Layout Previews
 // Layout 1
 import layout1LightLandingPage from '../../images/layoutPreviews/layout1/light/layout_1_light_landingPage.png';
@@ -18,15 +22,12 @@ import layout2LightTeamPage from '../../images/layoutPreviews/layout2/light/layo
 import layout2LightAchievements from '../../images/layoutPreviews/layout2/light/layout_2_light_achievements.png';
 
 // Layout 3
-// import layout3LightLandingPage from '../../images/layoutPreviews/layout3/light/layout_3_light_landingPage.png';
-// import layout3LightPublications from '../../images/layoutPreviews/layout3/light/layout_3_light_publications.png';
-// import layout3LightTeamPage from '../../images/layoutPreviews/layout3/light/layout_3_light_team.png';
-// import layout3LightAchievements from '../../images/layoutPreviews/layout3/light/layout_3_light_achievements.png';
+import layout3LightLandingPage from '../../images/layoutPreviews/layout3/light/layout_3_light_landingPage.png';
+import layout3LightPublications from '../../images/layoutPreviews/layout3/light/layout_3_light_publications.png';
+import layout3LightTeamPage from '../../images/layoutPreviews/layout3/light/layout_3_light_team.png';
+import layout3LightAchievements from '../../images/layoutPreviews/layout3/light/layout_3_light_achievements.png';
 
 import noPreview from '../../images/defaultThumbnail.png';
-/**
- *    This file contains the Layout Thumbnail Component.
- */
 
 const LayoutThumbnail = (props) => {
   const { layoutOption } = props;
@@ -54,10 +55,10 @@ const LayoutThumbnail = (props) => {
       layoutAchievementsImage = layout2LightAchievements;
       break;
     case 3:
-      layoutLandingImage = noPreview;
-      layoutPublicationImage = noPreview;
-      layoutTeamImage = noPreview;
-      layoutAchievementsImage = noPreview;
+      layoutLandingImage = layout3LightLandingPage;
+      layoutPublicationImage = layout3LightPublications;
+      layoutTeamImage = layout3LightTeamPage;
+      layoutAchievementsImage = layout3LightAchievements;
       break;
     default:
       layoutPublicationImage = noPreview;
