@@ -30,8 +30,3 @@ the [`--capabilities` flag](https://awscli.amazonaws.com/v2/documentation/api/la
 for more information.
 
 To update the stack, replace `create-stack` with `update-stack`.
-
-## References
-
-- https://gist.github.com/magnetikonline/c314952045eee8e8375b82bc7ec68e88
-- https://aws.amazon.com/blogs/compute/configuring-cors-on-amazon-api-gateway-apis/
