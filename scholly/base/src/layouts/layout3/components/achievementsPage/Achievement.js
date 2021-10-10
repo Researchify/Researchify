@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import awardPicture from '../../../../shared/images/certificatepic.png';
+import awardPicture from '../../../../shared/images/awardPic.png';
 
 let bgTheme = 'bg-secondary';
 const Achievement = ({ achievement }) => {
