@@ -160,7 +160,7 @@ const AchievementPage = () => {
           {' '}
           {checkedAchievement.length}
           {' '}
-          Achievements(s)?
+          Achievement(s)?
         </Modal.Body>
         <Modal.Footer>
           <PrimaryButton variant="light" onClick={() => setShowDeleteAll(false)}>
