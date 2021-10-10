@@ -6,9 +6,23 @@ import { PropTypes } from 'prop-types';
 import './LayoutThumbnail.css';
 // Image Imports for Layout Previews
 // Layout 1
+import layout1LightLandingPage from '../../images/layoutPreviews/layout1/light/layout_1_light_landingPage.png';
 import layout1LightPublications from '../../images/layoutPreviews/layout1/light/layout_1_light_publications.png';
+import layout1LightTeamPage from '../../images/layoutPreviews/layout1/light/layout_1_light_team.png';
+import layout1LightAchievements from '../../images/layoutPreviews/layout1/light/layout_1_light_achievements.png';
+
+// Layout 2
+import layout2LightLandingPage from '../../images/layoutPreviews/layout2/light/layout_2_light_landingPage.png';
 import layout2LightPublications from '../../images/layoutPreviews/layout2/light/layout_2_light_publications.png';
-import layout3LightPublications from '../../images/layoutPreviews/layout3/light/layout_3_light_publications.png';
+import layout2LightTeamPage from '../../images/layoutPreviews/layout2/light/layout_2_light_team.png';
+import layout2LightAchievements from '../../images/layoutPreviews/layout2/light/layout_2_light_achievements.png';
+
+// Layout 3
+// import layout3LightLandingPage from '../../images/layoutPreviews/layout3/light/layout_3_light_landingPage.png';
+// import layout3LightPublications from '../../images/layoutPreviews/layout3/light/layout_3_light_publications.png';
+// import layout3LightTeamPage from '../../images/layoutPreviews/layout3/light/layout_3_light_team.png';
+// import layout3LightAchievements from '../../images/layoutPreviews/layout3/light/layout_3_light_achievements.png';
+
 import noPreview from '../../images/defaultThumbnail.png';
 /**
  *    This file contains the Layout Thumbnail Component.
@@ -21,16 +35,29 @@ const LayoutThumbnail = (props) => {
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
+  let layoutLandingImage;
   let layoutPublicationImage;
+  let layoutTeamImage;
+  let layoutAchievementsImage;
+
   switch (layoutOption) {
     case 1:
+      layoutLandingImage = layout1LightLandingPage;
       layoutPublicationImage = layout1LightPublications;
+      layoutTeamImage = layout1LightTeamPage;
+      layoutAchievementsImage = layout1LightAchievements;
       break;
     case 2:
+      layoutLandingImage = layout2LightLandingPage;
       layoutPublicationImage = layout2LightPublications;
+      layoutTeamImage = layout2LightTeamPage;
+      layoutAchievementsImage = layout2LightAchievements;
       break;
     case 3:
-      layoutPublicationImage = layout3LightPublications;
+      layoutLandingImage = noPreview;
+      layoutPublicationImage = noPreview;
+      layoutTeamImage = noPreview;
+      layoutAchievementsImage = noPreview;
       break;
     default:
       layoutPublicationImage = noPreview;
@@ -72,11 +99,11 @@ const LayoutThumbnail = (props) => {
                   <Carousel.Item>
                     <img
                       className="d-block w-100"
-                      src={layoutPublicationImage}
+                      src={layoutLandingImage}
                       alt="Publications Page slide"
                     />
                     <Carousel.Caption className="carousel-caption">
-                      <h3> Publications Page</h3>
+                      <h3> Home </h3>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item>
@@ -86,7 +113,27 @@ const LayoutThumbnail = (props) => {
                       alt="Publications Page slide"
                     />
                     <Carousel.Caption className="carousel-caption">
-                      <h3> Publications Page 2</h3>
+                      <h3> Publications </h3>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={layoutTeamImage}
+                      alt="Publications Page slide"
+                    />
+                    <Carousel.Caption className="carousel-caption">
+                      <h3> Team </h3>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={layoutAchievementsImage}
+                      alt="Publications Page slide"
+                    />
+                    <Carousel.Caption className="carousel-caption">
+                      <h3> Achievements </h3>
                     </Carousel.Caption>
                   </Carousel.Item>
                 </Carousel>

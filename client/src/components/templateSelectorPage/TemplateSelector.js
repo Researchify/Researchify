@@ -4,7 +4,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Form, Col, Card,
+  Container, Form, Col,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -55,7 +55,7 @@ const TemplateSelector = (props) => {
 
   return (
     <>
-      <Card style={{ padding: 50, border: 0 }}>
+      <div style={{ padding: 50 }}>
         <b>Choose a Theme</b>
         <Form.Check
           type="switch"
@@ -135,7 +135,7 @@ const TemplateSelector = (props) => {
             Update
           </PrimaryButton>
         </Form>
-      </Card>
+      </div>
     </>
   );
 };
