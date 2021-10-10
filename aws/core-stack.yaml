@@ -5,15 +5,15 @@ Resources:
   EBApplication:
     Type: AWS::ElasticBeanstalk::Application
     Properties:
-      Description: 'An Elastic Beanstalk Application for the MERN setup'
-      ApplicationName: 'MERN Template App'
+      Description: 'An Elastic Beanstalk Application for Researchify'
+      ApplicationName: 'Researchify'
   # A Web Server Docker Environment
   EBEnvironment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:
-      Description: 'An Elastic Beanstalk Environment for the MERN Template Application'
+      Description: 'An Elastic Beanstalk Environment for the Researchify Application'
       ApplicationName: !Ref EBApplication
-      EnvironmentName: 'MERN-Template-App-Environment'
+      EnvironmentName: 'Researchify-env'
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:environment
           OptionName: EnvironmentType
