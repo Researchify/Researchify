@@ -62,8 +62,9 @@ const TemplateSelector = (props) => {
           id="custom-switch"
           checked={darkMode}
           onChange={() => setDarkMode(!darkMode)}
-          label="Use Dark mode"
-          className="ml-3 mt-2"
+          label="Enable Dark Mode"
+          className="ml-3 mt-3"
+          style={{ fontSize: 15, zoom: 1.5 }}
         />
 
         <Form
