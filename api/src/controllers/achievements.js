@@ -138,10 +138,9 @@ async function updateAchievement(req, res) {
  * @returns 200: achievement deleted successfully
  * @returns 400: error deleting achievement
  */
- async function deleteBatchAchievements(req, res, next) {
+async function deleteBatchAchievements(req, res, next) {
   try {
     const achievementIdList = req.body;
-    console.log('achievementIdList', achievementIdList)
     await Achievement.deleteMany({ _id: { $in: achievementIdList } });
     return res.status(200).json(achievementIdList);
   } catch (err) {

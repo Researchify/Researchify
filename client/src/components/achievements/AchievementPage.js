@@ -3,7 +3,7 @@
  */
 
 import {
-  Container, CardDeck, Modal, Spinner, Alert,
+  Container, CardDeck, Modal, Spinner, Alert, Tooltip, OverlayTrigger,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
@@ -14,6 +14,7 @@ import Achievement from './Achievement';
 import './achievementPage.css';
 import './form/achievementForm.css';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
+import ConditionalWrapper from '../shared/ConditionalWrapper';
 
 const AchievementPage = () => {
   const dispatch = useDispatch();
@@ -63,6 +64,12 @@ const AchievementPage = () => {
     setCheckAll(!checkAll);
   };
 
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Please select a achievement to delete
+    </Tooltip>
+  );
+
   return (
     <div className="achievementPageContainer">
       <h2>Achievements</h2>
@@ -73,17 +80,34 @@ const AchievementPage = () => {
         Add Achievement
       </PrimaryButton>
       {' '}
-      <DangerButton
-        onClick={() => setShowDeleteAll(true)}
-        disabled={checkedAchievement.length === 0}
+
+      <ConditionalWrapper
+        condition={checkedAchievement.length === 0}
+        wrapper={(children) => (
+          <OverlayTrigger
+            placement="bottom"
+            overlay={renderTooltip}
+          >
+            {children}
+          </OverlayTrigger>
+        )}
       >
-        <RiDeleteBin6Line />
-        {' '}
-        {checkedAchievement.length > 0 && checkedAchievement.length}
-        {' '}
-        Achievements
-        {' '}
-      </DangerButton>
+        <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
+          <DangerButton
+            className="mr-2"
+            onClick={() => setShowDeleteAll(true)}
+            disabled={checkedAchievement.length === 0}
+
+          >
+            <RiDeleteBin6Line />
+            {' '}
+            {checkedAchievement.length > 0 && checkedAchievement.length}
+            {' '}
+            Achievements
+            {' '}
+          </DangerButton>
+        </div>
+      </ConditionalWrapper>
 
       <div style={{ padding: '20px', fontSize: '17px' }}>
         <input type="checkbox" checked={checkedAchievement.length === achievements.length} onChange={handleCheckAll} />
@@ -104,7 +128,7 @@ const AchievementPage = () => {
         <Container>
           <CardDeck
             style={{ display: 'flex', flexDirection: 'row' }}
-            className="mt-4 mb-4"
+            className="mt-2 mb-4"
           >
             {achievements.map((achievement) => (
               <Achievement achievement={achievement} key={achievement._id} checkedAchievement={checkedAchievement} setCheckedAchievement={handleCheck} />

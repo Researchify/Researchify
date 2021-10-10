@@ -15,11 +15,12 @@ import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import {
   DangerButton,
   SecondaryButton,
+  StyledButtonGroup,
+  ButtonGroupItem,
 } from '../shared/styledComponents';
 import './form/achievementForm.css';
-import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
-import { StyledButtonGroup, ButtonGroupItem } from '../publications/publicationsLayout/PublicationsEditor';
+import { deleteAchievement } from '../../actions/achievements';
 
 const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement }) => {
   const dispatch = useDispatch();
@@ -40,18 +41,26 @@ const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement })
     setIsHovering(false);
   };
 
+  // prevent clicking on inner div calling the outer div onclick function
+  const childCallback = (event) => {
+    event.stopPropagation();
+    return false;
+  };
+
   return (
     <>
       <Row
         id="achievement"
-        className="container-fluid mt-4"
-        onMouseOver={handleMouseOver}
-        onFocus={handleMouseOver}
-        onMouseLeave={handleMouseLeave}
-        onBlur={handleMouseLeave}
-        onClick={() => setCheckedAchievement(achievement._id)}
+        className="container-fluid mt-3"
       >
-        <Card id="card">
+        <Card
+          id="card"
+          onMouseOver={handleMouseOver}
+          onFocus={handleMouseOver}
+          onMouseLeave={handleMouseLeave}
+          onBlur={handleMouseLeave}
+          onClick={() => setCheckedAchievement(achievement._id)}
+        >
           <Card.Header as="h5" id="card-header">
             <Row>
               <Col>
@@ -68,7 +77,7 @@ const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement })
                 {
                   isHovering
                 && (
-                <StyledButtonGroup className="float-right" style={{ padding: '0px' }}>
+                <StyledButtonGroup onClick={childCallback} className="float-right" style={{ padding: '0px' }}>
                   <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
                   <ButtonGroupItem color="#dc3545" hoverBorderColor="#dc3545" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
                     <RiDeleteBin6Line />
@@ -79,7 +88,7 @@ const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement })
               </Col>
             </Row>
           </Card.Header>
-          <Card.Body>
+          <Card.Body id="card-body" style={{ borderColor: '#56658a', backgroundColor: isHovering ? '#f5f2f2' : '#f8f9fa' }}>
             <Card.Text>{achievement.description}</Card.Text>
             <Card.Text id="yearAwarded">
               <b>Date:</b>

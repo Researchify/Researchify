@@ -132,6 +132,7 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
                 overlay={renderTooltip}
               >
                 <DangerButton
+                  type="button"
                   className="mr-2"
                   onClick={closeModal}
                 >

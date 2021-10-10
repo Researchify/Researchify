@@ -65,7 +65,7 @@ const TeamPage = () => {
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      Plsease select a team member to delete
+      Please select a team member to delete
     </Tooltip>
   );
 
