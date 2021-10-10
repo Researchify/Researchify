@@ -3,6 +3,7 @@ import {
   CREATE_TEAM_MEMBER,
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
+  DELETE_BATCH_TEAM_MEMBERS,
 } from '../actions/types';
 
 const initialState = {
@@ -28,6 +29,16 @@ const teamMembersReducer = (state = initialState, action) => {
           (member) => member._id !== action.payload,
         ),
       };
+    case DELETE_BATCH_TEAM_MEMBERS: {
+      const deletedMembersIds = action.payload;
+      return {
+        ...state,
+        teamMembers: state.teamMembers.filter(
+          (pub) => !deletedMembersIds.find((id) => id === pub._id),
+        ),
+      };
+    }
+
     default:
       return state;
   }
