@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 // Pages
 import Dashboard from '../dashboard/Dashboard';
-import ProfileInfoEdit from '../profileInfoEdit/ProfileInfoEdit';
+import Settings from '../settings/Settings';
 import PublicationPage from '../publications/PublicationPage';
 import TeamPage from '../teamPage/TeamPage';
 import AchievementPage from '../achievements/AchievementPage';
@@ -38,7 +38,7 @@ const PrivateRoute = () => {
       <DashboardLayoutRoute
         path="/dashboard/profile"
         exact
-        component={ProfileInfoEdit}
+        component={Settings}
       />
       <DashboardLayoutRoute
         path="/publications"

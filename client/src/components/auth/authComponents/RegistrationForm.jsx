@@ -29,16 +29,10 @@ const StringPasswordHint = (props) => (
       - 8-20 characters
       <br />
       {' '}
-      - At least 1 uppercase letter
-      <br />
-      {' '}
-      - At least 1 lowercase letter
+      - At least 1 letter
       <br />
       {' '}
       - At least 1 number
-      <br />
-      {' '}
-      - At least 1 symbol from @$!%*#?&
     </Popover.Content>
   </Popover>
 );
@@ -62,9 +56,11 @@ const RegistrationForm = () => {
     password: yup
       .string()
       .required('Please enter your password')
+      .min(8, 'Password must contain at least 8 characters')
+      .max(20, 'Password is too long')
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Password is not strong enough',
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/,
+        'Password must be 8 or more characters with a mix of letters and numbers',
       ),
     confirmedPassword: yup
       .string()
@@ -101,6 +97,54 @@ const RegistrationForm = () => {
           handleSubmit, handleChange, values, touched, errors,
         }) => (
           <Form noValidate onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Label> Email address </Form.Label>
+              <Form.Control
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={values.email}
+                onChange={handleChange}
+                isInvalid={touched.email && errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.email}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>
+                Password
+                {'  '}
+                <OverlayTrigger trigger={['hover', 'focus']} placement="right" overlay={StringPasswordHint}>
+                  <BsQuestionCircle style={{ color: 'grey' }} />
+                </OverlayTrigger>
+              </Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={values.password}
+                onChange={handleChange}
+                isInvalid={touched.password && errors.password}
+              />
+              <Form.Control.Feedback type="invalid" style={{ whiteSpace: 'pre-wrap' }}>
+                {errors.password}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label> Confirm Password </Form.Label>
+              <Form.Control
+                type="password"
+                name="confirmedPassword"
+                placeholder="Password"
+                value={values.confirmedPassword}
+                onChange={handleChange}
+                isInvalid={touched.confirmedPassword && errors.confirmedPassword}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.confirmedPassword}
+              </Form.Control.Feedback>
+            </Form.Group>
             <Form.Row>
               <Form.Group as={Col} md="6">
                 <Form.Label> Team name </Form.Label>
@@ -131,54 +175,6 @@ const RegistrationForm = () => {
                 </Form.Control.Feedback>
               </Form.Group>
             </Form.Row>
-            <Form.Group>
-              <Form.Label> Email address </Form.Label>
-              <Form.Control
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={values.email}
-                onChange={handleChange}
-                isInvalid={touched.email && errors.email}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.email}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>
-                Password
-                {'  '}
-                <OverlayTrigger trigger="hover" placement="right" overlay={StringPasswordHint}>
-                  <BsQuestionCircle style={{ color: 'grey' }} />
-                </OverlayTrigger>
-              </Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={values.password}
-                onChange={handleChange}
-                isInvalid={touched.password && errors.password}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.password}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label> Confirm Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="confirmedPassword"
-                placeholder="Password"
-                value={values.confirmedPassword}
-                onChange={handleChange}
-                isInvalid={touched.confirmedPassword && errors.confirmedPassword}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.confirmedPassword}
-              </Form.Control.Feedback>
-            </Form.Group>
             <div>
               <Button
                 id="submitButton"

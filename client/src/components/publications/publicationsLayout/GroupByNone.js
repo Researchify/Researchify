@@ -13,7 +13,7 @@ import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 import { deleteBatchPublications } from '../../../actions/publications';
-import { ButtonGroupItem } from './PublicationsEditor';
+import { ButtonGroupItem } from '../../shared/styledComponents';
 
 const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
@@ -58,7 +58,7 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
       <div className="publicationList">
         <Row>
           <Col>
-            <div style={{ padding: '10px', fontSize: '15px' }}>
+            <div style={{ padding: '10px', fontSize: '17px' }}>
               <input type="checkbox" checked={checkedCounter === teamPublications.length} onChange={handleChange} />
               {' '}
               { checkedCounter > 0 ? (
@@ -77,9 +77,9 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
             </div>
           </Col>
           <Col>
-            <h5 className="text-center">
+            <h4 className="text-center">
               {groupBy || ' '}
-            </h5>
+            </h4>
           </Col>
           <Col>
             <div className="float-right">

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { TEAM_INFO } from '../../../../global/data';
 
 const DesktopTopBar = ({ styles, title }) => {
@@ -18,8 +17,10 @@ const DesktopTopBar = ({ styles, title }) => {
         {teamName}
         {' '}
         @
+        {' '}
       </span>
       <span>{orgName}</span>
+      {' '}
       <span style={{ fontSize: 28, fontWeight: 'normal' }}>
         -
         {' '}

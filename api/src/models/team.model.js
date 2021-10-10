@@ -1,13 +1,15 @@
 /**
  * This module exports a "Team" mongoose Schema, which represents a researcher team.
  * Post middleware has been implemented to trigger the creation of associated
- * documents upon team registration.
+ * documents upon team registration, and vice-versa for deletion.
  */
 const mongoose = require('mongoose');
 const logger = require('winston');
 
 const Website = require('./website.model');
 const Homepage = require('./homepage.model');
+const Publication = require('./publication.model');
+const Achievement = require('./achievement.model');
 
 const teamSchema = new mongoose.Schema(
   {
@@ -41,17 +43,18 @@ const teamSchema = new mongoose.Schema(
       {
         fullName: {
           type: String,
-          required: false,
+          required: true,
           minLength: 3,
         },
         position: {
           type: String,
           required: false,
+          maxLength: 25,
         },
         summary: {
           type: String,
           required: false,
-          minLength: 3,
+          maxLength: 200,
         },
       },
     ],
@@ -82,6 +85,20 @@ teamSchema.post('save', async (doc) => {
     await Homepage.create({ teamId: doc._id });
   } catch (err) {
     logger.error('Failed to create associated documents on team creation.');
+  }
+});
+
+// Post middleware/trigger to delete dependent documents upon team deletion.
+teamSchema.post('remove', async (doc) => {
+  try {
+    await Website.deleteMany({ teamId: doc._id });
+    await Homepage.deleteMany({ teamId: doc._id });
+    await Publication.deleteMany({ teamId: doc._id });
+    await Achievement.deleteMany({ teamId: doc._id });
+
+    logger.info(`Team ${doc.teamName} & associated documents have been deleted.`);
+  } catch (err) {
+    logger.error('Failed to delete associated documents on team deletion.');
   }
 });
 

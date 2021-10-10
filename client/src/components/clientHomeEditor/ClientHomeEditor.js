@@ -73,7 +73,7 @@ const ClientHomeEditor = () => {
             defaultValue={homepageValues.aboutUs.join('\n\n')}
           />
         </Form.Group>
-        <PrimaryButton type="submit">
+        <PrimaryButton type="submit" style={{ marginBottom: '15px' }}>
           Save
         </PrimaryButton>
       </Form>
