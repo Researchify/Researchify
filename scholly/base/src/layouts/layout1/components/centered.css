@@ -148,15 +148,19 @@
 }
 
 .team-card-container {
+  margin-top: 10px;
   padding-top: 12px;
   padding-left: 50px;
   padding-right: 50px;
+  padding-bottom: 50px;
 }
 
 .team-card {
   border: transparent;
   min-width: 210px;
   max-width: 210px;
+  padding-bottom: 20px;
+  margin-top: 10px;
 }
 
 .team-card-deck {

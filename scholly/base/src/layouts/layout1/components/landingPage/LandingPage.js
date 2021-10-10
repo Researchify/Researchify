@@ -22,7 +22,7 @@ const landingPage = () => {
   const ref = useRef(null);
 
   useEffect(() => {
-    setHeight((ref.current.clientHeight > 600) ? ref.current.clientHeight : 600);
+    setHeight((Math.max(600, ref.current.clientHeight)));
   });
   return (
     <>

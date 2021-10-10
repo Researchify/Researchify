@@ -10,7 +10,6 @@ const TwitterFeed = ({ linkedHandle, themeOption, twitterHeight }) => {
   if (themeOption === 'dark') {
     borderColour = '#ffffff';
   }
-  console.log(twitterHeight);
   return (
     <div className="twitter-feed">
       <Timeline
