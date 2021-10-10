@@ -21,11 +21,11 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
       .string()
       .required('Name is required')
       .min(3, 'Name is at least 3 characters'),
-    position: yup.string().required('Posiiton is required'),
+    position: yup
+      .string()
+      .max(25, 'Max 25 characters'),
     summary: yup
       .string()
-      .required('Summary is required')
-      .min(3, 'Summary is at least 3 characters')
       .max(200, 'Max 200 characters'),
   });
 
@@ -62,7 +62,11 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Full Name</Form.Label>
+            <Form.Label>
+              Full Name
+              {' '}
+              <span style={{ color: 'red' }}>*</span>
+            </Form.Label>
             <Form.Control
               className="placeholder-text"
               type="text"
@@ -118,6 +122,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
                 overlay={renderTooltip}
               >
                 <DangerButton
+                  type="button"
                   className="mr-2"
                   onClick={closeModal}
                 >

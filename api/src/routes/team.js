@@ -62,6 +62,14 @@ teamRouter.delete(
 );
 
 teamRouter.patch(
+  '/:teamId/members',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.deleteBatchTeamMembers,
+);
+
+teamRouter.patch(
   '/:teamId/twitter-handle',
   authMiddleware.cookieJwtAuth,
   teamMiddleware.validateTeamId,

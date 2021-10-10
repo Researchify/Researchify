@@ -26,6 +26,10 @@ export const PrimaryButton = styled.button` // Purple
   &:hover{
     background-color:rgb(60, 70, 96);
   }
+  &:disabled{
+    background-color: #99a2ba;
+    border: 1px solid #99a2ba;
+  }
 `;
 
 // export const SecondaryButton = styled.button` // Outline-Gold
@@ -80,6 +84,10 @@ export const DangerButton = styled.button`
     background-color: #dc3545;
     color: white;
   }
+  &:disabled{
+    pointer-events: none;
+    opacity: .65;
+  }
 `;
 
 export const OptionEditButton = styled.button` // Blue with a darker blue background when hovering
@@ -107,4 +115,31 @@ export const RedDeleteButton = styled.button` // Red with darker red background 
   &:hover{
     background-color: #9e2833;
   }
+`;
+
+export const StyledButtonGroup = styled.div`
+  background-color: transparent;
+  border-radius: 0;
+  padding: 5px;
+  color: black;
+`;
+
+export const ButtonGroupItem = styled.button` 
+  background: #ededed;
+  border: 1px solid ${(props) => props.borderColor || '#ccc'};
+  padding: 1px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande";
+  width: auto;
+  transition: all 0.2s ease 0s;
+  color: ${(props) => props.color};
+  &:hover{
+    background: ${(props) => props.hoverBorderColor || 'lightgrey'};
+    color: ${(props) => props.hoverColor};
+  }
+  ${({ press }) => (press
+    && 'color: #4d4d4d; background: #ededed; outline: none; -webkit-box-shadow: inset 0px 0px 10px #c1c1c1; -moz-box-shadow: inset 0px 0px 10px #c1c1c1; box-shadow: inset 0px 0px 10px #c1c1c1;&:hover { background: #BEBEBE }'
+  )
+}
 `;

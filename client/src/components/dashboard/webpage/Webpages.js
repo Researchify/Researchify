@@ -19,8 +19,8 @@ const Webpages = ({
   currentWebPages,
   directToAnotherPage,
   teamId,
-  setSelectedPage,
-  selectedPage,
+  setPageToDelete,
+  pageToDelete,
   availablePages,
   loading,
 }) => {
@@ -28,9 +28,11 @@ const Webpages = ({
   const showDeleteModal = () => setDeleteModal(true);
   const closeDeleteModal = () => setDeleteModal(false);
 
+  const [selectedPages, setSelectedPages] = useState([]);
+
   const [displayPageModal, setDisplayPageModal] = useState(false);
   const showDisplayPageModal = () => setDisplayPageModal(true);
-  const closeDisplayPageModal = () => setDisplayPageModal(false);
+  const closeDisplayPageModal = () => { setSelectedPages([]); setDisplayPageModal(false); };
 
   const [disableAddButton, setDisableAddButton] = useState(false);
 
@@ -52,7 +54,7 @@ const Webpages = ({
   }, [currentWebPages]);
 
   const promptDeleteConfirmation = (pageName) => {
-    setSelectedPage(pageName);
+    setPageToDelete(pageName);
     showDeleteModal();
   };
 
@@ -60,16 +62,18 @@ const Webpages = ({
     <>
       <WebpageDelete
         teamId={teamId}
-        selectedPage={selectedPage}
+        selectedPage={pageToDelete}
         displayModal={displayDeleteModal}
         closeModal={closeDeleteModal}
-        setSelectedPage={setSelectedPage}
+        setSelectedPage={setPageToDelete}
       />
       <WebpageSelector
         teamId={teamId}
         currentWebPages={currentWebPages}
         displayModal={displayPageModal}
         closeModal={closeDisplayPageModal}
+        selectedPages={selectedPages}
+        setSelectedPages={setSelectedPages}
       />
       <div className="mb-3 text-center">
         <ConditionalWrapper
@@ -162,8 +166,8 @@ Webpages.propTypes = {
   currentWebPages: PropTypes.array.isRequired,
   directToAnotherPage: PropTypes.func.isRequired,
   teamId: PropTypes.string.isRequired,
-  setSelectedPage: PropTypes.func.isRequired,
-  selectedPage: PropTypes.string.isRequired,
+  setPageToDelete: PropTypes.func.isRequired,
+  pageToDelete: PropTypes.string.isRequired,
   availablePages: PropTypes.array.isRequired,
   loading: PropTypes.bool,
 };

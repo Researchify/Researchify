@@ -19,6 +19,7 @@ import {
   RESET_TEAM,
   DELETE_TEAM_PUBLICATIONS,
   RESET_ACHIEVEMENT,
+  DELETE_BATCH_TEAM_MEMBERS,
 } from './types';
 import { login } from './auth';
 import {
@@ -152,6 +153,7 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
       type: CREATE_TEAM_MEMBER,
       payload: data,
     });
+    dispatch(successMessageCreator('Team member has been created'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -172,6 +174,7 @@ export const updateTeamMember = (id, teamMember) => async (dispatch) => {
       type: UPDATE_TEAM_MEMBER,
       payload: data,
     });
+    dispatch(successMessageCreator('Team member has been updated'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -191,6 +194,7 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
       type: DELETE_TEAM_MEMBER,
       payload: memberId,
     });
+    dispatch(successMessageCreator('Team member has been deleted'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -355,25 +359,14 @@ export const resetTeamData = (teamId) => async (dispatch) => {
   }
 };
 
-/**
- * This action creater find/create a new theme and update it in team data.
- * @param {*} teamId
- * @param {*} themeData
- * @returns
- */
-export const updateTeamTheme = (teamId, themeData) => async (dispatch) => {
+export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => async (dispatch) => {
   try {
-    const updatedTheme = await api.findOrCreateTheme(themeData);
-    const updatedThemeId = updatedTheme.data._id;
-    const { data } = await api.updateTeam(teamId, {
-      themeId: updatedThemeId,
-    });
-    const updatedTeam = teamDataAllocator(data);
+    await api.deleteBatchTeamMembers(teamId, teamMemberIdList);
     dispatch({
-      type: UPDATE_TEAM,
-      payload: updatedTeam,
+      type: DELETE_BATCH_TEAM_MEMBERS,
+      payload: teamMemberIdList,
     });
-    dispatch(successMessageCreator('Theme has been updated'));
+    dispatch(successMessageCreator(`${teamMemberIdList.length} team member(s) have been deleted`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }

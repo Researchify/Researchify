@@ -40,7 +40,7 @@ async function addWebPage(req, res, next) {
   try {
     const foundWebsiteInfo = await Website.findOne({ teamId });
     if (foundWebsiteInfo) {
-      foundWebsiteInfo.pages.push(req.body.pageName);
+      foundWebsiteInfo.pages = foundWebsiteInfo.pages.concat(req.body.pageArray);
       await foundWebsiteInfo.save();
       return res.status(200).json(foundWebsiteInfo);
     }
