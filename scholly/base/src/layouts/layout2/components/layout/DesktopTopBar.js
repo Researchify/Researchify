@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { TEAM_INFO } from '../../../../global/data';
 
 const DesktopTopBar = ({ styles, title }) => {

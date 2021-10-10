@@ -23,7 +23,7 @@ const Publication = ({ pub }) => {
   const dropDown = (
     <Collapse in={expand}>
       <div style={{
-        textAlign: 'left', marginTop: '15px', marginLeft: '30px', marginRight: '30px', color: isHoveringArrow ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)',
+        fontSize: '15px', textAlign: 'left', marginTop: '15px', marginLeft: '30px', marginRight: '30px', color: isHoveringArrow ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)',
       }}
       >
         {pub.description}
@@ -32,7 +32,7 @@ const Publication = ({ pub }) => {
   );
 
   return (
-    <ListGroup style={{ marginBottom: '10px', boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)' }}>
+    <ListGroup style={{ marginBottom: '5px', boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)' }}>
       <ListGroup.Item
         style={{
           textAlign: 'left',
@@ -44,14 +44,14 @@ const Publication = ({ pub }) => {
         onBlur={handleMouseLeave}
       >
         <div style={{
-          fontSize: '17px', fontWeight: 'bold', color: 'var(--researchify-text-color)',
+          fontSize: '16px', fontWeight: 'bold', color: 'var(--researchify-text-color)',
         }}
         >
           {pub.title}
         </div>
         {
           pub.category.categoryTitle && (
-          <div style={{ fontStyle: 'italic', color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
+          <div style={{ fontSize: '15px', fontStyle: 'italic', color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
             {pub.category.categoryTitle}
             {pub.category.categoryTitle && `, ${pub.category.type.charAt(0) + pub.category.type.slice(1).toLowerCase()}`}
             {pub.category.issue && `, Issue ${pub.category.issue}`}
@@ -61,10 +61,10 @@ const Publication = ({ pub }) => {
           </div>
           )
         }
-        <div style={{ color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>{pub.authors.map((author) => `${author}`).join(', ')}</div>
+        <div style={{ fontSize: '15px', color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>{pub.authors.map((author) => `${author}`).join(', ')}</div>
         {
           pub.category.publisher && (
-          <div style={{ color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
+          <div style={{ fontSize: '15px', color: isHovering ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)' }}>
             Published by
             {' '}
             {pub.category.publisher}
@@ -74,7 +74,7 @@ const Publication = ({ pub }) => {
         {
           pub.link && (
             <div>
-              <a style={{ fontSize: '16px' }} href={pub.link} target="_blank" rel="noreferrer">PDF</a>
+              <a style={{ fontSize: '15px' }} href={pub.link} target="_blank" rel="noreferrer">PDF</a>
             </div>
           )
         }

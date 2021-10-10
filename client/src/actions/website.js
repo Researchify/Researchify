@@ -31,16 +31,16 @@ export const deleteWebsite = () => ({
  * Adds a new client web-page to redux store and database.
  * @param teamInfo contains teamName, orgName and email
  */
-export const addPage = (teamId, pageName) => async (dispatch) => {
+export const addPage = (teamId, pageArray) => async (dispatch) => {
   try {
     const apiBody = {
-      pageName,
+      pageArray,
     };
     await api.addWebPage(teamId, apiBody);
 
     dispatch({
       type: ADD_WEBPAGE,
-      payload: pageName,
+      payload: pageArray,
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
@@ -72,7 +72,7 @@ export const updatePublicationOptions = (teamId, preference) => async (dispatch)
     const { data } = await api.updateClientWebMetadata(teamId, changes);
     dispatch({
       type: UPDATE_PUBLICATION_OPTIONS,
-      payload: data,
+      payload: data[0].value,
     });
     dispatch(successMessageCreator('Preference has been updated.'));
   } catch (err) {
