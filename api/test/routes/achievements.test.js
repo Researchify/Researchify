@@ -52,10 +52,7 @@ beforeEach(async () => {
     password: 'testpass',
   };
   res = await request.post('/auth/login').send(data);
-  console.log(res.headers);
-  console.log(res.headers['set-cookie']);
   cookies = res.headers['set-cookie'];
-  // console.log(res);
 });
 
 afterEach(async () => {
@@ -69,16 +66,16 @@ describe('POST /achievements/:teamId', () => {
     expect(res.status).toBe(404);
   });
 
-  it('should add achievement to team, async', async () => {
+  it('should add new achievement to team, async', async () => {
     const team = await Team.findOne({ email: 'testemail@gmail.com' });
-    console.log(team);
     const data = {
       title: 'Best team',
       yearAwarded: 2019,
       description: 'We are the best team.',
       teamId: team._id.toString(),
     };
-    const res = await request.post(`${ROUTE_PREFIX}/${team._id.toString()}`)
+
+    const res = await request.post(`${ROUTE_PREFIX}`)
       .set('Cookie', cookies)
       .send(data);
     expect(res.status).toBe(201);
@@ -88,10 +85,3 @@ describe('POST /achievements/:teamId', () => {
     expect(res.body.description).toEqual('We are the best team.');
   });
 });
-
-// // test connection
-// it('should connect to our API', async () => {
-//   const res = await request.get('/');
-//   expect(res.status)
-//     .toBe(200);
-// });
