@@ -7,7 +7,7 @@ import { FETCH_HOMEPAGE, UPDATE_HOMEPAGE } from '../actions/types';
 // Each string in list is representing a paragraph.
 // This is for better handling the display/rendering of each Para.
 const INITIAL_HOMEPAGE_STATE = {
-  aboutUs: [''],
+  aboutUs: '',
 };
 
 const homepageReducer = (state = INITIAL_HOMEPAGE_STATE, action) => {

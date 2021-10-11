@@ -13,11 +13,10 @@ const homepageSchema = new mongoose.Schema(
     },
     // `aboutUs` stores a list of strings.
     // Each string in list is a paragraph.
-    aboutUs: [
-      {
-        type: String,
-      },
-    ],
+    aboutUs:
+    {
+      type: String,
+    },
   },
   { timestamps: true },
 );
