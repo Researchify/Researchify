@@ -51,9 +51,7 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
     return false;
   };
 
-  if (member.memberPic === undefined) {
-    member.memberPic = profilePic; // eslint-disable-line no-param-reassign
-  }
+  member.memberPic = member.memberPic ?? profilePic; // eslint-disable-line no-param-reassign
 
   return (
     <>

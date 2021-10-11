@@ -18,7 +18,7 @@ const ProfilePic = ({ member, hoveredMember }) => (
         style={{
           width: '100%', height: '90%', objectFit: 'cover', filter: hoveredMember !== member && 'opacity(60%)',
         }}
-        src={profilePicture}
+        src={member.memberPic ? member.memberPic : profilePicture}
       />
       <div style={{
         position: 'absolute', left: '16px', color: hoveredMember === member ? 'var(--researchify-text-color)' : 'var(--researchify-text-color-secondary)',

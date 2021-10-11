@@ -35,7 +35,7 @@ const TeamMemberMobile = ({ teamMembers }) => {
             height: 'auto', minWidth: '150px', maxWidth: '150px',
           }}
           >
-            <Card.Img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={profilePicture} />
+            <Card.Img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={member.memberPic ? member.memberPic : profilePicture} />
           </div>
           <div>
             <Card.Body>
