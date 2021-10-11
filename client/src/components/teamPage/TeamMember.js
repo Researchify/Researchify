@@ -80,7 +80,12 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
               roundedCircle
               height="130px"
               width="130px"
-              style={{ alignSelf: 'center', marginTop: '10px', marginLeft: '15px' }}
+              style={{
+                alignSelf: 'center',
+                marginTop: '10px',
+                marginLeft: '15px',
+                objectFit: 'cover',
+              }}
             />
           </Col>
           <Col>
