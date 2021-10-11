@@ -56,11 +56,9 @@ export const resetPassword = (email) => async (dispatch) => {
     });
     dispatch(successMessageCreator('Password successfully reset'));
   } catch (err) {
-    if (err) {
-      // eslint-disable-next-line
-      console.log(err);
-      dispatch(errorActionGlobalCreator(err));
-    }
+    // eslint-disable-next-line
+    console.log(err);
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 

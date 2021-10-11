@@ -106,8 +106,14 @@ async function resetPwd(req, res,next) {
   var mailOptions;
   const salt = await bcrypt.genSalt();
   hashPassword = await bcrypt.hash(password, salt);
+
+  const foundTeam = await Team.findOne({ email: email });
+  if (! foundTeam){
+    return next(
+        fillErrorObject(500, 'Authentication error', ['Team not found, incorrect email']),
+      );
+  }
   try {
-      const foundTeam = await Team.findOne({ email: email });
       //console.log(foundTeam);
       //console.log(password);
       const updatedTeam = await Team.findByIdAndUpdate(foundTeam._id, {password: hashPassword}, {
@@ -134,7 +140,7 @@ async function resetPwd(req, res,next) {
       transporter.sendMail(mailOptions);
     } catch (e) {
       return next(
-        fillErrorObject(500, 'Server error', [e]),
+        fillErrorObject(500, 'Server error', ['Server error']),
       );
   }
 
