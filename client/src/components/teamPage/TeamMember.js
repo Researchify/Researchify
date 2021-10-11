@@ -4,35 +4,32 @@
 
 import {
   Card,
-  Row,
-  Col,
   Image,
   Modal,
-  ButtonGroup,
-  OverlayTrigger,
-  Button,
+  Row,
+  Col,
 } from 'react-bootstrap';
 import { useState } from 'react';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { IconContext } from 'react-icons';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
 import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
+// import profilePic from '../../images/profilepic.jpg';
 import {
   SecondaryButton,
   DangerButton,
-  OptionEditButton,
-  RedDeleteButton,
+  StyledButtonGroup,
+  ButtonGroupItem,
 } from '../shared/styledComponents';
 import './teamMember.css';
 import './teamPage.css';
 
-const TeamMember = ({ member }) => {
+const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
   const dispatch = useDispatch();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const teamId = useSelector((state) => state.team.teamId);
 
   const handleDelete = () => {
@@ -40,68 +37,75 @@ const TeamMember = ({ member }) => {
     setShowDeleteMessage(false);
   };
 
-  const displayOptions = (
-    <ButtonGroup>
-      <OptionEditButton
-        backgroundColor="white"
-        onClick={() => setShowUpdateForm(true)}
-        data-toggle="modal"
-      >
-        {' '}
-        <AiFillEdit />
-        {' '}
-      </OptionEditButton>
-      <RedDeleteButton
-        backgroundColor="white"
-        onClick={() => setShowDeleteMessage(true)}
-        data-toggle="modal"
-      >
-        <AiFillDelete />
-      </RedDeleteButton>
-    </ButtonGroup>
-  );
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+
+  // prevent clicking on inner div calling the outer div onclick function
+  const childCallback = (event) => {
+    event.stopPropagation();
+    return false;
+  };
+
+  console.log(member.memberPic);
 
   return (
     <>
-      <Col className="container-fluid mt-4">
-        <Card id="team-card" bg="light" style={{ width: '25rem', height: '100%' }}>
-          <Row>
-            <Col md={{ span: 2, offset: 10 }}>
-              <OverlayTrigger
-                rootClose
-                trigger="click"
-                placement="bottom"
-                overlay={displayOptions}
-              >
-                <Button variant="default">
-                  <IconContext.Provider
-                    value={{ color: '#56658a', size: '20px' }}
-                  >
-                    <BsThreeDotsVertical />
-                  </IconContext.Provider>
-                </Button>
-              </OverlayTrigger>
-            </Col>
-          </Row>
-          <Image
-            src={member.memberPic}
-            roundedCircle
-            height="130px"
-            width="130px"
-            style={{
-              alignSelf: 'center',
-              objectFit: 'cover',
-            }}
-          />
-          <Card.Body>
-            <Card.Title className="text-center">{member.fullName}</Card.Title>
-            <Card.Subtitle className="text-center mb-2 text-muted">
-              {member.position}
-            </Card.Subtitle>
-            <Card.Text>{member.summary}</Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
+      <Card
+        onMouseOver={handleMouseOver}
+        onFocus={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+        onBlur={handleMouseLeave}
+        id="team-card"
+        onClick={() => setCheckedMember(member._id)}
+        style={{
+          margin: '15px', minWidth: '350px', maxWidth: '350px', height: '100%', backgroundColor: isHovering ? '#f5f2f2' : '#f8f9fa',
+        }}
+      >
+        <Row>
+          <Col md={3} xs={3}>
+            <input
+              style={{ marginTop: '12px', marginLeft: '12px' }}
+              type="checkbox"
+              checked={checkedMember.includes(member._id)}
+            />
+          </Col>
+          <Col md={4} xs={4}>
+            <Image
+              src={member.memberPic}
+              roundedCircle
+              height="130px"
+              width="130px"
+              style={{ alignSelf: 'center', marginTop: '10px', marginLeft: '15px' }}
+            />
+          </Col>
+          <Col>
+            {
+              isHovering
+              && (
+              <StyledButtonGroup onClick={childCallback} className="float-right" style={{ margin: '5px' }}>
+                <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
+                <ButtonGroupItem color="#dc3545" hoverBorderColor="#dc3545" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+                  <RiDeleteBin6Line />
+                </ButtonGroupItem>
+              </StyledButtonGroup>
+              )
+              }
+          </Col>
+        </Row>
+
+        <Card.Body>
+          <Card.Title className="text-center">{member.fullName}</Card.Title>
+          <Card.Subtitle className="text-center mb-2 text-muted">
+            {member.position}
+          </Card.Subtitle>
+          <Card.Text className="text-center">{member.summary}</Card.Text>
+        </Card.Body>
+      </Card>
 
       <Modal show={showUpdateForm} id="teamMemberModal">
         <Modal.Header className="teamMemberModalHeader">
@@ -143,6 +147,8 @@ const TeamMember = ({ member }) => {
 // props validation
 TeamMember.propTypes = {
   member: PropTypes.object.isRequired,
+  checkedMember: PropTypes.array.isRequired,
+  setCheckedMember: PropTypes.func.isRequired,
 };
 
 export default TeamMember;

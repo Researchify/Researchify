@@ -43,17 +43,18 @@ const teamSchema = new mongoose.Schema(
       {
         fullName: {
           type: String,
-          required: false,
+          required: true,
           minLength: 3,
         },
         position: {
           type: String,
           required: false,
+          maxLength: 25,
         },
         summary: {
           type: String,
           required: false,
-          minLength: 3,
+          maxLength: 200,
         },
         memberPic: {
           type: String,
