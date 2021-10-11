@@ -5,6 +5,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Container } from 'react-bootstrap';
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState } from 'draft-js';
+import { convertToHTML } from 'draft-convert';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './css/ClientHomeEditor.css';
 import {
   getHomepageDataByTeamId,
@@ -18,12 +22,24 @@ const ClientHomeEditor = () => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
   const aboutUs = useSelector((state) => state.homepage.aboutUs);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [htmlContent, setHtmlContent] = useState();
 
   // values
   const [homepageValues, setValues] = useState({
     aboutUs,
     teamId,
   });
+
+  const convertContentToHTML = () => {
+    const result = convertToHTML(editorState.getCurrentContent());
+    setHtmlContent(result);
+  };
+
+  const onEditorStateChange = (e) => {
+    setEditorState(e);
+    convertContentToHTML();
+  };
 
   useEffect(() => {
     if (teamId) {
@@ -52,7 +68,7 @@ const ClientHomeEditor = () => {
   const saveEditor = (event) => {
     // prevent refreshing page after save
     event.preventDefault();
-    dispatch(updateHomepage(teamId, homepageValues));
+    dispatch(updateHomepage(teamId, { teamId, aboutUs: htmlContent }));
   };
 
   return (
@@ -65,12 +81,19 @@ const ClientHomeEditor = () => {
               Tell people about your team!
             </div>
           </Form.Label>
-          <Form.Control
+          {/* <Form.Control
             name="aboutUs"
             as="textarea"
             rows={33}
             // join the string list to display paragraphs
             defaultValue={homepageValues.aboutUs.join('\n\n')}
+          /> */}
+          <Editor
+            editorState={editorState}
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            editorClassName="editorClassName"
+            onEditorStateChange={onEditorStateChange}
           />
         </Form.Group>
         <PrimaryButton type="submit" style={{ marginBottom: '15px' }}>
