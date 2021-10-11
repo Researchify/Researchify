@@ -54,7 +54,7 @@ describe('POST /homepage/:team_id', () => {
       .send(data);
     expect(res.status).toBe(200);
     expect(res.body.teamId).toEqual(team._id.toString());
-    expect(res.body.aboutUs).toEqual(['Hello', 'World!']);
+    expect(res.body.aboutUs).toEqual('Hello World!');
   });
 });
 
