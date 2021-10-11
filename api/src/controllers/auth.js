@@ -89,6 +89,7 @@ function logout(req, res) {
  * @param {*} res response object
  * @returns 200: reset pwd successfully
  * @returns 404: error occur
+ * @returns 500: server error
  */
 async function resetPwd(req, res,next) {
   const { email: email } = req.params;
@@ -104,12 +105,12 @@ async function resetPwd(req, res,next) {
   var transporter;
   var mailOptions;
   const salt = await bcrypt.genSalt();
-  password = await bcrypt.hash(password, salt);
+  hashPassword = await bcrypt.hash(password, salt);
   try {
       const foundTeam = await Team.findOne({ email: email });
       //console.log(foundTeam);
       //console.log(password);
-      const updatedTeam = await Team.findByIdAndUpdate(foundTeam._id, {password}, {
+      const updatedTeam = await Team.findByIdAndUpdate(foundTeam._id, {password: hashPassword}, {
         new: true,
         runValidators: true,
       });
@@ -129,23 +130,15 @@ async function resetPwd(req, res,next) {
         subject: 'Researchify password reset email',
         text: 'Hi,\n This is your new password: '+password+'\n Please login to your researchify account and change it to one of your choosing.\n Regards, Researchify team'
       };
+
+      transporter.sendMail(mailOptions);
     } catch (e) {
       return next(
         fillErrorObject(500, 'Server error', [e]),
       );
   }
 
-
-
-
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      return next(
-        fillErrorObject(500, 'Server error', [info]),
-      );
-  }});
   return res.status(200);
-
 }
 
 module.exports = {
