@@ -12,16 +12,6 @@ const AchievementsPageWalkthrough = () => {
         element: '#add-achievement-button',
         intro: 'Click on this to add a new achievement manually',
       },
-      {
-        element: '#edit-achievement-button',
-        intro: 'Click on this to edit the achievement',
-      },
-      {
-        element: '#edit-achievement-button',
-        intro: 'Click on this to delete the achievement',
-        /* position: 'right', */
-      },
-
     ],
     hintsEnabled: false,
     hints: [
