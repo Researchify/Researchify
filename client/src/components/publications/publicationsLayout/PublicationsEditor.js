@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Dropdown, OverlayTrigger, Tooltip, Modal, Button,
+  Dropdown, OverlayTrigger, Tooltip, Modal, Button, Row, Col,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -76,104 +76,113 @@ const PublicationsEditor = ({
   }, [checkedPublications]);
 
   return (
-    <div style={{ marginTop: '15px', display: 'flex', justifyContent: 'space-between' }}>
-      <div style={{ display: 'flex', justifyContent: 'start' }}>
-        <Dropdown>
-          <StyledDropdownToggle style={{ whiteSpace: 'normal' }}>
-            Add Publication(s)
-          </StyledDropdownToggle>
-          <Dropdown.Menu>
-            <StyledDropdowItem onClick={() => setShowCreateForm(true)}>Add Manually</StyledDropdowItem>
-            <StyledDropdowItem onClick={() => setShowImportForm(true)}>Import Publications</StyledDropdowItem>
-          </Dropdown.Menu>
-        </Dropdown>
-        {' '}
-        <ConditionalWrapper
-          condition={checkedPublications.length === 0}
-          wrapper={(children) => (
-            <OverlayTrigger
-              placement="bottom"
-              overlay={renderTooltip}
+    <div>
+      <Row>
+        <Col md={4}>
+          <div style={{ display: 'flex' }}>
+
+            <Dropdown>
+              <StyledDropdownToggle style={{ whiteSpace: 'normal' }}>
+                Add Publication(s)
+              </StyledDropdownToggle>
+              <Dropdown.Menu>
+                <StyledDropdowItem onClick={() => setShowCreateForm(true)}>Add Manually</StyledDropdowItem>
+                <StyledDropdowItem onClick={() => setShowImportForm(true)}>Import Publications</StyledDropdowItem>
+              </Dropdown.Menu>
+            </Dropdown>
+            {' '}
+            <ConditionalWrapper
+              condition={checkedPublications.length === 0}
+              wrapper={(children) => (
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={renderTooltip}
+                >
+                  {children}
+                </OverlayTrigger>
+              )}
             >
-              {children}
-            </OverlayTrigger>
-          )}
-        >
-          <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
-            <DangerButton
-              style={{ marginLeft: '5px' }}
-              onClick={() => setShowDeleteMessage(true)}
-              disabled={checkedPublications.length === 0}
-            >
-              <RiDeleteBin6Line />
-              {' '}
-              {checkedCounter > 0 && checkedCounter}
-              {' '}
-              Team Members
-              {' '}
-            </DangerButton>
+              <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
+                <DangerButton
+                  style={{ marginLeft: '5px' }}
+                  onClick={() => setShowDeleteMessage(true)}
+                  disabled={checkedPublications.length === 0}
+                >
+                  <RiDeleteBin6Line />
+                  {' '}
+                  {checkedCounter > 0 && checkedCounter}
+                  {' '}
+                  Team Members
+                  {' '}
+                </DangerButton>
+              </div>
+            </ConditionalWrapper>
           </div>
-        </ConditionalWrapper>
-      </div>
+        </Col>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <StyledButtonGroup style={{ marginLeft: '12px' }}>
-          Group By
-          {' '}
-          {Object.keys(groupByOptions).map((groupBy) => (
-            <ButtonGroupItem
-              color="grey"
-              press={options.groupBy === groupByOptions[groupBy]}
-              key={groupBy}
-              onClick={() => setOptions({ ...options, groupBy: groupByOptions[groupBy] })}
-            >
-              {groupByOptions[groupBy]}
-            </ButtonGroupItem>
-          ))}
-        </StyledButtonGroup>
+        <Col md={6}>
+          <div style={{ display: 'flex' }}>
+            <StyledButtonGroup>
+              Group By
+              {' '}
+              {Object.keys(groupByOptions).map((groupBy) => (
+                <ButtonGroupItem
+                  color="grey"
+                  press={options.groupBy === groupByOptions[groupBy]}
+                  key={groupBy}
+                  onClick={() => setOptions({ ...options, groupBy: groupByOptions[groupBy] })}
+                >
+                  {groupByOptions[groupBy]}
+                </ButtonGroupItem>
+              ))}
+            </StyledButtonGroup>
+            <StyledButtonGroup>
+              Sort By
+              {' '}
+              {Object.keys(sortingOptions).map((sortBy) => (
+                <ButtonGroupItem
+                  color="grey"
+                  press={options.sortBy === sortingOptions[sortBy]}
+                  key={sortBy}
+                  value={sortingOptions[sortBy]}
+                  onClick={(e) => {
+                    setOptions({ ...options, sortBy: sortingOptions[sortBy] });
+                    sortPublications(publications, e.target.value);
+                  }}
+                >
+                  {sortingOptions[sortBy]}
+                </ButtonGroupItem>
+              ))}
+              {options.groupBy === groupByOptions.CATEGORY
+              && (
+              <ButtonGroupItem
+                color="grey"
+                press={options.sortBy === 'Category Title'}
+                value="Category Title"
+                onClick={(e) => {
+                  setOptions({ ...options, sortBy: e.target.value });
+                  sortPublications(publications, e.target.value);
+                }}
+              >
+                Category Title
+              </ButtonGroupItem>
+              )}
+            </StyledButtonGroup>
+          </div>
 
-        <StyledButtonGroup style={{ marginLeft: '12px' }}>
-          Sort By
-          {' '}
-          {Object.keys(sortingOptions).map((sortBy) => (
-            <ButtonGroupItem
-              color="grey"
-              press={options.sortBy === sortingOptions[sortBy]}
-              key={sortBy}
-              value={sortingOptions[sortBy]}
-              onClick={(e) => {
-                setOptions({ ...options, sortBy: sortingOptions[sortBy] });
-                sortPublications(publications, e.target.value);
-              }}
-            >
-              {sortingOptions[sortBy]}
-            </ButtonGroupItem>
-          ))}
-          {options.groupBy === groupByOptions.CATEGORY
-            && (
-            <ButtonGroupItem
-              color="grey"
-              press={options.sortBy === 'Category Title'}
-              value="Category Title"
-              onClick={(e) => {
-                setOptions({ ...options, sortBy: e.target.value });
-                sortPublications(publications, e.target.value);
-              }}
-            >
-              Category Title
-            </ButtonGroupItem>
-            )}
-        </StyledButtonGroup>
+        </Col>
 
-        <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ButtonHint}>
-          <PrimaryButton
-            className="float-right"
-            onClick={handleUpdate}
-          >
-            Update Layout
-          </PrimaryButton>
-        </OverlayTrigger>
-      </div>
+        <Col md={2}>
+          <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ButtonHint}>
+            <PrimaryButton
+              className="float-right"
+              onClick={handleUpdate}
+            >
+              Update Layout
+            </PrimaryButton>
+          </OverlayTrigger>
+        </Col>
+      </Row>
 
       {/* A modal for showing confirm delete message */}
       <Modal show={showDeleteMessage}>
