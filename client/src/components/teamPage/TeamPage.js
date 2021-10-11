@@ -106,7 +106,7 @@ const TeamPage = () => {
       <div style={{ padding: '20px', fontSize: '17px' }}>
         <input type="checkbox" checked={checkedMember.length === teamMembers.length} onChange={handleCheckAll} />
         {' '}
-        { checkedMember.length === teamMembers.length ? 'De-Select All' : 'Select All'}
+        Select All
         {' '}
       </div>
 

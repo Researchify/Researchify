@@ -112,7 +112,7 @@ const AchievementPage = () => {
       <div style={{ padding: '20px', fontSize: '17px' }}>
         <input type="checkbox" checked={checkedAchievement.length === achievements.length} onChange={handleCheckAll} />
         {' '}
-        { checkedAchievement.length === achievements.length ? 'De-Select All' : 'Select All'}
+        Select All
         {' '}
       </div>
 
