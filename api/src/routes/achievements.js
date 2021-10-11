@@ -39,4 +39,10 @@ achievementsRouter.get(
   achievementsController.getAllAchievementsByTeam,
 );
 
+achievementsRouter.patch(
+  '/',
+  authMiddleware.cookieJwtAuth,
+  achievementsController.deleteBatchAchievements,
+);
+
 module.exports = achievementsRouter;
