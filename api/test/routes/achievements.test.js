@@ -46,7 +46,7 @@ beforeEach(async () => {
 
   let res = await request.post('/team').send(data);
 
-  // Login with new team created and store cookie to global variable
+  // Login with new team created and store cookies to global variable
   data = {
     email: 'testemail@gmail.com',
     password: 'testpass',
@@ -80,9 +80,9 @@ describe('POST /achievements/:teamId', () => {
       .send(data);
     expect(res.status).toBe(201);
     expect(res.body.teamId).toEqual(team._id.toString());
-    expect(res.body.title).toEqual('Best team');
-    expect(res.body.yearAwarded).toEqual(2019);
-    expect(res.body.description).toEqual('We are the best team.');
+    expect(res.body.title).toEqual(data.title);
+    expect(res.body.yearAwarded).toEqual(data.yearAwarded);
+    expect(res.body.description).toEqual(data.description);
   });
 });
 
@@ -91,7 +91,7 @@ describe('PATCH /achievements/:id', () => {
   it('should return 200 for updating a current achievement', async () => {
     // Create an initial achievement
     const team = await Team.findOne({ email: 'testemail@gmail.com' });
-    let data = {
+    const data = {
       title: 'First achievement',
       yearAwarded: 2019,
       description: 'First achievement test',
@@ -104,7 +104,7 @@ describe('PATCH /achievements/:id', () => {
 
     // Store achievement id to use for patch request
     const achievementId = res.body._id;
-    data = {
+    const updatedData = {
       title: 'First achievement updated',
       yearAwarded: 2020,
       description: 'First achievement update test',
@@ -113,12 +113,12 @@ describe('PATCH /achievements/:id', () => {
     // Test patch request for current achievement
     res = await request.patch(`${ROUTE_PREFIX}/${achievementId}`)
       .set('Cookie', cookies)
-      .send(data);
+      .send(updatedData);
     expect(res.status).toBe(200);
-    expect(res.body.teamId).toEqual(team._id.toString());
-    expect(res.body.title).toEqual('First achievement updated');
-    expect(res.body.yearAwarded).toEqual(2020);
-    expect(res.body.description).toEqual('First achievement update test');
+    expect(res.body.teamId).toEqual(updatedData.teamId);
+    expect(res.body.title).toEqual(updatedData.title);
+    expect(res.body.yearAwarded).toEqual(updatedData.yearAwarded);
+    expect(res.body.description).toEqual(updatedData.description);
   });
 
   it('should return 404 for an achievement not found', async () => {
