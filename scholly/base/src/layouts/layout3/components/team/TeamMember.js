@@ -6,13 +6,14 @@ import React from 'react';
 import {
   Card,
 } from 'react-bootstrap';
+import profilePicture from '../../../../shared/images/profilepic.jpg';
 
 const TeamMember = ({ member }) => (
   <>
     <div className="row mb-2" style={{ width: '70%', padding: '5px' }}>
       <div className="row g-0">
         <div className="col-md-auto">
-          <Card.Img style={{ width: '160px', height: '160px' }} src={member.memberPic} className="team-member-picture " />
+          <Card.Img style={{ width: '160px', height: '160px' }} src={profilePicture} className="team-member-picture " />
         </div>
         <div className="col teamMemberBody">
           <div className="fontx team-member-name d-block w-100 text-left">{member.fullName}</div>
