@@ -25,10 +25,41 @@ const ClientHomeEditor = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlContent, setHtmlContent] = useState();
 
+  const styles = {
+    wrapperStyle: {
+      borderStyle: 'solid',
+      borderColor: '#ced4da',
+      borderRadius: '.25rem',
+      borderWidth: '1px',
+    },
+    toolbarStyle: {
+      borderBottomColor: '#ced4da',
+    },
+    editorStyle: {
+      height: '750px',
+    },
+    toolbar: {
+      options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'link', 'emoji'],
+      inline: {
+        inDropdown: false,
+        options: ['bold', 'italic', 'underline'],
+      },
+      blockType: {
+        inDropdown: true,
+        options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote'],
+      },
+      list: { inDropdown: false },
+      textAlign: { inDropdown: true },
+      link: { inDropdown: true },
+    },
+  };
+
   const onEditorStateChange = (e) => {
     setEditorState(e);
     // convert editor content to HTML and save to state
-    setHtmlContent(convertToHTML(editorState.getCurrentContent()));
+    const result = convertToHTML(editorState.getCurrentContent());
+    console.log(result);
+    setHtmlContent(result);
   };
 
   useEffect(() => {
@@ -60,10 +91,11 @@ const ClientHomeEditor = () => {
           </Form.Label>
           <Editor
             editorState={editorState}
-            toolbarClassName="toolbarClassName"
-            wrapperClassName="wrapperClassName"
-            editorClassName="editorClassName"
             onEditorStateChange={onEditorStateChange}
+            wrapperStyle={styles.wrapperStyle}
+            toolbarStyle={styles.toolbarStyle}
+            editorStyle={styles.editorStyle}
+            toolbar={styles.toolbar}
           />
         </Form.Group>
         <PrimaryButton type="submit" style={{ marginBottom: '15px' }}>

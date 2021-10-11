@@ -15,7 +15,6 @@ const homepageSchema = new mongoose.Schema(
     aboutUs:
     {
       type: String,
-      required: true,
     },
   },
   { timestamps: true },
