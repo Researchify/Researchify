@@ -13,7 +13,7 @@ import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
 import { deleteBatchPublications } from '../../../actions/publications';
-import { ButtonGroupItem } from './PublicationsEditor';
+import { ButtonGroupItem } from '../../shared/styledComponents';
 
 const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
