@@ -26,6 +26,7 @@ import {
 import './form/achievementForm.css';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
+import Test from './achievementsOnboarding';
 
 const Achievement = ({ achievement }) => {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ const Achievement = ({ achievement }) => {
 
   return (
     <>
+      <Test />
       <Row id="achievement" className="container-fluid mt-4">
         <Card id="card">
           <Card.Header as="h5" id="card-header">
@@ -92,7 +94,7 @@ const Achievement = ({ achievement }) => {
         </Card>
       </Row>
 
-      <Modal show={showUpdateForm}>
+      <Modal show={showUpdateForm} id="edit-achievement-button">
         <Modal.Header className="achievementModalHeader">
           <Modal.Title className="achievementsModalTitle"> Edit Achievement </Modal.Title>
         </Modal.Header>
@@ -105,7 +107,7 @@ const Achievement = ({ achievement }) => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showDeleteMessage}>
+      <Modal show={showDeleteMessage} id="delete-achievement-button">
         <Modal.Header>
           <Modal.Title> Delete Achievement </Modal.Title>
         </Modal.Header>
