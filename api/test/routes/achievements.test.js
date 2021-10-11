@@ -85,3 +85,59 @@ describe('POST /achievements/:teamId', () => {
     expect(res.body.description).toEqual('We are the best team.');
   });
 });
+
+// PATCH Requests tests
+describe('PATCH /achievements/:id', () => {
+  it('should return 200 for updating a current achievement', async () => {
+    // Create an initial achievement
+    const team = await Team.findOne({ email: 'testemail@gmail.com' });
+    let data = {
+      title: 'First achievement',
+      yearAwarded: 2019,
+      description: 'First achievement test',
+      teamId: team._id.toString(),
+    };
+
+    let res = await request.post(`${ROUTE_PREFIX}`)
+      .set('Cookie', cookies)
+      .send(data);
+
+    // Store achievement id to use for patch request
+    const achievementId = res.body._id;
+    data = {
+      title: 'First achievement updated',
+      yearAwarded: 2020,
+      description: 'First achievement update test',
+      teamId: team._id.toString(),
+    };
+    // Test patch request for current achievement
+    res = await request.patch(`${ROUTE_PREFIX}/${achievementId}`)
+      .set('Cookie', cookies)
+      .send(data);
+    expect(res.status).toBe(200);
+    expect(res.body.teamId).toEqual(team._id.toString());
+    expect(res.body.title).toEqual('First achievement updated');
+    expect(res.body.yearAwarded).toEqual(2020);
+    expect(res.body.description).toEqual('First achievement update test');
+  });
+
+  it('should return 404 for an achievement not found', async () => {
+    // Data to update a non-existent achivement
+    const data = {
+      title: 'Second achievement updated',
+      yearAwarded: 2019,
+      description: 'Second achievement update test',
+      teamId: '61643c4516cba8e510939fcf',
+    };
+
+    // Test patch request for a non-existent achievement
+    const res = await request.patch(`${ROUTE_PREFIX}/61643b9d2906971903b2207f`)
+      .set('Cookie', cookies)
+      .send(data);
+    expect(res.body.code).toBe(404);
+  });
+});
+
+// DELETE Requests
+
+// GET Requests
