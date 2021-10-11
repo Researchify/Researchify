@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Dropdown, OverlayTrigger, Tooltip,
+  Dropdown, OverlayTrigger, Tooltip, Modal, Button,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -13,6 +13,7 @@ import {
   PrimaryButton, StyledButtonGroup, ButtonGroupItem, DangerButton,
 } from '../../shared/styledComponents';
 import ConditionalWrapper from '../../shared/ConditionalWrapper';
+import { deleteBatchPublications } from '../../../actions/publications';
 
 export const StyledDropdownToggle = styled(Dropdown.Toggle)` //Purple
     border: 1px solid #56658a;
@@ -51,8 +52,17 @@ const PublicationsEditor = ({
 }) => {
   const dispatch = useDispatch();
   const { checkedPublications } = useSelector((state) => state.publications);
+  const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const [checkedCounter, setCheckedCounter] = useState(0);
+
   const handleUpdate = () => {
     dispatch(updatePublicationOptions(teamId, options));
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteBatchPublications(checkedPublications));
+    setCheckedCounter(0);
+    setShowDeleteMessage(false);
   };
 
   const renderTooltip = (props) => (
@@ -60,6 +70,10 @@ const PublicationsEditor = ({
       Plsease select a publication to delete
     </Tooltip>
   );
+
+  useEffect(() => {
+    setCheckedCounter(checkedPublications.length);
+  }, [checkedPublications]);
 
   return (
     <div style={{ marginTop: '15px', display: 'flex', justifyContent: 'space-between' }}>
@@ -88,12 +102,12 @@ const PublicationsEditor = ({
           <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
             <DangerButton
               style={{ marginLeft: '5px' }}
-              onClick={() => console.log('setShowDeleteAll(true)')}
+              onClick={() => setShowDeleteMessage(true)}
               disabled={checkedPublications.length === 0}
             >
               <RiDeleteBin6Line />
               {' '}
-              {checkedPublications.length > 0 && checkedPublications.length}
+              {checkedCounter > 0 && checkedCounter}
               {' '}
               Team Members
               {' '}
@@ -160,6 +174,32 @@ const PublicationsEditor = ({
           </PrimaryButton>
         </OverlayTrigger>
       </div>
+
+      {/* A modal for showing confirm delete message */}
+      <Modal show={showDeleteMessage}>
+        <Modal.Header className="modalHeader">
+          <Modal.Title> Delete Publications </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete
+          {' '}
+          {checkedPublications.length}
+          {' '}
+          publication(s)?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
+            {' '}
+            Cancel
+            {' '}
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            {' '}
+            Confirm
+            {' '}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

@@ -16,17 +16,13 @@
   border-color: rgb(212, 207, 205);
 }
 .newlyAddedPublicationHeader {
-  background-color: rgb(60, 179, 113);
+  background-color: rgb(89, 172, 126);
 }
 
 .publicationHeader {
-  background-color: rgb(240, 240, 240);
-  border: 1px solid rgb(240, 240, 240);
-}
-
-.publicationHeader:hover {
-  background-color: rgb(231, 229, 229);
-  border: 1px solid rgb(240, 240, 240);
+  background-color: #56658a;
+  border: 1px solid #56658a;
+  color: white;
 }
 
 .blur {
@@ -44,22 +40,17 @@
   font-size: 16px;
   padding-left: 15px;
   padding-top: 5px;
-  color: #535151;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
 }
 
 .pubs-title {
   font-size: 19px;
   padding: 10px;
   font-weight: 500;
-  color: black;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  color: white;
 }
 
 .pub {
-  background-color: white;
+  background-color: #f8f9fa;
 }
 
 .pub:hover {
@@ -67,8 +58,7 @@
 }
 
 .publication-container {
-  border: 2px solid rgb(214, 214, 214);
-  border-width: thin;
-  border-radius: 10px;
+  border: 1px solid #56658a;
+  border-radius: 15px;
   overflow: hidden;
 }

@@ -3,15 +3,12 @@
  */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Row, Col, Modal, Button,
-} from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import usePagination from '../../shared/usePagination';
 import Publication from '../publication/Publication';
 import { pageSize as configPageSize } from '../../../config/publications';
 import { CHECK_PUBLICATIONS, UNCHECK_PUBLICATIONS } from '../../../actions/types';
-import { deleteBatchPublications } from '../../../actions/publications';
 
 const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
   const { currentData, pagination } = usePagination(teamPublications, pageSize || configPageSize);
@@ -19,7 +16,6 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
   const [checkedCounter, setCheckedCounter] = useState(0);
   const dispatch = useDispatch();
   const { checkedPublications } = useSelector((state) => state.publications);
-  const [showDeleteMessage, setShowDeleteMessage] = useState(false);
 
   useEffect(() => {
     let count = 0;
@@ -44,13 +40,6 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
     setCheckAll(!checkAll);
   };
 
-  const handleDelete = () => {
-    const publicationIdList = teamPublications.filter((pub) => checkedPublications.includes(pub._id));
-    dispatch(deleteBatchPublications(publicationIdList.map((pub) => pub._id)));
-    setCheckedCounter(0);
-    setShowDeleteMessage(false);
-  };
-
   return (
     <>
       <div className="publicationList">
@@ -59,7 +48,7 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
             <div style={{ padding: '10px', fontSize: '17px' }}>
               <input type="checkbox" checked={checkedCounter === teamPublications.length} onChange={handleChange} />
               {' '}
-              { checkedCounter > 0 ? 'De-Select All' : 'Select All'}
+              Select All
             </div>
           </Col>
           <Col>
@@ -78,32 +67,6 @@ const GroupByNone = ({ teamPublications, pageSize, groupBy }) => {
           <Publication pub={pub} key={pub._id} />))
       }
       </div>
-
-      {/* A modal for showing confirm delete message */}
-      <Modal show={showDeleteMessage}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> Delete Publications </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete
-          {' '}
-          {checkedCounter}
-          {' '}
-          publication(s)?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="light" onClick={() => setShowDeleteMessage(false)}>
-            {' '}
-            Cancel
-            {' '}
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            {' '}
-            Confirm
-            {' '}
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 };
