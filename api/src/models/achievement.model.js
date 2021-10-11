@@ -13,12 +13,17 @@ const achievementSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
+      minlength: 3,
+      maxlength: 60,
     },
     description: {
       type: String,
+      required: true,
+      minlength: 5,
     },
     yearAwarded: {
       type: Number,
+      required: true,
     },
   },
 );
