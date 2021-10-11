@@ -138,7 +138,7 @@ async function resetPwd(req, res,next) {
       );
   }
 
-  return res.status(200);
+  return res.status(200).json('pwd reset success');
 }
 
 module.exports = {

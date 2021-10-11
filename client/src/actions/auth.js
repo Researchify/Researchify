@@ -8,7 +8,7 @@ import {
   LOG_OUT,
   LOG_IN_FAIL,
   FETCH_TEAM_INFO,
-  FETCH_WEBSITE_INFO,
+  FETCH_WEBSITE_INFO, RESET_PWD,
 } from './types';
 import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
@@ -51,6 +51,9 @@ export const resetPassword = (email) => async (dispatch) => {
     await api.resetPwd(email);
     // eslint-disable-next-line
     console.log("success");
+    dispatch({
+      type: RESET_PWD,
+    });
     dispatch(successMessageCreator('Password successfully reset'));
   } catch (err) {
     if (err) {
