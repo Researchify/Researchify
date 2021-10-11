@@ -58,7 +58,6 @@ const ClientHomeEditor = () => {
     setEditorState(e);
     // convert editor content to HTML and save to state
     const result = convertToHTML(editorState.getCurrentContent());
-    console.log(result);
     setHtmlContent(result);
   };
 

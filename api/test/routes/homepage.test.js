@@ -47,7 +47,7 @@ describe('POST /homepage/:team_id', () => {
     const team = await Team.findOne();
     const data = {
       teamId: team._id.toString(),
-      aboutUs: ['Hello', 'World!'],
+      aboutUs: 'Hello World!',
     };
 
     const res = await request.post(`${ROUTE_PREFIX}/${team._id.toString()}`)
