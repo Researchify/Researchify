@@ -37,12 +37,9 @@ const landingPage = () => {
         />
       </div>
       <div className="mt-2 mb-5">
-        {/* {homepageData.aboutUs.map((paragraph) => (
-          <div style={{ textAlign: 'left' }}>
-            {paragraph}
-          </div>
-        ))} */}
-        {parse(homepageData.aboutUs)}
+        <div style={{ textAlign: 'left' }}>
+          {parse(homepageData.aboutUs)}
+        </div>
       </div>
       <Row>
         <Col md={twitterHandle ? 9 : 12}>

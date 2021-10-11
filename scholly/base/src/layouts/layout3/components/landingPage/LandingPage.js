@@ -26,10 +26,9 @@ const landingPage = () => {
         <div className="landing-center-title">About Us</div>
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <img src={profilePicture} align="left" className="left" />
-        {/* {homepageData.aboutUs.map((paragraph) => (
-          <div className="landing-center-content">{paragraph}</div>
-        ))} */}
-        {parse(homepageData.aboutUs)}
+        <div className="landing-center-content">
+          {parse(homepageData.aboutUs)}
+        </div>
       </Container>
     </>
   );

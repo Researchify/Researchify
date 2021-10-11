@@ -23,10 +23,9 @@ const landingPage = () => {
       </Helmet>
       <Container fluid className="pages-top-padding">
         <div className="landing-center-title">About Us</div>
-        {/* {homepageData.aboutUs.map((paragraph) => (
-          <div className="landing-center-content">{paragraph}</div>
-        ))} */}
-        {parse(homepageData.aboutUs)}
+        <div className="landing-center-content">
+          {parse(homepageData.aboutUs)}
+        </div>
       </Container>
     </>
   );
