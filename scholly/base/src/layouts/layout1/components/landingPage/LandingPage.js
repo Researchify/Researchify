@@ -4,6 +4,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import parse from 'html-react-parser';
 import { TEAM_HOMEPAGE, TEAM_INFO } from '../../../../global/data';
 
 const landingPage = () => {
@@ -22,9 +23,10 @@ const landingPage = () => {
       </Helmet>
       <Container fluid className="pages-top-padding">
         <div className="landing-center-title">About Us</div>
-        {homepageData.aboutUs.map((paragraph) => (
+        {/* {homepageData.aboutUs.map((paragraph) => (
           <div className="landing-center-content">{paragraph}</div>
-        ))}
+        ))} */}
+        {parse(homepageData.aboutUs)}
       </Container>
     </>
   );

@@ -25,14 +25,10 @@ const ClientHomeEditor = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlContent, setHtmlContent] = useState();
 
-  const convertContentToHTML = () => {
-    const result = convertToHTML(editorState.getCurrentContent());
-    setHtmlContent(result);
-  };
-
   const onEditorStateChange = (e) => {
     setEditorState(e);
-    convertContentToHTML();
+    // convert editor content to HTML and save to state
+    setHtmlContent(convertToHTML(editorState.getCurrentContent()));
   };
 
   useEffect(() => {
@@ -42,7 +38,6 @@ const ClientHomeEditor = () => {
   }, [dispatch, teamId]);
 
   useEffect(() => {
-    console.log(aboutUs);
     setEditorState(EditorState.createWithContent(convertFromHTML(aboutUs)));
   }, [aboutUs]);
 
