@@ -123,15 +123,17 @@ describe('PATCH /achievements/:id', () => {
 
   it('should return 404 for an achievement not found', async () => {
     // Data to update a non-existent achivement
+    const teamId = '61643c4516cba8e510939fcf';
+    const fakeAchievementId = '61643b9d2906971903b2207f';
     const data = {
       title: 'Second achievement updated',
       yearAwarded: 2019,
       description: 'Second achievement update test',
-      teamId: '61643c4516cba8e510939fcf',
+      teamId: `${teamId}`,
     };
 
     // Test patch request for a non-existent achievement
-    const res = await request.patch(`${ROUTE_PREFIX}/61643b9d2906971903b2207f`)
+    const res = await request.patch(`${ROUTE_PREFIX}/${fakeAchievementId}`)
       .set('Cookie', cookies)
       .send(data);
     expect(res.body.code).toBe(404);
