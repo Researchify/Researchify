@@ -135,7 +135,8 @@ export const ButtonGroupItem = styled.button`
   transition: all 0.2s ease 0s;
   color: ${(props) => props.color};
   &:hover{
-    background: ${(props) => props.hoverBorderColor || 'lightgrey'};
+    background-color: ${(props) => props.hoverBorderColor || 'lightgrey'};
+    border-color: ${(props) => props.hoverBorderColor || 'lightgrey'};
     color: ${(props) => props.hoverColor};
   }
   ${({ press }) => (press

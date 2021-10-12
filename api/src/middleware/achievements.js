@@ -13,11 +13,11 @@ const { fillErrorObject } = require('./error');
 const createAchievementValidation = [
   body('title', 'Error: Title must be at least 3 characters.')
     .trim()
-    .isLength({ min: 3, max: 50 })
+    .isLength({ min: 3, max: 60 })
     .escape(),
   body('description', 'Error: Description must be at least 5 characters.')
     .trim()
-    .isLength({ min: 5, max: 500 })
+    .isLength({ min: 5 })
     .escape(),
   body('yearAwarded', 'Error: Year awarded must be within 1000 to current year.')
     .isInt({ min: 1000, max: new Date().getFullYear() }),

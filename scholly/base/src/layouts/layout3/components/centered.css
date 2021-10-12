@@ -10,6 +10,50 @@
   padding-top: 50px;
 }
 
+/* side padding for each page */
+.pages-side-padding {
+  padding-left: 95px;
+  padding-right: 95px;
+}
+
+/* side padding for publications page */
+.page-publications-side-padding {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+/* Body for each page */
+.container-body {
+  align-content: center;
+  justify-content: center;
+  padding-top: 30px;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+/* Body for landing page's recent publications */
+.container-recent-pub-body {
+  align-content: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-bottom: 40px;
+}
+
+/* Break line between pages heading and body for publication page */
+.publication-container-body {
+  align-content: center;
+  justify-content: center;
+  border-top-style: solid;
+  border-top-color:grey;
+  border-width: 1px;
+  padding-top: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+  margin-top: 16px;
+}
+
 /* landing pages */
 .landing-carousel-img {
   height: 300px;
@@ -25,6 +69,10 @@
   height: 30%;
 }
 
+.landing-image {
+  padding-top: 24px;
+  padding-left: 40px;
+}
 .landing-center-title {
   text-align: center;
   padding-top: 25px;
@@ -35,11 +83,23 @@
 }
 
 .landing-center-content {
-  text-align: center;
+  text-align: left;
   padding-top: 20px;
   padding-left: 40px;
   padding-right: 40px;
   font-size: medium;
+}
+
+.recent-publications-title {
+  text-align: left;
+  font-weight: bolder;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: xx-large;
+}
+
+.recent-publications-body {
+  padding-left: 50px;
 }
 
 /* publication page */
@@ -54,13 +114,17 @@
 
 .publication-title {
   font-size: large;
-  text-align: center;
+  text-align: left;
   font-weight: 600;
 }
 
 .publication-title-column {
   background-color: white;
   border: transparent;
+}
+
+.publication-category-info {
+  padding-left: 0px;
 }
 
 .publication-body-column {
@@ -70,19 +134,31 @@
 .publication-card {
   border: transparent;
   padding-bottom: 15px;
-  text-align: center;
+  text-align: left;
+}
+
+.publication-row {
+  padding-top: 10px;
 }
 
 .pub-category-above-title {
   font-style: italic;
   font-size: medium;
-  text-align: center;
+  text-align: left;
   font-weight: 450;
 }
 
 .pub-year-below-title {
-  font-size: smaller;
-  text-align: center;
+  font-style: italic;
+  text-align: left;
+  padding-top: 1px;
+  padding-right: 6px;
+}
+
+.pub-pdf-link {
+  text-align: left;
+  padding-left: 0px;
+  padding-right: 6px;
 }
 
 .pub-body-subheader {
@@ -93,7 +169,7 @@
 }
 
 .pub-body-content {
-  text-align: center;
+  text-align: left;
   font-size: medium;
   padding-bottom: 15px;
 }
@@ -162,7 +238,6 @@
 
 .team-member-name {
   font-weight: bold;
-  color: rgb(49, 49, 49);
   font-size: 18px;
 }
 
@@ -176,8 +251,8 @@
 }
 
 .team-card-container {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 110px;
+  padding-right: 110px;
 }
 
 .team-card {
@@ -208,12 +283,11 @@
 }
 
 #achievementImage {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .award-name {
   font-weight: bold;
-  color: rgb(49, 49, 49);
   font-size: 15px;
 }
 
