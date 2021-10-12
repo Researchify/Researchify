@@ -6,6 +6,7 @@ import { Col, Image, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
+
 import { TEAM_HOMEPAGE, TEAM_INFO, TEAM_PUBLICATIONS } from '../../../../global/data';
 import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';

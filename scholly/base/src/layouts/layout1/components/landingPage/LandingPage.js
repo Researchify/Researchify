@@ -5,6 +5,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import parse from 'html-react-parser';
+
 import { TEAM_HOMEPAGE, TEAM_INFO } from '../../../../global/data';
 
 const landingPage = () => {

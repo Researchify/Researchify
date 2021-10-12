@@ -11,7 +11,7 @@ const homepageSchema = new mongoose.Schema(
       ref: 'team',
       required: true,
     },
-    // `aboutUs` stores a HTML string
+    // `aboutUs` stores a HTML string.
     aboutUs:
     {
       type: String,
