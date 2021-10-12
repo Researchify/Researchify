@@ -7,27 +7,7 @@ import {
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import './LayoutThumbnail.css';
-
-// Image Imports for Layout Previews
-// Layout 1
-import layout1LightLandingPage from '../../images/layoutPreviews/layout1/light/layout_1_light_landingPage.png';
-import layout1LightPublications from '../../images/layoutPreviews/layout1/light/layout_1_light_publications.png';
-import layout1LightTeamPage from '../../images/layoutPreviews/layout1/light/layout_1_light_team.png';
-import layout1LightAchievements from '../../images/layoutPreviews/layout1/light/layout_1_light_achievements.png';
-
-// Layout 2
-import layout2LightLandingPage from '../../images/layoutPreviews/layout2/light/layout_2_light_landingPage.png';
-import layout2LightPublications from '../../images/layoutPreviews/layout2/light/layout_2_light_publications.png';
-import layout2LightTeamPage from '../../images/layoutPreviews/layout2/light/layout_2_light_team.png';
-import layout2LightAchievements from '../../images/layoutPreviews/layout2/light/layout_2_light_achievements.png';
-
-// Layout 3
-import layout3LightLandingPage from '../../images/layoutPreviews/layout3/light/layout_3_light_landingPage.png';
-import layout3LightPublications from '../../images/layoutPreviews/layout3/light/layout_3_light_publications.png';
-import layout3LightTeamPage from '../../images/layoutPreviews/layout3/light/layout_3_light_team.png';
-import layout3LightAchievements from '../../images/layoutPreviews/layout3/light/layout_3_light_achievements.png';
-
-import noPreview from '../../images/defaultThumbnail.png';
+import TemplateData from './TemplateData';
 
 const LayoutThumbnail = (props) => {
   const { layoutOption } = props;
@@ -36,33 +16,10 @@ const LayoutThumbnail = (props) => {
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
-  let layoutLandingImage;
-  let layoutPublicationImage;
-  let layoutTeamImage;
-  let layoutAchievementsImage;
+  const {
+    layoutName, layoutDescription, layoutLandingImage, layoutPublicationImage, layoutTeamImage, layoutAchievementsImage,
+  } = TemplateData(layoutOption);
 
-  switch (layoutOption) {
-    case 1:
-      layoutLandingImage = layout1LightLandingPage;
-      layoutPublicationImage = layout1LightPublications;
-      layoutTeamImage = layout1LightTeamPage;
-      layoutAchievementsImage = layout1LightAchievements;
-      break;
-    case 2:
-      layoutLandingImage = layout2LightLandingPage;
-      layoutPublicationImage = layout2LightPublications;
-      layoutTeamImage = layout2LightTeamPage;
-      layoutAchievementsImage = layout2LightAchievements;
-      break;
-    case 3:
-      layoutLandingImage = layout3LightLandingPage;
-      layoutPublicationImage = layout3LightPublications;
-      layoutTeamImage = layout3LightTeamPage;
-      layoutAchievementsImage = layout3LightAchievements;
-      break;
-    default:
-      layoutPublicationImage = noPreview;
-  }
   return (
     <>
       <Card border="dark" className="mt-3 layout-thumbnail-card">
@@ -87,9 +44,7 @@ const LayoutThumbnail = (props) => {
       <Modal dialogClassName="layout-preview-dialog" className="layout-preview-modal" show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            Layout
-            {' '}
-            {layoutOption}
+            {layoutName}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -139,7 +94,11 @@ const LayoutThumbnail = (props) => {
                   </Carousel.Item>
                 </Carousel>
               </Col>
-              <Col sm={2}> Description </Col>
+              <Col sm={2}>
+                {' '}
+                {layoutDescription}
+                {' '}
+              </Col>
             </Row>
           </Container>
 
