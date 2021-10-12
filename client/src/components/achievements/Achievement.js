@@ -62,18 +62,22 @@ const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement })
           onBlur={handleMouseLeave}
           onClick={() => setCheckedAchievement(achievement._id)}
         >
-          <AchievementsEditDeleteWalkthrough />
           <Card.Header as="h5" id="card-header">
             <Row>
               <Col>
-                <div style={{ display: 'flex' }}>
-                  <div style={{ paddingTop: '5px' }}>
-                    <input id="achievement-checkbox" type="checkbox" checked={checkedAchievement.includes(achievement._id)} />
+                <Row>
+                  <div style={{ display: 'flex' }}>
+                    <div style={{ paddingTop: '5px' }}>
+                      <input id="achievement-checkbox" type="checkbox" checked={checkedAchievement.includes(achievement._id)} />
+                    </div>
+                    <div id="achievementTitle">
+                      {achievement.title}
+                    </div>
                   </div>
-                  <div id="achievementTitle">
-                    {achievement.title}
+                  <div style={{ paddingLeft: '10px' }}>
+                    <AchievementsEditDeleteWalkthrough />
                   </div>
-                </div>
+                </Row>
               </Col>
               <Col md={{ span: 3 }}>
                 {
