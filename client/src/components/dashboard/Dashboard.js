@@ -44,7 +44,7 @@ const Dashboard = () => {
   };
 
   return (
-    <main>
+    <div className="dashboardPageContainer">
       <Container fluid className="p-5">
         <Tabs
           defaultActiveKey="home"
@@ -77,7 +77,7 @@ const Dashboard = () => {
           <Card />
         )}
       </Container>
-    </main>
+    </div>
   );
 };
 

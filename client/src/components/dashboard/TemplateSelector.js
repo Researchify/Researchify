@@ -16,6 +16,7 @@ import layout1 from '../../images/layout_1.png';
 import layout2 from '../../images/layout_2.png';
 import layout3 from '../../images/layout_3.png';
 
+// Picture of each layout2
 import {
   layout2DarkHome,
   layout2DarkPublication,
@@ -27,6 +28,7 @@ import {
   layout2LightAchievement,
 } from '../../images/layoutPreview/layout2';
 
+// Picture of each layout3
 import {
   layout3DarkHome,
   layout3DarkPublication,
@@ -140,7 +142,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <CarouselItem pages={darkMode ? layout2Dark : layout2Light} darkMode={darkMode} />
+                  <CarouselItem pages={darkMode ? layout2Dark : layout2Light} />
                 </label>
               </Col>
               <Col className="layout-display" xs={12} xl={4} sm={12}>
@@ -157,7 +159,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <CarouselItem pages={darkMode ? layout3Dark : layout3Light} darkMode={darkMode} />
+                  <CarouselItem pages={darkMode ? layout3Dark : layout3Light} />
                 </label>
               </Col>
             </Form.Row>
