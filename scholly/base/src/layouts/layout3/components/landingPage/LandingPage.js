@@ -2,15 +2,18 @@
  * This file output landing page (homepage) of client-site.
  */
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
-import { TEAM_HOMEPAGE, TEAM_INFO } from '../../../../global/data';
+import { TEAM_HOMEPAGE, TEAM_INFO, TEAM_SITE_METADATA } from '../../../../global/data';
 import landingPicture from '../../../../shared/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
 import RecentPublications from '../publications/RecentPublications';
+import TwitterFeed from '../twitter/TwitterFeed';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
-  const { teamName } = TEAM_INFO;
+  const { teamName, twitterHandle } = TEAM_INFO;
+  const themeOption = TEAM_SITE_METADATA.template.theme;
+
   return (
     <>
       <Helmet>
@@ -29,12 +32,24 @@ const landingPage = () => {
             <div className="landing-center-content">{paragraph}</div>
           ))}
         </Container>
-        <Container fluid className="container-recent-pub-body">
-          <div className="recent-publications-title">Recent Publications</div>
-          <div className="recent-publications-body">
-            <RecentPublications />
-          </div>
-        </Container>
+        <Row className="container-body">
+          {
+            twitterHandle && (
+            <Col md={3} className="news-section">
+              <TwitterFeed linkedHandle={twitterHandle} themeOption={themeOption} twitterHeight={560} />
+            </Col>
+            )
+          }
+          <Col md={twitterHandle ? 9 : 12}>
+            <Container fluid className="container-recent-pub-body">
+              <div className="recent-publications-title">Recent Publications</div>
+              <div className="recent-publications-body">
+                <RecentPublications />
+              </div>
+            </Container>
+          </Col>
+        </Row>
+
       </Container>
     </>
   );
