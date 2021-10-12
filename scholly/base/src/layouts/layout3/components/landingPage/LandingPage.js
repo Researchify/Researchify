@@ -5,12 +5,11 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { TEAM_HOMEPAGE, TEAM_INFO } from '../../../../global/data';
-import landingPicture from '../../../../shared/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
 import RecentPublications from '../publications/RecentPublications';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
-  const { teamName } = TEAM_INFO;
+  const { teamName, profilePic } = TEAM_INFO;
   return (
     <>
       <Helmet>
@@ -24,7 +23,9 @@ const landingPage = () => {
       </Helmet>
       <Container fluid className="pages-top-padding pages-side-padding">
         <Container fluid className="container-body">
-          <img src={landingPicture} alt="Computer" align="left" className="left landing-image" style={{ width: '35%' }} />
+          {
+            profilePic && (<img src={profilePic} alt="Computer" align="left" className="left landing-image" style={{ width: '35%' }} />)
+          }
           {homepageData.aboutUs.map((paragraph) => (
             <div className="landing-center-content">{paragraph}</div>
           ))}
