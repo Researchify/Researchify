@@ -13,17 +13,13 @@ const CarouselItem = ({ pages, darkMode }) => {
     <Carousel variant="dark" activeIndex={index} onSelect={handleSelect}>
       {
         pages.map((page) => (
-          <Carousel.Item variant="dark">
+          <Carousel.Item variant="dark" style={{ backgorundColor: 'red' }}>
             <img
               style={{ width: '400px', height: '350px' }}
               className="d-block w-100"
               src={page}
-              alt="First slide"
+              alt="preview page"
             />
-            <Carousel.Caption>
-              <h5>Second slide label</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
           </Carousel.Item>
         ))
       }
