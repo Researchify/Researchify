@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import TeamMemberForm from './form/TeamMemberForm';
 import { deleteTeamMember } from '../../actions/team';
-import profilePic from '../../images/profilepic.jpg';
+import defaultProfilePic from '../../images/profilepic.jpg';
 import {
   SecondaryButton,
   DangerButton,
@@ -74,11 +74,16 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
           </Col>
           <Col md={4} xs={4}>
             <Image
-              src={profilePic}
+              src={member.memberPic ?? defaultProfilePic}
               roundedCircle
               height="130px"
               width="130px"
-              style={{ alignSelf: 'center', marginTop: '10px', marginLeft: '15px' }}
+              style={{
+                alignSelf: 'center',
+                marginTop: '10px',
+                marginLeft: '15px',
+                objectFit: 'cover',
+              }}
             />
           </Col>
           <Col>
