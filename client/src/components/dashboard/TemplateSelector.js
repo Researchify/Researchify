@@ -4,7 +4,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Form, Col, Card,
+  Container, Form, Col,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -16,7 +16,22 @@ import layout1 from '../../images/layout_1.png';
 import layout2 from '../../images/layout_2.png';
 import layout3 from '../../images/layout_3.png';
 
+import {
+  layout2DarkHome,
+  layout2DarkPublication,
+  layout2DarkTeam,
+  layout2DarkAchievement,
+  layout2LightHome,
+  layout2LightPublication,
+  layout2LightTeam,
+  layout2LightAchievement,
+} from '../../images';
+
 import { PrimaryButton } from '../shared/styledComponents';
+import CarouselItem from './CarouselItem';
+
+const layout2Light = [layout2LightHome, layout2LightPublication, layout2LightTeam, layout2LightAchievement];
+const layout2Dark = [layout2DarkHome, layout2DarkPublication, layout2DarkTeam, layout2DarkAchievement];
 
 /**
  * Form for user input github credentials and select template.
@@ -94,13 +109,9 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <Card border="dark" className="mt-3">
-                    <Card.Img
-                      src={layout1}
-                      style={{ width: '18rem', height: '12rem' }}
-                      className="img-fluid"
-                    />
-                  </Card>
+
+                  <CarouselItem pages={darkMode ? layout2Dark : layout2Light} darkMode={darkMode} />
+
                 </label>
               </Col>
               <Col className="layout-display" xs={12} xl={4} sm={6}>
@@ -117,13 +128,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <Card border="dark" className="mt-3">
-                    <Card.Img
-                      src={layout2}
-                      style={{ width: '18rem', height: '12rem' }}
-                      className="img-fluid"
-                    />
-                  </Card>
+                  <CarouselItem pages={[layout1, layout2, layout3]} />
                 </label>
               </Col>
               <Col className="layout-display" xs={12} xl={4} sm={12}>
@@ -140,13 +145,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <Card border="dark" className="mt-3">
-                    <Card.Img
-                      src={layout3}
-                      style={{ width: '18rem', height: '12rem' }}
-                      className="img-fluid"
-                    />
-                  </Card>
+                  <CarouselItem pages={[layout1, layout2, layout3]} />
                 </label>
               </Col>
             </Form.Row>
