@@ -41,6 +41,7 @@ export const fetchAchievementsByTeamId = (teamId) => api.get(`/achievements/team
 export const createAchievement = (newAchievement) => api.post('/achievements/', newAchievement);
 export const updateAchievement = (id, updatedAchievement) => api.patch(`/achievements/${id}`, updatedAchievement);
 export const deleteAchievement = (id) => api.delete(`/achievements/${id}`);
+export const deleteBatchAchievements = (achievementIdList) => api.patch('/achievements/', achievementIdList);
 
 // Auth endpoints.
 export const loginTeam = (teamCredentials) => api.post('/auth/login', teamCredentials);
