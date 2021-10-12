@@ -3,7 +3,7 @@
  */
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  Row, Col, Accordion, Container,
+  Row, Col, Accordion, Container, Image,
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ import Publication from '../publications/publication/Publication';
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
   const themeOption = TEAM_SITE_METADATA.template.theme;
-  const { teamName, twitterHandle } = TEAM_INFO;
+  const { teamName, twitterHandle, profilePic } = TEAM_INFO;
   const pubs = TEAM_PUBLICATIONS;
   const [height, setHeight] = useState(0);
   const ref = useRef(null);
@@ -45,6 +45,17 @@ const landingPage = () => {
                   {' '}
                   {teamName}
                   !
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {
+                    profilePic && (
+                    <Image
+                      style={{ maxWidth: 'inherit', height: 'auto' }}
+                      src={profilePic}
+                    />
+                    )
+                  }
+
                 </div>
                 {homepageData.aboutUs.map((paragraph) => (
                   <div className="landing-center-content">{paragraph}</div>

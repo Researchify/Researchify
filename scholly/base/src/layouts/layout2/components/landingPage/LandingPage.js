@@ -35,7 +35,7 @@ const landingPage = () => {
         {
               profilePic && (
               <Image
-                style={{ maxWidth: '100%', height: 'auto' }}
+                style={{ maxWidth: 'inherit', height: 'auto' }}
                 src={profilePic}
               />
               )
