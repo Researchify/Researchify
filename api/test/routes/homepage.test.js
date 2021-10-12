@@ -74,5 +74,6 @@ describe('GET /homepage/:team_id', () => {
     const res = await request.get(`${ROUTE_PREFIX}/${team._id.toString()}`);
     expect(res.status).toBe(200);
     expect(res.body.teamId).toEqual(team._id.toString());
+    expect(res.body.aboutUs).toEqual('');
   });
 });
