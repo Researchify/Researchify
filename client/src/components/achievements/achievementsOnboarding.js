@@ -8,7 +8,7 @@ import { GoldButton } from '../shared/styledComponents';
 
 const AchievementsPageWalkthrough = () => {
   const [intro, setIntro] = useState({
-    stepsEnabled: true,
+    stepsEnabled: false,
     initialStep: 0,
     steps: [
       {
