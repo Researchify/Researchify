@@ -13,7 +13,17 @@ const AchievementsPageWalkthrough = () => {
       {
         element: '#add-achievement-button',
         title: 'Add Achievement',
-        intro: 'Click on this to add a new achievement manually',
+        intro: 'Click here to add a new achievement manually',
+      },
+      {
+        element: '#delete-icon',
+        title: 'Deleting selected Achievements',
+        intro: 'Click here to delete all selected achievements',
+      },
+      {
+        element: '#select-achievements-checkbox',
+        title: 'Selecting Achievements',
+        intro: 'Click on this checkbox to select all achievements',
       },
     ],
   });
@@ -41,16 +51,30 @@ const AchievementsPageWalkthrough = () => {
 
 const AchievementsEditDeleteWalkthrough = () => {
   const [intro, setIntro] = useState({
-    stepsEnabled: true,
+    stepsEnabled: false,
     initialStep: 0,
     steps: [
       {
-        element: '#three-dot-icon',
-        title: 'Edit/Delete',
-        intro: 'Click on this button to edit or delete the added publication',
+        element: '#achievement-checkbox',
+        title: 'Selecting the Achievement',
+        intro: 'Click on this checkbox to select the added achievement',
+      },
+      {
+        element: '#edit-achievement-button',
+        title: 'Edit Achievement',
+        intro: 'Click on this button to edit the added achievement',
+      },
+      {
+        element: '#delete-achievement-button',
+        title: 'Delete Achievement',
+        intro: 'Click on this button to delete the added achievement',
       },
     ],
   });
+
+  const toggleSteps = () => {
+    setIntro({ ...intro, stepsEnabled: !intro.stepsEnabled });
+  };
 
   const onExit = () => {
     setIntro({ ...intro, stepsEnabled: false });
@@ -64,6 +88,7 @@ const AchievementsEditDeleteWalkthrough = () => {
         initialStep={intro.initialStep}
         onExit={onExit}
       />
+      <BiHelpCircle onClick={toggleSteps} />
     </div>
   );
 };
@@ -86,7 +111,7 @@ const AchievementsFormWalkthrough = () => {
       {
         element: '#year',
         title: 'Achievement Year',
-        intro: 'Please ensure that the year entered is valid.',
+        intro: 'Use the drop down menu to select the year.',
       },
       {
         element: '#desc',
