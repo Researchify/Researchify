@@ -56,18 +56,13 @@ const AchievementsEditDeleteWalkthrough = () => {
     steps: [
       {
         element: '#achievement-checkbox',
-        title: 'Selecting the Achievement',
-        intro: 'Click on this checkbox to select the added achievement',
+        intro: 'Click on this checkbox to select the added achievement.',
+        position: 'bottom',
       },
       {
-        element: '#edit-achievement-button',
-        title: 'Edit Achievement',
-        intro: 'Click on this button to edit the added achievement',
-      },
-      {
-        element: '#delete-achievement-button',
-        title: 'Delete Achievement',
-        intro: 'Click on this button to delete the added achievement',
+        element: '#card',
+        intro: 'Hover over the card to edit or delete an achievement. Icons will appear in the top right corner of the achievement header.',
+        position: 'right',
       },
     ],
   });
