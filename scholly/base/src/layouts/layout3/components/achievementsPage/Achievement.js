@@ -4,14 +4,14 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import awardPicture from '../../../../shared/images/certificatepic.png';
+import awardPicture from '../../../../shared/images/awardPic.png';
 
 let bgTheme = 'bg-secondary';
 const Achievement = ({ achievement }) => {
   bgTheme = (bgTheme === 'bg-secondary') ? 'bg-light' : 'bg-secondary';
 
   return (
-    <div className="row mb-2" style={{ width: '70%' }}>
+    <div className="row mb-2" style={{ width: '87%' }}>
       <div className="row g-0" id="achievementImage">
         <div className="col-md-auto h-100">
           <Card.Img variant="top" src={awardPicture} style={{ height: '60px', width: '60px' }} />
