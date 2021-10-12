@@ -2,6 +2,9 @@
 /* add new, delete, edit */
 import React, { useState } from 'react';
 import { Steps } from 'intro.js-react';
+import 'intro.js/introjs.css';
+import { SiProbot } from 'react-icons/si';
+import { GoldButton } from '../shared/styledComponents';
 
 const AchievementsPageWalkthrough = () => {
   const [intro, setIntro] = useState({
@@ -39,7 +42,9 @@ const AchievementsPageWalkthrough = () => {
         initialStep={intro.initialStep}
         onExit={onExit}
       />
-      <button className="world" onClick={toggleSteps}>Start Tutorial</button>
+      <GoldButton onClick={toggleSteps}>
+        <SiProbot />
+      </GoldButton>
     </div>
   );
 };

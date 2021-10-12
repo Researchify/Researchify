@@ -32,21 +32,21 @@ export const PrimaryButton = styled.button` // Purple
   }
 `;
 
-// export const SecondaryButton = styled.button` // Outline-Gold
-//     padding: .375rem .75rem;
-//     border: 1px solid #AB9671;
-//     border-radius: .25rem;
-//     background-color: inherit;
-//     color: #AB9671;
-//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-//     font-size: ${(props) => props.fontSize}; //.875rem;
-//   &:hover{
-//     background-color:rgb(119, 105, 79);
-//     color: white;
-//   }
-// `;
+export const GoldButton = styled.button` // Outline-Gold
+    padding: .375rem .75rem;
+    border: 1px solid #AB9671;
+    border-radius: .25rem;
+    background-color: inherit;
+    color: #AB9671;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: ${(props) => props.fontSize}; //.875rem;
+  &:hover{
+    background-color:rgb(119, 105, 79);
+    color: white;
+  }
+`;
 
-// export const PrimaryButton = styled.button` // Gold
+// export const GoldButton = styled.button` // Gold
 //     padding: .375rem .75rem;
 //     border: 1px solid #AB9671;
 //     border-radius: .25rem;

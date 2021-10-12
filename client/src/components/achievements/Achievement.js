@@ -26,7 +26,6 @@ import {
 import './form/achievementForm.css';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
-import Test from './achievementsOnboarding';
 
 const Achievement = ({ achievement }) => {
   const dispatch = useDispatch();
@@ -59,7 +58,6 @@ const Achievement = ({ achievement }) => {
 
   return (
     <>
-      <Test />
       <Row id="achievement" className="container-fluid mt-4">
         <Card id="card">
           <Card.Header as="h5" id="card-header">
