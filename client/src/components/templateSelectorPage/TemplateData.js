@@ -21,7 +21,7 @@ const TemplateData = (layoutNumber) => {
   const LayoutsInformation = [
     {
       layoutName: 'Layout 1',
-      layoutDescription: 'A simple design allowing you showcase your publications, team members and achievements. Ideal for researchers who would love to showcase their Social Media Feed.',
+      layoutDescription: 'A simple design allowing you showcase your publications, team members and achievements. Ideal for researchers who would like to showcase their Social Media Feed.',
       layoutLandingImage: layout1LightLandingPage,
       layoutPublicationImage: layout1LightPublications,
       layoutTeamImage: layout1LightTeamPage,
