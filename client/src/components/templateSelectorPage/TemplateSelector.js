@@ -132,7 +132,7 @@ const TemplateSelector = (props) => {
             </Container>
           </Form.Group>
 
-          <PrimaryButton id="submitButton" type="submit">
+          <PrimaryButton id="submitButton" type="submit" style={{ marginTop: 20 }}>
             Update
           </PrimaryButton>
         </Form>
