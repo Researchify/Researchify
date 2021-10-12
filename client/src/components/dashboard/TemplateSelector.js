@@ -25,13 +25,27 @@ import {
   layout2LightPublication,
   layout2LightTeam,
   layout2LightAchievement,
-} from '../../images';
+} from '../../images/layoutPreview/layout2';
+
+import {
+  layout3DarkHome,
+  layout3DarkPublication,
+  layout3DarkTeam,
+  layout3DarkAchievement,
+  layout3LightHome,
+  layout3LightPublication,
+  layout3LightTeam,
+  layout3LightAchievement,
+} from '../../images/layoutPreview/layout3';
 
 import { PrimaryButton } from '../shared/styledComponents';
 import CarouselItem from './CarouselItem';
 
 const layout2Light = [layout2LightHome, layout2LightPublication, layout2LightTeam, layout2LightAchievement];
 const layout2Dark = [layout2DarkHome, layout2DarkPublication, layout2DarkTeam, layout2DarkAchievement];
+
+const layout3Light = [layout3LightHome, layout3LightPublication, layout3LightTeam, layout3LightAchievement];
+const layout3Dark = [layout3DarkHome, layout3DarkPublication, layout3DarkTeam, layout3DarkAchievement];
 
 /**
  * Form for user input github credentials and select template.
@@ -109,9 +123,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-
-                  <CarouselItem pages={darkMode ? layout2Dark : layout2Light} darkMode={darkMode} />
-
+                  <CarouselItem pages={[layout1, layout2, layout3]} />
                 </label>
               </Col>
               <Col className="layout-display" xs={12} xl={4} sm={6}>
@@ -128,7 +140,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <CarouselItem pages={[layout1, layout2, layout3]} />
+                  <CarouselItem pages={darkMode ? layout2Dark : layout2Light} darkMode={darkMode} />
                 </label>
               </Col>
               <Col className="layout-display" xs={12} xl={4} sm={12}>
@@ -145,7 +157,7 @@ const TemplateSelector = (props) => {
                     className="form-radio-text"
                     onChange={updateSelections}
                   />
-                  <CarouselItem pages={[layout1, layout2, layout3]} />
+                  <CarouselItem pages={darkMode ? layout3Dark : layout3Light} darkMode={darkMode} />
                 </label>
               </Col>
             </Form.Row>
