@@ -16,6 +16,12 @@ import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 const AchievementForm = ({ closeModal, achievement, type }) => {
   const dispatch = useDispatch();
   const teamId = useSelector((state) => state.team.teamId);
+  const year = new Date().getFullYear();
+  const years = Array.from(
+    new Array(year - 1899),
+    (val, index) => year - index,
+  );
+
   const validationSchema = yup.object({
     title: yup
       .string()
@@ -24,19 +30,17 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
       .max(60, 'Achievement Name is at less than 60 characters'),
     yearAwarded: yup
       .number()
-      .min(1000, 'Invalid year')
       .max(new Date().getFullYear(), 'Invalid year')
       .required('Year is required'),
     description: yup
       .string()
       .required('Description is required')
-      .min(3, 'Description is at least 3 characters')
-      .max(500, 'Max 500 characters'),
+      .min(5, 'Description is at least 5 characters'),
   });
 
   const initValues = {
     title: '',
-    yearAwarded: '',
+    yearAwarded: year,
     description: '',
   };
 
@@ -74,7 +78,11 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Achievement Title</Form.Label>
+            <Form.Label>
+              Achievement Title
+              {' '}
+              <span style={{ color: 'red' }}>*</span>
+            </Form.Label>
             <Form.Control
               type="text"
               name="title"
@@ -88,21 +96,31 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Year</Form.Label>
+            <Form.Label>
+              Year
+              {' '}
+              <span style={{ color: 'red' }}>*</span>
+            </Form.Label>
             <Form.Control
-              type="text"
+              as="select"
               name="yearAwarded"
               placeholder="YYYY"
               value={values.yearAwarded}
               onChange={handleChange}
-              isInvalid={touched.yearAwarded && errors.yearAwarded}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.yearAwarded}
-            </Form.Control.Feedback>
+            >
+              {years.map((eachYear) => (
+                <option key={eachYear} value={eachYear}>
+                  {eachYear}
+                </option>
+              ))}
+            </Form.Control>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Description</Form.Label>
+            <Form.Label>
+              Description
+              {' '}
+              <span style={{ color: 'red' }}>*</span>
+            </Form.Label>
             <Form.Control
               as="textarea"
               row={5}
@@ -125,6 +143,7 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
                 overlay={renderTooltip}
               >
                 <DangerButton
+                  type="button"
                   className="mr-2"
                   onClick={closeModal}
                 >

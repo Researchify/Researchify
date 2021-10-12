@@ -15,6 +15,7 @@ import {
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
+  DELETE_BATCH_TEAM_MEMBERS,
 } from './types';
 import { login } from './auth';
 import {
@@ -148,6 +149,7 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
       type: CREATE_TEAM_MEMBER,
       payload: data,
     });
+    dispatch(successMessageCreator('Team member has been created'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -162,12 +164,13 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
  */
 export const updateTeamMember = (id, teamMember) => async (dispatch) => {
   try {
-    const { data } = await api.updateTeamMember(id, teamMember);
+    await api.updateTeamMember(id, teamMember);
 
     dispatch({
       type: UPDATE_TEAM_MEMBER,
-      payload: data,
+      payload: teamMember,
     });
+    dispatch(successMessageCreator('Team member has been updated'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -187,6 +190,7 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
       type: DELETE_TEAM_MEMBER,
       payload: memberId,
     });
+    dispatch(successMessageCreator('Team member has been deleted'));
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -294,6 +298,19 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
       payload: updatedTeam,
     });
     dispatch(successMessageCreator('Team has been updated'));
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
+  }
+};
+
+export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => async (dispatch) => {
+  try {
+    await api.deleteBatchTeamMembers(teamId, teamMemberIdList);
+    dispatch({
+      type: DELETE_BATCH_TEAM_MEMBERS,
+      payload: teamMemberIdList,
+    });
+    dispatch(successMessageCreator(`${teamMemberIdList.length} team member(s) have been deleted`));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
