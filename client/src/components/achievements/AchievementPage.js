@@ -13,7 +13,7 @@ import Achievement from './Achievement';
 import './achievementPage.css';
 import './form/achievementForm.css';
 import { PrimaryButton } from '../shared/styledComponents';
-import OnbroadingTutorial from './achievementsOnboarding';
+import AchievementsPageWalkthrough from './achievementsOnboarding';
 
 const AchievementPage = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const AchievementPage = () => {
     <div className="achievementPageContainer">
       <div style={{ display: 'flex' }}>
         <h2 style={{ marginRight: '10px' }}> Achievements </h2>
-        <OnbroadingTutorial />
+        <AchievementsPageWalkthrough />
       </div>
       <PrimaryButton
         id="add-achievement-button"

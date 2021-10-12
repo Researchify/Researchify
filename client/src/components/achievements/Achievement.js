@@ -26,6 +26,7 @@ import {
 import './form/achievementForm.css';
 import { deleteAchievement } from '../../actions/achievements';
 import AchievementForm from './form/AchievementForm';
+import { AchievementsEditDeleteWalkthrough } from './achievementsOnboarding';
 
 const Achievement = ({ achievement }) => {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const Achievement = ({ achievement }) => {
     <>
       <Row id="achievement" className="container-fluid mt-4">
         <Card id="card">
+          <AchievementsEditDeleteWalkthrough />
           <Card.Header as="h5" id="card-header">
             <Row>
               <Col id="achievementTitle">{achievement.title}</Col>
@@ -74,7 +76,7 @@ const Achievement = ({ achievement }) => {
                     <IconContext.Provider
                       value={{ color: 'white', size: '20px' }}
                     >
-                      <BsThreeDotsVertical />
+                      <BsThreeDotsVertical id="three-dot-icon" />
                     </IconContext.Provider>
                   </Button>
                 </OverlayTrigger>
@@ -84,7 +86,7 @@ const Achievement = ({ achievement }) => {
           <Card.Body>
             <Card.Text>{achievement.description}</Card.Text>
             <Card.Text id="yearAwarded">
-              <b>Date:</b>
+              <b>Year:</b>
               {' '}
               {achievement.yearAwarded}
             </Card.Text>
@@ -92,7 +94,7 @@ const Achievement = ({ achievement }) => {
         </Card>
       </Row>
 
-      <Modal show={showUpdateForm} id="edit-achievement-button">
+      <Modal show={showUpdateForm}>
         <Modal.Header className="achievementModalHeader">
           <Modal.Title className="achievementsModalTitle"> Edit Achievement </Modal.Title>
         </Modal.Header>
@@ -105,7 +107,7 @@ const Achievement = ({ achievement }) => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showDeleteMessage} id="delete-achievement-button">
+      <Modal show={showDeleteMessage}>
         <Modal.Header>
           <Modal.Title> Delete Achievement </Modal.Title>
         </Modal.Header>

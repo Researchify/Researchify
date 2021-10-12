@@ -12,6 +12,7 @@ import { PropTypes } from 'prop-types';
 import { updateAchievement, createAchievement } from '../../../actions/achievements';
 import './achievementForm.css';
 import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
+import { AchievementsFormWalkthrough } from '../achievementsOnboarding';
 
 const AchievementForm = ({ closeModal, achievement, type }) => {
   const dispatch = useDispatch();
@@ -72,10 +73,12 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
       {({
         handleSubmit, handleChange, values, touched, errors,
       }) => (
-        <Form noValidate onSubmit={handleSubmit}>
+        <Form noValidate onSubmit={handleSubmit} id="form">
+          <AchievementsFormWalkthrough />
           <Form.Group>
             <Form.Label>Achievement Title</Form.Label>
             <Form.Control
+              id="achieve-title"
               type="text"
               name="title"
               placeholder="Achievement Title"
@@ -90,6 +93,7 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
           <Form.Group>
             <Form.Label>Year</Form.Label>
             <Form.Control
+              id="year"
               type="text"
               name="yearAwarded"
               placeholder="YYYY"
@@ -104,6 +108,7 @@ const AchievementForm = ({ closeModal, achievement, type }) => {
           <Form.Group>
             <Form.Label>Description</Form.Label>
             <Form.Control
+              id="desc"
               as="textarea"
               row={5}
               name="description"
