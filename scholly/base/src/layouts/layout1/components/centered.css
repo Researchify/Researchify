@@ -21,18 +21,20 @@
 .landing-center-title {
   text-align: center;
   padding-top: 25px;
-  font-weight: bolder;
+  font-weight: 460;
   padding-left: 40px;
   padding-right: 40px;
   font-size: xx-large;
+  max-width: 1300px;
 }
 
 .landing-center-content {
-  text-align: center;
+  text-align: left;
   padding-top: 20px;
   padding-left: 40px;
   padding-right: 40px;
   font-size: medium;
+  max-width: 1300px;
 }
 
 /* publication page */
@@ -62,6 +64,7 @@
 
 .publication-card {
   border: transparent;
+  padding-bottom: 15px;
 }
 
 .pub-category-above-title {
@@ -95,14 +98,6 @@
   text-align-last: center;
 }
 
-.pub-twitter-right {
-  float: right;
-  width: 20%;
-  height: inherit;
-  max-width: 333px;
-  padding: 16px;
-}
-
 @media screen and (max-width: 1024px) {
   .pub-twitter-right {
     display: none !important;
@@ -110,10 +105,13 @@
 }
 
 .twitter-feed {
-  border: 1px solid #ccc !important;
+  border: 1px solid #ccc;
+  padding: 10px;
   border-radius: 16px;
-  margin-top: 60px;
-  position: fixed;
+  margin-top: 28px;
+  position:relative;
+  height: inherit;
+  width: fit-content;
 }
 
 .pub-left-main {
@@ -150,15 +148,19 @@
 }
 
 .team-card-container {
+  margin-top: 10px;
   padding-top: 12px;
   padding-left: 50px;
   padding-right: 50px;
+  padding-bottom: 50px;
 }
 
 .team-card {
   border: transparent;
   min-width: 210px;
   max-width: 210px;
+  padding-bottom: 20px;
+  margin-top: 10px;
 }
 
 .team-card-deck {
@@ -186,4 +188,37 @@
 .award-summary {
   padding-top: 15px;
   text-align: center;
+}
+.recent-pub-title
+{
+  text-align: center;
+  justify-content: center;
+  padding-top: 50px;
+  font-weight: 460;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: xx-large;
+  max-width: 1300px;
+}
+.news-section
+{
+  padding-bottom: 25px;
+  padding-right: 20px ;
+  max-width: 500px;
+}
+.recent-publication
+{
+  max-width: 1300px;
+  align-items: center;
+  justify-content: center;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.recent-publication-link
+{
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: center;
+  padding-bottom: 10px;
+  max-width: 1300px;
 }

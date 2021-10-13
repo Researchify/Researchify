@@ -7,6 +7,7 @@ import {
   UPDATE_ACHIEVEMENT,
   DELETE_ACHIEVEMENT,
   RESET_ACHIEVEMENT,
+  DELETE_BATCH_ACHIEVEMENTS,
 } from '../actions/types';
 
 const initialState = {
@@ -34,6 +35,15 @@ const achievementsReducer = (state = initialState, action) => {
       };
     case RESET_ACHIEVEMENT:
       return initialState;
+    case DELETE_BATCH_ACHIEVEMENTS: {
+      const deletedAchievementIds = action.payload;
+      return {
+        ...state,
+        achievements: state.achievements.filter(
+          (achievement) => !deletedAchievementIds.find((id) => id === achievement._id),
+        ),
+      };
+    }
     default:
       return state;
   }

@@ -4,8 +4,11 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import parse from 'html-react-parser';
+
 import { TEAM_HOMEPAGE, TEAM_INFO } from '../../../../global/data';
-import profilePicture from '../../../../shared/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
+import landingPicture from '../../../../shared/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
+import RecentPublications from '../publications/RecentPublications';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
@@ -21,13 +24,19 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
-      <Container fluid className="pages-top-padding">
-        <div className="landing-center-title">About Us</div>
-        {/* eslint-disable-next-line jsx-a11y/alt-text */}
-        <img src={profilePicture} align="left" className="left" />
-        {homepageData.aboutUs.map((paragraph) => (
-          <div className="landing-center-content">{paragraph}</div>
-        ))}
+      <Container fluid className="pages-top-padding pages-side-padding">
+        <Container fluid className="container-body">
+          <img src={landingPicture} alt="Computer" align="left" className="left landing-image" style={{ width: '35%' }} />
+          <div className="landing-center-content">
+            {parse(homepageData.aboutUs)}
+          </div>
+        </Container>
+        <Container fluid className="container-recent-pub-body">
+          <div className="recent-publications-title">Recent Publications</div>
+          <div className="recent-publications-body">
+            <RecentPublications />
+          </div>
+        </Container>
       </Container>
     </>
   );
