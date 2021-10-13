@@ -87,7 +87,7 @@ describe('POST /achievements/:teamId', () => {
   });
 });
 
-// PATCH Requests tests
+// PATCH Request tests
 describe('PATCH /achievements/:id', () => {
   it('should return 200 for updating a current achievement', async () => {
     // Create an initial achievement
@@ -187,3 +187,45 @@ describe('DELETE /achievements:id', () => {
 });
 
 // GET Requests
+describe('GET /achievements/team/:teamId', () => {
+  it('should return 200 for returning a list of achievements', async () => {
+    // Add new achievements for given teamId.
+    const team = await Team.findOne({ email: 'testemail@gmail.com' });
+    const teamId = team._id.toString();
+    const firstAchievement = {
+      title: 'First Achievement',
+      yearAwarded: 2020,
+      description: 'This is our first achievement.',
+      teamId: `${teamId}`,
+    };
+
+    await request.post(`${ROUTE_PREFIX}`)
+      .set('Cookie', cookies)
+      .send(firstAchievement);
+
+    const secondAchievement = {
+      title: 'Second Achievement',
+      yearAwarded: 2019,
+      description: 'This is our second achievement.',
+      teamId: `${teamId}`,
+    };
+
+    await request.post(`${ROUTE_PREFIX}`)
+      .set('Cookie', cookies)
+      .send(secondAchievement);
+
+    // Test GET request to retrieve newly added achievements
+    const res = await request.get(`${ROUTE_PREFIX}/team/${teamId}`)
+      .set('Cookie', cookies);
+    expect(res.status).toBe(200);
+    expect(res.body[0].teamId).toEqual(firstAchievement.teamId);
+    expect(res.body[0].title).toEqual(firstAchievement.title);
+    expect(res.body[0].yearAwarded).toEqual(firstAchievement.yearAwarded);
+    expect(res.body[0].description).toEqual(firstAchievement.description);
+    expect(res.body[1].teamId).toEqual(secondAchievement.teamId);
+    expect(res.body[1].title).toEqual(secondAchievement.title);
+    expect(res.body[1].yearAwarded).toEqual(secondAchievement.yearAwarded);
+    expect(res.body[1].description).toEqual(secondAchievement.description);
+  });
+});
+
