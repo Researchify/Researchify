@@ -37,21 +37,21 @@ beforeEach(async () => {
   await seedDb();
 
   // Create a new team
-  let data = {
+  const teamInfo = {
     teamName: 'testTeam',
     orgName: 'testOrg',
     email: 'testemail@gmail.com',
     password: 'testpass',
   };
 
-  let res = await request.post('/team').send(data);
+  let res = await request.post('/team').send(teamInfo);
 
   // Login with new team created and store cookies to global variable
-  data = {
+  const loginDetails = {
     email: 'testemail@gmail.com',
     password: 'testpass',
   };
-  res = await request.post('/auth/login').send(data);
+  res = await request.post('/auth/login').send(loginDetails);
   cookies = res.headers['set-cookie'];
 });
 
@@ -62,7 +62,8 @@ afterEach(async () => {
 // POST request tests
 describe('POST /achievements/:teamId', () => {
   it('should return 404 for a non-existent team', async () => {
-    const res = await request.post(`${ROUTE_PREFIX}/613b888ffca059539f01fc64`);
+    const fakeTeamId = '613b888ffca059539f01fc64';
+    const res = await request.post(`${ROUTE_PREFIX}/${fakeTeamId}`);
     expect(res.status).toBe(404);
   });
 
@@ -141,5 +142,48 @@ describe('PATCH /achievements/:id', () => {
 });
 
 // DELETE Requests
+describe('DELETE /achievements:id', () => {
+  it('should return 404 for an achievement not found', async () => {
+    // Data for a non-existent achivement
+    const teamId = '61643c4516cba8e510939fcf';
+    const fakeAchievementId = '61643b9d2906971903b2207f';
+    const data = {
+      title: 'Non Existent Achievement',
+      yearAwarded: 2018,
+      description: 'This achievement does not exist.',
+      teamId: `${teamId}`,
+    };
+
+    // Test delete request for a non-existent achievement
+    const res = await request.delete(`${ROUTE_PREFIX}/${fakeAchievementId}`)
+      .set('Cookie', cookies)
+      .send(data);
+    expect(res.body.code).toBe(404);
+  });
+
+  it('should return 200 for deleting an existing achievement', async () => {
+    // Create an initial achievement
+    const team = await Team.findOne({ email: 'testemail@gmail.com' });
+    const data = {
+      title: 'Unofficial Achievement',
+      yearAwarded: 2020,
+      description: 'We will be removing this achievement',
+      teamId: team._id.toString(),
+    };
+
+    let res = await request.post(`${ROUTE_PREFIX}`)
+      .set('Cookie', cookies)
+      .send(data);
+
+    // Store achievement id to use for delete request
+    const achievementId = res.body._id;
+    // Test delete request for current achievement
+    res = await request.delete(`${ROUTE_PREFIX}/${achievementId}`)
+      .set('Cookie', cookies)
+      .send(data);
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe('Achievement deleted successfully.');
+  });
+});
 
 // GET Requests
