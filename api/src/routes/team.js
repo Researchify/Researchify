@@ -110,7 +110,6 @@ teamRouter.delete(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.resetTeamData,
 );
 
 teamRouter.post(
@@ -118,7 +117,6 @@ teamRouter.post(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamMiddleware.validateGhUser,
   teamMiddleware.validateTeamRepo,
   teamController.deleteGHPages,
 );

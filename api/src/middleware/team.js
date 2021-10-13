@@ -1,7 +1,7 @@
 /**
  * This module contains middleware functions for the team route (/routes/teams.js).
  */
-const axios = require('axios');
+const { Octokit } = require('@octokit/rest');
 const { body, validationResult } = require('express-validator');
 
 const Team = require('../models/team.model');
@@ -32,36 +32,22 @@ async function validateTeamId(req, res, next) {
   return next();
 }
 
-async function validateGhUser(req, res, next) {
-  const { ghToken } = req.body;
-  const { data } = await axios.get('https://api.github.com/user',
-    {
-      headers: { Authorization: `token ${ghToken}` },
-    });
-  if (data.errors) {
-    return next(
-      fillErrorObject(400, 'Validation error: user doesnt exist!', [data.errors[0].detail]),
-    );
-  }
-  req.username = data.login;
-  return next();
-}
-
 async function validateTeamRepo(req, res, next) {
   // Creating repoName
   const { ghToken } = req.body;
-
-  const ghUsername = req.username;
-
-  const repoName = `${ghUsername}.github.io`;
   try {
-    const repoValidator = await axios.get(`https://api.github.com/repos/${ghUsername}/${repoName}`, {
-      headers: {
-        Authorization: `token ${ghToken}`,
-        Accept: 'application/vnd.github.v3+json',
-      },
+    const octokit = new Octokit({ auth: ghToken });
+    const user = await octokit.rest.users.getAuthenticated();
+    console.log(user.data.login);
+    const ghUsername = user.data.login;
+    const repoName = `${ghUsername}.github.io`;
+    const validateGHpage = await octokit.rest.repos.get({
+      owner: ghUsername,
+      repo: repoName,
     });
-    if (repoValidator.status !== 200) {
+    req.username= ghUsername;
+    console.log(validateGHpage.status);
+    if (validateGHpage.status !== 200) {
       return next(
         fillErrorObject(404, 'GH pages not found!', [
           'GitHub Repo doesnt exist for this team!',
@@ -98,5 +84,5 @@ const validateTwitterHandle = [
 ];
 
 module.exports = {
-  validateTeamId, validateTeamRepo, validateGhUser, validateTwitterHandle,
+  validateTeamId, validateTeamRepo, validateTwitterHandle,
 };
