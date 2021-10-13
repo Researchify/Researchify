@@ -32,7 +32,7 @@ async function validateTeamId(req, res, next) {
   return next();
 }
 
-/***
+/** *
  * Middleware that validates a team's gitHub Repository.
  * Once validated, the username is attached to the request object for use by
  * the next middleware.
@@ -53,7 +53,7 @@ async function validateTeamRepo(req, res, next) {
       owner: ghUsername,
       repo: repoName,
     });
-    req.username= ghUsername;
+    req.username = ghUsername;
     if (validateGHpage.status !== 200) {
       return next(
         fillErrorObject(404, 'GH pages not found!', [
