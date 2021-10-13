@@ -9,6 +9,7 @@ import {
 import { useSelector } from 'react-redux';
 import './Dashboard.css';
 
+import { PrimaryButton } from '../shared/styledComponents';
 import Webpages from './webpage/Webpages';
 import DeployPage from './deploy/DeployPage';
 import { availablePages } from '../../config/clientWebsite';
@@ -42,6 +43,10 @@ const Dashboard = () => {
     }
   };
 
+  const [showDeployModal, setShowDeployModal] = useState(false);
+  const handleDeploy = () => setShowDeployModal(true);
+  const handleDeployModalClose = () => setShowDeployModal(false);
+
   return (
     <main>
       <Container fluid className="p-5">
@@ -67,7 +72,8 @@ const Dashboard = () => {
         {currentTab === 'home' ? (
           <Card className="text-left" id="table">
             <Card.Footer>
-              <DeployPage teamId={teamId} currentWebPages={currentWebPages} />
+              <PrimaryButton onClick={handleDeploy} className="float-right">Deploy Website</PrimaryButton>
+              <DeployPage teamId={teamId} currentWebPages={currentWebPages} showModal={showDeployModal} handleClose={handleDeployModalClose} />
             </Card.Footer>
           </Card>
         ) : (

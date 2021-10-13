@@ -13,7 +13,7 @@ import {
 } from '../actions/types';
 
 const INITIAL_WEBSITE_STATE = {
-  url: '',
+  url: null,
   title: '',
   pages: [],
   publicationOptions: {},

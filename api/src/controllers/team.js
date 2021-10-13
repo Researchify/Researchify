@@ -16,6 +16,7 @@ const Website = require('../models/website.model');
 const Homepage = require('../models/homepage.model');
 
 const transporter = require('../config/mail');
+const Website = require('../models/website.model');
 const {
   githubClientId,
   githubClientSecret,
@@ -465,6 +466,21 @@ async function deployToGHPages(req, res, next) {
 
   const ghUsername = data.login;
   logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
+
+  // Update website url in DB if first time deploying
+  website = Website.findOne({teamId});
+  if (website) {
+    console.log('Website found for this team');
+    if (!website.url) {
+      console.log('Website site does not have a url');
+      try {
+        await Website.updateOne({teamId}, {'url': `${ghUsername}.github.io`});
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   const body = {
     ghUsername,

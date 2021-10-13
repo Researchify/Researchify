@@ -26,6 +26,10 @@ const websiteSchema = new mongoose.Schema(
       minlength: 3,
       maxlength: 30,
     },
+    url: {
+      type: String,
+      required: false,
+    },
     template: {
       layout: {
         type: String,

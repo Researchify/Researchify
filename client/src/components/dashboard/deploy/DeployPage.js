@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Modal, Card } from 'react-bootstrap';
 import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
 import { PropTypes } from 'prop-types';
@@ -9,8 +9,6 @@ import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
-
-import { PrimaryButton } from '../../shared/styledComponents';
 
 const GHButton = styled(GitHubLogin)` //Purple
     padding: .375rem .75rem;
@@ -38,12 +36,11 @@ const GHButton = styled(GitHubLogin)` //Purple
 //   }
 // `;
 
-const DeployPage = ({ teamId }) => {
+const DeployPage = ({ teamId, showModal, handleClose }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.deploy.loading);
-  const retrievedAccessToken = useSelector(
-    (state) => state.team.retrievedAccessToken,
-  );
+
+  const webUrl = useSelector((state) => state.website.url);
 
   const handleDeploy = () => {
     const accessToken = localStorage.getItem('GH_access_token');
@@ -54,8 +51,9 @@ const DeployPage = ({ teamId }) => {
   const onSuccessfulLogin = (response) => {
     const { code } = response;
     // Now that we have the temporary code, we wish to exchange it for a GitHub
-    // access token. This action will fetch the token and push it to localstorage.
+    // access token. This action will fetch the token and push it to local storage.
     dispatch(getGHAccessToken(teamId, code));
+    handleDeploy();
   };
 
   // handle error toast when fail to log in
@@ -74,35 +72,55 @@ const DeployPage = ({ teamId }) => {
       redirectUri=""
     >
       <GoMarkGithub className="mr-2" />
-      Login with GitHub
+      Deploy using GitHub
     </GHButton>
   );
 
-  const DeployButton = (
-    <PrimaryButton
-      className="float-right"
-      disabled={!retrievedAccessToken}
-      onClick={handleDeploy}
-    >
-      Deploy to GitHub Pages
-    </PrimaryButton>
+  const webUrlInfo = (
+    <Card style={{ marginTop: '15px' }}>
+      <Card.Body>
+        My website link:
+        <a href={`//${webUrl}`} target="_blank" style={{ float: 'right', marginRight: '15px' }} rel="noreferrer">
+          {webUrl}
+        </a>
+      </Card.Body>
+    </Card>
   );
 
   return (
     <>
-      Deploy Website with GitHub
-      { (() => {
-        if (loading) {
-          return (
-            <div className="mb-3 mt-3 text-center">
-              <Spinner animation="border" />
-            </div>
-          );
-        } if (retrievedAccessToken) {
-          return (DeployButton);
-        }
-        return (GitHubLoginButton);
-      })()}
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Deploy Website</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <i style={{ fontSize: '15px' }}>
+            When deploying the site you will need to sign into your GitHub account and authorize us to edit your GitHub pages repository. This allows us to host your website for free!
+            <br />
+            To find out more
+            { // If webUrl is present, the website has already been deployed once
+              webUrl ? '' : ' and to create your account '
+            }
+            {' '}
+            visit the
+            <a href="https://github.com"> GitHub website.</a>
+          </i>
+          <br />
+          {webUrl ? webUrlInfo : ''}
+        </Modal.Body>
+        <Modal.Footer>
+          { (() => {
+            if (loading) {
+              return (
+                <div className="mb-3 mt-3" style={{ marginRight: '50%' }}>
+                  <Spinner animation="border" />
+                </div>
+              );
+            }
+            return (GitHubLoginButton);
+          })()}
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
@@ -110,6 +128,8 @@ const DeployPage = ({ teamId }) => {
 // props validation
 DeployPage.propTypes = {
   teamId: PropTypes.string.isRequired,
+  showModal: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };
 
 export default DeployPage;
