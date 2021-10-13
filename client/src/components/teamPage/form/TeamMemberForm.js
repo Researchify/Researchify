@@ -27,6 +27,8 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
     summary: yup
       .string()
       .max(200, 'Max 200 characters'),
+    memberPic: yup
+      .mixed(),
   });
 
   const initValues = {
@@ -58,7 +60,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
       initialValues={type === 'update' ? member : initValues}
     >
       {({
-        handleSubmit, handleChange, values, touched, errors,
+        handleSubmit, handleChange, values, touched, errors, setFieldValue,
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
@@ -112,6 +114,28 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
             <Form.Control.Feedback type="invalid">
               {errors.summary}
             </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>
+              Member Photo
+            </Form.Label>
+            <Form.Control
+              type="file"
+              name="memberPic"
+              accept="image/*"
+              multiple={false}
+              onChange={(event) => {
+                const reader = new FileReader();
+                const file = event.target.files[0];
+                if (file) {
+                  reader.onload = (e) => {
+                    setFieldValue('memberPic', e.target.result);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+            />
           </Form.Group>
 
           <Row>
