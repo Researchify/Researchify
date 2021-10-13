@@ -13,6 +13,7 @@ import {
   Collapse,
 } from 'react-bootstrap';
 import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
+import { BsLink45Deg } from 'react-icons/bs';
 import { PropTypes } from 'prop-types';
 import PublicationForm from '../form/PublicationForm';
 import { deletePublication } from '../../../actions/publications';
@@ -154,7 +155,9 @@ const Publication = ({ pub }) => {
               </div>
               <div className="pubs-title">
                 {pub.link ? (
-                  <a style={{ color: '#3d9bff', textDecoration: 'underline' }} href={pub.link} target="_blank" rel="noreferrer">
+                  <a style={{ color: 'white' }} href={pub.link} target="_blank" rel="noreferrer">
+                    <BsLink45Deg />
+                    {' '}
                     {pub.title}
                   </a>
                 ) : (
