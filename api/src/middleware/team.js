@@ -32,13 +32,21 @@ async function validateTeamId(req, res, next) {
   return next();
 }
 
+/***
+ * Middleware that validates a team's gitHub Repository.
+ * Once validated, the username is attached to the request object for use by
+ * the next middleware.
+ *
+ * @param req request object
+ * @param res response object
+ * @param next handler to the next middleware
+ */
 async function validateTeamRepo(req, res, next) {
   // Creating repoName
   const { ghToken } = req.body;
   try {
     const octokit = new Octokit({ auth: ghToken });
     const user = await octokit.rest.users.getAuthenticated();
-    console.log(user.data.login);
     const ghUsername = user.data.login;
     const repoName = `${ghUsername}.github.io`;
     const validateGHpage = await octokit.rest.repos.get({
@@ -46,7 +54,6 @@ async function validateTeamRepo(req, res, next) {
       repo: repoName,
     });
     req.username= ghUsername;
-    console.log(validateGHpage.status);
     if (validateGHpage.status !== 200) {
       return next(
         fillErrorObject(404, 'GH pages not found!', [

@@ -3,6 +3,7 @@
  * @module team
  */
 const axios = require('axios');
+const { Octokit } = require('@octokit/rest');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const logger = require('winston');
@@ -428,29 +429,24 @@ async function resetTeamData(req, res, next) {
 async function deleteGHPages(req, res, next) {
   const { ghToken } = req.body;
   const ghUsername = req.username;
-  console.log(ghUsername,ghToken);
   logger.info(`GitHub Pages delete initiated for user: ${ghUsername}`);
   const repoName = `${ghUsername}.github.io`;
   // delete repo
   try {
-    const deleteRepo = await axios.delete(
-      `https://api.github.com/repos/${ghUsername}/${repoName}`,
-      {
-        headers: {
-          Authorization: `token ${ghToken}`,
-          Accept: 'application/vnd.github.v3+json',
-        },
-      },
-    );
+    const octokit = new Octokit({ auth: ghToken });
+    const deleteRepo = await octokit.rest.repos.delete({
+      owner: ghUsername,
+      repo: repoName,
+    });
     if (deleteRepo.status === 204) {
       logger.info(`GitHub pages deleted for user: ${ghUsername}`);
     }
     // result logged
     return res.status(200).json('Deleted successfully!');
   } catch (error) {
-    logger.info(` Failed: GitHub pages not deleted for user: ${ghUsername}!`);
+    logger.info(` Failed: GitHub pages not deleted for vchuser: ${ghUsername}!`);
     return next(
-      fillErrorObject(500, 'Error occurred with server!', ['Failed to delete GitHub pages']),
+      fillErrorObject(500, 'Error occurred with serverxrrx!', ['Failed to delete GitHub pages']),
     );
   }
 }
