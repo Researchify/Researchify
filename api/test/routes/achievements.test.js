@@ -202,7 +202,6 @@ describe('GET /achievements/team/:teamId', () => {
     const firstAchievement = await request.post(`${ROUTE_PREFIX}`)
       .set('Cookie', cookies)
       .send(firstAchievementData);
-    
     const secondAchievementData = {
       title: 'Second Achievement',
       yearAwarded: 2019,
@@ -213,7 +212,6 @@ describe('GET /achievements/team/:teamId', () => {
     const secondAchievement = await request.post(`${ROUTE_PREFIX}`)
       .set('Cookie', cookies)
       .send(secondAchievementData);
-    
     // Test GET request to retrieve newly added achievements
     const res = await request.get(`${ROUTE_PREFIX}/team/${teamId}`)
       .set('Cookie', cookies);
