@@ -36,7 +36,7 @@ const ClientHomeEditor = () => {
       borderBottomColor: '#ced4da',
     },
     editorStyle: {
-      height: 'calc(70vh)',
+      height: 'calc(69vh)',
       maxHeight: '750px',
     },
     toolbar: {
