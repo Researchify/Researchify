@@ -228,4 +228,3 @@ describe('GET /achievements/team/:teamId', () => {
     expect(res.body[1].description).toEqual(secondAchievement.description);
   });
 });
-
