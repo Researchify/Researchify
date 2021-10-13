@@ -6,6 +6,8 @@ import {
   Row, Col, Accordion, Container,
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import parse from 'html-react-parser';
+
 import { Link } from 'react-router-dom';
 import {
   TEAM_PUBLICATIONS, TEAM_HOMEPAGE, TEAM_INFO, TEAM_SITE_METADATA,
@@ -46,9 +48,7 @@ const landingPage = () => {
                   {teamName}
                   !
                 </div>
-                {homepageData.aboutUs.map((paragraph) => (
-                  <div className="landing-center-content">{paragraph}</div>
-                ))}
+                {parse(homepageData.aboutUs)}
                 <div className="recent-pub-title">
                   RECENT PUBLICATIONS
                 </div>
