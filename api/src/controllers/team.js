@@ -12,6 +12,7 @@ const Team = require('../models/team.model');
 const Achievement = require('../models/achievement.model');
 const Publication = require('../models/publication.model');
 
+const transporter = require('../config/mail');
 const {
   githubClientId,
   githubClientSecret,
@@ -27,27 +28,45 @@ const { fillErrorObject } = require('../middleware/error');
  * @param req request object containing at least two fields: teamName & orgName.
  * @param res response object - updated team object
  * @param next handler to the next middleware
- * @returns 201: returns updated team details
+ * @returns 201 with team details
+ * @returns 500 if a server error occurred
  */
 async function createTeam(req, res, next) {
-  const foundTeam = await Team.findOne({ email: req.body.email });
-  if (foundTeam) {
-    return next(
-      fillErrorObject(400, 'Duplicate email error', [
-        'Email had been registered',
-      ]),
-    );
+  const { email, password } = req.body;
+  try {
+    if (await Team.findOne({ email })) {
+      return next(
+        fillErrorObject(400, 'Duplicate email error', [
+          'Email had been registered',
+        ]),
+      );
+    }
+    const hashedPassword = await bcrypt.hash(password, await bcrypt.genSalt());
+    const hashedTeam = {
+      ...req.body,
+      password: hashedPassword,
+    };
+    const createdTeam = await Team.create(hashedTeam);
+
+    // Notify registration via email; don't await completion.
+    transporter.sendMail({
+      to: email,
+      template: 'signup',
+      context: {
+        name: email,
+      },
+    }, (err) => {
+      if (err) {
+        logger.error(`Email failed to send to ${email}: ${err.message}`);
+      }
+    });
+
+    // Strip sensitive data before responding.
+    delete createdTeam.password;
+    return res.status(201).json(createdTeam);
+  } catch (err) {
+    return next(fillErrorObject(500, 'Server error', [err]));
   }
-  const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-  const hashedTeam = {
-    ...req.body,
-    password: hashedPassword,
-  };
-  const createdTeam = await Team.create(hashedTeam);
-  // remove sensitive data
-  delete createTeam.password;
-  return res.status(201).json(createdTeam);
 }
 
 /**
