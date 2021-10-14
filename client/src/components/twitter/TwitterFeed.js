@@ -34,7 +34,7 @@ const TwitterFeed = () => {
       <Timeline
         dataSource={{ sourceType: 'profile', screenName: team.twitterHandle }}
         options={{
-          height: 'calc(65vh)',
+          height: 'calc(75vh - 90px)',
         }}
       />
       <PrimaryButton
