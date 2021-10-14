@@ -5,8 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
-import Publications from './Publications';
-import DeployPage from '../dashboard/deploy/DeployPage';
+import DeployBtn from '../dashboard/deploy/Deploy';
 import PublicationsEditor from './publicationsLayout/PublicationsEditor';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
@@ -119,7 +118,7 @@ const PublicationPage = () => {
             <ImportForm closeModal={() => setShowImportForm(false)} />
           </Modal.Body>
         </Modal>
-        <DeployPage teamId={teamId} />
+        <DeployBtn teamId={teamId} />
       </div>
     </>
   );

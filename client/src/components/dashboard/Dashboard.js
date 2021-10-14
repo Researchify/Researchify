@@ -9,7 +9,7 @@ import {
 import { useSelector } from 'react-redux';
 import './Dashboard.css';
 import Webpages from './webpage/Webpages';
-import DeployPage from './deploy/DeployPage';
+import DeployBtn from './deploy/Deploy';
 import { availablePages } from '../../config/clientWebsite';
 
 const Dashboard = () => {
@@ -63,7 +63,7 @@ const Dashboard = () => {
           </Tabs>
         </Container>
       </main>
-      <DeployPage teamId={teamId} />
+      <DeployBtn teamId={teamId} />
     </>
   );
 };

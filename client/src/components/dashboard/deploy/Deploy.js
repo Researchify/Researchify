@@ -53,7 +53,7 @@ const FABStyle = {
   color: 'white',
 };
 
-const DeployPage = ({ teamId }) => {
+const DeployBtn = ({ teamId }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
@@ -156,8 +156,8 @@ const DeployPage = ({ teamId }) => {
 };
 
 // props validation
-DeployPage.propTypes = {
+DeployBtn.propTypes = {
   teamId: PropTypes.string.isRequired,
 };
 
-export default DeployPage;
+export default DeployBtn;

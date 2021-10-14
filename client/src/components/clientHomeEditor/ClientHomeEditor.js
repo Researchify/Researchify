@@ -14,7 +14,7 @@ import {
   getHomepageDataByTeamId,
   updateHomepage,
 } from '../../actions/homepage';
-import DeployPage from '../dashboard/deploy/DeployPage';
+import DeployBtn from '../dashboard/deploy/Deploy';
 
 import { PrimaryButton } from '../shared/styledComponents';
 
@@ -102,7 +102,7 @@ const ClientHomeEditor = () => {
           Save
         </PrimaryButton>
       </Form>
-      <DeployPage
+      <DeployBtn
         teamId={teamId}
       />
     </Container>

@@ -8,7 +8,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import React, { useEffect, useState } from 'react';
-import DeployPage from '../dashboard/deploy/DeployPage';
+import DeployBtn from '../dashboard/deploy/Deploy';
 import TeamMember from './TeamMember';
 import TeamMemberForm from './form/TeamMemberForm';
 import { getTeamMembersByTeamId, deleteBatchTeamMembers } from '../../actions/team';
@@ -180,7 +180,7 @@ const TeamPage = () => {
           </DangerButton>
         </Modal.Footer>
       </Modal>
-      <DeployPage
+      <DeployBtn
         teamId={teamId}
       />
     </div>

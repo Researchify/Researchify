@@ -8,7 +8,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import DeployPage from '../dashboard/deploy/DeployPage';
+import DeployBtn from '../dashboard/deploy/Deploy';
 import AchievementForm from './form/AchievementForm';
 import { getAchievementsByTeamId, deleteBatchAchievements } from '../../actions/achievements';
 import Achievement from './Achievement';
@@ -182,7 +182,7 @@ const AchievementPage = () => {
           </DangerButton>
         </Modal.Footer>
       </Modal>
-      <DeployPage
+      <DeployBtn
         teamId={teamId}
       />
     </div>
