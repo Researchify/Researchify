@@ -131,7 +131,7 @@ async function updateAchievement(req, res) {
 }
 
 /**
- * Handles a PATCH request to delete a list of achievements by the mongo object id on the endpoint /achievement/
+ * Handles a PATCH request to delete a list of achievements by the mongo object id on the endpoint /achievements/
  *
  * @param req request object - the list of achievement ids given in the body
  * @param res response object

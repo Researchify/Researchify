@@ -144,8 +144,20 @@ describe('PATCH /achievements/:id', () => {
   });
 });
 
+// PATCH Requests for batch delete
+describe('PATCH /achievement/', () => {
+  it('should return 200 for deleting a list of achievements', async () => {
+    // Try deleting a list of achievements
+    const achievements = [firstAchievement.body, secondAchievement.body]
+    const res = await request.patch(`${ROUTE_PREFIX}`)
+      .set('Cookie', cookies)
+      .send(achievements);
+    expect(res.status).toBe(200);
+  });
+});
+
 // DELETE Requests
-describe('DELETE /achievements:id', () => {
+describe('DELETE /achievements/:id', () => {
   it('should return 404 for an achievement not found', async () => {
     // Try to delete an non-existent achievement
     const fakeAchievementId = '61643b9d2906971903b2207f';
