@@ -3,7 +3,6 @@
  */
 const supertest = require('supertest');
 
-const Team = require('../../src/models/team.model');
 const {
   connectDb,
   closeConnection,
@@ -27,7 +26,7 @@ let cookies;
 /// Store the raw data for two achievements that will be created for tests
 let firstAchievementData;
 let secondAchievementData;
-/// Store response body of achievements created. This will contain id of the achievements, which are needed for some tests. 
+/// Store response body of achievements created. This will contain id of the achievements, which are needed for some tests.
 let firstAchievement;
 let secondAchievement;
 
@@ -70,10 +69,6 @@ beforeEach(async () => {
     teamId: `${teamId}`,
   };
 
-  firstAchievement = await request.post(`${ROUTE_PREFIX}`)
-    .set('Cookie', cookies)
-    .send(firstAchievementData);
-  
   secondAchievementData = {
     title: 'Second Achievement',
     yearAwarded: 2019,
@@ -81,6 +76,9 @@ beforeEach(async () => {
     teamId: `${teamId}`,
   };
 
+  firstAchievement = await request.post(`${ROUTE_PREFIX}`)
+    .set('Cookie', cookies)
+    .send(firstAchievementData);
   secondAchievement = await request.post(`${ROUTE_PREFIX}`)
     .set('Cookie', cookies)
     .send(secondAchievementData);
@@ -126,7 +124,7 @@ describe('PATCH /achievements/:id', () => {
       teamId: `${teamId}`,
     };
     // Try to update an existing achievement with new data
-    res = await request.patch(`${ROUTE_PREFIX}/${achievementId}`)
+    const res = await request.patch(`${ROUTE_PREFIX}/${achievementId}`)
       .set('Cookie', cookies)
       .send(updatedData);
     expect(res.status).toBe(200);
@@ -160,7 +158,7 @@ describe('DELETE /achievements:id', () => {
   it('should return 200 for deleting an existing achievement', async () => {
     // Try to delete an existing achievement
     const achievementId = firstAchievement.body._id;
-    res = await request.delete(`${ROUTE_PREFIX}/${achievementId}`)
+    const res = await request.delete(`${ROUTE_PREFIX}/${achievementId}`)
       .set('Cookie', cookies)
       .send(firstAchievementData);
     expect(res.status).toBe(200);
