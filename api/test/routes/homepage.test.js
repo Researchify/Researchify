@@ -47,14 +47,14 @@ describe('POST /homepage/:team_id', () => {
     const team = await Team.findOne();
     const data = {
       teamId: team._id.toString(),
-      aboutUs: ['Hello', 'World!'],
+      aboutUs: 'Hello World!',
     };
 
     const res = await request.post(`${ROUTE_PREFIX}/${team._id.toString()}`)
       .send(data);
     expect(res.status).toBe(200);
     expect(res.body.teamId).toEqual(team._id.toString());
-    expect(res.body.aboutUs).toEqual(['Hello', 'World!']);
+    expect(res.body.aboutUs).toEqual('Hello World!');
   });
 });
 
@@ -74,6 +74,6 @@ describe('GET /homepage/:team_id', () => {
     const res = await request.get(`${ROUTE_PREFIX}/${team._id.toString()}`);
     expect(res.status).toBe(200);
     expect(res.body.teamId).toEqual(team._id.toString());
-    expect(res.body.aboutUs).toEqual([]);
+    expect(res.body.aboutUs).toEqual('');
   });
 });

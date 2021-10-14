@@ -6,6 +6,8 @@ import {
   Row, Col, Accordion, Container,
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import parse from 'html-react-parser';
+
 import { Link } from 'react-router-dom';
 import Favicon from 'react-favicon';
 import {
@@ -49,9 +51,7 @@ const landingPage = () => {
                   {teamName}
                   !
                 </div>
-                {homepageData.aboutUs.map((paragraph) => (
-                  <div className="landing-center-content">{paragraph}</div>
-                ))}
+                {parse(homepageData.aboutUs)}
                 <div className="recent-pub-title">
                   RECENT PUBLICATIONS
                 </div>
