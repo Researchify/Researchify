@@ -3,7 +3,6 @@
  */
 const supertest = require('supertest');
 
-// const Achievement = require('../../src/models/achievement.model');
 const Team = require('../../src/models/team.model');
 const {
   connectDb,
@@ -21,8 +20,16 @@ const DB_NAME = 'researchify_test_achievements';
 /// The homepage route prefix.
 const ROUTE_PREFIX = '/achievements';
 
-/// Store an array of cookies retrieved from login session.
+/// Store teamId information globally
+let teamId;
+/// Store an array of cookies
 let cookies;
+/// Store the raw data for two achievements that will be created for tests
+let firstAchievementData;
+let secondAchievementData;
+/// Store response body of achievements created. This will contain id of the achievements, which are needed for some tests. 
+let firstAchievement;
+let secondAchievement;
 
 beforeAll(async () => {
   await connectDb(DB_NAME);
@@ -45,6 +52,7 @@ beforeEach(async () => {
   };
 
   let res = await request.post('/team').send(teamInfo);
+  teamId = res.body._id.toString();
 
   // Login with new team created and store cookies to global variable
   const loginDetails = {
@@ -53,6 +61,29 @@ beforeEach(async () => {
   };
   res = await request.post('/auth/login').send(loginDetails);
   cookies = res.headers['set-cookie'];
+
+  // Create two achievements for the team
+  firstAchievementData = {
+    title: 'First achievement',
+    yearAwarded: 2019,
+    description: 'First achievement test',
+    teamId: `${teamId}`,
+  };
+
+  firstAchievement = await request.post(`${ROUTE_PREFIX}`)
+    .set('Cookie', cookies)
+    .send(firstAchievementData);
+  
+  secondAchievementData = {
+    title: 'Second Achievement',
+    yearAwarded: 2019,
+    description: 'This is our second achievement.',
+    teamId: `${teamId}`,
+  };
+
+  secondAchievement = await request.post(`${ROUTE_PREFIX}`)
+    .set('Cookie', cookies)
+    .send(secondAchievementData);
 });
 
 afterEach(async () => {
@@ -62,56 +93,39 @@ afterEach(async () => {
 // POST request tests
 describe('POST /achievements/:teamId', () => {
   it('should return 404 for a non-existent team', async () => {
+    // Try to add new achievement for non-existent team
     const fakeTeamId = '613b888ffca059539f01fc64';
-    const res = await request.post(`${ROUTE_PREFIX}/${fakeTeamId}`);
+    const res = await request.post(`${ROUTE_PREFIX}/${fakeTeamId}`)
+      .set('Cookie', cookies)
+      .send(firstAchievementData);
     expect(res.status).toBe(404);
   });
 
   it('should add new achievement to team, async', async () => {
-    const team = await Team.findOne({ email: 'testemail@gmail.com' });
-    const data = {
-      title: 'Best team',
-      yearAwarded: 2019,
-      description: 'We are the best team.',
-      teamId: team._id.toString(),
-    };
-
+    // Try to add new achievement for existing team
     const res = await request.post(`${ROUTE_PREFIX}`)
       .set('Cookie', cookies)
-      .send(data);
+      .send(firstAchievementData);
     expect(res.status).toBe(201);
-    expect(res.body.teamId).toEqual(team._id.toString());
-    expect(res.body.title).toEqual(data.title);
-    expect(res.body.yearAwarded).toEqual(data.yearAwarded);
-    expect(res.body.description).toEqual(data.description);
+    expect(res.body.teamId).toEqual(`${teamId}`);
+    expect(res.body.title).toEqual(firstAchievementData.title);
+    expect(res.body.yearAwarded).toEqual(firstAchievementData.yearAwarded);
+    expect(res.body.description).toEqual(firstAchievementData.description);
   });
 });
 
 // PATCH Request tests
 describe('PATCH /achievements/:id', () => {
   it('should return 200 for updating a current achievement', async () => {
-    // Create an initial achievement
-    const team = await Team.findOne({ email: 'testemail@gmail.com' });
-    const data = {
-      title: 'First achievement',
-      yearAwarded: 2019,
-      description: 'First achievement test',
-      teamId: team._id.toString(),
-    };
-
-    let res = await request.post(`${ROUTE_PREFIX}`)
-      .set('Cookie', cookies)
-      .send(data);
-
-    // Store achievement id to use for patch request
-    const achievementId = res.body._id;
+    // Store achievement id and updated data to use for patch request
+    const achievementId = firstAchievement.body._id;
     const updatedData = {
       title: 'First achievement updated',
       yearAwarded: 2020,
       description: 'First achievement update test',
-      teamId: team._id.toString(),
+      teamId: `${teamId}`,
     };
-    // Test patch request for current achievement
+    // Try to update an existing achievement with new data
     res = await request.patch(`${ROUTE_PREFIX}/${achievementId}`)
       .set('Cookie', cookies)
       .send(updatedData);
@@ -123,20 +137,11 @@ describe('PATCH /achievements/:id', () => {
   });
 
   it('should return 404 for an achievement not found', async () => {
-    // Data to update a non-existent achivement
-    const teamId = '61643c4516cba8e510939fcf';
+    // Try to update a non-existent achievement
     const fakeAchievementId = '61643b9d2906971903b2207f';
-    const data = {
-      title: 'Second achievement updated',
-      yearAwarded: 2019,
-      description: 'Second achievement update test',
-      teamId: `${teamId}`,
-    };
-
-    // Test patch request for a non-existent achievement
     const res = await request.patch(`${ROUTE_PREFIX}/${fakeAchievementId}`)
       .set('Cookie', cookies)
-      .send(data);
+      .send(firstAchievementData);
     expect(res.body.code).toBe(404);
   });
 });
@@ -144,43 +149,20 @@ describe('PATCH /achievements/:id', () => {
 // DELETE Requests
 describe('DELETE /achievements:id', () => {
   it('should return 404 for an achievement not found', async () => {
-    // Data for a non-existent achivement
-    const teamId = '61643c4516cba8e510939fcf';
+    // Try to delete an non-existent achievement
     const fakeAchievementId = '61643b9d2906971903b2207f';
-    const data = {
-      title: 'Non Existent Achievement',
-      yearAwarded: 2018,
-      description: 'This achievement does not exist.',
-      teamId: `${teamId}`,
-    };
-
-    // Test delete request for a non-existent achievement
     const res = await request.delete(`${ROUTE_PREFIX}/${fakeAchievementId}`)
       .set('Cookie', cookies)
-      .send(data);
+      .send(firstAchievementData);
     expect(res.body.code).toBe(404);
   });
 
   it('should return 200 for deleting an existing achievement', async () => {
-    // Create an initial achievement
-    const team = await Team.findOne({ email: 'testemail@gmail.com' });
-    const data = {
-      title: 'Unofficial Achievement',
-      yearAwarded: 2020,
-      description: 'We will be removing this achievement',
-      teamId: team._id.toString(),
-    };
-
-    let res = await request.post(`${ROUTE_PREFIX}`)
-      .set('Cookie', cookies)
-      .send(data);
-
-    // Store achievement id to use for delete request
-    const achievementId = res.body._id;
-    // Test delete request for current achievement
+    // Try to delete an existing achievement
+    const achievementId = firstAchievement.body._id;
     res = await request.delete(`${ROUTE_PREFIX}/${achievementId}`)
       .set('Cookie', cookies)
-      .send(data);
+      .send(firstAchievementData);
     expect(res.status).toBe(200);
     expect(res.body.message).toBe('Achievement deleted successfully.');
   });
@@ -189,30 +171,7 @@ describe('DELETE /achievements:id', () => {
 // GET Requests
 describe('GET /achievements/team/:teamId', () => {
   it('should return 200 for returning a list of achievements', async () => {
-    // Add new achievements for given teamId.
-    const team = await Team.findOne({ email: 'testemail@gmail.com' });
-    const teamId = team._id.toString();
-    const firstAchievementData = {
-      title: 'First Achievement',
-      yearAwarded: 2020,
-      description: 'This is our first achievement.',
-      teamId: `${teamId}`,
-    };
-
-    const firstAchievement = await request.post(`${ROUTE_PREFIX}`)
-      .set('Cookie', cookies)
-      .send(firstAchievementData);
-    const secondAchievementData = {
-      title: 'Second Achievement',
-      yearAwarded: 2019,
-      description: 'This is our second achievement.',
-      teamId: `${teamId}`,
-    };
-
-    const secondAchievement = await request.post(`${ROUTE_PREFIX}`)
-      .set('Cookie', cookies)
-      .send(secondAchievementData);
-    // Test GET request to retrieve newly added achievements
+    // Try to retrieve achievements for an existing team
     const res = await request.get(`${ROUTE_PREFIX}/team/${teamId}`)
       .set('Cookie', cookies);
     expect(res.status).toBe(200);
