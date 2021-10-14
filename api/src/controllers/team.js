@@ -444,9 +444,9 @@ async function deleteGHPages(req, res, next) {
     // result logged
     return res.status(200).json('Deleted successfully!');
   } catch (error) {
-    logger.info(` Failed: GitHub pages not deleted for vchuser: ${ghUsername}!`);
+    logger.info(` Failed: GitHub pages not deleted for user: ${ghUsername}!`);
     return next(
-      fillErrorObject(500, 'Error occurred with serverxrrx!', ['Failed to delete GitHub pages']),
+      fillErrorObject(500, 'Error occurred with server!', ['Failed to delete GitHub pages']),
     );
   }
 }
