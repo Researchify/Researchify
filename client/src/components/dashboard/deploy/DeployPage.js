@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
 import { Spinner, Modal, Card } from 'react-bootstrap';
 import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
 import { PropTypes } from 'prop-types';
-
+import { Fab } from '@material-ui/core';
 import styled from 'styled-components';
+
 import { githubClientId, scope } from '../../../config/deploy';
 import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
 
@@ -36,8 +37,11 @@ const GHButton = styled(GitHubLogin)` //Purple
 //   }
 // `;
 
-const DeployPage = ({ teamId, showModal, handleClose }) => {
+const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+  // const handleClick = () => setShowModal(true);
+  const handleModalClose = () => setShowModal(false);
   const loading = useSelector((state) => state.deploy.loading);
 
   const webUrl = useSelector((state) => state.website.url);
@@ -87,9 +91,33 @@ const DeployPage = ({ teamId, showModal, handleClose }) => {
     </Card>
   );
 
+  const FABStyle = {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
+    padding: '.375rem .75rem',
+    border: '1px solid #56658a',
+    borderRadius: '.25rem',
+    backgroundColor: '#56658a',
+    color: 'white',
+  };
+
   return (
     <>
-      <Modal show={showModal} onHide={handleClose}>
+      <Fab
+        style={FABStyle}
+        variant="extended"
+        size="medium"
+        disableRipple
+        className="float-right"
+        onClick={() => setShowModal(true)}
+      >
+        Deploy Website
+      </Fab>
+      <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>Deploy Website</Modal.Title>
         </Modal.Header>
@@ -128,8 +156,6 @@ const DeployPage = ({ teamId, showModal, handleClose }) => {
 // props validation
 DeployPage.propTypes = {
   teamId: PropTypes.string.isRequired,
-  showModal: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
 };
 
 export default DeployPage;
