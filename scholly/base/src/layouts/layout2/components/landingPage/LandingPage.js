@@ -5,6 +5,8 @@ import React from 'react';
 import { Col, Image, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import parse from 'html-react-parser';
+
 import { TEAM_HOMEPAGE, TEAM_INFO, TEAM_PUBLICATIONS } from '../../../../global/data';
 import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';
@@ -36,11 +38,9 @@ const landingPage = () => {
         />
       </div>
       <div className="mt-2 mb-5">
-        {homepageData.aboutUs.map((paragraph) => (
-          <div style={{ textAlign: 'left' }}>
-            {paragraph}
-          </div>
-        ))}
+        <div style={{ textAlign: 'left' }}>
+          {parse(homepageData.aboutUs)}
+        </div>
       </div>
       <Row>
         <Col md={twitterHandle ? 9 : 12}>
