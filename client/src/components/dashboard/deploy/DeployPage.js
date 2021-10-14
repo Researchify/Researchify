@@ -37,11 +37,26 @@ const GHButton = styled(GitHubLogin)` //Purple
 //   }
 // `;
 
+const FABStyle = {
+  // Needed to make the button floating
+  margin: 0,
+  top: 'auto',
+  right: 20,
+  bottom: 20,
+  left: 'auto',
+  position: 'fixed',
+  // For consistency with other button styles
+  padding: '.375rem .75rem',
+  border: '1px solid #56658a',
+  borderRadius: '.25rem',
+  backgroundColor: '#56658a',
+  color: 'white',
+};
+
 const DeployPage = ({ teamId }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  // const handleClick = () => setShowModal(true);
-  const handleModalClose = () => setShowModal(false);
+
   const loading = useSelector((state) => state.deploy.loading);
 
   const webUrl = useSelector((state) => state.website.url);
@@ -80,6 +95,7 @@ const DeployPage = ({ teamId }) => {
     </GHButton>
   );
 
+  // Display the user's deployed website URL, if available
   const webUrlInfo = (
     <Card style={{ marginTop: '15px' }}>
       <Card.Body>
@@ -90,20 +106,6 @@ const DeployPage = ({ teamId }) => {
       </Card.Body>
     </Card>
   );
-
-  const FABStyle = {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed',
-    padding: '.375rem .75rem',
-    border: '1px solid #56658a',
-    borderRadius: '.25rem',
-    backgroundColor: '#56658a',
-    color: 'white',
-  };
 
   return (
     <>
@@ -117,7 +119,7 @@ const DeployPage = ({ teamId }) => {
       >
         Deploy Website
       </Fab>
-      <Modal show={showModal} onHide={handleModalClose}>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Deploy Website</Modal.Title>
         </Modal.Header>

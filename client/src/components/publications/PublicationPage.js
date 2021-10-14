@@ -1,5 +1,5 @@
 /**
- * The PublicationPage component renders Publications component .
+ * The PublicationPage component renders the root node for Publications page.
  */
 
 import React, { useEffect, useState } from 'react';
@@ -97,14 +97,6 @@ const PublicationPage = () => {
           setShowImportForm={setShowImportForm}
         />
 
-        <Publications
-          options={options}
-          sortPublications={sortPublications}
-          publications={publications}
-          teamId={teamId}
-          setPublications={setPublications}
-        />
-
         {/* A modal for showing create publication form */}
         <Modal show={showCreateForm}>
           <Modal.Header className="modalHeader">
@@ -127,10 +119,8 @@ const PublicationPage = () => {
             <ImportForm closeModal={() => setShowImportForm(false)} />
           </Modal.Body>
         </Modal>
+        <DeployPage teamId={teamId} />
       </div>
-      <DeployPage
-        teamId={teamId}
-      />
     </>
   );
 };

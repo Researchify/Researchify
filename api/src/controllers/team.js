@@ -469,16 +469,13 @@ async function deployToGHPages(req, res, next) {
 
   // Update website url in DB if first time deploying
   website = Website.findOne({teamId});
-  if (website) {
-    console.log('Website found for this team');
-    if (!website.url) {
-      console.log('Website site does not have a url');
-      try {
-        await Website.updateOne({teamId}, {'url': `${ghUsername}.github.io`});
-      }
-      catch (err) {
-        console.log(err);
-      }
+  if (website && !website.url) {
+    try {
+      // Update when user has option to customize url
+      await Website.updateOne({teamId}, {'url': `${ghUsername}.github.io`});
+    }
+    catch (err) {
+      console.log(err);
     }
   }
 
