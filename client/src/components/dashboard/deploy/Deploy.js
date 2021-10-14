@@ -9,7 +9,7 @@ import { Fab } from '@material-ui/core';
 import styled from 'styled-components';
 
 import { githubClientId, scope } from '../../../config/deploy';
-import { getGHAccessToken, deployToGHPages } from '../../../actions/team';
+import { deployToGHPages } from '../../../actions/team';
 
 const GHButton = styled(GitHubLogin)` //Purple
     padding: .375rem .75rem;
@@ -61,18 +61,11 @@ const DeployBtn = ({ teamId }) => {
 
   const webUrl = useSelector((state) => state.website.url);
 
-  const handleDeploy = () => {
-    const accessToken = localStorage.getItem('GH_access_token');
-    // call backend endpoint to deploy and give the access token
-    dispatch(deployToGHPages(teamId, accessToken));
-  };
-
   const onSuccessfulLogin = (response) => {
     const { code } = response;
     // Now that we have the temporary code, we wish to exchange it for a GitHub
-    // access token. This action will fetch the token and push it to local storage.
-    dispatch(getGHAccessToken(teamId, code));
-    handleDeploy();
+    // access token.
+    dispatch(deployToGHPages(teamId, code));
   };
 
   // handle error toast when fail to log in

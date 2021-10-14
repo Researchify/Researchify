@@ -200,21 +200,27 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
   }
 };
 
-export const getGHAccessToken = (teamId, code) => async (dispatch) => {
+// TODO: Remove once confident we won't need it anymore
+// export const getGHAccessToken = (teamId, code) => async (dispatch) => {
+//   try {
+//     const { data } = await api.getGHAccessToken(teamId, code);
+
+//     localStorage.setItem('GH_access_token', data.access_token);
+//     dispatch({
+//       type: GET_GH_ACCESS_TOKEN,
+//     });
+//   } catch (err) {
+//     dispatch(errorActionGlobalCreator(err));
+//   }
+// };
+
+export const deployToGHPages = (teamId, code) => async (dispatch) => {
   try {
     const { data } = await api.getGHAccessToken(teamId, code);
-
-    localStorage.setItem('GH_access_token', data.access_token);
+    const accessToken = data.access_token;
     dispatch({
       type: GET_GH_ACCESS_TOKEN,
     });
-  } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
-  }
-};
-
-export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
-  try {
     dispatch({
       type: DEPLOY_REQUEST,
     });
