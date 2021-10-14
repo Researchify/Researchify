@@ -148,7 +148,7 @@ describe('PATCH /achievements/:id', () => {
 describe('PATCH /achievement/', () => {
   it('should return 200 for deleting a list of achievements', async () => {
     // Try deleting a list of achievements
-    const achievements = [firstAchievement.body, secondAchievement.body]
+    const achievements = [firstAchievement.body, secondAchievement.body];
     const res = await request.patch(`${ROUTE_PREFIX}`)
       .set('Cookie', cookies)
       .send(achievements);
