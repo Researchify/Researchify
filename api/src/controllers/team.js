@@ -393,7 +393,6 @@ async function deployToGHPages(req, res, next) {
   }
 }
 
-
 /**
  * Update the team's password from the database on /team/:team_id
  * @param {} req request object, containing team id in the url
