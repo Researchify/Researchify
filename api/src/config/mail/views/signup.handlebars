@@ -8,10 +8,16 @@
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
         <style>
             .all {
-                margin-left: 300px;
-                margin-right: 300px;
                 background-color: #f0f0f0;
             }
+
+            .email {
+                max-width: 600px;
+                position: fixed;
+                left: 50%;
+                margin-left: -300px;
+            }
+
             .topbar {
                 color: rgb(65, 70, 86);
                 background-color: white;
@@ -44,11 +50,12 @@
             .welcome {
                 color: white;
                 font-size: 2rem;
+                padding-bottom: 10px;
             }
 
             .description {
                 color: #dedede;
-                padding-bottom: 50px;
+                margin-bottom: 0px;
             }
 
             .loginText {
@@ -65,39 +72,59 @@
                 padding-left: 60px;
                 padding-right: 60px;
                 margin-top: 10px;
-                margin-bottom: 30px;
+                margin-bottom: 0px;
             }
 
             footer {
                 font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
                 background-color: #404040;
-                color: #dedede;
+                color: #b1b1b1;
                 font-size: 0.8rem;
-                padding-top: 40px;
+                padding-top: 10px;
                 padding-left: 34px;
                 padding-right: 34px;
-                padding-bottom: 12px;
+                padding-bottom: 10px;
+            }
+
+            #footerText {
+                margin-bottom: 0px;
+            }
+
+            .flex-container {
+                display: flex;
+                padding-bottom: 20px;
+            }
+
+            .loginSection {
+                padding-top: 120px;
+                padding-right: 16px;
             }
         </style>
     </head>
 
     <body class="all">
-        <h1 class="font topbar">
-            RE<b style="color: #56658a;">SEARCH</b>IFY
-        </h1>
-        <div class="content">
-            <div class='font welcome'><b>Welcome.</b></div>
-            
-            <p class='font description invertColor'>You have created an account with us. You can now begin building your own website!</p>
-
-            <p class='font loginText'>To login, please click the button below.</p>
-            <a href="http://researchify-env.eba-wjxcgupn.ap-southeast-2.elasticbeanstalk.com/">
-                <button type="button" class="btn btn-lg" id="loginButton">Login</button>
-            </a>
+        <div class="email">
+            <h1 class="font topbar">
+                RE<b style="color: #56658a;">SEARCH</b>IFY
+            </h1>
+            <div class="content">
+                <div class='font welcome'><b>Welcome</b></div>
+                
+                <p class='font description invertColor'>You have created an account with us. You can now begin building your own website!</p>
+                <div class="flex-container">
+                    <div class="loginSection">
+                        <p class='font loginText'>To login, please click the button below.</p>
+                        <a href="http://researchify-env.eba-wjxcgupn.ap-southeast-2.elasticbeanstalk.com/">
+                            <button type="button" class="btn btn-lg" id="loginButton">Login</button>
+                        </a>
+                    </div>
+                    <img src="../../../../../client/src/images/intro.svg" alt="man watching presentation" width="220">
+                </div>
+            </div>
+            <footer>
+                <p id="footerText">You are recieving this because you have signed up for an account with Researchify. We will only send emails when required.</p>
+            </footer>
         </div>
-        <footer>
-            <p>You are recieving this because you have signed up for an account with Researchify. We will only send emails when required.</p>
-        </footer>
     </body>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -105,4 +132,3 @@
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
     <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </html>
-
