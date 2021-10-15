@@ -466,18 +466,16 @@ async function deployToGHPages(req, res, next) {
 
   const ghUsername = data.login;
   logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
-    try {
-      // Update website url in DB if first time deploying
-      website = Website.findOne({teamId});
+  try {
+    // Update website url in DB if first time deploying
+    website = Website.findOne({ teamId });
 
-      if (website && !website.url) {
-        // Update when user has option to customize url
-        await Website.updateOne({teamId}, {'url': `${ghUsername}.github.io`});
-      }
+    if (website && !website.url) {
+      // Update when user has option to customize url
+      await Website.updateOne({ teamId }, { url: `${ghUsername}.github.io` });
     }
-    catch (err) {
-      console.log(err);
-    }
+  } catch (err) {
+    console.log(err);
   }
 
   const body = {
