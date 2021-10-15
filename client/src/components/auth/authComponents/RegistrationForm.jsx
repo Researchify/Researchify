@@ -59,7 +59,7 @@ const RegistrationForm = () => {
       .min(8, 'Password must contain at least 8 characters')
       .max(20, 'Password is too long')
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/,
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!-/:-@[-`{-~]{8,20}$/,
         'Password must be 8 or more characters with a mix of letters and numbers',
       ),
     confirmedPassword: yup
