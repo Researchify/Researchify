@@ -26,9 +26,11 @@ export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
 
 export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
   try {
-    const { data } = await api.createOrUpdateHomepage(teamId, homepageData);
+    const body = {
+      aboutUs: homepageData,
+    };
+    const { data } = await api.createOrUpdateHomepage(teamId, body);
     const updatedHomepage = {
-      teamId,
       aboutUs: data.aboutUs,
     };
     dispatch({
