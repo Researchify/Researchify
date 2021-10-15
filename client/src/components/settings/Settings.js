@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Form, Container, Image,
 } from 'react-bootstrap';
-import './ProfileInfoEdit.css';
+import './Settings.css';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from '@material-ui/core/Link';
@@ -20,7 +20,7 @@ import UpdatePasswordForm from './UpdatePasswordForm';
 /**
  * Form component for user update profile
  */
-const ProfileInfoEdit = () => {
+const Settings = () => {
   const dispatch = useDispatch();
 
   const {
@@ -84,7 +84,7 @@ const ProfileInfoEdit = () => {
   };
 
   const profileDeleted = () => {
-    // TODO: Delete profile function is not implemented yet in ProfileInfoEdit.js
+    // TODO: Delete profile function is not implemented yet in Settings.js
     toast.error('Profile has not been deleted');
   };
 
@@ -178,4 +178,4 @@ const ProfileInfoEdit = () => {
   );
 };
 
-export default ProfileInfoEdit;
+export default Settings;

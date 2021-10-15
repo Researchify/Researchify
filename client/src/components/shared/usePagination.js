@@ -35,7 +35,7 @@ const usePagination = (data, itemPerPage) => {
     setCurrentPage(() => Math.max(currentPage - 1, 1));
   };
   const pagination = () => (
-    <div style={{ paddingBottom: '5px' }}>
+    <div style={{ paddingBottom: '5px', fontSize: '17px' }}>
       {
           currentData().length === 1
             ? ((currentPage - 1) * itemPerPage + 1)

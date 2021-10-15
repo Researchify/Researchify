@@ -3,14 +3,14 @@
   "containerDefinitions": [
     {
       "name": "client",
-      "image": "ak1738/researchify-client",
+      "image": "researchify/client",
       "hostname": "client",
       "essential": false,
       "memory": 64
     },
     {
       "name": "api",
-      "image": "ak1738/researchify-api",
+      "image": "researchify/api",
       "hostname": "api",
       "essential": false,
       "memory": 256,
@@ -20,14 +20,14 @@
     },
     {
       "name": "scholly",
-      "image": "ak1738/researchify-scholly",
+      "image": "researchify/scholly",
       "hostname": "scholly",
       "essential": false,
       "memory": 512
     },
     {
       "name": "nginx",
-      "image": "ak1738/researchify-nginx",
+      "image": "researchify/nginx",
       "hostname": "nginx",
       "essential": true,
       "portMappings": [

@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
-import profilePicture from '../../../../../shared/images/profilepic.jpg';
+import defaultProfilePic from '../../../../../shared/images/profilepic.jpg';
 
 const TeamMemberMobile = ({ teamMembers }) => {
   const [hoveredMember, setHoveredMember] = useState(null);
@@ -19,7 +19,7 @@ const TeamMemberMobile = ({ teamMembers }) => {
     teamMembers.map((member, index) => (
       <Card
         style={{
-          marginBottom: '10px',
+          marginBottom: '5px',
           width: '100%',
           height: 'auto',
           boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
@@ -35,7 +35,7 @@ const TeamMemberMobile = ({ teamMembers }) => {
             height: 'auto', minWidth: '150px', maxWidth: '150px',
           }}
           >
-            <Card.Img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={profilePicture} />
+            <Card.Img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={member.memberPic ?? defaultProfilePic} />
           </div>
           <div>
             <Card.Body>

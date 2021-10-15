@@ -1,5 +1,5 @@
 /**
- * This module defines the endpoints for the "/twitter" route and exports the corresponding Router.
+ * This module defines endpoints for the "/team" route and exports the corresponding Router.
  */
 const teamRouter = require('express').Router();
 
@@ -8,18 +8,27 @@ const teamMiddleware = require('../middleware/team');
 const mongooseMiddleware = require('../middleware/mongoose');
 const authMiddleware = require('../middleware/auth');
 
-teamRouter.patch(
-  '/:teamId/twitter-handle',
-  authMiddleware.cookieJwtAuth,
-  teamMiddleware.validateTeamId,
-  teamMiddleware.validateTwitterHandle,
-  teamController.storeHandle,
-);
+teamRouter.post('/', teamController.createTeam);
 
 teamRouter.get(
   '/',
   authMiddleware.cookieJwtAuth,
   teamController.getTeam,
+);
+
+teamRouter.patch(
+  '/:teamId',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.updateTeam,
+);
+
+teamRouter.delete(
+  '/:teamId',
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.deleteTeam,
 );
 
 teamRouter.post(
@@ -38,6 +47,14 @@ teamRouter.get(
   teamController.readTeamMembersByTeam,
 );
 
+teamRouter.patch(
+  '/:teamId/member',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.updateTeamMember,
+);
+
 teamRouter.delete(
   '/:teamId/member/:memberId',
   authMiddleware.cookieJwtAuth,
@@ -47,11 +64,19 @@ teamRouter.delete(
 );
 
 teamRouter.patch(
-  '/:teamId/member',
+  '/:teamId/members',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.updateTeamMember,
+  teamController.deleteBatchTeamMembers,
+);
+
+teamRouter.patch(
+  '/:teamId/twitter-handle',
+  authMiddleware.cookieJwtAuth,
+  teamMiddleware.validateTeamId,
+  teamMiddleware.validateTwitterHandle,
+  teamController.storeHandle,
 );
 
 teamRouter.get(
@@ -63,17 +88,6 @@ teamRouter.post(
   '/:teamId/deploy',
   teamController.deployToGHPages,
 );
-
-teamRouter.post('/', teamController.createTeam);
-
-teamRouter.patch(
-  '/:teamId',
-  authMiddleware.cookieJwtAuth,
-  mongooseMiddleware.validateTeamObjectId,
-  teamMiddleware.validateTeamId,
-  teamController.updateTeam,
-);
-
 teamRouter.patch(
   '/password/:teamId',
   authMiddleware.cookieJwtAuth,
@@ -81,5 +95,4 @@ teamRouter.patch(
   teamMiddleware.validateTeamId,
   teamController.updatePassword,
 );
-
 module.exports = teamRouter;
