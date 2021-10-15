@@ -409,11 +409,11 @@ async function updatePassword(req, res, next) { // eslint-disable-line no-unused
 
   if (await bcrypt.compare(team.currentPassword, foundTeam.password)) {
     const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(team.password, salt);
-    team.password = hashedPassword;
+    const hashedPassword = await bcrypt.hash(team.newPassword, salt);
+    foundTeam.password = hashedPassword;
 
     try {
-      const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+      const updatedTeam = await Team.findByIdAndUpdate(_id, foundTeam, {
         new: true,
         runValidators: true,
       });
