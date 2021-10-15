@@ -104,6 +104,7 @@ const ClientHomeEditor = () => {
       </Form>
       <DeployBtn
         teamId={teamId}
+        position={{ marginRight: '65px' }}
       />
     </Container>
   );

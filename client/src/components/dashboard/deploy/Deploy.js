@@ -41,8 +41,8 @@ const FABStyle = {
   // Needed to make the button floating
   margin: 0,
   top: 'auto',
-  right: 20,
-  bottom: 20,
+  right: 25,
+  bottom: 35,
   left: 'auto',
   position: 'fixed',
   // For consistency with other button styles
@@ -53,7 +53,7 @@ const FABStyle = {
   color: 'white',
 };
 
-const DeployBtn = ({ teamId }) => {
+const DeployBtn = ({ teamId, position }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
@@ -100,10 +100,12 @@ const DeployBtn = ({ teamId }) => {
     </Card>
   );
 
+  const floatingBtnStyle = { ...FABStyle, ...position };
+
   return (
     <>
       <Fab
-        style={FABStyle}
+        style={floatingBtnStyle}
         variant="extended"
         size="medium"
         disableRipple
@@ -151,6 +153,10 @@ const DeployBtn = ({ teamId }) => {
 // props validation
 DeployBtn.propTypes = {
   teamId: PropTypes.string.isRequired,
+  position: PropTypes.object,
+};
+DeployBtn.defaultProps = {
+  position: { },
 };
 
 export default DeployBtn;
