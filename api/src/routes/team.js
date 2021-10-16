@@ -1,5 +1,5 @@
 /**
- * This module defines the endpoints for the "/twitter" route and exports the corresponding Router.
+ * This module defines endpoints for the "/team" route and exports the corresponding Router.
  */
 const teamRouter = require('express').Router();
 
@@ -24,10 +24,12 @@ teamRouter.patch(
   teamController.updateTeam,
 );
 
-teamRouter.delete('/:teamId',
+teamRouter.delete(
+  '/:teamId',
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.deleteTeam);
+  teamController.deleteTeam,
+);
 
 teamRouter.post(
   '/:teamId/member',

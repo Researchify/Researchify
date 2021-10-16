@@ -3,11 +3,10 @@
  */
 import { FETCH_HOMEPAGE, UPDATE_HOMEPAGE } from '../actions/types';
 
-// Variable in homepage (only `aboutUs` for now) is storing a list of string.
-// Each string in list is representing a paragraph.
-// This is for better handling the display/rendering of each Para.
+// Variable in homepage (only `aboutUs` for now) is storing a (HTML) string.
+// This string will get rendered in the editor automatically and scholly base when deployed.
 const INITIAL_HOMEPAGE_STATE = {
-  aboutUs: [''],
+  aboutUs: '',
 };
 
 const homepageReducer = (state = INITIAL_HOMEPAGE_STATE, action) => {

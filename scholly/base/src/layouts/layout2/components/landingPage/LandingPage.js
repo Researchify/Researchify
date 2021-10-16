@@ -7,9 +7,13 @@ import {
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import Favicon from 'react-favicon';
+import parse from 'html-react-parser';
+
 import { TEAM_HOMEPAGE, TEAM_INFO, TEAM_PUBLICATIONS } from '../../../../global/data';
 import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';
+import researchifyFavicon from '../../../../shared/images/favicon.ico';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
@@ -25,7 +29,7 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
-
+      <Favicon url={researchifyFavicon} />
       <h2>
         Welcome to
         {' '}
@@ -43,11 +47,9 @@ const landingPage = () => {
 
       </div>
       <div className="mt-2 mb-5">
-        {homepageData.aboutUs.map((paragraph) => (
-          <div style={{ textAlign: 'left' }}>
-            {paragraph}
-          </div>
-        ))}
+        <div style={{ textAlign: 'left' }}>
+          {parse(homepageData.aboutUs)}
+        </div>
       </div>
       <Row>
         <Col md={twitterHandle ? 9 : 12}>
