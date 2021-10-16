@@ -18,8 +18,8 @@ const UpdatePasswordForm = () => {
       .string()
       .required('Please Enter your new password')
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Use 8 or more characters with a mix of letters, numbers & symbols',
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/,
+        'Use 8 or more characters with a mix of letters, numbers',
       ),
     confirmedPassword: yup
       .string()
