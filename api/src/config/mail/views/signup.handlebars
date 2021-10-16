@@ -8,15 +8,19 @@
         <title>Document</title>
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
         <style>
-            .all {
-                background-color: #f0f0f0;
-            }
+            @media (min-width: 600px) {
+                .email {
+                    max-width: 600px;
+                    min-height: 594px;
+                    position: fixed;
+                    left: 50%;
+                    margin-left: -300px;
+                }
 
+            }
             .email {
                 max-width: 600px;
-                position: fixed;
-                left: 50%;
-                margin-left: -300px;
+                min-height: 594px;
             }
 
             .topbar {
@@ -103,30 +107,27 @@
             }
         </style>
     </head>
-
-    <body class="all">
-        <div class="email">
-            <h1 class="font topbar">
-                RE<b style="color: #56658a;">SEARCH</b>IFY
-            </h1>
-            <div class="content">
-                <div class='font welcome'><b>WELCOME</b></div>
-                
-                <p class='font description invertColor'>You have created an account with us. You can now begin building your own website!</p>
-                <div class="flex-container">
-                    <div class="loginSection">
-                        <p class='font loginText'>To login, please click the button below.</p>
-                        <a href="http://researchify-env.eba-wjxcgupn.ap-southeast-2.elasticbeanstalk.com/">
-                            <button type="button" class="btn btn-lg" id="loginButton">Login</button>
-                        </a>
-                    </div>
-                    <img src="cid:cid-presentation" alt="man watching presentation" width="220">
+    <body class="email">
+        <h1 class="font topbar">
+            RE<b style="color: #56658a;">SEARCH</b>IFY
+        </h1>
+        <div class="content">
+            <div class='font welcome'><b>WELCOME</b></div>
+            
+            <p class='font description invertColor'>You have created an account with us. You can now begin building your own website!</p>
+            <div class="flex-container">
+                <div class="loginSection">
+                    <p class='font loginText'>To login, please click the button below.</p>
+                    <a href="http://researchify-env.eba-wjxcgupn.ap-southeast-2.elasticbeanstalk.com/">
+                        <button type="button" class="btn btn-lg" id="loginButton">Login</button>
+                    </a>
                 </div>
+                <img src="cid:cid-presentation" alt="man watching presentation">
             </div>
-            <footer>
-                <p id="footerText">You are recieving this because you have signed up for an account with Researchify. We will only send emails when required.</p>
-            </footer>
         </div>
+        <footer>
+            <p id="footerText">You are recieving this because you have signed up for an account with Researchify. We will only send emails when required.</p>
+        </footer>
     </body>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
