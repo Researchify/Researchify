@@ -4,11 +4,13 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import Favicon from 'react-favicon';
 import parse from 'html-react-parser';
 
 import { TEAM_HOMEPAGE, TEAM_INFO } from '../../../../global/data';
 import landingPicture from '../../../../shared/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg';
 import RecentPublications from '../publications/RecentPublications';
+import researchifyFavicon from '../../../../shared/images/favicon.ico';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
@@ -24,6 +26,7 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
+      <Favicon url={researchifyFavicon} />
       <Container fluid className="pages-top-padding pages-side-padding">
         <Container fluid className="container-body">
           <img src={landingPicture} alt="Computer" align="left" className="left landing-image" style={{ width: '35%' }} />

@@ -9,11 +9,13 @@ import { Helmet } from 'react-helmet';
 import parse from 'html-react-parser';
 
 import { Link } from 'react-router-dom';
+import Favicon from 'react-favicon';
 import {
   TEAM_PUBLICATIONS, TEAM_HOMEPAGE, TEAM_INFO, TEAM_SITE_METADATA,
 } from '../../../../global/data';
 import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';
+import researchifyFavicon from '../../../../shared/images/favicon.ico';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
@@ -37,6 +39,7 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
+      <Favicon url={researchifyFavicon} />
       <Container fluid className="pages-top-padding">
         <Row>
           <Col md={twitterHandle ? 9 : 12}>
