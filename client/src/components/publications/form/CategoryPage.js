@@ -17,6 +17,7 @@ import { PropTypes } from 'prop-types';
 import { categoryTypes } from '../../../config/publications';
 import '../publications.css';
 import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
+import { PublicationsManualCategoryFormWalkthrough } from '../publicationsOnboarding';
 
 const CategoryPage = ({
   next, prev, data, closeModal,
@@ -73,7 +74,8 @@ const CategoryPage = ({
           setValues,
         }) => (
           <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group>
+            <PublicationsManualCategoryFormWalkthrough />
+            <Form.Group id="publication-category">
               <div className="text-center">
                 <ButtonGroup toggle>
                   {Object.keys(categoryTypes).map((category) => (
@@ -98,7 +100,7 @@ const CategoryPage = ({
               </div>
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group id="publication-category-title">
               <Form.Label>
                 {' '}
                 {Object.keys(categoryTypes)
@@ -130,7 +132,7 @@ const CategoryPage = ({
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group id="publication-volume">
               <Form.Label> Volume </Form.Label>
               <Form.Control
                 className="placeholder-text"
@@ -142,7 +144,7 @@ const CategoryPage = ({
               />
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group id="publication-issue">
               <Form.Label> Issue </Form.Label>
               <Form.Control
                 className="placeholder-text"
@@ -154,7 +156,7 @@ const CategoryPage = ({
               />
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group id="publication-pages">
               <Form.Label> Pages </Form.Label>
               <Form.Control
                 className="placeholder-text"
@@ -166,7 +168,7 @@ const CategoryPage = ({
               />
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group id="publication-publisher">
               <Form.Label> Publisher </Form.Label>
               <Form.Control
                 className="placeholder-text"

@@ -163,6 +163,66 @@ const PublicationsManualFormWalkthrough = () => {
   );
 };
 
+const PublicationsManualCategoryFormWalkthrough = () => {
+  const [intro, setIntro] = useState({
+    stepsEnabled: false,
+    initialStep: 0,
+    steps: [
+      {
+        element: '#publication-category',
+        title: 'New Publication',
+        intro: 'Select the category of your publication',
+      },
+      {
+        element: '#publication-category-title',
+        title: 'Publication Category Title',
+        intro: 'Please ensure that the title is 3-60 characters',
+      },
+      {
+        element: '#publication-volume',
+        title: 'Published Volume',
+        intro: 'Please ensure that the volume of the publication is a number',
+      },
+      {
+        element: '#publication-issue',
+        title: 'Publication Issue',
+        intro: 'Please ensure that the issue of the publication is a number',
+      },
+      {
+        element: '#publication-pages',
+        title: 'Publication Pages',
+        intro: 'Please ensure that the pages of the publication is a number',
+      },
+      {
+        element: '#publication-publisher',
+        title: 'Publication Publisher',
+        intro: 'Enter the publisher of the publication',
+      },
+    ],
+  });
+
+  const toggleSteps = () => {
+    setIntro({ ...intro, stepsEnabled: !intro.stepsEnabled });
+  };
+
+  const onExit = () => {
+    setIntro({ ...intro, stepsEnabled: false });
+  };
+
+  return (
+    <div>
+      <Steps
+        enabled={intro.stepsEnabled}
+        steps={intro.steps}
+        initialStep={intro.initialStep}
+        onExit={onExit}
+      />
+      <BiHelpCircle onClick={toggleSteps} />
+    </div>
+  );
+};
+
 export default PublicationsPageWalkthrough;
 export { PublicationsManualFormWalkthrough };
 export { PublicationsEditDeleteWalkthrough };
+export { PublicationsManualCategoryFormWalkthrough };
