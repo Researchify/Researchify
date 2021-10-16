@@ -8,41 +8,35 @@ import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { login } from '../../../actions/auth';
+import { resetPassword } from '../../../actions/auth';
 // import { errorActionGlobalCreator } from '../../../notification/notificationReduxFunctions';
 
-const LoginForm = () => {
+const PwdResetForm = () => {
   const dispatch = useDispatch();
 
-  const teamInfoSchema = yup.object({
+  const pwdInfoSchema = yup.object({
     email: yup
       .string()
       .required('Please enter your email'),
-    password: yup
-      .string()
-      .required('Please enter your password'),
   });
 
-  const authData = {
+  const pwdData = {
     email: '',
-    password: '',
   };
 
-  const submitForm = (values, { setFieldError }) => {
+  const resetPwd = (values) => {
     // error message could be passed in the setFieldError function to show error on the form
-    dispatch(login(values, setFieldError));
+    dispatch(resetPassword(values.email));
   };
-
   return (
     <Jumbotron id="login-form-box">
-      <h3 id="LoginHeading">Log In</h3>
+      <h3 id="LoginHeading">Reset Password</h3>
       <hr />
-
       <Formik
         enableReinitialize
-        validationSchema={teamInfoSchema}
-        onSubmit={submitForm}
-        initialValues={authData}
+        validationSchema={pwdInfoSchema}
+        onSubmit={resetPwd}
+        initialValues={pwdData}
       >
         {({
           handleSubmit, handleChange, values, touched, errors,
@@ -62,35 +56,24 @@ const LoginForm = () => {
                 {errors.email}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group>
-              <Form.Label> Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={values.password}
-                onChange={handleChange}
-                isInvalid={touched.password && errors.password}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.password}
-              </Form.Control.Feedback>
-            </Form.Group>
             <Button
-              id="loginButton"
+              id="resetButton"
               type="submit"
               variant="contained"
               color="secondary"
               size="large"
               style={{ color: 'white' }}
             >
-              Log in
+              Reset Password
             </Button>
+
           </Form>
+
         )}
       </Formik>
+
     </Jumbotron>
   );
 };
 
-export default LoginForm;
+export default PwdResetForm;
