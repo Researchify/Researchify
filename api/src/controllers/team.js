@@ -47,10 +47,18 @@ async function createTeam(req, res, next) {
     // Notify registration via email; don't await completion.
     transporter.sendMail({
       to: email,
+      subject: 'Welcome to Researchify',
       template: 'signup',
       context: {
         name: email,
       },
+      attachments: [
+        {
+          filename: 'presentation.png',
+          path: __dirname +'/presentation.png',
+          cid: 'cid-presentation'
+        }
+      ]
     }, (err) => {
       if (err) {
         logger.error(`Email failed to send to ${email}: ${err.message}`);
