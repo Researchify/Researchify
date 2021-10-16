@@ -13,7 +13,7 @@ const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
   const { teamName, twitterHandle } = TEAM_INFO;
   const { template } = TEAM_SITE_METADATA;
-  const themeOption = template.theme;
+  const { theme } = template;
 
   return (
     <>
@@ -37,7 +37,7 @@ const landingPage = () => {
           {
             twitterHandle && (
             <Col md={3} className="news-section">
-              <TwitterFeed linkedHandle={twitterHandle} themeOption={themeOption} twitterHeight={560} />
+              <TwitterFeed linkedHandle={twitterHandle} themeOption={theme} twitterHeight={560} />
             </Col>
             )
           }
