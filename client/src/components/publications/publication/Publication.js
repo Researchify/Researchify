@@ -13,6 +13,7 @@ import {
   Collapse,
 } from 'react-bootstrap';
 import { RiEdit2Line, RiDeleteBin6Line } from 'react-icons/ri';
+import { BsLink45Deg } from 'react-icons/bs';
 import { PropTypes } from 'prop-types';
 import PublicationForm from '../form/PublicationForm';
 import { deletePublication } from '../../../actions/publications';
@@ -128,6 +129,12 @@ const Publication = ({ pub }) => {
     }
   };
 
+  // prevent clicking on inner div calling the outer div onclick function
+  const childCallback = (event) => {
+    event.stopPropagation();
+    return false;
+  };
+
   return (
     <div
       className="publication-container mb-2"
@@ -138,16 +145,19 @@ const Publication = ({ pub }) => {
     >
       <div
         className={newlyAdded ? 'newlyAddedPublicationHeader' : 'publicationHeader'}
+        onClick={handleCheck}
       >
         <Row>
-          <Col md={10} onClick={handleCheck}>
+          <Col md={10}>
             <div style={{ display: 'flex' }}>
               <div style={{ paddingTop: '10px', paddingLeft: '10px' }}>
-                <input type="checkbox" checked={checkedPublications.includes(pub._id) || false} onChange={handleCheck} />
+                <input type="checkbox" checked={checkedPublications.includes(pub._id) || false} />
               </div>
               <div className="pubs-title">
                 {pub.link ? (
-                  <a style={{ color: '#2b7bb9', textDecoration: 'underline' }} href={pub.link} target="_blank" rel="noreferrer">
+                  <a style={{ color: 'white' }} href={pub.link} target="_blank" rel="noreferrer">
+                    <BsLink45Deg />
+                    {' '}
                     {pub.title}
                   </a>
                 ) : (
@@ -160,9 +170,9 @@ const Publication = ({ pub }) => {
             {
               isHovering
             && (
-            <StyledButtonGroup className="float-right">
+            <StyledButtonGroup onClick={childCallback} className="float-right">
               <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
-              <ButtonGroupItem color="#9c503d" hoverBorderColor="#9c503d" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+              <ButtonGroupItem color="#dc3545" hoverBorderColor="#dc3545" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
                 <RiDeleteBin6Line />
               </ButtonGroupItem>
             </StyledButtonGroup>
@@ -172,7 +182,7 @@ const Publication = ({ pub }) => {
         </Row>
       </div>
 
-      <div className="pub" onClick={() => setExpand(!expand)}>
+      <div className="pub" style={{ backgroundColor: isHovering && '#f5f2f2' }} onClick={() => setExpand(!expand)}>
         <div className="pubs-props">
           <b> Authors: </b>
           {pub.authors.map((author) => `${author}`).join(', ')}
