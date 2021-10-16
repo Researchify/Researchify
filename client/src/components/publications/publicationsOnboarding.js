@@ -13,19 +13,29 @@ const PublicationsPageWalkthrough = () => {
     initialStep: 0,
     steps: [
       {
-        element: '#add-achievement-button',
+        element: '#add-publication-button',
         title: 'Add Publication(s)',
-        intro: 'Click here to add a new publication',
+        intro: 'Click here to add a new publication by importing or manually',
       },
       {
-        element: '#delete-icon',
+        element: '#delete-publication-icon',
         title: 'Deleting selected publications',
         intro: 'Click here to delete all selected publications',
       },
       {
-        element: '#select-achievements-checkbox',
+        element: '#publication-group-by',
         title: 'Selecting Achievements',
-        intro: 'Click on this checkbox to select all achievements',
+        intro: 'Click here to group all publications by none or category',
+      },
+      {
+        element: '#publication-sort-by',
+        title: 'Selecting Achievements',
+        intro: 'Click here to sort all publications by title, author or year',
+      },
+      {
+        element: '#publication-update-layout',
+        title: 'Selecting Achievements',
+        intro: 'Click here to update the layout of publications(sorting and group by order) in the deployed site',
       },
     ],
   });

@@ -82,7 +82,10 @@ const PublicationsEditor = ({
           <div style={{ display: 'flex' }}>
 
             <Dropdown>
-              <StyledDropdownToggle style={{ whiteSpace: 'normal' }}>
+              <StyledDropdownToggle
+                id="add-publication-button"
+                style={{ whiteSpace: 'normal' }}
+              >
                 Add Publication(s)
               </StyledDropdownToggle>
               <Dropdown.Menu>
@@ -104,6 +107,7 @@ const PublicationsEditor = ({
             >
               <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
                 <DangerButton
+                  id="delete-publication-icon"
                   style={{ marginLeft: '5px' }}
                   onClick={() => setShowDeleteMessage(true)}
                   disabled={checkedPublications.length === 0}
@@ -112,7 +116,7 @@ const PublicationsEditor = ({
                   {' '}
                   {checkedCounter > 0 && checkedCounter}
                   {' '}
-                  Team Members
+                  Publications
                   {' '}
                 </DangerButton>
               </div>
@@ -122,7 +126,9 @@ const PublicationsEditor = ({
 
         <Col md={6}>
           <div style={{ display: 'flex' }}>
-            <StyledButtonGroup>
+            <StyledButtonGroup
+              id="publication-group-by"
+            >
               Group By
               {' '}
               {Object.keys(groupByOptions).map((groupBy) => (
@@ -136,7 +142,9 @@ const PublicationsEditor = ({
                 </ButtonGroupItem>
               ))}
             </StyledButtonGroup>
-            <StyledButtonGroup>
+            <StyledButtonGroup
+              id="publication-sort-by"
+            >
               Sort By
               {' '}
               {Object.keys(sortingOptions).map((sortBy) => (
@@ -175,6 +183,7 @@ const PublicationsEditor = ({
         <Col md={2}>
           <OverlayTrigger trigger={['hover', 'focus']} placement="bottom" overlay={ButtonHint}>
             <PrimaryButton
+              id="publication-update-layout"
               className="float-right"
               onClick={handleUpdate}
             >
