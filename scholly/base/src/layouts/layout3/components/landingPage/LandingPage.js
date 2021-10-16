@@ -12,7 +12,8 @@ import TwitterFeed from '../twitter/TwitterFeed';
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
   const { teamName, twitterHandle } = TEAM_INFO;
-  const themeOption = TEAM_SITE_METADATA.template.theme;
+  const { template } = TEAM_SITE_METADATA;
+  const themeOption = template.theme;
 
   return (
     <>
