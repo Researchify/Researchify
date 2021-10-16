@@ -60,4 +60,109 @@ const PublicationsPageWalkthrough = () => {
   );
 };
 
+const PublicationsEditDeleteWalkthrough = () => {
+  const [intro, setIntro] = useState({
+    stepsEnabled: false,
+    initialStep: 0,
+    steps: [
+      {
+        element: '#publication-checkbox',
+        intro: 'Click on this checkbox to select the added publication.',
+        position: 'bottom',
+      },
+      {
+        element: '#publication-card',
+        intro: 'Hover over the card to edit or delete an publication. Icons will appear in the top right corner of the publication header.',
+        position: 'right',
+      },
+    ],
+  });
+
+  const toggleSteps = () => {
+    setIntro({ ...intro, stepsEnabled: !intro.stepsEnabled });
+  };
+
+  const onExit = () => {
+    setIntro({ ...intro, stepsEnabled: false });
+  };
+
+  return (
+    <div>
+      <Steps
+        enabled={intro.stepsEnabled}
+        steps={intro.steps}
+        initialStep={intro.initialStep}
+        onExit={onExit}
+      />
+      <BiHelpCircle onClick={toggleSteps} />
+    </div>
+  );
+};
+
+const PublicationsManualFormWalkthrough = () => {
+  const [intro, setIntro] = useState({
+    stepsEnabled: false,
+    initialStep: 0,
+    steps: [
+      {
+        element: '#publication-title-form',
+        title: 'New Publication',
+        intro: 'Please ensure that all fields are filled, link is optional',
+      },
+      {
+        element: '#publication-title',
+        title: 'Publication Title',
+        intro: 'Please ensure that the title is 3-60 characters',
+      },
+      {
+        element: '#publication-year',
+        title: 'Published Year',
+        intro: 'Use the drop down menu to select the year.',
+      },
+      {
+        element: '#publication-author',
+        title: 'Publication Author',
+        intro: 'Please enter the authors of this publication',
+      },
+      {
+        element: '#publication-add-author',
+        title: 'Add Author',
+        intro: 'Click here to add an author to this publication',
+      },
+      {
+        element: '#publication-desc',
+        title: 'Publication Description',
+        intro: 'Enter the description of the publication',
+      },
+      {
+        element: '#publication-link',
+        title: 'Publication Link',
+        intro: 'Please ensure a valid link to this publication is provided',
+      },
+    ],
+  });
+
+  const toggleSteps = () => {
+    setIntro({ ...intro, stepsEnabled: !intro.stepsEnabled });
+  };
+
+  const onExit = () => {
+    setIntro({ ...intro, stepsEnabled: false });
+  };
+
+  return (
+    <div>
+      <Steps
+        enabled={intro.stepsEnabled}
+        steps={intro.steps}
+        initialStep={intro.initialStep}
+        onExit={onExit}
+      />
+      <BiHelpCircle onClick={toggleSteps} />
+    </div>
+  );
+};
+
 export default PublicationsPageWalkthrough;
+export { PublicationsManualFormWalkthrough };
+export { PublicationsEditDeleteWalkthrough };

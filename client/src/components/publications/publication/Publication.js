@@ -22,6 +22,7 @@ import '../publications.css';
 import {
   SecondaryButton, DangerButton, StyledButtonGroup, ButtonGroupItem,
 } from '../../shared/styledComponents';
+import { PublicationsEditDeleteWalkthrough } from '../publicationsOnboarding';
 
 const Publication = ({ pub }) => {
   const dispatch = useDispatch();
@@ -137,6 +138,7 @@ const Publication = ({ pub }) => {
 
   return (
     <div
+      id="publication-card"
       className="publication-container mb-2"
       onMouseOver={handleMouseOver}
       onFocus={handleMouseOver}
@@ -151,7 +153,7 @@ const Publication = ({ pub }) => {
           <Col md={10}>
             <div style={{ display: 'flex' }}>
               <div style={{ paddingTop: '10px', paddingLeft: '10px' }}>
-                <input type="checkbox" checked={checkedPublications.includes(pub._id) || false} />
+                <input id="publication-checkbox" type="checkbox" checked={checkedPublications.includes(pub._id) || false} />
               </div>
               <div className="pubs-title">
                 {pub.link ? (
@@ -163,6 +165,9 @@ const Publication = ({ pub }) => {
                 ) : (
                   pub.title
                 )}
+              </div>
+              <div style={{ paddingLeft: '10px' }}>
+                <PublicationsEditDeleteWalkthrough />
               </div>
             </div>
           </Col>
