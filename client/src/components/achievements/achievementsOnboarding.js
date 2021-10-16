@@ -1,9 +1,11 @@
-/* eslint-disable react/button-has-type */
-/* add new, delete, edit */
+/**
+ * The Steps component displays the different pop-ups for each onboarding message in sequence
+ */
+
 import React, { useState } from 'react';
 import { Steps } from 'intro.js-react';
-import 'intro.js/introjs.css';
 import { BiHelpCircle } from 'react-icons/bi';
+import 'intro.js/introjs.css';
 
 const AchievementsPageWalkthrough = () => {
   const [intro, setIntro] = useState({
