@@ -215,6 +215,7 @@ const MainInfoPage = ({
                 >
                   <DangerButton
                     className="mr-2"
+                    type="button"
                     onClick={closeModal}
                   >
                     Cancel

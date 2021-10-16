@@ -25,11 +25,11 @@ const PublicationPage = () => {
           {' '}
         </title>
       </Helmet>
-      <Container className="pages-top-padding text-center mt-3 mb-3">
+      <Container className="pages-top-padding page-publications-side-padding mt-3 mb-3">
         <div className="publication-pg-title">Our Publications</div>
-      </Container>
-      <Container fluid>
-        <Publications />
+        <Container fluid className="publication-container-body">
+          <Publications />
+        </Container>
       </Container>
     </>
   );

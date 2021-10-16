@@ -1,10 +1,10 @@
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
   .home-editor-right-col {
     display: none !important;
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1281px) {
   .home-editor-narrow-twitter {
     display: none !important;
   }
