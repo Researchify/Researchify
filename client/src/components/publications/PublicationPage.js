@@ -4,9 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  Container, Modal,
-} from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import Publications from './Publications';
 import PublicationsEditor from './publicationsLayout/PublicationsEditor';
 import PublicationForm from './form/PublicationForm';
@@ -82,18 +80,17 @@ const PublicationPage = () => {
 
   return (
     <div className="publicationPageContainer">
-      <h2 className="mb-4 ml-2">Publications</h2>
-      <Container className="publication-editor">
-        <PublicationsEditor
-          options={options}
-          setOptions={setOptions}
-          sortPublications={sortPublications}
-          publications={publications}
-          teamId={teamId}
-          setShowCreateForm={setShowCreateForm}
-          setShowImportForm={setShowImportForm}
-        />
-      </Container>
+      <h2>Publications</h2>
+      <PublicationsEditor
+        options={options}
+        setOptions={setOptions}
+        sortPublications={sortPublications}
+        publications={publications}
+        teamId={teamId}
+        setShowCreateForm={setShowCreateForm}
+        setShowImportForm={setShowImportForm}
+      />
+
       <Publications
         options={options}
         sortPublications={sortPublications}
