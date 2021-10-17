@@ -220,9 +220,7 @@ export const FAKE_TEAM_MEMBERS = [
 ];
 
 export const FAKE_TEAM_HOMEPAGE = {
-  aboutUs: ['Nothing — not the careful logic of mathematics, not statistical models and theories, not the awesome arithmetic power of modern computers — nothing can substitute here for the flexibility of the informed human mind... Accordingly, both [analysis] approaches and techniques need to be structured so as to facilitate human involvement and intervention.     – John W. Tukey & Martin B. Wilk, Data Analysis & Statistics, 1966',
-    'The mission of the Interactive Data Lab is to enhance people ability to understand and communicate data through the design of new interactive systems for data visualization and analysis. We study the perceptual, cognitive and social factors affecting data analysis in order to improve the efficiency and scale at which expert analysts work, and to lower barriers for non-experts.',
-    'Motivating questions include: How might we enable users to transform and integrate data with minimal programming? How can we support expressive and effective visualization designs? Can we build systems to query and visualize massive data sets at interactive rates? How might we enable domain experts to guide machine learning methods to produce better models?'],
+  aboutUs: '<p>Nothing — not the careful logic of <i>mathematics</i>,</p> <p>not statistical models and theories, not the <b>awesome arithmetic power of modern computers</b> — nothing can substitute here for the flexibility of the informed human mind... Accordingly, both [analysis] approaches and techniques need to be structured so as to facilitate human involvement and intervention.     – John W. Tukey & Martin B. Wilk, Data Analysis & Statistics, 1966</p>',
 };
 
 export const FAKE_TEAM_ACHIEVEMENTS = [

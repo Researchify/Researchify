@@ -2,17 +2,23 @@
  * This file output landing page (homepage) of client-site.
  */
 import React from 'react';
-import { Col, Image, Row } from 'react-bootstrap';
+import {
+  Col, Image, Row,
+} from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import Favicon from 'react-favicon';
+import parse from 'html-react-parser';
+
 import { TEAM_HOMEPAGE, TEAM_INFO, TEAM_PUBLICATIONS } from '../../../../global/data';
 import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';
+import researchifyFavicon from '../../../../shared/images/favicon.ico';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
   const pubs = TEAM_PUBLICATIONS;
-  const { teamName, twitterHandle } = TEAM_INFO;
+  const { teamName, twitterHandle, profilePic } = TEAM_INFO;
   return (
     <>
       <Helmet>
@@ -23,24 +29,27 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
-
+      <Favicon url={researchifyFavicon} />
       <h2>
         Welcome to
         {' '}
         {teamName}
       </h2>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Image
-          style={{ maxWidth: '100%', height: 'auto' }}
-          src="https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        />
+        {
+              profilePic && (
+              <Image
+                style={{ maxWidth: '100%', height: 'auto', paddingBottom: 20 }}
+                src={profilePic}
+              />
+              )
+        }
+
       </div>
       <div className="mt-2 mb-5">
-        {homepageData.aboutUs.map((paragraph) => (
-          <div style={{ textAlign: 'left' }}>
-            {paragraph}
-          </div>
-        ))}
+        <div style={{ textAlign: 'left' }}>
+          {parse(homepageData.aboutUs)}
+        </div>
       </div>
       <Row>
         <Col md={twitterHandle ? 9 : 12}>

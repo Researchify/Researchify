@@ -38,7 +38,7 @@ const styles = {
     backgroundColor: 'white',
   },
   twitterBoxFloat: {
-    zIndex: '20',
+    zIndex: '100',
     position: 'fixed',
     bottom: '90px',
     right: '30px',
