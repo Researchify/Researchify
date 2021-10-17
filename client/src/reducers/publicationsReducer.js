@@ -64,6 +64,9 @@ const publicationsReducer = (state = initialState, action) => {
         teamPublications: state.teamPublications.filter(
           (pub) => !deletedPubIds.find((id) => id === pub._id),
         ),
+        checkedPublications: state.checkedPublications.filter(
+          (pubId) => !deletedPubIds.find((id) => id === pubId),
+        ),
       };
     }
     case REVERT_HEADER_COLOR: {
