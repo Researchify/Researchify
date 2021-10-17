@@ -9,6 +9,7 @@ import { Button } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { login } from '../../../actions/auth';
+import PwdResetForm from './PwdResetForm';
 // import { errorActionGlobalCreator } from '../../../notification/notificationReduxFunctions';
 
 const LoginForm = () => {
@@ -34,62 +35,66 @@ const LoginForm = () => {
   };
 
   return (
-    <Jumbotron id="login-form-box">
-      <h3 id="LoginHeading">Log In</h3>
-      <hr />
+    <>
+      <Jumbotron id="login-form-box">
+        <h3 id="LoginHeading">Log In</h3>
+        <hr />
 
-      <Formik
-        enableReinitialize
-        validationSchema={teamInfoSchema}
-        onSubmit={submitForm}
-        initialValues={authData}
-      >
-        {({
-          handleSubmit, handleChange, values, touched, errors,
-        }) => (
-          <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Label> Email address </Form.Label>
-              <Form.Control
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={values.email}
-                onChange={handleChange}
-                isInvalid={touched.email && errors.email}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.email}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label> Password </Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={values.password}
-                onChange={handleChange}
-                isInvalid={touched.password && errors.password}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.password}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Button
-              id="loginButton"
-              type="submit"
-              variant="contained"
-              color="secondary"
-              size="large"
-              style={{ color: 'white' }}
-            >
-              Log in
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </Jumbotron>
+        <Formik
+          enableReinitialize
+          validationSchema={teamInfoSchema}
+          onSubmit={submitForm}
+          initialValues={authData}
+        >
+          {({
+            handleSubmit, handleChange, values, touched, errors,
+          }) => (
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label> Email address </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  placeholder="Email"
+                  value={values.email}
+                  onChange={handleChange}
+                  isInvalid={touched.email && errors.email}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label> Password </Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={values.password}
+                  onChange={handleChange}
+                  isInvalid={touched.password && errors.password}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.password}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Button
+                id="loginButton"
+                type="submit"
+                variant="contained"
+                color="secondary"
+                size="large"
+                style={{ color: 'white' }}
+              >
+                Log in
+              </Button>
+            </Form>
+          )}
+        </Formik>
+
+      </Jumbotron>
+      <PwdResetForm />
+    </>
   );
 };
 
