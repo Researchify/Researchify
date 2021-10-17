@@ -3,22 +3,24 @@
  */
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  Row, Col, Accordion, Container,
+  Row, Col, Accordion, Container, Image,
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import parse from 'html-react-parser';
 
 import { Link } from 'react-router-dom';
+import Favicon from 'react-favicon';
 import {
   TEAM_PUBLICATIONS, TEAM_HOMEPAGE, TEAM_INFO, TEAM_SITE_METADATA,
 } from '../../../../global/data';
 import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';
+import researchifyFavicon from '../../../../shared/images/favicon.ico';
 
 const landingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
   const themeOption = TEAM_SITE_METADATA.template.theme;
-  const { teamName, twitterHandle } = TEAM_INFO;
+  const { teamName, twitterHandle, profilePic } = TEAM_INFO;
   const pubs = TEAM_PUBLICATIONS;
   const [height, setHeight] = useState(0);
   const ref = useRef(null);
@@ -37,6 +39,7 @@ const landingPage = () => {
           {' '}
         </title>
       </Helmet>
+      <Favicon url={researchifyFavicon} />
       <Container fluid className="pages-top-padding">
         <Row>
           <Col md={twitterHandle ? 9 : 12}>
@@ -47,6 +50,17 @@ const landingPage = () => {
                   {' '}
                   {teamName}
                   !
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {
+                    profilePic && (
+                    <Image
+                      style={{ maxWidth: '100%', height: 'auto', paddingBottom: 20 }}
+                      src={profilePic}
+                    />
+                    )
+                  }
+
                 </div>
                 {parse(homepageData.aboutUs)}
                 <div className="recent-pub-title">
