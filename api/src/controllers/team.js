@@ -55,10 +55,10 @@ async function createTeam(req, res, next) {
       attachments: [
         {
           filename: 'presentation.png',
-          path: __dirname +'/presentation.png',
-          cid: 'cid-presentation'
-        }
-      ]
+          path: __dirname.join('/presentation.png'),
+          cid: 'cid-presentation',
+        },
+      ],
     }, (err) => {
       if (err) {
         logger.error(`Email failed to send to ${email}: ${err.message}`);
