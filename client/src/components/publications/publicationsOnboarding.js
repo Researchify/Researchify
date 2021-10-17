@@ -222,7 +222,42 @@ const PublicationsManualCategoryFormWalkthrough = () => {
   );
 };
 
+const PublicationsImportFormWalkthrough = () => {
+  const [intro, setIntro] = useState({
+    stepsEnabled: false,
+    initialStep: 0,
+    steps: [
+      {
+        element: '#import-publication-link',
+        title: 'Import Publication',
+        intro: 'Import your publication(s) by providing a valid Google Scholar link',
+      },
+    ],
+  });
+
+  const toggleSteps = () => {
+    setIntro({ ...intro, stepsEnabled: !intro.stepsEnabled });
+  };
+
+  const onExit = () => {
+    setIntro({ ...intro, stepsEnabled: false });
+  };
+
+  return (
+    <div>
+      <Steps
+        enabled={intro.stepsEnabled}
+        steps={intro.steps}
+        initialStep={intro.initialStep}
+        onExit={onExit}
+      />
+      <BiHelpCircle onClick={toggleSteps} />
+    </div>
+  );
+};
+
 export default PublicationsPageWalkthrough;
 export { PublicationsManualFormWalkthrough };
 export { PublicationsEditDeleteWalkthrough };
 export { PublicationsManualCategoryFormWalkthrough };
+export { PublicationsImportFormWalkthrough };
