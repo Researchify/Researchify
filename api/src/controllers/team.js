@@ -6,6 +6,7 @@ const axios = require('axios');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const logger = require('winston');
+const path = require('path');
 
 const Team = require('../models/team.model');
 const transporter = require('../config/mail');
@@ -55,7 +56,7 @@ async function createTeam(req, res, next) {
       attachments: [
         {
           filename: 'presentation.png',
-          path: __dirname.join('/presentation.png'),
+          path: path.join(__dirname, 'presentation.png', '/').slice(0, -1),
           cid: 'cid-presentation',
         },
       ],
