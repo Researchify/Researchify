@@ -112,7 +112,7 @@ const PublicationsEditor = ({
                   {' '}
                   {checkedCounter > 0 && checkedCounter}
                   {' '}
-                  Team Members
+                  Publications
                   {' '}
                 </DangerButton>
               </div>
