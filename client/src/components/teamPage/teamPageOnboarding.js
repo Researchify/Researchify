@@ -99,6 +99,45 @@ const TeamsFormWalkthrough = () => {
     </div>
   );
 };
+const TeamMembersEditDeleteWalkthrough = () => {
+  const [intro, setIntro] = useState({
+    stepsEnabled: false,
+    initialStep: 0,
+    steps: [
+      {
+        element: '#team-member-select-checkbox',
+        intro: 'Click on this checkbox to select the team member.',
+        position: 'bottom',
+      },
+      {
+        element: '#team-card',
+        intro: 'Hover over the card to edit or delete the team member. Icons will appear in the top right corner of the team member header.',
+        position: 'right',
+      },
+    ],
+  });
+
+  const toggleSteps = () => {
+    setIntro({ ...intro, stepsEnabled: !intro.stepsEnabled });
+  };
+
+  const onExit = () => {
+    setIntro({ ...intro, stepsEnabled: false });
+  };
+
+  return (
+    <div>
+      <Steps
+        enabled={intro.stepsEnabled}
+        steps={intro.steps}
+        initialStep={intro.initialStep}
+        onExit={onExit}
+      />
+      <BiHelpCircle onClick={toggleSteps} />
+    </div>
+  );
+};
 
 export default TeamPageWalkthrough;
+export { TeamMembersEditDeleteWalkthrough };
 export { TeamsFormWalkthrough };
