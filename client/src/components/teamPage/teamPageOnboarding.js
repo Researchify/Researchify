@@ -19,8 +19,8 @@ const TeamPageWalkthrough = () => {
       },
       {
         element: '#delete-team-members-button',
-        title: 'Deleting selected Team Members from Research Group',
-        intro: 'Click here to delete all selected team members',
+        title: 'Deleting selected Team Members',
+        intro: 'Click here to delete all selected team members from Research Group',
       },
       {
         element: '#select-team-members-checkbox',
