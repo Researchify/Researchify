@@ -14,6 +14,7 @@ import { getTeamMembersByTeamId, deleteBatchTeamMembers } from '../../actions/te
 import './teamPage.css';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 import ConditionalWrapper from '../shared/ConditionalWrapper';
+import TeamPageWalkthrough from './teamPageOnboarding';
 
 const TeamPage = () => {
   const dispatch = useDispatch();
@@ -71,8 +72,11 @@ const TeamPage = () => {
 
   return (
     <div className="teamPageContainer">
-      <h2>Team Members</h2>
-      <PrimaryButton className="mt-2" onClick={() => setShowCreateForm(true)}>
+      <div style={{ display: 'flex' }}>
+        <h2 style={{ marginRight: '10px' }}> Team Members </h2>
+        <TeamPageWalkthrough />
+      </div>
+      <PrimaryButton className="mt-2" onClick={() => setShowCreateForm(true)} id="add-team-member-button">
         Add Team Member
       </PrimaryButton>
       {' '}
@@ -89,6 +93,7 @@ const TeamPage = () => {
       >
         <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
           <DangerButton
+            id="delete-team-members-button"
             className="mr-2"
             onClick={() => setShowDeleteAll(true)}
             disabled={checkedMember.length === 0}
@@ -104,7 +109,12 @@ const TeamPage = () => {
         </div>
       </ConditionalWrapper>
       <div style={{ padding: '20px', fontSize: '17px' }}>
-        <input type="checkbox" checked={checkedMember.length === teamMembers.length} onChange={handleCheckAll} />
+        <input
+          id="select-team-members-checkbox"
+          type="checkbox"
+          checked={checkedMember.length === teamMembers.length}
+          onChange={handleCheckAll}
+        />
         {' '}
         Select All
         {' '}
