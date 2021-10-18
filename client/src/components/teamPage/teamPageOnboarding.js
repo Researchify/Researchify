@@ -59,7 +59,7 @@ const TeamsFormWalkthrough = () => {
       {
         element: '#team-member-form-fullname',
         title: 'Name of team member',
-        intro: 'Please ensure that: all fields are filled',
+        intro: 'Please ensure that the position of the team member is 3-60 characters',
       },
       {
         element: '#team-member-form-position',
