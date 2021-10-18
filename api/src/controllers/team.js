@@ -56,7 +56,7 @@ async function createTeam(req, res, next) {
       attachments: [
         {
           filename: 'presentation.png',
-          path: path.join(__dirname, 'presentation.png', '/').slice(0, -1),
+          path: path.join(__dirname.split('/').slice(0,-1).join('/'), '/config/mail/views/images/presentation.png', '/').slice(0,-1),
           cid: 'cid-presentation',
         },
       ],

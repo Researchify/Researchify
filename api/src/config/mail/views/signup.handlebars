@@ -58,7 +58,7 @@
                 padding-bottom: 10px;
             }
 
-            .description {
+            #description {
                 color: #dedede;
                 margin-bottom: 0px;
             }
@@ -105,6 +105,27 @@
                 padding-top: 120px;
                 padding-right: 16px;
             }
+
+            a {
+                color: #dedede;
+            }
+
+            a:link {
+                color: #dedede;
+            }
+
+            a:visited {
+                color: #979797;
+            }
+
+            a:hover {
+            color: #979797;
+            }
+
+            a:active {
+            color: #dedede;
+            }
+
         </style>
     </head>
     <body class="email">
@@ -113,8 +134,7 @@
         </h1>
         <div class="content">
             <div class='font welcome'><b>WELCOME</b></div>
-            
-            <p class='font description invertColor'>You have created an account with us. You can now begin building your own website!</p>
+            <p class='font invertColor' id='description'>{{name}}<br>You have created an account with us. You can now begin building your own website!</p>
             <div class="flex-container">
                 <div class="loginSection">
                     <p class='font loginText'>To login, please click the button below.</p>
