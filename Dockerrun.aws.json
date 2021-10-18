@@ -6,14 +6,14 @@
       "image": "researchify/client",
       "hostname": "client",
       "essential": false,
-      "memory": 64
+      "memory": 256
     },
     {
       "name": "api",
       "image": "researchify/api",
       "hostname": "api",
       "essential": false,
-      "memory": 256,
+      "memory": 1024,
       "links": [
         "scholly"
       ]
@@ -23,7 +23,7 @@
       "image": "researchify/scholly",
       "hostname": "scholly",
       "essential": false,
-      "memory": 512
+      "memory": 2048
     },
     {
       "name": "nginx",
@@ -40,7 +40,7 @@
         "client",
         "api"
       ],
-      "memory": 64
+      "memory": 256
     }
   ]
 }
