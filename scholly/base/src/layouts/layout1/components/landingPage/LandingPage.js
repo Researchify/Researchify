@@ -17,7 +17,7 @@ import TwitterFeed from '../twitter/TwitterFeed';
 import Publication from '../publications/publication/Publication';
 import researchifyFavicon from '../../../../shared/images/favicon.ico';
 
-const landingPage = () => {
+const LandingPage = () => {
   const homepageData = TEAM_HOMEPAGE;
   const themeOption = TEAM_SITE_METADATA.template.theme;
   const { teamName, twitterHandle, profilePic } = TEAM_INFO;
@@ -27,7 +27,7 @@ const landingPage = () => {
 
   useEffect(() => {
     setHeight((Math.max(600, ref.current.clientHeight)));
-  });
+  }, []);
   return (
     <>
       <Helmet>
@@ -94,4 +94,4 @@ const landingPage = () => {
   );
 };
 
-export default landingPage;
+export default LandingPage;
