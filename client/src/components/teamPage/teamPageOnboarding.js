@@ -51,4 +51,54 @@ const TeamPageWalkthrough = () => {
   );
 };
 
+const TeamsFormWalkthrough = () => {
+  const [intro, setIntro] = useState({
+    stepsEnabled: false,
+    initialStep: 0,
+    steps: [
+      {
+        element: '#team-member-form-fullname',
+        title: 'Name of team member',
+        intro: 'Please ensure that: all fields are filled',
+      },
+      {
+        element: '#team-member-form-position',
+        title: 'Position of team member',
+        intro: 'Please ensure that the position of the team member is 3-60 characters',
+      },
+      {
+        element: '#team-member-form-summary',
+        title: 'Team member summary',
+        intro: 'Please ensure that the summary of the team member is 5-500 characters',
+      },
+      {
+        element: '#team-member-form-photo',
+        title: 'Team member photo',
+        intro: 'Please ensure that the photo is uploaded',
+      },
+    ],
+  });
+
+  const toggleSteps = () => {
+    setIntro({ ...intro, stepsEnabled: !intro.stepsEnabled });
+  };
+
+  const onExit = () => {
+    setIntro({ ...intro, stepsEnabled: false });
+  };
+
+  return (
+    <div>
+      <Steps
+        enabled={intro.stepsEnabled}
+        steps={intro.steps}
+        initialStep={intro.initialStep}
+        onExit={onExit}
+      />
+      <BiHelpCircle onClick={toggleSteps} />
+    </div>
+  );
+};
+
 export default TeamPageWalkthrough;
+export { TeamsFormWalkthrough };
