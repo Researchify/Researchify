@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { updateTheme } from '../../actions/website';
 import { darkThemePlaceholder, lightThemePlaceholder } from '../../config/clientWebsite';
+import TemplateSelectorWalkthrough from './TemplateSelectorOnboarding';
 
 // Picture of each layout
 import layout1 from '../../images/layout_1.png';
@@ -61,14 +62,18 @@ const TemplateSelector = (props) => {
   return (
     <>
       <b>Choose a Theme</b>
-      <Form.Check
-        type="switch"
-        id="custom-switch"
-        checked={darkMode}
-        onChange={() => setDarkMode(!darkMode)}
-        label="Use Dark mode"
-        className="ml-3 mt-2"
-      />
+      <TemplateSelectorWalkthrough />
+
+      <div id="darkToggle" style={{ width: 'max-content' }}>
+        <Form.Check
+          type="switch"
+          id="custom-switch"
+          checked={darkMode}
+          onChange={() => setDarkMode(!darkMode)}
+          label="Use Dark mode"
+          className="ml-3 mt-2"
+        />
+      </div>
 
       <Form
         className="researchify-github-form mt-4"
@@ -82,7 +87,7 @@ const TemplateSelector = (props) => {
             <Form.Row>
               <Col className="layout-display" xs={12} xl={4} sm={6}>
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label htmlFor="layout1">
+                <label htmlFor="layout1" id="layout1label">
                   <Form.Check
                     checked={layout === '1'}
                     inline
