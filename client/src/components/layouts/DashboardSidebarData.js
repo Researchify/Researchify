@@ -24,6 +24,11 @@ const DashboardSidebarData = () => {
       link: '/dashboard',
     },
     {
+      title: 'Template Selector',
+      icon: <BsColumns />,
+      link: '/templates',
+    },
+    {
       title: 'Our Homepage',
       icon: <BsCardText />,
       link: '/about-us',
@@ -45,11 +50,6 @@ const DashboardSidebarData = () => {
       icon: <BsFillAwardFill />,
       link: '/achievement',
       name: 'ACHIEVEMENTS',
-    },
-    {
-      title: 'Template Selector',
-      icon: <BsColumns />,
-      link: '/templates',
     },
   ];
 
