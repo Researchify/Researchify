@@ -10,16 +10,23 @@ import './LayoutThumbnail.css';
 import TemplateData from './TemplateData';
 
 const LayoutThumbnail = (props) => {
-  const { layoutOption } = props;
+  // eslint-disable-next-line no-unused-vars
+  const { layoutOption, darkModeOption } = props;
   const [showModal, setShowModal] = useState(false);
 
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
-
   const {
-    layoutName, layoutDescription, layoutLandingImage, layoutPublicationImage, layoutTeamImage, layoutAchievementsImage,
+    // eslint-disable-next-line no-unused-vars
+    layoutName, layoutDescription, lightImages, darkImages,
   } = TemplateData(layoutOption);
-
+  let previewImages = lightImages;
+  if (darkModeOption) {
+    previewImages = darkImages;
+  }
+  const {
+    layoutLandingImage, layoutPublicationImage, layoutTeamImage, layoutAchievementsImage,
+  } = previewImages;
   return (
     <>
       <Card border="dark" className="mt-3 layout-thumbnail-card">
@@ -110,5 +117,6 @@ const LayoutThumbnail = (props) => {
 
 LayoutThumbnail.propTypes = {
   layoutOption: PropTypes.number.isRequired,
+  darkModeOption: PropTypes.bool.isRequired,
 };
 export default LayoutThumbnail;

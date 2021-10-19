@@ -91,7 +91,7 @@ const TemplateSelector = (props) => {
                       className="form-radio-text"
                       onChange={updateSelections}
                     />
-                    <LayoutThumbnail layoutOption={1} />
+                    <LayoutThumbnail layoutOption={1} darkModeOption={darkMode} />
                   </label>
                 </Col>
                 <Col className="layout-display" xs={12} xl={4} sm={6}>
@@ -108,7 +108,7 @@ const TemplateSelector = (props) => {
                       className="form-radio-text"
                       onChange={updateSelections}
                     />
-                    <LayoutThumbnail layoutOption={2} />
+                    <LayoutThumbnail layoutOption={2} darkModeOption={darkMode} />
                   </label>
                 </Col>
                 <Col className="layout-display" xs={12} xl={4} sm={12}>
@@ -125,7 +125,7 @@ const TemplateSelector = (props) => {
                       className="form-radio-text"
                       onChange={updateSelections}
                     />
-                    <LayoutThumbnail layoutOption={3} />
+                    <LayoutThumbnail layoutOption={3} darkModeOption={darkMode} />
                   </label>
                 </Col>
               </Form.Row>
