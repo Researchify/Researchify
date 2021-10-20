@@ -83,8 +83,8 @@ async function deleteAchievement(req, res) {
 
     // Return error if the achievement does not exist
     if (foundAchievement === null) {
-      res.send(fillErrorObject(400, 'Validation error', [
-        'Achievement could not be found',
+      res.send(fillErrorObject(404, 'Achievement not found', [
+        'Achievement with the given id could not be found',
       ]));
     } else {
       // Return success message
@@ -118,8 +118,8 @@ async function updateAchievement(req, res) {
 
     // Return error if achievement does not exist
     if (updatedAchievement == null) {
-      res.send(fillErrorObject(404, 'Validation error', [
-        'Achievement could not be found',
+      res.send(fillErrorObject(404, 'Achievement not found', [
+        'Achievement with the given id could not be found',
       ]));
     } else {
       // Return updated achievement
@@ -131,7 +131,7 @@ async function updateAchievement(req, res) {
 }
 
 /**
- * Handles a PATCH request to delete a list of achievements by the mongo object id on the endpoint /achievement/
+ * Handles a PATCH request to delete a list of achievements by the mongo object id on the endpoint /achievements/
  *
  * @param req request object - the list of achievement ids given in the body
  * @param res response object
