@@ -13,6 +13,7 @@ import { getAchievementsByTeamId, deleteBatchAchievements } from '../../actions/
 import Achievement from './Achievement';
 import './achievementPage.css';
 import './form/achievementForm.css';
+import AchievementsPageWalkthrough from './achievementsOnboarding';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 import ConditionalWrapper from '../shared/ConditionalWrapper';
 
@@ -72,8 +73,12 @@ const AchievementPage = () => {
 
   return (
     <div className="achievementPageContainer">
-      <h2>Achievements</h2>
+      <div style={{ display: 'flex' }}>
+        <h2 style={{ marginRight: '10px' }}> Achievements </h2>
+        <AchievementsPageWalkthrough />
+      </div>
       <PrimaryButton
+        id="add-achievement-button"
         className="mt-2"
         onClick={() => setShowCreateForm(true)}
       >
@@ -94,6 +99,7 @@ const AchievementPage = () => {
       >
         <div style={{ display: 'inline-block', cursor: 'not-allowed' }}>
           <DangerButton
+            id="delete-icon"
             className="mr-2"
             onClick={() => setShowDeleteAll(true)}
             disabled={checkedAchievement.length === 0}
@@ -110,7 +116,7 @@ const AchievementPage = () => {
       </ConditionalWrapper>
 
       <div style={{ padding: '20px', fontSize: '17px' }}>
-        <input type="checkbox" checked={checkedAchievement.length === achievements.length} onChange={handleCheckAll} />
+        <input id="select-achievements-checkbox" type="checkbox" checked={checkedAchievement.length === achievements.length} onChange={handleCheckAll} />
         {' '}
         Select All
         {' '}
