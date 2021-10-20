@@ -20,9 +20,9 @@ const DB_NAME = 'researchify_test_achievements';
 const ROUTE_PREFIX = '/achievements';
 
 /// Store teamId information globally
-let teamId;
+let teamId = '';
 /// Store an array of cookies
-let cookies;
+let cookies = [];
 /// Store the raw data for two achievements that will be created for tests
 let firstAchievementData;
 let secondAchievementData;
@@ -99,7 +99,7 @@ describe('POST /achievements/:teamId', () => {
     expect(res.status).toBe(404);
   });
 
-  it('should add new achievement to team, async', async () => {
+  it('should add new achievement to team', async () => {
     // Try to add new achievement for existing team
     const res = await request.post(`${ROUTE_PREFIX}`)
       .set('Cookie', cookies)
