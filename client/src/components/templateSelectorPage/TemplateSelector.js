@@ -12,6 +12,7 @@ import { updateTheme } from '../../actions/website';
 import { darkThemePlaceholder, lightThemePlaceholder } from '../../config/clientWebsite';
 import { PrimaryButton } from '../shared/styledComponents';
 import LayoutThumbnail from './LayoutThumbnail';
+import TemplateSelectorWalkthrough from './TemplateSelectorOnboarding';
 
 /**
  * Form for user input github credentials and select template.
@@ -54,18 +55,25 @@ const TemplateSelector = (props) => {
   };
 
   return (
-    <>
+    <div>
       <div style={{ padding: 50 }}>
+        <h2 style={{ display: 'inline-block' }}>Template Selector</h2>
+        <TemplateSelectorWalkthrough />
+
+        <br />
         <b>Choose a Theme</b>
-        <Form.Check
-          type="switch"
-          id="custom-switch"
-          checked={darkMode}
-          onChange={() => setDarkMode(!darkMode)}
-          label="Enable Dark Mode"
-          className="ml-3 mt-3"
-          style={{ fontSize: 15, zoom: 1.5 }}
-        />
+
+        <div id="darkToggle" style={{ width: 'max-content' }}>
+          <Form.Check
+            type="switch"
+            id="custom-switch"
+            checked={darkMode}
+            onChange={() => setDarkMode(!darkMode)}
+            label="Enable Dark Mode"
+            className="mt-3"
+            style={{ fontSize: 15, zoom: 1.5 }}
+          />
+        </div>
 
         <Form
           className="researchify-github-form mt-4"
@@ -79,7 +87,7 @@ const TemplateSelector = (props) => {
               <Form.Row>
                 <Col className="layout-display" xs={12} xl={4} sm={6}>
                   {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                  <label htmlFor="layout1">
+                  <label htmlFor="layout1" id="layout1label">
                     <Form.Check
                       checked={layout === '1'}
                       inline
@@ -137,7 +145,7 @@ const TemplateSelector = (props) => {
           </PrimaryButton>
         </Form>
       </div>
-    </>
+    </div>
   );
 };
 
