@@ -9,6 +9,7 @@ import {
   BsPeople,
   BsFillAwardFill,
   BsCardText,
+  BsColumns,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 
@@ -21,6 +22,11 @@ const DashboardSidebarData = () => {
       title: 'Dashboard',
       icon: <BsFillGridFill />,
       link: '/dashboard',
+    },
+    {
+      title: 'Template Selector',
+      icon: <BsColumns />,
+      link: '/templates',
     },
     {
       title: 'Our Homepage',
