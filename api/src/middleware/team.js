@@ -20,15 +20,15 @@ async function validateTeamId(req, res, next) {
   const { teamId } = req.params;
   const foundTeam = await Team.findById(teamId);
 
-  if (foundTeam == null) {
+  if (!foundTeam) {
     return next(
-      fillErrorObject(404, 'Validation error', [
-        'No team found with the given id',
-      ]),
+      fillErrorObject(404,
+        'Validation error. No team found with the given id.'),
     );
   }
 
-  req.foundTeam = foundTeam; // todo: does this need to be set inside middleware?
+  // Since we've already queried the Team, attach it to the request for reuse.
+  req.foundTeam = foundTeam;
   return next();
 }
 
