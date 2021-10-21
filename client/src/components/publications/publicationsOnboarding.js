@@ -15,7 +15,7 @@ const PublicationsPageWalkthrough = () => {
       {
         element: '#add-publication-button',
         title: 'Add Publication(s)',
-        intro: 'Click here to add a new publication by importing or manually',
+        intro: 'Click here to add a new publication manually or by importing from Google Scholar',
       },
       {
         element: '#delete-publication-icon',
@@ -24,18 +24,18 @@ const PublicationsPageWalkthrough = () => {
       },
       {
         element: '#publication-group-by',
-        title: 'Selecting Achievements',
-        intro: 'Click here to group all publications by none or category',
+        title: 'Grouping Publications',
+        intro: 'Click here to group all publications by category (or none)',
       },
       {
         element: '#publication-sort-by',
-        title: 'Selecting Achievements',
+        title: 'Sorting Publications',
         intro: 'Click here to sort all publications by title, author or year',
       },
       {
         element: '#publication-update-layout',
-        title: 'Selecting Achievements',
-        intro: 'Click here to update the layout of publications(sorting and group by order) in the deployed site',
+        title: 'Update Layout',
+        intro: 'Click here to update the layout of publications in the deployed site.',
       },
     ],
   });
@@ -107,7 +107,7 @@ const PublicationsManualFormWalkthrough = () => {
       {
         element: '#publication-title-form',
         title: 'New Publication',
-        intro: 'Please ensure that all fields are filled, link is optional',
+        intro: 'Please ensure that all the mandatory fields are filled. These are marked by an asterisk next to them.',
       },
       {
         element: '#publication-title',
@@ -121,7 +121,7 @@ const PublicationsManualFormWalkthrough = () => {
       },
       {
         element: '#publication-author',
-        title: 'Publication Author',
+        title: 'Publication Author(s)',
         intro: 'Please enter the authors of this publication',
       },
       {
@@ -132,7 +132,7 @@ const PublicationsManualFormWalkthrough = () => {
       {
         element: '#publication-desc',
         title: 'Publication Description',
-        intro: 'Enter the description of the publication',
+        intro: 'Enter the description of the publication(5 - 500 characters)',
       },
       {
         element: '#publication-link',
