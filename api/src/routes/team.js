@@ -25,6 +25,14 @@ teamRouter.patch(
 );
 
 teamRouter.delete(
+  '/:teamId/resetTeamData',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.resetTeamData,
+);
+
+teamRouter.delete(
   '/:teamId',
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -56,6 +64,14 @@ teamRouter.patch(
 );
 
 teamRouter.delete(
+  '/:teamId/reset-members',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.resetTeamMember,
+);
+
+teamRouter.delete(
   '/:teamId/member/:memberId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
@@ -79,14 +95,6 @@ teamRouter.patch(
   teamController.storeHandle,
 );
 
-teamRouter.delete(
-  '/:teamId/reset-members',
-  authMiddleware.cookieJwtAuth,
-  mongooseMiddleware.validateTeamObjectId,
-  teamMiddleware.validateTeamId,
-  teamController.resetTeamMember,
-);
-
 teamRouter.get(
   '/:teamId/gh_auth/:code',
   teamController.getGHAccessToken,
@@ -95,24 +103,6 @@ teamRouter.get(
 teamRouter.post(
   '/:teamId/deploy',
   teamController.deployToGHPages,
-);
-
-teamRouter.post('/', teamController.createTeam);
-
-teamRouter.patch(
-  '/:teamId',
-  authMiddleware.cookieJwtAuth,
-  mongooseMiddleware.validateTeamObjectId,
-  teamMiddleware.validateTeamId,
-  teamController.updateTeam,
-);
-
-teamRouter.delete(
-  '/:teamId/resetTeamData',
-  authMiddleware.cookieJwtAuth,
-  mongooseMiddleware.validateTeamObjectId,
-  teamMiddleware.validateTeamId,
-  teamController.resetTeamData,
 );
 
 teamRouter.post(
