@@ -1,3 +1,6 @@
+/*
+  Responsible for the hovering Deploy button
+*/
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
@@ -23,19 +26,6 @@ const GHButton = styled(GitHubLogin)` //Purple
     background-color:rgb(60, 70, 96);
   }
 `;
-
-// const GHButton = styled(GitHubLogin)` //Gold
-//     padding: .375rem .75rem;
-//     border: 1px solid #AB9671 !important;
-//     border-radius: .25rem;
-//     background-color: #AB9671;
-//     color: white;
-//     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-//     font-size: ${(props) => props.fontSize}; //.875rem;
-//   &:hover{
-//     background-color: rgb(119, 105, 79);
-//   }
-// `;
 
 const FABStyle = {
   // Needed to make the button floating
