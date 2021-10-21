@@ -123,6 +123,27 @@ async function updateTeam(req, res, next) {
 }
 
 /**
+ * Clear the team Data from the database on /team/:team_id
+ * @param {} req request object, containing team id in the url
+ * @param {*} res response object, the deleted team document
+ * @returns 200: teamn is deleted
+ * @returns 404: team is not found
+ * @returns 400: team id is not in a valid hexadecimal format
+ */
+async function resetTeamData(req, res, next) {
+  try {
+    const { teamId } = req.params;
+    await Achievement.deleteMany({ teamId });
+    await Publication.deleteMany({ teamId });
+    return res.status(200).json('Cleared successfully.');
+  } catch (error) {
+    return next(
+      fillErrorObject(500, 'Error occurred with server', [error.message]),
+    );
+  }
+}
+
+/**
  * Handles a DELETE request to remove a team on the endpoint /team/:teamId.
  * A post-hook/middleware is associated with the {@link Team} model that will
  * delete all dependent documents for the team being deleted.
@@ -203,26 +224,28 @@ function updateTeamMember(req, res, next) {
     .then(() => res.status(200).json(updatedTeamMember))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
-
 /**
- * Reset the team member from the database on /team/:teamId/member.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the updated team member document
- * @returns 200: the team member was updated
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
+ * Resets the list of members for a team on /:teamId/reset-members.
+ *
+ * @param req request object
+ * @param res response object
+ * @param next handler to the next middleware
+ * @returns 200 the team member was updated
+ * @returns 404 team is not found
+ * @returns 400 team id is not in a valid hexadecimal format
+ * @returns 500 if a server error occurred
  */
-async function resetTeamMember(req, res, next) {
-  const { teamId } = req.params;
+async function resetTeamMembers(req, res, next) {
+  const { foundTeam } = req;
   try {
-    const team = await Team.findOne({ _id: teamId });
-    team.teamMembers = [];
-    team.save();
-    return res.status(200).json(team);
+    foundTeam.teamMembers = [];
+    foundTeam.save();
+    return res.status(200).json(foundTeam);
   } catch (err) {
-    return next(fillErrorObject(500, 'Serrrer error', [err]));
+    return next(fillErrorObject(500, 'Server error', [err]));
   }
 }
+
 /**
  * Delete the team member from the database on /team/:teamId/member/:member_id.
  * @param {*} req request object, containing team id in the url
@@ -362,7 +385,7 @@ async function getGHAccessToken(req, res, next) {
 }
 
 /**
- * Handles a POST request on /:teamId/deploy to deploy a client's website
+ * Handles a POST request on /:teamId/pages-deploy to deploy a client's website
  * by delegating to the Scholly service.
  *
  * @see:
@@ -426,55 +449,29 @@ async function deployToGHPages(req, res, next) {
 }
 
 /**
- * Clear the team Data from the database on /team/:team_id
- * @param {} req request object, containing team id in the url
- * @param {*} res response object, the deleted team document
- * @returns 200: teamn is deleted
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-async function resetTeamData(req, res, next) {
-  try {
-    const { teamId } = req.params;
-    await Achievement.deleteMany({ teamId });
-    await Publication.deleteMany({ teamId });
-    return res.status(200).json('Cleared successfully.');
-  } catch (error) {
-    return next(
-      fillErrorObject(500, 'Error occurred with server', [error.message]),
-    );
-  }
-}
-
-/**
- * Delete the team from the database on /team/:team_id
- * @param {} req request object, containing team id in the url
- * @param {*} res response object, the deleted team document
- * @returns 200: team is deleted
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
+ * Deletes a team's GitHub Pages repository on /:teamId/pages-clear.
+ *
+ * @param req request object
+ * @param res response object
+ * @param next handler to the next middleware
+ * @returns 204 no content, if the delete was successful
+ * @returns 404 team or the Pages repo is not found
+ * @returns 400 team id is not in a valid hexadecimal format
+ * @returns 500 if a server error occurred
  */
 async function deleteGHPages(req, res, next) {
   const { ghToken } = req.body;
-  const ghUsername = req.username;
-  logger.info(`GitHub Pages delete initiated for user: ${ghUsername}`);
-  const repoName = `${ghUsername}.github.io`;
-  // delete repo
+  const { repoOwner: owner, repoName: repo } = req;
+
+  logger.info(`GitHub Pages delete initiated for ${owner}.`);
+  const octokit = new Octokit({ auth: ghToken });
   try {
-    const octokit = new Octokit({ auth: ghToken });
-    const deleteRepo = await octokit.rest.repos.delete({
-      owner: ghUsername,
-      repo: repoName,
-    });
-    if (deleteRepo.status === 204) {
-      logger.info(`GitHub pages deleted for user: ${ghUsername}`);
-    }
-    // result logged
-    return res.status(200).json('Deleted successfully!');
-  } catch (error) {
-    logger.info(` Failed: GitHub pages not deleted for user: ${ghUsername}!`);
+    await octokit.rest.repos.delete({ owner, repo });
+    logger.info(`GitHub Pages deleted for ${owner}.`);
+    return res.status(204).send();
+  } catch (err) {
     return next(
-      fillErrorObject(500, 'Error occurred with server!', ['Failed to delete GitHub pages']),
+      fillErrorObject(500, 'Server Error', [err]),
     );
   }
 }
@@ -483,12 +480,12 @@ module.exports = {
   createTeam,
   getTeam,
   updateTeam,
+  resetTeamData,
   deleteTeam,
   createTeamMember,
   readTeamMembersByTeam,
   updateTeamMember,
-  resetTeamMember,
-  resetTeamData,
+  resetTeamMembers,
   deleteTeamMember,
   deleteBatchTeamMembers,
   storeHandle,

@@ -32,8 +32,8 @@ async function validateTeamId(req, res, next) {
   return next();
 }
 
-/** *
- * Middleware that validates a team's gitHub Repository.
+/**
+ * Middleware that validates a team's GitHub repository.
  * Once validated, the username is attached to the request object for use by
  * the next middleware.
  *
@@ -41,33 +41,27 @@ async function validateTeamId(req, res, next) {
  * @param res response object
  * @param next handler to the next middleware
  */
-async function validateTeamRepo(req, res, next) {
-  // Creating repoName
+async function validateRepo(req, res, next) {
   const { ghToken } = req.body;
+  const octokit = new Octokit({ auth: ghToken });
   try {
-    const octokit = new Octokit({ auth: ghToken });
-    const user = await octokit.rest.users.getAuthenticated();
-    const ghUsername = user.data.login;
-    const repoName = `${ghUsername}.github.io`;
-    const validateGHpage = await octokit.rest.repos.get({
-      owner: ghUsername,
-      repo: repoName,
-    });
-    req.username = ghUsername;
-    if (validateGHpage.status !== 200) {
+    // Get the authenticated user encapsulated by the token.
+    const { data } = await octokit.rest.users.getAuthenticated();
+    const owner = data.login;
+    const repo = `${owner}.github.io`;
+    // Check if the GitHub Pages repo exists.
+    await octokit.rest.repos.get({ owner, repo });
+    // Attach the owner and repo name to the request for reuse.
+    req.repoOwner = owner;
+    req.repoName = repo;
+    return next();
+  } catch (err) {
+    if (err.status === 404) {
       return next(
-        fillErrorObject(404, 'GH pages not found!', [
-          'GitHub Repo doesnt exist for this team!',
-        ]),
+        fillErrorObject(404, 'No Pages repo configured for this user.'),
       );
     }
-    return next();
-  } catch (error) {
-    return next(
-      fillErrorObject(500, 'Server Error!', [
-        'Failed to access the repository!',
-      ]),
-    );
+    return next(fillErrorObject(500, 'Server Error', [err]));
   }
 }
 
@@ -91,5 +85,7 @@ const validateTwitterHandle = [
 ];
 
 module.exports = {
-  validateTeamId, validateTeamRepo, validateTwitterHandle,
+  validateTeamId,
+  validateTwitterHandle,
+  validateRepo,
 };

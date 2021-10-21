@@ -68,7 +68,7 @@ teamRouter.delete(
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamController.resetTeamMember,
+  teamController.resetTeamMembers,
 );
 
 teamRouter.delete(
@@ -101,16 +101,16 @@ teamRouter.get(
 );
 
 teamRouter.post(
-  '/:teamId/deploy',
+  '/:teamId/pages-deploy',
   teamController.deployToGHPages,
 );
 
-teamRouter.post(
-  '/:teamId/deleteGHPages',
+teamRouter.delete(
+  '/:teamId/pages-clear',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
-  teamMiddleware.validateTeamRepo,
+  teamMiddleware.validateRepo,
   teamController.deleteGHPages,
 );
 
