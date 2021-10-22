@@ -24,9 +24,6 @@ export const getHomepageDataByTeamId = (teamId) => async (dispatch) => {
   }
 };
 
-/**
- * This function updates the homepage about us page with the string in the text field
- */
 export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
   try {
     const body = {
