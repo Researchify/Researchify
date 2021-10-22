@@ -144,8 +144,9 @@ async function resetTeamData(req, res, next) {
   const { teamId } = req.params;
   const { foundTeam } = req;
   try {
-    // Clear team members.
+    // Clear team members and twitter handle.
     foundTeam.teamMembers = [];
+    foundTeam.twitterHandle = '';
     foundTeam.save();
     // Delete publications and achievements.
     await Publication.deleteMany({ teamId });
