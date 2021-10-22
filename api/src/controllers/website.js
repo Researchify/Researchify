@@ -74,6 +74,13 @@ async function deleteWebPage(req, res, next) {
   }
 }
 
+/**
+ * Patch client website metadata (title, publication options, layout and/or theme)
+ * @param {*} req request object, an array of objects describing the 'field' to change and it's 'value'
+ * @param {*} res response object (dictionary of changes made)
+ * @returns 200: changes updated in DB
+ * @returns 500: Server error while saving to DB
+ */
 async function updateClientWebMetadata(req, res, next) { // eslint-disable-line no-unused-vars
   const data = req.body;
   const { team_id: _id } = req.params;
