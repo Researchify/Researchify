@@ -74,52 +74,6 @@ async function deleteWebPage(req, res, next) {
   }
 }
 
-/**
- * Patch client website metadata (title, publication options, layout and/or theme)
- * @param {*} req request object, an array of objects describing the 'field' to change and it's 'value'
- * @param {*} res response object (dictionary of changes made)
- * @returns 200: changes updated in DB
- * @returns 500: Server error while saving to DB
- */
-async function updatePublicationOptions(req, res, next) { // eslint-disable-line no-unused-vars
-  const updatedPubOptions = req.body;
-  const { teamId: _id } = req.params;// TODO: teamId get from the token instead of parameters?
-  try {
-    await Website.updateOne(
-      { teamId: _id },
-      {
-        $set: {
-          publicationOptions: updatedPubOptions,
-        },
-      },
-    );
-    return res.status(200).json(updatedPubOptions);
-  } catch (err) {
-    return res.send(fillErrorObject(500, 'Server error', [err.errors]));
-  }
-}
-
-async function resetWebPage(req, res, next) { // eslint-disable-line no-unused-vars
-  const { teamId } = req.params;
-
-  try {
-    const foundWebsite = await Website.findOne({ teamId });
-    foundWebsite.pages = [];
-    foundWebsite.save();
-    return res.status(200).json(foundWebsite);
-  } catch (err) {
-    return res.send(fillErrorObject(500, 'Server error', [err.errors]));
-  }
-}
-
-/**
- * Update the HTML <title> tag used for client websites.
- * Currently, we are using the team's name for the title, but this route can be used to update title if need be
- * @param {*} req request object, containing the teamId and website title
- * @param {*} res response object
- * @returns 200: website title successfully updated in the DB
- * @returns 500: Server error while saving website title to DB
- */
 async function updateClientWebMetadata(req, res, next) { // eslint-disable-line no-unused-vars
   const data = req.body;
   const { team_id: _id } = req.params;
@@ -145,7 +99,5 @@ module.exports = {
   addWebPage,
   deleteWebPage,
   getWebPageDetails,
-  updatePublicationOptions,
-  resetWebPage,
   updateClientWebMetadata,
 };
