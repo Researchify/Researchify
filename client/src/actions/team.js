@@ -10,15 +10,11 @@ import {
   CREATE_TEAM_MEMBER,
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
-  RESET_TEAM_MEMBER,
   GET_GH_ACCESS_TOKEN,
   DEPLOY_REQUEST,
   DEPLOY_SUCCESS,
   DEPLOY_FAIL,
   UPDATE_TEAM,
-  RESET_TEAM,
-  DELETE_TEAM_PUBLICATIONS,
-  RESET_ACHIEVEMENT,
   DELETE_BATCH_TEAM_MEMBERS,
 } from './types';
 import { login } from './auth';
@@ -162,17 +158,18 @@ export const createTeamMember = (teamId, teamMember) => async (dispatch) => {
 /**
  * This action creator will be called when a user update the details of a team member
  *
- * @param teamId id of the team
- * @param teamMember the updated new member
+ * @param teamId id of the team housing this member
+ * @param memberId id of the member to be updated
+ * @param teamMemberData the new member
  * @returns a thunk responsible for calling the api and dispatching a UPDATE_TEAM_MEMBER action
  */
-export const updateTeamMember = (id, teamMember) => async (dispatch) => {
+export const updateTeamMember = (teamId, memberId, teamMemberData) => async (dispatch) => {
   try {
-    await api.updateTeamMember(id, teamMember);
+    await api.updateTeamMember(teamId, memberId, teamMemberData);
 
     dispatch({
       type: UPDATE_TEAM_MEMBER,
-      payload: teamMember,
+      payload: teamMemberData,
     });
     dispatch(successMessageCreator('Team member has been updated'));
   } catch (err) {
@@ -195,23 +192,6 @@ export const deleteTeamMember = (teamId, memberId) => async (dispatch) => {
       payload: memberId,
     });
     dispatch(successMessageCreator('Team member has been deleted'));
-  } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
-  }
-};
-
-/**
- * This action creator will be called when a user resets a team member from the team
- *
- * @param teamId id of the team
- * @returns a thunk responsible for calling the api and dispatching a DELETE_TEAM_MEMBER action
- */
-export const resetTeamMember = (teamId) => async (dispatch) => {
-  try {
-    await api.resetTeamMember(teamId);
-    dispatch({
-      type: RESET_TEAM_MEMBER,
-    });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));
   }
@@ -249,7 +229,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       },
     );
     // get teamInfo
-    const { data: teamInfo } = await api.getTeamJWT();
+    const { data: teamInfo } = await api.getTeamJWT(teamId);
     // get team members
     const { data: teamMembers } = await api.fetchTeamMembersByTeamId(teamId);
     // get team homepage content
@@ -326,7 +306,7 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
 
 export const deleteTeam = (teamId) => async (dispatch) => {
   try {
-    await await api.deleteTeam(teamId);
+    await api.deleteTeam(teamId);
     dispatch(successMessageCreator('Your account data has been Deleted.'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
@@ -343,15 +323,6 @@ export const deleteTeam = (teamId) => async (dispatch) => {
 export const resetTeamData = (teamId) => async (dispatch) => {
   try {
     await api.resetTeamData(teamId);
-    dispatch({
-      type: DELETE_TEAM_PUBLICATIONS,
-    });
-    dispatch({
-      type: RESET_ACHIEVEMENT,
-    });
-    dispatch({
-      type: RESET_TEAM,
-    });
 
     dispatch(successMessageCreator('Your account data has been reset.'));
   } catch (error) {

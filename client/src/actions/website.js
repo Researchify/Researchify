@@ -7,7 +7,6 @@ import {
   ADD_WEBPAGE,
   DELETE_WEBPAGE,
   UPDATE_PUBLICATION_OPTIONS,
-  RESET_WEBPAGE,
   UPDATE_WEBSITE_TITLE,
   UPDATE_WEBSITE_TEMPLATE,
 } from './types';
@@ -61,17 +60,6 @@ export const deletePage = (teamId, pageName) => async (dispatch) => {
     dispatch({
       type: DELETE_WEBPAGE,
       payload: pageName,
-    });
-  } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
-  }
-};
-
-export const resetWebPage = (teamId) => async (dispatch) => {
-  try {
-    api.resetWebPage(teamId);
-    dispatch({
-      type: RESET_WEBPAGE,
     });
   } catch (err) {
     dispatch(errorActionGlobalCreator(err));

@@ -9,12 +9,9 @@ import { PropTypes } from 'prop-types';
 import { logout } from '../../actions/auth';
 import {
   deleteTeam,
-  resetTeamMember,
   resetTeamData,
   deleteGHPages,
 } from '../../actions/team';
-import { resetHomepage } from '../../actions/homepage';
-import { resetWebPage } from '../../actions/website';
 
 const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
   const { teamId } = useSelector((state) => state.team);
@@ -35,9 +32,6 @@ const ProfileResetModal = ({ resetAlert, setResetAlert, type }) => {
       dispatch(deleteTeam(teamId));
       dispatch(logout());
     } else {
-      dispatch(resetTeamMember(teamId));
-      dispatch(resetHomepage(teamId));
-      dispatch(resetWebPage(teamId));
       dispatch(resetTeamData(teamId));
       setResetAlert(false);
     }

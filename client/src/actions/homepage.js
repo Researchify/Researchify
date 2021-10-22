@@ -45,18 +45,3 @@ export const updateHomepage = (teamId, homepageData) => async (dispatch) => {
     dispatch(errorActionGlobalCreator(error));
   }
 };
-
-/**
- * This function resets the homepage about us page with an empty string
- */
-export const resetHomepage = (teamId) => async (dispatch) => {
-  const updatedHomepage = {
-    teamId,
-    aboutUs: [''],
-  };
-  await api.createOrUpdateHomepage(teamId, updatedHomepage);
-  dispatch({
-    type: UPDATE_HOMEPAGE,
-    payload: updatedHomepage,
-  });
-};

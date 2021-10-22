@@ -4,7 +4,6 @@ import {
   UPDATE_PUBLICATION,
   DELETE_PUBLICATION,
   CREATE_BULK_PUBLICATIONS,
-  DELETE_TEAM_PUBLICATIONS,
   CHECK_PUBLICATIONS,
   UNCHECK_PUBLICATIONS,
   REVERT_HEADER_COLOR,
@@ -43,8 +42,6 @@ const publicationsReducer = (state = initialState, action) => {
         ...state,
         teamPublications: state.teamPublications.concat(action.payload),
       };
-    case DELETE_TEAM_PUBLICATIONS:
-      return initialState;
     case CHECK_PUBLICATIONS:
       return {
         ...state,
