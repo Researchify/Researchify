@@ -16,6 +16,8 @@ import {
   DEPLOY_FAIL,
   UPDATE_TEAM,
   DELETE_BATCH_TEAM_MEMBERS,
+  LOG_OUT,
+  RESET_TEAM_DATA,
 } from './types';
 import { login } from './auth';
 import {
@@ -304,27 +306,40 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
   }
 };
 
+/**
+ * This action creator will be called when a user wishes to delete their account
+ * permanently. This is a HARD delete, so we won't be needing to explicitly
+ * handle this action; instead, we gracefully log out the user once complete.
+ *
+ * @param teamId id of the team to be deleted from Researchify
+ * @returns a thunk responsible for calling the API and dispatching a LOG_OUT action
+ */
 export const deleteTeam = (teamId) => async (dispatch) => {
   try {
     await api.deleteTeam(teamId);
-    dispatch(successMessageCreator('Your account data has been Deleted.'));
+    dispatch(successMessageCreator('Your account data has been deleted.'));
+    // Gracefully exit by logging out.
+    await api.logoutTeam();
+    dispatch({ type: LOG_OUT });
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
 };
 
 /**
- * This action creator will be called when a user want to delete their account
+ * This action creator will be called when a user wishes to reset their account
+ * data to initial values.
+ * Note: this is a SOFT reset that enables users to start over with
+ * Researchify.
  *
- * @param {*} teamId id of the team
- * @param {*} teamData data object of the data to be deleted
- * @returns
+ * @param teamId id of the team whose data is to be reset
+ * @returns a thunk responsible for calling the API and dispatching a RESET_TEAM_DATA action
  */
 export const resetTeamData = (teamId) => async (dispatch) => {
   try {
     await api.resetTeamData(teamId);
-
     dispatch(successMessageCreator('Your account data has been reset.'));
+    dispatch({ type: RESET_TEAM_DATA });
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
   }
@@ -344,20 +359,20 @@ export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => async (dispa
 };
 
 /**
- * This action creator will be called when a user want to delete their deployed GitHub Pages
+ * This action creator will be called when a user wishes to delete their deployed website.
  *
- * @param {*} teamId id of the team
- * @param {*} teamData data object of the data to be deleted
- * @returns
+ * @param teamId id of the team whose website is to be deleted
+ * @returns a thunk responsible for calling the API to delete the website
  */
-export const deleteGHPages = (teamId, accessToken) => async (dispatch) => {
+export const deleteGHPages = (teamId) => async (dispatch) => {
   try {
+    // TODO: error handling + transition to storing the AT via cookies.
     const body = {
-      ghToken: accessToken,
+      ghToken: localStorage.getItem('GH_access_token'),
     };
     await api.deleteGHPages(teamId, body);
     dispatch(successMessageCreator('Your GitHub Pages website has been deleted.'));
-  } catch (err) {
-    dispatch(errorActionGlobalCreator(err));
+  } catch (error) {
+    dispatch(errorActionGlobalCreator(error));
   }
 };
