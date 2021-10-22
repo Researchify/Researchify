@@ -3,11 +3,11 @@
  * @module team
  */
 const axios = require('axios');
-const { Octokit } = require('@octokit/rest');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const logger = require('winston');
 const path = require('path');
+const { Octokit } = require('@octokit/rest');
 
 const Team = require('../models/team.model');
 const Achievement = require('../models/achievement.model');
