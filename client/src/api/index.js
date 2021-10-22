@@ -16,7 +16,7 @@ export const deleteBatchPublications = (publicationIdList) => api.patch('/public
 export const createTeam = (teamInfo) => api.post('/team', teamInfo);
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
 export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, updatedTeam);
-export const resetTeamData = (teamId) => api.delete(`/team/${teamId}/resetTeamData`);
+export const resetTeamData = (teamId) => api.delete(`/team/${teamId}/data-reset`);
 export const deleteTeam = (teamId) => api.delete(`/team/${teamId}`);
 export const createTeamMember = (teamId, newTeamMember) => api.post(`/team/${teamId}/members`, newTeamMember);
 export const fetchTeamMembersByTeamId = (teamId) => api.get(`/team/${teamId}/members`);
