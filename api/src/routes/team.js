@@ -11,7 +11,7 @@ const authMiddleware = require('../middleware/auth');
 teamRouter.post('/', teamController.createTeam);
 
 teamRouter.get(
-  '/',
+  '/:teamId',
   authMiddleware.cookieJwtAuth,
   teamController.getTeam,
 );
@@ -25,7 +25,7 @@ teamRouter.patch(
 );
 
 teamRouter.delete(
-  '/:teamId/resetTeamData',
+  '/:teamId/data-reset',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -40,7 +40,7 @@ teamRouter.delete(
 );
 
 teamRouter.post(
-  '/:teamId/member',
+  '/:teamId/members',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -48,7 +48,7 @@ teamRouter.post(
 );
 
 teamRouter.get(
-  '/:teamId/member',
+  '/:teamId/members',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -56,7 +56,7 @@ teamRouter.get(
 );
 
 teamRouter.patch(
-  '/:teamId/member',
+  '/:teamId/members/:memberId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -64,15 +64,7 @@ teamRouter.patch(
 );
 
 teamRouter.delete(
-  '/:teamId/reset-members',
-  authMiddleware.cookieJwtAuth,
-  mongooseMiddleware.validateTeamObjectId,
-  teamMiddleware.validateTeamId,
-  teamController.resetTeamMembers,
-);
-
-teamRouter.delete(
-  '/:teamId/member/:memberId',
+  '/:teamId/members/:memberId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,

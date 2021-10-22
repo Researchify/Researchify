@@ -12,6 +12,8 @@ const path = require('path');
 const Team = require('../models/team.model');
 const Achievement = require('../models/achievement.model');
 const Publication = require('../models/publication.model');
+const Website = require('../models/website.model');
+const Homepage = require('../models/homepage.model');
 
 const transporter = require('../config/mail');
 const {
@@ -79,27 +81,30 @@ async function createTeam(req, res, next) {
 }
 
 /**
- * Gets the team info
+ * Gets a team's info on /team/:teamId.
+ *
  * @param {*} req request object contains the teamId decoded in auth middleware
  * @param {*} res response object, the team related info
  * @param next handler to the next middleware
  * @returns 200: the team related info
  */
 function getTeam(req, res, next) {
-  Team.findById(req.team._id)
+  const { teamId: _id } = req.params;
+
+  Team.findById(_id)
     .select('_id teamName orgName email twitterHandle profilePic')
     .then((foundTeam) => {
       if (foundTeam) {
         return res.status(200).send(foundTeam);
       }
-      return next(fillErrorObject(404, 'Team not found',
-        ['Team with the given id could not be found']));
+      return next(fillErrorObject(404, 'Team not found'));
     })
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
 
 /**
  * Update the team from the database on /team/:teamId
+ *
  * @param req request object, containing team id in the url
  * @param res response object, the updated team document
  * @param next handler to the next middleware
@@ -123,22 +128,36 @@ async function updateTeam(req, res, next) {
 }
 
 /**
- * Clear the team Data from the database on /team/:team_id
- * @param {} req request object, containing team id in the url
- * @param {*} res response object, the deleted team document
- * @returns 200: teamn is deleted
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
+ * Clears a team's data on /team/:teamId/data-reset.
+ * This is useful for a team who wishes to start over with Researchify, but does
+ * not want to delete their account.
+ *
+ * @param req request object
+ * @param res response object
+ * @param next handler to the next middleware
+ * @returns 204 no content, if all required data was successfully reset
+ * @returns 404 if team is not found
+ * @returns 400 if team id is not in a valid hexadecimal format
+ * @returns 500 if a server error occurred
  */
 async function resetTeamData(req, res, next) {
+  const { teamId } = req.params;
+  const { foundTeam } = req;
   try {
-    const { teamId } = req.params;
-    await Achievement.deleteMany({ teamId });
+    // Clear team members.
+    foundTeam.teamMembers = [];
+    foundTeam.save();
+    // Delete publications and achievements.
     await Publication.deleteMany({ teamId });
-    return res.status(200).json('Cleared successfully.');
-  } catch (error) {
+    await Achievement.deleteMany({ teamId });
+    // Reset website pages and homepage about us section to initial values.
+    await Website.findOneAndUpdate({ teamId }, { pages: [] });
+    await Homepage.findOneAndUpdate({ teamId }, { aboutUs: '' });
+
+    return res.status(204).send();
+  } catch (err) {
     return next(
-      fillErrorObject(500, 'Error occurred with server', [error.message]),
+      fillErrorObject(500, 'Server error', [err]),
     );
   }
 }
@@ -165,7 +184,8 @@ async function deleteTeam(req, res, next) {
 }
 
 /**
- * POST request to create a new team member to the database on /team/:teamId/member.
+ * POST request to create a new team member on /team/:teamId/members.
+ *
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the created team member document
  * @param next handler to the next middleware
@@ -190,7 +210,8 @@ function createTeamMember(req, res, next) {
 }
 
 /**
- * Gets the team member array from the database on /team/:teamId/member.
+ * Gets the list of team members on /team/:teamId/members.
+ *
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the returned team member array
  * @returns 200: the team member array was returned
@@ -203,18 +224,20 @@ function readTeamMembersByTeam(req, res) {
 }
 
 /**
- * Update the team member from the database on /team/:teamId/member.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the updated team member document
+ * Update a team member on /team/:teamId/members/:memberId.
+ *
+ * @param req request object
+ * @param res response object
  * @param next handler to the next middleware
  * @returns 200: the team member was updated
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
 function updateTeamMember(req, res, next) {
+  const { memberId } = req.params;
   const updatedTeamMember = req.body;
   Team.updateOne(
-    { 'teamMembers._id': updatedTeamMember._id },
+    { 'teamMembers._id': memberId },
     {
       $set: {
         'teamMembers.$': updatedTeamMember,
@@ -224,30 +247,10 @@ function updateTeamMember(req, res, next) {
     .then(() => res.status(200).json(updatedTeamMember))
     .catch((err) => next(fillErrorObject(500, 'Server error', [err])));
 }
-/**
- * Resets the list of members for a team on /:teamId/reset-members.
- *
- * @param req request object
- * @param res response object
- * @param next handler to the next middleware
- * @returns 200 the team member was updated
- * @returns 404 team is not found
- * @returns 400 team id is not in a valid hexadecimal format
- * @returns 500 if a server error occurred
- */
-async function resetTeamMembers(req, res, next) {
-  const { foundTeam } = req;
-  try {
-    foundTeam.teamMembers = [];
-    foundTeam.save();
-    return res.status(200).json(foundTeam);
-  } catch (err) {
-    return next(fillErrorObject(500, 'Server error', [err]));
-  }
-}
 
 /**
- * Delete the team member from the database on /team/:teamId/member/:member_id.
+ * Deletes a team member on /team/:teamId/members/:memberId.
+ *
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the relevant message returned
  * @param next handler to the next middleware
@@ -266,7 +269,8 @@ function deleteTeamMember(req, res, next) {
 }
 
 /**
- * Handles a PATCH request to delete a list of team members by the mongo object id on the endpoint /team/:teamId/members/
+ * Handles a PATCH request to delete a list of team members by the mongo object
+ * id on the endpoint /team/:teamId/members.
  *
  * @param req request object - the list of team member ids given in the body
  * @param res response object
@@ -290,6 +294,7 @@ async function deleteBatchTeamMembers(req, res, next) {
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:teamId endpoint.
+ *
  * @param {*} req request object, containing the teamId in the url and twitter handle in the body
  * @param {*} res response object
  * @param next handler to the next middleware
@@ -485,7 +490,6 @@ module.exports = {
   createTeamMember,
   readTeamMembersByTeam,
   updateTeamMember,
-  resetTeamMembers,
   deleteTeamMember,
   deleteBatchTeamMembers,
   storeHandle,
