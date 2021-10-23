@@ -16,8 +16,9 @@ const {
 
 /**
  * Handle login request from /team/login
- * @param {*} req request object, containing team email and password in the body as JSON
- * @param {*} res response object, the found team object with properties of teamId, email, teamName and orgName
+ * @param req request object, containing team email and password in the body as JSON
+ * @param res response object, the found team object with properties of teamId, email, teamName and orgName
+ * @param next handler to the next middleware
  * @returns 200: the team was found
  * @returns 400: team is not found
  */
@@ -61,7 +62,7 @@ async function login(req, res, next) {
 
   // Incorrect password.
   return next(
-    fillErrorObject(400, 'Authenication error', [
+    fillErrorObject(400, 'Authentication error', [
       'Incorrect email/password',
     ]),
   );

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +11,7 @@ import { importPublications } from '../../../actions/publications';
 import { IMPORT_FAIL, UPDATE_GSCHOLAR_ID } from '../../../actions/types';
 import '../publications.css';
 import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
+import { PublicationsImportFormWalkthrough } from '../publicationsOnboarding';
 
 const ProfileLinkPage = ({ closeModal }) => {
   const teamId = useSelector((state) => state.team.teamId);
@@ -60,7 +62,8 @@ const ProfileLinkPage = ({ closeModal }) => {
         handleSubmit, handleChange, values, touched, errors,
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
-          <Form.Group>
+          <PublicationsImportFormWalkthrough />
+          <Form.Group id="import-publication-link">
             <Form.Label>
               Enter your Google Scholar profile link below:
             </Form.Label>

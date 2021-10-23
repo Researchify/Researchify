@@ -7,6 +7,7 @@ import {
   UPDATE_ACHIEVEMENT,
   DELETE_ACHIEVEMENT,
   DELETE_BATCH_ACHIEVEMENTS,
+  RESET_TEAM_DATA,
 } from '../actions/types';
 
 const initialState = {
@@ -41,6 +42,8 @@ const achievementsReducer = (state = initialState, action) => {
         ),
       };
     }
+    case RESET_TEAM_DATA:
+      return initialState;
     default:
       return state;
   }

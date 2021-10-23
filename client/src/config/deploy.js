@@ -7,9 +7,9 @@
  * building; see:
  * https://create-react-app.dev/docs/adding-custom-environment-variables/
  */
-
-/// We require access to the "public_repo" scope to allow pushing to the pages repo.
-export const scope = 'public_repo';
+/// We require access to the "public_repo" and "delete_repo" scopes to allow
+/// pushing to the pages repo and deleting it, respectively.
+export const scope = 'public_repo delete_repo';
 /// Configured client ID of the GitHub OAuth application.
 export let githubClientId; // eslint-disable-line import/no-mutable-exports
 
