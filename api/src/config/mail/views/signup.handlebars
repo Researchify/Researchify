@@ -1,25 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="color-scheme" content="only">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+        <style>
+            @media (min-width: 600px) {
+                .email {
+                    max-width: 600px;
+                    min-height: 594px;
+                    position: fixed;
+                    left: 50%;
+                    margin-left: -300px;
+                }
 
-    <style>
-        h1 {
-            color: red;
-        }
-    </style>
-</head>
-<body>
-<h1>Welcome</h1>
-<h2>Welcome {{name}} to Researchify</h2>
-<ul>
-    <li>About</li>
-    <li>Home</li>
-    <li>Contact</li>
-</ul>
+            }
+            .email {
+                max-width: 600px;
+                min-height: 594px;
+            }
 
-</body>
+            .topbar {
+                color: rgb(65, 70, 86);
+                background-color: white;
+                text-align: left;
+                white-space: nowrap;    
+                box-sizing: border-box;
+                font-weight: 500;
+                line-height: 1.2;
+                font-size: 2rem;
+                padding-top: 12px;
+                padding-left: 34px;
+                padding-right: 34px;
+                padding-bottom: 12px;
+                margin: 0px;
+                margin-top: 24px;
+            }
+
+            .content {
+                background-color: rgb(65, 70, 86);
+                padding-top: 80px;
+                padding-left: 34px;
+                padding-right: 34px;
+                padding-bottom: 12px;
+            }
+            
+            .font {
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+            }
+
+            .welcome {
+                color: white;
+                font-size: 2rem;
+                padding-bottom: 10px;
+            }
+
+            #description {
+                color: #dedede;
+                margin-bottom: 0px;
+            }
+
+            .loginText {
+                color: #dedede;
+            }
+
+            #loginButton{
+                color: white;
+                background-color: #AB9671;
+                font-size: 1rem;
+                letter-spacing: 3px;
+                padding-top: 14px;
+                padding-bottom: 14px;
+                padding-left: 60px;
+                padding-right: 60px;
+                margin-top: 10px;
+                margin-bottom: 0px;
+            }
+
+            footer {
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+                background-color: #404040;
+                color: #b1b1b1;
+                font-size: 0.8rem;
+                padding-top: 10px;
+                padding-left: 34px;
+                padding-right: 34px;
+                padding-bottom: 10px;
+            }
+
+            #footerText {
+                margin-bottom: 0px;
+            }
+
+            .flex-container {
+                display: flex;
+                padding-top: 10px;
+                padding-bottom: 20px;
+            }
+
+            .loginSection {
+                padding-top: 120px;
+                padding-right: 16px;
+            }
+
+            a {
+                color: #dedede;
+            }
+
+            a:link {
+                color: #dedede;
+            }
+
+            a:visited {
+                color: #979797;
+            }
+
+            a:hover {
+            color: #979797;
+            }
+
+            a:active {
+            color: #dedede;
+            }
+
+        </style>
+    </head>
+    <body class="email">
+        <h1 class="font topbar">
+            RE<b style="color: #56658a;">SEARCH</b>IFY
+        </h1>
+        <div class="content">
+            <div class='font welcome'><b>WELCOME</b></div>
+            <p class='font invertColor' id='description'>{{name}}<br>You have created an account with us. You can now begin building your own website!</p>
+            <div class="flex-container">
+                <div class="loginSection">
+                    <p class='font loginText'>To login, please click the button below.</p>
+                    <a href="http://researchify-env.eba-wjxcgupn.ap-southeast-2.elasticbeanstalk.com/">
+                        <button type="button" class="btn btn-lg" id="loginButton">Login</button>
+                    </a>
+                </div>
+                <img src="cid:cid-presentation" alt="man watching presentation">
+            </div>
+        </div>
+        <footer>
+            <p id="footerText">You are recieving this because you have signed up for an account with Researchify. We will only send emails when required.</p>
+        </footer>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </html>

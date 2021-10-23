@@ -27,7 +27,7 @@
   align-content: center;
   justify-content: center;
   padding-top: 30px;
-  padding-left: 45px;
+  padding-left: 25px;
   padding-right: 45px;
 }
 
@@ -36,8 +36,6 @@
   align-content: center;
   justify-content: center;
   padding-top: 20px;
-  padding-left: 45px;
-  padding-right: 45px;
   padding-bottom: 40px;
 }
 
@@ -195,23 +193,16 @@
 }
 
 .twitter-feed {
-  border: 1px solid #ccc !important;
   border-radius: 16px;
-  margin-top: 60px;
-  position: fixed;
+  margin-top: 28px;
+  position:relative;
+  width: fit-content;
 }
-
-.pub-left-main {
-  width: 80%;
-  float: left;
-}
-
-
-.twitter-feed {
-  border: 1px solid #ccc !important;
-  border-radius: 16px;
-  margin-top: 60px;
-  position: fixed;
+.news-section
+{
+  padding-bottom: 25px;
+  padding-left: 45px;
+  max-width: 500px;
 }
 
 .pub-left-main {

@@ -19,6 +19,7 @@ import {
   ButtonGroupItem,
 } from '../shared/styledComponents';
 import './form/achievementForm.css';
+import { AchievementsEditDeleteWalkthrough } from './achievementsOnboarding';
 import AchievementForm from './form/AchievementForm';
 import { deleteAchievement } from '../../actions/achievements';
 
@@ -64,22 +65,27 @@ const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement })
           <Card.Header as="h5" id="card-header">
             <Row>
               <Col>
-                <div style={{ display: 'flex' }}>
-                  <div style={{ paddingTop: '5px' }}>
-                    <input type="checkbox" checked={checkedAchievement.includes(achievement._id)} />
+                <Row>
+                  <div style={{ display: 'flex' }}>
+                    <div style={{ paddingTop: '5px' }}>
+                      <input id="achievement-checkbox" type="checkbox" checked={checkedAchievement.includes(achievement._id)} />
+                    </div>
+                    <div id="achievementTitle">
+                      {achievement.title}
+                    </div>
                   </div>
-                  <div id="achievementTitle">
-                    {achievement.title}
+                  <div style={{ paddingLeft: '10px' }}>
+                    <AchievementsEditDeleteWalkthrough />
                   </div>
-                </div>
+                </Row>
               </Col>
               <Col md={{ span: 3 }}>
                 {
                   isHovering
                 && (
                 <StyledButtonGroup onClick={childCallback} className="float-right" style={{ padding: '0px' }}>
-                  <ButtonGroupItem color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
-                  <ButtonGroupItem color="#dc3545" hoverBorderColor="#dc3545" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
+                  <ButtonGroupItem id="edit-achievement-button" color="#56658a" onClick={() => setShowUpdateForm(true)}><RiEdit2Line /></ButtonGroupItem>
+                  <ButtonGroupItem id="delete-achievement-button" color="#dc3545" hoverBorderColor="#dc3545" hoverColor="white" onClick={() => setShowDeleteMessage(true)}>
                     <RiDeleteBin6Line />
                   </ButtonGroupItem>
                 </StyledButtonGroup>
@@ -91,7 +97,7 @@ const Achievement = ({ achievement, checkedAchievement, setCheckedAchievement })
           <Card.Body id="card-body" style={{ borderColor: '#56658a', backgroundColor: isHovering ? '#f5f2f2' : '#f8f9fa' }}>
             <Card.Text>{achievement.description}</Card.Text>
             <Card.Text id="yearAwarded">
-              <b>Date:</b>
+              <b>Year:</b>
               {' '}
               {achievement.yearAwarded}
             </Card.Text>
