@@ -9,6 +9,7 @@ import {
   UPDATE_PUBLICATION_OPTIONS,
   UPDATE_WEBSITE_TITLE,
   UPDATE_WEBSITE_TEMPLATE,
+  RESET_TEAM_DATA,
 } from '../actions/types';
 
 const INITIAL_WEBSITE_STATE = {
@@ -53,6 +54,8 @@ const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
       return { ...state, title: payload };
     case UPDATE_WEBSITE_TEMPLATE:
       return { ...state, template: payload };
+    case RESET_TEAM_DATA:
+      return INITIAL_WEBSITE_STATE;
     default:
       return state;
   }

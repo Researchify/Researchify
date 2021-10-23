@@ -7,6 +7,7 @@ import {
   IMPORT_END,
   UPDATE_PUBLICATIONS_TO_IMPORT,
   IMPORT_EMPTY,
+  RESET_TEAM_DATA,
 } from '../actions/types';
 import { pageSize } from '../config/publications';
 
@@ -56,6 +57,8 @@ const importedPublicationReducer = (state = initialState, action) => {
         loading: false,
         startFrom: state.startFrom + pageSize,
       };
+    case RESET_TEAM_DATA:
+      return initialState;
     default:
       return state;
   }

@@ -1,7 +1,9 @@
 /**
  * This file exports website reducer that will handle all dispatched deploy-related actions.
  */
-import { DEPLOY_SUCCESS, DEPLOY_FAIL, DEPLOY_REQUEST } from '../actions/types';
+import {
+  DEPLOY_SUCCESS, DEPLOY_FAIL, DEPLOY_REQUEST, RESET_TEAM_DATA,
+} from '../actions/types';
 
 const INITIAL_DEPLOY_STATE = { loading: false };
 
@@ -13,6 +15,8 @@ const deployReducer = (state = INITIAL_DEPLOY_STATE, action) => {
       return { loading: false };
     case DEPLOY_FAIL:
       return { loading: false };
+    case RESET_TEAM_DATA:
+      return INITIAL_DEPLOY_STATE;
     default:
       return state;
   }
