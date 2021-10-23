@@ -25,7 +25,7 @@ export const deleteTeamMember = (teamId, memberId) => api.delete(`/team/${teamId
 export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => api.patch(`/team/${teamId}/members`, teamMemberIdList);
 export const registerTwitterHandle = (teamId, handle) => api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
-export const getTeamJWT = (teamId) => api.get(`/team/${teamId}`); // TODO: handle duplicate fetchTeamInfo(), which is unused.
+export const getTeamJWT = () => api.get('/team'); // TODO: handle duplicate fetchTeamInfo(), which is unused.
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
 export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/pages-deploy`, body);
 export const deleteGHPages = (teamId, body) => api.delete(`/team/${teamId}/pages-clear`, { data: body });

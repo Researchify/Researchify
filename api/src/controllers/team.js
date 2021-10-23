@@ -81,7 +81,9 @@ async function createTeam(req, res, next) {
 }
 
 /**
- * Gets a team's info on /team/:teamId.
+ * Gets a team's info on /team/.
+ *
+ * TODO: overhaul auth - the client uses this for session resumption.
  *
  * @param {*} req request object contains the teamId decoded in auth middleware
  * @param {*} res response object, the team related info
@@ -89,9 +91,7 @@ async function createTeam(req, res, next) {
  * @returns 200: the team related info
  */
 function getTeam(req, res, next) {
-  const { teamId: _id } = req.params;
-
-  Team.findById(_id)
+  Team.findById(req.team._id)
     .select('_id teamName orgName email twitterHandle profilePic')
     .then((foundTeam) => {
       if (foundTeam) {

@@ -10,8 +10,9 @@ const authMiddleware = require('../middleware/auth');
 
 teamRouter.post('/', teamController.createTeam);
 
+// TODO: this should be parameterized? We need to overhaul auth.
 teamRouter.get(
-  '/:teamId',
+  '/',
   authMiddleware.cookieJwtAuth,
   teamController.getTeam,
 );

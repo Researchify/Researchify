@@ -231,7 +231,7 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       },
     );
     // get teamInfo
-    const { data: teamInfo } = await api.getTeamJWT(teamId);
+    const { data: teamInfo } = await api.getTeamJWT();
     // get team members
     const { data: teamMembers } = await api.fetchTeamMembersByTeamId(teamId);
     // get team homepage content
