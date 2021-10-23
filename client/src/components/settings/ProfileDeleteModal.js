@@ -16,7 +16,9 @@ const ProfileDeleteModal = ({ shouldShow, setShouldShow }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteGHPages(teamId));
+    if (localStorage.getItem('GH_access_token') !== null) {
+      dispatch(deleteGHPages(teamId));
+    }
     dispatch(deleteTeam(teamId));
     setShouldShow(false);
   };
