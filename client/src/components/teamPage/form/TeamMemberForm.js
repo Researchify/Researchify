@@ -21,12 +21,14 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
       .string()
       .required('Name is required')
       .min(3, 'Name is at least 3 characters'),
-    position: yup.string().required('Posiiton is required'),
+    position: yup
+      .string()
+      .max(25, 'Max 25 characters'),
     summary: yup
       .string()
-      .required('Summary is required')
-      .min(3, 'Summary is at least 3 characters')
       .max(200, 'Max 200 characters'),
+    memberPic: yup
+      .mixed(),
   });
 
   const initValues = {
@@ -58,11 +60,15 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
       initialValues={type === 'update' ? member : initValues}
     >
       {({
-        handleSubmit, handleChange, values, touched, errors,
+        handleSubmit, handleChange, values, touched, errors, setFieldValue,
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Full Name</Form.Label>
+            <Form.Label>
+              Full Name
+              {' '}
+              <span style={{ color: 'red' }}>*</span>
+            </Form.Label>
             <Form.Control
               className="placeholder-text"
               type="text"
@@ -110,6 +116,28 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
             </Form.Control.Feedback>
           </Form.Group>
 
+          <Form.Group>
+            <Form.Label>
+              Member Photo
+            </Form.Label>
+            <Form.Control
+              type="file"
+              name="memberPic"
+              accept="image/*"
+              multiple={false}
+              onChange={(event) => {
+                const reader = new FileReader();
+                const file = event.target.files[0];
+                if (file) {
+                  reader.onload = (e) => {
+                    setFieldValue('memberPic', e.target.result);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+            />
+          </Form.Group>
+
           <Row>
             <div className="ml-3">
               <OverlayTrigger
@@ -118,6 +146,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
                 overlay={renderTooltip}
               >
                 <DangerButton
+                  type="button"
                   className="mr-2"
                   onClick={closeModal}
                 >

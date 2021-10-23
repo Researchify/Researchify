@@ -43,17 +43,22 @@ const teamSchema = new mongoose.Schema(
       {
         fullName: {
           type: String,
-          required: false,
+          required: true,
           minLength: 3,
         },
         position: {
           type: String,
           required: false,
+          maxLength: 25,
         },
         summary: {
           type: String,
           required: false,
-          minLength: 3,
+          maxLength: 200,
+        },
+        memberPic: {
+          type: String,
+          required: false,
         },
       },
     ],
@@ -81,7 +86,7 @@ teamSchema.post('save', async (doc) => {
     await Website.create({
       teamId: doc._id, publicationOptions: { groupBy: 'None', sortBy: 'Title' }, template: { layout: '1', theme: 'light' },
     });
-    await Homepage.create({ teamId: doc._id });
+    await Homepage.create({ teamId: doc._id, aboutUs: '' });
   } catch (err) {
     logger.error('Failed to create associated documents on team creation.');
   }

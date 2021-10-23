@@ -20,23 +20,7 @@ const styles = {
     borderColor: '#ccc',
     borderStyle: 'solid',
     borderRadius: '16px',
-    position: 'fixed',
   },
-};
-
-// function of changing twitter height according window
-const twitterTimelineHeight = () => {
-  const windowHeight = window.innerHeight;
-  switch (true) {
-    case (windowHeight >= 1000):
-      return { height: 800 };
-    case (windowHeight < 1000 && windowHeight >= 800):
-      return { height: 600 };
-    case (windowHeight < 800 && windowHeight >= 600):
-      return { height: 400 };
-    default:
-      return { height: 300 };
-  }
 };
 
 // function returning twitter component
@@ -49,7 +33,9 @@ const TwitterFeed = () => {
     <div style={styles.twitterFeed}>
       <Timeline
         dataSource={{ sourceType: 'profile', screenName: team.twitterHandle }}
-        options={twitterTimelineHeight()}
+        options={{
+          height: 'calc(75vh - 90px)',
+        }}
       />
       <PrimaryButton
         fontSize="0.875rem"

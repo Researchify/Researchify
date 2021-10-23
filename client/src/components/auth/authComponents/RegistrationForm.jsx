@@ -59,7 +59,7 @@ const RegistrationForm = () => {
       .min(8, 'Password must contain at least 8 characters')
       .max(20, 'Password is too long')
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/,
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!-/:-@[-`{-~]{8,20}$/,
         'Password must be 8 or more characters with a mix of letters and numbers',
       ),
     confirmedPassword: yup
@@ -97,36 +97,6 @@ const RegistrationForm = () => {
           handleSubmit, handleChange, values, touched, errors,
         }) => (
           <Form noValidate onSubmit={handleSubmit}>
-            <Form.Row>
-              <Form.Group as={Col} md="6">
-                <Form.Label> Team name </Form.Label>
-                <Form.Control
-                  type="text"
-                  name="teamName"
-                  placeholder="Team name"
-                  value={values.teamName}
-                  onChange={handleChange}
-                  isInvalid={touched.teamName && errors.teamName}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.teamName}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} md="6">
-                <Form.Label> Organization name </Form.Label>
-                <Form.Control
-                  type="text"
-                  name="orgName"
-                  placeholder="Organization name"
-                  value={values.orgName}
-                  onChange={handleChange}
-                  isInvalid={touched.orgName && errors.orgName}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.orgName}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Form.Row>
             <Form.Group>
               <Form.Label> Email address </Form.Label>
               <Form.Control
@@ -175,6 +145,36 @@ const RegistrationForm = () => {
                 {errors.confirmedPassword}
               </Form.Control.Feedback>
             </Form.Group>
+            <Form.Row>
+              <Form.Group as={Col} md="6">
+                <Form.Label> Team name </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="teamName"
+                  placeholder="Team name"
+                  value={values.teamName}
+                  onChange={handleChange}
+                  isInvalid={touched.teamName && errors.teamName}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.teamName}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as={Col} md="6">
+                <Form.Label> Organization name </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="orgName"
+                  placeholder="Organization name"
+                  value={values.orgName}
+                  onChange={handleChange}
+                  isInvalid={touched.orgName && errors.orgName}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.orgName}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Form.Row>
             <div>
               <Button
                 id="submitButton"

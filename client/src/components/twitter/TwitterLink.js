@@ -62,7 +62,7 @@ const TwitterLink = () => {
                 <Form.Control
                   type="text"
                   name="twitterHandle"
-                  placeholder="Twitter Handle"
+                  placeholder="Twitter Username"
                   value={values.twitterHandle}
                   onChange={handleChange}
                   isInvalid={touched.twitterHandle && errors.twitterHandle}

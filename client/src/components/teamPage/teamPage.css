@@ -7,7 +7,7 @@
 }
 
 .placeholder-text::placeholder {
-  color: #A9A9A9
+  color: #a9a9a9;
 }
 
 #teamMemberModal {
@@ -16,15 +16,4 @@
 
 .teamMemberModalHeader {
   background-color: white;
-}
-
-.teamMemberTitle {
-  padding-left: 2.4%;
-}
-
-.teamMemberBody {
-  padding-top: 4%;
-  padding-right: 6%;
-  padding-left: 6%;
-  padding-bottom: 5%;
 }
