@@ -18,7 +18,7 @@ const AchievementsPageWalkthrough = () => {
         intro: 'Click here to add a new achievement manually',
       },
       {
-        element: '#delete-team-members-icon',
+        element: '#delete-icon',
         title: 'Deleting selected Achievements',
         intro: 'Click here to delete all selected achievements',
       },
