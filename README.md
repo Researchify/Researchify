@@ -6,7 +6,8 @@ Researchify is a web platform for academic researchers, providing an end-to-end 
 
 To provide this service, this repository is set up similarly to the components depicted in Figure 2. 
 - The ‘client’ folder contains everything related to the Researchify web platform. Notable items include the React UI components of Researchify, along with associated Redux reducers and actions all within their own separate subfolders.
-- The ‘scholly’ folder contains 2 subfolders ‘base’ and ‘service’. 
+- The ‘api’ folder contains all backend related functionality, which are implemented as Express REST APIs using Node.JS.
+- The ‘scholly’ folder contains 2 subfolders ‘base’ and ‘service’. The ‘base’ folder houses the website layouts implemented using React components and environment variables for dynamic data rendering. The ‘service’ folder contains an independent microservice that invokes the base application to build a client website and deploys it to GitHub pages.
 
 Live site: http://researchify-env.eba-wjxcgupn.ap-southeast-2.elasticbeanstalk.com/
 
