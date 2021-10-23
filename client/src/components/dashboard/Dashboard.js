@@ -7,7 +7,6 @@ import {
   Container, Card, Tabs, Tab,
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import TemplateSelector from './TemplateSelector';
 import './Dashboard.css';
 
 import Webpages from './webpage/Webpages';
@@ -63,9 +62,7 @@ const Dashboard = () => {
               loading={loading}
             />
           </Tab>
-          <Tab eventKey="theme" title="Theme" className="pb-5">
-            <TemplateSelector teamId={teamId} />
-          </Tab>
+
         </Tabs>
         {currentTab === 'home' ? (
           <Card className="text-left" id="table">
