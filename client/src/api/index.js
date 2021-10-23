@@ -24,7 +24,7 @@ export const updateTeamMember = (teamId, updatedTeamMember) => api.patch(`/team/
 export const deleteTeamMember = (teamId, teamMemberId) => api.delete(`/team/${teamId}/member/${teamMemberId}`);
 export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => api.patch(`/team/${teamId}/members`, teamMemberIdList);
 export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, updatedTeam);
-export const updatePassword = (teamId, updatedTeam) => api.patch(`/team/password/${teamId}`, updatedTeam);
+export const updatePassword = (teamId, updatedTeam) => api.patch(`/team/${teamId}/password-reset`, updatedTeam);
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
 export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/deploy`, body);
 
