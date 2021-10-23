@@ -4,6 +4,7 @@ import {
   UPDATE_TEAM_MEMBER,
   DELETE_TEAM_MEMBER,
   DELETE_BATCH_TEAM_MEMBERS,
+  RESET_TEAM_DATA,
 } from '../actions/types';
 
 const initialState = {
@@ -38,7 +39,8 @@ const teamMembersReducer = (state = initialState, action) => {
         ),
       };
     }
-
+    case RESET_TEAM_DATA:
+      return initialState;
     default:
       return state;
   }

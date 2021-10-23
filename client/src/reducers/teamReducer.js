@@ -8,6 +8,7 @@ import {
   GET_GH_ACCESS_TOKEN,
   UPDATE_TEAM,
   TEAM_ERROR,
+  RESET_TEAM_DATA,
 } from '../actions/types';
 
 import { errorReducer } from '../notification/notificationReduxFunctions';
@@ -59,6 +60,8 @@ const teamReducer = (state = INITIAL_TEAM_STATE, action) => {
       return {
         ...errorReducer(state, action),
       };
+    case RESET_TEAM_DATA:
+      return state;
     default:
       return state;
   }

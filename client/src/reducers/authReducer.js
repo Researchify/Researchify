@@ -3,7 +3,7 @@
  */
 import Cookies from 'js-cookie';
 import {
-  LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAIL, LOG_OUT,
+  LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAIL, LOG_OUT, RESET_TEAM_DATA,
 } from '../actions/types';
 
 const INITIAL_AUTH_STATE = {
@@ -28,6 +28,8 @@ const authReducer = (state = INITIAL_AUTH_STATE, action) => {
       return { ...state, loading: false };
     case LOG_OUT:
       return { ...state, loading: false, logIn: false };
+    case RESET_TEAM_DATA:
+      return INITIAL_AUTH_STATE;
     default:
       return state;
   }
