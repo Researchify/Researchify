@@ -1,21 +1,23 @@
 /**
- * This modal is used for confirmation when the reset button is clicked to
- * reset a team's data.
+ * This modal is used for confirmation when the delete button is clicked to
+ * delete a team's account.
  */
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import {
-  resetTeamData,
+  deleteTeam,
+  deleteGHPages,
 } from '../../actions/team';
 
-const ProfileResetModal = ({ shouldShow, setShouldShow }) => {
+const ProfileDeleteModal = ({ shouldShow, setShouldShow }) => {
   const { teamId } = useSelector((state) => state.team);
   const dispatch = useDispatch();
 
-  const handleReset = () => {
-    dispatch(resetTeamData(teamId));
+  const handleDelete = () => {
+    dispatch(deleteGHPages(teamId));
+    dispatch(deleteTeam(teamId));
     setShouldShow(false);
   };
 
@@ -23,19 +25,19 @@ const ProfileResetModal = ({ shouldShow, setShouldShow }) => {
     <Modal show={shouldShow} onHide={() => setShouldShow(false)}>
       <Modal.Header className="modalHeader">
         <Modal.Title>
-          Reset Account Data
+          Delete Account
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Are you sure you want to reset your account?
-        All significant data will be reset!
+        Are you sure you want to delete your account?
+        All significant data will be deleted including any deployed websites.
       </Modal.Body>
       <Modal.Footer>
         <Button variant="light" onClick={() => setShouldShow(false)}>
           Back
         </Button>
-        <Button variant="danger" onClick={handleReset}>
-          Reset
+        <Button variant="danger" onClick={handleDelete}>
+          Delete
         </Button>
       </Modal.Footer>
     </Modal>
@@ -43,9 +45,9 @@ const ProfileResetModal = ({ shouldShow, setShouldShow }) => {
 };
 
 // props validation
-ProfileResetModal.propTypes = {
+ProfileDeleteModal.propTypes = {
   shouldShow: PropTypes.bool.isRequired,
   setShouldShow: PropTypes.func.isRequired,
 };
 
-export default ProfileResetModal;
+export default ProfileDeleteModal;

@@ -12,18 +12,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
 import ProfileResetModal from './ProfileResetModal';
-import GhLogInModal from './GhLogInModal';
+import ProfileDeleteModal from './ProfileDeleteModal';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 
-/**
-  * Form component for user update profile
-  */
-
-let deleteFlag = false;
 const Settings = () => {
   const dispatch = useDispatch();
-  const [resetAlert, setResetAlert] = useState(false);
-  const [logInAlert, setLogInAlert] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const {
     teamId, teamName, orgName, email, profilePic,
@@ -78,15 +73,6 @@ const Settings = () => {
       dispatch(updateTeam(teamId, profileData));
     }
     setValidated(true);
-  };
-  const checkLogin = () => {
-    const accessToken = localStorage.getItem('GH_access_token');
-    if (accessToken === null) {
-      setLogInAlert(true);
-    }
-  };
-  const setDelete = (flag) => {
-    deleteFlag = flag;
   };
 
   return (
@@ -170,21 +156,17 @@ const Settings = () => {
                 align: 'center',
               }}
               onClick={() => {
-                checkLogin();
-                setResetAlert(true);
-                setDelete(false);
+                setShowResetModal(true);
               }}
             >
-              Reset Data
+              Reset data
             </DangerButton>
 
             <DangerButton
               variant="outline-danger"
               className="ml-2"
               onClick={() => {
-                checkLogin();
-                setResetAlert(true);
-                setDelete(true);
+                setShowDeleteModal(true);
               }}
             >
               Delete account
@@ -192,8 +174,8 @@ const Settings = () => {
           </div>
         </Container>
       </div>
-      <ProfileResetModal resetAlert={resetAlert} setResetAlert={setResetAlert} type={deleteFlag} />
-      <GhLogInModal logInAlert={logInAlert} setLogInAlert={setLogInAlert} />
+      <ProfileResetModal shouldShow={showResetModal} setShouldShow={setShowResetModal} />
+      <ProfileDeleteModal shouldShow={showDeleteModal} setShouldShow={setShowDeleteModal} />
     </>
   );
 };

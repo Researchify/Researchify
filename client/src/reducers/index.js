@@ -1,6 +1,5 @@
 /**
- * This index file will export combined reducers
- * When the logout action is dispatched, all reducers will be initialzed to thir initial state
+ * This index file will export our combined reducers.
  */
 import { combineReducers } from 'redux';
 
@@ -14,7 +13,7 @@ import notificationReducer from './notificationReducer';
 import deployReducer from './deployReducer';
 import achievementsReducer from './achievementsReducer';
 import homepageReducer from './homepageReducer';
-import { LOG_OUT } from '../actions/types';
+import { LOG_OUT, RESET_TEAM_DATA } from '../actions/types';
 
 const appReducer = combineReducers({
   notification: notificationReducer,
@@ -29,8 +28,17 @@ const appReducer = combineReducers({
   homepage: homepageReducer,
 });
 
+/**
+ * A root reducer wrapper over the main app reducer used to centralize the
+ * resetting of state.
+ * @see https://www.digitalocean.com/community/tutorials/redux-reset-state-redux
+ *
+ * @param state the entire state of the redux store
+ * @param action the action that was dispatched
+ */
 const rootReducer = (state, action) => {
-  if (action.type === LOG_OUT) {
+  // Reset state when we log out or if the user has reset their data.
+  if (action.type === LOG_OUT || action.type === RESET_TEAM_DATA) {
     return appReducer(undefined, action);
   }
   return appReducer(state, action);
