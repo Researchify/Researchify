@@ -138,6 +138,17 @@ We have included an AWS directory in the root of our project via the AWS CloudFo
 Further details about the setup can be found here: [Elastic Beanstalk Github](https://github.com/einaregilsson/beanstalk-deploy).
 
 ## Versioning Strategy
+
+Researchify aims to ensure that the future releases of the application are uniquely identifiable, and help identify the state of the project at every point of time.
+
+
+We prefer to follow the number versioning scheme where the versions would be defined by X.Y.Z,  where:
+ X represents Major: when the changes made deprecates/ adds new API functionalities. 
+ Y represents Minor: when new features/ changes are added and backward- compatible.
+ Z represents Patch: when the changes include minor bug fixes.
+
+The versioning strategy during the development phase can be marked by having x as 0 and once the product is ready for production, it is initially marked 1.0.0 and incremented based on the above rule.
+
 ## Pull Request Strategy
 
 This section aims to ensure every team member is following the same procedure for making changes to source control. Each team member is expected to create a develop branch for each feature and commit to the develop branch only.
