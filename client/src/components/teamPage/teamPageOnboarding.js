@@ -15,17 +15,17 @@ const TeamPageWalkthrough = () => {
       {
         element: '#add-team-member-button',
         title: 'Add a New Team Member',
-        intro: 'Click here to add a new team member manually',
+        intro: 'Click here to add a new team member.',
       },
       {
         element: '#delete-team-members-button',
         title: 'Deleting selected Team Members',
-        intro: 'Click here to delete all selected team members from Research Group',
+        intro: 'Click here to delete all selected team members.',
       },
       {
         element: '#select-team-members-checkbox',
         title: 'Selecting Team Members',
-        intro: 'Click on this checkbox to select all team members',
+        intro: 'Click on this checkbox to select all team members.',
       },
     ],
   });
@@ -59,22 +59,22 @@ const TeamsFormWalkthrough = () => {
       {
         element: '#team-member-form-fullname',
         title: 'Name of team member',
-        intro: 'Please ensure that the position of the team member is 3-60 characters',
+        intro: 'Please ensure that the name of the team member is 3-60 characters.',
       },
       {
         element: '#team-member-form-position',
         title: 'Position of team member',
-        intro: 'Please ensure that the position of the team member is 3-60 characters',
+        intro: 'Please ensure that the position of the team member is 3-60 characters.',
       },
       {
         element: '#team-member-form-summary',
         title: 'Team member summary',
-        intro: 'Please ensure that the summary of the team member is 5-500 characters',
+        intro: 'Please ensure that the summary is 5-800 characters.',
       },
       {
         element: '#team-member-form-photo',
         title: 'Team member photo',
-        intro: 'Please ensure that the photo is uploaded',
+        intro: 'A photo of the team member can be added here.',
       },
     ],
   });
