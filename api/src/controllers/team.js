@@ -6,6 +6,7 @@ const axios = require('axios');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const logger = require('winston');
+const path = require('path');
 
 const Team = require('../models/team.model');
 const transporter = require('../config/mail');
@@ -47,10 +48,18 @@ async function createTeam(req, res, next) {
     // Notify registration via email; don't await completion.
     transporter.sendMail({
       to: email,
+      subject: 'Welcome to Researchify',
       template: 'signup',
       context: {
         name: email,
       },
+      attachments: [
+        {
+          filename: 'presentation.png',
+          path: path.join(__dirname.split('/').slice(0, -1).join('/'), '/config/mail/views/images/presentation.png', '/').slice(0, -1),
+          cid: 'cid-presentation',
+        },
+      ],
     }, (err) => {
       if (err) {
         logger.error(`Email failed to send to ${email}: ${err.message}`);
