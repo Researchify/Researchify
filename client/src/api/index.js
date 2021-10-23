@@ -15,17 +15,20 @@ export const deleteBatchPublications = (publicationIdList) => api.patch('/public
 // Team endpoints.
 export const createTeam = (teamInfo) => api.post('/team', teamInfo);
 export const fetchTeamInfo = (teamId) => api.get(`/team/${teamId}`);
+export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, updatedTeam);
+export const resetTeamData = (teamId) => api.delete(`/team/${teamId}/data-reset`);
+export const deleteTeam = (teamId) => api.delete(`/team/${teamId}`);
+export const createTeamMember = (teamId, newTeamMember) => api.post(`/team/${teamId}/members`, newTeamMember);
+export const fetchTeamMembersByTeamId = (teamId) => api.get(`/team/${teamId}/members`);
+export const updateTeamMember = (teamId, memberId, updatedTeamMember) => api.patch(`/team/${teamId}/members/${memberId}`, updatedTeamMember);
+export const deleteTeamMember = (teamId, memberId) => api.delete(`/team/${teamId}/members/${memberId}`);
+export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => api.patch(`/team/${teamId}/members`, teamMemberIdList);
 export const registerTwitterHandle = (teamId, handle) => api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
-export const getTeamJWT = () => api.get('/team');
-export const fetchTeamMembersByTeamId = (teamId) => api.get(`/team/${teamId}/member`);
-export const createTeamMember = (teamId, newTeamMember) => api.post(`/team/${teamId}/member`, newTeamMember);
-export const updateTeamMember = (teamId, updatedTeamMember) => api.patch(`/team/${teamId}/member`, updatedTeamMember);
-export const deleteTeamMember = (teamId, teamMemberId) => api.delete(`/team/${teamId}/member/${teamMemberId}`);
-export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => api.patch(`/team/${teamId}/members`, teamMemberIdList);
-export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, updatedTeam);
+export const getTeamJWT = () => api.get('/team'); // TODO: handle duplicate fetchTeamInfo(), which is unused.
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
-export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/deploy`, body);
+export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/pages-deploy`, body);
+export const deleteGHPages = (teamId, body) => api.delete(`/team/${teamId}/pages-clear`, { data: body });
 
 // Theme endpoints.
 export const findOrCreateTheme = (themeData) => api.post('/theme', themeData);

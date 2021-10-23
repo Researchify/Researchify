@@ -40,7 +40,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
 
   const submitForm = (values) => {
     if (type === 'update') {
-      dispatch(updateTeamMember(teamId, values));
+      dispatch(updateTeamMember(teamId, member._id, values));
     } else if (type === 'create') {
       dispatch(createTeamMember(teamId, values));
     }

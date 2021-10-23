@@ -8,18 +8,17 @@ import {
   Form, Container, Image,
 } from 'react-bootstrap';
 import './Settings.css';
-import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
-
+import ProfileResetModal from './ProfileResetModal';
+import ProfileDeleteModal from './ProfileDeleteModal';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
 
-/**
- * Form component for user update profile
- */
 const Settings = () => {
   const dispatch = useDispatch();
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const {
     teamId, teamName, orgName, email, profilePic,
@@ -43,8 +42,8 @@ const Settings = () => {
   };
 
   /**
-   * Updates profile image field when user uploads file
-  */
+    * Updates profile image field when user uploads file
+   */
 
   // If profilePic is undefined, set a default profile pic
   profileData.profilePic = profileData.profilePic ?? defaultProfilePic;
@@ -76,93 +75,108 @@ const Settings = () => {
     setValidated(true);
   };
 
-  const profileDeleted = () => {
-    // TODO: Delete profile function is not implemented yet in Settings.js
-    toast.error('Profile has not been deleted');
-  };
-
   return (
-    <div className="mt-5">
-      <Container className="profile-container">
-        <Form
-          className="profile-form"
-          noValidate
-          validated={validated}
-          onSubmit={handleUpdate}
-        >
-          <p className="profile-title-name">Account Settings</p>
+    <>
+      <div className="mt-5">
+        <Container className="profile-container">
+          <div className="container-padding">
+            <Form
+              className="profile-form"
+              noValidate
+              validated={validated}
+              onSubmit={handleUpdate}
+            >
+              <p className="profile-title-name">Account Settings</p>
 
-          <Form.Group controlId="formProfilePic">
-            <Image
-              className="profile-img"
-              src={profileData.profilePic}
-              roundedCircle
-            />
-            <Form.Label className="upload-label">
-              Change Profile Photo
-            </Form.Label>
-            <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
-          </Form.Group>
+              <Form.Group controlId="formProfilePic">
+                <Image
+                  className="profile-img"
+                  src={profileData.profilePic}
+                  roundedCircle
+                />
+                <Form.Label className="upload-label">
+                  Change Profile Photo
+                </Form.Label>
+                <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
+              </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Research Group Name</Form.Label>
-            <Form.Control
-              className="placeholder-text"
-              type="text"
-              placeholder="Allan Lab"
-              defaultValue={profileData.teamName}
-              onChange={updateInputs}
-              required
-              name="teamName"
-            />
-          </Form.Group>
+              <Form.Group>
+                <Form.Label>Research Group Name</Form.Label>
+                <Form.Control
+                  className="placeholder-text"
+                  type="text"
+                  placeholder="Allan Lab"
+                  defaultValue={profileData.teamName}
+                  onChange={updateInputs}
+                  required
+                  name="teamName"
+                />
+              </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Organisation Name</Form.Label>
-            <Form.Control
-              className="placeholder-text"
-              type="text"
-              placeholder="Leiden University"
-              defaultValue={profileData.orgName}
-              onChange={updateInputs}
-              required
-              name="orgName"
-            />
-          </Form.Group>
+              <Form.Group>
+                <Form.Label>Organisation Name</Form.Label>
+                <Form.Control
+                  className="placeholder-text"
+                  type="text"
+                  placeholder="Leiden University"
+                  defaultValue={profileData.orgName}
+                  onChange={updateInputs}
+                  required
+                  name="orgName"
+                />
+              </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              className="placeholder-text"
-              type="email"
-              placeholder="allenlab@gmail.com"
-              name="email"
-              defaultValue={profileData.email}
-              onChange={updateInputs}
-              required
-            />
-          </Form.Group>
+              <Form.Group>
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  className="placeholder-text"
+                  type="email"
+                  placeholder="allenlab@gmail.com"
+                  name="email"
+                  defaultValue={profileData.email}
+                  onChange={updateInputs}
+                  required
+                />
+              </Form.Group>
+              <div className="mx-1">
+                <PrimaryButton
+                  id="updateButton"
+                  type="submit"
+                  color="primary"
+                  className="my-2"
+                >
+                  Update
+                </PrimaryButton>
+              </div>
+            </Form>
+            <DangerButton
+              variant="outline-danger"
+              className="ml-1"
+              style={{
+                align: 'center',
+              }}
+              onClick={() => {
+                setShowResetModal(true);
+              }}
+            >
+              Reset data
+            </DangerButton>
 
-          <PrimaryButton
-            id="updateButton"
-            type="submit"
-            color="primary"
-            className="my-2"
-          >
-            Update
-          </PrimaryButton>
-          <DangerButton
-            variant="outline-danger"
-            onClick={profileDeleted}
-            className="mt-2"
-            style={{ float: 'right' }}
-          >
-            Delete account
-          </DangerButton>
-        </Form>
-      </Container>
-    </div>
+            <DangerButton
+              variant="outline-danger"
+              className="ml-2"
+              onClick={() => {
+                setShowDeleteModal(true);
+              }}
+            >
+              Delete account
+            </DangerButton>
+          </div>
+        </Container>
+      </div>
+      <ProfileResetModal shouldShow={showResetModal} setShouldShow={setShowResetModal} />
+      <ProfileDeleteModal shouldShow={showDeleteModal} setShouldShow={setShowDeleteModal} />
+    </>
   );
 };
-
 export default Settings;
