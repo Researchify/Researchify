@@ -55,7 +55,7 @@ const TemplateSelector = (props) => {
   };
 
   return (
-    <div>
+    <>
       <div style={{ padding: 50 }}>
         <h2 style={{ display: 'inline-block' }}>Template Selector</h2>
         <TemplateSelectorWalkthrough />
@@ -145,7 +145,7 @@ const TemplateSelector = (props) => {
           </PrimaryButton>
         </Form>
       </div>
-    </div>
+    </>
   );
 };
 
