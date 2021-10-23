@@ -24,6 +24,7 @@ import {
 } from '../shared/styledComponents';
 import './teamMember.css';
 import './teamPage.css';
+import { TeamMembersEditDeleteWalkthrough } from './teamPageOnboarding';
 
 const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
   const dispatch = useDispatch();
@@ -69,8 +70,12 @@ const TeamMember = ({ member, checkedMember, setCheckedMember }) => {
             <input
               style={{ marginTop: '12px', marginLeft: '12px' }}
               type="checkbox"
+              id="team-member-select-checkbox"
               checked={checkedMember.includes(member._id)}
             />
+            <div style={{ paddingLeft: '10px' }}>
+              <TeamMembersEditDeleteWalkthrough />
+            </div>
           </Col>
           <Col md={4} xs={4}>
             <Image
