@@ -17,6 +17,14 @@ teamRouter.get(
 );
 
 teamRouter.patch(
+  '/:teamId/password-reset',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.updatePassword,
+);
+
+teamRouter.patch(
   '/:teamId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
