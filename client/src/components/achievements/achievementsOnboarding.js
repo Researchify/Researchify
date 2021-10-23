@@ -15,17 +15,17 @@ const AchievementsPageWalkthrough = () => {
       {
         element: '#add-achievement-button',
         title: 'Add Achievement',
-        intro: 'Click here to add a new achievement manually',
+        intro: 'Click here to add a new achievement.',
       },
       {
         element: '#delete-icon',
         title: 'Deleting selected Achievements',
-        intro: 'Click here to delete all selected achievements',
+        intro: 'Click here to delete all selected achievements.',
       },
       {
         element: '#select-achievements-checkbox',
         title: 'Selecting Achievements',
-        intro: 'Click on this checkbox to select all achievements',
+        intro: 'Click on this checkbox to select all achievements.',
       },
     ],
   });
@@ -58,7 +58,7 @@ const AchievementsEditDeleteWalkthrough = () => {
     steps: [
       {
         element: '#achievement-checkbox',
-        intro: 'Click on this checkbox to select the added achievement.',
+        intro: 'Click on this checkbox to select the achievement.',
         position: 'bottom',
       },
       {
@@ -98,12 +98,12 @@ const AchievementsFormWalkthrough = () => {
       {
         element: '#form',
         title: 'New Achievement',
-        intro: 'Please ensure that: all fields are filled',
+        intro: 'Please ensure that all fields are filled.',
       },
       {
         element: '#achieve-title',
         title: 'Achievement Title',
-        intro: 'Please ensure that the title is 3-60 characters',
+        intro: 'Please ensure that the title is 3-60 characters.',
       },
       {
         element: '#year',
@@ -113,7 +113,7 @@ const AchievementsFormWalkthrough = () => {
       {
         element: '#desc',
         title: 'Achievement Description',
-        intro: 'Please ensure that the description is 5-500 characters',
+        intro: 'Please ensure that the description is 5-500 characters.',
       },
     ],
   });

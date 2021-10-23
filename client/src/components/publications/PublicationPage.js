@@ -10,6 +10,7 @@ import PublicationsEditor from './publicationsLayout/PublicationsEditor';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
 import { sortingOptions } from '../../config/publications';
+import PublicationsPageWalkthrough from './publicationsOnboarding';
 
 const sortPublications = (publicationToBeSorted, option) => {
   switch (option) {
@@ -80,7 +81,10 @@ const PublicationPage = () => {
 
   return (
     <div className="publicationPageContainer">
-      <h2>Publications</h2>
+      <div style={{ display: 'flex' }}>
+        <h2 style={{ marginRight: '10px' }}> Publications </h2>
+        <PublicationsPageWalkthrough />
+      </div>
       <PublicationsEditor
         options={options}
         setOptions={setOptions}
