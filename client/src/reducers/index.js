@@ -28,10 +28,6 @@ const appReducer = combineReducers({
   homepage: homepageReducer,
 });
 
-const initialReducer = combineReducers({
-  team: teamReducer,
-});
-
 /**
  * A root reducer wrapper over the main app reducer used to centralize the
  * resetting of state.
@@ -46,7 +42,7 @@ const rootReducer = (state, action) => {
     return appReducer(undefined, action);
   }
   if (action.type === RESET_TEAM_DATA) {
-    return initialReducer(state, action);
+    return teamReducer(state, action);
   }
   return appReducer(state, action);
 };
