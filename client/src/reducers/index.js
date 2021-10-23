@@ -13,7 +13,7 @@ import notificationReducer from './notificationReducer';
 import deployReducer from './deployReducer';
 import achievementsReducer from './achievementsReducer';
 import homepageReducer from './homepageReducer';
-import { LOG_OUT, RESET_TEAM_DATA } from '../actions/types';
+import { LOG_OUT } from '../actions/types';
 
 const appReducer = combineReducers({
   notification: notificationReducer,
@@ -38,7 +38,7 @@ const appReducer = combineReducers({
  */
 const rootReducer = (state, action) => {
   // Reset state when we log out or if the user has reset their data.
-  if (action.type === LOG_OUT || action.type === RESET_TEAM_DATA) {
+  if (action.type === LOG_OUT) {
     return appReducer(undefined, action);
   }
   return appReducer(state, action);
