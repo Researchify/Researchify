@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { updateTheme } from '../../actions/website';
+import DeployBtn from '../dashboard/deploy/Deploy';
 import { darkThemePlaceholder, lightThemePlaceholder } from '../../config/clientWebsite';
 import { PrimaryButton } from '../shared/styledComponents';
 import LayoutThumbnail from './LayoutThumbnail';
@@ -24,6 +25,8 @@ const TemplateSelector = (props) => {
   const [darkMode, setDarkMode] = useState(template.theme === darkThemePlaceholder);
   const [layout, setLayout] = useState(template.layout);
 
+  const { teamId } = props;
+
   useEffect(() => {
     setDarkMode(template.theme === darkThemePlaceholder);
     setLayout(template.layout);
@@ -36,12 +39,12 @@ const TemplateSelector = (props) => {
     }
   };
 
-  const storeInputs = (teamId) => {
+  const storeInputs = (teamID) => {
     const data = {
       layout,
       theme: darkMode ? darkThemePlaceholder : lightThemePlaceholder,
     };
-    dispatch(updateTheme(teamId, data));
+    dispatch(updateTheme(teamID, data));
   };
 
   const handleSubmit = (event) => {
@@ -50,7 +53,7 @@ const TemplateSelector = (props) => {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      storeInputs(props.teamId);
+      storeInputs(teamId);
     }
   };
 
@@ -140,11 +143,12 @@ const TemplateSelector = (props) => {
             </Container>
           </Form.Group>
 
-          <PrimaryButton id="submitButton" type="submit" style={{ marginTop: 20 }}>
+          <PrimaryButton className="float-left" id="submitButton" type="submit" style={{ marginTop: 20, marginBottom: 20 }}>
             Update
           </PrimaryButton>
         </Form>
       </div>
+      <DeployBtn teamId={teamId} />
     </>
   );
 };

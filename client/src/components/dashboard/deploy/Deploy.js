@@ -43,6 +43,7 @@ const FABStyle = {
   borderRadius: '.25rem',
   backgroundColor: '#56658a',
   color: 'white',
+  zIndex: '20',
 };
 
 const DeployBtn = (props) => {
