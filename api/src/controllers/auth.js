@@ -4,8 +4,8 @@
  */
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-var generator = require('generate-password');
-var nodemailer = require('nodemailer');
+const generator = require('generate-password');
+const nodemailer = require('nodemailer');
 const Team = require('../models/team.model');
 
 const { fillErrorObject } = require('../middleware/error');
@@ -91,57 +91,56 @@ function logout(req, res) {
  * @returns 404: error occur
  * @returns 500: server error
  */
-async function resetPwd(req, res,next) {
-  const { email: email } = req.params;
+async function resetPwd(req, res, next) {
+  const { email } = req.params;
 
-
-  var password = generator.generate({
+  let password = generator.generate({
     length: 10,
     numbers: true,
     symbols: false,
-    strict: true
+    strict: true,
   });
-  password = password + '$';
-  var transporter;
-  var mailOptions;
+  password += '$';
+  let transporter;
+  let mailOptions;
   const salt = await bcrypt.genSalt();
-  hashPassword = await bcrypt.hash(password, salt);
+  const hashPassword = await bcrypt.hash(password, salt);
 
-  const foundTeam = await Team.findOne({ email: email });
-  if (! foundTeam){
+  const foundTeam = await Team.findOne({ email });
+  if (!foundTeam) {
     return next(
-        fillErrorObject(500, 'Authentication error', ['Team not found, incorrect email']),
-      );
+      fillErrorObject(500, 'Authentication error', ['Team not found, incorrect email']),
+    );
   }
   try {
-      //console.log(foundTeam);
-      //console.log(password);
-      const updatedTeam = await Team.findByIdAndUpdate(foundTeam._id, {password: hashPassword}, {
-        new: true,
-        runValidators: true,
-      });
-      updatedTeam.password = '';
-      //console.log(updatedTeam);
-      transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'Reasearchify123@gmail.com',
-          pass: 'Research123$$'
-        }
-      });
+    // console.log(foundTeam);
+    // console.log(password);
+    const updatedTeam = await Team.findByIdAndUpdate(foundTeam._id, { password: hashPassword }, {
+      new: true,
+      runValidators: true,
+    });
+    updatedTeam.password = '';
+    // console.log(updatedTeam);
+    transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'Reasearchify123@gmail.com',
+        pass: 'Research123$$',
+      },
+    });
 
-      mailOptions = {
-        from: 'Reasearchify123@gmail.com',
-        to: email,
-        subject: 'Researchify password reset email',
-        text: 'Hi,\n This is your new password: '+password+'\n Please login to your researchify account and change it to one of your choosing.\n Regards, Researchify team'
-      };
+    mailOptions = {
+      from: 'Reasearchify123@gmail.com',
+      to: email,
+      subject: 'Researchify password reset email',
+      text: `Hi,\n This is your new password: ${password}\n Please login to your researchify account and change it to one of your choosing.\n Regards, Researchify team`,
+    };
 
-      transporter.sendMail(mailOptions);
-    } catch (e) {
-      return next(
-        fillErrorObject(500, 'Server error', ['Server error']),
-      );
+    transporter.sendMail(mailOptions);
+  } catch (e) {
+    return next(
+      fillErrorObject(500, 'Server error', ['Server error']),
+    );
   }
 
   return res.status(200).json('pwd reset success');
@@ -150,5 +149,5 @@ async function resetPwd(req, res,next) {
 module.exports = {
   login,
   logout,
-  resetPwd
+  resetPwd,
 };

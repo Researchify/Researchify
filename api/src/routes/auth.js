@@ -9,6 +9,6 @@ authRouter.post('/login', authController.login);
 
 authRouter.post('/logout', authController.logout);
 
-authRouter.get('/resetPwd/:email',authController.resetPwd);
+authRouter.get('/resetPwd/:email', authController.resetPwd);
 
 module.exports = authRouter;
