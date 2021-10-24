@@ -30,7 +30,8 @@ const INITIAL_WEBSITE_STATE = {
 const websiteReducer = (state = INITIAL_WEBSITE_STATE, { payload, type }) => {
   switch (type) {
     case CREATE_WEBSITE:
-      return { ...state, url: payload.url, title: payload.title };
+      console.log(payload);
+      return { ...state, url: payload.url };
     case ADD_WEBPAGE:
       return { ...state, pages: state.pages.concat(payload) };
     case DELETE_WEBPAGE:

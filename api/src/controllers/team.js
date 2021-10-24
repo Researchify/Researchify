@@ -16,7 +16,6 @@ const Website = require('../models/website.model');
 const Homepage = require('../models/homepage.model');
 
 const transporter = require('../config/mail');
-const Website = require('../models/website.model');
 const {
   githubClientId,
   githubClientSecret,
@@ -465,6 +464,8 @@ async function deployToGHPages(req, res, next) {
   }
 
   const ghUsername = data.login;
+  const webUrl = `${ghUsername}.github.io`;
+  console.log(webUrl);
   logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
   try {
     // Update website url in DB if first time deploying
@@ -472,7 +473,7 @@ async function deployToGHPages(req, res, next) {
 
     if (website && !website.url) {
       // Update when user has option to customize url
-      await Website.updateOne({ teamId }, { url: `${ghUsername}.github.io` });
+      await Website.updateOne({ teamId }, { url: webUrl });
     }
   } catch (err) {
     logger.info(`Team website url failed to get updated. Team id: ${teamId}`);
@@ -492,7 +493,7 @@ async function deployToGHPages(req, res, next) {
   try {
     await axios.post(`${schollyHost}/deploy/${teamId}`, body);
     logger.info(`GitHub deploy succeeded for user: ${ghUsername}`);
-    return res.status(200).json('Successfully deployed');
+    return res.status(200).json({ webUrl });
   } catch (err) {
     return next(
       fillErrorObject(500, 'Error occurred with scholly', [err.message]),

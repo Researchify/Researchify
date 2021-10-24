@@ -2,9 +2,11 @@
   Responsible for the hovering Deploy button
 */
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import { GoMarkGithub } from 'react-icons/go';
-import { Spinner, Modal, Card } from 'react-bootstrap';
+import {
+  Spinner, Modal, Card,
+} from 'react-bootstrap';
 import GitHubLogin from 'react-github-login';
 import toast from 'react-hot-toast';
 import { PropTypes } from 'prop-types';
@@ -12,7 +14,7 @@ import { Fab } from '@material-ui/core';
 import styled from 'styled-components';
 
 import { githubClientId, scope } from '../../../config/deploy';
-import { deployToGHPages } from '../../../actions/team';
+import { deployToGHPages, getGHAccessToken } from '../../../actions/team';
 
 const GHButton = styled(GitHubLogin)` //Purple
     padding: .375rem .75rem;
@@ -43,19 +45,27 @@ const FABStyle = {
   color: 'white',
 };
 
-const DeployBtn = ({ teamId, position }) => {
+const DeployBtn = (props) => {
+  const { teamId, position, webUrl } = props;
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
-  const loading = useSelector((state) => state.deploy.loading);
+  const retrievedAccessToken = useSelector(
+    (state) => state.team.retrievedAccessToken,
+  );
+  console.log(retrievedAccessToken);
 
-  const webUrl = useSelector((state) => state.website.url);
+  console.log(props);
+  const loading = useSelector((state) => state.deploy.loading);
 
   const onSuccessfulLogin = (response) => {
     const { code } = response;
     // Now that we have the temporary code, we wish to exchange it for a GitHub
     // access token.
-    dispatch(deployToGHPages(teamId, code));
+    dispatch(getGHAccessToken(teamId, code));
+    const accessToken = localStorage.getItem('GH_access_token');
+    console.log(`accessToken: ${accessToken}`);
+    dispatch(deployToGHPages(teamId, accessToken));
   };
 
   // handle error toast when fail to log in
@@ -90,6 +100,15 @@ const DeployBtn = ({ teamId, position }) => {
     </Card>
   );
 
+  const handleDeployClick = () => {
+    if (retrievedAccessToken) {
+      const accessToken = localStorage.getItem('GH_access_token');
+      dispatch(deployToGHPages(teamId, accessToken));
+    } else {
+      setShowModal(true);
+    }
+  };
+
   const floatingBtnStyle = { ...FABStyle, ...position };
 
   return (
@@ -100,9 +119,14 @@ const DeployBtn = ({ teamId, position }) => {
         size="medium"
         disableRipple
         className="float-right"
-        onClick={() => setShowModal(true)}
+        onClick={() => handleDeployClick()}
       >
-        Deploy Website
+        {(loading && !showModal) ? (
+          <div className="mb-3 mt-3">
+            <Spinner animation="border" />
+          </div>
+        ) : 'Deploy Website'}
+
       </Fab>
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
@@ -143,10 +167,17 @@ const DeployBtn = ({ teamId, position }) => {
 // props validation
 DeployBtn.propTypes = {
   teamId: PropTypes.string.isRequired,
+  webUrl: PropTypes.string.isRequired,
   position: PropTypes.object,
 };
 DeployBtn.defaultProps = {
   position: { },
 };
 
-export default DeployBtn;
+function mapStateToProps(state) {
+  return {
+    webUrl: state.url,
+  };
+}
+
+export default connect(mapStateToProps)(DeployBtn);
