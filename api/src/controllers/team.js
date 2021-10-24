@@ -114,7 +114,7 @@ function getTeam(req, res, next) {
  *     current password is incorrect
  * @returns 500 if a server error occurred
  */
- async function updatePassword(req, res, next) { // eslint-disable-line no-unused-vars
+async function updatePassword(req, res, next) { // eslint-disable-line no-unused-vars
   const { teamId: _id } = req.params;
   const team = req.body;
 
@@ -541,6 +541,5 @@ module.exports = {
   storeHandle,
   getGHAccessToken,
   deployToGHPages,
-  updatePassword,
   deleteGHPages,
 };
