@@ -1,5 +1,5 @@
 /**
- * The Steps component displays the different pop-ups for each onboarding message in sequence
+ * This page contains the code for team page onboarding
  */
 
 import React, { useState } from 'react';
@@ -7,25 +7,25 @@ import { Steps } from 'intro.js-react';
 import { BiHelpCircle } from 'react-icons/bi';
 import 'intro.js/introjs.css';
 
-const AchievementsPageWalkthrough = () => {
+const TeamPageWalkthrough = () => {
   const [intro, setIntro] = useState({
     stepsEnabled: false,
     initialStep: 0,
     steps: [
       {
-        element: '#add-achievement-button',
-        title: 'Add Achievement',
-        intro: 'Click here to add a new achievement.',
+        element: '#add-team-member-button',
+        title: 'Add a New Team Member',
+        intro: 'Click here to add a new team member.',
       },
       {
-        element: '#delete-icon',
-        title: 'Deleting selected Achievements',
-        intro: 'Click here to delete all selected achievements.',
+        element: '#delete-team-members-button',
+        title: 'Deleting selected Team Members',
+        intro: 'Click here to delete all selected team members.',
       },
       {
-        element: '#select-achievements-checkbox',
-        title: 'Selecting Achievements',
-        intro: 'Click on this checkbox to select all achievements.',
+        element: '#select-team-members-checkbox',
+        title: 'Selecting Team Members',
+        intro: 'Click on this checkbox to select all team members.',
       },
     ],
   });
@@ -51,19 +51,67 @@ const AchievementsPageWalkthrough = () => {
   );
 };
 
-const AchievementsEditDeleteWalkthrough = () => {
+const TeamsFormWalkthrough = () => {
   const [intro, setIntro] = useState({
     stepsEnabled: false,
     initialStep: 0,
     steps: [
       {
-        element: '#achievement-checkbox',
-        intro: 'Click on this checkbox to select the achievement.',
+        element: '#team-member-form-fullname',
+        title: 'Name of team member',
+        intro: 'Please ensure that the name of the team member is 3-60 characters.',
+      },
+      {
+        element: '#team-member-form-position',
+        title: 'Position of team member',
+        intro: 'Please ensure that the position of the team member is 3-60 characters.',
+      },
+      {
+        element: '#team-member-form-summary',
+        title: 'Team member summary',
+        intro: 'Please ensure that the summary is 5-800 characters.',
+      },
+      {
+        element: '#team-member-form-photo',
+        title: 'Team member photo',
+        intro: 'A photo of the team member can be added here.',
+      },
+    ],
+  });
+
+  const toggleSteps = () => {
+    setIntro({ ...intro, stepsEnabled: !intro.stepsEnabled });
+  };
+
+  const onExit = () => {
+    setIntro({ ...intro, stepsEnabled: false });
+  };
+
+  return (
+    <div>
+      <Steps
+        enabled={intro.stepsEnabled}
+        steps={intro.steps}
+        initialStep={intro.initialStep}
+        onExit={onExit}
+      />
+      <BiHelpCircle onClick={toggleSteps} />
+    </div>
+  );
+};
+const TeamMembersEditDeleteWalkthrough = () => {
+  const [intro, setIntro] = useState({
+    stepsEnabled: false,
+    initialStep: 0,
+    steps: [
+      {
+        element: '#team-member-select-checkbox',
+        intro: 'Click on this checkbox to select the team member.',
         position: 'bottom',
       },
       {
-        element: '#card',
-        intro: 'Hover over the card to edit or delete an achievement. Icons will appear in the top right corner of the achievement header.',
+        element: '#team-card',
+        intro: 'Hover over the card to edit or delete the team member. Icons will appear in the top right corner of the team member header.',
         position: 'right',
       },
     ],
@@ -90,55 +138,6 @@ const AchievementsEditDeleteWalkthrough = () => {
   );
 };
 
-const AchievementsFormWalkthrough = () => {
-  const [intro, setIntro] = useState({
-    stepsEnabled: false,
-    initialStep: 0,
-    steps: [
-      {
-        element: '#form',
-        title: 'New Achievement',
-        intro: 'Please ensure that all fields are filled.',
-      },
-      {
-        element: '#achieve-title',
-        title: 'Achievement Title',
-        intro: 'Please ensure that the title is 3-60 characters.',
-      },
-      {
-        element: '#year',
-        title: 'Achievement Year',
-        intro: 'Use the drop down menu to select the year.',
-      },
-      {
-        element: '#desc',
-        title: 'Achievement Description',
-        intro: 'Please ensure that the description is 5-500 characters.',
-      },
-    ],
-  });
-
-  const toggleSteps = () => {
-    setIntro({ ...intro, stepsEnabled: !intro.stepsEnabled });
-  };
-
-  const onExit = () => {
-    setIntro({ ...intro, stepsEnabled: false });
-  };
-
-  return (
-    <div>
-      <Steps
-        enabled={intro.stepsEnabled}
-        steps={intro.steps}
-        initialStep={intro.initialStep}
-        onExit={onExit}
-      />
-      <BiHelpCircle onClick={toggleSteps} />
-    </div>
-  );
-};
-
-export default AchievementsPageWalkthrough;
-export { AchievementsEditDeleteWalkthrough };
-export { AchievementsFormWalkthrough };
+export default TeamPageWalkthrough;
+export { TeamMembersEditDeleteWalkthrough };
+export { TeamsFormWalkthrough };

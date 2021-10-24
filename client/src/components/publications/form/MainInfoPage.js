@@ -16,6 +16,7 @@ import {
 import '../publications.css';
 import { PropTypes } from 'prop-types';
 import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
+import { PublicationsManualFormWalkthrough } from '../publicationsOnboarding';
 
 const MainInfoPage = ({
   next, data, type, pub, closeModal,
@@ -106,8 +107,9 @@ const MainInfoPage = ({
           errors,
           setValues,
         }) => (
-          <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group>
+          <Form noValidate onSubmit={handleSubmit} id="publication-title-form">
+            <PublicationsManualFormWalkthrough />
+            <Form.Group id="publication-title">
               <Form.Label>
                 Publication Title
                 {' '}
@@ -128,7 +130,7 @@ const MainInfoPage = ({
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group id="publication-year">
               <Form.Label>
                 Published Year
                 {' '}
@@ -150,7 +152,7 @@ const MainInfoPage = ({
               </Form.Control>
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group id="publication-author">
               <Form.Label>
                 {' '}
                 Authors
@@ -159,6 +161,7 @@ const MainInfoPage = ({
               </Form.Label>
               {renderAuthors(values, touched, errors, handleChange, setValues)}
               <Button
+                id="publication-add-author"
                 className="mt-2"
                 variant="secondary"
                 onClick={() => {
@@ -169,7 +172,7 @@ const MainInfoPage = ({
               </Button>
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group id="publication-desc">
               <Form.Label>
                 Description
                 {' '}
@@ -190,7 +193,7 @@ const MainInfoPage = ({
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group id="publication-link">
               <Form.Label>Link</Form.Label>
               <Form.Control
                 className="placeholder-text"

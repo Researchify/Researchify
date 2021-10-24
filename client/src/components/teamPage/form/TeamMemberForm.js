@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import { createTeamMember, updateTeamMember } from '../../../actions/team';
+import { TeamsFormWalkthrough } from '../teamPageOnboarding';
 
 import { PrimaryButton, DangerButton } from '../../shared/styledComponents';
 
@@ -39,7 +40,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
 
   const submitForm = (values) => {
     if (type === 'update') {
-      dispatch(updateTeamMember(teamId, values));
+      dispatch(updateTeamMember(teamId, member._id, values));
     } else if (type === 'create') {
       dispatch(createTeamMember(teamId, values));
     }
@@ -63,7 +64,9 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
         handleSubmit, handleChange, values, touched, errors, setFieldValue,
       }) => (
         <Form noValidate onSubmit={handleSubmit}>
-          <Form.Group>
+          <TeamsFormWalkthrough />
+          <Form.Group id="team-member-form-fullname">
+
             <Form.Label>
               Full Name
               {' '}
@@ -83,7 +86,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group id="team-member-form-position">
             <Form.Label>Position</Form.Label>
             <Form.Control
               className="placeholder-text"
@@ -99,7 +102,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group id="team-member-form-summary">
             <Form.Label>Summary</Form.Label>
             <Form.Control
               className="placeholder-text"
@@ -116,7 +119,7 @@ const TeamMemberForm = ({ closeModal, member, type }) => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group id="team-member-form-photo">
             <Form.Label>
               Member Photo
             </Form.Label>

@@ -1,6 +1,5 @@
 /**
- * This index file will export combined reducers
- * When the logout action is dispatched, all reducers will be initialzed to thir initial state
+ * This index file will export our combined reducers.
  */
 import { combineReducers } from 'redux';
 
@@ -29,7 +28,16 @@ const appReducer = combineReducers({
   homepage: homepageReducer,
 });
 
+/**
+ * A root reducer wrapper over the main app reducer used to centralize the
+ * resetting of state.
+ * @see https://www.digitalocean.com/community/tutorials/redux-reset-state-redux
+ *
+ * @param state the entire state of the redux store
+ * @param action the action that was dispatched
+ */
 const rootReducer = (state, action) => {
+  // Reset the redux states to initial states when the user logs out.
   if (action.type === LOG_OUT) {
     return appReducer(undefined, action);
   }

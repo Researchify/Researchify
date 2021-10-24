@@ -8,6 +8,7 @@ import {
   UNCHECK_PUBLICATIONS,
   REVERT_HEADER_COLOR,
   DELETE_BATCH_PUBLICATIONS,
+  RESET_TEAM_DATA,
 } from '../actions/types';
 
 const initialState = {
@@ -76,6 +77,8 @@ const publicationsReducer = (state = initialState, action) => {
         teamPublications: updatedlist,
       };
     }
+    case RESET_TEAM_DATA:
+      return initialState;
     default:
       return state;
   }

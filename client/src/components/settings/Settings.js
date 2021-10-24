@@ -5,23 +5,24 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  Form, Container, Image,
+  Form, Container, Image, Modal,
 } from 'react-bootstrap';
 import './Settings.css';
-import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import Link from '@material-ui/core/Link';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam, updatePassword } from '../../actions/team';
-
+import ProfileResetModal from './ProfileResetModal';
+import ProfileDeleteModal from './ProfileDeleteModal';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
+import UpdatePasswordForm from './UpdatePasswordForm';
 
-/**
- * Form component for user update profile
- */
 const Settings = () => {
   const dispatch = useDispatch();
+  const [updatePasswordForm, setUpdatePasswordForm] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const {
     teamId, teamName, orgName, email, profilePic,
@@ -48,8 +49,8 @@ const Settings = () => {
   };
 
   /**
-   * Updates profile image field when user uploads file
-  */
+    * Updates profile image field when user uploads file
+   */
 
   // If profilePic is undefined, set a default profile pic
   profileData.profilePic = profileData.profilePic ?? defaultProfilePic;
@@ -158,11 +159,6 @@ const Settings = () => {
     setValidated(true);
   };
 
-  const profileDeleted = () => {
-    // TODO: Delete profile function is not implemented yet in Settings.js
-    toast.error('Profile has not been deleted');
-  };
-
   return (
     <div className="mt-5">
       <Container className="profile-container">
@@ -246,6 +242,30 @@ const Settings = () => {
             </DangerButton>
           </div>
         </Form>
+         <DangerButton
+            type="button"
+            variant="outline-danger"
+            className=" mb-2"
+            style={{
+              align: 'center',
+            }}
+            onClick={() => {
+              setShowResetModal(true);
+            }}
+          >
+            Reset data
+          </DangerButton>
+
+          <DangerButton
+            type="button"
+            variant="outline-danger"
+            className="ml-2 mb-2"
+            onClick={() => {
+              setShowDeleteModal(true);
+            }}
+          >
+            Delete account
+          </DangerButton>
       </Container>
       <div />
       <p> </p>
@@ -314,8 +334,21 @@ const Settings = () => {
         </Form>
 
       </Container>
+      <div />
+
+      {/* A modal for showing import publication form */}
+      <Modal size="lg" show={updatePasswordForm}>
+        <Modal.Header className="modalHeader">
+          <Modal.Title> Update Password </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <UpdatePasswordForm closeModal={() => setUpdatePasswordForm(false)} />
+        </Modal.Body>
+      </Modal>
+
+      <ProfileResetModal shouldShow={showResetModal} setShouldShow={setShowResetModal} />
+      <ProfileDeleteModal shouldShow={showDeleteModal} setShouldShow={setShowDeleteModal} />
     </div>
   );
 };
-
 export default Settings;
