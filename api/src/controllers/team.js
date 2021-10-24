@@ -403,29 +403,6 @@ async function deployToGHPages(req, res, next) {
 }
 
 /**
- * Update the team from the database on /team/:teamId
- * @param {} req request object, containing team id in the url
- * @param {*} res response object, the updated team document
- * @returns 200: team updated
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format
- */
-async function updateTeam(req, res, next) {
-  const { teamId: _id } = req.params;
-  const team = req.body;
-
-  try {
-    const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
-      new: true,
-      runValidators: true,
-    });
-    return res.status(200).json(updatedTeam);
-  } catch (err) {
-    return next(fillErrorObject(500, 'Server error', [err]));
-  }
-}
-
-/**
  * Update the team's password from the database on /team/:team_id
  * @param {} req request object, containing team id in the url
  * @param {*} res response object, the updated team document
@@ -454,6 +431,33 @@ async function updatePassword(req, res, next) { // eslint-disable-line no-unused
     } catch (e) {
       return next(
         fillErrorObject(500, 'Server error', [e]),
+      );
+    }
+  } else {
+    return next(
+      fillErrorObject(400, 'Authentication error', [
+        'Incorrect password',
+      ]),
+    );
+  }
+}
+
+module.exports = {
+  createTeam,
+  getTeam,
+  updateTeam,
+  deleteTeam,
+  createTeamMember,
+  readTeamMembersByTeam,
+  updateTeamMember,
+  deleteTeamMember,
+  deleteBatchTeamMembers,
+  storeHandle,
+  getGHAccessToken,
+  deployToGHPages,
+  updatePassword,
+};
+500, 'Server error', [e]),
       );
     }
   } else {
