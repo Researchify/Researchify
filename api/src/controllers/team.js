@@ -457,30 +457,3 @@ module.exports = {
   deployToGHPages,
   updatePassword,
 };
-500, 'Server error', [e]),
-      );
-    }
-  } else {
-    return next(
-      fillErrorObject(400, 'Authentication error', [
-        'Incorrect password',
-      ]),
-    );
-  }
-}
-
-module.exports = {
-  createTeam,
-  getTeam,
-  updateTeam,
-  deleteTeam,
-  createTeamMember,
-  readTeamMembersByTeam,
-  updateTeamMember,
-  deleteTeamMember,
-  deleteBatchTeamMembers,
-  storeHandle,
-  getGHAccessToken,
-  deployToGHPages,
-  updatePassword,
-};
