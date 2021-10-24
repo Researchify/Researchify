@@ -4,7 +4,7 @@ _An open source lightweight CMS enabling streamlined webpage development for aca
 
 Researchify is a web platform for academic researchers, providing an end-to-end service to present and share their publications and other information on their own website. As such our product includes not only Researchify, the web platform, but also the development of websites deployed by users. 
 
-To provide this service, this repository is set up similarly to the components depicted in Figure 2. 
+To provide this service, this repository is set up throigh 3 main components:  
 - The ‘client’ folder contains everything related to the Researchify web platform. Notable items include the React UI components of Researchify, along with associated Redux reducers and actions all within their own separate subfolders.
 - The ‘api’ folder contains all backend related functionality, which are implemented as Express REST APIs using Node.JS.
 - The ‘scholly’ folder contains 2 subfolders ‘base’ and ‘service’. The ‘base’ folder houses the website layouts implemented using React components and environment variables for dynamic data rendering. The ‘service’ folder contains an independent microservice that invokes the base application to build a client website and deploys it to GitHub pages.
