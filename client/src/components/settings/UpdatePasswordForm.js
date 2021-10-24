@@ -1,3 +1,7 @@
+/**
+ * This file exports a Update passowrd Form component.
+ */
+
 import { Formik } from 'formik';
 import { Form, Row } from 'react-bootstrap';
 import * as yup from 'yup';

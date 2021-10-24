@@ -157,8 +157,9 @@ const Settings = () => {
             <PrimaryButton type="button" onClick={() => setUpdatePasswordForm(true)}>Change Password</PrimaryButton>
           </div>
           <DangerButton
+            type="button"
             variant="outline-danger"
-            className="ml-1"
+            className=" mb-2"
             style={{
               align: 'center',
             }}
@@ -170,8 +171,9 @@ const Settings = () => {
           </DangerButton>
 
           <DangerButton
+            type="button"
             variant="outline-danger"
-            className="ml-2"
+            className="ml-2 mb-2"
             onClick={() => {
               setShowDeleteModal(true);
             }}

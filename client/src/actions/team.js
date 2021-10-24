@@ -309,7 +309,7 @@ export const updateTeam = (teamId, teamData, successMsg = 'Team has been updated
 };
 
 /**
- * This action creator will be called when a user want to update the team profile
+ * This action creator will be called when a user wants to change their password.
  *
  * @param {*} teamId id of the team
  * @param {*} teamData data object of the data to be patched - containing the password and confirmed password
