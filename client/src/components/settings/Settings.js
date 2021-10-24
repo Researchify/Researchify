@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  Form, Container, Image,
+  Form, Container, Image, Modal,
 } from 'react-bootstrap';
 import './Settings.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,9 +14,11 @@ import { updateTeam } from '../../actions/team';
 import ProfileResetModal from './ProfileResetModal';
 import ProfileDeleteModal from './ProfileDeleteModal';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
+import UpdatePasswordForm from './UpdatePasswordForm';
 
 const Settings = () => {
   const dispatch = useDispatch();
+  const [updatePasswordForm, setUpdatePasswordForm] = useState(false);
   const [showResetModal, setShowResetModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -64,119 +66,137 @@ const Settings = () => {
   };
 
   const [validated, setValidated] = useState(false);
-  const handleUpdate = (event) => {
+  const handleUpdate = async (event) => {
     const form = event.currentTarget;
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      dispatch(updateTeam(teamId, profileData));
+      const newdata = {
+        teamName: profileData.teamName,
+        orgName: profileData.orgName,
+        email: profileData.email,
+      };
+      dispatch(updateTeam(teamId, newdata));
     }
     setValidated(true);
   };
 
   return (
-    <>
-      <div className="mt-5">
-        <Container className="profile-container">
-          <div className="container-padding">
-            <Form
-              className="profile-form"
-              noValidate
-              validated={validated}
-              onSubmit={handleUpdate}
+    <div className="mt-5">
+      <Container className="profile-container">
+        <Form
+          className="profile-form"
+          noValidate
+          validated={validated}
+          onSubmit={handleUpdate}
+        >
+          <p className="profile-title-name">Account Settings</p>
+
+          <Form.Group controlId="formProfilePic">
+            <Image
+              className="profile-img"
+              src={profileData.profilePic}
+              roundedCircle
+            />
+            <Form.Label className="upload-label">
+              Change Profile Photo
+            </Form.Label>
+            <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              className="placeholder-text"
+              type="email"
+              readonly="true"
+              placeholder="allenlab@gmail.com"
+              name="email"
+              defaultValue={profileData.email}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Research Group Name</Form.Label>
+            <Form.Control
+              className="placeholder-text"
+              type="text"
+              placeholder="Allan Lab"
+              defaultValue={profileData.teamName}
+              onChange={updateInputs}
+              required
+              name="teamName"
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Organisation Name</Form.Label>
+            <Form.Control
+              className="placeholder-text"
+              type="text"
+              placeholder="Leiden University"
+              defaultValue={profileData.orgName}
+              onChange={updateInputs}
+              required
+              name="orgName"
+            />
+          </Form.Group>
+
+          <div className="my-1">
+            <PrimaryButton
+              id="updateButton"
+              type="submit"
+              color="primary"
+              className="mr-2"
             >
-              <p className="profile-title-name">Account Settings</p>
+              Update
+            </PrimaryButton>
 
-              <Form.Group controlId="formProfilePic">
-                <Image
-                  className="profile-img"
-                  src={profileData.profilePic}
-                  roundedCircle
-                />
-                <Form.Label className="upload-label">
-                  Change Profile Photo
-                </Form.Label>
-                <Form.Control className="profile-pic" type="file" accept="image/*" onChange={handleImageUpload} multiple={false} name="profilePic" />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Research Group Name</Form.Label>
-                <Form.Control
-                  className="placeholder-text"
-                  type="text"
-                  placeholder="Allan Lab"
-                  defaultValue={profileData.teamName}
-                  onChange={updateInputs}
-                  required
-                  name="teamName"
-                />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Organisation Name</Form.Label>
-                <Form.Control
-                  className="placeholder-text"
-                  type="text"
-                  placeholder="Leiden University"
-                  defaultValue={profileData.orgName}
-                  onChange={updateInputs}
-                  required
-                  name="orgName"
-                />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  className="placeholder-text"
-                  type="email"
-                  placeholder="allenlab@gmail.com"
-                  name="email"
-                  defaultValue={profileData.email}
-                  onChange={updateInputs}
-                  required
-                />
-              </Form.Group>
-              <div className="mx-1">
-                <PrimaryButton
-                  id="updateButton"
-                  type="submit"
-                  color="primary"
-                  className="my-2"
-                >
-                  Update
-                </PrimaryButton>
-              </div>
-            </Form>
-            <DangerButton
-              variant="outline-danger"
-              className="ml-1"
-              style={{
-                align: 'center',
-              }}
-              onClick={() => {
-                setShowResetModal(true);
-              }}
-            >
-              Reset data
-            </DangerButton>
-
-            <DangerButton
-              variant="outline-danger"
-              className="ml-2"
-              onClick={() => {
-                setShowDeleteModal(true);
-              }}
-            >
-              Delete account
-            </DangerButton>
+            <PrimaryButton type="button" onClick={() => setUpdatePasswordForm(true)}>Change Password</PrimaryButton>
           </div>
-        </Container>
-      </div>
+          <DangerButton
+            type="button"
+            variant="outline-danger"
+            className=" mb-2"
+            style={{
+              align: 'center',
+            }}
+            onClick={() => {
+              setShowResetModal(true);
+            }}
+          >
+            Reset data
+          </DangerButton>
+
+          <DangerButton
+            type="button"
+            variant="outline-danger"
+            className="ml-2 mb-2"
+            onClick={() => {
+              setShowDeleteModal(true);
+            }}
+          >
+            Delete account
+          </DangerButton>
+        </Form>
+      </Container>
+      <div />
+
+      {/* A modal for showing import publication form */}
+      <Modal size="lg" show={updatePasswordForm}>
+        <Modal.Header className="modalHeader">
+          <Modal.Title> Update Password </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <UpdatePasswordForm closeModal={() => setUpdatePasswordForm(false)} />
+        </Modal.Body>
+      </Modal>
+
       <ProfileResetModal shouldShow={showResetModal} setShouldShow={setShowResetModal} />
       <ProfileDeleteModal shouldShow={showDeleteModal} setShouldShow={setShowDeleteModal} />
-    </>
+    </div>
   );
 };
 export default Settings;
