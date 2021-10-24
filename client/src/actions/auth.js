@@ -8,9 +8,9 @@ import {
   LOG_OUT,
   LOG_IN_FAIL,
   FETCH_TEAM_INFO,
-  FETCH_WEBSITE_INFO,
+  FETCH_WEBSITE_INFO, RESET_PWD,
 } from './types';
-import { errorActionGlobalCreator } from '../notification/notificationReduxFunctions';
+import { errorActionGlobalCreator, successMessageCreator } from '../notification/notificationReduxFunctions';
 
 /**
  * This action creator will be called when a user signs in.
@@ -39,6 +39,26 @@ export const login = (authData, setFieldError) => async (dispatch) => {
     } else {
       dispatch(errorActionGlobalCreator(error));
     }
+  }
+};
+
+/**
+ * This action creator will be called when a pwd needs to be reset
+ *
+ */
+export const resetPassword = (email) => async (dispatch) => {
+  try {
+    await api.resetPwd(email);
+    // eslint-disable-next-line
+    console.log("success");
+    dispatch({
+      type: RESET_PWD,
+    });
+    dispatch(successMessageCreator('Password successfully reset'));
+  } catch (err) {
+    // eslint-disable-next-line
+    console.log(err);
+    dispatch(errorActionGlobalCreator(err));
   }
 };
 

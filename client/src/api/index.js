@@ -25,8 +25,10 @@ export const deleteTeamMember = (teamId, memberId) => api.delete(`/team/${teamId
 export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => api.patch(`/team/${teamId}/members`, teamMemberIdList);
 export const registerTwitterHandle = (teamId, handle) => api.patch(`/team/${teamId}/twitter-handle`, handle);
 export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
-export const updatePassword = (teamId, updatedTeam) => api.patch(`/team/${teamId}/password-reset`, updatedTeam);
-export const getTeamJWT = () => api.get('/team'); // TODO: handle duplicate fetchTeamInfo(), which is unused.
+
+export const getTeamJWT = () => api.get('/team');
+export const updatePassword = (teamId, updatedTeam) => api.patch(`/team/password/${teamId}`, updatedTeam);
+
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
 export const deployToGHPages = (teamId, body) => api.post(`/team/${teamId}/pages-deploy`, body);
 export const deleteGHPages = (teamId, body) => api.delete(`/team/${teamId}/pages-clear`, { data: body });
@@ -50,7 +52,7 @@ export const deleteBatchAchievements = (achievementIdList) => api.patch('/achiev
 // Auth endpoints.
 export const loginTeam = (teamCredentials) => api.post('/auth/login', teamCredentials);
 export const logoutTeam = () => api.post('/auth/logout');
-
+export const resetPwd = (email) => api.get(`auth/resetPwd/${email}`);
 // Client Homepage endpoints.
 export const getHomepage = (teamId) => api.get(`/homepage/${teamId}`);
 export const createOrUpdateHomepage = (teamId, homepageData) => api.post(`/homepage/${teamId}`, homepageData);

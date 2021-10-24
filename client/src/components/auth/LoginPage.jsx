@@ -13,7 +13,9 @@ const LoginPage = () => (
     <AuthLayout button={RegisterButton()}>
       <AuthBackground form={LoginForm()} />
     </AuthLayout>
+
   </>
+
 );
 
 export default LoginPage;

@@ -4,8 +4,10 @@
  */
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const generator = require('generate-password');
+const nodemailer = require('nodemailer');
 const Team = require('../models/team.model');
+
 const { fillErrorObject } = require('../middleware/error');
 const {
   accessTokenExpiry,
@@ -82,7 +84,71 @@ function logout(req, res) {
   res.status(200).json('Logout Successfully');
 }
 
+/**
+ * resets team pwd on /team/resetPwd
+ * @param {*} req request object
+ * @param {*} res response object
+ * @returns 200: reset pwd successfully
+ * @returns 404: error occur
+ * @returns 500: server error
+ */
+async function resetPwd(req, res, next) {
+  const { email } = req.params;
+
+  let password = generator.generate({
+    length: 10,
+    numbers: true,
+    symbols: false,
+    strict: true,
+  });
+  password += '$';
+  let transporter;
+  let mailOptions;
+  const salt = await bcrypt.genSalt();
+  const hashPassword = await bcrypt.hash(password, salt);
+
+  const foundTeam = await Team.findOne({ email });
+  if (!foundTeam) {
+    return next(
+      fillErrorObject(500, 'Authentication error', ['Team not found, incorrect email']),
+    );
+  }
+  try {
+    // console.log(foundTeam);
+    // console.log(password);
+    const updatedTeam = await Team.findByIdAndUpdate(foundTeam._id, { password: hashPassword }, {
+      new: true,
+      runValidators: true,
+    });
+    updatedTeam.password = '';
+    // console.log(updatedTeam);
+    transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'Reasearchify123@gmail.com',
+        pass: 'Research123$$',
+      },
+    });
+
+    mailOptions = {
+      from: 'Reasearchify123@gmail.com',
+      to: email,
+      subject: 'Researchify password reset email',
+      text: `Hi,\n This is your new password: ${password}\n Please login to your researchify account and change it to one of your choosing.\n Regards, Researchify team`,
+    };
+
+    transporter.sendMail(mailOptions);
+  } catch (e) {
+    return next(
+      fillErrorObject(500, 'Server error', ['Server error']),
+    );
+  }
+
+  return res.status(200).json('pwd reset success');
+}
+
 module.exports = {
   login,
   logout,
+  resetPwd,
 };

@@ -9,8 +9,9 @@ import {
 } from 'react-bootstrap';
 import './Settings.css';
 import { useSelector, useDispatch } from 'react-redux';
+import * as yup from 'yup';
 import defaultProfilePic from '../../images/profilepic.jpg';
-import { updateTeam } from '../../actions/team';
+import { updateTeam, updatePassword } from '../../actions/team';
 import ProfileResetModal from './ProfileResetModal';
 import ProfileDeleteModal from './ProfileDeleteModal';
 import { PrimaryButton, DangerButton } from '../shared/styledComponents';
@@ -31,6 +32,9 @@ const Settings = () => {
   const [profileData, setProfileData] = useState({
     teamName, orgName, email, profilePic,
   });
+
+  const [profileDataPassword, setprofileDataPassword] = useState({});
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     setProfileData({
@@ -65,6 +69,78 @@ const Settings = () => {
     }
   };
 
+  const setPassword = (field, value) => {
+    setprofileDataPassword({
+      ...profileDataPassword,
+      [field]: value,
+    });
+    if (errors[field]) {
+      setErrors({
+        ...errors,
+        [field]: null,
+      });
+    }
+  };
+
+  const passwordSchema = yup.object().shape({
+    password: yup
+      .string()
+      .required('Please Enter your password')
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        'Use 8 or more characters with a mix of letters, numbers & symbols',
+      ),
+    confirmedPassword: yup
+      .string(),
+  });
+
+  const checkPassword = async () => {
+    const { password, confirmedPassword } = profileDataPassword;
+
+    const valid = await passwordSchema.isValid({
+      password,
+      confirmedPassword,
+    });
+    if (valid) {
+      return true;
+    }
+    return false;
+  };
+
+  const findFormErrors = async () => {
+    const newErrors = {};
+    // name errors
+    if (!await checkPassword()) {
+      newErrors.password = 'Please enter a password at least 8 chars long, using only numbers, letters and characters';
+    }
+
+    if ({ ...profileDataPassword }.password !== { ...profileDataPassword }.confirmedPassword) {
+      newErrors.confirmedPassword = ' Passwords do not match';
+    } if ({ ...profileDataPassword }.currentPassword === '' || { ...profileDataPassword }.currentPassword === null || { ...profileDataPassword }.currentPassword === undefined) {
+      newErrors.currentPassword = ' Please enter a current password';
+    }
+    return newErrors;
+  };
+
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
+    // get our new errors
+    const newErrors = await findFormErrors();
+    // Conditional logic:
+    if (Object.keys(newErrors).length > 0) {
+      // We got errors!
+      setErrors(newErrors);
+    } else {
+      setErrors(newErrors);
+
+      const newdata = {
+        currentPassword: { ...profileDataPassword }.currentPassword,
+        password: { ...profileDataPassword }.password,
+      };
+      dispatch(updatePassword(teamId, newdata, ' Password has been updated'));
+    }
+  };
+
   const [validated, setValidated] = useState(false);
   const handleUpdate = async (event) => {
     const form = event.currentTarget;
@@ -73,9 +149,9 @@ const Settings = () => {
       event.stopPropagation();
     } else {
       const newdata = {
-        teamName: profileData.teamName,
-        orgName: profileData.orgName,
-        email: profileData.email,
+        teamName: { ...profileData }.teamName,
+        orgName: { ...profileData }.orgName,
+        email: { ...profileData }.email,
       };
       dispatch(updateTeam(teamId, newdata));
     }
@@ -153,34 +229,99 @@ const Settings = () => {
             >
               Update
             </PrimaryButton>
-
-            <PrimaryButton type="button" onClick={() => setUpdatePasswordForm(true)}>Change Password</PrimaryButton>
           </div>
-          <DangerButton
-            type="button"
-            variant="outline-danger"
-            className=" mb-2"
-            style={{
-              align: 'center',
-            }}
-            onClick={() => {
-              setShowResetModal(true);
-            }}
-          >
-            Reset data
-          </DangerButton>
-
-          <DangerButton
-            type="button"
-            variant="outline-danger"
-            className="ml-2 mb-2"
-            onClick={() => {
-              setShowDeleteModal(true);
-            }}
-          >
-            Delete account
-          </DangerButton>
         </Form>
+        <DangerButton
+          type="button"
+          variant="outline-danger"
+          className=" mb-2"
+          style={{
+            align: 'center',
+          }}
+          onClick={() => {
+            setShowResetModal(true);
+          }}
+        >
+          Reset data
+        </DangerButton>
+
+        <DangerButton
+          type="button"
+          variant="outline-danger"
+          className="ml-2 mb-2"
+          onClick={() => {
+            setShowDeleteModal(true);
+          }}
+        >
+          Delete account
+        </DangerButton>
+      </Container>
+      <div />
+      <p> </p>
+      <Container className="profile-container">
+        <Form
+          className="profile-form"
+          onSubmit={handleUpdatePassword}
+        >
+          <p className="profile-title-name">Team Password update</p>
+
+          <Form.Group>
+            <Form.Label>Current Password </Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={profileDataPassword.currentPassword}
+              onChange={(e) => setPassword('currentPassword', e.target.value)}
+              isInvalid={!!errors.currentPassword}
+            />
+            <Form.Control.Feedback type="invalid">
+              { errors.currentPassword }
+            </Form.Control.Feedback>
+
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label> New Password </Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={profileDataPassword.password}
+              onChange={(e) => setPassword('password', e.target.value)}
+              isInvalid={!!errors.password}
+            />
+            <Form.Control.Feedback type="invalid">
+              { errors.password }
+            </Form.Control.Feedback>
+
+          </Form.Group>
+          <Form.Group>
+            <Form.Label> Confirm Password </Form.Label>
+            <Form.Control
+              type="password"
+              name="confirmedPassword"
+              placeholder="Password"
+              value={profileDataPassword.confirmedPassword}
+              onChange={(e) => setPassword('confirmedPassword', e.target.value)}
+              isInvalid={!!errors.confirmedPassword}
+            />
+            <Form.Control.Feedback type="invalid">
+              { errors.confirmedPassword }
+            </Form.Control.Feedback>
+          </Form.Group>
+          <div className="my-1">
+            <PrimaryButton
+              id="updateButtonPassword"
+              type="submit"
+              color="primary"
+              className="mr-2"
+            >
+              Update Password
+            </PrimaryButton>
+          </div>
+        </Form>
+
       </Container>
       <div />
 

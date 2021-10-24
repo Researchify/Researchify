@@ -106,6 +106,14 @@ teamRouter.post(
   teamController.deployToGHPages,
 );
 
+teamRouter.patch(
+  '/password/:teamId',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.updatePassword,
+);
+
 teamRouter.delete(
   '/:teamId/pages-clear',
   authMiddleware.cookieJwtAuth,

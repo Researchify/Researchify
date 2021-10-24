@@ -5,6 +5,7 @@ export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAIL = 'LOG_IN_FAIL';
 export const LOG_OUT = 'LOG_OUT';
+export const RESET_PWD = 'RESET_PASSWORD';
 
 export const GET_PUBLICATIONS_BY_TEAM_ID = 'GET_PUBLICATIONS_BY_TEAM_ID';
 export const CREATE_PUBLICATION = 'CREATE_PUBLICATION';
