@@ -2,6 +2,7 @@
  * This file houses our team-related Action Creators.
  */
 import * as api from '../api';
+
 import {
   LINK_TEAM_TWITTER,
   UNLINK_TEAM_TWITTER,
@@ -303,6 +304,34 @@ export const updateTeam = (teamId, teamData) => async (dispatch) => {
     dispatch(successMessageCreator('Team has been updated'));
   } catch (error) {
     dispatch(errorActionGlobalCreator(error));
+  }
+};
+
+/**
+ * This action creator will be called when a user wants to change their password.
+ *
+ * @param {*} teamId id of the team
+ * @param {*} teamData data object of the data to be patched - containing the password and confirmed password
+ * @param {*} successMsg the success message to display if different from default one
+ * @returns
+ */
+export const updatePassword = (teamId, teamData, setFieldError, closeModal) => async (dispatch) => {
+  try {
+    const { data } = await api.updatePassword(teamId, teamData);
+    const updatedTeam = teamDataAllocator(data);
+    dispatch({
+      type: UPDATE_TEAM,
+      payload: updatedTeam,
+    });
+    closeModal();
+    dispatch(successMessageCreator('Password has been changed'));
+  } catch (error) {
+    if (error.response.status === 400) {
+      // assuming the only client error is 'Email had been registered'
+      setFieldError('currentPassword', 'Incorrect password');
+    } else {
+      dispatch(errorActionGlobalCreator(error));
+    }
   }
 };
 
