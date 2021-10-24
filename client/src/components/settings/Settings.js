@@ -10,7 +10,6 @@ import {
 import './Settings.css';
 import { useSelector, useDispatch } from 'react-redux';
 import * as yup from 'yup';
-import Link from '@material-ui/core/Link';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam, updatePassword } from '../../actions/team';
 import ProfileResetModal from './ProfileResetModal';
@@ -230,42 +229,32 @@ const Settings = () => {
             >
               Update
             </PrimaryButton>
-
-            {/* Button is linked to react-router-dom Link */}
-            <Link to="/dashboard">
-              <PrimaryButton color="primary">Back</PrimaryButton>
-            </Link>
-          </div>
-          <div className="my-1">
-            <DangerButton onClick={profileDeleted}>
-              Delete account
-            </DangerButton>
           </div>
         </Form>
-         <DangerButton
-            type="button"
-            variant="outline-danger"
-            className=" mb-2"
-            style={{
-              align: 'center',
-            }}
-            onClick={() => {
-              setShowResetModal(true);
-            }}
-          >
-            Reset data
-          </DangerButton>
+        <DangerButton
+          type="button"
+          variant="outline-danger"
+          className=" mb-2"
+          style={{
+            align: 'center',
+          }}
+          onClick={() => {
+            setShowResetModal(true);
+          }}
+        >
+          Reset data
+        </DangerButton>
 
-          <DangerButton
-            type="button"
-            variant="outline-danger"
-            className="ml-2 mb-2"
-            onClick={() => {
-              setShowDeleteModal(true);
-            }}
-          >
-            Delete account
-          </DangerButton>
+        <DangerButton
+          type="button"
+          variant="outline-danger"
+          className="ml-2 mb-2"
+          onClick={() => {
+            setShowDeleteModal(true);
+          }}
+        >
+          Delete account
+        </DangerButton>
       </Container>
       <div />
       <p> </p>

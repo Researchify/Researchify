@@ -309,28 +309,6 @@ export const updateTeam = (teamId, teamData, successMsg = 'Team has been updated
 };
 
 /**
- * This action creator will be called when a user want to update the team profile
- *
- * @param {*} teamId id of the team
- * @param {*} teamData data object of the data to be patched - containing the password and confirmed password
- * @param {*} successMsg the success message to display if different from default one
- * @returns
- */
-export const updatePassword = (teamId, teamData, successMsg = 'Password has been changed') => async (dispatch) => {
-  try {
-    const { data } = await api.updatePassword(teamId, teamData);
-    const updatedTeam = teamDataAllocator(data);
-    dispatch({
-      type: UPDATE_TEAM,
-      payload: updatedTeam,
-    });
-    dispatch(successMessageCreator(successMsg));
-  } catch (error) {
-    dispatch(errorActionGlobalCreator(error));
-  }
-};
-
-/**
  * This action creator will be called when a user wants to change their password.
  *
  * @param {*} teamId id of the team

@@ -114,24 +114,34 @@ function getTeam(req, res, next) {
  *     current password is incorrect
  * @returns 500 if a server error occurred
  */
-async function updatePassword(req, res, next) {
-  const { foundTeam } = req;
-  const { currentPassword, newPassword } = req.body;
+ async function updatePassword(req, res, next) { // eslint-disable-line no-unused-vars
+  const { teamId: _id } = req.params;
+  const team = req.body;
 
-  try {
-    if (!await bcrypt.compare(currentPassword, foundTeam.password)) {
+  const foundTeam = await Team.findOne({ _id });
+
+  if (await bcrypt.compare(team.currentPassword, foundTeam.password)) {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(team.password, salt);
+    team.password = hashedPassword;
+
+    try {
+      const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
+        new: true,
+        runValidators: true,
+      });
+      updatedTeam.password = '';
+      return res.status(200).json(updatedTeam);
+    } catch (e) {
       return next(
-        fillErrorObject(400, 'Authentication failed. Incorrect password.'),
+        fillErrorObject(500, 'Server error', [e]),
       );
     }
-    foundTeam.password = await bcrypt.hash(newPassword, await bcrypt.genSalt());
-    await foundTeam.save();
-    // Remove sensitive data before returning the response.
-    delete foundTeam.password;
-    return res.status(200).json(foundTeam);
-  } catch (err) {
+  } else {
     return next(
-      fillErrorObject(500, 'Server error', [err]),
+      fillErrorObject(400, 'Authentication error', [
+        'Incorrect password',
+      ]),
     );
   }
 }
@@ -488,45 +498,6 @@ async function deployToGHPages(req, res, next) {
   }
 }
 
-/**
- * Update the team's password from the database on /team/:team_id
- * @param {} req request object, containing team id in the url
- * @param {*} res response object, the updated team document
- * @returns 200: team updated
- * @returns 404: team is not found
- * @returns 400: team id is not in a valid hexadecimal format or current password is incorrect
- */
-async function updatePassword(req, res, next) { // eslint-disable-line no-unused-vars
-  const { teamId: _id } = req.params;
-  const team = req.body;
-
-  const foundTeam = await Team.findOne({ _id });
-
-  if (await bcrypt.compare(team.currentPassword, foundTeam.password)) {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(team.password, salt);
-    team.password = hashedPassword;
-
-    try {
-      const updatedTeam = await Team.findByIdAndUpdate(_id, team, {
-        new: true,
-        runValidators: true,
-      });
-      updatedTeam.password = '';
-      return res.status(200).json(updatedTeam);
-    } catch (e) {
-      return next(
-        fillErrorObject(500, 'Server error', [e]),
-      );
-    }
-  } else {
-    return next(
-      fillErrorObject(400, 'Authentication error', [
-        'Incorrect password',
-      ]),
-    );
-  }
-}
 /**
  * Deletes a team's GitHub Pages repository on /:teamId/pages-clear.
  *

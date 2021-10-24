@@ -27,12 +27,6 @@ export const registerTwitterHandle = (teamId, handle) => api.patch(`/team/${team
 export const deregisterTwitterHandle = (teamId, emptyHandle) => api.patch(`/team/${teamId}/twitter-handle`, emptyHandle);
 
 export const getTeamJWT = () => api.get('/team');
-export const fetchTeamMembersByTeamId = (teamId) => api.get(`/team/${teamId}/member`);
-export const createTeamMember = (teamId, newTeamMember) => api.post(`/team/${teamId}/member`, newTeamMember);
-export const updateTeamMember = (teamId, updatedTeamMember) => api.patch(`/team/${teamId}/member`, updatedTeamMember);
-export const deleteTeamMember = (teamId, teamMemberId) => api.delete(`/team/${teamId}/member/${teamMemberId}`);
-export const deleteBatchTeamMembers = (teamId, teamMemberIdList) => api.patch(`/team/${teamId}/members`, teamMemberIdList);
-export const updateTeam = (teamId, updatedTeam) => api.patch(`/team/${teamId}`, updatedTeam);
 export const updatePassword = (teamId, updatedTeam) => api.patch(`/team/password/${teamId}`, updatedTeam);
 
 export const getGHAccessToken = (teamId, code) => api.get(`/team/${teamId}/gh_auth/${code}`);
