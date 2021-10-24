@@ -313,7 +313,7 @@ export const updateTeam = (teamId, teamData, successMsg = 'Team has been updated
  * @param {*} successMsg the success message to display if different from default one
  * @returns
  */
-export const updatePassword = (teamId, teamData, successMsg = 'Password has been changed') => async (dispatch) => {
+export const updatePassword = (teamId, teamData, setFieldError, closeModal, successMsg = 'Password has been changed') => async (dispatch) => {
   try {
     const { data } = await api.updatePassword(teamId, teamData);
     const updatedTeam = teamDataAllocator(data);
@@ -321,9 +321,15 @@ export const updatePassword = (teamId, teamData, successMsg = 'Password has been
       type: UPDATE_TEAM,
       payload: updatedTeam,
     });
+    closeModal();
     dispatch(successMessageCreator(successMsg));
   } catch (error) {
-    dispatch(errorActionGlobalCreator(error));
+    if (error.response.status === 400) {
+      // assuming the only client error is 'Email had been registered'
+      setFieldError('currentPassword', 'Incorrect password');
+    } else {
+      dispatch(errorActionGlobalCreator(error));
+    }
   }
 };
 

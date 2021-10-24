@@ -5,12 +5,11 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  Form, Container, Image,
+  Form, Container, Image, Modal,
 } from 'react-bootstrap';
 import './Settings.css';
 import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
-import Link from '@material-ui/core/Link';
 import defaultProfilePic from '../../images/profilepic.jpg';
 import { updateTeam } from '../../actions/team';
 
@@ -22,6 +21,7 @@ import UpdatePasswordForm from './UpdatePasswordForm';
  */
 const Settings = () => {
   const dispatch = useDispatch();
+  const [updatePasswordForm, setUpdatePasswordForm] = useState(false);
 
   const {
     teamId, teamName, orgName, email, profilePic,
@@ -160,10 +160,7 @@ const Settings = () => {
               Update
             </PrimaryButton>
 
-            {/* Button is linked to react-router-dom Link */}
-            <Link to="/dashboard">
-              <PrimaryButton color="primary">Back</PrimaryButton>
-            </Link>
+            <PrimaryButton type="button" onClick={() => setUpdatePasswordForm(true)}>Change Password</PrimaryButton>
           </div>
           <div className="my-1">
             <DangerButton onClick={profileDeleted}>
@@ -173,7 +170,16 @@ const Settings = () => {
         </Form>
       </Container>
       <div />
-      <UpdatePasswordForm />
+
+      {/* A modal for showing import publication form */}
+      <Modal size="lg" show={updatePasswordForm}>
+        <Modal.Header className="modalHeader">
+          <Modal.Title> Update Password </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <UpdatePasswordForm closeModal={() => setUpdatePasswordForm(false)} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
