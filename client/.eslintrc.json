@@ -5,11 +5,16 @@
         "node": true,
         "browser": true
     },
+    "globals": {
+        "localStorage": true
+    },
     "extends": ["eslint:recommended", "airbnb"],
     "parserOptions": {
         "ecmaVersion": 12
     },
+    
     "rules": {
+        "linebreak-style": "off",
         "max-len": "off",
         "no-underscore-dangle": "off",
         "no-plusplus": "off", // keep `var ++` for consistency
@@ -19,7 +24,6 @@
         "react/jsx-filename-extension": "off",
         "react/jsx-props-no-spreading": "off",
         // ↓↓ in components/pub...publication/publication.js line 34, can refactor later
-        "no-param-reassign": ["error", {"props": true, "ignorePropertyModificationsFor": ["pub"]}], 
-        "linebreak-style": "off"
+        "no-param-reassign": ["error", {"props": true, "ignorePropertyModificationsFor": ["pub"]}]
     }
 }

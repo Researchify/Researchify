@@ -7,8 +7,14 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const logger = require('winston');
 const path = require('path');
+const { Octokit } = require('@octokit/rest');
 
 const Team = require('../models/team.model');
+const Achievement = require('../models/achievement.model');
+const Publication = require('../models/publication.model');
+const Website = require('../models/website.model');
+const Homepage = require('../models/homepage.model');
+
 const transporter = require('../config/mail');
 const {
   githubClientId,
@@ -75,7 +81,10 @@ async function createTeam(req, res, next) {
 }
 
 /**
- * Gets the team info
+ * Gets a team's info on /team/.
+ *
+ * TODO: overhaul auth - the client uses this for session resumption.
+ *
  * @param {*} req request object contains the teamId decoded in auth middleware
  * @param {*} res response object, the team related info
  * @param next handler to the next middleware
@@ -88,8 +97,7 @@ function getTeam(req, res, next) {
       if (foundTeam) {
         return res.status(200).send(foundTeam);
       }
-      return next(fillErrorObject(404, 'Team not found',
-        ['Team with the given id could not be found']));
+      return next(fillErrorObject(404, 'Team not found'));
     })
     .catch((err) => next(fillErrorObject(500, 'Server error', [err.errors])));
 }
@@ -130,6 +138,7 @@ async function updatePassword(req, res, next) {
 
 /**
  * Update the team from the database on /team/:teamId
+ *
  * @param req request object, containing team id in the url
  * @param res response object, the updated team document
  * @param next handler to the next middleware
@@ -149,6 +158,42 @@ async function updateTeam(req, res, next) {
     return res.status(200).json(updatedTeam);
   } catch (err) {
     return next(fillErrorObject(500, 'Server error', [err]));
+  }
+}
+
+/**
+ * Clears a team's data on /team/:teamId/data-reset.
+ * This is useful for a team who wishes to start over with Researchify, but does
+ * not want to delete their account.
+ *
+ * @param req request object
+ * @param res response object
+ * @param next handler to the next middleware
+ * @returns 204 no content, if all required data was successfully reset
+ * @returns 404 if team is not found
+ * @returns 400 if team id is not in a valid hexadecimal format
+ * @returns 500 if a server error occurred
+ */
+async function resetTeamData(req, res, next) {
+  const { teamId } = req.params;
+  const { foundTeam } = req;
+  try {
+    // Clear team members and twitter handle.
+    foundTeam.teamMembers = [];
+    foundTeam.twitterHandle = '';
+    foundTeam.save();
+    // Delete publications and achievements.
+    await Publication.deleteMany({ teamId });
+    await Achievement.deleteMany({ teamId });
+    // Reset website pages and homepage about us section to initial values.
+    await Website.findOneAndUpdate({ teamId }, { pages: [] });
+    await Homepage.findOneAndUpdate({ teamId }, { aboutUs: '' });
+
+    return res.status(204).send();
+  } catch (err) {
+    return next(
+      fillErrorObject(500, 'Server error', [err]),
+    );
   }
 }
 
@@ -174,7 +219,8 @@ async function deleteTeam(req, res, next) {
 }
 
 /**
- * POST request to create a new team member to the database on /team/:teamId/member.
+ * POST request to create a new team member on /team/:teamId/members.
+ *
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the created team member document
  * @param next handler to the next middleware
@@ -199,7 +245,8 @@ function createTeamMember(req, res, next) {
 }
 
 /**
- * Gets the team member array from the database on /team/:teamId/member.
+ * Gets the list of team members on /team/:teamId/members.
+ *
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the returned team member array
  * @returns 200: the team member array was returned
@@ -212,18 +259,20 @@ function readTeamMembersByTeam(req, res) {
 }
 
 /**
- * Update the team member from the database on /team/:teamId/member.
- * @param {*} req request object, containing team id in the url
- * @param {*} res response object, the updated team member document
+ * Update a team member on /team/:teamId/members/:memberId.
+ *
+ * @param req request object
+ * @param res response object
  * @param next handler to the next middleware
  * @returns 200: the team member was updated
  * @returns 404: team is not found
  * @returns 400: team id is not in a valid hexadecimal format
  */
 function updateTeamMember(req, res, next) {
+  const { memberId } = req.params;
   const updatedTeamMember = req.body;
   Team.updateOne(
-    { 'teamMembers._id': updatedTeamMember._id },
+    { 'teamMembers._id': memberId },
     {
       $set: {
         'teamMembers.$': updatedTeamMember,
@@ -235,7 +284,8 @@ function updateTeamMember(req, res, next) {
 }
 
 /**
- * Delete the team member from the database on /team/:teamId/member/:member_id.
+ * Deletes a team member on /team/:teamId/members/:memberId.
+ *
  * @param {*} req request object, containing team id in the url
  * @param {*} res response object, the relevant message returned
  * @param next handler to the next middleware
@@ -254,7 +304,8 @@ function deleteTeamMember(req, res, next) {
 }
 
 /**
- * Handles a PATCH request to delete a list of team members by the mongo object id on the endpoint /team/:teamId/members/
+ * Handles a PATCH request to delete a list of team members by the mongo object
+ * id on the endpoint /team/:teamId/members.
  *
  * @param req request object - the list of team member ids given in the body
  * @param res response object
@@ -278,6 +329,7 @@ async function deleteBatchTeamMembers(req, res, next) {
 
 /**
  * Associates a twitter handle with a team on the /team/twitter-handle/:teamId endpoint.
+ *
  * @param {*} req request object, containing the teamId in the url and twitter handle in the body
  * @param {*} res response object
  * @param next handler to the next middleware
@@ -373,7 +425,7 @@ async function getGHAccessToken(req, res, next) {
 }
 
 /**
- * Handles a POST request on /:teamId/deploy to deploy a client's website
+ * Handles a POST request on /:teamId/pages-deploy to deploy a client's website
  * by delegating to the Scholly service.
  *
  * @see:
@@ -436,11 +488,40 @@ async function deployToGHPages(req, res, next) {
   }
 }
 
+/**
+ * Deletes a team's GitHub Pages repository on /:teamId/pages-clear.
+ *
+ * @param req request object
+ * @param res response object
+ * @param next handler to the next middleware
+ * @returns 204 no content, if the delete was successful
+ * @returns 404 team or the Pages repo is not found
+ * @returns 400 team id is not in a valid hexadecimal format
+ * @returns 500 if a server error occurred
+ */
+async function deleteGHPages(req, res, next) {
+  const { ghToken } = req.body;
+  const { repoOwner: owner, repoName: repo } = req;
+
+  logger.info(`GitHub Pages delete initiated for ${owner}.`);
+  const octokit = new Octokit({ auth: ghToken });
+  try {
+    await octokit.rest.repos.delete({ owner, repo });
+    logger.info(`GitHub Pages deleted for ${owner}.`);
+    return res.status(204).send();
+  } catch (err) {
+    return next(
+      fillErrorObject(500, 'Server Error', [err]),
+    );
+  }
+}
+
 module.exports = {
   createTeam,
   getTeam,
   updatePassword,
   updateTeam,
+  resetTeamData,
   deleteTeam,
   createTeamMember,
   readTeamMembersByTeam,
@@ -450,4 +531,5 @@ module.exports = {
   storeHandle,
   getGHAccessToken,
   deployToGHPages,
+  deleteGHPages,
 };

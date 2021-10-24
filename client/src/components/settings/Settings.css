@@ -1,8 +1,12 @@
 .profile-form {
   width: 100%;
-  padding: 50px 50px;
 }
 
+.container-padding {
+  width: 100%;
+  padding: 50px 50px;
+  padding: 50px 50px;
+}
 /* Add a background color and some padding around the form */
 .profile-container {
   width: 40%;

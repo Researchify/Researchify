@@ -10,6 +10,7 @@ const authMiddleware = require('../middleware/auth');
 
 teamRouter.post('/', teamController.createTeam);
 
+// TODO: this should be parameterized? We need to overhaul auth.
 teamRouter.get(
   '/',
   authMiddleware.cookieJwtAuth,
@@ -33,6 +34,14 @@ teamRouter.patch(
 );
 
 teamRouter.delete(
+  '/:teamId/data-reset',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamController.resetTeamData,
+);
+
+teamRouter.delete(
   '/:teamId',
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -40,7 +49,7 @@ teamRouter.delete(
 );
 
 teamRouter.post(
-  '/:teamId/member',
+  '/:teamId/members',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -48,7 +57,7 @@ teamRouter.post(
 );
 
 teamRouter.get(
-  '/:teamId/member',
+  '/:teamId/members',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -56,7 +65,7 @@ teamRouter.get(
 );
 
 teamRouter.patch(
-  '/:teamId/member',
+  '/:teamId/members/:memberId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -64,7 +73,7 @@ teamRouter.patch(
 );
 
 teamRouter.delete(
-  '/:teamId/member/:memberId',
+  '/:teamId/members/:memberId',
   authMiddleware.cookieJwtAuth,
   mongooseMiddleware.validateTeamObjectId,
   teamMiddleware.validateTeamId,
@@ -93,8 +102,17 @@ teamRouter.get(
 );
 
 teamRouter.post(
-  '/:teamId/deploy',
+  '/:teamId/pages-deploy',
   teamController.deployToGHPages,
+);
+
+teamRouter.delete(
+  '/:teamId/pages-clear',
+  authMiddleware.cookieJwtAuth,
+  mongooseMiddleware.validateTeamObjectId,
+  teamMiddleware.validateTeamId,
+  teamMiddleware.validateRepo,
+  teamController.deleteGHPages,
 );
 
 module.exports = teamRouter;
