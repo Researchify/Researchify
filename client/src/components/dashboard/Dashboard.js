@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  Container, Tabs, Tab,
+  Container,
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import './Dashboard.css';
@@ -43,24 +43,16 @@ const Dashboard = () => {
     <>
       <main>
         <Container fluid className="p-5">
-          <Tabs
-            defaultActiveKey="home"
-            transition={false}
-            className="mb-3"
-          >
-            <Tab eventKey="home" title="Webpages">
-              <Webpages
-                currentWebPages={currentWebPages}
-                directToAnotherPage={directToAnotherPage}
-                teamId={teamId}
-                setPageToDelete={setPageToDelete}
-                pageToDelete={pageToDelete}
-                availablePages={availablePages}
-                loading={loading}
-              />
-            </Tab>
+          <Webpages
+            currentWebPages={currentWebPages}
+            directToAnotherPage={directToAnotherPage}
+            teamId={teamId}
+            setPageToDelete={setPageToDelete}
+            pageToDelete={pageToDelete}
+            availablePages={availablePages}
+            loading={loading}
+          />
 
-          </Tabs>
         </Container>
       </main>
       <DeployBtn teamId={teamId} />

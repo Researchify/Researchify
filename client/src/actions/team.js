@@ -254,7 +254,6 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
     };
 
     const { webUrl } = await api.deployToGHPages(teamId, body);
-    console.log(webUrl);
     dispatch({
       type: DEPLOY_SUCCESS,
     });

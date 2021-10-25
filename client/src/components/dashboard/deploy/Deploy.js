@@ -54,9 +54,6 @@ const DeployBtn = (props) => {
   const retrievedAccessToken = useSelector(
     (state) => state.team.retrievedAccessToken,
   );
-  console.log(retrievedAccessToken);
-
-  console.log(props);
   const loading = useSelector((state) => state.deploy.loading);
 
   const onSuccessfulLogin = (response) => {
@@ -65,7 +62,6 @@ const DeployBtn = (props) => {
     // access token.
     dispatch(getGHAccessToken(teamId, code));
     const accessToken = localStorage.getItem('GH_access_token');
-    console.log(`accessToken: ${accessToken}`);
     dispatch(deployToGHPages(teamId, accessToken));
   };
 
