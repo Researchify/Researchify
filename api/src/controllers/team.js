@@ -465,7 +465,7 @@ async function deployToGHPages(req, res, next) {
 
   const ghUsername = data.login;
   const webUrl = `${ghUsername}.github.io`;
-  console.log(webUrl);
+
   logger.info(`GitHub deploy initiated for user: ${ghUsername}`);
   try {
     // Update website url in DB if first time deploying
