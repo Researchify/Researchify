@@ -173,7 +173,7 @@ DeployBtn.defaultProps = {
 
 function mapStateToProps(state) {
   return {
-    webUrl: state.url,
+    webUrl: state.website.url,
   };
 }
 
