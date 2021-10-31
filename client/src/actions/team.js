@@ -19,6 +19,7 @@ import {
   DELETE_BATCH_TEAM_MEMBERS,
   LOG_OUT,
   RESET_TEAM_DATA,
+  CREATE_WEBSITE,
 } from './types';
 import { login } from './auth';
 import {
@@ -252,9 +253,13 @@ export const deployToGHPages = (teamId, accessToken) => async (dispatch) => {
       teamAchievements,
     };
 
-    await api.deployToGHPages(teamId, body);
+    const { webUrl } = await api.deployToGHPages(teamId, body);
     dispatch({
       type: DEPLOY_SUCCESS,
+    });
+    dispatch({
+      type: CREATE_WEBSITE,
+      payload: { url: webUrl },
     });
     dispatch(successMessageCreator('Deployed successfully'));
   } catch (err) {

@@ -1,11 +1,11 @@
 /**
- * The PublicationPage component renders TwitterFeed component and Publications component .
+ * The PublicationPage component renders the root node for Publications page.
  */
 
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
-import Publications from './Publications';
+import DeployBtn from '../dashboard/deploy/Deploy';
 import PublicationsEditor from './publicationsLayout/PublicationsEditor';
 import PublicationForm from './form/PublicationForm';
 import ImportForm from './form/ImportForm';
@@ -80,52 +80,47 @@ const PublicationPage = () => {
   }, [teamPublications]);
 
   return (
-    <div className="publicationPageContainer">
-      <div style={{ display: 'flex' }}>
-        <h2 style={{ marginRight: '10px' }}> Publications </h2>
-        <PublicationsPageWalkthrough />
+    <>
+      <div className="publicationPageContainer">
+        <div style={{ display: 'flex' }}>
+          <h2 style={{ marginRight: '10px' }}> Publications </h2>
+          <PublicationsPageWalkthrough />
+        </div>
+        <PublicationsEditor
+          options={options}
+          setOptions={setOptions}
+          sortPublications={sortPublications}
+          publications={publications}
+          teamId={teamId}
+          setShowCreateForm={setShowCreateForm}
+          setShowImportForm={setShowImportForm}
+        />
+
+        {/* A modal for showing create publication form */}
+        <Modal show={showCreateForm}>
+          <Modal.Header className="modalHeader">
+            <Modal.Title> New Publication </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <PublicationForm
+              type="create"
+              closeModal={() => setShowCreateForm(false)}
+            />
+          </Modal.Body>
+        </Modal>
+
+        {/* A modal for showing import publication form */}
+        <Modal size="lg" show={showImportForm}>
+          <Modal.Header className="modalHeader">
+            <Modal.Title> Import from Google Scholar </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <ImportForm closeModal={() => setShowImportForm(false)} />
+          </Modal.Body>
+        </Modal>
+        <DeployBtn teamId={teamId} />
       </div>
-      <PublicationsEditor
-        options={options}
-        setOptions={setOptions}
-        sortPublications={sortPublications}
-        publications={publications}
-        teamId={teamId}
-        setShowCreateForm={setShowCreateForm}
-        setShowImportForm={setShowImportForm}
-      />
-
-      <Publications
-        options={options}
-        sortPublications={sortPublications}
-        publications={publications}
-        teamId={teamId}
-        setPublications={setPublications}
-      />
-
-      {/* A modal for showing create publication form */}
-      <Modal show={showCreateForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> New Publication </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <PublicationForm
-            type="create"
-            closeModal={() => setShowCreateForm(false)}
-          />
-        </Modal.Body>
-      </Modal>
-
-      {/* A modal for showing import publication form */}
-      <Modal size="lg" show={showImportForm}>
-        <Modal.Header className="modalHeader">
-          <Modal.Title> Import from Google Scholar </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <ImportForm closeModal={() => setShowImportForm(false)} />
-        </Modal.Body>
-      </Modal>
-    </div>
+    </>
   );
 };
 

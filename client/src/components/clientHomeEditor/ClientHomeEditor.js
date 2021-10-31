@@ -14,6 +14,7 @@ import {
   getHomepageDataByTeamId,
   updateHomepage,
 } from '../../actions/homepage';
+import DeployBtn from '../dashboard/deploy/Deploy';
 
 import { PrimaryButton } from '../shared/styledComponents';
 
@@ -79,29 +80,35 @@ const ClientHomeEditor = () => {
   };
 
   return (
-    <Container className="client-homepage-container">
-      <Form onSubmit={saveEditor}>
-        <Form.Group>
-          <Form.Label>
-            <div className="section-title">About Us</div>
-            <div className="section-description">
-              Tell people about your team!
-            </div>
-          </Form.Label>
-          <Editor
-            editorState={editorState}
-            onEditorStateChange={onEditorStateChange}
-            wrapperStyle={styles.wrapperStyle}
-            toolbarStyle={styles.toolbarStyle}
-            editorStyle={styles.editorStyle}
-            toolbar={styles.toolbar}
-          />
-        </Form.Group>
-        <PrimaryButton type="submit" style={{ marginBottom: '15px' }}>
-          Save
-        </PrimaryButton>
-      </Form>
-    </Container>
+    <>
+      <Container className="client-homepage-container">
+        <Form onSubmit={saveEditor}>
+          <Form.Group>
+            <Form.Label>
+              <div className="section-title">About Us</div>
+              <div className="section-description">
+                Tell people about your team!
+              </div>
+            </Form.Label>
+            <Editor
+              editorState={editorState}
+              onEditorStateChange={onEditorStateChange}
+              wrapperStyle={styles.wrapperStyle}
+              toolbarStyle={styles.toolbarStyle}
+              editorStyle={styles.editorStyle}
+              toolbar={styles.toolbar}
+            />
+          </Form.Group>
+          <PrimaryButton type="submit" style={{ marginBottom: '15px' }}>
+            Save
+          </PrimaryButton>
+        </Form>
+      </Container>
+      <DeployBtn
+        teamId={teamId}
+        position={{ marginRight: '65px' }}
+      />
+    </>
   );
 };
 
